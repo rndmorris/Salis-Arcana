@@ -10,7 +10,12 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = ThaumicFixins.MODID, version = Tags.VERSION, name = "MyMod", acceptedMinecraftVersions = "[1.7.10]")
+@Mod(
+    modid = ThaumicFixins.MODID,
+    version = Tags.VERSION,
+    name = "MyMod",
+    acceptedMinecraftVersions = "[1.7.10]",
+    dependencies = "after:Thaumcraft")
 public class ThaumicFixins {
 
     public static final String MODID = "tfixins";
