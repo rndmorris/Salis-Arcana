@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins;
+package dev.rndmorris.tfixins.config;
 
 import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeEerie;
 import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeEldritchLands;
@@ -10,7 +10,7 @@ import java.io.File;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.config.Configuration;
 
-public class Config {
+public class FixinsConfig {
 
     private static final String categoryBiomeEerie = "biome_eerie";
     private static final String categoryBiomeEldritch = "biome_eldritch";

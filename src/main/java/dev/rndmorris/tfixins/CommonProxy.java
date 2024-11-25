@@ -7,13 +7,14 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import dev.rndmorris.tfixins.common.biomes.BiomeOverrides;
+import dev.rndmorris.tfixins.config.FixinsConfig;
 
 public class CommonProxy {
 
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
-        Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
+        FixinsConfig.synchronizeConfiguration(event.getSuggestedConfigurationFile());
         BiomeOverrides.apply();
         LOG.info("preInit complete!");
     }
