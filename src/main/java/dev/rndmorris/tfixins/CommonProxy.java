@@ -1,7 +1,5 @@
 package dev.rndmorris.tfixins;
 
-import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
-
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;

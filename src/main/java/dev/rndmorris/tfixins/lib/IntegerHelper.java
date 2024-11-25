@@ -2,6 +2,15 @@ package dev.rndmorris.tfixins.lib;
 
 public class IntegerHelper {
 
+    public static Integer tryParse(String val) {
+        try {
+            return Integer.parseInt(val);
+        }
+        catch (Exception ex) {
+            return null;
+        }
+    }
+
     public static Integer tryParseHexInteger(String hexInteger) {
 
         var color = hexInteger;

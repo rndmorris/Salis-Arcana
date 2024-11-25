@@ -1,20 +1,17 @@
 package dev.rndmorris.tfixins.common.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.command.CommandBase;
-
-import dev.rndmorris.tfixins.ThaumicFixins;
-import dev.rndmorris.tfixins.config.CommandsModule.CommandSettings;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IChatComponent;
+
+import dev.rndmorris.tfixins.ThaumicFixins;
+import dev.rndmorris.tfixins.config.CommandsModule.CommandSettings;
 
 public abstract class FixinsCommandBase extends CommandBase {
 
