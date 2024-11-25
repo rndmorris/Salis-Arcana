@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.7.10",
+  "package": "dev.rndmorris.tfixins.mixins.late",
+  "refmap": "mixins.tfixins.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "biomes.MixinBiomeGenEerie",
+    "biomes.MixinBiomeGenEldritch",
+    "biomes.MixinBiomeGenMagicalForest",
+    "biomes.MixinBiomeGenTaint"
+  ]
+}
