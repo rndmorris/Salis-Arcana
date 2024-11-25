@@ -1,8 +1,5 @@
 package dev.rndmorris.tfixins.mixins.late.biomes;
 
-import static dev.rndmorris.tfixins.config.FixinsConfig.taintBiomeColors;
-import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
-
 import net.minecraft.world.biome.BiomeGenBase;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import dev.rndmorris.tfixins.config.FixinsConfig;
 import thaumcraft.common.lib.world.biomes.BiomeGenTaint;
 
 @Mixin(BiomeGenTaint.class)
@@ -21,8 +19,8 @@ public abstract class MixinBiomeGenTaint extends BiomeGenBase {
 
     @Inject(method = "getBiomeGrassColor", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetBiomeGrassColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        LOG.info("Getting taint grass color");
-        if (taintBiomeColors != null && taintBiomeColors.grassSet) {
+        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColors;
+        if (taintBiomeColors.grassSet) {
             cir.setReturnValue(taintBiomeColors.grass);
             cir.cancel();
         }
@@ -30,7 +28,8 @@ public abstract class MixinBiomeGenTaint extends BiomeGenBase {
 
     @Inject(method = "getBiomeFoliageColor", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetBiomeFoliageColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        if (taintBiomeColors != null && taintBiomeColors.foliageSet) {
+        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColors;
+        if (taintBiomeColors.foliageSet) {
             cir.setReturnValue(taintBiomeColors.foliage);
             cir.cancel();
         }
@@ -38,7 +37,8 @@ public abstract class MixinBiomeGenTaint extends BiomeGenBase {
 
     @Inject(method = "getSkyColorByTemp", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetSkyColorByTemp(float temp, CallbackInfoReturnable<Integer> cir) {
-        if (taintBiomeColors != null && taintBiomeColors.skySet) {
+        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColors;
+        if (taintBiomeColors.skySet) {
             cir.setReturnValue(taintBiomeColors.sky);
             cir.cancel();
         }
@@ -46,7 +46,8 @@ public abstract class MixinBiomeGenTaint extends BiomeGenBase {
 
     @Inject(method = "getWaterColorMultiplier", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetWaterColorMultiplier(CallbackInfoReturnable<Integer> cir) {
-        if (taintBiomeColors != null && taintBiomeColors.waterSet) {
+        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColors;
+        if (taintBiomeColors.waterSet) {
             cir.setReturnValue(taintBiomeColors.water);
             cir.cancel();
         }

@@ -1,7 +1,5 @@
 package dev.rndmorris.tfixins.mixins.late.biomes;
 
-import static dev.rndmorris.tfixins.config.FixinsConfig.magicalForestBiomeColors;
-
 import net.minecraft.world.biome.BiomeGenBase;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import dev.rndmorris.tfixins.config.FixinsConfig;
 import thaumcraft.common.lib.world.biomes.BiomeGenMagicalForest;
 
 @Mixin(BiomeGenMagicalForest.class)
@@ -20,7 +19,8 @@ public abstract class MixinBiomeGenMagicalForest extends BiomeGenBase {
 
     @Inject(method = "getBiomeGrassColor", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetBiomeGrassColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        if (magicalForestBiomeColors != null && magicalForestBiomeColors.grassSet) {
+        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColors;
+        if (magicalForestBiomeColors.grassSet) {
             cir.setReturnValue(magicalForestBiomeColors.grass);
             cir.cancel();
         }
@@ -28,7 +28,8 @@ public abstract class MixinBiomeGenMagicalForest extends BiomeGenBase {
 
     @Inject(method = "getBiomeFoliageColor", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetBiomeFoliageColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        if (magicalForestBiomeColors != null && magicalForestBiomeColors.foliageSet) {
+        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColors;
+        if (magicalForestBiomeColors.foliageSet) {
             cir.setReturnValue(magicalForestBiomeColors.foliage);
             cir.cancel();
         }
@@ -36,7 +37,8 @@ public abstract class MixinBiomeGenMagicalForest extends BiomeGenBase {
 
     @Override
     public int getSkyColorByTemp(float temp) {
-        if (magicalForestBiomeColors != null && magicalForestBiomeColors.skySet) {
+        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColors;
+        if (magicalForestBiomeColors.skySet) {
             return magicalForestBiomeColors.sky;
         }
         return super.getSkyColorByTemp(temp);
@@ -44,7 +46,8 @@ public abstract class MixinBiomeGenMagicalForest extends BiomeGenBase {
 
     @Inject(method = "getWaterColorMultiplier", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetWaterColorMultiplier(CallbackInfoReturnable<Integer> cir) {
-        if (magicalForestBiomeColors != null && magicalForestBiomeColors.waterSet) {
+        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColors;
+        if (magicalForestBiomeColors.waterSet) {
             cir.setReturnValue(magicalForestBiomeColors.water);
             cir.cancel();
         }

@@ -1,12 +1,10 @@
 package dev.rndmorris.tfixins.mixins.late.biomes;
 
-import static dev.rndmorris.tfixins.config.FixinsConfig.eldritchBiomeColors;
-import static dev.rndmorris.tfixins.config.FixinsConfig.eldritchBiomeColors;
-
 import net.minecraft.world.biome.BiomeGenBase;
 
 import org.spongepowered.asm.mixin.Mixin;
 
+import dev.rndmorris.tfixins.config.FixinsConfig;
 import thaumcraft.common.lib.world.biomes.BiomeGenEldritch;
 
 @Mixin(BiomeGenEldritch.class)
@@ -18,7 +16,8 @@ public abstract class MixinBiomeGenEldritch extends BiomeGenBase {
 
     @Override
     public int getBiomeGrassColor(int x, int y, int z) {
-        if (eldritchBiomeColors != null && eldritchBiomeColors.grassSet) {
+        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColors;
+        if (eldritchBiomeColors.grassSet) {
             return eldritchBiomeColors.grass;
         }
         return super.getBiomeGrassColor(x, y, z);
@@ -26,7 +25,8 @@ public abstract class MixinBiomeGenEldritch extends BiomeGenBase {
 
     @Override
     public int getBiomeFoliageColor(int x, int y, int z) {
-        if (eldritchBiomeColors != null && eldritchBiomeColors.foliageSet) {
+        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColors;
+        if (eldritchBiomeColors.foliageSet) {
             return eldritchBiomeColors.foliage;
         }
         return super.getBiomeFoliageColor(x, y, z);
@@ -34,7 +34,8 @@ public abstract class MixinBiomeGenEldritch extends BiomeGenBase {
 
     @Override
     public int getSkyColorByTemp(float temp) {
-        if (eldritchBiomeColors != null && eldritchBiomeColors.skySet) {
+        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColors;
+        if (eldritchBiomeColors.skySet) {
             return eldritchBiomeColors.sky;
         }
         return super.getSkyColorByTemp(temp);
@@ -42,7 +43,8 @@ public abstract class MixinBiomeGenEldritch extends BiomeGenBase {
 
     @Override
     public int getWaterColorMultiplier() {
-        if (eldritchBiomeColors != null && eldritchBiomeColors.waterSet) {
+        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColors;
+        if (eldritchBiomeColors.waterSet) {
             return eldritchBiomeColors.water;
         }
         return super.getWaterColorMultiplier();
