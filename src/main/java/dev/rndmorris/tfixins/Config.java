@@ -58,10 +58,7 @@ public class Config {
             "Base Color",
             category,
             "",
-            String.format(
-                "Override the biome's base color. Original value: 0x%06x.",
-                biome.color)
-        );
+            String.format("Override the biome's base color. Original value: 0x%06x.", biome.color));
         var colorInt = tryParseBiomeColor(colorString);
         if (colorInt != null) {
             result.baseSet = true;
@@ -111,9 +108,8 @@ public class Config {
             "Water Color",
             category,
             "",
-            String.format(
-                "Override the biome's water color.  Original value: 0x%06x",
-                biome.getWaterColorMultiplier()));
+            String
+                .format("Override the biome's water color.  Original value: 0x%06x", biome.getWaterColorMultiplier()));
         colorInt = tryParseBiomeColor(colorString);
         if (colorInt != null) {
             result.waterSet = true;

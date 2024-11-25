@@ -1,7 +1,6 @@
 package dev.rndmorris.tfixins.mixins.late.biomes;
 
 import static dev.rndmorris.tfixins.Config.eerieBiomeColors;
-import static dev.rndmorris.tfixins.Config.taintBiomeColors;
 
 import net.minecraft.world.biome.BiomeGenBase;
 
