@@ -20,7 +20,7 @@ public class FixinsConfig {
             "Enable and disable Thaumic Fixins modules. Disabled modules will not generate or read from entries in the config file.");
 
         for (var module : loadModules) {
-            final var toggleName = String.format("Enable %s Module", module.getModuleId());
+            final var toggleName = String.format("Enable %s module", module.getModuleId());
             final var enabled = configuration
                 .getBoolean(toggleName, modulesCategory, module.enabledByDefault(), module.getModuleComment());
 

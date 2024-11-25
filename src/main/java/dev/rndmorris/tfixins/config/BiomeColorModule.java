@@ -20,7 +20,7 @@ public class BiomeColorModule implements IConfigModule {
 
     @Override
     public boolean enabledByDefault() {
-        return false;
+        return true;
     }
 
     @Nonnull
