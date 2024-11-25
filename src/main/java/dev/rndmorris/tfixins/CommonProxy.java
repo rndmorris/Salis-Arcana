@@ -7,6 +7,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import dev.rndmorris.tfixins.common.biomes.BiomeOverrides;
+import dev.rndmorris.tfixins.common.commands.CreateNodeCommand;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 
 public class CommonProxy {
@@ -26,5 +27,10 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {}
 
     // register server commands in this event handler (Remove if not needed)
-    public void serverStarting(FMLServerStartingEvent event) {}
+    public void serverStarting(FMLServerStartingEvent event) {
+        final var commands = FixinsConfig.commandsModule;
+        if (commands.createNode.enabled) {
+            event.registerServerCommand(new CreateNodeCommand());
+        }
+    }
 }
