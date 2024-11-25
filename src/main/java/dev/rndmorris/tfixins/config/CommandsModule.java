@@ -38,13 +38,13 @@ public class CommandsModule implements IConfigModule {
     }
 
     private void loadCommandSettings(Configuration configuration, CommandSettings settings) {
-        final var enabled = configuration.getBoolean(
+        settings.enabled = configuration.getBoolean(
             String.format("Enable %s command", settings.name),
             getModuleId(),
-            true,
+            settings.enabled,
             settings.getDescription());
 
-        if (!enabled) {
+        if (!settings.enabled) {
             return;
         }
 

@@ -17,7 +17,6 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         FixinsConfig.synchronizeConfiguration(event.getSuggestedConfigurationFile());
         BiomeOverrides.apply();
-        LOG.info("preInit complete!");
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
