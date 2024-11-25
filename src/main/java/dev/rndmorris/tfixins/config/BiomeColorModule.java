@@ -6,6 +6,8 @@ import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeEldritch
 import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeMagicalForest;
 import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeTaint;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.config.Configuration;
 
@@ -21,22 +23,42 @@ public class BiomeColorModule implements IConfigModule {
         return false;
     }
 
+    @Nonnull
     @Override
     public String getModuleId() {
         return "biome_colors";
     }
 
+    @Nonnull
     @Override
     public String getModuleComment() {
         return "Override the colors of TC4's biomes.";
     }
 
     @Override
-    public void loadModuleFromConfig(Configuration configuration) {
-        loadBiomeColors(configuration, "eerie", eerieBiomeColors, biomeEerie);
-        loadBiomeColors(configuration, "eldritch", eldritchBiomeColors, biomeEldritchLands);
-        loadBiomeColors(configuration, "magical_forest", magicalForestBiomeColors, biomeMagicalForest);
-        loadBiomeColors(configuration, "taint", taintBiomeColors, biomeTaint);
+    public void loadModuleFromConfig(@Nonnull Configuration configuration) {
+        configuration.setCategoryComment(getModuleId(), getModuleComment());
+
+        if (isBiomeOverrideEnabled(configuration, "eerie")) {
+            loadBiomeColors(configuration, "eerie", eerieBiomeColors, biomeEerie);
+        }
+        if (isBiomeOverrideEnabled(configuration, "eldritch")) {
+            loadBiomeColors(configuration, "eldritch", eldritchBiomeColors, biomeEldritchLands);
+        }
+        if (isBiomeOverrideEnabled(configuration, "magical forest")) {
+            loadBiomeColors(configuration, "magical_forest", magicalForestBiomeColors, biomeMagicalForest);
+        }
+        if (isBiomeOverrideEnabled(configuration, "taint")) {
+            loadBiomeColors(configuration, "taint", taintBiomeColors, biomeTaint);
+        }
+    }
+
+    private boolean isBiomeOverrideEnabled(Configuration configuration, String biomeName) {
+        return configuration.getBoolean(
+            String.format("Override %s biome colors?", biomeName),
+            getModuleId(),
+            false,
+            String.format("Override the colors of the %s biome", biomeName));
     }
 
     private void loadBiomeColors(Configuration configuration, String category, BiomeColors output, BiomeGenBase biome) {
@@ -49,7 +71,7 @@ public class BiomeColorModule implements IConfigModule {
         configuration.setCategoryComment(
             category,
             String.format(
-                "Configuration options for the %s biome. Color values must be a 6-digit hexadecimal number (e.g. 0x404840)",
+                "Color overrides for the %s biome. Color values must be a 6-digit hexadecimal number (e.g. 0x404840)",
                 biome.biomeName));
 
         var colorString = configuration.getString(
