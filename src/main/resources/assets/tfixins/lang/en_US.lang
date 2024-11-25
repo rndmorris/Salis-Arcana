@@ -1,1 +1,3 @@
+tfixins:command.aliases=/%s aliases:
+tfixins:command.aliases_none=/%s has no aliases
 tfixins:command.create-node.usage=/tfixins-create-node <x> <y> <z>
