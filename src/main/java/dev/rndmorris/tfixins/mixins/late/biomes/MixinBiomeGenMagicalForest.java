@@ -1,6 +1,6 @@
 package dev.rndmorris.tfixins.mixins.late.biomes;
 
-import static dev.rndmorris.tfixins.Config.magicalForestBiomeColors;
+import static dev.rndmorris.tfixins.config.FixinsConfig.magicalForestBiomeColors;
 
 import net.minecraft.world.biome.BiomeGenBase;
 

@@ -1,6 +1,6 @@
 package dev.rndmorris.tfixins.mixins.late.biomes;
 
-import static dev.rndmorris.tfixins.Config.taintBiomeColors;
+import static dev.rndmorris.tfixins.config.FixinsConfig.taintBiomeColors;
 import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
 
 import net.minecraft.world.biome.BiomeGenBase;

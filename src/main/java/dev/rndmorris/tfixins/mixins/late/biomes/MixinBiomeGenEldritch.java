@@ -1,6 +1,7 @@
 package dev.rndmorris.tfixins.mixins.late.biomes;
 
-import static dev.rndmorris.tfixins.Config.eerieBiomeColors;
+import static dev.rndmorris.tfixins.config.FixinsConfig.eldritchBiomeColors;
+import static dev.rndmorris.tfixins.config.FixinsConfig.eldritchBiomeColors;
 
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -17,32 +18,32 @@ public abstract class MixinBiomeGenEldritch extends BiomeGenBase {
 
     @Override
     public int getBiomeGrassColor(int x, int y, int z) {
-        if (eerieBiomeColors != null && eerieBiomeColors.grassSet) {
-            return eerieBiomeColors.grass;
+        if (eldritchBiomeColors != null && eldritchBiomeColors.grassSet) {
+            return eldritchBiomeColors.grass;
         }
         return super.getBiomeGrassColor(x, y, z);
     }
 
     @Override
     public int getBiomeFoliageColor(int x, int y, int z) {
-        if (eerieBiomeColors != null && eerieBiomeColors.foliageSet) {
-            return eerieBiomeColors.foliage;
+        if (eldritchBiomeColors != null && eldritchBiomeColors.foliageSet) {
+            return eldritchBiomeColors.foliage;
         }
         return super.getBiomeFoliageColor(x, y, z);
     }
 
     @Override
     public int getSkyColorByTemp(float temp) {
-        if (eerieBiomeColors != null && eerieBiomeColors.skySet) {
-            return eerieBiomeColors.sky;
+        if (eldritchBiomeColors != null && eldritchBiomeColors.skySet) {
+            return eldritchBiomeColors.sky;
         }
         return super.getSkyColorByTemp(temp);
     }
 
     @Override
     public int getWaterColorMultiplier() {
-        if (eerieBiomeColors != null && eerieBiomeColors.waterSet) {
-            return eerieBiomeColors.water;
+        if (eldritchBiomeColors != null && eldritchBiomeColors.waterSet) {
+            return eldritchBiomeColors.water;
         }
         return super.getWaterColorMultiplier();
     }
