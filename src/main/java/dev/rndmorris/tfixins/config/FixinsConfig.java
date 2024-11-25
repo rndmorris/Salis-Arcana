@@ -13,10 +13,16 @@ public class FixinsConfig {
 
         final var loadModules = new IConfigModule[] { biomeColorModule };
 
+        final var modulesCategory = "00_modules";
+
+        configuration.setCategoryComment(
+            modulesCategory,
+            "Enable and disable Thaumic Fixins modules. Disabled modules will not generate or read from entries in the config file.");
+
         for (var module : loadModules) {
-            final var toggleName = String.format("Enable %s Module", module.getModuleName());
+            final var toggleName = String.format("Enable %s Module", module.getModuleId());
             final var enabled = configuration
-                .getBoolean(toggleName, "modules", module.enabledByDefault(), module.getModuleComment());
+                .getBoolean(toggleName, modulesCategory, module.enabledByDefault(), module.getModuleComment());
 
             if (enabled) {
                 module.loadModuleFromConfig(configuration);

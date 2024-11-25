@@ -22,8 +22,8 @@ public class BiomeColorModule implements IConfigModule {
     }
 
     @Override
-    public String getModuleName() {
-        return "BiomeColors";
+    public String getModuleId() {
+        return "biome_colors";
     }
 
     @Override
@@ -39,13 +39,12 @@ public class BiomeColorModule implements IConfigModule {
         loadBiomeColors(configuration, "taint", taintBiomeColors, biomeTaint);
     }
 
-    private static void loadBiomeColors(Configuration configuration, String category, BiomeColors output,
-        BiomeGenBase biome) {
+    private void loadBiomeColors(Configuration configuration, String category, BiomeColors output, BiomeGenBase biome) {
         if (biome == null) {
             return;
         }
 
-        category = String.format("biome_colors_%s", category);
+        category = String.format("%s_%s", getModuleId(), category);
 
         configuration.setCategoryComment(
             category,

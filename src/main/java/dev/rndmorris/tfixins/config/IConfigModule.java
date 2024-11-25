@@ -6,7 +6,7 @@ public interface IConfigModule {
 
     boolean enabledByDefault();
 
-    String getModuleName();
+    String getModuleId();
 
     String getModuleComment();
 
