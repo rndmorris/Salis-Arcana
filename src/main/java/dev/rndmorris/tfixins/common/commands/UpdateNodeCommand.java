@@ -3,8 +3,6 @@ package dev.rndmorris.tfixins.common.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiChat;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -32,8 +30,6 @@ public class UpdateNodeCommand extends FixinsCommandBase<UpdateNodeCommand.Argum
     }
 
     protected void process(ICommandSender sender, String[] args) {
-        Minecraft.getMinecraft()
-            .displayGuiScreen(new GuiChat());
         final var arguments = argumentProcessor.process(sender, args);
 
         final var pos = arguments.updateAt;
