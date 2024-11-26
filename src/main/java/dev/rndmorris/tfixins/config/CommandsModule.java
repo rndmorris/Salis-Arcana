@@ -19,10 +19,11 @@ public class CommandsModule implements IConfigModule {
         .setPermissionLevel(2);
 
     public final @Nonnull CommandSettings help = new CommandSettings("help", this::isEnabled).addAlias("tf-help")
-        .setDescription("Get help information about Thaumic Fixin's commands.")
+        .setDescription("Get help information about Thaumic Fixins' commands.")
         .setPermissionLevel(0);
 
     public final @Nonnull CommandSettings playerResearch = new CommandSettings("list-research", this::isEnabled)
+        .setDescription("List and filter through TC4's research, making it easier to look up research ids.")
         .addDefaultAlias()
         .setPermissionLevel(0)
         .addChildPermissionLevel(listOthersReserach, 2, "list another player's research.");
