@@ -13,5 +13,7 @@ public @interface PositionalArg {
 
     int index();
 
-    Class<? extends IArgumentHandler> parser();
+    Class<? extends IArgumentHandler> handler();
+
+    String descLangKey() default "";
 }

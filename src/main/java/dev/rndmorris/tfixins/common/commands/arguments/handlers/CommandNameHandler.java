@@ -1,14 +1,15 @@
 package dev.rndmorris.tfixins.common.commands.arguments.handlers;
 
-import dev.rndmorris.tfixins.config.CommandSettings;
-import dev.rndmorris.tfixins.config.FixinsConfig;
-import net.minecraft.command.CommandException;
-import net.minecraft.command.ICommandSender;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommandSender;
+
+import dev.rndmorris.tfixins.config.CommandSettings;
+import dev.rndmorris.tfixins.config.FixinsConfig;
 
 public class CommandNameHandler implements IArgumentHandler {
 
@@ -51,7 +52,8 @@ public class CommandNameHandler implements IArgumentHandler {
             if (!settings.isEnabled()) {
                 continue;
             }
-            if (settings.name.equalsIgnoreCase(current) || settings.getFullName().equalsIgnoreCase(current)) {
+            if (settings.name.equalsIgnoreCase(current) || settings.getFullName()
+                .equalsIgnoreCase(current)) {
                 foundCommand = settings;
                 break;
             }

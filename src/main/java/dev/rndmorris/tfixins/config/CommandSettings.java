@@ -1,13 +1,14 @@
 package dev.rndmorris.tfixins.config;
 
-import dev.rndmorris.tfixins.ThaumicFixins;
-import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import dev.rndmorris.tfixins.ThaumicFixins;
+import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
 
 public class CommandSettings {
 

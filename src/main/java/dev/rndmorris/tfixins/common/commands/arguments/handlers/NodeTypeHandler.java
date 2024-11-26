@@ -5,12 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import dev.rndmorris.tfixins.common.commands.arguments.NodeTypeArgument;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
+import dev.rndmorris.tfixins.common.commands.arguments.NodeTypeArgument;
 import dev.rndmorris.tfixins.lib.EnumHelper;
-import thaumcraft.api.nodes.NodeType;
 
 public class NodeTypeHandler implements IArgumentHandler {
 

@@ -8,27 +8,27 @@ tfixins:command.update-node.not_found=A node was not found at %d %d %d.
 tfixins:command.usage=§9§lUsage:§r
 tfixins:command.args=§9§lArguments:§r
 
-tfixins:command.create-node.help.desc=§9§lDescription:§r Create a new randomly-generated node at the specified coordinates.
-tfixins:command.create-node.usage=§7/tfixins-create-node §7<x> §7<y> §7<z> §7[-t §7<TYPE>] §7[-m §7<MODIFIER>] §7[--silverwood] §7[--eerie] §7[--small] §7[-a §7<aspect1> §7<count1>[, §7-a §7<aspect2> §7<count2>[...]]]§r
-tfixins:command.create-node.args.01=§7§o<x> <y> <z>§r §cRequired.§r Specify where the node will be created.
-tfixins:command.create-node.args.02=§7§o[-t <TYPE>]§r Specify the new node's type
-tfixins:command.create-node.args.03=§7§o[-m <MODIFIER>]§r Specify the new node's modifier
-tfixins:command.create-node.args.04=§7§o[--silverwood]§r Spawn a pure, small node, as though generated in a silverwood tree. Mutually exclusive with §7--eerie§r and §7--small§r.
-tfixins:command.create-node.args.05=§7§o[--eerie]§r Spawn a dark node, as though generated in an obsidian totem. Mutually exclusive with §7--silverwood§r.
-tfixins:command.create-node.args.06=§7§o[--small]§r The node will have low aspect capacity. Mutually exclusive with §7--silverwood§r and §7-a§r.
-tfixins:command.create-node.args.07=§7§o[-a <aspect> <count>]§r Override the new node's aspects. Can be used multiple times to specify additional aspects. Mutually exclusive with §7--small§r.
+tfixins:command.create-node.desc=§9§lDescription:§r Create a new randomly-generated node at the specified coordinates.
+tfixins:command.create-node.usage=§7/tfixins-create-node §7<x> §7<y> §7<z> §7[-t §7<type>] §7[-m §7<modifier>] §7[--silverwood] §7[--eerie] §7[--small] §7[-a §7<aspect1> §7<count1>[, §7-a §7<aspect2> §7<count2>[...]]]§r
+tfixins:command.create-node.args.coord=§7§o<x> <y> <z>§r §cRequired.§r Specify where the node will be created.
+tfixins:command.create-node.args.type=§7§o[-t <type>]§r Specify the new node's type
+tfixins:command.create-node.args.modifier=§7§o[-m <modifier>]§r Specify the new node's modifier
+tfixins:command.create-node.args.silverwood=§7§o[--silverwood]§r Spawn a pure, small node, as though generated in a silverwood tree. Mutually exclusive with §7--eerie§r and §7--small§r.
+tfixins:command.create-node.args.eerie=§7§o[--eerie]§r Spawn a dark node, as though generated in an obsidian totem. Mutually exclusive with §7--silverwood§r.
+tfixins:command.create-node.args.small=§7§o[--small]§r The node will have low aspect capacity. Mutually exclusive with §7--silverwood§r and §7-a§r.
+tfixins:command.create-node.args.aspect=§7§o[-a <aspect> <count>]§r Override the new node's aspects. Can be used multiple times to specify additional aspects. Mutually exclusive with §7--small§r.
 
 tfixins:command.help.desc=§9§lDescription:§r Get help information about a Thaumic Fixins command.
-tfixins:command.help.usage=§7/tfixins-update-node §7<command name>§r
-tfixins:command.help.args.01=§7§o<command name>§r §cRequired.§r The name or alias of a Thaumic Mixins command.
+tfixins:command.help.usage=§7/tfixins-update-node §7<command>§r
+tfixins:command.help.args.cmd=§7§o<command>§r §cRequired.§r The name or alias of a Thaumic Fixins command.
 
 tfixins:command.update-node.desc=§9§lDescription:§r Update the properties of the node at the specified coordinates.
-tfixins:command.update-node.usage=§7/tfixins-update-node §7<x> <y> <z>§r §7[-t <TYPE>] §7[-m <MODIFIER>] §7[--set §7<aspect1> §7<count1>[, §7--set §7<aspect2> §7<count2>[...]]] §7[--rem §7<aspect3>[, §7--rem §7<aspect4>]]§r
-tfixins:command.update-node.args.01=§7§o<x> <y> <z>§r §cRequired.§r Specify the coordinates of the node to update.
-tfixins:command.update-node.args.02=§7§o[-t <TYPE>]§r Change the node's type
-tfixins:command.update-node.args.03=§7§o[-m <MODIFIER>]§r Change the node's modifier
-tfixins:command.update-node.args.04=§7§o[--set <aspect> <count>]§r Set how much vis of the specified aspect the node contains. Can be used multiple times to set additional aspects.
-tfixins:command.update-node.args.05=§7§o[--rem <aspect> <count>]§r Remove an aspect from the node. Can be used multiple times to remove additional aspects.
+tfixins:command.update-node.usage=§7/tfixins-update-node §7<x> <y> <z>§r §7[-t <type>] §7[-m <modifier>] §7[--set §7<aspect1> §7<count1>[, §7--set §7<aspect2> §7<count2>[...]]] §7[--rem §7<aspect3>[, §7--rem §7<aspect4>]]§r
+tfixins:command.update-node.args.coord=§7§o<x> <y> <z>§r §cRequired.§r Specify the coordinates of the node to update.
+tfixins:command.update-node.args.type=§7§o[-t <type>]§r Change the node's type
+tfixins:command.update-node.args.modifier=§7§o[-m <modifier>]§r Change the node's modifier
+tfixins:command.update-node.args.set=§7§o[--set <aspect> <count>]§r Set how much vis of the specified aspect the node contains. Can be used multiple times to set additional aspects.
+tfixins:command.update-node.args.rem=§7§o[--rem <aspect> <count>]§r Remove an aspect from the node. Can be used multiple times to remove additional aspects.
 
 tfixins:error.invalid_aspect="%s" is not a known aspect.
 tfixins:error.invalid_node_modifier=%s is not a known node modifier.

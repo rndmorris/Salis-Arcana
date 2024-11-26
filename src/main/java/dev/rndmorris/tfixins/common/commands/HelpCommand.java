@@ -1,21 +1,23 @@
 package dev.rndmorris.tfixins.common.commands;
 
-import dev.rndmorris.tfixins.common.commands.arguments.HelpArguments;
-import dev.rndmorris.tfixins.config.FixinsConfig;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.ChatComponentTranslation;
 
-import java.util.Arrays;
-import java.util.List;
+import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
+import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.CommandNameHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
+import dev.rndmorris.tfixins.config.CommandSettings;
+import dev.rndmorris.tfixins.config.FixinsConfig;
 
-public class HelpCommand extends FixinsCommandBase {
+public class HelpCommand extends FixinsCommandBase<HelpCommand.Arguments> {
+
     public HelpCommand() {
         super(FixinsConfig.commandsModule.help);
     }
 
     @Override
     protected void process(ICommandSender sender, String[] args) {
-        final var arguments = HelpArguments.getProcessor().process(sender, args);
+        final var arguments = argumentProcessor.process(sender, args);
         if (arguments.forCommand == null) {
             return;
         }
@@ -29,18 +31,17 @@ public class HelpCommand extends FixinsCommandBase {
     }
 
     @Override
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
-        return HelpArguments.getProcessor().getAutocompletionSuggestions(sender, args);
+    protected ArgumentProcessor<Arguments> initializeProcessor() {
+        return new ArgumentProcessor<>(
+            Arguments.class,
+            Arguments::new,
+            new IArgumentHandler[] { CommandNameHandler.INSTANCE });
     }
 
-    @Override
-    public void printHelp(ICommandSender sender) {
-        Arrays.stream(new String[] {
-            "tfixins:command.help.desc",
-            "tfixins:command.usage",
-            "tfixins:command.help.usage",
-            "tfixins:command.args",
-            "tfixins:command.help.args.01",
-        }).map(ChatComponentTranslation::new).forEachOrdered(sender::addChatMessage);
+    public static class Arguments {
+
+        @PositionalArg(index = 0, handler = CommandNameHandler.class, descLangKey = "cmd")
+        public CommandSettings forCommand;
+
     }
 }

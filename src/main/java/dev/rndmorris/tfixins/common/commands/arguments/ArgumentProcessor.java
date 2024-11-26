@@ -31,6 +31,8 @@ public class ArgumentProcessor<TArguments> {
     private final Map<Integer, ArgEntry> positionalArgs = new TreeMap<>();
     private final Map<String, ArgEntry> namedArgs = new TreeMap<>();
 
+    public final List<String> descriptionLangKeys = new ArrayList<>();
+
     public ArgumentProcessor(Class<TArguments> argumentsClass, Supplier<TArguments> initializer,
         IArgumentHandler[] argumentHandlers) {
         this.argumentsClass = argumentsClass;
@@ -126,16 +128,25 @@ public class ArgumentProcessor<TArguments> {
             NamedArg namedArg;
             if ((posArg = field.getAnnotation(PositionalArg.class)) != null) {
                 positionalArgs.put(posArg.index(), entry);
-                entry.parser = argumentHandlers.get(posArg.parser());
+                entry.parser = argumentHandlers.get(posArg.handler());
                 if (entry.parser == null) {
-                    LOG.error(String.format("No parser found for positional argument at index %s", posArg.index()));
-                    throw new CommandException("commands.generic.exception");
+                    LOG.error(String.format("No parser found for positional argument at index %d", posArg.index()));
+                    throw new RuntimeException();
+                }
+                if (!posArg.descLangKey()
+                    .isEmpty()) {
+                    descriptionLangKeys.add(posArg.descLangKey());
                 }
             } else if ((namedArg = field.getAnnotation(NamedArg.class)) != null) {
                 namedArgs.put(namedArg.name(), entry);
                 entry.parser = argumentHandlers.get(namedArg.handler());
                 if (entry.parser == null) {
-                    throw new RuntimeException(String.format("No parser found for named argument %s", namedArg.name()));
+                    LOG.error(String.format("No parser found for named argument at %s", namedArg.name()));
+                    throw new RuntimeException();
+                }
+                if (!namedArg.descLangKey()
+                    .isEmpty()) {
+                    descriptionLangKeys.add(namedArg.descLangKey());
                 }
                 entry.excludes = Arrays.stream(namedArg.excludes())
                     .filter(s -> !s.isEmpty())

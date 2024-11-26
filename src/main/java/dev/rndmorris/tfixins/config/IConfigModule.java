@@ -8,7 +8,7 @@ import net.minecraftforge.common.config.Configuration;
  * A group of related settings that can be collectively enabled or disabled.
  */
 public interface IConfigModule {
-    
+
     /**
      * The unique id string of the module. Used as part of the module's "Enable" config option name.
      * This should also be the name, or the prefix of the name, of any configuration categories this module reads.

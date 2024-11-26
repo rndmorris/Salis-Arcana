@@ -1,11 +1,9 @@
 package dev.rndmorris.tfixins.config;
 
 import java.util.Collections;
-import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
 import net.minecraftforge.common.config.Configuration;
 
 public class CommandsModule implements IConfigModule {
@@ -18,8 +16,7 @@ public class CommandsModule implements IConfigModule {
             "Create a node at specified coordinates, optionally with specified brightness, type, and aspects.")
         .setPermissionLevel(2);
 
-    public final @Nonnull CommandSettings help = new CommandSettings("help", this::isEnabled)
-        .addAlias("tf-help")
+    public final @Nonnull CommandSettings help = new CommandSettings("help", this::isEnabled).addAlias("tf-help")
         .setDescription("Get help information about Thaumic Fixin's commands.")
         .setPermissionLevel(0);
 
@@ -28,11 +25,7 @@ public class CommandsModule implements IConfigModule {
         .setDescription("Update the properties of a node at the specified coordiantes.")
         .setPermissionLevel(2);
 
-    public final CommandSettings[] commandsSettings = new CommandSettings[] {
-        createNode,
-        help,
-        updateNode,
-    };
+    public final CommandSettings[] commandsSettings = new CommandSettings[] { createNode, help, updateNode, };
 
     @Nonnull
     @Override

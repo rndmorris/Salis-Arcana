@@ -16,4 +16,6 @@ public @interface NamedArg {
     Class<? extends IArgumentHandler> handler();
 
     String[] excludes() default "";
+
+    String descLangKey() default "";
 }
