@@ -1,10 +1,9 @@
-tfixins:command.create-node.failure=A node could not be created at %d %d %d.
-tfixins:command.update-node.not_found=A node was not found at %d %d %d.
+tfixins:command.category_header=Category: %s
+tfixins:command.desc=Description:
+tfixins:command.usage=Usage:
+tfixins:command.args=Arguments:
 
-tfixins:command.usage=§9§lUsage:§r
-tfixins:command.args=§9§lArguments:§r
-
-tfixins:command.create-node.desc=§9§lDescription:§r Create a new randomly-generated node at the specified coordinates.
+tfixins:command.create-node.desc=Create a new randomly-generated node at the specified coordinates.
 tfixins:command.create-node.usage=§7/tfixins-create-node §7<x> §7<y> §7<z> §7[-t §7<type>] §7[-m §7<modifier>] §7[--silverwood] §7[--eerie] §7[--small] §7[-a §7<aspect1> §7<count1>[ §7-a §7<aspect2> §7<count2>[ ...]]]§r
 tfixins:command.create-node.args.coord=§7§o<x> <y> <z>§r §cRequired.§r Specify where the node will be created.
 tfixins:command.create-node.args.type=§7§o[-t <type>]§r Specify the new node's type
@@ -14,7 +13,9 @@ tfixins:command.create-node.args.eerie=§7§o[--eerie]§r Spawn a dark node, as 
 tfixins:command.create-node.args.small=§7§o[--small]§r The node will have low aspect capacity. Mutually exclusive with §7--silverwood§r and §7-a§r.
 tfixins:command.create-node.args.aspect=§7§o[-a <aspect> <count>]§r Override the new node's aspects. Can be used multiple times to specify additional aspects. Mutually exclusive with §7--small§r.
 
-tfixins:command.forget-research.desc=§9§lDescription:§r Remove research from a player's knowledge.
+tfixins:command.create-node.failure=A node could not be created at %d %d %d.
+
+tfixins:command.forget-research.desc=Remove research from a player's knowledge.
 tfixins:command.forget-research.usage=§7/tfixins-forget-research §7<--all §7§lOR§r §7--research-key §7<key>[ §7--research-key §7<key2> §7...]> §7[--player §7<username>] §7[--scalpel]§r
 tfixins:command.forget-research.args.all=§7<--all>§r Remove all research from the player's known research. Required if §7research-key§r is not provided. Mutually exclusive with §7research-key§r and §7scalpel§r.
 tfixins:command.forget-research.args.research=§7<--research-key>§r Specify the id of the research to remove. Can be provided multiple times. Required if §7all§r is not set. Mutually exclusive with §7all§r.
@@ -23,7 +24,7 @@ tfixins:command.forget-research.args.scalpel=§7[--scalpel]§r If set, the speci
 
 tfixins:command.forget-research.success=§9Success:§r Removed %d research items collectively worth %d permanent warp and %d sticky warp.
 
-tfixins:command.forget-scanned.desc=§9§lDescription:§r Resets the lists of things a player has scanned, allowing those things to be scanned again.
+tfixins:command.forget-scanned.desc=Resets the lists of things a player has scanned, allowing those things to be scanned again.
 tfixins:command.forget-scanned.usage=§7/tfixins-forget-scanned §7[--player <username>] §7[--objects] §7[--entities] §7[--nodes] §7[--all]§r
 tfixins:command.forget-scanned.player=§7[--player <username>]§r Specify the player whose scanned things will be altered. If not provided, defaults to the player executing this command.
 tfixins:command.forget-scanned.objects=§7[--objects]§r Reset scanned items and blocks.
@@ -34,17 +35,17 @@ tfixins:command.forget-scanned.all=§7[--all]§r Combines the effects of §7obje
 tfixins:command.forget-scanned.success=§9Success:§r %d entries were removed from %s's scan lists.
 tfixins:command.forget-scanned.failure=§Failure:§rThere was nothing to remove from %s's scan lists.
 
-tfixins:command.help.desc=§9§lDescription:§r Get help information about a Thaumic Fixins command.
+tfixins:command.help.desc=Get help information about a Thaumic Fixins command.
 tfixins:command.help.usage=§7/tfixins-help §7<command>§r
 tfixins:command.help.args.cmd=§7§o<command>§r §cRequired.§r The name or alias of a Thaumic Fixins command.
 
-tfixins:command.list-research.desc=§9§lDescription:§r List registered TC4 research, grouped by tab in the Thaumonomicon.
+tfixins:command.list-research.desc=List registered TC4 research, grouped by tab in the Thaumonomicon.
 tfixins:command.list-research.usage=§7/tfixins-list-research §7[--player §7<username>] §7[--search §7<search §7term>]§r
 tfixins:command.list-research.args.player=§7[--player §7<username>]§r Restrict results to only research known by this player.
 tfixins:command.list-research.args.search=§7[--search §7<search §7term>§r Restrict results to only research that contains this text in its id or its name. Enclose in double quotation marks to search for a term containing one or more spaces (e.g. "wand craft").
 tfixins:command.list-research.no_results=No research found.
 
-tfixins:command.update-node.desc=§9§lDescription:§r Update the properties of the node at the specified coordinates.
+tfixins:command.update-node.desc=Update the properties of the node at the specified coordinates.
 tfixins:command.update-node.usage=§7/tfixins-update-node §7<x> <y> <z>§r §7[-t <type>] §7[-m <modifier>] §7[--set §7<aspect1> §7<count1>[ §7--set §7<aspect2> §7<count2> [...]]] §7[--rem §7<aspect3>[ §7--rem §7<aspect4>]]§r
 tfixins:command.update-node.args.coord=§7§o<x> <y> <z>§r §cRequired.§r Specify the coordinates of the node to update.
 tfixins:command.update-node.args.type=§7§o[-t <type>]§r Change the node's type
@@ -52,11 +53,11 @@ tfixins:command.update-node.args.modifier=§7§o[-m <modifier>]§r Change the no
 tfixins:command.update-node.args.set=§7§o[--set <aspect> <count>]§r Set how much vis of the specified aspect the node contains. Can be used multiple times to set additional aspects.
 tfixins:command.update-node.args.rem=§7§o[--rem <aspect> <count>]§r Remove an aspect from the node. Can be used multiple times to remove additional aspects.
 
+tfixins:command.update-node.not_found=A node was not found at %d %d %d.
+
 tfixins:error.invalid_aspect="%s" is not a known aspect.
 tfixins:error.invalid_node_modifier=%s is not a known node modifier.
 tfixins:error.invalid_node_type=%s is not a known node type.
 tfixins:error.unexpected_value=Unexpected input "%s".
 tfixins:error.unknown_value=Unknown value "%s".
 tfixins:error.unknown_research=%s is not a known research key.
-
-tfixins:command.category_header=Category: %s
