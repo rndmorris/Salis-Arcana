@@ -2,7 +2,6 @@ package dev.rndmorris.tfixins.common.commands.arguments.handlers;
 
 import dev.rndmorris.tfixins.config.CommandSettings;
 import dev.rndmorris.tfixins.config.FixinsConfig;
-import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -12,6 +11,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class CommandNameHandler implements IArgumentHandler {
+
+    public static final IArgumentHandler INSTANCE = new CommandNameHandler();
+
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
         final var command = findCommand(current);

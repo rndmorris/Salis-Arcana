@@ -1,5 +1,6 @@
 package dev.rndmorris.tfixins.common.commands;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.command.CommandBase;
@@ -8,6 +9,7 @@ import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.arguments.CreateNodeArguments;
 import dev.rndmorris.tfixins.config.FixinsConfig;
+import net.minecraft.util.ChatComponentTranslation;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 import thaumcraft.common.tiles.TileNode;
@@ -62,4 +64,20 @@ public class CreateNodeCommand extends FixinsCommandBase {
                 .getAutocompletionSuggestions(sender, args));
     }
 
+    @Override
+    public void printHelp(ICommandSender sender) {
+        Arrays.stream(new String[] {
+            "tfixins:command.create-node.desc",
+            "tfixins:command.usage",
+            "tfixins:command.create-node.usage",
+            "tfixins:command.args",
+            "tfixins:command.create-node.args.01",
+            "tfixins:command.create-node.args.02",
+            "tfixins:command.create-node.args.03",
+            "tfixins:command.create-node.args.04",
+            "tfixins:command.create-node.args.05",
+            "tfixins:command.create-node.args.06",
+            "tfixins:command.create-node.args.07",
+        }).map(ChatComponentTranslation::new).forEachOrdered(sender::addChatMessage);
+    }
 }

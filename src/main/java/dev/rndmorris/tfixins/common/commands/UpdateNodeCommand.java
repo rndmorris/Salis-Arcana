@@ -1,5 +1,6 @@
 package dev.rndmorris.tfixins.common.commands;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -10,6 +11,7 @@ import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.arguments.UpdateNodeArguments;
 import dev.rndmorris.tfixins.config.FixinsConfig;
+import net.minecraft.util.ChatComponentTranslation;
 import thaumcraft.common.tiles.TileNode;
 
 public class UpdateNodeCommand extends FixinsCommandBase {
@@ -70,4 +72,18 @@ public class UpdateNodeCommand extends FixinsCommandBase {
                 .getAutocompletionSuggestions(sender, args));
     }
 
+    @Override
+    public void printHelp(ICommandSender sender) {
+        Arrays.stream(new String[] {
+            "tfixins:command.update-node.desc",
+            "tfixins:command.usage",
+            "tfixins:command.update-node.usage",
+            "tfixins:command.args",
+            "tfixins:command.update-node.args.01",
+            "tfixins:command.update-node.args.02",
+            "tfixins:command.update-node.args.03",
+            "tfixins:command.update-node.args.04",
+            "tfixins:command.update-node.args.05",
+        }).map(ChatComponentTranslation::new).forEachOrdered(sender::addChatMessage);
+    }
 }

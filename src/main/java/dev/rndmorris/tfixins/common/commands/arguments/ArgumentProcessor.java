@@ -128,8 +128,8 @@ public class ArgumentProcessor<TArguments> {
                 positionalArgs.put(posArg.index(), entry);
                 entry.parser = argumentHandlers.get(posArg.parser());
                 if (entry.parser == null) {
-                    throw new RuntimeException(
-                        String.format("No parser found for positional argument at index %s", posArg.index()));
+                    LOG.error(String.format("No parser found for positional argument at index %s", posArg.index()));
+                    throw new CommandException("commands.generic.exception");
                 }
             } else if ((namedArg = field.getAnnotation(NamedArg.class)) != null) {
                 namedArgs.put(namedArg.name(), entry);
