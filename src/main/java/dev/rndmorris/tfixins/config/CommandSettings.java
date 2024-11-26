@@ -21,7 +21,6 @@ public class CommandSettings {
 
     private final Supplier<Boolean> moduleEnabled;
 
-
     private @Nullable Supplier<FixinsCommandBase<?>> commandGetter;
     private @Nonnull String description = "";
     private boolean enabled = true;

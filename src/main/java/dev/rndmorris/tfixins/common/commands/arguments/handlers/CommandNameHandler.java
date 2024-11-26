@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import net.minecraft.command.ICommandSender;
 
+import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import dev.rndmorris.tfixins.config.CommandSettings;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 

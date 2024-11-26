@@ -40,7 +40,9 @@ public class ListResearchCommand extends FixinsCommandBase<ListResearchCommand.A
         Predicate<ResearchItem> predicate = (r) -> true;
 
         if (arguments.forPlayer != null) {
-            if (!sender.canCommandSenderUseCommand(settings.childPermissionLevels.get(listOthersReserach), settings.getFullName())) {
+            if (!sender.canCommandSenderUseCommand(
+                settings.childPermissionLevels.get(listOthersReserach),
+                settings.getFullName())) {
                 CommandErrors.insufficientPermission();
             }
             final var playerKnowledge = new TreeSet<>(
@@ -49,8 +51,7 @@ public class ListResearchCommand extends FixinsCommandBase<ListResearchCommand.A
             predicate = arguments.searchTerm != null
                 ? (r) -> playerKnowledge.contains(r.key) && ResearchHelper.matchesTerm(r, arguments.searchTerm)
                 : (r) -> playerKnowledge.contains(r.key);
-        }
-        else if (arguments.searchTerm != null) {
+        } else if (arguments.searchTerm != null) {
             predicate = (r) -> ResearchHelper.matchesTerm(r, arguments.searchTerm);
         }
 

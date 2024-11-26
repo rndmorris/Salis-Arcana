@@ -1,12 +1,12 @@
 package dev.rndmorris.tfixins.config;
 
+import static dev.rndmorris.tfixins.common.commands.ListResearchCommand.listOthersReserach;
+
 import java.util.Collections;
 
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
-
-import static dev.rndmorris.tfixins.common.commands.ListResearchCommand.listOthersReserach;
 
 public class CommandsModule implements IConfigModule {
 
@@ -32,7 +32,8 @@ public class CommandsModule implements IConfigModule {
         .setDescription("Update the properties of a node at the specified coordiantes.")
         .setPermissionLevel(2);
 
-    public final CommandSettings[] commandsSettings = new CommandSettings[] { createNode, help, playerResearch, updateNode, };
+    public final CommandSettings[] commandsSettings = new CommandSettings[] { createNode, help, playerResearch,
+        updateNode, };
 
     @Nonnull
     @Override
@@ -96,7 +97,6 @@ public class CommandsModule implements IConfigModule {
             "The permission level required to execute the command.");
         settings.setPermissionLevel(permissionLevel);
 
-
         for (var childPermName : settings.childPermissionLevels.keySet()) {
             final var childPermissionLevel = configuration.getInt(
                 String.format("Permission Level - %s", childPermName),
@@ -104,8 +104,9 @@ public class CommandsModule implements IConfigModule {
                 (int) settings.childPermissionLevels.get(childPermName),
                 0,
                 4,
-                String.format("The permission level required to %s", settings.childPermissionDescription.get(childPermName))
-            );
+                String.format(
+                    "The permission level required to %s",
+                    settings.childPermissionDescription.get(childPermName)));
             settings.childPermissionLevels.put(childPermName, (byte) childPermissionLevel);
         }
     }

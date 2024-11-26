@@ -37,5 +37,6 @@ tfixins:error.invalid_aspect="%s" is not a known aspect.
 tfixins:error.invalid_node_modifier=%s is not a known node modifier.
 tfixins:error.invalid_node_type=%s is not a known node type.
 tfixins:error.unexpected_value=Unexpected input "%s".
+tfixins:error.unknown_value=Unknown value "%s".
 
 tfixins:command.category_header=Category: %s

@@ -4,10 +4,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
+
+import dev.rndmorris.tfixins.common.commands.CommandErrors;
 
 public class PlayerHandler implements IArgumentHandler {
 

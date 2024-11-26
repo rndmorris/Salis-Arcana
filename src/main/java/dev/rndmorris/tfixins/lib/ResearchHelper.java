@@ -41,8 +41,7 @@ public class ResearchHelper {
 
                 if (researchMessage == null) {
                     researchMessage = item;
-                }
-                else {
+                } else {
                     researchMessage.appendText(",  ");
                     researchMessage.appendSibling(item);
                 }
