@@ -12,34 +12,43 @@ public class CommandsModule implements IConfigModule {
 
     private boolean enabled = true;
 
-    public final @Nonnull CommandSettings createNode = new CommandSettings("create-node", this::isEnabled)
-        .addDefaultAlias()
-        .setDescription(
-            "Create a node at specified coordinates, optionally with specified brightness, type, and aspects.")
-        .setPermissionLevel(2);
+    public final @Nonnull CommandSettings createNode;
 
-    public final @Nonnull CommandSettings forgetResearch = new CommandSettings("forget-research", this::isEnabled)
-        .setDescription("Remove one or more research item's from a player's knowledge.")
-        .addDefaultAlias()
-        .setPermissionLevel(2);
+    public final @Nonnull CommandSettings forgetResearch;
 
-    public final @Nonnull CommandSettings help = new CommandSettings("help", this::isEnabled).addAlias("tf-help")
-        .setDescription("Get help information about Thaumic Fixins' commands.")
-        .setPermissionLevel(0);
+    public final @Nonnull CommandSettings help;
 
-    public final @Nonnull CommandSettings playerResearch = new CommandSettings("list-research", this::isEnabled)
-        .setDescription("List and filter through TC4's research, making it easier to look up research ids.")
-        .addDefaultAlias()
-        .setPermissionLevel(0)
-        .addChildPermissionLevel(listOthersReserach, 2, "list another player's research.");
+    public final @Nonnull CommandSettings playerResearch;
 
-    public final @Nonnull CommandSettings updateNode = new CommandSettings("update-node", this::isEnabled)
-        .addDefaultAlias()
-        .setDescription("Update the properties of a node at the specified coordiantes.")
-        .setPermissionLevel(2);
+    public final @Nonnull CommandSettings updateNode;
 
-    public final CommandSettings[] commandsSettings = new CommandSettings[] { createNode, forgetResearch, help, playerResearch,
-        updateNode, };
+    public final CommandSettings[] commandsSettings;
+
+    public CommandsModule() {
+        commandsSettings = new CommandSettings[] {
+            createNode= new CommandSettings("create-node", this::isEnabled)
+                .addDefaultAlias()
+                .setDescription(
+                    "Create a node at specified coordinates, optionally with specified brightness, type, and aspects.")
+                .setPermissionLevel(2),
+            forgetResearch = new CommandSettings("forget-research", this::isEnabled)
+                .setDescription("Remove one or more research item's from a player's knowledge.")
+                .addDefaultAlias()
+                .setPermissionLevel(2),
+            help = new CommandSettings("help", this::isEnabled).addAlias("tf-help")
+                .setDescription("Get help information about Thaumic Fixins' commands.")
+                .setPermissionLevel(0),
+            playerResearch = new CommandSettings("list-research", this::isEnabled)
+                .setDescription("List and filter through TC4's research, making it easier to look up research ids.")
+                .addDefaultAlias()
+                .setPermissionLevel(0)
+                .addChildPermissionLevel(listOthersReserach, 2, "list another player's research."),
+            updateNode = new CommandSettings("update-node", this::isEnabled)
+                .addDefaultAlias()
+                .setDescription("Update the properties of a node at the specified coordiantes.")
+                .setPermissionLevel(2),
+        };
+    }
 
     @Nonnull
     @Override
