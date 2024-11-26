@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.common.commands.parsing;
+package dev.rndmorris.tfixins.common.commands.arguments.handlers;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -8,7 +8,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-public abstract class CoordinateParser implements IArgType {
+public abstract class CoordinateHandler implements IArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> input) {
@@ -17,16 +17,14 @@ public abstract class CoordinateParser implements IArgType {
     }
 
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        return args.hasNext()
-            ? null
-            : Collections.singletonList("~");
+        return args.hasNext() ? null : Collections.singletonList("~");
     }
 
     protected abstract double getPosition(EntityPlayerMP player);
 
-    public static class X extends CoordinateParser {
+    public static class X extends CoordinateHandler {
 
-        public static final IArgType INSTANCE = new X();
+        public static final IArgumentHandler INSTANCE = new X();
 
         @Override
         protected double getPosition(EntityPlayerMP player) {
@@ -34,9 +32,9 @@ public abstract class CoordinateParser implements IArgType {
         }
     }
 
-    public static class Y extends CoordinateParser {
+    public static class Y extends CoordinateHandler {
 
-        public static final IArgType INSTANCE = new Y();
+        public static final IArgumentHandler INSTANCE = new Y();
 
         @Override
         protected double getPosition(EntityPlayerMP player) {
@@ -44,9 +42,9 @@ public abstract class CoordinateParser implements IArgType {
         }
     }
 
-    public static class Z extends CoordinateParser {
+    public static class Z extends CoordinateHandler {
 
-        public static final IArgType INSTANCE = new Z();
+        public static final IArgumentHandler INSTANCE = new Z();
 
         @Override
         protected double getPosition(EntityPlayerMP player) {

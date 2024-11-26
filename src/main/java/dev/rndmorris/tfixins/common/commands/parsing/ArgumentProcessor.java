@@ -1,5 +1,7 @@
 package dev.rndmorris.tfixins.common.commands.parsing;
 
+import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,31 +13,35 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import dev.rndmorris.tfixins.lib.ClassComparator;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
-import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
+import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
+import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
+import dev.rndmorris.tfixins.lib.ClassComparator;
 
-public class ArgParser<TArguments> {
+public class ArgumentProcessor<TArguments> {
 
-    private final Map<Class<? extends IArgType>, IArgType> argTypes = new TreeMap<>(new ClassComparator());
+    private final Map<Class<? extends IArgumentHandler>, IArgumentHandler> argumentHandlers = new TreeMap<>(
+        new ClassComparator());
     private final Class<TArguments> argumentsClass;
     private final Supplier<TArguments> initializer;
 
     private final Map<Integer, ArgEntry> positionalArgs = new TreeMap<>();
     private final Map<String, ArgEntry> namedArgs = new TreeMap<>();
 
-    public ArgParser(Class<TArguments> argumentsClass, Supplier<TArguments> initializer, IArgType... argTypes) {
+    public ArgumentProcessor(Class<TArguments> argumentsClass, Supplier<TArguments> initializer,
+        IArgumentHandler[] argumentHandlers) {
         this.argumentsClass = argumentsClass;
         this.initializer = initializer;
-        for (var type : argTypes) {
-            this.argTypes.put(type.getClass(), type);
+        for (var handler : argumentHandlers) {
+            this.argumentHandlers.put(handler.getClass(), handler);
         }
-        readArgumentsObject();
+        buildArgumentMaps();
     }
 
-    public TArguments parse(ICommandSender sender, String[] args) {
+    public TArguments process(ICommandSender sender, String[] args) {
 
         final var foundNames = new TreeSet<>(String::compareToIgnoreCase);
         final var arguments = initializer.get();
@@ -70,7 +76,7 @@ public class ArgParser<TArguments> {
         return arguments;
     }
 
-    public List<String> getTabOptions(ICommandSender sender, String[] args) {
+    public List<String> getAutocompletionSuggestions(ICommandSender sender, String[] args) {
         final var foundNames = new TreeSet<String>();
 
         final var $args = Arrays.stream(args)
@@ -91,7 +97,10 @@ public class ArgParser<TArguments> {
             }
 
             if (entry == null) {
-                return namedArgs.keySet().stream().filter(k -> !foundNames.contains(k)).collect(Collectors.toList());
+                return namedArgs.keySet()
+                    .stream()
+                    .filter(k -> !foundNames.contains(k))
+                    .collect(Collectors.toList());
             }
 
             final var result = entry.parser.getAutocompleteOptions(sender, current, $args);
@@ -105,21 +114,27 @@ public class ArgParser<TArguments> {
         return Collections.emptyList();
     }
 
-    private void readArgumentsObject() {
+    private void buildArgumentMaps() {
         for (var field : argumentsClass.getFields()) {
             field.setAccessible(true);
 
             final var entry = new ArgEntry();
 
             PositionalArg posArg;
-            NamedArg namedArg = null;
+            NamedArg namedArg;
             if ((posArg = field.getAnnotation(PositionalArg.class)) != null) {
                 positionalArgs.put(posArg.index(), entry);
-                entry.parser = argTypes.get(posArg.parser());
-            }
-            else if ((namedArg = field.getAnnotation(NamedArg.class)) != null) {
+                entry.parser = argumentHandlers.get(posArg.parser());
+                if (entry.parser == null) {
+                    throw new RuntimeException(
+                        String.format("No parser found for positional argument at index %s", posArg.index()));
+                }
+            } else if ((namedArg = field.getAnnotation(NamedArg.class)) != null) {
                 namedArgs.put(namedArg.name(), entry);
-                entry.parser = argTypes.get(namedArg.parser());
+                entry.parser = argumentHandlers.get(namedArg.handler());
+                if (entry.parser == null) {
+                    throw new RuntimeException(String.format("No parser found for named argument %s", namedArg.name()));
+                }
             }
 
             final var fieldType = field.getType();
@@ -134,20 +149,17 @@ public class ArgParser<TArguments> {
                         if (fieldObj == null) {
                             list = new ArrayList<>();
                             field.set(arguments, list);
-                        }
-                        else {
-                            //noinspection unchecked
+                        } else {
+                            // noinspection unchecked
                             list = (List<Object>) fieldObj;
                         }
 
                         list.add(val);
-                    } catch (IllegalAccessException e)
-                    {
+                    } catch (IllegalAccessException e) {
                         LOG.error(e);
                     }
                 };
-            }
-            else {
+            } else {
                 entry.setter = (arguments, val) -> {
                     try {
                         field.set(arguments, val);
@@ -162,7 +174,7 @@ public class ArgParser<TArguments> {
 
     private static class ArgEntry {
 
-        public IArgType parser;
+        public IArgumentHandler parser;
         public BiConsumer<Object, Object> setter;
         public boolean isList;
     }
