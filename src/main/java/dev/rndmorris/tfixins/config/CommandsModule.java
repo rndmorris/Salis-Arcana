@@ -18,6 +18,11 @@ public class CommandsModule implements IConfigModule {
             "Create a node at specified coordinates, optionally with specified brightness, type, and aspects.")
         .setPermissionLevel(2);
 
+    public final @Nonnull CommandSettings forgetResearch = new CommandSettings("forget-research", this::isEnabled)
+        .setDescription("Remove one or more research item's from a player's knowledge.")
+        .addDefaultAlias()
+        .setPermissionLevel(2);
+
     public final @Nonnull CommandSettings help = new CommandSettings("help", this::isEnabled).addAlias("tf-help")
         .setDescription("Get help information about Thaumic Fixins' commands.")
         .setPermissionLevel(0);
