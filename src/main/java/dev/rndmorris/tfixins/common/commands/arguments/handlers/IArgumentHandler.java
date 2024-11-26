@@ -7,7 +7,7 @@ import net.minecraft.command.ICommandSender;
 
 public interface IArgumentHandler {
 
-    Object parse(ICommandSender sender, String current, Iterator<String> input);
+    Object parse(ICommandSender sender, String current, Iterator<String> args);
 
     default List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
         return null;

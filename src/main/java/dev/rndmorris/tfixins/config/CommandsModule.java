@@ -15,6 +15,10 @@ public class CommandsModule implements IConfigModule {
             "Create a node at specified coordinates, optionally with specified brightness, type, and aspects.")
         .setPermissionLevel(2);
 
+    public final @Nonnull CommandSettings updateNode = new CommandSettings("update-node")
+        .setDescription("Update the properties of a node at the specified coordiantes.")
+        .setPermissionLevel(2);
+
     @Override
     public boolean enabledByDefault() {
         return true;

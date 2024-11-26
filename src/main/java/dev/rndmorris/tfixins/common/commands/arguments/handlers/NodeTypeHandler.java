@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import dev.rndmorris.tfixins.common.commands.arguments.NodeTypeArgument;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -17,11 +18,11 @@ public class NodeTypeHandler implements IArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-        NodeType result = null;
+        NodeTypeArgument result = null;
 
         if (args.hasNext()) {
             final var typeName = args.next();
-            result = EnumHelper.tryParseEnum(NodeType.values(), typeName);
+            result = EnumHelper.tryParseEnum(NodeTypeArgument.values(), typeName);
         }
 
         if (result == null) {
@@ -35,8 +36,8 @@ public class NodeTypeHandler implements IArgumentHandler {
         if (args.hasNext()) {
             args.next();
             if (!args.hasNext()) {
-                return Arrays.stream(NodeType.values())
-                    .map(NodeType::toString)
+                return Arrays.stream(NodeTypeArgument.values())
+                    .map(NodeTypeArgument::toString)
                     .collect(Collectors.toList());
             }
         }

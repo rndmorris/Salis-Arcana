@@ -19,8 +19,8 @@ public class CreateNodeCommand extends FixinsCommandBase {
     }
 
     protected void process(ICommandSender sender, String[] args) {
-        final var argProcessor = CreateNodeArguments.getProcessor();
-        final var arguments = argProcessor.process(sender, args);
+        final var arguments = CreateNodeArguments.getProcessor()
+            .process(sender, args);
 
         final var world = sender.getEntityWorld();
         world.setBlockToAir(arguments.x, arguments.y, arguments.z);
