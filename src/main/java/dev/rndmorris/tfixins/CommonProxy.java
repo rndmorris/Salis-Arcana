@@ -7,18 +7,13 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import dev.rndmorris.tfixins.common.biomes.BiomeOverrides;
 import dev.rndmorris.tfixins.common.commands.CreateNodeCommand;
 import dev.rndmorris.tfixins.common.commands.ForgetResearchCommand;
+import dev.rndmorris.tfixins.common.commands.ForgetScannedCommand;
 import dev.rndmorris.tfixins.common.commands.HelpCommand;
 import dev.rndmorris.tfixins.common.commands.ListResearchCommand;
 import dev.rndmorris.tfixins.common.commands.UpdateNodeCommand;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 
 public class CommonProxy {
-
-    public static CreateNodeCommand createNodeCommand = null;
-    public static ForgetResearchCommand forgetResearchCommand = null;
-    public static HelpCommand helpCommand = null;
-    public static ListResearchCommand playerResearchCommand = null;
-    public static UpdateNodeCommand updateNodeCommand = null;
 
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
@@ -37,19 +32,22 @@ public class CommonProxy {
     public void serverStarting(FMLServerStartingEvent event) {
         final var commands = FixinsConfig.commandsModule;
         if (commands.createNode.isEnabled()) {
-            event.registerServerCommand(createNodeCommand = new CreateNodeCommand());
+            event.registerServerCommand(new CreateNodeCommand());
         }
         if (commands.forgetResearch.isEnabled()) {
-            event.registerServerCommand(forgetResearchCommand = new ForgetResearchCommand());
+            event.registerServerCommand(new ForgetResearchCommand());
+        }
+        if (commands.forgetScanned.isEnabled()) {
+            event.registerServerCommand(new ForgetScannedCommand());
         }
         if (commands.help.isEnabled()) {
-            event.registerServerCommand(helpCommand = new HelpCommand());
+            event.registerServerCommand(new HelpCommand());
         }
         if (commands.playerResearch.isEnabled()) {
-            event.registerServerCommand(playerResearchCommand = new ListResearchCommand());
+            event.registerServerCommand(new ListResearchCommand());
         }
         if (commands.updateNode.isEnabled()) {
-            event.registerServerCommand(updateNodeCommand = new UpdateNodeCommand());
+            event.registerServerCommand(new UpdateNodeCommand());
         }
     }
 }

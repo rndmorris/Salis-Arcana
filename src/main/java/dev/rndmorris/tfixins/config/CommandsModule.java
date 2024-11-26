@@ -13,13 +13,10 @@ public class CommandsModule implements IConfigModule {
     private boolean enabled = true;
 
     public final @Nonnull CommandSettings createNode;
-
     public final @Nonnull CommandSettings forgetResearch;
-
+    public final @Nonnull CommandSettings forgetScanned;
     public final @Nonnull CommandSettings help;
-
     public final @Nonnull CommandSettings playerResearch;
-
     public final @Nonnull CommandSettings updateNode;
 
     public final CommandSettings[] commandsSettings;
@@ -35,11 +32,15 @@ public class CommandsModule implements IConfigModule {
                 .setDescription("Remove one or more research item's from a player's knowledge.")
                 .addDefaultAlias()
                 .setPermissionLevel(2),
+            forgetScanned = new CommandSettings("forget-scanned", this::isEnabled)
+                .setDescription("Remove entries from a player's list of scanned things")
+                .addDefaultAlias()
+                .setPermissionLevel(2),
             help = new CommandSettings("help", this::isEnabled).addAlias("tf-help")
                 .setDescription("Get help information about Thaumic Fixins' commands.")
                 .setPermissionLevel(0),
             playerResearch = new CommandSettings("list-research", this::isEnabled)
-                .setDescription("List and filter through TC4's research, making it easier to look up research ids.")
+                .setDescription("List and filter through TC4's research.")
                 .addDefaultAlias()
                 .setPermissionLevel(0)
                 .addChildPermissionLevel(listOthersReserach, 2, "list another player's research."),
