@@ -5,15 +5,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.positional.IPositionalArgumentHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.IFlagArgumentHandler;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface PositionalArg {
+public @interface FlagArg {
 
-    int index();
+    String name();
 
-    Class<? extends IPositionalArgumentHandler> handler();
+    Class<? extends IFlagArgumentHandler> handler() default FlagHandler.class;
+
+    String[] excludes() default "";
 
     String descLangKey() default "";
 }

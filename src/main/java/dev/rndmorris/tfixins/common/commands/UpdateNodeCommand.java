@@ -3,6 +3,8 @@ package dev.rndmorris.tfixins.common.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -13,12 +15,12 @@ import dev.rndmorris.tfixins.common.commands.arguments.NodeTypeArgument;
 import dev.rndmorris.tfixins.common.commands.arguments.QuantitativeAspectArgument;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.AspectHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.CoordinateHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.NodeModifierHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.NodeTypeHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.QuantitativeAspectHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.AspectHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.NodeModifierHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.NodeTypeHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.QuantitativeAspectHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.positional.CoordinateHandler;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.tiles.TileNode;
@@ -81,7 +83,7 @@ public class UpdateNodeCommand extends FixinsCommandBase<UpdateNodeCommand.Argum
     }
 
     @Override
-    protected ArgumentProcessor<Arguments> initializeProcessor() {
+    protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,

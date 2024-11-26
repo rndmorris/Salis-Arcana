@@ -2,6 +2,7 @@ package dev.rndmorris.tfixins.common.commands.arguments;
 
 import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,10 +13,13 @@ import java.util.TreeSet;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
+import dev.rndmorris.tfixins.common.commands.CommandErrors;
+import dev.rndmorris.tfixins.common.commands.arguments.annotations.FlagArg;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
@@ -29,6 +33,7 @@ public class ArgumentProcessor<TArguments> {
     private final Supplier<TArguments> initializer;
 
     private final Map<Integer, ArgEntry> positionalArgs = new TreeMap<>();
+    private final Map<String, ArgEntry> flagArgs = new TreeMap<>();
     private final Map<String, ArgEntry> namedArgs = new TreeMap<>();
 
     public final List<String> descriptionLangKeys = new ArrayList<>();
@@ -53,21 +58,39 @@ public class ArgumentProcessor<TArguments> {
         var index = 0;
 
         while ($args.hasNext()) {
-            final var current = $args.next();
+            var current = $args.next();
             ArgEntry entry = null;
+
             if (positionalArgs.containsKey(index)) {
                 entry = positionalArgs.get(index);
+            } else if (flagArgs.containsKey(current)) {
+                entry = flagArgs.get(current);
             } else if (namedArgs.containsKey(current)) {
-                final var namedEntry = namedArgs.get(current);
-                if (!namedEntry.isList || !excludedNames.contains(current)) {
-                    excludedNames.add(current);
-                    entry = namedEntry;
+                entry = namedArgs.get(current);
+            }
+
+            if (entry != null && (entry.argType == ArgType.FLAG || entry.argType == ArgType.NAMED)) {
+                if (excludedNames.contains(current)) {
+                    entry = null;
+                } else {
+                    if (!entry.isList) {
+                        excludedNames.add(current);
+                    }
+                    excludedNames.addAll(entry.excludes);
                 }
-                excludedNames.addAll(namedEntry.excludes);
             }
 
             if (entry == null) {
                 throw new CommandException("tfixins:error.unexpected_value", current);
+            }
+
+            // pre-advance the iterator for named arguments, because they ALL need it
+            if (entry.argType == ArgType.NAMED) {
+                if ($args.hasNext()) {
+                    current = $args.next();
+                } else {
+                    CommandErrors.invalidSyntax();
+                }
             }
 
             final var value = entry.parser.parse(sender, current, $args);
@@ -87,24 +110,46 @@ public class ArgumentProcessor<TArguments> {
         var index = 0;
 
         while ($args.hasNext()) {
-            final var current = $args.next();
+            var current = $args.next();
             ArgEntry entry = null;
+
             if (positionalArgs.containsKey(index)) {
                 entry = positionalArgs.get(index);
+            } else if (flagArgs.containsKey(current)) {
+                entry = flagArgs.get(current);
             } else if (namedArgs.containsKey(current)) {
-                final var namedEntry = namedArgs.get(current);
-                if (!namedEntry.isList || !excludedNames.contains(current)) {
-                    excludedNames.add(current);
-                    entry = namedEntry;
+                entry = namedArgs.get(current);
+            }
+
+            if (entry != null && (entry.argType == ArgType.FLAG || entry.argType == ArgType.NAMED)) {
+                if (excludedNames.contains(current)) {
+                    entry = null;
+                } else {
+                    if (!entry.isList) {
+                        excludedNames.add(current);
+                    }
+                    excludedNames.addAll(entry.excludes);
                 }
-                excludedNames.addAll(namedEntry.excludes);
             }
 
             if (entry == null) {
-                return namedArgs.keySet()
+                final var availableFlags = flagArgs.keySet()
                     .stream()
-                    .filter(k -> !excludedNames.contains(k))
+                    .filter(k -> !excludedNames.contains(k));
+                final var availableNames = namedArgs.keySet()
+                    .stream()
+                    .filter(k -> !excludedNames.contains(k));
+                return Stream.concat(availableFlags, availableNames)
                     .collect(Collectors.toList());
+            }
+
+            // pre-advance the iterator for named arguments, because they ALL need it
+            if (entry.argType == ArgType.NAMED) {
+                if ($args.hasNext()) {
+                    current = $args.next();
+                } else {
+                    return Collections.emptyList();
+                }
             }
 
             final var result = entry.parser.getAutocompleteOptions(sender, current, $args);
@@ -124,33 +169,9 @@ public class ArgumentProcessor<TArguments> {
 
             final var entry = new ArgEntry();
 
-            PositionalArg posArg;
-            NamedArg namedArg;
-            if ((posArg = field.getAnnotation(PositionalArg.class)) != null) {
-                positionalArgs.put(posArg.index(), entry);
-                entry.parser = argumentHandlers.get(posArg.handler());
-                if (entry.parser == null) {
-                    LOG.error(String.format("No parser found for positional argument at index %d", posArg.index()));
-                    throw new RuntimeException();
-                }
-                if (!posArg.descLangKey()
-                    .isEmpty()) {
-                    descriptionLangKeys.add(posArg.descLangKey());
-                }
-            } else if ((namedArg = field.getAnnotation(NamedArg.class)) != null) {
-                namedArgs.put(namedArg.name(), entry);
-                entry.parser = argumentHandlers.get(namedArg.handler());
-                if (entry.parser == null) {
-                    LOG.error(String.format("No parser found for named argument at %s", namedArg.name()));
-                    throw new RuntimeException();
-                }
-                if (!namedArg.descLangKey()
-                    .isEmpty()) {
-                    descriptionLangKeys.add(namedArg.descLangKey());
-                }
-                entry.excludes = Arrays.stream(namedArg.excludes())
-                    .filter(s -> !s.isEmpty())
-                    .collect(Collectors.toList());
+            if (!(evaluatePositionalArg(field, entry) || evaluateFlagArg(field, entry)
+                || evaluateNamedArg(field, entry))) {
+                continue;
             }
 
             final var fieldType = field.getType();
@@ -188,11 +209,86 @@ public class ArgumentProcessor<TArguments> {
         }
     }
 
+    private boolean evaluatePositionalArg(Field field, ArgEntry entry) {
+        var posArg = field.getAnnotation(PositionalArg.class);
+        if (posArg == null) {
+            return false;
+        }
+        positionalArgs.put(posArg.index(), entry);
+        entry.parser = argumentHandlers.get(posArg.handler());
+        if (entry.parser == null) {
+            LOG.error(String.format("No parser found for positional argument at index %d", posArg.index()));
+            throw new RuntimeException();
+        }
+        if (!posArg.descLangKey()
+            .isEmpty()) {
+            descriptionLangKeys.add(posArg.descLangKey());
+        }
+        entry.argType = ArgType.POS;
+
+        return true;
+    }
+
+    private boolean evaluateFlagArg(Field field, ArgEntry entry) {
+        var flagArg = field.getAnnotation(FlagArg.class);
+        if (flagArg == null) {
+            return false;
+        }
+
+        flagArgs.put(flagArg.name(), entry);
+        entry.parser = argumentHandlers.get(flagArg.handler());
+        if (entry.parser == null) {
+            LOG.error(String.format("No parser found for named argument at %s", flagArg.name()));
+            throw new RuntimeException();
+        }
+        if (!flagArg.descLangKey()
+            .isEmpty()) {
+            descriptionLangKeys.add(flagArg.descLangKey());
+        }
+        entry.excludes = Arrays.stream(flagArg.excludes())
+            .filter(s -> !s.isEmpty())
+            .collect(Collectors.toList());
+        entry.argType = ArgType.FLAG;
+
+        return true;
+    }
+
+    private boolean evaluateNamedArg(Field field, ArgEntry entry) {
+        final var namedArg = field.getAnnotation(NamedArg.class);
+        if (namedArg == null) {
+            return false;
+        }
+
+        namedArgs.put(namedArg.name(), entry);
+        entry.parser = argumentHandlers.get(namedArg.handler());
+        if (entry.parser == null) {
+            LOG.error(String.format("No parser found for named argument at %s", namedArg.name()));
+            throw new RuntimeException();
+        }
+        if (!namedArg.descLangKey()
+            .isEmpty()) {
+            descriptionLangKeys.add(namedArg.descLangKey());
+        }
+        entry.excludes = Arrays.stream(namedArg.excludes())
+            .filter(s -> !s.isEmpty())
+            .collect(Collectors.toList());
+        entry.argType = ArgType.NAMED;
+
+        return true;
+    }
+
     private static class ArgEntry {
 
         public IArgumentHandler parser;
         public BiConsumer<Object, Object> setter;
         public boolean isList;
         public List<String> excludes = Collections.emptyList();
+        public ArgType argType;
+    }
+
+    private enum ArgType {
+        POS,
+        FLAG,
+        NAMED;
     }
 }

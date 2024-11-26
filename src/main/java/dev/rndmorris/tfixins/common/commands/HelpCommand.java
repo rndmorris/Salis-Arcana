@@ -1,11 +1,13 @@
 package dev.rndmorris.tfixins.common.commands;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.CommandNameHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.positional.CommandNameHandler;
 import dev.rndmorris.tfixins.config.CommandSettings;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 
@@ -31,7 +33,7 @@ public class HelpCommand extends FixinsCommandBase<HelpCommand.Arguments> {
     }
 
     @Override
-    protected ArgumentProcessor<Arguments> initializeProcessor() {
+    protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,

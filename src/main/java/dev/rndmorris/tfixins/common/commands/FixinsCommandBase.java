@@ -10,6 +10,8 @@ import javax.annotation.Nonnull;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChatStyle;
+import net.minecraft.util.EnumChatFormatting;
 
 import dev.rndmorris.tfixins.ThaumicFixins;
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
@@ -26,7 +28,7 @@ public abstract class FixinsCommandBase<T> extends CommandBase {
         this.argumentProcessor = initializeProcessor();
     }
 
-    protected abstract ArgumentProcessor<T> initializeProcessor();
+    protected abstract @Nonnull ArgumentProcessor<T> initializeProcessor();
 
     @Override
     public String getCommandName() {
@@ -61,13 +63,34 @@ public abstract class FixinsCommandBase<T> extends CommandBase {
     }
 
     public void printHelp(ICommandSender sender) {
-        final var header = Arrays.stream(
-            new String[] { String.format("tfixins:command.%s.desc", settings.name), "tfixins:command.usage",
-                String.format("tfixins:command.%s.usage", settings.name), "tfixins:command.args", });
+        final var titleStyle = new ChatStyle();
+        titleStyle.setBold(true);
+        titleStyle.setColor(EnumChatFormatting.BLUE);
+
+        final var description = new ChatComponentTranslation("tfixins:command.desc");
+        description.setChatStyle(titleStyle);
+        description.appendText(" ");
+        final var descriptionText = new ChatComponentTranslation(
+            String.format("tfixins:command.%s.desc", settings.name));
+        descriptionText.getChatStyle()
+            .setColor(EnumChatFormatting.RESET)
+            .setBold(false);
+        description.appendSibling(descriptionText);
+
+        final var usageTitle = new ChatComponentTranslation("tfixins:command.usage");
+        usageTitle.setChatStyle(titleStyle);
+
+        final var argumentsTitle = new ChatComponentTranslation("tfixins:command.args");
+        argumentsTitle.setChatStyle(titleStyle);
+
+        final var first = Arrays.stream(
+            new ChatComponentTranslation[] { description, usageTitle,
+                new ChatComponentTranslation(String.format("tfixins:command.%s.usage", settings.name)), argumentsTitle
+
+            });
         final var descLangKeys = argumentProcessor.descriptionLangKeys.stream()
-            .map(key -> String.format("tfixins:command.%s.args.%s", settings.name, key));
-        Stream.concat(header, descLangKeys)
-            .map(ChatComponentTranslation::new)
+            .map(key -> new ChatComponentTranslation(String.format("tfixins:command.%s.args.%s", settings.name, key)));
+        Stream.concat(first, descLangKeys)
             .forEachOrdered(sender::addChatMessage);
     }
 

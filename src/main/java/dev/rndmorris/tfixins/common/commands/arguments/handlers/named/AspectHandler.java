@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.common.commands.arguments.handlers;
+package dev.rndmorris.tfixins.common.commands.arguments.handlers.named;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,18 +7,15 @@ import java.util.List;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import thaumcraft.api.aspects.Aspect;
 
-public class AspectHandler implements IArgumentHandler {
+public class AspectHandler implements INamedArgumentHandler {
 
     public static final IArgumentHandler INSTANCE = new AspectHandler();
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-        current = "";
-        if (args.hasNext()) {
-            current = args.next();
-        }
         return getAspect(current);
     }
 
@@ -36,11 +33,8 @@ public class AspectHandler implements IArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        if (args.hasNext()) {
-            args.next();
-            if (!args.hasNext()) {
-                return new ArrayList<>(Aspect.aspects.keySet());
-            }
+        if (!args.hasNext()) {
+            return new ArrayList<>(Aspect.aspects.keySet());
         }
 
         return null;

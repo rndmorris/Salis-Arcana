@@ -1,7 +1,9 @@
 package dev.rndmorris.tfixins.config;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
@@ -13,14 +15,16 @@ import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
 public class CommandSettings {
 
     public final Set<String> aliases = new HashSet<>();
+    public final Map<String, String> childPermissionDescription = new TreeMap<>();
+    public final Map<String, Byte> childPermissionLevels = new TreeMap<>();
     public final @Nonnull String name;
 
     private final Supplier<Boolean> moduleEnabled;
 
-    private @Nullable Supplier<FixinsCommandBase> commandGetter;
+    private @Nullable Supplier<FixinsCommandBase<?>> commandGetter;
     private @Nonnull String description = "";
     private boolean enabled = true;
-    private int permissionLevel = 4;
+    private byte permissionLevel = 4;
 
     public CommandSettings(@Nonnull String name, Supplier<Boolean> moduleEnabled) {
         this.name = name;
@@ -29,6 +33,12 @@ public class CommandSettings {
 
     public CommandSettings addAlias(String alias) {
         aliases.add(alias);
+        return this;
+    }
+
+    public CommandSettings addChildPermissionLevel(String name, int level, String description) {
+        childPermissionLevels.put(name, (byte) level);
+        childPermissionDescription.put(name, description);
         return this;
     }
 
@@ -57,7 +67,7 @@ public class CommandSettings {
         return permissionLevel;
     }
 
-    public void setCommandGetter(Supplier<FixinsCommandBase> commandGetter) {
+    public void setCommandGetter(@Nullable Supplier<FixinsCommandBase<?>> commandGetter) {
         this.commandGetter = commandGetter;
     }
 
@@ -71,7 +81,7 @@ public class CommandSettings {
     }
 
     public CommandSettings setPermissionLevel(int permissionLevel) {
-        this.permissionLevel = permissionLevel;
+        this.permissionLevel = (byte) permissionLevel;
         return this;
     }
 }
