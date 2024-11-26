@@ -38,7 +38,7 @@ public class CommandsModule implements IConfigModule {
         .setDescription("Update the properties of a node at the specified coordiantes.")
         .setPermissionLevel(2);
 
-    public final CommandSettings[] commandsSettings = new CommandSettings[] { createNode, help, playerResearch,
+    public final CommandSettings[] commandsSettings = new CommandSettings[] { createNode, forgetResearch, help, playerResearch,
         updateNode, };
 
     @Nonnull
