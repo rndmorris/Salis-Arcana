@@ -18,9 +18,12 @@ import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.PlayerHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.ResearchKeyHandler;
 import dev.rndmorris.tfixins.config.FixinsConfig;
+import net.minecraft.util.ChatComponentTranslation;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.config.Config;
 
 public class ForgetResearchCommand extends FixinsCommandBase<ForgetResearchCommand.Arguments> {
 
@@ -67,6 +70,10 @@ public class ForgetResearchCommand extends FixinsCommandBase<ForgetResearchComma
             .collect(Collectors.toMap(r -> r.key, r -> r));
         final var visited = new TreeSet<>(toForget);
 
+        var permWarp = 0;
+        var stickyWarp = 0;
+        var removedCount = 0;
+
         while (!toForget.isEmpty()) {
             final var key = toForget.poll();
             final var data = researchMap.get(key);
@@ -76,9 +83,18 @@ public class ForgetResearchCommand extends FixinsCommandBase<ForgetResearchComma
             }
 
             if (!data.isAutoUnlock()) {
+                removedCount += 1;
+
                 final var removeIndex = playerResearch.indexOf(key);
                 if (removeIndex >= 0) {
                     playerResearch.remove(removeIndex);
+                }
+
+                final var warp = ThaumcraftApi.getWarp(key);
+                if (warp > 0 && !Config.wuss && !arguments.targetPlayer.worldObj.isRemote) {
+                    final var sticky = warp / 2;
+                    permWarp += warp - sticky;
+                    stickyWarp += sticky;
                 }
             }
 
@@ -119,7 +135,7 @@ public class ForgetResearchCommand extends FixinsCommandBase<ForgetResearchComma
                     visited.add(r.key);
                 });
         }
-
+        sender.addChatMessage(new ChatComponentTranslation("tfixins:command.forget-research.success", removedCount, permWarp, stickyWarp));
     }
 
     public static class Arguments {

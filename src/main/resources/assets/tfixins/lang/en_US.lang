@@ -21,6 +21,8 @@ tfixins:command.forget-research.args.research=§7<--research-key>§r Specify the
 tfixins:command.forget-research.args.player=§7[--player <username>]§r Specify the player whose research will be altered. If not provided, defaults to the player executing this command.
 tfixins:command.forget-research.args.scalpel=§7[--scalpel]§r If set, the specified research will be removed, but not any of its siblings or descendants. This may have unexpected side effects. Mutually exclusive with §7all§r.
 
+tfixins:command.forget-research.success=§9Success:§r Removed %d research items collectively worth %d permanent warp and %d sticky warp.
+
 tfixins:command.help.desc=§9§lDescription:§r Get help information about a Thaumic Fixins command.
 tfixins:command.help.usage=§7/tfixins-update-node §7<command>§r
 tfixins:command.help.args.cmd=§7§o<command>§r §cRequired.§r The name or alias of a Thaumic Fixins command.
