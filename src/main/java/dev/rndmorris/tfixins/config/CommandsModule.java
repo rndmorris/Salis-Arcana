@@ -1,28 +1,38 @@
 package dev.rndmorris.tfixins.config;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 
+import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
 import net.minecraftforge.common.config.Configuration;
 
 public class CommandsModule implements IConfigModule {
 
-    public final @Nonnull CommandSettings createNode = new CommandSettings("create-node")
+    private boolean enabled = true;
+
+    public final @Nonnull CommandSettings createNode = new CommandSettings("create-node", this::isEnabled)
+        .addDefaultAlias()
         .setDescription(
             "Create a node at specified coordinates, optionally with specified brightness, type, and aspects.")
         .setPermissionLevel(2);
 
-    public final @Nonnull CommandSettings updateNode = new CommandSettings("update-node")
+    public final @Nonnull CommandSettings help = new CommandSettings("help", this::isEnabled)
+        .addAlias("tf-help")
+        .setDescription("Get help information about Thaumic Fixin's commands.")
+        .setPermissionLevel(0);
+
+    public final @Nonnull CommandSettings updateNode = new CommandSettings("update-node", this::isEnabled)
+        .addDefaultAlias()
         .setDescription("Update the properties of a node at the specified coordiantes.")
         .setPermissionLevel(2);
 
-    @Override
-    public boolean enabledByDefault() {
-        return true;
-    }
+    public final CommandSettings[] commandsSettings = new CommandSettings[] {
+        createNode,
+        help,
+        updateNode,
+    };
 
     @Nonnull
     @Override
@@ -37,18 +47,32 @@ public class CommandsModule implements IConfigModule {
     }
 
     @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
     public void loadModuleFromConfig(@Nonnull Configuration configuration) {
-        loadCommandSettings(configuration, createNode);
+        for (var settings : commandsSettings) {
+            loadCommandSettings(configuration, settings);
+        }
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     private void loadCommandSettings(Configuration configuration, CommandSettings settings) {
-        settings.enabled = configuration.getBoolean(
+        var enabled = configuration.getBoolean(
             String.format("Enable %s command", settings.name),
             getModuleId(),
-            settings.enabled,
+            settings.isEnabled(),
             settings.getDescription());
 
-        if (!settings.enabled) {
+        settings.setEnabled(enabled);
+
+        if (!settings.isEnabled()) {
             return;
         }
 
@@ -73,36 +97,4 @@ public class CommandsModule implements IConfigModule {
         settings.setPermissionLevel(permissionLevel);
     }
 
-    public static class CommandSettings {
-
-        public final Set<String> aliases = new HashSet<>();
-        public boolean enabled = true;
-        public final @Nonnull String name;
-
-        private @Nonnull String description = "";
-        private int permissionLevel = 4;
-
-        public CommandSettings(@Nonnull String name) {
-            this.name = name;
-            aliases.add(name);
-        }
-
-        public @Nonnull String getDescription() {
-            return description;
-        }
-
-        public int getPermissionLevel() {
-            return permissionLevel;
-        }
-
-        public CommandSettings setDescription(@Nonnull String description) {
-            this.description = description;
-            return this;
-        }
-
-        public CommandSettings setPermissionLevel(int permissionLevel) {
-            this.permissionLevel = permissionLevel;
-            return this;
-        }
-    }
 }

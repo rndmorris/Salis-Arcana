@@ -23,8 +23,8 @@ public class FixinsConfig {
         for (var module : loadModules) {
             final var toggleName = String.format("Enable %s module", module.getModuleId());
             final var enabled = configuration
-                .getBoolean(toggleName, modulesCategory, module.enabledByDefault(), module.getModuleComment());
-
+                .getBoolean(toggleName, modulesCategory, module.isEnabled(), module.getModuleComment());
+            module.setEnabled(enabled);
             if (enabled) {
                 module.loadModuleFromConfig(configuration);
             }
