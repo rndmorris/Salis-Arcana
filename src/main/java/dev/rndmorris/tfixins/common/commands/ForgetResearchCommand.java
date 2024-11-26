@@ -8,6 +8,8 @@ import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentTranslation;
@@ -33,7 +35,7 @@ public class ForgetResearchCommand extends FixinsCommandBase<ForgetResearchComma
     }
 
     @Override
-    protected ArgumentProcessor<Arguments> initializeProcessor() {
+    protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,

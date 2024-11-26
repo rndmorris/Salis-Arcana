@@ -26,7 +26,7 @@ public abstract class FixinsCommandBase<T> extends CommandBase {
         this.argumentProcessor = initializeProcessor();
     }
 
-    protected abstract ArgumentProcessor<T> initializeProcessor();
+    protected abstract @Nonnull ArgumentProcessor<T> initializeProcessor();
 
     @Override
     public String getCommandName() {

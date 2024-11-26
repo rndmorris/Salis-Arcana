@@ -3,6 +3,8 @@ package dev.rndmorris.tfixins.common.commands;
 import java.util.TreeSet;
 import java.util.function.Predicate;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -26,7 +28,7 @@ public class ListResearchCommand extends FixinsCommandBase<ListResearchCommand.A
     }
 
     @Override
-    protected ArgumentProcessor<Arguments> initializeProcessor() {
+    protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,

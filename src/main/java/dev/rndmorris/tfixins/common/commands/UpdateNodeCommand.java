@@ -3,6 +3,8 @@ package dev.rndmorris.tfixins.common.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -81,7 +83,7 @@ public class UpdateNodeCommand extends FixinsCommandBase<UpdateNodeCommand.Argum
     }
 
     @Override
-    protected ArgumentProcessor<Arguments> initializeProcessor() {
+    protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,

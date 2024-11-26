@@ -1,5 +1,7 @@
 package dev.rndmorris.tfixins.common.commands;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
@@ -31,7 +33,7 @@ public class HelpCommand extends FixinsCommandBase<HelpCommand.Arguments> {
     }
 
     @Override
-    protected ArgumentProcessor<Arguments> initializeProcessor() {
+    protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,
