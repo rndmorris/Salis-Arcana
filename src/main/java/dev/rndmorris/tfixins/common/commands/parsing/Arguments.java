@@ -2,12 +2,9 @@ package dev.rndmorris.tfixins.common.commands.parsing;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
@@ -49,18 +46,14 @@ public class Arguments {
             }
 
             if (positional.containsKey(index)) {
-                currentParser = positional.get(index)
-                    .parser
-                    .invoke(arg);
+                currentParser = positional.get(index).parser.invoke(arg);
                 continue;
             }
 
             if (named.containsKey(arg)) {
                 final var entry = named.get(arg);
                 final var storedCount = namedCounts.get(arg);
-                final var count = storedCount != null
-                    ? storedCount
-                    : 0;
+                final var count = storedCount != null ? storedCount : 0;
 
                 if (count > entry.maxCount) {
                     throw new CommandException("tfixins:command.too_many_occurrences", arg, entry.maxCount);
@@ -111,9 +104,7 @@ public class Arguments {
             if (named.containsKey(arg)) {
                 final var entry = named.get(arg);
                 final var storedCount = namedCounts.get(arg);
-                final var count = storedCount != null
-                    ? storedCount
-                    : 0;
+                final var count = storedCount != null ? storedCount : 0;
 
                 if (entry.maxCount < count) {
                     continue;
@@ -123,14 +114,19 @@ public class Arguments {
             }
         }
 
-        return named.entrySet().stream().filter(e -> {
-            final var storedCount = namedCounts.get(e.getKey());
-            final var count = storedCount != null ? storedCount : 0;
-            return count < e.getValue().maxCount;
-        }).map(Map.Entry::getKey).collect(Collectors.toSet());
+        return named.entrySet()
+            .stream()
+            .filter(e -> {
+                final var storedCount = namedCounts.get(e.getKey());
+                final var count = storedCount != null ? storedCount : 0;
+                return count < e.getValue().maxCount;
+            })
+            .map(Map.Entry::getKey)
+            .collect(Collectors.toSet());
     }
 
     private static class Entry {
+
         public AutoComplete autoComplete;
         public Parser parser;
         public int maxCount = Integer.MAX_VALUE;

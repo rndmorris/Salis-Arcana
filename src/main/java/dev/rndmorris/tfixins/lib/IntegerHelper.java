@@ -5,8 +5,7 @@ public class IntegerHelper {
     public static Integer tryParse(String val) {
         try {
             return Integer.parseInt(val);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return null;
         }
     }
