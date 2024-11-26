@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -21,20 +22,16 @@ public class CoordinateHandler implements IArgumentHandler {
         final var x = (int) CommandBase.func_110666_a(sender, player.posX, current);
 
         if (!input.hasNext()) {
-            invalid();
+            CommandErrors.invalidSyntax();
         }
         final var y = (int) CommandBase.func_110666_a(sender, player.posY, input.next());
 
         if (!input.hasNext()) {
-            invalid();
+            CommandErrors.invalidSyntax();
         }
         final var z = (int) CommandBase.func_110666_a(sender, player.posZ, input.next());
 
         return new CoordinateArgument(x, y, z);
-    }
-
-    private void invalid() {
-        throw new CommandException("commands.generic.syntax");
     }
 
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {

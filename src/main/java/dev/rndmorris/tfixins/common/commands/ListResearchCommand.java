@@ -41,7 +41,7 @@ public class ListResearchCommand extends FixinsCommandBase<ListResearchCommand.A
 
         if (arguments.forPlayer != null) {
             if (!sender.canCommandSenderUseCommand(settings.childPermissionLevels.get(listOthersReserach), settings.getFullName())) {
-                throw new CommandException("commands.generic.permission");
+                CommandErrors.insufficientPermission();
             }
             final var playerKnowledge = new TreeSet<>(
                 Thaumcraft.proxy.playerKnowledge.researchCompleted.get(arguments.forPlayer.getCommandSenderName()));

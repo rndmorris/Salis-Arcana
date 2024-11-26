@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 
@@ -16,11 +16,11 @@ public class PlayerHandler implements IArgumentHandler {
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
         if (!args.hasNext()) {
-            throw new CommandException("commands.generic.syntax");
+            CommandErrors.invalidSyntax();
         }
         final var player = CommandBase.getPlayer(sender, args.next());
         if (player == null) {
-            throw new CommandException("commands.generic.player.notFound");
+            CommandErrors.playerNotFound();
         }
         return player;
     }

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.command.CommandException;
+import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.config.CommandSettings;
@@ -19,10 +19,10 @@ public class CommandNameHandler implements IArgumentHandler {
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
         final var command = findCommand(current);
         if (command == null) {
-            throw new CommandException("commands.generic.notFound");
+            CommandErrors.commandNotFound();
         }
         if (!sender.canCommandSenderUseCommand(command.getPermissionLevel(), command.getFullName())) {
-            throw new CommandException("commands.generic.permission");
+            CommandErrors.insufficientPermission();
         }
         return command;
     }
