@@ -14,4 +14,6 @@ public @interface NamedArg {
     String name();
 
     Class<? extends IArgumentHandler> handler();
+
+    String[] excludes() default "";
 }

@@ -11,7 +11,6 @@ import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.NodeModifierHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.NodeTypeHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.QuantitativeAspectHandler;
-import dev.rndmorris.tfixins.common.commands.parsing.ArgumentProcessor;
 
 public class CreateNodeArguments {
 
@@ -36,13 +35,13 @@ public class CreateNodeArguments {
     @PositionalArg(index = 2, parser = CoordinateHandler.Z.class)
     public int z;
 
-    @NamedArg(name = "--silverwood", handler = FlagHandler.class)
+    @NamedArg(name = "--silverwood", handler = FlagHandler.class, excludes = { "--eerie", "--small" })
     public boolean silverwood;
 
-    @NamedArg(name = "--eerie", handler = FlagHandler.class)
+    @NamedArg(name = "--eerie", handler = FlagHandler.class, excludes = { "--silverwood" })
     public boolean eerie;
 
-    @NamedArg(name = "--small", handler = FlagHandler.class)
+    @NamedArg(name = "--small", handler = FlagHandler.class, excludes = { "--silverwood", "-a" })
     public boolean small;
 
     @NamedArg(name = "-t", handler = NodeTypeHandler.class)
@@ -51,7 +50,7 @@ public class CreateNodeArguments {
     @NamedArg(name = "-m", handler = NodeModifierHandler.class)
     public NodeModifierArgument nodeModifier;
 
-    @NamedArg(name = "-a", handler = QuantitativeAspectHandler.class)
+    @NamedArg(name = "-a", handler = QuantitativeAspectHandler.class, excludes = "--small")
     public List<QuantitativeAspectArgument> aspects = new ArrayList<>();
 
 }

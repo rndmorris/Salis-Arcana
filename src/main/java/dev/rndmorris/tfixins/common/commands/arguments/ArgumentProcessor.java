@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.common.commands.parsing;
+package dev.rndmorris.tfixins.common.commands.arguments;
 
 import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
 
@@ -43,7 +43,7 @@ public class ArgumentProcessor<TArguments> {
 
     public TArguments process(ICommandSender sender, String[] args) {
 
-        final var foundNames = new TreeSet<>(String::compareToIgnoreCase);
+        final var excludedNames = new TreeSet<>(String::compareToIgnoreCase);
         final var arguments = initializer.get();
 
         final var $args = Arrays.stream(args)
@@ -57,10 +57,11 @@ public class ArgumentProcessor<TArguments> {
                 entry = positionalArgs.get(index);
             } else if (namedArgs.containsKey(current)) {
                 final var namedEntry = namedArgs.get(current);
-                if (!namedEntry.isList || !foundNames.contains(current)) {
-                    foundNames.add(current);
+                if (!namedEntry.isList || !excludedNames.contains(current)) {
+                    excludedNames.add(current);
                     entry = namedEntry;
                 }
+                excludedNames.addAll(namedEntry.excludes);
             }
 
             if (entry == null) {
@@ -77,7 +78,7 @@ public class ArgumentProcessor<TArguments> {
     }
 
     public List<String> getAutocompletionSuggestions(ICommandSender sender, String[] args) {
-        final var foundNames = new TreeSet<String>();
+        final var excludedNames = new TreeSet<String>();
 
         final var $args = Arrays.stream(args)
             .iterator();
@@ -90,16 +91,17 @@ public class ArgumentProcessor<TArguments> {
                 entry = positionalArgs.get(index);
             } else if (namedArgs.containsKey(current)) {
                 final var namedEntry = namedArgs.get(current);
-                if (!namedEntry.isList || !foundNames.contains(current)) {
-                    foundNames.add(current);
+                if (!namedEntry.isList || !excludedNames.contains(current)) {
+                    excludedNames.add(current);
                     entry = namedEntry;
                 }
+                excludedNames.addAll(namedEntry.excludes);
             }
 
             if (entry == null) {
                 return namedArgs.keySet()
                     .stream()
-                    .filter(k -> !foundNames.contains(k))
+                    .filter(k -> !excludedNames.contains(k))
                     .collect(Collectors.toList());
             }
 
@@ -135,6 +137,9 @@ public class ArgumentProcessor<TArguments> {
                 if (entry.parser == null) {
                     throw new RuntimeException(String.format("No parser found for named argument %s", namedArg.name()));
                 }
+                entry.excludes = Arrays.stream(namedArg.excludes())
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toList());
             }
 
             final var fieldType = field.getType();
@@ -177,5 +182,6 @@ public class ArgumentProcessor<TArguments> {
         public IArgumentHandler parser;
         public BiConsumer<Object, Object> setter;
         public boolean isList;
+        public List<String> excludes = Collections.emptyList();
     }
 }
