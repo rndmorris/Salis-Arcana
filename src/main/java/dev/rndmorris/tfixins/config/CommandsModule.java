@@ -23,8 +23,7 @@ public class CommandsModule implements IConfigModule {
 
     public CommandsModule() {
         commandsSettings = new CommandSettings[] {
-            createNode= new CommandSettings("create-node", this::isEnabled)
-                .addDefaultAlias()
+            createNode = new CommandSettings("create-node", this::isEnabled).addDefaultAlias()
                 .setDescription(
                     "Create a node at specified coordinates, optionally with specified brightness, type, and aspects.")
                 .setPermissionLevel(2),
@@ -44,11 +43,9 @@ public class CommandsModule implements IConfigModule {
                 .addDefaultAlias()
                 .setPermissionLevel(0)
                 .addChildPermissionLevel(listOthersReserach, 2, "list another player's research."),
-            updateNode = new CommandSettings("update-node", this::isEnabled)
-                .addDefaultAlias()
+            updateNode = new CommandSettings("update-node", this::isEnabled).addDefaultAlias()
                 .setDescription("Update the properties of a node at the specified coordiantes.")
-                .setPermissionLevel(2),
-        };
+                .setPermissionLevel(2), };
     }
 
     @Nonnull

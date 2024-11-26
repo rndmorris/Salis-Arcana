@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.CommandErrors;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import thaumcraft.api.research.ResearchCategories;
 
 public class ResearchKeyHandler implements INamedArgumentHandler {

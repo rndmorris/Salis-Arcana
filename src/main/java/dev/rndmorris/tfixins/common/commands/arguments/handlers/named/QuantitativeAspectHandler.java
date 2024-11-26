@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.arguments.QuantitativeAspectArgument;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import thaumcraft.api.aspects.Aspect;
 
 public class QuantitativeAspectHandler implements INamedArgumentHandler {

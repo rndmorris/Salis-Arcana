@@ -1,12 +1,12 @@
 package dev.rndmorris.tfixins.common.commands.arguments.annotations;
 
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.IFlagArgumentHandler;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.IFlagArgumentHandler;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

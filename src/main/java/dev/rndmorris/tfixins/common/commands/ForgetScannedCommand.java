@@ -1,8 +1,9 @@
 package dev.rndmorris.tfixins.common.commands;
 
+import net.minecraft.command.ICommandSender;
+
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.tfixins.config.FixinsConfig;
-import net.minecraft.command.ICommandSender;
 
 public class ForgetScannedCommand extends FixinsCommandBase<ForgetScannedCommand.Arguments> {
 

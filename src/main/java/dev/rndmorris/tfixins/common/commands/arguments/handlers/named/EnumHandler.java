@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 

@@ -4,12 +4,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import dev.rndmorris.tfixins.common.commands.arguments.CoordinateArgument;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 
 public class CoordinateHandler implements IPositionalArgumentHandler {
 

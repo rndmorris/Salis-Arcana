@@ -3,8 +3,6 @@ package dev.rndmorris.tfixins.common.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.rndmorris.tfixins.common.commands.arguments.annotations.FlagArg;
-import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -13,14 +11,15 @@ import dev.rndmorris.tfixins.common.commands.arguments.CoordinateArgument;
 import dev.rndmorris.tfixins.common.commands.arguments.NodeModifierArgument;
 import dev.rndmorris.tfixins.common.commands.arguments.NodeTypeArgument;
 import dev.rndmorris.tfixins.common.commands.arguments.QuantitativeAspectArgument;
+import dev.rndmorris.tfixins.common.commands.arguments.annotations.FlagArg;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.positional.CoordinateHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.NodeModifierHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.NodeTypeHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.QuantitativeAspectHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.positional.CoordinateHandler;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
@@ -88,19 +87,13 @@ public class CreateNodeCommand extends FixinsCommandBase<CreateNodeCommand.Argum
         @NamedArg(name = "-m", handler = NodeModifierHandler.class, descLangKey = "modifier")
         public NodeModifierArgument nodeModifier;
 
-        @FlagArg(
-            name = "--silverwood",
-            excludes = { "--eerie", "--small" },
-            descLangKey = "silverwood")
+        @FlagArg(name = "--silverwood", excludes = { "--eerie", "--small" }, descLangKey = "silverwood")
         public boolean silverwood;
 
         @FlagArg(name = "--eerie", excludes = { "--silverwood" }, descLangKey = "eerie")
         public boolean eerie;
 
-        @FlagArg(
-            name = "--small",
-            excludes = { "--silverwood", "-a" },
-            descLangKey = "small")
+        @FlagArg(name = "--small", excludes = { "--silverwood", "-a" }, descLangKey = "small")
         public boolean small;
 
         @NamedArg(name = "-a", handler = QuantitativeAspectHandler.class, excludes = "--small", descLangKey = "aspect")

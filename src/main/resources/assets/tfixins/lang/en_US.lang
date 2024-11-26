@@ -24,7 +24,7 @@ tfixins:command.forget-research.args.scalpel=§7[--scalpel]§r If set, the speci
 tfixins:command.forget-research.success=§9Success:§r Removed %d research items collectively worth %d permanent warp and %d sticky warp.
 
 tfixins:command.help.desc=§9§lDescription:§r Get help information about a Thaumic Fixins command.
-tfixins:command.help.usage=§7/tfixins-update-node §7<command>§r
+tfixins:command.help.usage=§7/tfixins-help §7<command>§r
 tfixins:command.help.args.cmd=§7§o<command>§r §cRequired.§r The name or alias of a Thaumic Fixins command.
 
 tfixins:command.player-research.desc=§9§lDescription:§r List registered TC4 research, grouped by tab in the Thaumonomicon.

@@ -10,15 +10,16 @@ import java.util.stream.Collectors;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.ChatComponentTranslation;
 
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
+import dev.rndmorris.tfixins.common.commands.arguments.annotations.FlagArg;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.ResearchKeyHandler;
 import dev.rndmorris.tfixins.config.FixinsConfig;
-import net.minecraft.util.ChatComponentTranslation;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -135,12 +136,17 @@ public class ForgetResearchCommand extends FixinsCommandBase<ForgetResearchComma
                     visited.add(r.key);
                 });
         }
-        sender.addChatMessage(new ChatComponentTranslation("tfixins:command.forget-research.success", removedCount, permWarp, stickyWarp));
+        sender.addChatMessage(
+            new ChatComponentTranslation(
+                "tfixins:command.forget-research.success",
+                removedCount,
+                permWarp,
+                stickyWarp));
     }
 
     public static class Arguments {
 
-        @NamedArg(name = "--all", handler = FlagHandler.class, excludes = {"--research-key", "--scalpel"}, descLangKey = "all")
+        @FlagArg(name = "--all", excludes = { "--research-key", "--scalpel" }, descLangKey = "all")
         public boolean allResearch;
 
         @NamedArg(
@@ -153,7 +159,7 @@ public class ForgetResearchCommand extends FixinsCommandBase<ForgetResearchComma
         @NamedArg(name = "--player", handler = PlayerHandler.class, descLangKey = "player")
         public EntityPlayerMP targetPlayer;
 
-        @NamedArg(name = "--scalpel", handler = FlagHandler.class, excludes = {"--all"}, descLangKey = "scalpel")
+        @FlagArg(name = "--scalpel", excludes = { "--all" }, descLangKey = "scalpel")
         public boolean scalpel;
     }
 }

@@ -4,8 +4,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import net.minecraft.command.ICommandSender;
+
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 
 public class SearchHandler implements INamedArgumentHandler {
 
