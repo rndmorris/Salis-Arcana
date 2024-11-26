@@ -1,7 +1,3 @@
-tfixins:command.aliases=/%s aliases:
-tfixins:command.aliases_none=/%s has no aliases
-tfixins:command.too_many_occurrences=Argument %s must only be provided %d time(s).
-
 tfixins:command.create-node.failure=A node could not be created at %d %d %d.
 tfixins:command.update-node.not_found=A node was not found at %d %d %d.
 
