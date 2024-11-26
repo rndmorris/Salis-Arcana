@@ -15,10 +15,10 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
+import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.FlagArg;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
