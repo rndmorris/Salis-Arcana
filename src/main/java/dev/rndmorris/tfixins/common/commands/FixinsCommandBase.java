@@ -70,10 +70,12 @@ public abstract class FixinsCommandBase<T> extends CommandBase {
         final var description = new ChatComponentTranslation("tfixins:command.desc");
         description.setChatStyle(titleStyle);
         description.appendText(" ");
-        final var descriptionText = new ChatComponentTranslation(String.format("tfixins:command.%s.desc", settings.name));
-        descriptionText.getChatStyle().setColor(EnumChatFormatting.RESET).setBold(false);
-        description
-            .appendSibling(descriptionText);
+        final var descriptionText = new ChatComponentTranslation(
+            String.format("tfixins:command.%s.desc", settings.name));
+        descriptionText.getChatStyle()
+            .setColor(EnumChatFormatting.RESET)
+            .setBold(false);
+        description.appendSibling(descriptionText);
 
         final var usageTitle = new ChatComponentTranslation("tfixins:command.usage");
         usageTitle.setChatStyle(titleStyle);
