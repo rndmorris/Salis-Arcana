@@ -15,6 +15,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -57,29 +58,39 @@ public class ArgumentProcessor<TArguments> {
         var index = 0;
 
         while ($args.hasNext()) {
-            final var current = $args.next();
+            var current = $args.next();
             ArgEntry entry = null;
 
             if (positionalArgs.containsKey(index)) {
                 entry = positionalArgs.get(index);
             } else if (flagArgs.containsKey(current)) {
-                final var flagEntry = flagArgs.get(current);
-                if (!excludedNames.contains(current)) {
-                    excludedNames.add(current);
-                    entry = flagEntry;
-                }
-                excludedNames.addAll(flagEntry.excludes);
+                entry = flagArgs.get(current);
             } else if (namedArgs.containsKey(current)) {
-                final var namedEntry = namedArgs.get(current);
-                if (!namedEntry.isList || !excludedNames.contains(current)) {
-                    excludedNames.add(current);
-                    entry = namedEntry;
+                entry = namedArgs.get(current);
+            }
+
+            if (entry != null && (entry.argType == ArgType.FLAG || entry.argType == ArgType.NAMED)) {
+                if (excludedNames.contains(current)) {
+                    entry = null;
+                } else {
+                    if (!entry.isList) {
+                        excludedNames.add(current);
+                    }
+                    excludedNames.addAll(entry.excludes);
                 }
-                excludedNames.addAll(namedEntry.excludes);
             }
 
             if (entry == null) {
                 throw new CommandException("tfixins:error.unexpected_value", current);
+            }
+
+            // pre-advance the iterator for named arguments, because they ALL need it
+            if (entry.argType == ArgType.NAMED) {
+                if ($args.hasNext()) {
+                    current = $args.next();
+                } else {
+                    CommandErrors.invalidSyntax();
+                }
             }
 
             final var value = entry.parser.parse(sender, current, $args);
@@ -99,24 +110,26 @@ public class ArgumentProcessor<TArguments> {
         var index = 0;
 
         while ($args.hasNext()) {
-            final var current = $args.next();
+            var current = $args.next();
             ArgEntry entry = null;
+
             if (positionalArgs.containsKey(index)) {
                 entry = positionalArgs.get(index);
             } else if (flagArgs.containsKey(current)) {
-                final var flagEntry = flagArgs.get(current);
-                if (!excludedNames.contains(current)) {
-                    excludedNames.add(current);
-                    entry = flagEntry;
-                }
-                excludedNames.addAll(flagEntry.excludes);
+                entry = flagArgs.get(current);
             } else if (namedArgs.containsKey(current)) {
-                final var namedEntry = namedArgs.get(current);
-                if (!namedEntry.isList || !excludedNames.contains(current)) {
-                    excludedNames.add(current);
-                    entry = namedEntry;
+                entry = namedArgs.get(current);
+            }
+
+            if (entry != null && (entry.argType == ArgType.FLAG || entry.argType == ArgType.NAMED)) {
+                if (excludedNames.contains(current)) {
+                    entry = null;
+                } else {
+                    if (!entry.isList) {
+                        excludedNames.add(current);
+                    }
+                    excludedNames.addAll(entry.excludes);
                 }
-                excludedNames.addAll(namedEntry.excludes);
             }
 
             if (entry == null) {
@@ -128,6 +141,15 @@ public class ArgumentProcessor<TArguments> {
                     .filter(k -> !excludedNames.contains(k));
                 return Stream.concat(availableFlags, availableNames)
                     .collect(Collectors.toList());
+            }
+
+            // pre-advance the iterator for named arguments, because they ALL need it
+            if (entry.argType == ArgType.NAMED) {
+                if ($args.hasNext()) {
+                    current = $args.next();
+                } else {
+                    return Collections.emptyList();
+                }
             }
 
             final var result = entry.parser.getAutocompleteOptions(sender, current, $args);
@@ -202,6 +224,8 @@ public class ArgumentProcessor<TArguments> {
             .isEmpty()) {
             descriptionLangKeys.add(posArg.descLangKey());
         }
+        entry.argType = ArgType.POS;
+
         return true;
     }
 
@@ -224,6 +248,7 @@ public class ArgumentProcessor<TArguments> {
         entry.excludes = Arrays.stream(flagArg.excludes())
             .filter(s -> !s.isEmpty())
             .collect(Collectors.toList());
+        entry.argType = ArgType.FLAG;
 
         return true;
     }
@@ -247,6 +272,7 @@ public class ArgumentProcessor<TArguments> {
         entry.excludes = Arrays.stream(namedArg.excludes())
             .filter(s -> !s.isEmpty())
             .collect(Collectors.toList());
+        entry.argType = ArgType.NAMED;
 
         return true;
     }
@@ -257,5 +283,12 @@ public class ArgumentProcessor<TArguments> {
         public BiConsumer<Object, Object> setter;
         public boolean isList;
         public List<String> excludes = Collections.emptyList();
+        public ArgType argType;
+    }
+
+    private enum ArgType {
+        POS,
+        FLAG,
+        NAMED;
     }
 }

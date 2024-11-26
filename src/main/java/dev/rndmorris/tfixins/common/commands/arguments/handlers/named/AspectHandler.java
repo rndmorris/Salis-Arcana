@@ -16,10 +16,6 @@ public class AspectHandler implements INamedArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-        current = "";
-        if (args.hasNext()) {
-            current = args.next();
-        }
         return getAspect(current);
     }
 
@@ -37,11 +33,8 @@ public class AspectHandler implements INamedArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        if (args.hasNext()) {
-            args.next();
-            if (!args.hasNext()) {
-                return new ArrayList<>(Aspect.aspects.keySet());
-            }
+        if (!args.hasNext()) {
+            return new ArrayList<>(Aspect.aspects.keySet());
         }
 
         return null;

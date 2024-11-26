@@ -20,16 +20,10 @@ public abstract class EnumHandler<E extends Enum<E>> implements INamedArgumentHa
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-        E result = null;
-        String name = null;
 
-        if (args.hasNext()) {
-            name = args.next();
-            result = EnumHelper.tryParseEnum(enumDefinition.getEnumConstants(), name);
-        }
-
+        final var result = EnumHelper.tryParseEnum(enumDefinition.getEnumConstants(), current);
         if (result == null) {
-            throw new CommandException("tfixins:error.unknown_value", name);
+            throw new CommandException("tfixins:error.unknown_value", current);
         }
 
         return result;
@@ -38,13 +32,10 @@ public abstract class EnumHandler<E extends Enum<E>> implements INamedArgumentHa
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
         if (args.hasNext()) {
-            args.next();
-            if (!args.hasNext()) {
-                return Arrays.stream(enumDefinition.getEnumConstants())
-                    .map(E::toString)
-                    .collect(Collectors.toList());
-            }
+            return null;
         }
-        return null;
+        return Arrays.stream(enumDefinition.getEnumConstants())
+            .map(E::toString)
+            .collect(Collectors.toList());
     }
 }

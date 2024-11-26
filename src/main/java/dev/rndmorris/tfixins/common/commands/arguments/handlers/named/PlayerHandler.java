@@ -17,10 +17,7 @@ public class PlayerHandler implements INamedArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-        if (!args.hasNext()) {
-            CommandErrors.invalidSyntax();
-        }
-        final var player = CommandBase.getPlayer(sender, args.next());
+        final var player = CommandBase.getPlayer(sender, current);
         if (player == null) {
             CommandErrors.playerNotFound();
         }
@@ -29,9 +26,6 @@ public class PlayerHandler implements INamedArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        if (args.hasNext()) {
-            args.next();
-        }
         if (args.hasNext()) {
             return null;
         }

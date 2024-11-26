@@ -6,6 +6,8 @@ import java.util.List;
 
 import net.minecraft.command.ICommandSender;
 
+import com.google.common.collect.Iterators;
+
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 
 public class SearchHandler implements INamedArgumentHandler {
@@ -14,32 +16,37 @@ public class SearchHandler implements INamedArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-        return buildSearchTerm(args);
+        return buildSearchTerm(current, args);
     }
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        buildSearchTerm(args);
+        buildSearchTerm(current, args);
         if (!args.hasNext()) {
             return Collections.emptyList();
         }
         return null;
     }
 
-    private String buildSearchTerm(Iterator<String> args) {
+    private String buildSearchTerm(String current, Iterator<String> args) {
         var insideQuote = false;
         var escapeNext = false;
 
         final var str = new StringBuilder();
 
-        while (args.hasNext()) {
+        final var iter = Iterators.concat(
+            Collections.singletonList(current)
+                .iterator(),
+            args);
+
+        while (iter.hasNext()) {
             if (!insideQuote && str.length() > 0) {
                 break;
             }
             if (str.length() > 0) {
                 str.append(' ');
             }
-            final var currentTerm = args.next();
+            final var currentTerm = iter.next();
 
             for (var index = 0; index < currentTerm.length(); ++index) {
                 final var character = currentTerm.charAt(index);

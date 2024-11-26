@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
-import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import thaumcraft.api.research.ResearchCategories;
 
@@ -18,15 +17,10 @@ public class ResearchKeyHandler implements INamedArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-        if (!args.hasNext()) {
-            CommandErrors.invalidSyntax();
-        }
-        final var keyName = args.next();
-
-        final var results = allResearchKeys().filter(keyName::equals)
+        final var results = allResearchKeys().filter(current::equals)
             .collect(Collectors.toList());
         if (results.isEmpty()) {
-            throw new CommandException("tfixins:error.unknown_research", keyName);
+            throw new CommandException("tfixins:error.unknown_research", current);
         }
 
         return results.get(0);
@@ -34,9 +28,6 @@ public class ResearchKeyHandler implements INamedArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        if (args.hasNext()) {
-            args.next();
-        }
         if (args.hasNext()) {
             return null;
         }

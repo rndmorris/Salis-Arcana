@@ -19,11 +19,6 @@ public class QuantitativeAspectHandler implements INamedArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-
-        current = "";
-        if (args.hasNext()) {
-            current = args.next();
-        }
         final var aspect = getAspect(current);
 
         current = "";
@@ -53,17 +48,13 @@ public class QuantitativeAspectHandler implements INamedArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        if (args.hasNext()) {
-            args.next();
-            if (!args.hasNext()) {
-                return new ArrayList<>(Aspect.aspects.keySet());
-            }
-            args.next();
-            if (!args.hasNext()) {
-                return Collections.singletonList("1");
-            }
+        if (!args.hasNext()) {
+            return new ArrayList<>(Aspect.aspects.keySet());
         }
-
+        args.next();
+        if (!args.hasNext()) {
+            return Collections.singletonList("1");
+        }
         return null;
     }
 }
