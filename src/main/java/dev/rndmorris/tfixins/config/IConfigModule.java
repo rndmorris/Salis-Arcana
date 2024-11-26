@@ -10,11 +10,6 @@ import net.minecraftforge.common.config.Configuration;
 public interface IConfigModule {
 
     /**
-     * Whether this module is enabled or disabled by default.
-     */
-    boolean enabledByDefault();
-
-    /**
      * The unique id string of the module. Used as part of the module's "Enable" config option name.
      * This should also be the name, or the prefix of the name, of any configuration categories this module reads.
      */
@@ -28,10 +23,20 @@ public interface IConfigModule {
     String getModuleComment();
 
     /**
+     * Whether this module is currently enabled.
+     */
+    boolean isEnabled();
+
+    /**
      * Load the module's config settings. Only called if the module is enabled.
-     * 
+     *
      * @param configuration The configuration from which to load the module's settings.
      */
     void loadModuleFromConfig(@Nonnull Configuration configuration);
+
+    /**
+     * Enable or disable this module.
+     */
+    void setEnabled(boolean enabled);
 
 }

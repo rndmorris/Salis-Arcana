@@ -13,15 +13,12 @@ import net.minecraftforge.common.config.Configuration;
 
 public class BiomeColorModule implements IConfigModule {
 
+    private boolean enabled = false;
+
     public final BiomeColors eerieBiomeColors = new BiomeColors();
     public final BiomeColors eldritchBiomeColors = new BiomeColors();
     public final BiomeColors magicalForestBiomeColors = new BiomeColors();
     public final BiomeColors taintBiomeColors = new BiomeColors();
-
-    @Override
-    public boolean enabledByDefault() {
-        return true;
-    }
 
     @Nonnull
     @Override
@@ -33,6 +30,11 @@ public class BiomeColorModule implements IConfigModule {
     @Override
     public String getModuleComment() {
         return "Override the colors of TC4's biomes.";
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 
     @Override
@@ -51,6 +53,11 @@ public class BiomeColorModule implements IConfigModule {
         if (isBiomeOverrideEnabled(configuration, "taint")) {
             loadBiomeColors(configuration, "taint", taintBiomeColors, biomeTaint);
         }
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     private boolean isBiomeOverrideEnabled(Configuration configuration, String biomeName) {
