@@ -20,6 +20,10 @@ public class CommandsModule implements IConfigModule {
         .setDescription("Get help information about Thaumic Fixin's commands.")
         .setPermissionLevel(0);
 
+    public final @Nonnull CommandSettings playerResearch = new CommandSettings("player-research", this::isEnabled)
+        .addDefaultAlias()
+        .setPermissionLevel(0);
+
     public final @Nonnull CommandSettings updateNode = new CommandSettings("update-node", this::isEnabled)
         .addDefaultAlias()
         .setDescription("Update the properties of a node at the specified coordiantes.")
