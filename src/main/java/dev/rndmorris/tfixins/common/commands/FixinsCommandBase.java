@@ -9,6 +9,8 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentTranslation;
 
 import dev.rndmorris.tfixins.ThaumicFixins;

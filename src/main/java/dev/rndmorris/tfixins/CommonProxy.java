@@ -7,7 +7,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import dev.rndmorris.tfixins.common.biomes.BiomeOverrides;
 import dev.rndmorris.tfixins.common.commands.CreateNodeCommand;
 import dev.rndmorris.tfixins.common.commands.HelpCommand;
-import dev.rndmorris.tfixins.common.commands.PlayerResearchCommand;
+import dev.rndmorris.tfixins.common.commands.ListResearchCommand;
 import dev.rndmorris.tfixins.common.commands.UpdateNodeCommand;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 
@@ -15,7 +15,7 @@ public class CommonProxy {
 
     public static CreateNodeCommand createNodeCommand = null;
     public static HelpCommand helpCommand = null;
-    public static PlayerResearchCommand playerResearchCommand = null;
+    public static ListResearchCommand playerResearchCommand = null;
     public static UpdateNodeCommand updateNodeCommand = null;
 
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
@@ -41,7 +41,7 @@ public class CommonProxy {
             event.registerServerCommand(helpCommand = new HelpCommand());
         }
         if (commands.playerResearch.isEnabled()) {
-            event.registerServerCommand(playerResearchCommand = new PlayerResearchCommand());
+            event.registerServerCommand(playerResearchCommand = new ListResearchCommand());
         }
         if (commands.updateNode.isEnabled()) {
             event.registerServerCommand(updateNodeCommand = new UpdateNodeCommand());

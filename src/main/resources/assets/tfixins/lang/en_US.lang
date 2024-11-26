@@ -18,6 +18,13 @@ tfixins:command.help.desc=§9§lDescription:§r Get help information about a Tha
 tfixins:command.help.usage=§7/tfixins-update-node §7<command>§r
 tfixins:command.help.args.cmd=§7§o<command>§r §cRequired.§r The name or alias of a Thaumic Fixins command.
 
+tfixins:command.player-research.desc=§9§lDescription:§r List registered TC4 research, grouped by tab in the Thaumonomicon.
+tfixins:command.player-research.usage=§7/tfixins-player-research §7[--player §7<username>] §7[--search §7<search §7term>]§r
+tfixins:command.player-research.args.player=§7[--player §7<username>]§r Restrict results to only research known by this player.
+tfixins:command.player-research.args.search=§7[--search §7<search §7term>§r Restrict results to only research that contains this text in its id or its name. Enclose in double quotation marks to search for a term containing one or more spaces (e.g. "wand craft").
+
+tfixins:command.player-research.no_results=No research found.
+
 tfixins:command.update-node.desc=§9§lDescription:§r Update the properties of the node at the specified coordinates.
 tfixins:command.update-node.usage=§7/tfixins-update-node §7<x> <y> <z>§r §7[-t <type>] §7[-m <modifier>] §7[--set §7<aspect1> §7<count1>[, §7--set §7<aspect2> §7<count2>[...]]] §7[--rem §7<aspect3>[, §7--rem §7<aspect4>]]§r
 tfixins:command.update-node.args.coord=§7§o<x> <y> <z>§r §cRequired.§r Specify the coordinates of the node to update.
@@ -30,3 +37,5 @@ tfixins:error.invalid_aspect="%s" is not a known aspect.
 tfixins:error.invalid_node_modifier=%s is not a known node modifier.
 tfixins:error.invalid_node_type=%s is not a known node type.
 tfixins:error.unexpected_value=Unexpected input "%s".
+
+tfixins:command.category_header=Category: %s

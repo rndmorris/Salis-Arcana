@@ -6,6 +6,8 @@ import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
+import static dev.rndmorris.tfixins.common.commands.ListResearchCommand.listOthersReserach;
+
 public class CommandsModule implements IConfigModule {
 
     private boolean enabled = true;
@@ -20,16 +22,17 @@ public class CommandsModule implements IConfigModule {
         .setDescription("Get help information about Thaumic Fixin's commands.")
         .setPermissionLevel(0);
 
-    public final @Nonnull CommandSettings playerResearch = new CommandSettings("player-research", this::isEnabled)
+    public final @Nonnull CommandSettings playerResearch = new CommandSettings("list-research", this::isEnabled)
         .addDefaultAlias()
-        .setPermissionLevel(0);
+        .setPermissionLevel(0)
+        .addChildPermissionLevel(listOthersReserach, 2, "list another player's research.");
 
     public final @Nonnull CommandSettings updateNode = new CommandSettings("update-node", this::isEnabled)
         .addDefaultAlias()
         .setDescription("Update the properties of a node at the specified coordiantes.")
         .setPermissionLevel(2);
 
-    public final CommandSettings[] commandsSettings = new CommandSettings[] { createNode, help, updateNode, };
+    public final CommandSettings[] commandsSettings = new CommandSettings[] { createNode, help, playerResearch, updateNode, };
 
     @Nonnull
     @Override
@@ -92,6 +95,19 @@ public class CommandsModule implements IConfigModule {
             4,
             "The permission level required to execute the command.");
         settings.setPermissionLevel(permissionLevel);
+
+
+        for (var childPermName : settings.childPermissionLevels.keySet()) {
+            final var childPermissionLevel = configuration.getInt(
+                String.format("Permission Level - %s", childPermName),
+                category,
+                (int) settings.childPermissionLevels.get(childPermName),
+                0,
+                4,
+                String.format("The permission level required to %s", settings.childPermissionDescription.get(childPermName))
+            );
+            settings.childPermissionLevels.put(childPermName, (byte) childPermissionLevel);
+        }
     }
 
 }
