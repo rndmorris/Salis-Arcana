@@ -1,17 +1,18 @@
-package dev.rndmorris.tfixins.common.commands.arguments.handlers;
+package dev.rndmorris.tfixins.common.commands.arguments.handlers.positional;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import dev.rndmorris.tfixins.config.CommandSettings;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 
-public class CommandNameHandler implements IArgumentHandler {
+public class CommandNameHandler implements IPositionalArgumentHandler {
 
     public static final IArgumentHandler INSTANCE = new CommandNameHandler();
 

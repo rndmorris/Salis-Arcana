@@ -13,6 +13,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import dev.rndmorris.tfixins.common.commands.arguments.annotations.FlagArg;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -29,6 +30,7 @@ public class ArgumentProcessor<TArguments> {
     private final Supplier<TArguments> initializer;
 
     private final Map<Integer, ArgEntry> positionalArgs = new TreeMap<>();
+    private final Map<String, ArgEntry> flagArgs = new TreeMap<>();
     private final Map<String, ArgEntry> namedArgs = new TreeMap<>();
 
     public final List<String> descriptionLangKeys = new ArrayList<>();
@@ -125,6 +127,7 @@ public class ArgumentProcessor<TArguments> {
             final var entry = new ArgEntry();
 
             PositionalArg posArg;
+            FlagArg flagArg;
             NamedArg namedArg;
             if ((posArg = field.getAnnotation(PositionalArg.class)) != null) {
                 positionalArgs.put(posArg.index(), entry);
@@ -137,7 +140,23 @@ public class ArgumentProcessor<TArguments> {
                     .isEmpty()) {
                     descriptionLangKeys.add(posArg.descLangKey());
                 }
-            } else if ((namedArg = field.getAnnotation(NamedArg.class)) != null) {
+            }
+            else if ((flagArg = field.getAnnotation(FlagArg.class)) != null) {
+                flagArgs.put(flagArg.name(), entry);
+                entry.parser = argumentHandlers.get(flagArg.handler());
+                if (entry.parser == null) {
+                    LOG.error(String.format("No parser found for named argument at %s", flagArg.name()));
+                    throw new RuntimeException();
+                }
+                if (!flagArg.descLangKey()
+                    .isEmpty()) {
+                    descriptionLangKeys.add(flagArg.descLangKey());
+                }
+                entry.excludes = Arrays.stream(flagArg.excludes())
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toList());
+            }
+            else if ((namedArg = field.getAnnotation(NamedArg.class)) != null) {
                 namedArgs.put(namedArg.name(), entry);
                 entry.parser = argumentHandlers.get(namedArg.handler());
                 if (entry.parser == null) {

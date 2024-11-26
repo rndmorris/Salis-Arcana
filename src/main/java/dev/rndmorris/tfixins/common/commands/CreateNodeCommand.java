@@ -3,6 +3,7 @@ package dev.rndmorris.tfixins.common.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.rndmorris.tfixins.common.commands.arguments.annotations.FlagArg;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -14,12 +15,12 @@ import dev.rndmorris.tfixins.common.commands.arguments.NodeTypeArgument;
 import dev.rndmorris.tfixins.common.commands.arguments.QuantitativeAspectArgument;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.CoordinateHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.FlagHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.positional.CoordinateHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.NodeModifierHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.NodeTypeHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.QuantitativeAspectHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.NodeModifierHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.NodeTypeHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.QuantitativeAspectHandler;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
@@ -68,13 +69,6 @@ public class CreateNodeCommand extends FixinsCommandBase<CreateNodeCommand.Argum
     }
 
     @Override
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
-        return CommandBase.getListOfStringsFromIterableMatchingLastWord(
-            args,
-            argumentProcessor.getAutocompletionSuggestions(sender, args));
-    }
-
-    @Override
     protected ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
             Arguments.class,
@@ -94,19 +88,17 @@ public class CreateNodeCommand extends FixinsCommandBase<CreateNodeCommand.Argum
         @NamedArg(name = "-m", handler = NodeModifierHandler.class, descLangKey = "modifier")
         public NodeModifierArgument nodeModifier;
 
-        @NamedArg(
+        @FlagArg(
             name = "--silverwood",
-            handler = FlagHandler.class,
             excludes = { "--eerie", "--small" },
             descLangKey = "silverwood")
         public boolean silverwood;
 
-        @NamedArg(name = "--eerie", handler = FlagHandler.class, excludes = { "--silverwood" }, descLangKey = "eerie")
+        @FlagArg(name = "--eerie", excludes = { "--silverwood" }, descLangKey = "eerie")
         public boolean eerie;
 
-        @NamedArg(
+        @FlagArg(
             name = "--small",
-            handler = FlagHandler.class,
             excludes = { "--silverwood", "-a" },
             descLangKey = "small")
         public boolean small;

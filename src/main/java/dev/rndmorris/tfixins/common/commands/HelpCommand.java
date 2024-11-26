@@ -4,7 +4,7 @@ import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.CommandNameHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.positional.CommandNameHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.tfixins.config.CommandSettings;
 import dev.rndmorris.tfixins.config.FixinsConfig;

@@ -1,16 +1,17 @@
-package dev.rndmorris.tfixins.common.commands.arguments.handlers;
+package dev.rndmorris.tfixins.common.commands.arguments.handlers.named;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 
 import dev.rndmorris.tfixins.common.commands.CommandErrors;
 
-public class PlayerHandler implements IArgumentHandler {
+public class PlayerHandler implements INamedArgumentHandler {
 
     public static final IArgumentHandler INSTANCE = new PlayerHandler();
 

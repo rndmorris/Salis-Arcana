@@ -1,12 +1,13 @@
-package dev.rndmorris.tfixins.common.commands.arguments.handlers;
+package dev.rndmorris.tfixins.common.commands.arguments.handlers.named;
 
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import net.minecraft.command.ICommandSender;
 
-public class SearchHandler implements IArgumentHandler {
+public class SearchHandler implements INamedArgumentHandler {
 
     public static final IArgumentHandler INSTANCE = new SearchHandler();
 

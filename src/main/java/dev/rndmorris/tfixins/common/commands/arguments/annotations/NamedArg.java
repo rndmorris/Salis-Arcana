@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.INamedArgumentHandler;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
@@ -13,7 +13,7 @@ public @interface NamedArg {
 
     String name();
 
-    Class<? extends IArgumentHandler> handler();
+    Class<? extends INamedArgumentHandler> handler();
 
     String[] excludes() default "";
 

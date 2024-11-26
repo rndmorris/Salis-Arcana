@@ -1,15 +1,16 @@
-package dev.rndmorris.tfixins.common.commands.arguments.handlers;
+package dev.rndmorris.tfixins.common.commands.arguments.handlers.named;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
 import thaumcraft.api.aspects.Aspect;
 
-public class AspectHandler implements IArgumentHandler {
+public class AspectHandler implements INamedArgumentHandler {
 
     public static final IArgumentHandler INSTANCE = new AspectHandler();
 

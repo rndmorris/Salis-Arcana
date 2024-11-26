@@ -13,10 +13,10 @@ import net.minecraft.entity.player.EntityPlayerMP;
 
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.FlagHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.PlayerHandler;
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.ResearchKeyHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.PlayerHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.ResearchKeyHandler;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 import net.minecraft.util.ChatComponentTranslation;
 import thaumcraft.api.ThaumcraftApi;
