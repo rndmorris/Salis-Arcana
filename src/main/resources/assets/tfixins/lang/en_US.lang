@@ -2,6 +2,7 @@ tfixins:command.aliases=/%s aliases:
 tfixins:command.aliases_none=/%s has no aliases
 tfixins:command.too_many_occurrences=Argument %s must only be provided %d time(s). 
 tfixins:command.create-node.usage=/tfixins-create-node <x> <y> <z> [-t <TYPE>] [-m <MODIFIER>] [--silverwood] [--eerie] [--small] [-a <aspect1> <count1>[, -a <aspect2> <count2>[...]]]
+tfixins:command.update-node.usage=/tfixins-update-node <x> <y> <z> [-t <TYPE>] [-m <MODIFIER>] [--set <aspect1> <count1>[, --set <aspect2> <count2>[...]]] [--rem <aspect3>[, --rem <aspect4>]]
 tfixins:command.create-node.failure=A node could not be created at %d %d %d.
 tfixins:command.update-node.not_found=A node was not found at %d %d %d.
 
