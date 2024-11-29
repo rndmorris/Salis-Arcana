@@ -1,8 +1,7 @@
 /*
-Taken from BugTorch
-https://github.com/jss2a98aj/BugTorch
-
-under the MIT License
+ * Taken from BugTorch
+ * https://github.com/jss2a98aj/BugTorch
+ * under the MIT License
  */
 
 package dev.rndmorris.tfixins.mixins.late.block;
@@ -10,8 +9,10 @@ package dev.rndmorris.tfixins.mixins.late.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+
 import thaumcraft.common.blocks.BlockCandle;
 import thaumcraft.common.lib.utils.Utils;
 
