@@ -6,21 +6,29 @@ import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeEldritch
 import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeMagicalForest;
 import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeTaint;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.config.Configuration;
 
-import java.util.function.Supplier;
-
 public class BiomeColorModule implements IConfigModule {
 
     private boolean enabled = false;
 
-    public final BiomeColors eerieBiomeColors = new BiomeColors(this::isEnabled);
-    public final BiomeColors eldritchBiomeColors = new BiomeColors(this::isEnabled);
-    public final BiomeColors magicalForestBiomeColors = new BiomeColors(this::isEnabled);
-    public final BiomeColors taintBiomeColors = new BiomeColors(this::isEnabled);
+    public final BiomeColors eerieBiomeColors;
+    public final BiomeColors eldritchBiomeColors;
+    public final BiomeColors magicalForestBiomeColors;
+    public final BiomeColors taintBiomeColors;
+
+    public BiomeColorModule() {
+        final Supplier<IConfigModule> getter = () -> this;
+        eerieBiomeColors = new BiomeColors(getter, "eerie", biomeEerie);
+        eldritchBiomeColors = new BiomeColors(getter, "eldritch", biomeEldritchLands);
+        magicalForestBiomeColors = new BiomeColors(getter, "magical forest", biomeMagicalForest);
+        taintBiomeColors = new BiomeColors(getter, "taint", biomeTaint);
+    }
 
     @Nonnull
     @Override
@@ -43,18 +51,10 @@ public class BiomeColorModule implements IConfigModule {
     public void loadModuleFromConfig(@Nonnull Configuration configuration) {
         configuration.setCategoryComment(getModuleId(), getModuleComment());
 
-        if (isBiomeOverrideEnabled(configuration, "eerie")) {
-            loadBiomeColors(configuration, "eerie", eerieBiomeColors, biomeEerie);
-        }
-        if (isBiomeOverrideEnabled(configuration, "eldritch")) {
-            loadBiomeColors(configuration, "eldritch", eldritchBiomeColors, biomeEldritchLands);
-        }
-        if (isBiomeOverrideEnabled(configuration, "magical forest")) {
-            loadBiomeColors(configuration, "magical_forest", magicalForestBiomeColors, biomeMagicalForest);
-        }
-        if (isBiomeOverrideEnabled(configuration, "taint")) {
-            loadBiomeColors(configuration, "taint", taintBiomeColors, biomeTaint);
-        }
+        eerieBiomeColors.loadFromConfiguration(configuration);
+        eldritchBiomeColors.loadFromConfiguration(configuration);
+        magicalForestBiomeColors.loadFromConfiguration(configuration);
+        magicalForestBiomeColors.loadFromConfiguration(configuration);
     }
 
     @Override
@@ -62,91 +62,10 @@ public class BiomeColorModule implements IConfigModule {
         this.enabled = enabled;
     }
 
-    private boolean isBiomeOverrideEnabled(Configuration configuration, String biomeName) {
-        return configuration.getBoolean(
-            String.format("Override %s biome colors?", biomeName),
-            getModuleId(),
-            false,
-            String.format("Override the colors of the %s biome", biomeName));
-    }
-
-    private void loadBiomeColors(Configuration configuration, String category, BiomeColors output, BiomeGenBase biome) {
-        if (biome == null) {
-            return;
-        }
-
-        category = String.format("%s_%s", getModuleId(), category);
-
-        configuration.setCategoryComment(
-            category,
-            String.format(
-                "Color overrides for the %s biome. Color values must be a 6-digit hexadecimal number (e.g. 0x404840)",
-                biome.biomeName));
-
-        var colorString = configuration.getString(
-            "Base Color",
-            category,
-            "",
-            String.format("Override the biome's base color. Original value: 0x%06x.", biome.color));
-        var colorInt = tryParseHexInteger(colorString);
-        if (colorInt != null) {
-            output.baseSet = true;
-            output.base = colorInt;
-        }
-
-        colorString = configuration.getString(
-            "Grass Color",
-            category,
-            "",
-            String.format(
-                "Override the biome's grass color.  Original value: 0x%06x",
-                biome.getBiomeGrassColor(0, 0, 0)));
-        colorInt = tryParseHexInteger(colorString);
-        if (colorInt != null) {
-            output.grassSet = true;
-            output.grass = colorInt;
-        }
-
-        colorString = configuration.getString(
-            "Foliage Color",
-            category,
-            "",
-            String.format(
-                "Override the biome's foliage color.  Original value: 0x%06x",
-                biome.getBiomeFoliageColor(0, 0, 0)));
-        colorInt = tryParseHexInteger(colorString);
-        if (colorInt != null) {
-            output.foliageSet = true;
-            output.foliage = colorInt;
-        }
-
-        colorString = configuration.getString(
-            "Sky Color",
-            category,
-            "",
-            String.format(
-                "Override the biome's sky color.  Original value: 0x%06x",
-                biome.getSkyColorByTemp(biome.temperature)));
-        colorInt = tryParseHexInteger(colorString);
-        if (colorInt != null) {
-            output.skySet = true;
-            output.sky = colorInt;
-        }
-
-        colorString = configuration.getString(
-            "Water Color",
-            category,
-            "",
-            String
-                .format("Override the biome's water color.  Original value: 0x%06x", biome.getWaterColorMultiplier()));
-        colorInt = tryParseHexInteger(colorString);
-        if (colorInt != null) {
-            output.waterSet = true;
-            output.water = colorInt;
-        }
-    }
-
     public static class BiomeColors extends Setting {
+
+        private final String biomeName;
+        private final BiomeGenBase biome;
 
         public boolean baseSet = false;
         public int base = -1;
@@ -163,8 +82,99 @@ public class BiomeColorModule implements IConfigModule {
         public boolean waterSet = false;
         public int water = -1;
 
-        public BiomeColors(Supplier<Boolean> moduleEnabled) {
-            super(moduleEnabled);
+        public BiomeColors(Supplier<IConfigModule> parentModule, String biomeName, BiomeGenBase biome) {
+            super(parentModule);
+            this.biomeName = biomeName;
+            this.biome = biome;
+        }
+
+        @Override
+        public void loadFromConfiguration(Configuration configuration) {
+            enabled = configuration.getBoolean(
+                String.format("Override %s biome colors?", biomeName),
+                parentModule.get()
+                    .getModuleId(),
+                false,
+                String.format("Override the colors of the %s biome", biomeName));
+
+            if (!isEnabled() || biome == null) {
+                return;
+            }
+
+            final var category = String.format(
+                "%s_%s",
+                parentModule.get()
+                    .getModuleId(),
+                biomeName.replace(" ", "_"));
+
+            configuration.setCategoryComment(
+                category,
+                String.format(
+                    "Color overrides for the %s biome. Color values must be a 6-digit hexadecimal number (e.g. 0x404840)",
+                    biome.biomeName));
+
+            var colorString = configuration.getString(
+                "Base Color",
+                category,
+                "",
+                String.format("Override the biome's base color. Original value: 0x%06x.", biome.color));
+            var colorInt = tryParseHexInteger(colorString);
+            if (colorInt != null) {
+                baseSet = true;
+                base = colorInt;
+            }
+
+            colorString = configuration.getString(
+                "Grass Color",
+                category,
+                "",
+                String.format(
+                    "Override the biome's grass color.  Original value: 0x%06x",
+                    biome.getBiomeGrassColor(0, 0, 0)));
+            colorInt = tryParseHexInteger(colorString);
+            if (colorInt != null) {
+                grassSet = true;
+                grass = colorInt;
+            }
+
+            colorString = configuration.getString(
+                "Foliage Color",
+                category,
+                "",
+                String.format(
+                    "Override the biome's foliage color.  Original value: 0x%06x",
+                    biome.getBiomeFoliageColor(0, 0, 0)));
+            colorInt = tryParseHexInteger(colorString);
+            if (colorInt != null) {
+                foliageSet = true;
+                foliage = colorInt;
+            }
+
+            colorString = configuration.getString(
+                "Sky Color",
+                category,
+                "",
+                String.format(
+                    "Override the biome's sky color.  Original value: 0x%06x",
+                    biome.getSkyColorByTemp(biome.temperature)));
+            colorInt = tryParseHexInteger(colorString);
+            if (colorInt != null) {
+                skySet = true;
+                sky = colorInt;
+            }
+
+            colorString = configuration.getString(
+                "Water Color",
+                category,
+                "",
+                String.format(
+                    "Override the biome's water color.  Original value: 0x%06x",
+                    biome.getWaterColorMultiplier()));
+            colorInt = tryParseHexInteger(colorString);
+            if (colorInt != null) {
+                waterSet = true;
+                water = colorInt;
+            }
         }
     }
 

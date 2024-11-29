@@ -23,8 +23,8 @@ public class CommandSettings extends Setting {
     private @Nonnull String description = "";
     private byte permissionLevel = 4;
 
-    public CommandSettings(@Nonnull String name, Supplier<Boolean> moduleEnabled) {
-        super (moduleEnabled);
+    public CommandSettings(@Nonnull String name, Supplier<IConfigModule> parentModule) {
+        super(parentModule);
         this.name = name;
     }
 
