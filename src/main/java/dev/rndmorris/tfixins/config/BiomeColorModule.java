@@ -11,14 +11,16 @@ import javax.annotation.Nonnull;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.config.Configuration;
 
+import java.util.function.Supplier;
+
 public class BiomeColorModule implements IConfigModule {
 
     private boolean enabled = false;
 
-    public final BiomeColors eerieBiomeColors = new BiomeColors();
-    public final BiomeColors eldritchBiomeColors = new BiomeColors();
-    public final BiomeColors magicalForestBiomeColors = new BiomeColors();
-    public final BiomeColors taintBiomeColors = new BiomeColors();
+    public final BiomeColors eerieBiomeColors = new BiomeColors(this::isEnabled);
+    public final BiomeColors eldritchBiomeColors = new BiomeColors(this::isEnabled);
+    public final BiomeColors magicalForestBiomeColors = new BiomeColors(this::isEnabled);
+    public final BiomeColors taintBiomeColors = new BiomeColors(this::isEnabled);
 
     @Nonnull
     @Override
@@ -144,7 +146,7 @@ public class BiomeColorModule implements IConfigModule {
         }
     }
 
-    public static class BiomeColors {
+    public static class BiomeColors extends Setting {
 
         public boolean baseSet = false;
         public int base = -1;
@@ -161,6 +163,9 @@ public class BiomeColorModule implements IConfigModule {
         public boolean waterSet = false;
         public int water = -1;
 
+        public BiomeColors(Supplier<Boolean> moduleEnabled) {
+            super(moduleEnabled);
+        }
     }
 
 }
