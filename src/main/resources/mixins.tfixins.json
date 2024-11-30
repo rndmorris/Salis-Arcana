@@ -9,6 +9,7 @@
     "biomes.MixinBiomeGenEerie",
     "biomes.MixinBiomeGenEldritch",
     "biomes.MixinBiomeGenMagicalForest",
-    "biomes.MixinBiomeGenTaint"
+    "biomes.MixinBiomeGenTaint",
+    "blocks.MixinBlockCosmeticSolid"
   ]
 }
