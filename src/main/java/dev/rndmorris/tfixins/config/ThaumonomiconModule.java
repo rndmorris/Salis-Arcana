@@ -8,8 +8,8 @@ import net.minecraftforge.common.config.Configuration;
 
 public class ThaumonomiconModule implements IConfigModule {
 
-    public final ToggleSetting scrollwheelEnabled;
-    public final ToggleSetting invertedScrolling;
+    public final Setting scrollwheelEnabled;
+    public final Setting invertedScrolling;
 
     private boolean enabled = true;
 
@@ -19,11 +19,8 @@ public class ThaumonomiconModule implements IConfigModule {
             getter,
             "Enable Scrollwheel",
             "Enables ctrl + scroll to quick switch tabs");
-        invertedScrolling = new ToggleSetting(
-            getter,
-            "Inverse Scrolling",
-            "Inverts the scrolling for tab switching",
-            false);
+        invertedScrolling = new ToggleSetting(getter, "Inverse Scrolling", "Inverts the scrolling for tab switching")
+            .setEnabled(false);
     }
 
     @Nonnull

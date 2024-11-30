@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 import net.minecraftforge.common.config.Configuration;
 
-public class Setting implements ISetting {
+public abstract class Setting {
 
     protected final Supplier<IConfigModule> parentModule;
     protected boolean enabled = true;
@@ -13,17 +13,15 @@ public class Setting implements ISetting {
         this.parentModule = getModule;
     }
 
-    @Override
     public boolean isEnabled() {
         return enabled && parentModule.get()
             .isEnabled();
     }
 
-    @Override
-    public void setEnabled(boolean enabled) {
+    public Setting setEnabled(boolean enabled) {
         this.enabled = enabled;
+        return this;
     }
 
-    @Override
-    public void loadFromConfiguration(Configuration configuration) {}
+    public abstract void loadFromConfiguration(Configuration configuration);
 }

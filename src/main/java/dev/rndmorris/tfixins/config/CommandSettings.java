@@ -9,6 +9,8 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraftforge.common.config.Configuration;
+
 import dev.rndmorris.tfixins.ThaumicFixins;
 import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
 
@@ -72,5 +74,10 @@ public class CommandSettings extends Setting {
     public CommandSettings setPermissionLevel(int permissionLevel) {
         this.permissionLevel = (byte) permissionLevel;
         return this;
+    }
+
+    @Override
+    public void loadFromConfiguration(Configuration configuration) {
+
     }
 }
