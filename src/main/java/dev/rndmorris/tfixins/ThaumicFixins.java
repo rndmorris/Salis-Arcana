@@ -13,7 +13,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 @Mod(
     modid = ThaumicFixins.MODID,
     version = Tags.VERSION,
-    name = "MyMod",
+    name = "tfixins",
     acceptedMinecraftVersions = "[1.7.10]",
     dependencies = "after:Thaumcraft")
 public class ThaumicFixins {
