@@ -13,15 +13,24 @@ public abstract class Setting {
         this.parentModule = getModule;
     }
 
+    /**
+     * Whether the individual setting is enabled.
+     */
     public boolean isEnabled() {
         return enabled && parentModule.get()
             .isEnabled();
     }
 
+    /**
+     * Enable or disable the individual setting. Enabling will have no effect if the parent module is disabled.
+     */
     public Setting setEnabled(boolean enabled) {
         this.enabled = enabled;
         return this;
     }
 
+    /**
+     * Load this setting from a config file.
+     */
     public abstract void loadFromConfiguration(Configuration configuration);
 }
