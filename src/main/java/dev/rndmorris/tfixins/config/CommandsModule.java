@@ -3,6 +3,7 @@ package dev.rndmorris.tfixins.config;
 import static dev.rndmorris.tfixins.common.commands.ListResearchCommand.listOthersReserach;
 
 import java.util.Collections;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 
@@ -22,30 +23,31 @@ public class CommandsModule implements IConfigModule {
     public final CommandSettings[] commandsSettings;
 
     public CommandsModule() {
+        final Supplier<IConfigModule> getter = () -> this;
         commandsSettings = new CommandSettings[] {
-            createNode = new CommandSettings("create-node", this::isEnabled).addDefaultAlias()
+            createNode = new CommandSettings("create-node", getter).addDefaultAlias()
                 .setDescription(
                     "Create a node at specified coordinates, optionally with specified brightness, type, and aspects.")
                 .setPermissionLevel(2),
-            forgetResearch = new CommandSettings("forget-research", this::isEnabled)
+            forgetResearch = new CommandSettings("forget-research", getter)
                 .setDescription("Remove one or more research item's from a player's knowledge.")
                 .addDefaultAlias()
                 .setPermissionLevel(2),
-            forgetScanned = new CommandSettings("forget-scanned", this::isEnabled)
+            forgetScanned = new CommandSettings("forget-scanned", getter)
                 .setDescription("Remove entries from a player's list of scanned things")
                 .addDefaultAlias()
                 .setPermissionLevel(2),
-            help = new CommandSettings("help", this::isEnabled).addAlias("tf-help")
+            help = new CommandSettings("help", getter).addAlias("tf-help")
                 .setDescription("Get help information about Thaumic Fixins' commands.")
                 .setPermissionLevel(0),
-            playerResearch = new CommandSettings("list-research", this::isEnabled)
+            playerResearch = new CommandSettings("list-research", getter)
                 .setDescription("List and filter through TC4's research.")
                 .addDefaultAlias()
                 .setPermissionLevel(0)
                 .addChildPermissionLevel(listOthersReserach, 2, "list another player's research."),
-            updateNode = new CommandSettings("update-node", this::isEnabled).addDefaultAlias()
+            updateNode = new CommandSettings("update-node", getter).addDefaultAlias()
                 .setDescription("Update the properties of a node at the specified coordiantes.")
-                .setPermissionLevel(2), };
+                .setPermissionLevel(2) };
     }
 
     @Nonnull

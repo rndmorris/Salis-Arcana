@@ -12,6 +12,7 @@
     "biomes.MixinBiomeGenTaint",
     "block.MixinBlockCandle",
     "block.MixinBlockCandleRenderer",
+    "blocks.MixinBlockCosmeticSolid",
     "item.MixinItemShard"
   ]
 }
