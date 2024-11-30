@@ -14,5 +14,8 @@
     "blocks.MixinBlockCandleRenderer",
     "blocks.MixinBlockCosmeticSolid",
     "items.MixinItemShard"
+  ],
+  "client": [
+    "gui.MixinGuiResearchBrowser"
   ]
 }
