@@ -1,20 +1,29 @@
 package dev.rndmorris.tfixins.config;
 
-import net.minecraftforge.common.config.Configuration;
-
-import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
+import javax.annotation.Nonnull;
+
+import net.minecraftforge.common.config.Configuration;
+
 public class ThaumonomiconModule implements IConfigModule {
-    public static ToggleSetting scrollwheelEnabled;
-    public static ToggleSetting invertedScrolling;
+
+    public final ToggleSetting scrollwheelEnabled;
+    public final ToggleSetting invertedScrolling;
 
     private boolean enabled = true;
 
     public ThaumonomiconModule() {
         final Supplier<IConfigModule> getter = () -> this;
-        scrollwheelEnabled = new ToggleSetting(getter, "Enable Scrollwheel", "Enables ctrl + scroll to quick switch tabs");
-        invertedScrolling = new ToggleSetting(getter, "Inverse Scrolling", "Inverts the scrolling for tab switching", false);
+        scrollwheelEnabled = new ToggleSetting(
+            getter,
+            "Enable Scrollwheel",
+            "Enables ctrl + scroll to quick switch tabs");
+        invertedScrolling = new ToggleSetting(
+            getter,
+            "Inverse Scrolling",
+            "Inverts the scrolling for tab switching",
+            false);
     }
 
     @Nonnull

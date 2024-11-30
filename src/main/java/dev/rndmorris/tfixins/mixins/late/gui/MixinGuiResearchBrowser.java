@@ -1,17 +1,19 @@
 package dev.rndmorris.tfixins.mixins.late.gui;
 
-import dev.rndmorris.tfixins.config.ThaumonomiconModule;
+import java.util.ArrayList;
+
 import net.minecraft.client.gui.GuiScreen;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+
+import dev.rndmorris.tfixins.config.FixinsConfig;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.common.lib.research.ResearchManager;
-
-import java.util.ArrayList;
 
 @Mixin(GuiResearchBrowser.class)
 public class MixinGuiResearchBrowser extends GuiScreen {
@@ -28,21 +30,23 @@ public class MixinGuiResearchBrowser extends GuiScreen {
     @Override
     public void handleInput() {
         super.handleInput();
-        if (ThaumonomiconModule.scrollwheelEnabled.isEnabled()) {
+        if (FixinsConfig.researchBrowserModule.scrollwheelEnabled.isEnabled()) {
             // We need to run this every time to avoid buffering a scroll
-            int dir = (int) Math.signum(Mouse.getDWheel()); // We want DWheel since last call, not last mouse event, as it's possible no new mouse events will have been sent
+            int dir = (int) Math.signum(Mouse.getDWheel()); // We want DWheel since last call, not last mouse event, as
+                                                            // it's possible no new mouse events will have been sent
             if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 if (dir != tf$lastDir) {
                     tf$lastDir = dir;
                     ArrayList<String> categories = new ArrayList<>();
                     for (String category : ResearchCategories.researchCategories.keySet()) {
-                        if (category.equals("ELDRITCH") && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR")) {
+                        if (category.equals("ELDRITCH")
+                            && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR")) {
                             continue;
                         }
                         categories.add(category);
                     }
 
-                    if (ThaumonomiconModule.invertedScrolling.isEnabled()) {
+                    if (FixinsConfig.researchBrowserModule.invertedScrolling.isEnabled()) {
                         dir *= -1;
                     }
 

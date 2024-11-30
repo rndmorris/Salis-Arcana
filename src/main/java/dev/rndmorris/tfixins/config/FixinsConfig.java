@@ -14,7 +14,8 @@ public class FixinsConfig {
     public static void synchronizeConfiguration(File configFile) {
         Configuration configuration = new Configuration(configFile);
 
-        final var loadModules = new IConfigModule[] { biomeColorModule, bugfixesModule, commandsModule, researchBrowserModule };
+        final var loadModules = new IConfigModule[] { biomeColorModule, bugfixesModule, commandsModule,
+            researchBrowserModule };
 
         final var modulesCategory = "00_modules";
 
