@@ -4,7 +4,7 @@
  * under the MIT License
  */
 
-package dev.rndmorris.tfixins.mixins.late.block;
+package dev.rndmorris.tfixins.mixins.late.blocks;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

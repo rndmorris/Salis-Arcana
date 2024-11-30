@@ -10,9 +10,9 @@
     "biomes.MixinBiomeGenEldritch",
     "biomes.MixinBiomeGenMagicalForest",
     "biomes.MixinBiomeGenTaint",
-    "block.MixinBlockCandle",
-    "block.MixinBlockCandleRenderer",
+    "blocks.MixinBlockCandle",
+    "blocks.MixinBlockCandleRenderer",
     "blocks.MixinBlockCosmeticSolid",
-    "item.MixinItemShard"
+    "items.MixinItemShard"
   ]
 }

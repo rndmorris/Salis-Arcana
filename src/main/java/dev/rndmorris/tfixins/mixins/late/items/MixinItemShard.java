@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.mixins.late.item;
+package dev.rndmorris.tfixins.mixins.late.items;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
