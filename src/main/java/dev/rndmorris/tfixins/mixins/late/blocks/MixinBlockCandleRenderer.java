@@ -1,7 +1,8 @@
 /*
+ * Copyright (c) 2020 Jonathan Simmons
+ * Licensed under the MIT License
  * Taken from BugTorch
  * https://github.com/jss2a98aj/BugTorch
- * under the MIT License
  */
 
 package dev.rndmorris.tfixins.mixins.late.blocks;
