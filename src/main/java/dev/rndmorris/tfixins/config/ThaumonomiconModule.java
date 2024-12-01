@@ -22,7 +22,10 @@ public class ThaumonomiconModule implements IConfigModule {
             "Enables ctrl + scroll to quick switch tabs");
         invertedScrolling = new ToggleSetting(getter, "Inverse Scrolling", "Inverts the scrolling for tab switching")
             .setEnabled(false);
-        showResearchId = new ToggleSetting(getter, "Show Research Key", "Allows you to view the internal name of a research while hovering over it and holding control");
+        showResearchId = new ToggleSetting(
+            getter,
+            "Show Research Key",
+            "Allows you to view the internal name of a research while hovering over it and holding control");
     }
 
     @Nonnull

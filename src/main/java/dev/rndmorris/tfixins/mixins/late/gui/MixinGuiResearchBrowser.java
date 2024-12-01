@@ -1,24 +1,20 @@
 package dev.rndmorris.tfixins.mixins.late.gui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 
-import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-
-import dev.rndmorris.tfixins.config.FixinsConfig;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import dev.rndmorris.tfixins.config.FixinsConfig;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
@@ -78,16 +74,17 @@ public class MixinGuiResearchBrowser extends GuiScreen {
         }
     }
 
-    @Inject(method="mouseClicked", at=@At(value = "HEAD"), cancellable = true)
+    @Inject(method = "mouseClicked", at = @At(value = "HEAD"), cancellable = true)
     private void mixinMouseClicked(int mouseX, int mouseY, int button, CallbackInfo ci) {
         if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled() && tf$isControlHeld) {
             ci.cancel();
         }
     }
 
-    @Inject(method="drawScreen", at=@At(value="TAIL"))
+    @Inject(method = "drawScreen", at = @At(value = "TAIL"))
     private void mixinDrawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
-        if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled() && this.tf$isControlHeld && this.currentHighlight != null) {
+        if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled() && this.tf$isControlHeld
+            && this.currentHighlight != null) {
             tf$drawPopup(mouseX, mouseY, this.currentHighlight.key);
         }
     }
@@ -97,16 +94,21 @@ public class MixinGuiResearchBrowser extends GuiScreen {
         GL11.glPushMatrix();
 
         int textWidth = this.fontRendererObj.getStringWidth(str);
-        int lineCount = this.fontRendererObj.listFormattedStringToWidth(str, 150).size();
+        int lineCount = this.fontRendererObj.listFormattedStringToWidth(str, 150)
+            .size();
         int textHeight = lineCount * this.fontRendererObj.FONT_HEIGHT;
         int rectangleColor = 0xC0000000; // RGBA
         int purple = 0xFF9090FF;
         x += 6;
         y += 4;
 
-        this.drawGradientRect(x - 3, y - 3 - (textHeight * 2),
-            x + (int)(textWidth * .5) + 3, y - textHeight - 3,
-            rectangleColor, rectangleColor);
+        this.drawGradientRect(
+            x - 3,
+            y - 3 - (textHeight * 2),
+            x + (int) (textWidth * .5) + 3,
+            y - textHeight - 3,
+            rectangleColor,
+            rectangleColor);
 
         GL11.glTranslatef((float) x, (float) y - (textHeight * 2), 0);
         GL11.glScalef(0.5F, 0.5F, 1.0F);
