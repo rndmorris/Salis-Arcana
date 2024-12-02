@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -56,5 +58,11 @@ public class QuantitativeAspectHandler implements INamedArgumentHandler {
             return Collections.singletonList("1");
         }
         return null;
+    }
+
+    @Nonnull
+    @Override
+    public Class<?> getOutputType() {
+        return QuantitativeAspectArgument.class;
     }
 }

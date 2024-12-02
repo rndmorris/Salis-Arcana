@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 
@@ -40,5 +42,11 @@ public class IntHandler implements INamedArgumentHandler, IPositionalArgumentHan
             return null;
         }
         return Collections.singletonList(Integer.toString(suggestedValue));
+    }
+
+    @Nonnull
+    @Override
+    public Class<?> getOutputType() {
+        return int.class;
     }
 }

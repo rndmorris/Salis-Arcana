@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.CommandErrors;
@@ -45,6 +47,12 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
         }
 
         return null;
+    }
+
+    @Nonnull
+    @Override
+    public Class<?> getOutputType() {
+        return CommandSettings.class;
     }
 
     private CommandSettings findCommand(String current) {

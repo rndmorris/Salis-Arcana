@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -37,5 +39,11 @@ public abstract class EnumHandler<E extends Enum<E>> implements INamedArgumentHa
         return Arrays.stream(enumDefinition.getEnumConstants())
             .map(E::toString)
             .collect(Collectors.toList());
+    }
+
+    @Nonnull
+    @Override
+    public Class<?> getOutputType() {
+        return enumDefinition;
     }
 }

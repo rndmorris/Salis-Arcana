@@ -1,7 +1,6 @@
 package dev.rndmorris.tfixins.common.commands;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -99,7 +98,7 @@ public class CreateNodeCommand extends FixinsCommandBase<CreateNodeCommand.Argum
         public boolean small;
 
         @NamedArg(name = "-a", handler = QuantitativeAspectHandler.class, excludes = "--small", descLangKey = "aspect")
-        public List<QuantitativeAspectArgument> aspects = new ArrayList<>();
+        public ArrayList<QuantitativeAspectArgument> aspects = new ArrayList<>();
 
     }
 

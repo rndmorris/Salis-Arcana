@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 
@@ -49,5 +51,11 @@ public class CoordinateHandler implements IPositionalArgumentHandler {
         }
 
         return null;
+    }
+
+    @Nonnull
+    @Override
+    public Class<?> getOutputType() {
+        return CoordinateArgument.class;
     }
 }

@@ -1,7 +1,6 @@
 package dev.rndmorris.tfixins.common.commands;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -103,9 +102,9 @@ public class UpdateNodeCommand extends FixinsCommandBase<UpdateNodeCommand.Argum
         public NodeModifierArgument nodeModifier;
 
         @NamedArg(name = "--set", handler = QuantitativeAspectHandler.class, descLangKey = "set")
-        public List<QuantitativeAspectArgument> addAspects = new ArrayList<>();
+        public ArrayList<QuantitativeAspectArgument> addAspects = new ArrayList<>();
 
         @NamedArg(name = "--rem", handler = AspectHandler.class, descLangKey = "rem")
-        public List<Aspect> removeAspects = new ArrayList<>();
+        public ArrayList<Aspect> removeAspects = new ArrayList<>();
     }
 }
