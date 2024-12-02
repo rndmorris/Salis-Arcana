@@ -23,7 +23,8 @@ public enum Mixins {
     ITEMSHARD_OOB(Side.BOTH, FixinsConfig.bugfixesModule.itemShardColor, "items.MixinItemShard"),
     BLOCKCANDLE_OOB(Side.BOTH, FixinsConfig.bugfixesModule.candleRendererCrashes, "blocks.MixinBlockCandleRenderer",
         "blocks.MixinBlockCandle"),
-    DEAD_MOBS_DONT_ATTACK(Side.BOTH, FixinsConfig.bugfixesModule.deadMobsDontAttack, "entities.MixinEntityTaintacle");
+    DEAD_MOBS_DONT_ATTACK(Side.BOTH, FixinsConfig.bugfixesModule.deadMobsDontAttack, "entities.MixinEntityTaintacle",
+        "entities.MixinEldritchCrab");
 
     private final List<String> classes;
     private final Side side;
