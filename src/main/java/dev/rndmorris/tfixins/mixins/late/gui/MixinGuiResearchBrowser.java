@@ -75,9 +75,15 @@ public class MixinGuiResearchBrowser extends GuiScreen {
     }
 
     @Inject(method = "mouseClicked", at = @At(value = "HEAD"), cancellable = true)
-    private void mixinMouseClicked(int mouseX, int mouseY, int button, CallbackInfo ci) {
+    private void onMouseClicked(int mouseX, int mouseY, int button, CallbackInfo ci) {
         if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled() && tf$isControlHeld) {
             ci.cancel();
+        }
+        if (FixinsConfig.researchBrowserModule.rightClickClose.isEnabled()) {
+            if (button == 1) {
+                this.mc.displayGuiScreen(null);
+                ci.cancel();
+            }
         }
     }
 

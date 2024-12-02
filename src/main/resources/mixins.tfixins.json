@@ -16,6 +16,7 @@
     "items.MixinItemShard"
   ],
   "client": [
-    "gui.MixinGuiResearchBrowser"
+    "gui.MixinGuiResearchBrowser",
+    "gui.MixinGuiResearchRecipe"
   ]
 }

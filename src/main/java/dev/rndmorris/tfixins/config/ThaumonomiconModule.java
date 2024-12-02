@@ -10,6 +10,7 @@ public class ThaumonomiconModule implements IConfigModule {
 
     public final Setting scrollwheelEnabled;
     public final Setting invertedScrolling;
+    public final Setting rightClickClose;
     public final Setting showResearchId;
 
     private boolean enabled = true;
@@ -22,6 +23,10 @@ public class ThaumonomiconModule implements IConfigModule {
             "Enables ctrl + scroll to quick switch tabs");
         invertedScrolling = new ToggleSetting(getter, "Inverse Scrolling", "Inverts the scrolling for tab switching")
             .setEnabled(false);
+        rightClickClose = new ToggleSetting(
+            getter,
+            "Right-Click Navigation",
+            "Right clicking in a research will take you back to the previous research, or back to the Thaumonomicon.");
         showResearchId = new ToggleSetting(
             getter,
             "Show Research Key",
@@ -49,6 +54,7 @@ public class ThaumonomiconModule implements IConfigModule {
     public void loadModuleFromConfig(@Nonnull Configuration configuration) {
         scrollwheelEnabled.loadFromConfiguration(configuration);
         invertedScrolling.loadFromConfiguration(configuration);
+        rightClickClose.loadFromConfiguration(configuration);
         showResearchId.loadFromConfiguration(configuration);
     }
 
