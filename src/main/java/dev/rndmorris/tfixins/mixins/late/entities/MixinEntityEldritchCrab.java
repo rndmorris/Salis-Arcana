@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import thaumcraft.common.entities.monster.EntityEldritchCrab;
 
 @Mixin(value = EntityEldritchCrab.class, remap = false)
-public abstract class MixinEldritchCrab extends EntityMob {
+public abstract class MixinEntityEldritchCrab extends EntityMob {
 
-    public MixinEldritchCrab(World p_i1738_1_) {
+    public MixinEntityEldritchCrab(World p_i1738_1_) {
         super(p_i1738_1_);
     }
 
