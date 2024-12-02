@@ -21,7 +21,7 @@ import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(GuiResearchBrowser.class)
-public class MixinGuiResearchBrowser extends GuiScreen {
+public abstract class MixinGuiResearchBrowser extends GuiScreen {
 
     @Shadow(remap = false)
     private static String selectedCategory = null;
@@ -31,6 +31,9 @@ public class MixinGuiResearchBrowser extends GuiScreen {
 
     @Shadow(remap = false)
     private ResearchItem currentHighlight = null;
+
+    @Shadow
+    public abstract void updateResearch();
 
     @Unique
     private int tf$lastDir = 0;
@@ -69,6 +72,7 @@ public class MixinGuiResearchBrowser extends GuiScreen {
                         new_index += categories.size();
                     }
                     selectedCategory = categories.get(new_index);
+                    this.updateResearch();
                 }
             }
         }
