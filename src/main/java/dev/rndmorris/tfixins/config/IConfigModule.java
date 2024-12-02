@@ -7,7 +7,7 @@ import net.minecraftforge.common.config.Configuration;
 /**
  * A group of related settings that can be collectively enabled or disabled.
  */
-public interface IConfigModule {
+public interface IConfigModule extends IEnabler {
 
     /**
      * The unique id string of the module. Used as part of the module's "Enable" config option name.
@@ -25,6 +25,7 @@ public interface IConfigModule {
     /**
      * Whether this module is currently enabled.
      */
+    @Override
     boolean isEnabled();
 
     /**

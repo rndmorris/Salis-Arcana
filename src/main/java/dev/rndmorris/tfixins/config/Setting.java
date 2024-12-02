@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 import net.minecraftforge.common.config.Configuration;
 
-public abstract class Setting {
+public abstract class Setting implements IEnabler {
 
     protected final Supplier<IConfigModule> parentModule;
     protected boolean enabled = true;
@@ -16,6 +16,7 @@ public abstract class Setting {
     /**
      * Whether the individual setting is enabled.
      */
+    @Override
     public boolean isEnabled() {
         return enabled && parentModule.get()
             .isEnabled();
