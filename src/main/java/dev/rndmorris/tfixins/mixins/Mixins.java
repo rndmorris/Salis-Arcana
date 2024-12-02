@@ -6,23 +6,20 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import dev.rndmorris.tfixins.config.FixinsConfig;
+import dev.rndmorris.tfixins.config.IEnabler;
 
 public enum Mixins {
 
-    BIOME_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenEerie", "biomes.MixinBiomeGenEldritch",
-        "biomes.MixinBiomeGenTaint", "biomes.MixinBiomeGenMagicalForest"),
+    BIOME_EERIE_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenEerie"),
+    BIOME_ELDRITCH_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenEldrith"),
+    BIOME_TAINT_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenTaint"),
+    BIOME_MAGICALFOREST_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenMagicalForest"),
     BEACON_BLOCKS(Side.BOTH, FixinsConfig.bugfixesModule.blockCosmeticSolidBeaconFix, "blocks.MixinBlockCosmeticSolid"),
     THAUMBOOK_TWEAKS(Side.CLIENT, FixinsConfig.researchBrowserModule, "gui.MixinGuiResearchBrowser");
 
     private final List<String> classes;
     private final Side side;
-    private final IMixinEnabler config;
-
-    Mixins(Side side, IMixinEnabler config, String... classes) {
-        this.side = side;
-        this.config = config;
-        this.classes = Arrays.asList(classes);
-    }
+    private final IEnabler config;
 
     public static List<String> getMixins() {
         final List<String> mixins = new ArrayList<>();
@@ -32,6 +29,12 @@ public enum Mixins {
             }
         }
         return mixins;
+    }
+
+    Mixins(Side side, IEnabler config, String... classes) {
+        this.side = side;
+        this.config = config;
+        this.classes = Arrays.asList(classes);
     }
 
     private boolean isEnabled() {

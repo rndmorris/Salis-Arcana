@@ -4,9 +4,7 @@ import java.util.function.Supplier;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.tfixins.mixins.IMixinEnabler;
-
-public abstract class Setting implements IMixinEnabler {
+public abstract class Setting implements IEnabler {
 
     protected final Supplier<IConfigModule> parentModule;
     protected boolean enabled = true;

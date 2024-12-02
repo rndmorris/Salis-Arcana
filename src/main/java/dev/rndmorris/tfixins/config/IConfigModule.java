@@ -4,12 +4,10 @@ import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.tfixins.mixins.IMixinEnabler;
-
 /**
  * A group of related settings that can be collectively enabled or disabled.
  */
-public interface IConfigModule extends IMixinEnabler {
+public interface IConfigModule extends IEnabler {
 
     /**
      * The unique id string of the module. Used as part of the module's "Enable" config option name.
