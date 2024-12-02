@@ -22,7 +22,8 @@ public enum Mixins {
     RESEARCH_ID_POPUP(Side.CLIENT, FixinsConfig.researchBrowserModule.showResearchId, "gui.MixinGuiResearchBrowser"),
     ITEMSHARD_OOB(Side.BOTH, FixinsConfig.bugfixesModule.itemShardColor, "items.MixinItemShard"),
     BLOCKCANDLE_OOB(Side.BOTH, FixinsConfig.bugfixesModule.candleRendererCrashes, "blocks.MixinBlockCandleRenderer",
-        "blocks.MixinBlockCandle");
+        "blocks.MixinBlockCandle"),
+    DEAD_MOBS_DONT_ATTACK(Side.BOTH, FixinsConfig.bugfixesModule.deadMobsDontAttack, "entities.MixinEntityTaintacle");
 
     private final List<String> classes;
     private final Side side;

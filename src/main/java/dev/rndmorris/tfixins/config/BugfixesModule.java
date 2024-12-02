@@ -11,18 +11,25 @@ public class BugfixesModule implements IConfigModule {
     private boolean enabled = true;
 
     public final BlockCosmeticSolidBeaconFix blockCosmeticSolidBeaconFix = new BlockCosmeticSolidBeaconFix(() -> this);
-    public final ToggleSetting itemShardColor;
     public final ToggleSetting candleRendererCrashes;
+    public final ToggleSetting deadMobsDontAttack;
+    public final ToggleSetting itemShardColor;
 
     public BugfixesModule() {
-        itemShardColor = new ToggleSetting(
-            () -> this,
-            "shardMetadataCrash",
-            "Fixes a crash with invalid shard metadata");
         candleRendererCrashes = new ToggleSetting(
             () -> this,
             "candleMetadataCrash",
             "Fixes several crashes with invalid candle metadata");
+        deadMobsDontAttack = new ToggleSetting(
+            () -> this,
+            "deadMobsDontAttack",
+            "Prevents mobs (e.g. the taintacle) from attacking during their death animation."
+        );
+        itemShardColor = new ToggleSetting(
+            () -> this,
+            "shardMetadataCrash",
+            "Fixes a crash with invalid shard metadata");
+
     }
 
     @Nonnull
@@ -45,8 +52,9 @@ public class BugfixesModule implements IConfigModule {
     @Override
     public void loadModuleFromConfig(@Nonnull Configuration configuration) {
         blockCosmeticSolidBeaconFix.loadFromConfiguration(configuration);
-        itemShardColor.loadFromConfiguration(configuration);
         candleRendererCrashes.loadFromConfiguration(configuration);
+        deadMobsDontAttack.loadFromConfiguration(configuration);
+        itemShardColor.loadFromConfiguration(configuration);
     }
 
     @Override
