@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.common.commands.arguments.handlers.named;
+package dev.rndmorris.tfixins.common.commands.arguments.handlers;
 
 import java.util.Iterator;
 import java.util.List;
@@ -8,12 +8,13 @@ import java.util.stream.Stream;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
-import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.INamedArgumentHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.positional.IPositionalArgumentHandler;
 import thaumcraft.api.research.ResearchCategories;
 
-public class ResearchKeyHandler implements INamedArgumentHandler {
+public class ResearchKeyHandler implements INamedArgumentHandler, IPositionalArgumentHandler {
 
-    public static final IArgumentHandler INSTANCE = new ResearchKeyHandler();
+    public static final ResearchKeyHandler INSTANCE = new ResearchKeyHandler();
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {

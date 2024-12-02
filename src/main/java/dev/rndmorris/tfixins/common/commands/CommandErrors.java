@@ -8,6 +8,10 @@ public class CommandErrors {
         throw new CommandException("commands.generic.notFound");
     }
 
+    public static void generic() {
+        throw new CommandException("commands.generic.exception");
+    }
+
     public static void insufficientPermission() {
         throw new CommandException("commands.generic.permission");
     }
