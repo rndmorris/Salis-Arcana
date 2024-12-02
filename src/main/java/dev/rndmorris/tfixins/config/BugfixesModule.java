@@ -11,6 +11,19 @@ public class BugfixesModule implements IConfigModule {
     private boolean enabled = true;
 
     public final BlockCosmeticSolidBeaconFix blockCosmeticSolidBeaconFix = new BlockCosmeticSolidBeaconFix(() -> this);
+    public final ToggleSetting itemShardColor;
+    public final ToggleSetting candleRendererCrashes;
+
+    public BugfixesModule() {
+        itemShardColor = new ToggleSetting(
+            () -> this,
+            "shardMetadataCrash",
+            "Fixes a crash with invalid shard metadata");
+        candleRendererCrashes = new ToggleSetting(
+            () -> this,
+            "candleMetadataCrash",
+            "Fixes several crashes with invalid candle metadata");
+    }
 
     @Nonnull
     @Override
@@ -32,6 +45,8 @@ public class BugfixesModule implements IConfigModule {
     @Override
     public void loadModuleFromConfig(@Nonnull Configuration configuration) {
         blockCosmeticSolidBeaconFix.loadFromConfiguration(configuration);
+        itemShardColor.loadFromConfiguration(configuration);
+        candleRendererCrashes.loadFromConfiguration(configuration);
     }
 
     @Override

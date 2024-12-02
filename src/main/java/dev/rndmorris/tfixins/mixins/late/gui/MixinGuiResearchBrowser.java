@@ -24,6 +24,9 @@ import thaumcraft.common.lib.research.ResearchManager;
 public abstract class MixinGuiResearchBrowser extends GuiScreen {
 
     @Shadow(remap = false)
+    public abstract void updateResearch();
+
+    @Shadow(remap = false)
     private static String selectedCategory = null;
 
     @Shadow(remap = false)
@@ -32,69 +35,90 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     @Shadow(remap = false)
     private ResearchItem currentHighlight = null;
 
-    @Shadow
-    public abstract void updateResearch();
-
     @Unique
     private int tf$lastDir = 0;
     @Unique
     private boolean tf$isControlHeld;
 
     @Override
+    public void handleKeyboardInput() {
+        super.handleKeyboardInput();
+        if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled()) {
+            $tfShowResearchId_handleKeyboardInput();
+        }
+    }
+
+    @Unique
+    private void $tfShowResearchId_handleKeyboardInput() {
+        this.tf$isControlHeld = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
+    }
+
+    @Override
     public void handleInput() {
         super.handleInput();
-        if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled()) {
-            this.tf$isControlHeld = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
+        if (FixinsConfig.researchBrowserModule.scrollwheelEnabled.isEnabled()) {
+            $tfCtrlScroll_handleInput();
         }
 
-        if (FixinsConfig.researchBrowserModule.scrollwheelEnabled.isEnabled()) {
-            // We need to run this every time to avoid buffering a scroll
-            int dir = (int) Math.signum(Mouse.getDWheel()); // We want DWheel since last call, not last mouse event, as
-                                                            // it's possible no new mouse events will have been sent
-            if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-                if (dir != tf$lastDir) {
-                    tf$lastDir = dir;
-                    ArrayList<String> categories = new ArrayList<>();
-                    for (String category : ResearchCategories.researchCategories.keySet()) {
-                        if (category.equals("ELDRITCH")
-                            && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR")) {
-                            continue;
-                        }
-                        categories.add(category);
-                    }
+    }
 
-                    if (FixinsConfig.researchBrowserModule.invertedScrolling.isEnabled()) {
-                        dir *= -1;
+    @Unique
+    private void $tfCtrlScroll_handleInput() {
+        // We need to run this every time to avoid buffering a scroll
+        int dir = (int) Math.signum(Mouse.getDWheel()); // We want DWheel since last call, not last mouse event, as
+        // it's possible no new mouse events will have been sent
+        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+            if (dir != tf$lastDir) {
+                tf$lastDir = dir;
+                ArrayList<String> categories = new ArrayList<>();
+                for (String category : ResearchCategories.researchCategories.keySet()) {
+                    if (category.equals("ELDRITCH")
+                        && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR")) {
+                        continue;
                     }
-
-                    int new_index = (categories.indexOf(selectedCategory) + dir) % categories.size();
-                    if (new_index < 0) {
-                        new_index += categories.size();
-                    }
-                    selectedCategory = categories.get(new_index);
-                    this.updateResearch();
+                    categories.add(category);
                 }
+
+                if (FixinsConfig.researchBrowserModule.invertedScrolling.isEnabled()) {
+                    dir *= -1;
+                }
+
+                int new_index = (categories.indexOf(selectedCategory) + dir) % categories.size();
+                if (new_index < 0) {
+                    new_index += categories.size();
+                }
+                selectedCategory = categories.get(new_index);
+                this.updateResearch();
             }
         }
+
     }
 
     @Inject(method = "mouseClicked", at = @At(value = "HEAD"), cancellable = true)
     private void onMouseClicked(int mouseX, int mouseY, int button, CallbackInfo ci) {
-        if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled() && tf$isControlHeld) {
-            ci.cancel();
-        }
         if (FixinsConfig.researchBrowserModule.rightClickClose.isEnabled()) {
-            if (button == 1) {
-                this.mc.displayGuiScreen(null);
-                ci.cancel();
-            }
+            $tfRightClickClose_mouseClicked(button, ci);
+        }
+    }
+
+    @Unique
+    private void $tfRightClickClose_mouseClicked(int button, CallbackInfo ci) {
+        if (button == 1) {
+            this.mc.displayGuiScreen(null);
+            ci.cancel();
         }
     }
 
     @Inject(method = "drawScreen", at = @At(value = "TAIL"))
     private void mixinDrawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
-        if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled() && this.tf$isControlHeld
-            && this.currentHighlight != null) {
+        if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled()) {
+            $tfShowResearchId_drawScreen(mouseX, mouseY);
+        }
+    }
+
+    @Unique
+    private void $tfShowResearchId_drawScreen(int mouseX, int mouseY) {
+        if (this.tf$isControlHeld && this.currentHighlight != null) {
             tf$drawPopup(mouseX, mouseY, this.currentHighlight.key);
         }
     }

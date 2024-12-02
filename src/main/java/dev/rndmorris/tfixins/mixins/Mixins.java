@@ -15,7 +15,14 @@ public enum Mixins {
     BIOME_TAINT_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenTaint"),
     BIOME_MAGICALFOREST_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenMagicalForest"),
     BEACON_BLOCKS(Side.BOTH, FixinsConfig.bugfixesModule.blockCosmeticSolidBeaconFix, "blocks.MixinBlockCosmeticSolid"),
-    THAUMBOOK_TWEAKS(Side.CLIENT, FixinsConfig.researchBrowserModule, "gui.MixinGuiResearchBrowser");
+    RIGHT_CLICK_NAVIAGTION(Side.CLIENT, FixinsConfig.researchBrowserModule.rightClickClose,
+        "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
+    CTRL_SCROLL_NAVIGATION(Side.CLIENT, FixinsConfig.researchBrowserModule.scrollwheelEnabled,
+        "gui.MixinGuiResearchBrowser"),
+    RESEARCH_ID_POPUP(Side.CLIENT, FixinsConfig.researchBrowserModule.showResearchId, "gui.MixinGuiResearchBrowser"),
+    ITEMSHARD_OOB(Side.BOTH, FixinsConfig.bugfixesModule.itemShardColor, "items.MixinItemShard"),
+    BLOCKCANDLE_OOB(Side.BOTH, FixinsConfig.bugfixesModule.candleRendererCrashes, "blocks.MixinBlockCandleRenderer",
+        "blocks.MixinBlockCandle");
 
     private final List<String> classes;
     private final Side side;
