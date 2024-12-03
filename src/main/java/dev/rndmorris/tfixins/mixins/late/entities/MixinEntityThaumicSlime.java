@@ -22,7 +22,7 @@ public class MixinEntityThaumicSlime extends EntityMob {
 
     @Inject(method = "onCollideWithPlayer", at = @At("HEAD"), remap = false, cancellable = true)
     public void onOnCollideWithPlayer(EntityPlayer player, CallbackInfo ci) {
-        if (this.isDead || this.getHealth() <= 0) {
+        if (!this.isEntityAlive()) {
             ci.cancel();
         }
     }
@@ -34,7 +34,7 @@ public class MixinEntityThaumicSlime extends EntityMob {
             target = "Lnet/minecraft/world/World;spawnEntityInWorld(Lnet/minecraft/entity/Entity;)Z",
             ordinal = 0))
     public boolean proxySpawnEntityInWorld(World target, Entity entity) {
-        if (this.isDead || this.getHealth() <= 0) {
+        if (!this.isEntityAlive()) {
             return false;
         }
         return worldObj.spawnEntityInWorld(entity);

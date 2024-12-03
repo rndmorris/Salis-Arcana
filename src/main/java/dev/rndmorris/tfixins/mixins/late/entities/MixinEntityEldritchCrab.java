@@ -20,7 +20,7 @@ public abstract class MixinEntityEldritchCrab extends EntityMob {
 
     @Inject(method = "attackEntityAsMob", at = @At("HEAD"), cancellable = true, remap = false)
     public void onAttackEntityAsMob(Entity entity, CallbackInfoReturnable<Boolean> ci) {
-        if (this.getHealth() <= 0 && this.getAbsorptionAmount() <= 0) {
+        if (!this.isEntityAlive()) {
             ci.setReturnValue(false);
             ci.cancel();
         }

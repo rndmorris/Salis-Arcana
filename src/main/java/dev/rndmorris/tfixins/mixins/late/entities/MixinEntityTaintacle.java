@@ -20,7 +20,7 @@ public abstract class MixinEntityTaintacle extends EntityMob {
 
     @Inject(method = "attackEntity", at = @At("HEAD"), cancellable = true, remap = false)
     public void onAttackEntity(Entity entity, float distance, CallbackInfo ci) {
-        if (this.getHealth() <= 0 && this.getAbsorptionAmount() <= 0) {
+        if (!this.isEntityAlive()) {
             ci.cancel();
         }
     }
