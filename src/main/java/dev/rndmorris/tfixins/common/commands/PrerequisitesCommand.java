@@ -7,15 +7,15 @@ import static dev.rndmorris.tfixins.lib.ResearchHelper.formatResearch;
 import static dev.rndmorris.tfixins.lib.ResearchHelper.formatResearchClickCommand;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -50,6 +50,19 @@ import thaumcraft.common.Thaumcraft;
 
 public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand.Arguments> {
 
+    private Map<String, List<CacheEntry>> recipeOutputCache;
+
+    private static class CacheEntry {
+
+        public final ItemStack itemStack;
+        public final Set<String> researchKeys = new TreeSet<>();
+
+        public CacheEntry(@Nonnull ItemStack item, String firstKey) {
+            itemStack = item;
+            researchKeys.add(firstKey);
+        }
+    }
+
     public PrerequisitesCommand() {
         super(commandsModule.prerequisites);
     }
@@ -57,12 +70,69 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
     @Nonnull
     @Override
     protected ArgumentProcessor<Arguments> initializeProcessor() {
+        buildOutputCache();
         final var depthHandler = new IntHandler(-1, Integer.MAX_VALUE, 3);
-        final var itemhandler = new ItemHandler(collectCraftedItemKeys());
+        final var itemhandler = new ItemHandler(recipeOutputCache.keySet());
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,
             new IArgumentHandler[] { ResearchHandler.INSTANCE, FlagHandler.INSTANCE, depthHandler, itemhandler });
+    }
+
+    private void buildOutputCache() {
+        recipeOutputCache = new TreeMap<>();
+        for (var recipe : ThaumcraftApi.getCraftingRecipes()) {
+            if (recipe instanceof IArcaneRecipe arcane) {
+                final var recipeOutput = arcane.getRecipeOutput();
+                if (recipeOutput != null && recipeOutput.getItem() != null) {
+                    addToCache(arcane.getResearch(), recipeOutput);
+                }
+                continue;
+            }
+            if (recipe instanceof CrucibleRecipe crucible) {
+                final var recipeOutput = crucible.getRecipeOutput();
+                if (recipeOutput != null && recipeOutput.getItem() != null) {
+                    addToCache(crucible.key, recipeOutput);
+                }
+                continue;
+            }
+            if (recipe instanceof InfusionRecipe infusion) {
+                final var output = infusion.getRecipeOutput();
+                if (output instanceof ItemStack recipeOutput && recipeOutput.getItem() != null) {
+                    addToCache(infusion.getResearch(), recipeOutput);
+                }
+            }
+        }
+    }
+
+    private void addToCache(String researchKey, ItemStack recipeOutput) {
+        final var id = GameRegistry.findUniqueIdentifierFor(recipeOutput.getItem());
+        if (id == null) {
+            LOG.error("Could not find unique id for item {}", recipeOutput.toString());
+            return;
+        }
+
+        final var itemId = formatItemId(id);
+        List<CacheEntry> cacheEntries;
+        if ((cacheEntries = recipeOutputCache.get(itemId)) == null) {
+            cacheEntries = new ArrayList<>();
+            recipeOutputCache.put(itemId, cacheEntries);
+        }
+        var needNewCacheEntry = true;
+        for (var entry : cacheEntries) {
+            if (entry.itemStack.isItemEqual(recipeOutput)) {
+                entry.researchKeys.add(researchKey);
+                needNewCacheEntry = false;
+                break;
+            }
+        }
+        if (needNewCacheEntry) {
+            cacheEntries.add(new CacheEntry(recipeOutput, researchKey));
+        }
+    }
+
+    private String formatItemId(GameRegistry.UniqueIdentifier id) {
+        return String.format("%s:%s", id.modId, id.name);
     }
 
     @Override
@@ -138,78 +208,23 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
     private TreeSet<String> findResearch(ItemStack item) {
         final var foundResearch = new TreeSet<String>();
 
-        iterateOverThaumRecipes((arcane) -> {
-            ItemStack output;
-            if ((output = arcane.getRecipeOutput()) != null && item.isItemEqual(output)) {
-                foundResearch.add(arcane.getResearch());
-            }
-        }, (crucible) -> {
-            ItemStack output;
-            if ((output = crucible.getRecipeOutput()) != null && item.isItemEqual(output)) {
-                foundResearch.add(crucible.key);
-            }
-        }, (infusion) -> {
-            if (infusion.getRecipeOutput() instanceof ItemStack infusionOutput && item.isItemEqual(infusionOutput)) {
-                foundResearch.add(infusion.getResearch());
-            }
-        });
-
-        return foundResearch;
-    }
-
-    private void iterateOverThaumRecipes(Consumer<IArcaneRecipe> craftingConsumer,
-        Consumer<CrucibleRecipe> crucibleConsumer, Consumer<InfusionRecipe> infusionConsumer) {
-        for (var recipe : ThaumcraftApi.getCraftingRecipes()) {
-            if (recipe instanceof IArcaneRecipe arcane) {
-                if (craftingConsumer != null) {
-                    craftingConsumer.accept(arcane);
-                }
-                continue;
-            }
-            if (recipe instanceof CrucibleRecipe crucible) {
-                if (crucibleConsumer != null) {
-                    crucibleConsumer.accept(crucible);
-                }
-                continue;
-            }
-            if (recipe instanceof InfusionRecipe infusion) {
-                if (infusionConsumer != null) {
-                    infusionConsumer.accept(infusion);
-                }
+        final var itemUid = GameRegistry.findUniqueIdentifierFor(item.getItem());
+        if (itemUid == null) {
+            LOG.error("Could not find unique id for item {}", item.toString());
+            return foundResearch;
+        }
+        final var id = formatItemId(itemUid);
+        final var caches = recipeOutputCache.get(id);
+        if (caches == null) {
+            return foundResearch;
+        }
+        for (var cache : caches) {
+            if (cache.itemStack.isItemEqual(item)) {
+                foundResearch.addAll(cache.researchKeys);
             }
         }
-    }
 
-    private Set<String> collectCraftedItemKeys() {
-        final var result = new TreeSet<String>();
-
-        final Consumer<ItemStack> handleItemStack = (recipeOutput) -> {
-            final var id = GameRegistry.findUniqueIdentifierFor(recipeOutput.getItem());
-            if (id == null) {
-                LOG.error("Could not find unique id for item {}", recipeOutput.toString());
-                return;
-            }
-            result.add(String.format("%s:%s", id.modId, id.name));
-        };
-
-        iterateOverThaumRecipes((arcane) -> {
-            final var recipeOutput = arcane.getRecipeOutput();
-            if (recipeOutput != null && recipeOutput.getItem() != null) {
-                handleItemStack.accept(recipeOutput);
-            }
-        }, (crucible) -> {
-            final var recipeOutput = crucible.getRecipeOutput();
-            if (recipeOutput != null && recipeOutput.getItem() != null) {
-                handleItemStack.accept(recipeOutput);
-            }
-        }, (infusion) -> {
-            final var output = infusion.getRecipeOutput();
-            if (output instanceof ItemStack recipeOutput && recipeOutput.getItem() != null) {
-                handleItemStack.accept(recipeOutput);
-            }
-        });
-
-        return result;
+        return foundResearch;
     }
 
     private Set<String> getPlayerKnowledge(ICommandSender sender) {
