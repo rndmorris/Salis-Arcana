@@ -1,5 +1,7 @@
 package dev.rndmorris.tfixins.mixins.late.gui;
 
+import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
+
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
@@ -9,8 +11,6 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 import baubles.api.BaublesApi;
 import thaumcraft.client.lib.REHWandHandler;
-
-import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
 
 @Mixin(value = REHWandHandler.class, remap = false)
 public class MixinREHWandHandler {
