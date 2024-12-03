@@ -35,23 +35,27 @@ public class ResearchHelper {
         for (var entry : ResearchCategories.researchCategories.entrySet()) {
             final var category = entry.getValue();
 
-            IChatComponent researchMessage = null;
+            IChatComponent researchMessage = new ChatComponentText("");
 
-            for (var research : category.research.values()) {
+            final var research$ = category.research.values()
+                .iterator();
+            var anyInCategory = false;
+
+            while (research$.hasNext()) {
+                final var research = research$.next();
                 if (!filter.test(research)) {
                     continue;
                 }
+                anyInCategory = true;
                 final var item = formatResearch(research);
 
-                if (researchMessage == null) {
-                    researchMessage = item;
-                } else {
-                    researchMessage.appendText(",  ");
-                    researchMessage.appendSibling(item);
+                researchMessage.appendSibling(item);
+                if (research$.hasNext()) {
+                    researchMessage.appendText(", ");
                 }
             }
 
-            if (researchMessage != null) {
+            if (anyInCategory) {
                 results.add(categoryMessage(entry.getKey()));
                 results.add(researchMessage);
             }

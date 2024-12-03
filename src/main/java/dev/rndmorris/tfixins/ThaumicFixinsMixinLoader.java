@@ -17,6 +17,7 @@ public class ThaumicFixinsMixinLoader implements ILateMixinLoader {
     public ThaumicFixinsMixinLoader() {
         String path = Paths.get("config", ThaumicFixins.MODID + ".cfg")
             .toString();
+
         FixinsConfig.synchronizeConfiguration(new File(path));
     }
 
