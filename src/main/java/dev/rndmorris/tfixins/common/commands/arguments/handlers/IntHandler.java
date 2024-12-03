@@ -31,6 +31,18 @@ public class IntHandler implements INamedArgumentHandler, IPositionalArgumentHan
         this.suggestedValue = suggestedValue;
     }
 
+    public int getMinValue() {
+        return minValue;
+    }
+
+    public int getMaxValue() {
+        return maxValue;
+    }
+
+    public int getSuggestedValue() {
+        return suggestedValue;
+    }
+
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
         return CommandBase.parseIntBounded(sender, current, minValue, maxValue);

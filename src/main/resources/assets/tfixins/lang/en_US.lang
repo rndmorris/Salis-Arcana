@@ -45,10 +45,11 @@ tfixins:command.list-research.args.player=§7[--player §7<username>]§r Restric
 tfixins:command.list-research.args.search=§7[--search §7<search §7term>§r Restrict results to only research that contains this text in its id or its name. Enclose in double quotation marks to search for a term containing one or more spaces (e.g. "wand craft").
 tfixins:command.list-research.no_results=No research found.
 
-tfixins:command.prereqs.desc=Lists the prerequisites to unlock a specific research. 
-tfixins:command.prereqs.usage=§7/tfixins-prereqs §7<research-key> §7[--completed]
-tfixins:command.prereqs.args.research=§7<research-key>§r The unique key of the research to look up.
-tfixins:command.prereqs.args.all=§7[--completed]§r Include prerequisite research you have already completed.
+tfixins:command.prereqs.desc=Lists the prerequisites to unlock a specific research, or the research required to craft a specific item.
+tfixins:command.prereqs.usage=§7/tfixins-prereqs §7[--research <research-key> §7[--completed]] §7[--item §7<item-id> §7[item-damage]]
+tfixins:command.prereqs.args.research=§7[--research]§r The unique key of the research to look up. Mutually exclusive with §7item§r.
+tfixins:command.prereqs.args.all=§7[--completed]§r Include prerequisite research you have already completed. Only available if using §7research§r.
+tfixins:command.prereqs.args.item=§7[--item <item-id> [item-damage]]§r The string id and optional damage value of the item to look up. Mutually exclusive with §7research§r. 
 
 tfixins:command.prereqs.already_known=You have already completed %s.
 
@@ -62,6 +63,9 @@ tfixins:command.prereqs.triggers_items=one of these items
 
 tfixins:command.prereqs.parents=Research requirements:
 tfixins:command.prereqs.parents_none=None
+
+tfixins:command.prereqs.header_item=Research requirements to craft %s:
+tfixins:command.prereqs.item_not_found=No research required to craft %s was found.
 
 tfixins:command.update-node.desc=Update the properties of the node at the specified coordinates.
 tfixins:command.update-node.usage=§7/tfixins-update-node §7<x> <y> <z>§r §7[-t <type>] §7[-m <modifier>] §7[--set §7<aspect1> §7<count1>[ §7--set §7<aspect2> §7<count2> [...]]] §7[--rem §7<aspect3>[ §7--rem §7<aspect4>]]§r

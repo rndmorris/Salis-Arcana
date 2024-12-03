@@ -3,22 +3,24 @@ package dev.rndmorris.tfixins.common.commands;
 import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
 import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
 import static dev.rndmorris.tfixins.lib.ArrayHelper.toList;
+import static dev.rndmorris.tfixins.lib.ResearchHelper.formatResearch;
+import static dev.rndmorris.tfixins.lib.ResearchHelper.formatResearchClickCommand;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.command.ICommandSender;
-import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
@@ -27,20 +29,39 @@ import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.FlagArg;
-import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
+import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IntHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.ItemHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.ResearchHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.lib.EnumHelper;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.crafting.CrucibleRecipe;
+import thaumcraft.api.crafting.IArcaneRecipe;
+import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
 
 public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand.Arguments> {
+
+    private Map<String, List<CacheEntry>> recipeOutputCache;
+
+    private static class CacheEntry {
+
+        public final ItemStack itemStack;
+        public final Set<String> researchKeys = new TreeSet<>();
+
+        public CacheEntry(@Nonnull ItemStack item, String firstKey) {
+            itemStack = item;
+            researchKeys.add(firstKey);
+        }
+    }
 
     public PrerequisitesCommand() {
         super(commandsModule.prerequisites);
@@ -49,27 +70,93 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
     @Nonnull
     @Override
     protected ArgumentProcessor<Arguments> initializeProcessor() {
+        buildOutputCache();
         final var depthHandler = new IntHandler(-1, Integer.MAX_VALUE, 3);
+        final var itemhandler = new ItemHandler(recipeOutputCache.keySet());
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,
-            new IArgumentHandler[] { ResearchHandler.INSTANCE, FlagHandler.INSTANCE, depthHandler });
+            new IArgumentHandler[] { ResearchHandler.INSTANCE, FlagHandler.INSTANCE, depthHandler, itemhandler });
+    }
+
+    private void buildOutputCache() {
+        recipeOutputCache = new TreeMap<>();
+        for (var recipe : ThaumcraftApi.getCraftingRecipes()) {
+            if (recipe instanceof IArcaneRecipe arcane) {
+                final var recipeOutput = arcane.getRecipeOutput();
+                if (recipeOutput != null && recipeOutput.getItem() != null) {
+                    addToCache(arcane.getResearch(), recipeOutput);
+                }
+                continue;
+            }
+            if (recipe instanceof CrucibleRecipe crucible) {
+                final var recipeOutput = crucible.getRecipeOutput();
+                if (recipeOutput != null && recipeOutput.getItem() != null) {
+                    addToCache(crucible.key, recipeOutput);
+                }
+                continue;
+            }
+            if (recipe instanceof InfusionRecipe infusion) {
+                final var output = infusion.getRecipeOutput();
+                if (output instanceof ItemStack recipeOutput && recipeOutput.getItem() != null) {
+                    addToCache(infusion.getResearch(), recipeOutput);
+                }
+            }
+        }
+    }
+
+    private void addToCache(String researchKey, ItemStack recipeOutput) {
+        final var id = GameRegistry.findUniqueIdentifierFor(recipeOutput.getItem());
+        if (id == null) {
+            LOG.error("Could not find unique id for item {}", recipeOutput.toString());
+            return;
+        }
+
+        final var itemId = formatItemId(id);
+        List<CacheEntry> cacheEntries;
+        if ((cacheEntries = recipeOutputCache.get(itemId)) == null) {
+            cacheEntries = new ArrayList<>();
+            recipeOutputCache.put(itemId, cacheEntries);
+        }
+        var needNewCacheEntry = true;
+        for (var entry : cacheEntries) {
+            if (entry.itemStack.isItemEqual(recipeOutput)) {
+                entry.researchKeys.add(researchKey);
+                needNewCacheEntry = false;
+                break;
+            }
+        }
+        if (needNewCacheEntry) {
+            cacheEntries.add(new CacheEntry(recipeOutput, researchKey));
+        }
+    }
+
+    private String formatItemId(GameRegistry.UniqueIdentifier id) {
+        return String.format("%s:%s", id.modId, id.name);
     }
 
     @Override
     protected void process(ICommandSender sender, String[] args) {
         final var argsObj = argumentProcessor.process(sender, args);
 
-        final var research = argsObj.research;
-        if (research == null) {
-            LOG.error("Research not found.");
-            CommandErrors.invalidSyntax();
+        if (argsObj.research != null) {
+            sendPrereqsForResearch(sender, argsObj.research, argsObj.allResearch);
+            return;
         }
 
+        if (argsObj.itemStack != null) {
+            sendPrereqsForItem(sender, argsObj.itemStack);
+            return;
+        }
+
+        CommandErrors.invalidSyntax();
+    }
+
+    private void sendPrereqsForResearch(ICommandSender sender, @Nonnull ResearchItem research, boolean allResearch) {
         final var playerKnowledge = getPlayerKnowledge(sender);
         final var isKnown = playerKnowledge.contains(research.key);
 
-        if (!argsObj.allResearch && isKnown) {
+        if (!allResearch && isKnown) {
             sendAlreadyKnown(sender, research);
             return;
         }
@@ -78,15 +165,66 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
             new ChatComponentText("")
                 .appendSibling(
                     new ChatComponentTranslation("tfixins:command.prereqs.header")
-                        .setChatStyle(color(EnumChatFormatting.DARK_PURPLE)))
+                        .setChatStyle(color(EnumChatFormatting.LIGHT_PURPLE)))
                 .appendText(" ")
-                .appendSibling(formatResearch(research, EnumChatFormatting.DARK_PURPLE)));
+                .appendSibling(formatResearch(research)));
 
         final var scanPrereqs = buildScanPrereqs(research);
         if (scanPrereqs != null) {
             sender.addChatMessage(scanPrereqs);
         }
-        sender.addChatMessage(buildResearchMessage(research, argsObj.allResearch, playerKnowledge));
+        sender.addChatMessage(buildResearchMessage(research, allResearch, playerKnowledge));
+    }
+
+    private void sendPrereqsForItem(ICommandSender sender, ItemStack item) {
+        final var matchingResearchKeys = findResearch(item);
+
+        if (matchingResearchKeys.isEmpty()) {
+            sender.addChatMessage(
+                new ChatComponentTranslation("tfixins:command.prereqs.item_not_found", item.func_151000_E())
+                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
+            return;
+        }
+
+        final var message = new ChatComponentText("").appendSibling(
+            new ChatComponentTranslation("tfixins:command.prereqs.header_item", item.func_151000_E())
+                .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
+        sender.addChatMessage(message);
+
+        final var listMessage = new ChatComponentText("");
+
+        final var keyIterator = matchingResearchKeys.iterator();
+        while (keyIterator.hasNext()) {
+            final var research = ResearchCategories.getResearch(keyIterator.next());
+            listMessage.appendSibling(formatResearchClickCommand(research));
+            if (keyIterator.hasNext()) {
+                listMessage.appendText(", ");
+            }
+        }
+
+        sender.addChatMessage(listMessage);
+    }
+
+    private TreeSet<String> findResearch(ItemStack item) {
+        final var foundResearch = new TreeSet<String>();
+
+        final var itemUid = GameRegistry.findUniqueIdentifierFor(item.getItem());
+        if (itemUid == null) {
+            LOG.error("Could not find unique id for item {}", item.toString());
+            return foundResearch;
+        }
+        final var id = formatItemId(itemUid);
+        final var caches = recipeOutputCache.get(id);
+        if (caches == null) {
+            return foundResearch;
+        }
+        for (var cache : caches) {
+            if (cache.itemStack.isItemEqual(item)) {
+                foundResearch.addAll(cache.researchKeys);
+            }
+        }
+
+        return foundResearch;
     }
 
     private Set<String> getPlayerKnowledge(ICommandSender sender) {
@@ -101,7 +239,7 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
     private void sendAlreadyKnown(ICommandSender sender, ResearchItem research) {
         final var message = new ChatComponentTranslation(
             "tfixins:command.prereqs.already_known",
-            formatResearch(research, true));
+            formatResearch(research));
         message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_PURPLE));
         sender.addChatMessage(message);
     }
@@ -129,103 +267,117 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
         }
         if (entitiesMessage != null) {
             if (lastMessage != null) {
-                message.appendText(" ")
-                    .appendSibling(
-                        new ChatComponentTranslation("tfixins:command.prereqs.triggers_or").setChatStyle(italicBlue()))
-                    .appendText(" ");
+                message.appendSibling(orText());
             }
             message.appendSibling(entitiesMessage);
             lastMessage = entitiesMessage;
         }
         if (itemsMessage != null) {
             if (lastMessage != null) {
-                message.appendText(" ")
-                    .appendSibling(
-                        new ChatComponentTranslation("tfixins:command.prereqs.triggers_or").setChatStyle(italicBlue()))
-                    .appendText(" ");
+                message.appendSibling(orText());
             }
             message.appendSibling(itemsMessage);
         }
         return message;
     }
 
+    private IChatComponent orText() {
+        return new ChatComponentText(" ")
+            .appendSibling(
+                new ChatComponentTranslation("tfixins:command.prereqs.triggers_or").setChatStyle(italicBlue()))
+            .appendText(" ");
+    }
+
     @Nullable
     private IChatComponent buildAspectsMessage(List<Aspect> aspectTriggers) {
-        final var aspectComponents = aspectTriggers.stream()
-            .filter(Objects::nonNull)
-            .map(aspect -> {
-                final var aspectChat = new ChatComponentText(String.format("[%s]", aspect.getName()));
-                final var aspectColor = aspect.getChatcolor();
-                EnumChatFormatting color;
-                if (aspectColor != null && !aspectColor.isEmpty()
-                    && ((color = EnumHelper.findByFormattingCode(aspectColor.charAt(0))) != null)) {
-                    aspectChat.setChatStyle(new ChatStyle().setColor(color));
-                }
-                return aspectChat;
-            })
-            .collect(Collectors.toList());
 
-        if (aspectComponents.isEmpty()) {
-            return null;
+        final var message = new ChatComponentText("")
+            .appendSibling(new ChatComponentTranslation("tfixins:command.prereqs.triggers_aspects"))
+            .appendText(" ");
+
+        var anyAspects = false;
+        final var aspects$ = aspectTriggers.iterator();
+        while (aspects$.hasNext()) {
+            final var aspect = aspects$.next();
+            if (aspect == null) {
+                continue;
+            }
+            anyAspects = true;
+            final var aspectChat = new ChatComponentText(String.format("[%s]", aspect.getName()));
+            final var aspectColor = aspect.getChatcolor();
+            EnumChatFormatting color;
+            if (aspectColor != null && !aspectColor.isEmpty()
+                && ((color = EnumHelper.findByFormattingCode(aspectColor.charAt(0))) != null)) {
+                aspectChat.setChatStyle(new ChatStyle().setColor(color));
+            }
+            message.appendSibling(aspectChat);
+            if (aspects$.hasNext()) {
+                message.appendText(", ");
+            }
         }
 
-        final var message = new ChatComponentTranslation("tfixins:command.prereqs.triggers_aspects").appendText(" ")
-            .appendSibling(aspectComponents.get(0));
-
-        aspectComponents.subList(1, aspectTriggers.size())
-            .forEach(
-                msg -> message.appendText(", ")
-                    .appendSibling(msg));
-
-        return message;
+        return anyAspects ? message : null;
     }
 
     @Nullable
     private IChatComponent buildEntitiesMessage(List<String> entityTriggers) {
-        final var entityComponents = entityTriggers.stream()
-            .filter(Objects::nonNull)
-            .map(
-                str -> new ChatComponentTranslation(String.format("entity.%s.name", str)).setChatStyle(
-                    new ChatStyle()
-                        .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(str)))))
-            .map(
-                chat -> new ChatComponentText("[").appendSibling(chat)
-                    .appendText("]"))
-            .collect(Collectors.toList());
 
-        if (entityComponents.isEmpty()) {
-            return null;
+        final var message = new ChatComponentText("")
+            .appendSibling(new ChatComponentTranslation("tfixins:command.prereqs.triggers_entities"))
+            .appendText(" ");
+
+        var noEntities = true;
+
+        final var entities$ = entityTriggers.iterator();
+        while (entities$.hasNext()) {
+            final var entity = entities$.next();
+            if (entity == null) {
+                continue;
+            }
+            noEntities = false;
+            final var component = new ChatComponentText("[")
+                .setChatStyle(
+                    new ChatStyle()
+                        .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(entity))))
+                .appendSibling(new ChatComponentTranslation(String.format("entity.%s.name", entity)))
+                .appendText("]");
+            message.appendSibling(component);
+            if (entities$.hasNext()) {
+                message.appendText(", ");
+            }
         }
 
-        final var message = new ChatComponentTranslation("tfixins:command.prereqs.triggers_entities").appendText(" ")
-            .appendSibling(entityComponents.get(0));
-
-        entityComponents.subList(1, entityComponents.size())
-            .forEach(
-                msg -> message.appendText(", ")
-                    .appendSibling(msg));
+        if (noEntities) {
+            return null;
+        }
 
         return message;
     }
 
     @Nullable
     private IChatComponent buildItemsMessage(List<ItemStack> itemTriggers) {
-        final var itemComponents = itemTriggers.stream()
-            .filter(item -> item != null && item.getItem() != null)
-            .map(ItemStack::func_151000_E)
-            .collect(Collectors.toList());
 
-        if (itemComponents.isEmpty()) {
-            return null;
+        final var message = new ChatComponentText("")
+            .appendSibling(new ChatComponentTranslation("tfixins:command.prereqs.triggers_items"))
+            .appendText(" ");
+
+        var noItems = true;
+        final var items$ = itemTriggers.iterator();
+        while (items$.hasNext()) {
+            final var item = items$.next();
+            if (item == null || item.getItem() == null) {
+                continue;
+            }
+            noItems = false;
+            message.appendSibling(item.func_151000_E());
+            if (items$.hasNext()) {
+                message.appendText(", ");
+            }
         }
 
-        final var message = new ChatComponentTranslation("tfixins:command.prereqs.triggers_items").appendText(" ")
-            .appendSibling(itemComponents.get(0));
-
-        itemComponents.subList(1, itemComponents.size())
-            .forEach(
-                msg -> message.appendText(", ")
-                    .appendSibling(msg));
+        if (noItems) {
+            return null;
+        }
 
         return message;
     }
@@ -250,7 +402,9 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
             }
 
             final var currentResearch = ResearchCategories.getResearch(currentKey);
-            final var researchText = formatResearchClickCommand(currentResearch, playerKnowledge.contains(currentKey));
+            final var researchText = formatResearchClickCommand(
+                currentResearch,
+                researchColor(playerKnowledge.contains(currentKey)));
 
             if (message != null) {
                 message.appendText(" ")
@@ -292,29 +446,8 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
         }
     }
 
-    private IChatComponent formatResearch(ResearchItem research, boolean known) {
-        return formatResearch(research, known ? EnumChatFormatting.DARK_PURPLE : EnumChatFormatting.DARK_RED);
-    }
-
-    private IChatComponent formatResearch(ResearchItem research, EnumChatFormatting formatting) {
-        final var style = new ChatStyle().setColor(formatting)
-            .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
-        return new ChatComponentText("[").setChatStyle(style)
-            .appendSibling(new ChatComponentTranslation(String.format("tc.research_name.%s", research.key)))
-            .appendText("]");
-    }
-
-    private IChatComponent formatResearchClickCommand(ResearchItem research, boolean known) {
-        var result = formatResearch(research, known);
-        result.getChatStyle()
-            .setChatClickEvent(suggestResearchCommand(research));
-        return result;
-    }
-
-    private ClickEvent suggestResearchCommand(ResearchItem research) {
-        return new ClickEvent(
-            ClickEvent.Action.SUGGEST_COMMAND,
-            String.format("/%s %s", getCommandName(), research.key));
+    private EnumChatFormatting researchColor(boolean isKnown) {
+        return isKnown ? EnumChatFormatting.DARK_PURPLE : EnumChatFormatting.DARK_RED;
     }
 
     private ChatStyle color(EnumChatFormatting color) {
@@ -331,11 +464,18 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
 
     public static class Arguments {
 
-        @PositionalArg(index = 0, handler = ResearchHandler.class, descLangKey = "research")
+        @NamedArg(name = "--research", excludes = "--item", handler = ResearchHandler.class, descLangKey = "research")
         public ResearchItem research;
 
-        @FlagArg(name = "--completed", descLangKey = "all")
+        @FlagArg(name = "--completed", excludes = "--item", descLangKey = "all")
         public boolean allResearch;
+
+        @NamedArg(
+            name = "--item",
+            handler = ItemHandler.class,
+            excludes = { "--research", "--completed" },
+            descLangKey = "item")
+        public ItemStack itemStack;
 
     }
 }
