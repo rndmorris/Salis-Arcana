@@ -470,7 +470,11 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
         @FlagArg(name = "--completed", excludes = "--item", descLangKey = "all")
         public boolean allResearch;
 
-        @NamedArg(name = "--item", handler = ItemHandler.class, excludes = { "--research", "--completed" })
+        @NamedArg(
+            name = "--item",
+            handler = ItemHandler.class,
+            excludes = { "--research", "--completed" },
+            descLangKey = "item")
         public ItemStack itemStack;
 
     }
