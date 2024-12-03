@@ -1,5 +1,6 @@
 package dev.rndmorris.tfixins.common.commands.arguments.handlers;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +30,18 @@ public class IntHandler implements INamedArgumentHandler, IPositionalArgumentHan
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.suggestedValue = suggestedValue;
+    }
+
+    public int getMinValue() {
+        return minValue;
+    }
+
+    public int getMaxValue() {
+        return maxValue;
+    }
+
+    public int getSuggestedValue() {
+        return suggestedValue;
     }
 
     @Override

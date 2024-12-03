@@ -63,6 +63,9 @@ tfixins:command.prereqs.triggers_items=one of these items
 tfixins:command.prereqs.parents=Research requirements:
 tfixins:command.prereqs.parents_none=None
 
+tfixins:command.prereqs.header_item=Research requirements to craft %s:
+tfixins:command.prereqs.item_not_found=No research required to craft %s was found.
+
 tfixins:command.update-node.desc=Update the properties of the node at the specified coordinates.
 tfixins:command.update-node.usage=§7/tfixins-update-node §7<x> <y> <z>§r §7[-t <type>] §7[-m <modifier>] §7[--set §7<aspect1> §7<count1>[ §7--set §7<aspect2> §7<count2> [...]]] §7[--rem §7<aspect3>[ §7--rem §7<aspect4>]]§r
 tfixins:command.update-node.args.coord=§7§o<x> <y> <z>§r §cRequired.§r Specify the coordinates of the node to update.

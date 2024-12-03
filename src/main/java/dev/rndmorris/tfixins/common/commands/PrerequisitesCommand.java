@@ -1,6 +1,5 @@
 package dev.rndmorris.tfixins.common.commands;
 
-import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
 import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
 import static dev.rndmorris.tfixins.lib.ArrayHelper.toList;
 
@@ -17,6 +16,8 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
@@ -29,13 +30,19 @@ import net.minecraft.util.IChatComponent;
 
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.FlagArg;
-import dev.rndmorris.tfixins.common.commands.arguments.annotations.PositionalArg;
+import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IntHandler;
+import dev.rndmorris.tfixins.common.commands.arguments.handlers.ItemHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.ResearchHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.lib.EnumHelper;
+import thaumcraft.api.ItemApi;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.crafting.CrucibleRecipe;
+import thaumcraft.api.crafting.IArcaneRecipe;
+import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
@@ -50,26 +57,35 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
     @Override
     protected ArgumentProcessor<Arguments> initializeProcessor() {
         final var depthHandler = new IntHandler(-1, Integer.MAX_VALUE, 3);
+        final var itemhandler = new ItemHandler();
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,
-            new IArgumentHandler[] { ResearchHandler.INSTANCE, FlagHandler.INSTANCE, depthHandler });
+            new IArgumentHandler[] { ResearchHandler.INSTANCE, FlagHandler.INSTANCE, depthHandler, itemhandler });
     }
 
     @Override
     protected void process(ICommandSender sender, String[] args) {
         final var argsObj = argumentProcessor.process(sender, args);
-
-        final var research = argsObj.research;
-        if (research == null) {
-            LOG.error("Research not found.");
-            CommandErrors.invalidSyntax();
+        Minecraft.getMinecraft().displayGuiScreen(new GuiChat());
+        if (argsObj.research != null) {
+            sendPrereqsForResearch(sender, argsObj.research, argsObj.allResearch);
+            return;
         }
 
+        if (argsObj.itemStack != null) {
+            sendPrereqsForItem(sender, argsObj.itemStack);
+            return;
+        }
+
+        CommandErrors.invalidSyntax();
+    }
+
+    private void sendPrereqsForResearch(ICommandSender sender, @Nonnull ResearchItem research, boolean allResearch) {
         final var playerKnowledge = getPlayerKnowledge(sender);
         final var isKnown = playerKnowledge.contains(research.key);
 
-        if (!argsObj.allResearch && isKnown) {
+        if (!allResearch && isKnown) {
             sendAlreadyKnown(sender, research);
             return;
         }
@@ -80,13 +96,61 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
                     new ChatComponentTranslation("tfixins:command.prereqs.header")
                         .setChatStyle(color(EnumChatFormatting.DARK_PURPLE)))
                 .appendText(" ")
-                .appendSibling(formatResearch(research, EnumChatFormatting.DARK_PURPLE)));
+                .appendSibling(formatResearch(research)));
 
         final var scanPrereqs = buildScanPrereqs(research);
         if (scanPrereqs != null) {
             sender.addChatMessage(scanPrereqs);
         }
-        sender.addChatMessage(buildResearchMessage(research, argsObj.allResearch, playerKnowledge));
+        sender.addChatMessage(buildResearchMessage(research, allResearch, playerKnowledge));
+    }
+
+    private void sendPrereqsForItem(ICommandSender sender, ItemStack item) {
+        final var matchingResearchKeys = findResearch(item);
+
+        if (matchingResearchKeys.isEmpty()) {
+            sender.addChatMessage(new ChatComponentTranslation("tfixins:command.prereqs.item_not_found", item.func_151000_E()).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
+            return;
+        }
+
+        final var message = new ChatComponentText("")
+            .appendSibling(
+                new ChatComponentTranslation("tfixins:command.prereqs.header_item", item.func_151000_E())
+                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
+
+        for (var researchKey : matchingResearchKeys) {
+            final var research = ResearchCategories.getResearch(researchKey);
+            message.appendText(", ")
+                .appendSibling(formatResearch(research));
+        }
+        sender.addChatMessage(message);
+    }
+
+    private TreeSet<String> findResearch(ItemStack item) {
+        final var foundResearch = new TreeSet<String>();
+
+        for (var recipe : ThaumcraftApi.getCraftingRecipes()) {
+            String foundKey = null;
+            ItemStack output;
+            if (recipe instanceof IArcaneRecipe arcane && (output = arcane.getRecipeOutput()) != null
+                && item.isItemEqual(output)) {
+                foundKey = arcane.getResearch();
+            } else if (recipe instanceof CrucibleRecipe crucible && (output = crucible.getRecipeOutput()) != null
+                && item.isItemEqual(output)) {
+                    foundKey = crucible.key;
+                } else if (recipe instanceof InfusionRecipe infusion
+                    && infusion.getRecipeOutput() instanceof ItemStack infusionOutput
+                    && item.isItemEqual(infusionOutput)) {
+                        foundKey = infusion.getResearch();
+                    }
+
+            if (foundKey == null) {
+                continue;
+            }
+
+            foundResearch.add(foundKey);
+        }
+        return foundResearch;
     }
 
     private Set<String> getPlayerKnowledge(ICommandSender sender) {
@@ -292,6 +356,10 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
         }
     }
 
+    private IChatComponent formatResearch(ResearchItem research) {
+        return formatResearch(research, EnumChatFormatting.DARK_PURPLE);
+    }
+
     private IChatComponent formatResearch(ResearchItem research, boolean known) {
         return formatResearch(research, known ? EnumChatFormatting.DARK_PURPLE : EnumChatFormatting.DARK_RED);
     }
@@ -331,11 +399,14 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
 
     public static class Arguments {
 
-        @PositionalArg(index = 0, handler = ResearchHandler.class, descLangKey = "research")
+        @NamedArg(name = "--research", excludes = "--item", handler = ResearchHandler.class, descLangKey = "research")
         public ResearchItem research;
 
-        @FlagArg(name = "--completed", descLangKey = "all")
+        @FlagArg(name = "--completed", excludes = "--item", descLangKey = "all")
         public boolean allResearch;
+
+        @NamedArg(name = "--item", handler = ItemHandler.class, excludes = { "--research", "--completed" })
+        public ItemStack itemStack = ItemApi.getItem("ItemResource", 1);
 
     }
 }
