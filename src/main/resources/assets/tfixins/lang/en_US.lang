@@ -79,3 +79,6 @@ tfixins:error.invalid_node_type=%s is not a known node type.
 tfixins:error.unexpected_value=Unexpected input "%s".
 tfixins:error.unknown_value=Unknown value "%s".
 tfixins:error.unknown_research=%s is not a known research key.
+
+tc.research_name.CAP_iron=Iron Wand Caps
+tc.research_name.ROD_wood=Wooden Wand Core
