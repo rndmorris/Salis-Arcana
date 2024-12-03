@@ -1,7 +1,5 @@
 package dev.rndmorris.tfixins.mixins.late.gui;
 
-import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
-
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
@@ -17,7 +15,6 @@ public class MixinREHWandHandler {
 
     @ModifyConstant(method = "handleFociRadial", constant = @Constant(intValue = 4, ordinal = 0), remap = false)
     private int handleFociRadial(int value, Minecraft mc, long time, RenderGameOverlayEvent event) {
-        LOG.info("In method!");
         return BaublesApi.getBaubles(mc.thePlayer)
             .getSizeInventory();
     }
