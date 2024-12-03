@@ -24,7 +24,9 @@ public enum Mixins {
     BLOCKCANDLE_OOB(Side.BOTH, FixinsConfig.bugfixesModule.candleRendererCrashes, "blocks.MixinBlockCandleRenderer",
         "blocks.MixinBlockCandle"),
     DEAD_MOBS_DONT_ATTACK(Side.BOTH, FixinsConfig.bugfixesModule.deadMobsDontAttack, "entities.MixinEntityTaintacle",
-        "entities.MixinEntityEldritchCrab", "entities.MixinEntityThaumicSlime");
+        "entities.MixinEntityEldritchCrab", "entities.MixinEntityThaumicSlime"),
+    EXTENDED_BAUBLES_SUPPORT(Side.BOTH, FixinsConfig.bugfixesModule.useAllBaublesSlots, "events.MixinEventHandlerRunic",
+        "items.MixinWandManager");
 
     private final List<String> classes;
     private final Side side;
