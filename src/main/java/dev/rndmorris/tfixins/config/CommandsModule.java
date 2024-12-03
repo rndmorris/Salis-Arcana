@@ -42,7 +42,8 @@ public class CommandsModule implements IConfigModule {
                 .setDescription("Get help information about Thaumic Fixins' commands.")
                 .setPermissionLevel(0),
             prerequisites = new CommandSettings("prereqs", getter).addDefaultAlias()
-                .setDescription("Lists the prerequisites to unlock a specific research, or the research required to craft a specific item.")
+                .setDescription(
+                    "Lists the prerequisites to unlock a specific research, or the research required to craft a specific item.")
                 .setPermissionLevel(0),
             playerResearch = new CommandSettings("list-research", getter)
                 .setDescription("List and filter through TC4's research.")
