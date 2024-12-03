@@ -23,7 +23,7 @@ public class BugfixesModule implements IConfigModule {
         deadMobsDontAttack = new ToggleSetting(
             () -> this,
             "deadMobsDontAttack",
-            "Prevents mobs (e.g. the taintacle) from attacking during their death animation.");
+            "Prevents eldritch crabs, all taintacles, and thaumic slimes from attacking during their death animation.");
         itemShardColor = new ToggleSetting(
             () -> this,
             "shardMetadataCrash",
