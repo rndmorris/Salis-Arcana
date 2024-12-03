@@ -1,9 +1,12 @@
 package dev.rndmorris.tfixins.lib;
 
+import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
 
+import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
@@ -11,6 +14,7 @@ import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
+import dev.rndmorris.tfixins.common.commands.PrerequisitesCommand;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 
@@ -37,7 +41,7 @@ public class ResearchHelper {
                 if (!filter.test(research)) {
                     continue;
                 }
-                final var item = researchTextItem(research);
+                final var item = formatResearch(research);
 
                 if (researchMessage == null) {
                     researchMessage = item;
@@ -70,14 +74,39 @@ public class ResearchHelper {
         return headerMessage;
     }
 
-    private static IChatComponent researchTextItem(ResearchItem research) {
-        final var itemStyle = new ChatStyle();
-        itemStyle.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
-
-        final var item = new ChatComponentText(research.getName());
-        item.setChatStyle(itemStyle);
-
-        return item;
+    public static IChatComponent formatResearch(ResearchItem research) {
+        return formatResearch(research, EnumChatFormatting.DARK_PURPLE);
     }
 
+    public static IChatComponent formatResearch(ResearchItem research, EnumChatFormatting formatting) {
+        final var style = new ChatStyle().setColor(formatting)
+            .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
+        return new ChatComponentText("[").setChatStyle(style)
+            .appendSibling(new ChatComponentTranslation(String.format("tc.research_name.%s", research.key)))
+            .appendText("]");
+    }
+
+    public static IChatComponent formatResearchClickCommand(ResearchItem research) {
+        var result = formatResearch(research);
+        result.getChatStyle()
+            .setChatClickEvent(suggestResearchCommandOnClick(research));
+        return result;
+    }
+
+    public static IChatComponent formatResearchClickCommand(ResearchItem research, EnumChatFormatting formatting) {
+        var result = formatResearch(research, formatting);
+        result.getChatStyle()
+            .setChatClickEvent(suggestResearchCommandOnClick(research));
+        return result;
+    }
+
+    public static ClickEvent suggestResearchCommandOnClick(ResearchItem research) {
+        if (commandsModule.prerequisites.isEnabled()
+            && commandsModule.prerequisites.getCommand() instanceof PrerequisitesCommand command) {
+            return new ClickEvent(
+                ClickEvent.Action.SUGGEST_COMMAND,
+                String.format("/%s --research %s", command.getCommandName(), research.key));
+        }
+        return null;
+    }
 }

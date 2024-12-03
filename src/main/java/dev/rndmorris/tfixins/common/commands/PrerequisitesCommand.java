@@ -3,6 +3,8 @@ package dev.rndmorris.tfixins.common.commands;
 import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
 import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
 import static dev.rndmorris.tfixins.lib.ArrayHelper.toList;
+import static dev.rndmorris.tfixins.lib.ResearchHelper.formatResearch;
+import static dev.rndmorris.tfixins.lib.ResearchHelper.formatResearchClickCommand;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -19,7 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.command.ICommandSender;
-import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
@@ -223,7 +224,7 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
     private void sendAlreadyKnown(ICommandSender sender, ResearchItem research) {
         final var message = new ChatComponentTranslation(
             "tfixins:command.prereqs.already_known",
-            formatResearch(research, true));
+            formatResearch(research));
         message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_PURPLE));
         sender.addChatMessage(message);
     }
@@ -372,7 +373,9 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
             }
 
             final var currentResearch = ResearchCategories.getResearch(currentKey);
-            final var researchText = formatResearchClickCommand(currentResearch, playerKnowledge.contains(currentKey));
+            final var researchText = formatResearchClickCommand(
+                currentResearch,
+                researchColor(playerKnowledge.contains(currentKey)));
 
             if (message != null) {
                 message.appendText(" ")
@@ -414,40 +417,8 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
         }
     }
 
-    private IChatComponent formatResearch(ResearchItem research) {
-        return formatResearch(research, EnumChatFormatting.DARK_PURPLE);
-    }
-
-    private IChatComponent formatResearch(ResearchItem research, boolean known) {
-        return formatResearch(research, known ? EnumChatFormatting.DARK_PURPLE : EnumChatFormatting.DARK_RED);
-    }
-
-    private IChatComponent formatResearch(ResearchItem research, EnumChatFormatting formatting) {
-        final var style = new ChatStyle().setColor(formatting)
-            .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
-        return new ChatComponentText("[").setChatStyle(style)
-            .appendSibling(new ChatComponentTranslation(String.format("tc.research_name.%s", research.key)))
-            .appendText("]");
-    }
-
-    private IChatComponent formatResearchClickCommand(ResearchItem research) {
-        var result = formatResearch(research);
-        result.getChatStyle()
-            .setChatClickEvent(suggestResearchCommand(research));
-        return result;
-    }
-
-    private IChatComponent formatResearchClickCommand(ResearchItem research, boolean known) {
-        var result = formatResearch(research, known);
-        result.getChatStyle()
-            .setChatClickEvent(suggestResearchCommand(research));
-        return result;
-    }
-
-    private ClickEvent suggestResearchCommand(ResearchItem research) {
-        return new ClickEvent(
-            ClickEvent.Action.SUGGEST_COMMAND,
-            String.format("/%s %s", getCommandName(), research.key));
+    private EnumChatFormatting researchColor(boolean isKnown) {
+        return isKnown ? EnumChatFormatting.DARK_PURPLE : EnumChatFormatting.DARK_RED;
     }
 
     private ChatStyle color(EnumChatFormatting color) {
