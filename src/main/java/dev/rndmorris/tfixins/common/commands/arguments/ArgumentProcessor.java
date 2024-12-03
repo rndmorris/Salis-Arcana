@@ -3,6 +3,7 @@ package dev.rndmorris.tfixins.common.commands.arguments;
 import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,6 +15,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -93,8 +96,8 @@ public class ArgumentProcessor<TArguments> {
                 }
             }
 
-            final var value = entry.parser.parse(sender, current, $args);
-            entry.setter.accept(arguments, value);
+            final var value = entry.handler.parse(sender, current, $args);
+            entry.fieldSetter.accept(arguments, value);
 
             index += 1;
         }
@@ -152,7 +155,7 @@ public class ArgumentProcessor<TArguments> {
                 }
             }
 
-            final var result = entry.parser.getAutocompleteOptions(sender, current, $args);
+            final var result = entry.handler.getAutocompleteOptions(sender, current, $args);
             if (result != null) {
                 return result;
             }
@@ -175,10 +178,31 @@ public class ArgumentProcessor<TArguments> {
             }
 
             final var fieldType = field.getType();
+
+            if (fieldType.isInterface()) {
+                throw new RuntimeException(
+                    String.format(
+                        "Argument field \"%s\" on %s must be a concrete type, not an interface.",
+                        field.getName(),
+                        argumentsClass.getName()));
+            }
+
             entry.isList = List.class.isAssignableFrom(fieldType);
 
+            Class<?> expectedOutput = getExpectedOutputClass(field, entry, fieldType);
+
+            if (!expectedOutput.isAssignableFrom(entry.handler.getOutputType())) {
+                throw new RuntimeException(
+                    String.format(
+                        "Handler output (%s) is not assignable to target field %s (%s) on %s",
+                        entry.handler.getOutputType(),
+                        field.getName(),
+                        expectedOutput,
+                        argumentsClass.getName()));
+            }
+
             if (entry.isList) {
-                entry.setter = (arguments, val) -> {
+                entry.fieldSetter = (arguments, val) -> {
                     try {
                         // ensure the field value is an initialized list
                         List<Object> list;
@@ -197,7 +221,7 @@ public class ArgumentProcessor<TArguments> {
                     }
                 };
             } else {
-                entry.setter = (arguments, val) -> {
+                entry.fieldSetter = (arguments, val) -> {
                     try {
                         field.set(arguments, val);
                     } catch (IllegalAccessException e) {
@@ -209,14 +233,36 @@ public class ArgumentProcessor<TArguments> {
         }
     }
 
+    private Class<?> getExpectedOutputClass(Field field, ArgEntry entry, Class<?> fieldType) {
+        Class<?> valueClass;
+
+        if (entry.isList) {
+            if (field.getGenericType() instanceof ParameterizedType parameterizedType
+                && parameterizedType.getActualTypeArguments()[0] instanceof Class<?>typeInList) {
+                valueClass = typeInList;
+            } else {
+                // From what I understand, this should only happen if the field type is a subclass of a generic
+                // class. We would need to climb the type chain, somehow. Hopefully it never comes to that.
+                throw new RuntimeException(
+                    String.format(
+                        "Could not get generic type from field \"%s\" on %s.",
+                        field.getName(),
+                        argumentsClass.getName()));
+            }
+        } else {
+            valueClass = fieldType;
+        }
+        return valueClass;
+    }
+
     private boolean evaluatePositionalArg(Field field, ArgEntry entry) {
         var posArg = field.getAnnotation(PositionalArg.class);
         if (posArg == null) {
             return false;
         }
         positionalArgs.put(posArg.index(), entry);
-        entry.parser = argumentHandlers.get(posArg.handler());
-        if (entry.parser == null) {
+        entry.handler = argumentHandlers.get(posArg.handler());
+        if (entry.handler == null) {
             LOG.error(String.format("No parser found for positional argument at index %d", posArg.index()));
             throw new RuntimeException();
         }
@@ -236,8 +282,8 @@ public class ArgumentProcessor<TArguments> {
         }
 
         flagArgs.put(flagArg.name(), entry);
-        entry.parser = argumentHandlers.get(flagArg.handler());
-        if (entry.parser == null) {
+        entry.handler = argumentHandlers.get(flagArg.handler());
+        if (entry.handler == null) {
             LOG.error(String.format("No parser found for named argument at %s", flagArg.name()));
             throw new RuntimeException();
         }
@@ -260,8 +306,8 @@ public class ArgumentProcessor<TArguments> {
         }
 
         namedArgs.put(namedArg.name(), entry);
-        entry.parser = argumentHandlers.get(namedArg.handler());
-        if (entry.parser == null) {
+        entry.handler = argumentHandlers.get(namedArg.handler());
+        if (entry.handler == null) {
             LOG.error(String.format("No parser found for named argument at %s", namedArg.name()));
             throw new RuntimeException();
         }
@@ -277,10 +323,28 @@ public class ArgumentProcessor<TArguments> {
         return true;
     }
 
+    private void removeEntry(@Nonnull ArgEntry entry) {
+        final Map<?, ArgEntry> map = entry.argType == ArgType.POS ? positionalArgs
+            : entry.argType == ArgType.FLAG ? flagArgs : entry.argType == ArgType.NAMED ? namedArgs : null;
+        if (map == null) {
+            return;
+        }
+        Object key = null;
+        for (var pair : map.entrySet()) {
+            if (pair.getValue() == entry) {
+                key = pair.getKey();
+                break;
+            }
+        }
+        if (key != null) {
+            map.remove(key);
+        }
+    }
+
     private static class ArgEntry {
 
-        public IArgumentHandler parser;
-        public BiConsumer<Object, Object> setter;
+        public IArgumentHandler handler;
+        public BiConsumer<Object, Object> fieldSetter;
         public boolean isList;
         public List<String> excludes = Collections.emptyList();
         public ArgType argType;

@@ -2,7 +2,6 @@ package dev.rndmorris.tfixins.common.commands;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.TreeSet;
 import java.util.function.Predicate;
@@ -156,7 +155,7 @@ public class ForgetResearchCommand extends FixinsCommandBase<ForgetResearchComma
             handler = ResearchKeyHandler.class,
             excludes = "--all",
             descLangKey = "research")
-        public List<String> researchKeys = new ArrayList<>();
+        public ArrayList<String> researchKeys = new ArrayList<>();
 
         @NamedArg(name = "--player", handler = PlayerHandler.class, descLangKey = "player")
         public EntityPlayerMP targetPlayer;

@@ -4,8 +4,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 
 import dev.rndmorris.tfixins.common.commands.CommandErrors;
@@ -32,5 +35,11 @@ public class PlayerHandler implements INamedArgumentHandler {
         return Arrays.asList(
             MinecraftServer.getServer()
                 .getAllUsernames());
+    }
+
+    @Nonnull
+    @Override
+    public Class<?> getOutputType() {
+        return EntityPlayerMP.class;
     }
 }

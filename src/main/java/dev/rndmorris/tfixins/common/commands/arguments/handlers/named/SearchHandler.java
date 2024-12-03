@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.ICommandSender;
 
 import com.google.common.collect.Iterators;
@@ -26,6 +28,12 @@ public class SearchHandler implements INamedArgumentHandler {
             return Collections.emptyList();
         }
         return null;
+    }
+
+    @Nonnull
+    @Override
+    public Class<?> getOutputType() {
+        return String.class;
     }
 
     private String buildSearchTerm(String current, Iterator<String> args) {

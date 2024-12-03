@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -33,6 +35,12 @@ public class ResearchKeyHandler implements INamedArgumentHandler, IPositionalArg
             return null;
         }
         return allResearchKeys().collect(Collectors.toList());
+    }
+
+    @Nonnull
+    @Override
+    public Class<?> getOutputType() {
+        return String.class;
     }
 
     private Stream<String> allResearchKeys() {
