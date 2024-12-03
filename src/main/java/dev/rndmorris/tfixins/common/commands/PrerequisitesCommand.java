@@ -95,7 +95,7 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
             new ChatComponentText("")
                 .appendSibling(
                     new ChatComponentTranslation("tfixins:command.prereqs.header")
-                        .setChatStyle(color(EnumChatFormatting.DARK_PURPLE)))
+                        .setChatStyle(color(EnumChatFormatting.LIGHT_PURPLE)))
                 .appendText(" ")
                 .appendSibling(formatResearch(research)));
 
@@ -252,103 +252,117 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
         }
         if (entitiesMessage != null) {
             if (lastMessage != null) {
-                message.appendText(" ")
-                    .appendSibling(
-                        new ChatComponentTranslation("tfixins:command.prereqs.triggers_or").setChatStyle(italicBlue()))
-                    .appendText(" ");
+                message.appendSibling(orText());
             }
             message.appendSibling(entitiesMessage);
             lastMessage = entitiesMessage;
         }
         if (itemsMessage != null) {
             if (lastMessage != null) {
-                message.appendText(" ")
-                    .appendSibling(
-                        new ChatComponentTranslation("tfixins:command.prereqs.triggers_or").setChatStyle(italicBlue()))
-                    .appendText(" ");
+                message.appendSibling(orText());
             }
             message.appendSibling(itemsMessage);
         }
         return message;
     }
 
+    private IChatComponent orText() {
+        return new ChatComponentText(" ")
+            .appendSibling(
+                new ChatComponentTranslation("tfixins:command.prereqs.triggers_or").setChatStyle(italicBlue()))
+            .appendText(" ");
+    }
+
     @Nullable
     private IChatComponent buildAspectsMessage(List<Aspect> aspectTriggers) {
-        final var aspectComponents = aspectTriggers.stream()
-            .filter(Objects::nonNull)
-            .map(aspect -> {
-                final var aspectChat = new ChatComponentText(String.format("[%s]", aspect.getName()));
-                final var aspectColor = aspect.getChatcolor();
-                EnumChatFormatting color;
-                if (aspectColor != null && !aspectColor.isEmpty()
-                    && ((color = EnumHelper.findByFormattingCode(aspectColor.charAt(0))) != null)) {
-                    aspectChat.setChatStyle(new ChatStyle().setColor(color));
-                }
-                return aspectChat;
-            })
-            .collect(Collectors.toList());
 
-        if (aspectComponents.isEmpty()) {
-            return null;
+        final var message = new ChatComponentText("")
+            .appendSibling(new ChatComponentTranslation("tfixins:command.prereqs.triggers_aspects"))
+            .appendText(" ");
+
+        var anyAspects = false;
+        final var aspects$ = aspectTriggers.iterator();
+        while (aspects$.hasNext()) {
+            final var aspect = aspects$.next();
+            if (aspect == null) {
+                continue;
+            }
+            anyAspects = true;
+            final var aspectChat = new ChatComponentText(String.format("[%s]", aspect.getName()));
+            final var aspectColor = aspect.getChatcolor();
+            EnumChatFormatting color;
+            if (aspectColor != null && !aspectColor.isEmpty()
+                && ((color = EnumHelper.findByFormattingCode(aspectColor.charAt(0))) != null)) {
+                aspectChat.setChatStyle(new ChatStyle().setColor(color));
+            }
+            message.appendSibling(aspectChat);
+            if (aspects$.hasNext()) {
+                message.appendText(", ");
+            }
         }
 
-        final var message = new ChatComponentTranslation("tfixins:command.prereqs.triggers_aspects").appendText(" ")
-            .appendSibling(aspectComponents.get(0));
-
-        aspectComponents.subList(1, aspectTriggers.size())
-            .forEach(
-                msg -> message.appendText(", ")
-                    .appendSibling(msg));
-
-        return message;
+        return anyAspects ? message : null;
     }
 
     @Nullable
     private IChatComponent buildEntitiesMessage(List<String> entityTriggers) {
-        final var entityComponents = entityTriggers.stream()
-            .filter(Objects::nonNull)
-            .map(
-                str -> new ChatComponentTranslation(String.format("entity.%s.name", str)).setChatStyle(
-                    new ChatStyle()
-                        .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(str)))))
-            .map(
-                chat -> new ChatComponentText("[").appendSibling(chat)
-                    .appendText("]"))
-            .collect(Collectors.toList());
 
-        if (entityComponents.isEmpty()) {
-            return null;
+        final var message = new ChatComponentText("")
+            .appendSibling(new ChatComponentTranslation("tfixins:command.prereqs.triggers_entities"))
+            .appendText(" ");
+
+        var noEntities = true;
+
+        final var entities$ = entityTriggers.iterator();
+        while (entities$.hasNext()) {
+            final var entity = entities$.next();
+            if (entity == null) {
+                continue;
+            }
+            noEntities = false;
+            final var component = new ChatComponentText("[")
+                .setChatStyle(
+                    new ChatStyle()
+                        .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(entity))))
+                .appendSibling(new ChatComponentTranslation(String.format("entity.%s.name", entity)))
+                .appendText("]");
+            message.appendSibling(component);
+            if (entities$.hasNext()) {
+                message.appendText(", ");
+            }
         }
 
-        final var message = new ChatComponentTranslation("tfixins:command.prereqs.triggers_entities").appendText(" ")
-            .appendSibling(entityComponents.get(0));
-
-        entityComponents.subList(1, entityComponents.size())
-            .forEach(
-                msg -> message.appendText(", ")
-                    .appendSibling(msg));
+        if (noEntities) {
+            return null;
+        }
 
         return message;
     }
 
     @Nullable
     private IChatComponent buildItemsMessage(List<ItemStack> itemTriggers) {
-        final var itemComponents = itemTriggers.stream()
-            .filter(item -> item != null && item.getItem() != null)
-            .map(ItemStack::func_151000_E)
-            .collect(Collectors.toList());
 
-        if (itemComponents.isEmpty()) {
-            return null;
+        final var message = new ChatComponentText("")
+            .appendSibling(new ChatComponentTranslation("tfixins:command.prereqs.triggers_items"))
+            .appendText(" ");
+
+        var noItems = true;
+        final var items$ = itemTriggers.iterator();
+        while (items$.hasNext()) {
+            final var item = items$.next();
+            if (item == null || item.getItem() == null) {
+                continue;
+            }
+            noItems = false;
+            message.appendSibling(item.func_151000_E());
+            if (items$.hasNext()) {
+                message.appendText(", ");
+            }
         }
 
-        final var message = new ChatComponentTranslation("tfixins:command.prereqs.triggers_items").appendText(" ")
-            .appendSibling(itemComponents.get(0));
-
-        itemComponents.subList(1, itemComponents.size())
-            .forEach(
-                msg -> message.appendText(", ")
-                    .appendSibling(msg));
+        if (noItems) {
+            return null;
+        }
 
         return message;
     }
