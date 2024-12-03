@@ -14,6 +14,7 @@ public class BugfixesModule implements IConfigModule {
     public final ToggleSetting candleRendererCrashes;
     public final ToggleSetting deadMobsDontAttack;
     public final ToggleSetting itemShardColor;
+    public final ToggleSetting useAllBaublesSlots;
 
     public BugfixesModule() {
         candleRendererCrashes = new ToggleSetting(
@@ -28,7 +29,10 @@ public class BugfixesModule implements IConfigModule {
             () -> this,
             "shardMetadataCrash",
             "Fixes a crash with invalid shard metadata");
-
+        useAllBaublesSlots = new ToggleSetting(
+            () -> this,
+            "useAllBaublesSlots",
+            "Enables support for mods that increase the number of baubles slots.");
     }
 
     @Nonnull
