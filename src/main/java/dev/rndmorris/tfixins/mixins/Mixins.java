@@ -26,7 +26,9 @@ public enum Mixins {
     DEAD_MOBS_DONT_ATTACK(Side.BOTH, FixinsConfig.bugfixesModule.deadMobsDontAttack, "entities.MixinEntityTaintacle",
         "entities.MixinEntityEldritchCrab", "entities.MixinEntityThaumicSlime"),
     EXTENDED_BAUBLES_SUPPORT(Side.BOTH, FixinsConfig.bugfixesModule.useAllBaublesSlots, "events.MixinEventHandlerRunic",
-        "items.MixinWandManager");
+        "items.MixinWandManager"),
+    EXTENDED_BAUBLES_SUPPORT_CLIENT(Side.CLIENT, FixinsConfig.bugfixesModule.useAllBaublesSlots,
+        "gui.MixinREHWandHandler");
 
     private final List<String> classes;
     private final Side side;
