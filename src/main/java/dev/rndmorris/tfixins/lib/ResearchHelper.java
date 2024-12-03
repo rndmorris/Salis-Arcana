@@ -31,23 +31,27 @@ public class ResearchHelper {
         for (var entry : ResearchCategories.researchCategories.entrySet()) {
             final var category = entry.getValue();
 
-            IChatComponent researchMessage = null;
+            IChatComponent researchMessage = new ChatComponentText("");
 
-            for (var research : category.research.values()) {
+            final var research$ = category.research.values()
+                .iterator();
+            var anyInCategory = false;
+
+            while (research$.hasNext()) {
+                final var research = research$.next();
                 if (!filter.test(research)) {
                     continue;
                 }
-                final var item = researchTextItem(research);
+                anyInCategory = true;
 
-                if (researchMessage == null) {
-                    researchMessage = item;
-                } else {
-                    researchMessage.appendText(",  ");
-                    researchMessage.appendSibling(item);
+                final var item = researchTextItem(research);
+                researchMessage.appendSibling(item);
+                if (research$.hasNext()) {
+                    researchMessage.appendText(", ");
                 }
             }
 
-            if (researchMessage != null) {
+            if (anyInCategory) {
                 results.add(categoryMessage(entry.getKey()));
                 results.add(researchMessage);
             }
@@ -71,13 +75,12 @@ public class ResearchHelper {
     }
 
     private static IChatComponent researchTextItem(ResearchItem research) {
-        final var itemStyle = new ChatStyle();
-        itemStyle.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
+        final var itemStyle = new ChatStyle().setColor(EnumChatFormatting.DARK_PURPLE)
+            .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
 
-        final var item = new ChatComponentText(research.getName());
-        item.setChatStyle(itemStyle);
-
-        return item;
+        return new ChatComponentText("[").setChatStyle(itemStyle)
+            .appendSibling(new ChatComponentText(research.getName()))
+            .appendText("]");
     }
 
 }
