@@ -1,5 +1,6 @@
 package dev.rndmorris.tfixins.common.commands;
 
+import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
 import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
 import static dev.rndmorris.tfixins.lib.ArrayHelper.toList;
 
@@ -11,13 +12,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiChat;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
@@ -28,6 +28,7 @@ import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.FlagArg;
 import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
@@ -37,7 +38,6 @@ import dev.rndmorris.tfixins.common.commands.arguments.handlers.ItemHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.ResearchHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.lib.EnumHelper;
-import thaumcraft.api.ItemApi;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.crafting.CrucibleRecipe;
@@ -57,7 +57,7 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
     @Override
     protected ArgumentProcessor<Arguments> initializeProcessor() {
         final var depthHandler = new IntHandler(-1, Integer.MAX_VALUE, 3);
-        final var itemhandler = new ItemHandler();
+        final var itemhandler = new ItemHandler(collectCraftedItemKeys());
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,
@@ -67,7 +67,7 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
     @Override
     protected void process(ICommandSender sender, String[] args) {
         final var argsObj = argumentProcessor.process(sender, args);
-        Minecraft.getMinecraft().displayGuiScreen(new GuiChat());
+
         if (argsObj.research != null) {
             sendPrereqsForResearch(sender, argsObj.research, argsObj.allResearch);
             return;
@@ -109,48 +109,106 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
         final var matchingResearchKeys = findResearch(item);
 
         if (matchingResearchKeys.isEmpty()) {
-            sender.addChatMessage(new ChatComponentTranslation("tfixins:command.prereqs.item_not_found", item.func_151000_E()).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
+            sender.addChatMessage(
+                new ChatComponentTranslation("tfixins:command.prereqs.item_not_found", item.func_151000_E())
+                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
             return;
         }
 
-        final var message = new ChatComponentText("")
-            .appendSibling(
-                new ChatComponentTranslation("tfixins:command.prereqs.header_item", item.func_151000_E())
-                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
-
-        for (var researchKey : matchingResearchKeys) {
-            final var research = ResearchCategories.getResearch(researchKey);
-            message.appendText(", ")
-                .appendSibling(formatResearch(research));
-        }
+        final var message = new ChatComponentText("").appendSibling(
+            new ChatComponentTranslation("tfixins:command.prereqs.header_item", item.func_151000_E())
+                .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
         sender.addChatMessage(message);
+
+        final var listMessage = new ChatComponentText("");
+
+        final var keyIterator = matchingResearchKeys.iterator();
+        while (keyIterator.hasNext()) {
+            final var research = ResearchCategories.getResearch(keyIterator.next());
+            listMessage.appendSibling(formatResearchClickCommand(research));
+            if (keyIterator.hasNext()) {
+                listMessage.appendText(", ");
+            }
+        }
+
+        sender.addChatMessage(listMessage);
     }
 
     private TreeSet<String> findResearch(ItemStack item) {
         final var foundResearch = new TreeSet<String>();
 
-        for (var recipe : ThaumcraftApi.getCraftingRecipes()) {
-            String foundKey = null;
+        iterateOverThaumRecipes((arcane) -> {
             ItemStack output;
-            if (recipe instanceof IArcaneRecipe arcane && (output = arcane.getRecipeOutput()) != null
-                && item.isItemEqual(output)) {
-                foundKey = arcane.getResearch();
-            } else if (recipe instanceof CrucibleRecipe crucible && (output = crucible.getRecipeOutput()) != null
-                && item.isItemEqual(output)) {
-                    foundKey = crucible.key;
-                } else if (recipe instanceof InfusionRecipe infusion
-                    && infusion.getRecipeOutput() instanceof ItemStack infusionOutput
-                    && item.isItemEqual(infusionOutput)) {
-                        foundKey = infusion.getResearch();
-                    }
+            if ((output = arcane.getRecipeOutput()) != null && item.isItemEqual(output)) {
+                foundResearch.add(arcane.getResearch());
+            }
+        }, (crucible) -> {
+            ItemStack output;
+            if ((output = crucible.getRecipeOutput()) != null && item.isItemEqual(output)) {
+                foundResearch.add(crucible.key);
+            }
+        }, (infusion) -> {
+            if (infusion.getRecipeOutput() instanceof ItemStack infusionOutput && item.isItemEqual(infusionOutput)) {
+                foundResearch.add(infusion.getResearch());
+            }
+        });
 
-            if (foundKey == null) {
+        return foundResearch;
+    }
+
+    private void iterateOverThaumRecipes(Consumer<IArcaneRecipe> craftingConsumer,
+        Consumer<CrucibleRecipe> crucibleConsumer, Consumer<InfusionRecipe> infusionConsumer) {
+        for (var recipe : ThaumcraftApi.getCraftingRecipes()) {
+            if (recipe instanceof IArcaneRecipe arcane) {
+                if (craftingConsumer != null) {
+                    craftingConsumer.accept(arcane);
+                }
                 continue;
             }
-
-            foundResearch.add(foundKey);
+            if (recipe instanceof CrucibleRecipe crucible) {
+                if (crucibleConsumer != null) {
+                    crucibleConsumer.accept(crucible);
+                }
+                continue;
+            }
+            if (recipe instanceof InfusionRecipe infusion) {
+                if (infusionConsumer != null) {
+                    infusionConsumer.accept(infusion);
+                }
+            }
         }
-        return foundResearch;
+    }
+
+    private Set<String> collectCraftedItemKeys() {
+        final var result = new TreeSet<String>();
+
+        final Consumer<ItemStack> handleItemStack = (recipeOutput) -> {
+            final var id = GameRegistry.findUniqueIdentifierFor(recipeOutput.getItem());
+            if (id == null) {
+                LOG.error("Could not find unique id for item {}", recipeOutput.toString());
+                return;
+            }
+            result.add(String.format("%s:%s", id.modId, id.name));
+        };
+
+        iterateOverThaumRecipes((arcane) -> {
+            final var recipeOutput = arcane.getRecipeOutput();
+            if (recipeOutput != null && recipeOutput.getItem() != null) {
+                handleItemStack.accept(recipeOutput);
+            }
+        }, (crucible) -> {
+            final var recipeOutput = crucible.getRecipeOutput();
+            if (recipeOutput != null && recipeOutput.getItem() != null) {
+                handleItemStack.accept(recipeOutput);
+            }
+        }, (infusion) -> {
+            final var output = infusion.getRecipeOutput();
+            if (output instanceof ItemStack recipeOutput && recipeOutput.getItem() != null) {
+                handleItemStack.accept(recipeOutput);
+            }
+        });
+
+        return result;
     }
 
     private Set<String> getPlayerKnowledge(ICommandSender sender) {
@@ -372,6 +430,13 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
             .appendText("]");
     }
 
+    private IChatComponent formatResearchClickCommand(ResearchItem research) {
+        var result = formatResearch(research);
+        result.getChatStyle()
+            .setChatClickEvent(suggestResearchCommand(research));
+        return result;
+    }
+
     private IChatComponent formatResearchClickCommand(ResearchItem research, boolean known) {
         var result = formatResearch(research, known);
         result.getChatStyle()
@@ -406,7 +471,7 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
         public boolean allResearch;
 
         @NamedArg(name = "--item", handler = ItemHandler.class, excludes = { "--research", "--completed" })
-        public ItemStack itemStack = ItemApi.getItem("ItemResource", 1);
+        public ItemStack itemStack;
 
     }
 }

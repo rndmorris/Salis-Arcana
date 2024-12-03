@@ -1,6 +1,7 @@
 package dev.rndmorris.tfixins.common.commands.arguments.handlers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,7 +19,20 @@ public class ItemHandler implements INamedArgumentHandler, IPositionalArgumentHa
 
     public static final ItemHandler INSTANCE = new ItemHandler();
 
+    private final List<String> itemKeys;
     private final IntHandler metadataHandler = new IntHandler(0, Integer.MAX_VALUE, 0);
+
+    public ItemHandler() {
+        this(null);
+    }
+
+    public ItemHandler(Collection<String> itemKeys) {
+        if (itemKeys != null) {
+            this.itemKeys = new ArrayList<>(itemKeys);
+        } else {
+            this.itemKeys = null;
+        }
+    }
 
     @Override
     public Object parse(ICommandSender sender, String current, Iterator<String> args) {
@@ -31,13 +45,16 @@ public class ItemHandler implements INamedArgumentHandler, IPositionalArgumentHa
             damage = metadataHandler.getSuggestedValue();
         }
 
-        return new ItemStack(item, damage);
+        return new ItemStack(item, 0, damage);
     }
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
         if (!args.hasNext()) {
-            //noinspection unchecked
+            if (itemKeys != null) {
+                return itemKeys;
+            }
+            // noinspection unchecked
             return new ArrayList<String>(Item.itemRegistry.getKeys());
         }
         args.next();
