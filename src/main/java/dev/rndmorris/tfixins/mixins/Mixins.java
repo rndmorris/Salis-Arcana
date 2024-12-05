@@ -28,7 +28,9 @@ public enum Mixins {
     EXTENDED_BAUBLES_SUPPORT(Side.BOTH, FixinsConfig.bugfixesModule.useAllBaublesSlots, "events.MixinEventHandlerRunic",
         "items.MixinWandManager"),
     EXTENDED_BAUBLES_SUPPORT_CLIENT(Side.CLIENT, FixinsConfig.bugfixesModule.useAllBaublesSlots,
-        "gui.MixinREHWandHandler");
+        "gui.MixinREHWandHandler"),
+    ARCANE_FURNACE_DUPE_FIX(Side.BOTH, FixinsConfig.bugfixesModule.infernalFurnaceDupeFix,
+        "blocks.MixinBlockArcaneFurnace");
 
     private final List<String> classes;
     private final Side side;

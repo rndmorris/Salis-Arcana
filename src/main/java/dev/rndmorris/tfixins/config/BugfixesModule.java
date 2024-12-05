@@ -15,6 +15,7 @@ public class BugfixesModule implements IConfigModule {
     public final ToggleSetting deadMobsDontAttack;
     public final ToggleSetting itemShardColor;
     public final ToggleSetting useAllBaublesSlots;
+    public final ToggleSetting infernalFurnaceDupeFix;
 
     public BugfixesModule() {
         candleRendererCrashes = new ToggleSetting(
@@ -33,6 +34,10 @@ public class BugfixesModule implements IConfigModule {
             () -> this,
             "useAllBaublesSlots",
             "Enables support for mods that increase the number of baubles slots.");
+        infernalFurnaceDupeFix = new ToggleSetting(
+            () -> this,
+            "infernalFurnaceDupeFix",
+            "Fixes a smelting duplication glitch with the Infernal Furnace");
     }
 
     @Nonnull
