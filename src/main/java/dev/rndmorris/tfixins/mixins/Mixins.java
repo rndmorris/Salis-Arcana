@@ -29,6 +29,9 @@ public enum Mixins {
         "items.MixinWandManager"),
     EXTENDED_BAUBLES_SUPPORT_CLIENT(Side.CLIENT, FixinsConfig.bugfixesModule.useAllBaublesSlots,
         "gui.MixinREHWandHandler"),
+    RENDER_REDSTONE_FIX(Side.BOTH, FixinsConfig.bugfixesModule.renderRedstoneFix, "blocks.MixinBlockCustomOre",
+        "blocks.MixinBlockMetalDevice", "blocks.MixinBlockStoneDevice", "blocks.MixinBlockWoodenDevice",
+        "blocks.MixinBlockTaint"),
     ARCANE_FURNACE_DUPE_FIX(Side.BOTH, FixinsConfig.bugfixesModule.infernalFurnaceDupeFix,
         "blocks.MixinBlockArcaneFurnace");
 

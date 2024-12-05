@@ -15,6 +15,7 @@ public class BugfixesModule implements IConfigModule {
     public final ToggleSetting deadMobsDontAttack;
     public final ToggleSetting itemShardColor;
     public final ToggleSetting useAllBaublesSlots;
+    public final ToggleSetting renderRedstoneFix;
     public final ToggleSetting infernalFurnaceDupeFix;
 
     public BugfixesModule() {
@@ -34,6 +35,10 @@ public class BugfixesModule implements IConfigModule {
             () -> this,
             "useAllBaublesSlots",
             "Enables support for mods that increase the number of baubles slots.");
+        renderRedstoneFix = new ToggleSetting(
+            () -> this,
+            "renderRedstoneFix",
+            "Fixes an issue with some blocks that don't get rendered as normal blocks, not allowing you to push a redstone signal through them.");
         infernalFurnaceDupeFix = new ToggleSetting(
             () -> this,
             "infernalFurnaceDupeFix",
@@ -63,6 +68,8 @@ public class BugfixesModule implements IConfigModule {
         candleRendererCrashes.loadFromConfiguration(configuration);
         deadMobsDontAttack.loadFromConfiguration(configuration);
         itemShardColor.loadFromConfiguration(configuration);
+        renderRedstoneFix.loadFromConfiguration(configuration);
+        infernalFurnaceDupeFix.loadFromConfiguration(configuration);
     }
 
     @Override
