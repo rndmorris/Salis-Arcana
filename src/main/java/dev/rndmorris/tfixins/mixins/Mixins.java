@@ -11,21 +11,31 @@ import dev.rndmorris.tfixins.config.IEnabler;
 public enum Mixins {
 
     // spotless:off
+
+    // Biome colors
     BIOME_EERIE_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenEerie"),
-    BIOME_ELDRITCH_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenEldrith"),
-    BIOME_TAINT_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenTaint"),
+    BIOME_ELDRITCH_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenEldritch"),
     BIOME_MAGICALFOREST_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenMagicalForest"),
+    BIOME_TAINT_MODULE(Side.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenTaint"),
+
+    // Bugfixes
+    ARCANE_FURNACE_DUPE_FIX(Side.BOTH, FixinsConfig.bugfixesModule.infernalFurnaceDupeFix, "blocks.MixinBlockArcaneFurnace"),
     BEACON_BLOCKS(Side.BOTH, FixinsConfig.bugfixesModule.blockCosmeticSolidBeaconFix, "blocks.MixinBlockCosmeticSolid"),
-    RIGHT_CLICK_NAVIAGTION(Side.CLIENT, FixinsConfig.researchBrowserModule.rightClickClose, "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
-    CTRL_SCROLL_NAVIGATION(Side.CLIENT, FixinsConfig.researchBrowserModule.scrollwheelEnabled, "gui.MixinGuiResearchBrowser"),
-    RESEARCH_ID_POPUP(Side.CLIENT, FixinsConfig.researchBrowserModule.showResearchId, "gui.MixinGuiResearchBrowser"),
-    ITEMSHARD_OOB(Side.BOTH, FixinsConfig.bugfixesModule.itemShardColor, "items.MixinItemShard"),
     BLOCKCANDLE_OOB(Side.BOTH, FixinsConfig.bugfixesModule.candleRendererCrashes, "blocks.MixinBlockCandleRenderer", "blocks.MixinBlockCandle"),
     DEAD_MOBS_DONT_ATTACK(Side.BOTH, FixinsConfig.bugfixesModule.deadMobsDontAttack, "entities.MixinEntityTaintacle", "entities.MixinEntityEldritchCrab", "entities.MixinEntityThaumicSlime"),
+    ITEMSHARD_OOB(Side.BOTH, FixinsConfig.bugfixesModule.itemShardColor, "items.MixinItemShard"),
+    RENDER_REDSTONE_FIX(Side.BOTH, FixinsConfig.bugfixesModule.renderRedstoneFix, "blocks.MixinBlockCustomOre", "blocks.MixinBlockMetalDevice", "blocks.MixinBlockStoneDevice", "blocks.MixinBlockWoodenDevice", "blocks.MixinBlockTaint"),
+
+    // Baubles
     EXTENDED_BAUBLES_SUPPORT(Side.BOTH, FixinsConfig.bugfixesModule.useAllBaublesSlots, "events.MixinEventHandlerRunic", "items.MixinWandManager"),
     EXTENDED_BAUBLES_SUPPORT_CLIENT(Side.CLIENT, FixinsConfig.bugfixesModule.useAllBaublesSlots, "gui.MixinREHWandHandler"),
-    RENDER_REDSTONE_FIX(Side.BOTH, FixinsConfig.bugfixesModule.renderRedstoneFix, "blocks.MixinBlockCustomOre", "blocks.MixinBlockMetalDevice", "blocks.MixinBlockStoneDevice", "blocks.MixinBlockWoodenDevice", "blocks.MixinBlockTaint"),
-    ARCANE_FURNACE_DUPE_FIX(Side.BOTH, FixinsConfig.bugfixesModule.infernalFurnaceDupeFix, "blocks.MixinBlockArcaneFurnace");
+
+    // Thaumonomicon
+    CTRL_SCROLL_NAVIGATION(Side.CLIENT, FixinsConfig.researchBrowserModule.scrollwheelEnabled, "gui.MixinGuiResearchBrowser"),
+    RESEARCH_ID_POPUP(Side.CLIENT, FixinsConfig.researchBrowserModule.showResearchId, "gui.MixinGuiResearchBrowser"),
+    RIGHT_CLICK_NAVIAGTION(Side.CLIENT, FixinsConfig.researchBrowserModule.rightClickClose, "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
+
+    ;
     // spotless:on
 
     private final List<String> classes;
