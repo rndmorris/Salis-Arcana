@@ -3,7 +3,6 @@ package dev.rndmorris.tfixins.config.commands;
 import static dev.rndmorris.tfixins.common.commands.ListResearchCommand.listOthersReserach;
 
 import java.lang.ref.WeakReference;
-import java.util.Collections;
 
 import javax.annotation.Nonnull;
 
@@ -77,60 +76,13 @@ public class CommandsModule implements IConfigModule {
     @Override
     public void loadModuleFromConfig(@Nonnull Configuration configuration) {
         for (var settings : commandsSettings) {
-            loadCommandSettings(configuration, settings);
+            settings.loadFromConfiguration(configuration);
         }
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    private void loadCommandSettings(Configuration configuration, CommandSettings settings) {
-        var enabled = configuration.getBoolean(
-            String.format("Enable %s command", settings.name),
-            getModuleId(),
-            settings.isEnabled(),
-            settings.getDescription());
-
-        settings.setEnabled(enabled);
-
-        if (!settings.isEnabled()) {
-            return;
-        }
-
-        final var category = String.format("%s_%s", getModuleId(), settings.name.replace('-', '_'));
-        configuration.setCategoryComment(category, settings.getDescription());
-
-        final var aliases = configuration.getStringList(
-            "Aliases",
-            category,
-            settings.aliases.toArray(new String[0]),
-            "Secondary names that refer to this command.");
-        settings.aliases.clear();
-        Collections.addAll(settings.aliases, aliases);
-
-        final var permissionLevel = configuration.getInt(
-            "Permission Level",
-            category,
-            settings.getPermissionLevel(),
-            0,
-            4,
-            "The permission level required to execute the command.");
-        settings.setPermissionLevel(permissionLevel);
-
-        for (var childPermName : settings.childPermissionLevels.keySet()) {
-            final var childPermissionLevel = configuration.getInt(
-                String.format("Permission Level - %s", childPermName),
-                category,
-                (int) settings.childPermissionLevels.get(childPermName),
-                0,
-                4,
-                String.format(
-                    "The permission level required to %s",
-                    settings.childPermissionDescription.get(childPermName)));
-            settings.childPermissionLevels.put(childPermName, (byte) childPermissionLevel);
-        }
     }
 
 }

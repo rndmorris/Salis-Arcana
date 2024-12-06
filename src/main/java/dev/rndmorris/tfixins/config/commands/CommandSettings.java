@@ -1,6 +1,7 @@
 package dev.rndmorris.tfixins.config.commands;
 
 import java.lang.ref.WeakReference;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -81,6 +82,46 @@ public class CommandSettings extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
+        IConfigModule module;
+        if ((module = moduleRef.get()) == null) {
+            return;
+        }
 
+        enabled = configuration
+            .getBoolean(String.format("Enable %s command", name), module.getModuleId(), enabled, description);
+
+        if (!enabled) {
+            return;
+        }
+
+        final var category = String.format("%s_%s", module.getModuleId(), name.replace('-', '_'));
+        configuration.setCategoryComment(category, description);
+
+        final var configAliases = configuration.getStringList(
+            "Aliases",
+            category,
+            aliases.toArray(new String[0]),
+            "Secondary names that refer to this command.");
+        aliases.clear();
+        Collections.addAll(aliases, configAliases);
+
+        permissionLevel = (byte) configuration.getInt(
+            "Permission Level",
+            category,
+            permissionLevel,
+            0,
+            4,
+            "The permission level required to execute the command.");
+
+        for (var childPermName : childPermissionLevels.keySet()) {
+            final var childPermissionLevel = configuration.getInt(
+                String.format("Permission Level - %s", childPermName),
+                category,
+                (int) childPermissionLevels.get(childPermName),
+                0,
+                4,
+                String.format("The permission level required to %s", childPermissionDescription.get(childPermName)));
+            childPermissionLevels.put(childPermName, (byte) childPermissionLevel);
+        }
     }
 }
