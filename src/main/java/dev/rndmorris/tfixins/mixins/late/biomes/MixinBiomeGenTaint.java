@@ -19,7 +19,7 @@ public abstract class MixinBiomeGenTaint extends BiomeGenBase {
 
     @Inject(method = "getBiomeGrassColor", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetBiomeGrassColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColors;
+        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColorsSettings;
         if (taintBiomeColors.grassSet) {
             cir.setReturnValue(taintBiomeColors.grass);
             cir.cancel();
@@ -28,7 +28,7 @@ public abstract class MixinBiomeGenTaint extends BiomeGenBase {
 
     @Inject(method = "getBiomeFoliageColor", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetBiomeFoliageColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColors;
+        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColorsSettings;
         if (taintBiomeColors.foliageSet) {
             cir.setReturnValue(taintBiomeColors.foliage);
             cir.cancel();
@@ -37,7 +37,7 @@ public abstract class MixinBiomeGenTaint extends BiomeGenBase {
 
     @Inject(method = "getSkyColorByTemp", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetSkyColorByTemp(float temp, CallbackInfoReturnable<Integer> cir) {
-        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColors;
+        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColorsSettings;
         if (taintBiomeColors.skySet) {
             cir.setReturnValue(taintBiomeColors.sky);
             cir.cancel();
@@ -46,7 +46,7 @@ public abstract class MixinBiomeGenTaint extends BiomeGenBase {
 
     @Inject(method = "getWaterColorMultiplier", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetWaterColorMultiplier(CallbackInfoReturnable<Integer> cir) {
-        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColors;
+        final var taintBiomeColors = FixinsConfig.biomeColorModule.taintBiomeColorsSettings;
         if (taintBiomeColors.waterSet) {
             cir.setReturnValue(taintBiomeColors.water);
             cir.cancel();

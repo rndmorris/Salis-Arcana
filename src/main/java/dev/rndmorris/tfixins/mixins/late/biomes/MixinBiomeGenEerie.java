@@ -19,16 +19,16 @@ public abstract class MixinBiomeGenEerie extends BiomeGenBase {
 
     @Inject(method = "getBiomeGrassColor", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetBiomeGrassColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        final var eerieBiomeColors = FixinsConfig.biomeColorModule.eerieBiomeColors;
+        final var eerieBiomeColors = FixinsConfig.biomeColorModule.eerieBiomeColorsSettings;
         if (eerieBiomeColors.grassSet) {
-            cir.setReturnValue(FixinsConfig.biomeColorModule.eerieBiomeColors.grass);
+            cir.setReturnValue(FixinsConfig.biomeColorModule.eerieBiomeColorsSettings.grass);
             cir.cancel();
         }
     }
 
     @Inject(method = "getBiomeFoliageColor", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetBiomeFoliageColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        final var eerieBiomeColors = FixinsConfig.biomeColorModule.eerieBiomeColors;
+        final var eerieBiomeColors = FixinsConfig.biomeColorModule.eerieBiomeColorsSettings;
         if (eerieBiomeColors.foliageSet) {
             cir.setReturnValue(eerieBiomeColors.foliage);
             cir.cancel();
@@ -37,7 +37,7 @@ public abstract class MixinBiomeGenEerie extends BiomeGenBase {
 
     @Inject(method = "getSkyColorByTemp", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetSkyColorByTemp(float temp, CallbackInfoReturnable<Integer> cir) {
-        final var eerieBiomeColors = FixinsConfig.biomeColorModule.eerieBiomeColors;
+        final var eerieBiomeColors = FixinsConfig.biomeColorModule.eerieBiomeColorsSettings;
         if (eerieBiomeColors.skySet) {
             cir.setReturnValue(eerieBiomeColors.sky);
             cir.cancel();
@@ -46,7 +46,7 @@ public abstract class MixinBiomeGenEerie extends BiomeGenBase {
 
     @Inject(method = "getWaterColorMultiplier", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetWaterColorMultiplier(CallbackInfoReturnable<Integer> cir) {
-        final var eerieBiomeColors = FixinsConfig.biomeColorModule.eerieBiomeColors;
+        final var eerieBiomeColors = FixinsConfig.biomeColorModule.eerieBiomeColorsSettings;
         if (eerieBiomeColors.waterSet) {
             cir.setReturnValue(eerieBiomeColors.water);
             cir.cancel();

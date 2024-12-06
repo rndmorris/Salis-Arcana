@@ -21,9 +21,12 @@ public class BlockCosmeticSolidBeaconFix extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
+        IConfigModule module;
+        if ((module = moduleRef.get()) == null) {
+            return;
+        }
         final var beaconIds = configuration.get(
-            moduleRef.get()
-                .getModuleId(),
+            module.getModuleId(),
             "BlockCosmeticSolid Beacon Ids",
             new int[] { 4 },
             "Which metadata values of BlockCosmeticSolid are considered beacon base blocks. Default: 4 (Thaumium Block).",

@@ -16,7 +16,7 @@ public abstract class MixinBiomeGenEldritch extends BiomeGenBase {
 
     @Override
     public int getBiomeGrassColor(int x, int y, int z) {
-        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColors;
+        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColorsSettings;
         if (eldritchBiomeColors.grassSet) {
             return eldritchBiomeColors.grass;
         }
@@ -25,7 +25,7 @@ public abstract class MixinBiomeGenEldritch extends BiomeGenBase {
 
     @Override
     public int getBiomeFoliageColor(int x, int y, int z) {
-        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColors;
+        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColorsSettings;
         if (eldritchBiomeColors.foliageSet) {
             return eldritchBiomeColors.foliage;
         }
@@ -34,7 +34,7 @@ public abstract class MixinBiomeGenEldritch extends BiomeGenBase {
 
     @Override
     public int getSkyColorByTemp(float temp) {
-        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColors;
+        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColorsSettings;
         if (eldritchBiomeColors.skySet) {
             return eldritchBiomeColors.sky;
         }
@@ -43,7 +43,7 @@ public abstract class MixinBiomeGenEldritch extends BiomeGenBase {
 
     @Override
     public int getWaterColorMultiplier() {
-        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColors;
+        final var eldritchBiomeColors = FixinsConfig.biomeColorModule.eldritchBiomeColorsSettings;
         if (eldritchBiomeColors.waterSet) {
             return eldritchBiomeColors.water;
         }
