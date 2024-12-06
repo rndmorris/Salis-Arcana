@@ -1,5 +1,6 @@
 package dev.rndmorris.tfixins.config.commands;
 
+import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class CommandSettings extends Setting {
     private @Nonnull String description = "";
     private byte permissionLevel = 4;
 
-    public CommandSettings(@Nonnull String name, Supplier<IConfigModule> parentModule) {
+    public CommandSettings(@Nonnull String name, WeakReference<IConfigModule> parentModule) {
         super(parentModule);
         this.name = name;
     }

@@ -1,16 +1,16 @@
 package dev.rndmorris.tfixins.config;
 
-import java.util.function.Supplier;
+import java.lang.ref.WeakReference;
 
 import net.minecraftforge.common.config.Configuration;
 
 public abstract class Setting implements IEnabler {
 
-    protected final Supplier<IConfigModule> parentModule;
+    protected final WeakReference<IConfigModule> moduleRef;
     protected boolean enabled = true;
 
-    public Setting(Supplier<IConfigModule> getModule) {
-        this.parentModule = getModule;
+    public Setting(WeakReference<IConfigModule> getModule) {
+        this.moduleRef = getModule;
     }
 
     /**
@@ -18,8 +18,8 @@ public abstract class Setting implements IEnabler {
      */
     @Override
     public boolean isEnabled() {
-        return enabled && parentModule.get()
-            .isEnabled();
+        IConfigModule parent;
+        return enabled && (parent = moduleRef.get()) != null && parent.isEnabled();
     }
 
     /**

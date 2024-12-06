@@ -1,5 +1,7 @@
 package dev.rndmorris.tfixins.config.bugfixes;
 
+import java.lang.ref.WeakReference;
+
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
@@ -11,7 +13,8 @@ public class BugfixesModule implements IConfigModule {
 
     private boolean enabled = true;
 
-    public final BlockCosmeticSolidBeaconFix blockCosmeticSolidBeaconFix = new BlockCosmeticSolidBeaconFix(() -> this);
+    public final BlockCosmeticSolidBeaconFix blockCosmeticSolidBeaconFix = new BlockCosmeticSolidBeaconFix(
+        new WeakReference<>(this));
     public final ToggleSetting candleRendererCrashes;
     public final ToggleSetting deadMobsDontAttack;
     public final ToggleSetting itemShardColor;
@@ -20,28 +23,26 @@ public class BugfixesModule implements IConfigModule {
     public final ToggleSetting infernalFurnaceDupeFix;
 
     public BugfixesModule() {
+        final var thisRef = new WeakReference<IConfigModule>(this);
         candleRendererCrashes = new ToggleSetting(
-            () -> this,
+            thisRef,
             "candleMetadataCrash",
             "Fixes several crashes with invalid candle metadata");
         deadMobsDontAttack = new ToggleSetting(
-            () -> this,
+            thisRef,
             "deadMobsDontAttack",
             "Prevents eldritch crabs, all taintacles, and thaumic slimes from attacking during their death animation.");
-        itemShardColor = new ToggleSetting(
-            () -> this,
-            "shardMetadataCrash",
-            "Fixes a crash with invalid shard metadata");
+        itemShardColor = new ToggleSetting(thisRef, "shardMetadataCrash", "Fixes a crash with invalid shard metadata");
         useAllBaublesSlots = new ToggleSetting(
-            () -> this,
+            thisRef,
             "useAllBaublesSlots",
             "Enables support for mods that increase the number of baubles slots.");
         renderRedstoneFix = new ToggleSetting(
-            () -> this,
+            thisRef,
             "renderRedstoneFix",
             "Fixes an issue with some blocks that don't get rendered as normal blocks, not allowing you to push a redstone signal through them.");
         infernalFurnaceDupeFix = new ToggleSetting(
-            () -> this,
+            thisRef,
             "infernalFurnaceDupeFix",
             "Fixes a smelting duplication glitch with the Infernal Furnace");
     }

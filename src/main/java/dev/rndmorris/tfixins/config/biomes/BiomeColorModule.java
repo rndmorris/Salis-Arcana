@@ -6,7 +6,7 @@ import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeEldritch
 import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeMagicalForest;
 import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeTaint;
 
-import java.util.function.Supplier;
+import java.lang.ref.WeakReference;
 
 import javax.annotation.Nonnull;
 
@@ -26,11 +26,11 @@ public class BiomeColorModule implements IConfigModule {
     public final BiomeColors taintBiomeColors;
 
     public BiomeColorModule() {
-        final Supplier<IConfigModule> getter = () -> this;
-        eerieBiomeColors = new BiomeColors(getter, "eerie", biomeEerie);
-        eldritchBiomeColors = new BiomeColors(getter, "eldritch", biomeEldritchLands);
-        magicalForestBiomeColors = new BiomeColors(getter, "magical forest", biomeMagicalForest);
-        taintBiomeColors = new BiomeColors(getter, "taint", biomeTaint);
+        final var thisRef = new WeakReference<IConfigModule>(this);
+        eerieBiomeColors = new BiomeColors(thisRef, "eerie", biomeEerie);
+        eldritchBiomeColors = new BiomeColors(thisRef, "eldritch", biomeEldritchLands);
+        magicalForestBiomeColors = new BiomeColors(thisRef, "magical forest", biomeMagicalForest);
+        taintBiomeColors = new BiomeColors(thisRef, "taint", biomeTaint);
     }
 
     @Nonnull
@@ -85,7 +85,7 @@ public class BiomeColorModule implements IConfigModule {
         public boolean waterSet = false;
         public int water = -1;
 
-        public BiomeColors(Supplier<IConfigModule> parentModule, String biomeName, BiomeGenBase biome) {
+        public BiomeColors(WeakReference<IConfigModule> parentModule, String biomeName, BiomeGenBase biome) {
             super(parentModule);
             this.biomeName = biomeName;
             this.biome = biome;
@@ -95,7 +95,7 @@ public class BiomeColorModule implements IConfigModule {
         public void loadFromConfiguration(Configuration configuration) {
             enabled = configuration.getBoolean(
                 String.format("Override %s biome colors?", biomeName),
-                parentModule.get()
+                moduleRef.get()
                     .getModuleId(),
                 false,
                 String.format("Override the colors of the %s biome", biomeName));
@@ -106,7 +106,7 @@ public class BiomeColorModule implements IConfigModule {
 
             final var category = String.format(
                 "%s_%s",
-                parentModule.get()
+                moduleRef.get()
                     .getModuleId(),
                 biomeName.replace(" ", "_"));
 

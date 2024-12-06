@@ -1,6 +1,6 @@
 package dev.rndmorris.tfixins.config.thaumonomicon;
 
-import java.util.function.Supplier;
+import java.lang.ref.WeakReference;
 
 import javax.annotation.Nonnull;
 
@@ -20,19 +20,19 @@ public class ThaumonomiconModule implements IConfigModule {
     private boolean enabled = true;
 
     public ThaumonomiconModule() {
-        final Supplier<IConfigModule> getter = () -> this;
+        final var thisRef = new WeakReference<IConfigModule>(this);
         scrollwheelEnabled = new ToggleSetting(
-            getter,
+            thisRef,
             "Enable Scrollwheel",
             "Enables ctrl + scroll to quick switch tabs");
-        invertedScrolling = new ToggleSetting(getter, "Inverse Scrolling", "Inverts the scrolling for tab switching")
+        invertedScrolling = new ToggleSetting(thisRef, "Inverse Scrolling", "Inverts the scrolling for tab switching")
             .setEnabled(false);
         rightClickClose = new ToggleSetting(
-            getter,
+            thisRef,
             "Right-Click Navigation",
             "Right clicking in a research will take you back to the previous research, or back to the Thaumonomicon.");
         showResearchId = new ToggleSetting(
-            getter,
+            thisRef,
             "Show Research Key",
             "Allows you to view the internal name of a research while hovering over it and holding control");
     }
