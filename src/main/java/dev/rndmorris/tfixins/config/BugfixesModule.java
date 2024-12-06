@@ -68,6 +68,7 @@ public class BugfixesModule implements IConfigModule {
         candleRendererCrashes.loadFromConfiguration(configuration);
         deadMobsDontAttack.loadFromConfiguration(configuration);
         itemShardColor.loadFromConfiguration(configuration);
+        useAllBaublesSlots.loadFromConfiguration(configuration);
         renderRedstoneFix.loadFromConfiguration(configuration);
         infernalFurnaceDupeFix.loadFromConfiguration(configuration);
     }
