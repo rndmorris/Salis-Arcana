@@ -1,10 +1,11 @@
-package dev.rndmorris.tfixins.config;
+package dev.rndmorris.tfixins.config.bugfixes;
 
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.tfixins.config.bugfixes.BlockCosmeticSolidBeaconFix;
+import dev.rndmorris.tfixins.config.IConfigModule;
+import dev.rndmorris.tfixins.config.ToggleSetting;
 
 public class BugfixesModule implements IConfigModule {
 

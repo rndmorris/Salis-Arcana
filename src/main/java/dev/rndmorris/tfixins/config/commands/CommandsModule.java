@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.config;
+package dev.rndmorris.tfixins.config.commands;
 
 import static dev.rndmorris.tfixins.common.commands.ListResearchCommand.listOthersReserach;
 
@@ -8,6 +8,8 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
+
+import dev.rndmorris.tfixins.config.IConfigModule;
 
 public class CommandsModule implements IConfigModule {
 

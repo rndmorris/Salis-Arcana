@@ -4,6 +4,11 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.tfixins.config.biomes.BiomeColorModule;
+import dev.rndmorris.tfixins.config.bugfixes.BugfixesModule;
+import dev.rndmorris.tfixins.config.commands.CommandsModule;
+import dev.rndmorris.tfixins.config.thaumonomicon.ThaumonomiconModule;
+
 public class FixinsConfig {
 
     public static final BiomeColorModule biomeColorModule = new BiomeColorModule();

@@ -17,7 +17,7 @@ import dev.rndmorris.tfixins.common.commands.HelpCommand;
 import dev.rndmorris.tfixins.common.commands.ListResearchCommand;
 import dev.rndmorris.tfixins.common.commands.PrerequisitesCommand;
 import dev.rndmorris.tfixins.common.commands.UpdateNodeCommand;
-import dev.rndmorris.tfixins.config.CommandSettings;
+import dev.rndmorris.tfixins.config.commands.CommandSettings;
 
 public class CommonProxy {
 

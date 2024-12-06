@@ -1,10 +1,14 @@
-package dev.rndmorris.tfixins.config;
+package dev.rndmorris.tfixins.config.thaumonomicon;
 
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
+
+import dev.rndmorris.tfixins.config.IConfigModule;
+import dev.rndmorris.tfixins.config.Setting;
+import dev.rndmorris.tfixins.config.ToggleSetting;
 
 public class ThaumonomiconModule implements IConfigModule {
 

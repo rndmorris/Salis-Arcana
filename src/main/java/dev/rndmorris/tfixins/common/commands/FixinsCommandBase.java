@@ -15,7 +15,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 import dev.rndmorris.tfixins.ThaumicFixins;
 import dev.rndmorris.tfixins.common.commands.arguments.ArgumentProcessor;
-import dev.rndmorris.tfixins.config.CommandSettings;
+import dev.rndmorris.tfixins.config.commands.CommandSettings;
 
 public abstract class FixinsCommandBase<T> extends CommandBase {
 

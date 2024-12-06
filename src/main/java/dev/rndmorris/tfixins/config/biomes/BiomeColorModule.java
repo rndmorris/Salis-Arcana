@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.config;
+package dev.rndmorris.tfixins.config.biomes;
 
 import static dev.rndmorris.tfixins.lib.IntegerHelper.tryParseHexInteger;
 import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeEerie;
@@ -12,6 +12,9 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.config.Configuration;
+
+import dev.rndmorris.tfixins.config.IConfigModule;
+import dev.rndmorris.tfixins.config.Setting;
 
 public class BiomeColorModule implements IConfigModule {
 

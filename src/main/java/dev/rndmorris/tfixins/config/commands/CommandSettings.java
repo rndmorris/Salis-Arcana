@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.config;
+package dev.rndmorris.tfixins.config.commands;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -13,6 +13,8 @@ import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.ThaumicFixins;
 import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
+import dev.rndmorris.tfixins.config.IConfigModule;
+import dev.rndmorris.tfixins.config.Setting;
 
 public class CommandSettings extends Setting {
 
