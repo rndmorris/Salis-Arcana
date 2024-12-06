@@ -18,8 +18,8 @@ public class CommandsModule implements IConfigModule {
     public final @Nonnull CommandSettings forgetResearch;
     public final @Nonnull CommandSettings forgetScanned;
     public final @Nonnull CommandSettings help;
-    public final @Nonnull CommandSettings prerequisites;
     public final @Nonnull CommandSettings playerResearch;
+    public final @Nonnull CommandSettings prerequisites;
     public final @Nonnull CommandSettings updateNode;
 
     public final CommandSettings[] commandsSettings;
@@ -42,15 +42,15 @@ public class CommandsModule implements IConfigModule {
             help = new CommandSettings("help", thisRef).addAlias("tf-help")
                 .setDescription("Get help information about Thaumic Fixins' commands.")
                 .setPermissionLevel(0),
-            prerequisites = new CommandSettings("prereqs", thisRef).addDefaultAlias()
-                .setDescription(
-                    "Lists the prerequisites to unlock a specific research, or the research required to craft a specific item.")
-                .setPermissionLevel(0),
             playerResearch = new CommandSettings("list-research", thisRef)
                 .setDescription("List and filter through TC4's research.")
                 .addDefaultAlias()
                 .setPermissionLevel(0)
                 .addChildPermissionLevel(listOthersReserach, 2, "list another player's research."),
+            prerequisites = new CommandSettings("prereqs", thisRef).addDefaultAlias()
+                .setDescription(
+                    "Lists the prerequisites to unlock a specific research, or the research required to craft a specific item.")
+                .setPermissionLevel(0),
             updateNode = new CommandSettings("update-node", thisRef).addDefaultAlias()
                 .setDescription("Update the properties of a node at the specified coordiantes.")
                 .setPermissionLevel(2) };

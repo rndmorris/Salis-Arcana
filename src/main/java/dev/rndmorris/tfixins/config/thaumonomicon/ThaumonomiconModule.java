@@ -21,16 +21,16 @@ public class ThaumonomiconModule implements IConfigModule {
 
     public ThaumonomiconModule() {
         final var thisRef = new WeakReference<IConfigModule>(this);
-        scrollwheelEnabled = new ToggleSetting(
-            thisRef,
-            "Enable Scrollwheel",
-            "Enables ctrl + scroll to quick switch tabs");
         invertedScrolling = new ToggleSetting(thisRef, "Inverse Scrolling", "Inverts the scrolling for tab switching")
             .setEnabled(false);
         rightClickClose = new ToggleSetting(
             thisRef,
             "Right-Click Navigation",
             "Right clicking in a research will take you back to the previous research, or back to the Thaumonomicon.");
+        scrollwheelEnabled = new ToggleSetting(
+            thisRef,
+            "Enable Scrollwheel",
+            "Enables ctrl + scroll to quick switch tabs");
         showResearchId = new ToggleSetting(
             thisRef,
             "Show Research Key",

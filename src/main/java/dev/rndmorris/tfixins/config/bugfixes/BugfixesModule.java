@@ -13,17 +13,17 @@ public class BugfixesModule implements IConfigModule {
 
     private boolean enabled = true;
 
-    public final BlockCosmeticSolidBeaconFix blockCosmeticSolidBeaconFix = new BlockCosmeticSolidBeaconFix(
-        new WeakReference<>(this));
+    public final BlockCosmeticSolidBeaconFix blockCosmeticSolidBeaconFix;
     public final ToggleSetting candleRendererCrashes;
     public final ToggleSetting deadMobsDontAttack;
-    public final ToggleSetting itemShardColor;
-    public final ToggleSetting useAllBaublesSlots;
-    public final ToggleSetting renderRedstoneFix;
     public final ToggleSetting infernalFurnaceDupeFix;
+    public final ToggleSetting itemShardColor;
+    public final ToggleSetting renderRedstoneFix;
+    public final ToggleSetting useAllBaublesSlots;
 
     public BugfixesModule() {
         final var thisRef = new WeakReference<IConfigModule>(this);
+        blockCosmeticSolidBeaconFix = new BlockCosmeticSolidBeaconFix(thisRef);
         candleRendererCrashes = new ToggleSetting(
             thisRef,
             "candleMetadataCrash",
@@ -32,19 +32,19 @@ public class BugfixesModule implements IConfigModule {
             thisRef,
             "deadMobsDontAttack",
             "Prevents eldritch crabs, all taintacles, and thaumic slimes from attacking during their death animation.");
-        itemShardColor = new ToggleSetting(thisRef, "shardMetadataCrash", "Fixes a crash with invalid shard metadata");
-        useAllBaublesSlots = new ToggleSetting(
-            thisRef,
-            "useAllBaublesSlots",
-            "Enables support for mods that increase the number of baubles slots.");
-        renderRedstoneFix = new ToggleSetting(
-            thisRef,
-            "renderRedstoneFix",
-            "Fixes an issue with some blocks that don't get rendered as normal blocks, not allowing you to push a redstone signal through them.");
         infernalFurnaceDupeFix = new ToggleSetting(
             thisRef,
             "infernalFurnaceDupeFix",
             "Fixes a smelting duplication glitch with the Infernal Furnace");
+        itemShardColor = new ToggleSetting(thisRef, "shardMetadataCrash", "Fixes a crash with invalid shard metadata");
+        renderRedstoneFix = new ToggleSetting(
+            thisRef,
+            "renderRedstoneFix",
+            "Fixes an issue with some blocks that don't get rendered as normal blocks, not allowing you to push a redstone signal through them.");
+        useAllBaublesSlots = new ToggleSetting(
+            thisRef,
+            "useAllBaublesSlots",
+            "Enables support for mods that increase the number of baubles slots.");
     }
 
     @Nonnull
