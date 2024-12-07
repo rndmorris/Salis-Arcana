@@ -19,7 +19,7 @@ public abstract class MixinBiomeGenMagicalForest extends BiomeGenBase {
 
     @Inject(method = "getBiomeGrassColor", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetBiomeGrassColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColors;
+        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColorsSettings;
         if (magicalForestBiomeColors.grassSet) {
             cir.setReturnValue(magicalForestBiomeColors.grass);
             cir.cancel();
@@ -28,7 +28,7 @@ public abstract class MixinBiomeGenMagicalForest extends BiomeGenBase {
 
     @Inject(method = "getBiomeFoliageColor", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetBiomeFoliageColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColors;
+        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColorsSettings;
         if (magicalForestBiomeColors.foliageSet) {
             cir.setReturnValue(magicalForestBiomeColors.foliage);
             cir.cancel();
@@ -37,7 +37,7 @@ public abstract class MixinBiomeGenMagicalForest extends BiomeGenBase {
 
     @Override
     public int getSkyColorByTemp(float temp) {
-        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColors;
+        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColorsSettings;
         if (magicalForestBiomeColors.skySet) {
             return magicalForestBiomeColors.sky;
         }
@@ -46,7 +46,7 @@ public abstract class MixinBiomeGenMagicalForest extends BiomeGenBase {
 
     @Inject(method = "getWaterColorMultiplier", at = @At("HEAD"), cancellable = true, remap = false)
     public void onGetWaterColorMultiplier(CallbackInfoReturnable<Integer> cir) {
-        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColors;
+        final var magicalForestBiomeColors = FixinsConfig.biomeColorModule.magicalForestBiomeColorsSettings;
         if (magicalForestBiomeColors.waterSet) {
             cir.setReturnValue(magicalForestBiomeColors.water);
             cir.cancel();

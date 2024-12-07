@@ -12,20 +12,20 @@ public class BiomeOverrides {
     public static void apply() {
         final var biomeColors = FixinsConfig.biomeColorModule;
 
-        if (biomeColors.eerieBiomeColors.baseSet && biomeEerie != null) {
-            biomeEerie.setColor(biomeColors.eerieBiomeColors.base);
+        if (biomeColors.eerieBiomeColorsSettings.baseSet && biomeEerie != null) {
+            biomeEerie.setColor(biomeColors.eerieBiomeColorsSettings.base);
         }
 
-        if (biomeColors.eldritchBiomeColors.baseSet && biomeEldritchLands != null) {
-            biomeEldritchLands.setColor(biomeColors.eldritchBiomeColors.base);
+        if (biomeColors.eldritchBiomeColorsSettings.baseSet && biomeEldritchLands != null) {
+            biomeEldritchLands.setColor(biomeColors.eldritchBiomeColorsSettings.base);
         }
 
-        if (biomeColors.magicalForestBiomeColors.baseSet && biomeMagicalForest != null) {
-            biomeMagicalForest.setColor(biomeColors.magicalForestBiomeColors.base);
+        if (biomeColors.magicalForestBiomeColorsSettings.baseSet && biomeMagicalForest != null) {
+            biomeMagicalForest.setColor(biomeColors.magicalForestBiomeColorsSettings.base);
         }
 
-        if (biomeColors.taintBiomeColors.baseSet && biomeTaint != null) {
-            biomeTaint.setColor(biomeColors.taintBiomeColors.base);
+        if (biomeColors.taintBiomeColorsSettings.baseSet && biomeTaint != null) {
+            biomeTaint.setColor(biomeColors.taintBiomeColorsSettings.base);
         }
 
     }

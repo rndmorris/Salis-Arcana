@@ -11,8 +11,8 @@ import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
-import dev.rndmorris.tfixins.config.CommandSettings;
 import dev.rndmorris.tfixins.config.FixinsConfig;
+import dev.rndmorris.tfixins.config.commands.CommandSettings;
 
 public class CommandNameHandler implements IPositionalArgumentHandler {
 

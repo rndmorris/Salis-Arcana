@@ -1,10 +1,14 @@
-package dev.rndmorris.tfixins.config;
+package dev.rndmorris.tfixins.config.thaumonomicon;
 
-import java.util.function.Supplier;
+import java.lang.ref.WeakReference;
 
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
+
+import dev.rndmorris.tfixins.config.IConfigModule;
+import dev.rndmorris.tfixins.config.Setting;
+import dev.rndmorris.tfixins.config.ToggleSetting;
 
 public class ThaumonomiconModule implements IConfigModule {
 
@@ -16,19 +20,19 @@ public class ThaumonomiconModule implements IConfigModule {
     private boolean enabled = true;
 
     public ThaumonomiconModule() {
-        final Supplier<IConfigModule> getter = () -> this;
-        scrollwheelEnabled = new ToggleSetting(
-            getter,
-            "Enable Scrollwheel",
-            "Enables ctrl + scroll to quick switch tabs");
-        invertedScrolling = new ToggleSetting(getter, "Inverse Scrolling", "Inverts the scrolling for tab switching")
+        final var thisRef = new WeakReference<IConfigModule>(this);
+        invertedScrolling = new ToggleSetting(thisRef, "Inverse Scrolling", "Inverts the scrolling for tab switching")
             .setEnabled(false);
         rightClickClose = new ToggleSetting(
-            getter,
+            thisRef,
             "Right-Click Navigation",
             "Right clicking in a research will take you back to the previous research, or back to the Thaumonomicon.");
+        scrollwheelEnabled = new ToggleSetting(
+            thisRef,
+            "Enable Scrollwheel",
+            "Enables ctrl + scroll to quick switch tabs");
         showResearchId = new ToggleSetting(
-            getter,
+            thisRef,
             "Show Research Key",
             "Allows you to view the internal name of a research while hovering over it and holding control");
     }

@@ -1,6 +1,6 @@
 package dev.rndmorris.tfixins.config;
 
-import java.util.function.Supplier;
+import java.lang.ref.WeakReference;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -10,24 +10,22 @@ public class ToggleSetting extends Setting {
     private final String comment;
     private final boolean defaultValue;
 
-    public ToggleSetting(Supplier<IConfigModule> getModule, String name, String comment, boolean defaultValue) {
+    public ToggleSetting(WeakReference<IConfigModule> getModule, String name, String comment, boolean defaultValue) {
         super(getModule);
         this.name = name;
         this.comment = comment;
         this.defaultValue = defaultValue;
     }
 
-    public ToggleSetting(Supplier<IConfigModule> getModule, String name, String comment) {
+    public ToggleSetting(WeakReference<IConfigModule> getModule, String name, String comment) {
         this(getModule, name, comment, true);
     }
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        enabled = configuration.getBoolean(
-            name,
-            parentModule.get()
-                .getModuleId(),
-            defaultValue,
-            comment);
+        IConfigModule module;
+        if ((module = moduleRef.get()) != null) {
+            enabled = configuration.getBoolean(name, module.getModuleId(), defaultValue, comment);
+        }
     }
 }
