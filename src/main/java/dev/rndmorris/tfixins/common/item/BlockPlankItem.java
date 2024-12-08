@@ -5,6 +5,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class BlockPlankItem extends ItemBlock {
+
     public BlockPlankItem(Block block) {
         super(block);
         this.setMaxDamage(0);
@@ -13,6 +14,6 @@ public class BlockPlankItem extends ItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName() + "." + stack.getItemDamage();
+        return stack.getItemDamage() == 0 ? "tile.blockWoodenDevice.6" : "tile.blockWoodenDevice.7";
     }
 }
