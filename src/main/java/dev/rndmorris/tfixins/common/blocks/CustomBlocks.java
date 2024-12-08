@@ -1,10 +1,11 @@
 package dev.rndmorris.tfixins.common.blocks;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import dev.rndmorris.tfixins.common.item.BlockPlankItem;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+import dev.rndmorris.tfixins.common.item.BlockPlankItem;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class CustomBlocks {

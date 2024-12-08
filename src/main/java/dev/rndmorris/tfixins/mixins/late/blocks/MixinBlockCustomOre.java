@@ -1,8 +1,8 @@
 package dev.rndmorris.tfixins.mixins.late.blocks;
 
 import org.spongepowered.asm.mixin.Mixin;
-
 import org.spongepowered.asm.mixin.Overwrite;
+
 import thaumcraft.common.blocks.BlockCustomOre;
 
 @Mixin(BlockCustomOre.class)
