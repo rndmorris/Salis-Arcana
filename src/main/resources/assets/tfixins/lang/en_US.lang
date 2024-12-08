@@ -86,3 +86,6 @@ tfixins:error.unknown_research=%s is not a known research key.
 
 tc.research_name.CAP_iron=Iron Wand Caps
 tc.research_name.ROD_wood=Wooden Wand Core
+
+tile.blockCustomPlank.0.name=Greatwood Planks
+tile.blockCustomPlank.1.name=Silverwood Planks
