@@ -16,4 +16,9 @@ public class BlockPlankItem extends ItemBlock {
     public String getUnlocalizedName(ItemStack stack) {
         return stack.getItemDamage() == 0 ? "tile.blockWoodenDevice.6" : "tile.blockWoodenDevice.7";
     }
+
+    @Override
+    public int getMetadata(int metadata) {
+        return metadata;
+    }
 }
