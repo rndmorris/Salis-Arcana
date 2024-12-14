@@ -31,17 +31,45 @@ public class CommonProxy {
 
     public void registerRecipes() {
         GameRegistry.addShapelessRecipe(
-            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 8, 0),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
             new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6));
         GameRegistry.addShapelessRecipe(
-            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 8, 1),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
             new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7));
 
         GameRegistry.addShapelessRecipe(
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 8, 6),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
             new ItemStack(CustomBlocks.blockPlank, 1, 0));
         GameRegistry.addShapelessRecipe(
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 8, 7),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
             new ItemStack(CustomBlocks.blockPlank, 1, 1));
     }
 
