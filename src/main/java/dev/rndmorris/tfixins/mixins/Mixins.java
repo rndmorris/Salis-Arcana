@@ -25,7 +25,7 @@ public enum Mixins {
     BLOCKCANDLE_OOB(MixinSide.BOTH, FixinsConfig.bugfixesModule.candleRendererCrashes, "blocks.MixinBlockCandleRenderer", "blocks.MixinBlockCandle"),
     DEAD_MOBS_DONT_ATTACK(MixinSide.BOTH, FixinsConfig.bugfixesModule.deadMobsDontAttack, "entities.MixinEntityTaintacle", "entities.MixinEntityEldritchCrab", "entities.MixinEntityThaumicSlime"),
     ITEMSHARD_OOB(MixinSide.BOTH, FixinsConfig.bugfixesModule.itemShardColor, "items.MixinItemShard"),
-    RENDER_REDSTONE_FIX(MixinSide.BOTH, FixinsConfig.bugfixesModule.renderRedstoneFix, "blocks.MixinBlockCustomOre", "blocks.MixinBlockMetalDevice", "blocks.MixinBlockStoneDevice", "blocks.MixinBlockWoodenDevice", "blocks.MixinBlockTaint"),
+    RENDER_REDSTONE_FIX(MixinSide.BOTH, FixinsConfig.bugfixesModule.renderRedstoneFix, "blocks.MixinBlockCustomOre"),
 
     // Baubles
     EXTENDED_BAUBLES_SUPPORT(MixinSide.BOTH, FixinsConfig.bugfixesModule.useAllBaublesSlots, "events.MixinEventHandlerRunic", "items.MixinWandManager"),

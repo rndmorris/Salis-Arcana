@@ -4,11 +4,15 @@ import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
 
 import java.util.function.Supplier;
 
+import net.minecraft.item.ItemStack;
+
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.tfixins.common.biomes.BiomeOverrides;
+import dev.rndmorris.tfixins.common.blocks.CustomBlocks;
 import dev.rndmorris.tfixins.common.commands.CreateNodeCommand;
 import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
 import dev.rndmorris.tfixins.common.commands.ForgetResearchCommand;
@@ -18,13 +22,61 @@ import dev.rndmorris.tfixins.common.commands.ListResearchCommand;
 import dev.rndmorris.tfixins.common.commands.PrerequisitesCommand;
 import dev.rndmorris.tfixins.common.commands.UpdateNodeCommand;
 import dev.rndmorris.tfixins.config.commands.CommandSettings;
+import thaumcraft.common.config.ConfigBlocks;
 
 public class CommonProxy {
 
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
+
+    public void registerRecipes() {
+        GameRegistry.addShapelessRecipe(
+            new ItemStack(CustomBlocks.blockPlank, 8, 0),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6));
+        GameRegistry.addShapelessRecipe(
+            new ItemStack(CustomBlocks.blockPlank, 8, 1),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7));
+
+        GameRegistry.addShapelessRecipe(
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 8, 6),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0),
+            new ItemStack(CustomBlocks.blockPlank, 1, 0));
+        GameRegistry.addShapelessRecipe(
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 8, 7),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1),
+            new ItemStack(CustomBlocks.blockPlank, 1, 1));
+    }
+
     public void preInit(FMLPreInitializationEvent event) {
         BiomeOverrides.apply();
+        CustomBlocks.registerBlocks();
+        this.registerRecipes();
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)

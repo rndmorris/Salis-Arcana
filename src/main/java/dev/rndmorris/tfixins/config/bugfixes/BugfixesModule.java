@@ -40,7 +40,7 @@ public class BugfixesModule implements IConfigModule {
         renderRedstoneFix = new ToggleSetting(
             thisRef,
             "renderRedstoneFix",
-            "Fixes an issue with some blocks that don't get rendered as normal blocks, not allowing you to push a redstone signal through them.");
+            "Fixes an issue with ores where they don't get rendered as normal blocks, not allowing you to push a redstone signal through them.");
         useAllBaublesSlots = new ToggleSetting(
             thisRef,
             "useAllBaublesSlots",

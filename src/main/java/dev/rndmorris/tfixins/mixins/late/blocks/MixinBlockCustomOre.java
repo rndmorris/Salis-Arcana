@@ -1,16 +1,19 @@
 package dev.rndmorris.tfixins.mixins.late.blocks;
 
 import org.spongepowered.asm.mixin.Mixin;
-
-import com.midnight.metaawareblocks.api.IMetaAware;
+import org.spongepowered.asm.mixin.Overwrite;
 
 import thaumcraft.common.blocks.BlockCustomOre;
 
 @Mixin(BlockCustomOre.class)
-public abstract class MixinBlockCustomOre implements IMetaAware {
+public abstract class MixinBlockCustomOre {
 
-    @Override
-    public boolean renderAsNormalBlock(int meta) {
-        return meta != 15;
+    /**
+     * @author Midnight145
+     * @reason Ore blocks should be able to pass a redstone signal
+     */
+    @Overwrite
+    public boolean renderAsNormalBlock() {
+        return true;
     }
 }
