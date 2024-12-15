@@ -8,6 +8,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.tfixins.common.item.BlockPlankItem;
 import thaumcraft.common.config.ConfigBlocks;
 
+import static dev.rndmorris.tfixins.config.FixinsConfig.workaroundsModule;
+
 public class CustomBlocks {
 
     public static Block blockPlank;
