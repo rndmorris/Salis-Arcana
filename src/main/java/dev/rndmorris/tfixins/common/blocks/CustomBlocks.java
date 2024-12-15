@@ -8,8 +8,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.tfixins.common.item.BlockPlankItem;
 import thaumcraft.common.config.ConfigBlocks;
 
-import static dev.rndmorris.tfixins.config.FixinsConfig.workaroundsModule;
-
 public class CustomBlocks {
 
     public static Block blockPlank;
@@ -17,7 +15,9 @@ public class CustomBlocks {
     public static void registerBlocks() {
         blockPlank = new BlockPlank();
         GameRegistry.registerBlock(blockPlank, BlockPlankItem.class, "blockCustomPlank");
+        // To-do: is this needed? It appears to break the ore-dicted slab and stair recipes
         OreDictionary.registerOre("plankWood", new ItemStack(blockPlank, 1, OreDictionary.WILDCARD_VALUE));
+
         OreDictionary.registerOre("greatwoodPlanks", new ItemStack(blockPlank, 1, 0));
         OreDictionary.registerOre("silverwoodPlanks", new ItemStack(blockPlank, 1, 1));
 

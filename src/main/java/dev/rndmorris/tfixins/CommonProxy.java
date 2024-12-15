@@ -5,8 +5,8 @@ import static dev.rndmorris.tfixins.config.FixinsConfig.workaroundsModule;
 
 import java.util.function.Supplier;
 
-import dev.rndmorris.tfixins.config.FixinsConfig;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -24,7 +24,6 @@ import dev.rndmorris.tfixins.common.commands.ListResearchCommand;
 import dev.rndmorris.tfixins.common.commands.PrerequisitesCommand;
 import dev.rndmorris.tfixins.common.commands.UpdateNodeCommand;
 import dev.rndmorris.tfixins.config.commands.CommandSettings;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class CommonProxy {
@@ -40,8 +39,7 @@ public class CommonProxy {
 
     private void registerPlankRecipes() {
 
-        if (workaroundsModule.plankBlocks.isEnabled())
-        {
+        if (workaroundsModule.plankBlocks.isEnabled()) {
             GameRegistry.addShapelessRecipe(
                 new ItemStack(CustomBlocks.blockPlank, 8, 0),
                 new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
@@ -84,6 +82,44 @@ public class CommonProxy {
             new ItemStack(CustomBlocks.blockPlank, 1, 1),
             new ItemStack(CustomBlocks.blockPlank, 1, 1),
             new ItemStack(CustomBlocks.blockPlank, 1, 1));
+
+        // Greatwood Slabs
+        GameRegistry.addShapedRecipe(
+            new ItemStack(ConfigBlocks.blockSlabWood, 6, 0),
+            "PPP",
+            'P',
+            new ItemStack(CustomBlocks.blockPlank, 1, 0));
+        GameRegistry.addRecipe(
+            new ShapedOreRecipe(new ItemStack(ConfigBlocks.blockSlabWood, 6, 0), "PPP", 'P', "greatwoodPlanks"));
+
+        // Silverwood Slabs
+        GameRegistry.addShapedRecipe(
+            new ItemStack(ConfigBlocks.blockSlabWood, 6, 1),
+            "PPP",
+            'P',
+            new ItemStack(CustomBlocks.blockPlank, 1, 1));
+        GameRegistry.addRecipe(
+            new ShapedOreRecipe(new ItemStack(ConfigBlocks.blockSlabWood, 6, 1), "PPP", 'P', "silverwoodPlanks"));
+
+        // Greatwood Stairs
+        GameRegistry.addRecipe(
+            new ShapedOreRecipe(
+                new ItemStack(ConfigBlocks.blockStairsGreatwood, 4, 0),
+                "P  ",
+                "PP ",
+                "PPP",
+                'P',
+                "greatwoodPlanks"));
+
+        // Silverwood Stairs
+        GameRegistry.addRecipe(
+            new ShapedOreRecipe(
+                new ItemStack(ConfigBlocks.blockStairsSilverwood, 4, 0),
+                "P  ",
+                "PP ",
+                "PPP",
+                'P',
+                "silverwoodPlanks"));
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
