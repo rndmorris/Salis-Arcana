@@ -12,8 +12,8 @@ public class CustomBlocks {
 
     public static Block blockPlank;
 
-    public static final String ORE_DICT_GREATWOOD_PLANKS = "greatwoodPlanks";
-    public static final String ORE_DICT_SILVERWOOD_PLANKS = "silverwoodPlanks";
+    public static final String ORE_DICT_GREATWOOD_PLANKS = "plankGreatwood";
+    public static final String ORE_DICT_SILVERWOOD_PLANKS = "plankSilverwood";
 
     public static void registerBlocks() {
         blockPlank = new BlockPlank();
