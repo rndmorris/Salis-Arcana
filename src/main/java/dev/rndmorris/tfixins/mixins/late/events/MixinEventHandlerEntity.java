@@ -19,7 +19,7 @@ public abstract class MixinEventHandlerEntity {
             value = "INVOKE",
             target = "Lthaumcraft/common/lib/WarpEvents;checkWarpEvent(Lnet/minecraft/entity/player/EntityPlayer;)V"))
     private void suppressCreativeWarpEvent(EntityPlayer player, Operation<EntityPlayer> original) {
-        // I put this check in the event handler, instead checkWarpEvent itself, to avoid interfering
+        // This check is in the event handler, instead checkWarpEvent itself, to avoid interfering
         // with any mods or addons that want to call that method themselves.
         if (player.capabilities.isCreativeMode) {
             return;
