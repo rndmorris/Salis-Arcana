@@ -13,7 +13,7 @@ import thaumcraft.common.blocks.BlockArcaneFurnace;
 @Mixin(BlockArcaneFurnace.class)
 public class MixinBlockArcaneFurnace {
 
-    @Inject(method = "onEntityCollidedWithBlock", at = @At(value = "HEAD"))
+    @Inject(method = "onEntityCollidedWithBlock", at = @At(value = "HEAD"), cancellable = true)
     private void mixinOnEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity, CallbackInfo ci) {
         if (entity.isDead) {
             ci.cancel();
