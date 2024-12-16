@@ -22,7 +22,6 @@ public abstract class MixinEventHandlerEntity {
             target = "Lthaumcraft/common/lib/WarpEvents;checkWarpEvent(Lnet/minecraft/entity/player/EntityPlayer;)V"))
     private void suppressCreativeWarpEvent(EntityPlayer player, Operation<EntityPlayer> original) {
         if (player.capabilities.isCreativeMode) {
-            LOG.info("Canceled a creative warp event!");
             return;
         }
         original.call(player);
