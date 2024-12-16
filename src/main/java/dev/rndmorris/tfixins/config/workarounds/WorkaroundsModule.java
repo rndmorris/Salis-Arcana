@@ -11,14 +11,14 @@ import dev.rndmorris.tfixins.config.ToggleSetting;
 
 public class WorkaroundsModule implements IConfigModule {
 
-    public final ToggleSetting plankBlocks;
+    public final ToggleSetting enableLookalikePlanks;
 
     private boolean enabled = true;
 
     public WorkaroundsModule() {
-        plankBlocks = new ToggleSetting(
+        enableLookalikePlanks = new ToggleSetting(
             new WeakReference<>(this),
-            "plankBlocks",
+            "enableLookalikePlanks",
             "Add look-a-like greatwood and silverwood planks that behave as normal planks, instead of the weirdness of TC4's planks.");
     }
 
@@ -41,7 +41,7 @@ public class WorkaroundsModule implements IConfigModule {
 
     @Override
     public void loadModuleFromConfig(@Nonnull Configuration configuration) {
-        plankBlocks.loadFromConfiguration(configuration);
+        enableLookalikePlanks.loadFromConfiguration(configuration);
     }
 
     @Override

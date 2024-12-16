@@ -34,7 +34,7 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         BiomeOverrides.apply();
 
-        if (workaroundsModule.plankBlocks.isEnabled()) {
+        if (workaroundsModule.enableLookalikePlanks.isEnabled()) {
             CustomBlocks.registerBlocks();
             registerPlankRecipes();
         }
