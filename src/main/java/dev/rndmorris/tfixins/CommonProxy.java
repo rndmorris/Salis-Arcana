@@ -1,10 +1,12 @@
 package dev.rndmorris.tfixins;
 
 import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
+import static dev.rndmorris.tfixins.config.FixinsConfig.workaroundsModule;
 
 import java.util.function.Supplier;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -29,54 +31,120 @@ public class CommonProxy {
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
 
-    public void registerRecipes() {
-        GameRegistry.addShapelessRecipe(
-            new ItemStack(CustomBlocks.blockPlank, 8, 0),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6));
-        GameRegistry.addShapelessRecipe(
-            new ItemStack(CustomBlocks.blockPlank, 8, 1),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7),
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7));
-
-        GameRegistry.addShapelessRecipe(
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 8, 6),
-            new ItemStack(CustomBlocks.blockPlank, 1, 0),
-            new ItemStack(CustomBlocks.blockPlank, 1, 0),
-            new ItemStack(CustomBlocks.blockPlank, 1, 0),
-            new ItemStack(CustomBlocks.blockPlank, 1, 0),
-            new ItemStack(CustomBlocks.blockPlank, 1, 0),
-            new ItemStack(CustomBlocks.blockPlank, 1, 0),
-            new ItemStack(CustomBlocks.blockPlank, 1, 0),
-            new ItemStack(CustomBlocks.blockPlank, 1, 0));
-        GameRegistry.addShapelessRecipe(
-            new ItemStack(ConfigBlocks.blockWoodenDevice, 8, 7),
-            new ItemStack(CustomBlocks.blockPlank, 1, 1),
-            new ItemStack(CustomBlocks.blockPlank, 1, 1),
-            new ItemStack(CustomBlocks.blockPlank, 1, 1),
-            new ItemStack(CustomBlocks.blockPlank, 1, 1),
-            new ItemStack(CustomBlocks.blockPlank, 1, 1),
-            new ItemStack(CustomBlocks.blockPlank, 1, 1),
-            new ItemStack(CustomBlocks.blockPlank, 1, 1),
-            new ItemStack(CustomBlocks.blockPlank, 1, 1));
-    }
-
     public void preInit(FMLPreInitializationEvent event) {
         BiomeOverrides.apply();
-        CustomBlocks.registerBlocks();
-        this.registerRecipes();
+
+        if (workaroundsModule.enableLookalikePlanks.isEnabled()) {
+            CustomBlocks.registerBlocks();
+            registerPlankRecipes();
+        }
+    }
+
+    private void registerPlankRecipes() {
+        final var thaumGreatwoodPlanks = new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6);
+        final var thaumSilverwoodPlanks = new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7);
+        final var fixinsGreatwoodPlanks = new ItemStack(CustomBlocks.blockPlank, 1, 0);
+        final var fixinsSilverwoodPlanks = new ItemStack(CustomBlocks.blockPlank, 1, 1);
+
+        ItemStack conversionOutput;
+
+        conversionOutput = fixinsGreatwoodPlanks.copy();
+        conversionOutput.stackSize = 8;
+
+        GameRegistry.addShapelessRecipe(
+            conversionOutput,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks);
+
+        conversionOutput = fixinsSilverwoodPlanks.copy();
+        conversionOutput.stackSize = 8;
+        GameRegistry.addShapelessRecipe(
+            conversionOutput,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks);
+
+        conversionOutput = thaumGreatwoodPlanks.copy();
+        conversionOutput.stackSize = 8;
+        GameRegistry.addShapelessRecipe(
+            conversionOutput,
+            fixinsGreatwoodPlanks,
+            fixinsGreatwoodPlanks,
+            fixinsGreatwoodPlanks,
+            fixinsGreatwoodPlanks,
+            fixinsGreatwoodPlanks,
+            fixinsGreatwoodPlanks,
+            fixinsGreatwoodPlanks,
+            fixinsGreatwoodPlanks);
+
+        conversionOutput = thaumSilverwoodPlanks.copy();
+        conversionOutput.stackSize = 8;
+        GameRegistry.addShapelessRecipe(
+            conversionOutput,
+            fixinsSilverwoodPlanks,
+            fixinsSilverwoodPlanks,
+            fixinsSilverwoodPlanks,
+            fixinsSilverwoodPlanks,
+            fixinsSilverwoodPlanks,
+            fixinsSilverwoodPlanks,
+            fixinsSilverwoodPlanks,
+            fixinsSilverwoodPlanks);
+
+        // Greatwood Slabs
+        final var greatwoodSlabs = new ItemStack(ConfigBlocks.blockSlabWood, 6, 0);
+        registerSlabRecipes(greatwoodSlabs, thaumGreatwoodPlanks, fixinsGreatwoodPlanks);
+        GameRegistry.addRecipe(new ShapedOreRecipe(greatwoodSlabs, "PPP", 'P', CustomBlocks.ORE_DICT_GREATWOOD_PLANKS));
+
+        // Silverwood Slabs
+        final var silverwoodSlabs = new ItemStack(ConfigBlocks.blockSlabWood, 6, 1);
+        registerSlabRecipes(silverwoodSlabs, thaumSilverwoodPlanks, fixinsSilverwoodPlanks);
+        GameRegistry
+            .addRecipe(new ShapedOreRecipe(silverwoodSlabs, "PPP", 'P', CustomBlocks.ORE_DICT_SILVERWOOD_PLANKS));
+
+        // Greatwood Stairs
+        GameRegistry.addRecipe(
+            new ShapedOreRecipe(
+                new ItemStack(ConfigBlocks.blockStairsGreatwood, 4, 0),
+                "P  ",
+                "PP ",
+                "PPP",
+                'P',
+                CustomBlocks.ORE_DICT_GREATWOOD_PLANKS));
+
+        // Silverwood Stairs
+        GameRegistry.addRecipe(
+            new ShapedOreRecipe(
+                new ItemStack(ConfigBlocks.blockStairsSilverwood, 4, 0),
+                "P  ",
+                "PP ",
+                "PPP",
+                'P',
+                CustomBlocks.ORE_DICT_SILVERWOOD_PLANKS));
+    }
+
+    private void registerSlabRecipes(ItemStack output, ItemStack tcPlanks, ItemStack tfPlanks) {
+        // with one Fixins plank
+        GameRegistry.addShapedRecipe(output, "CCF", 'C', tcPlanks, 'F', tfPlanks);
+        GameRegistry.addShapedRecipe(output, "CFC", 'C', tcPlanks, 'F', tfPlanks);
+        GameRegistry.addShapedRecipe(output, "FCC", 'C', tcPlanks, 'F', tfPlanks);
+
+        // with two Fixins planks
+        GameRegistry.addShapedRecipe(output, "CFF", 'C', tcPlanks, 'F', tfPlanks);
+        GameRegistry.addShapedRecipe(output, "FCF", 'C', tcPlanks, 'F', tfPlanks);
+
+        // only Fixins planks
+        GameRegistry.addShapedRecipe(output, "FFF", 'F', tfPlanks);
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)

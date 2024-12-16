@@ -24,7 +24,6 @@ public class BlockPlank extends Block {
         this.setHardness(2.5F);
         this.setResistance(10.0F);
         this.setStepSound(soundTypeWood);
-        this.setTickRandomly(true);
         this.setCreativeTab(Thaumcraft.tabTC);
         this.setBlockName("blockCustomPlank");
     }

@@ -8,6 +8,7 @@ import dev.rndmorris.tfixins.config.biomes.BiomeColorModule;
 import dev.rndmorris.tfixins.config.bugfixes.BugfixesModule;
 import dev.rndmorris.tfixins.config.commands.CommandsModule;
 import dev.rndmorris.tfixins.config.thaumonomicon.ThaumonomiconModule;
+import dev.rndmorris.tfixins.config.workarounds.WorkaroundsModule;
 
 public class FixinsConfig {
 
@@ -15,6 +16,7 @@ public class FixinsConfig {
     public static final BugfixesModule bugfixesModule;
     public static final CommandsModule commandsModule;
     public static final ThaumonomiconModule researchBrowserModule;
+    public static final WorkaroundsModule workaroundsModule;
 
     private static final IConfigModule[] modules;
 
@@ -25,6 +27,7 @@ public class FixinsConfig {
             bugfixesModule = new BugfixesModule(),
             commandsModule = new CommandsModule(),
             researchBrowserModule = new ThaumonomiconModule(),
+            workaroundsModule = new WorkaroundsModule(),
         };
         // spotless:on
     }
