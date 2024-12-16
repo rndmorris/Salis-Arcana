@@ -12,8 +12,6 @@ import dev.rndmorris.tfixins.config.IEnabler;
 public enum Mixins {
 
     // spotless:off
-    // Tweaks
-    NODE_GENERATION_WEIGHTS(MixinSide.BOTH, FixinsConfig.tweaksModule.nodeModifierWeights, "world.MixinThaumcraftWorldGenerator"),
 
     // Biome colors
     BIOME_EERIE_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "world.biomes.MixinBiomeGenEerie"),
@@ -39,6 +37,9 @@ public enum Mixins {
     RESEARCH_ID_POPUP(MixinSide.CLIENT, FixinsConfig.researchBrowserModule.showResearchId, "gui.MixinGuiResearchBrowser"),
     RIGHT_CLICK_NAVIAGTION(MixinSide.CLIENT, FixinsConfig.researchBrowserModule.rightClickClose, "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
 
+    // Tweaks
+    NODE_GENERATION_MODIFIER_WEIGHTS(MixinSide.BOTH, FixinsConfig.tweaksModule.nodeModifierWeights, "world.MixinThaumcraftWorldGenerator"),
+    NODE_GENERATION_TYPE_WEIGHTS(MixinSide.BOTH, FixinsConfig.tweaksModule.nodeTypeWeights, "world.MixinThaumcraftWorldGenerator"),
 
     ;
     // spotless:on
