@@ -8,9 +8,11 @@ public abstract class Setting implements IEnabler {
 
     protected final WeakReference<IConfigModule> moduleRef;
     protected boolean enabled = true;
+    public ConfigPhase phase;
 
-    public Setting(WeakReference<IConfigModule> getModule) {
+    public Setting(WeakReference<IConfigModule> getModule, ConfigPhase phase) {
         this.moduleRef = getModule;
+        this.phase = phase;
     }
 
     /**

@@ -15,10 +15,11 @@ public class IntArraySetting extends Setting {
 
     Setting pairedSetting;
 
-    public IntArraySetting(WeakReference<IConfigModule> getModule, String name, String comment, int[] defaultValue,
-        int min, int max) {
-        super(getModule);
+    public IntArraySetting(WeakReference<IConfigModule> getModule, ConfigPhase phase, String name, String comment,
+        int[] defaultValue, int min, int max) {
+        super(getModule, phase);
         this.name = name;
+        this.phase = phase;
         this.comment = comment;
         this.defaultValue = defaultValue;
         this.minValue = min;
@@ -26,14 +27,15 @@ public class IntArraySetting extends Setting {
 
         pairedSetting = new ToggleSetting(
             getModule,
+            phase,
             "enable" + name.substring(0, 1)
                 .toUpperCase() + name.substring(1),
             "Enable " + name + "?",
             enabled);
     }
 
-    public IntArraySetting(WeakReference<IConfigModule> getModule, String name, String comment) {
-        this(getModule, name, comment, new int[] {}, 0, 0);
+    public IntArraySetting(WeakReference<IConfigModule> getModule, ConfigPhase phase, String name, String comment) {
+        this(getModule, phase, name, comment, new int[] {}, 0, 0);
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.util.Set;
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
 
+import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.FixinsConfig;
 import dev.rndmorris.tfixins.mixins.Mixins;
 
@@ -18,7 +19,7 @@ public class ThaumicFixinsMixinLoader implements ILateMixinLoader {
         String path = Paths.get("config", ThaumicFixins.MODID + ".cfg")
             .toString();
 
-        FixinsConfig.synchronizeConfiguration(new File(path));
+        FixinsConfig.synchronizeConfiguration(new File(path), ConfigPhase.EARLY);
     }
 
     @Override

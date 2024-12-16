@@ -35,7 +35,7 @@ public class FixinsConfig {
         // spotless:on
     }
 
-    public static void synchronizeConfiguration(File configFile) {
+    public static void synchronizeConfiguration(File configFile, ConfigPhase phase) {
         Configuration configuration = new Configuration(configFile);
 
         final var modulesCategory = "00_modules";
@@ -50,7 +50,7 @@ public class FixinsConfig {
                 .getBoolean(toggleName, modulesCategory, module.isEnabled(), module.getModuleComment());
             module.setEnabled(enabled);
             if (enabled) {
-                module.loadModuleFromConfig(configuration);
+                module.loadModuleFromConfig(configuration, phase);
             }
         }
 
