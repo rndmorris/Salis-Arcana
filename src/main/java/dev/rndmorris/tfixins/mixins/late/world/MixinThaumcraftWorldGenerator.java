@@ -19,7 +19,7 @@ import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.api.nodes.NodeType;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
-@Mixin(ThaumcraftWorldGenerator.class)
+@Mixin(value = ThaumcraftWorldGenerator.class, remap = false)
 public class MixinThaumcraftWorldGenerator {
 
     @Inject(
@@ -34,12 +34,12 @@ public class MixinThaumcraftWorldGenerator {
 
         if (FixinsConfig.tweaksModule.nodeModifierWeights.isEnabled()) {
             rand = tfixins$weightedRandom(random, FixinsConfig.tweaksModule.nodeModifierWeights.getValue());
-            modifier.set(rand == NodeType.values().length || rand == -1 ? null : NodeModifier.values()[rand]);
+            modifier.set(rand == NodeModifier.values().length || rand == -1 ? null : NodeModifier.values()[rand]);
         }
         if (FixinsConfig.tweaksModule.nodeTypeWeights.isEnabled()) {
             if (!silverwood && !eerie) {
                 rand = tfixins$weightedRandom(random, FixinsConfig.tweaksModule.nodeTypeWeights.getValue());
-                type.set(rand == NodeType.values().length || rand == -1 ? null : NodeType.values()[rand]);
+                type.set(rand == NodeType.values().length || rand == -1 ? NodeType.NORMAL : NodeType.values()[rand]);
             }
         }
     }
@@ -48,6 +48,9 @@ public class MixinThaumcraftWorldGenerator {
     private static int tfixins$weightedRandom(Random random, int[] weights) {
         int fullWeight = IntStream.of(weights)
             .sum();
+        if (fullWeight <= 0) {
+            return -1;
+        }
         int r = random.nextInt(fullWeight);
         int cumulativeWeight = 0;
 
