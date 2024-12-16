@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.util.MathHelper;
 
 import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import dev.rndmorris.tfixins.common.commands.arguments.CoordinateArgument;
@@ -21,21 +22,27 @@ public class CoordinateHandler implements IPositionalArgumentHandler {
     public Object parse(ICommandSender sender, String current, Iterator<String> input) {
         final var player = CommandBase.getCommandSenderAsPlayer(sender);
 
-        final var x = (int) CommandBase.func_110666_a(sender, player.posX, current);
+        final var x = parsePosition(sender, player.posX, current);
 
         if (!input.hasNext()) {
             CommandErrors.invalidSyntax();
         }
-        final var y = (int) CommandBase.func_110666_a(sender, player.posY, input.next());
+
+        final var y = parsePosition(sender, player.posY, input.next());
 
         if (!input.hasNext()) {
             CommandErrors.invalidSyntax();
         }
-        final var z = (int) CommandBase.func_110666_a(sender, player.posZ, input.next());
+        final var z = parsePosition(sender, player.posZ, input.next());
 
         return new CoordinateArgument(x, y, z);
     }
 
+    private int parsePosition(ICommandSender sender, double playerPosition, String value) {
+        return MathHelper.floor_double(CommandBase.func_110666_a(sender, playerPosition, value));
+    }
+
+    @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
         final var tilde = Collections.singletonList("~");
         if (!args.hasNext()) {
