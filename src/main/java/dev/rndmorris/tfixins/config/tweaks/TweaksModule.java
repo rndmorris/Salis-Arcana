@@ -23,16 +23,14 @@ public class TweaksModule implements IConfigModule {
             "Node Modifier Worldgen Weights (bright, pale, fading, normal)",
             new int[] { 0, 0, 0, 0 },
             0,
-            100,
-            false);
+            100).setEnabled(false);
         nodeTypeWeights = new IntArraySetting(
             new WeakReference<>(this),
             "nodeTypeWeights",
             "Node Type Worldgen Weights (unstable, dark, hungry, pure, normal)",
             new int[] { 0, 0, 0, 0, 0 },
             0,
-            100,
-            false);
+            100).setEnabled(false);
     }
 
     @Nonnull
