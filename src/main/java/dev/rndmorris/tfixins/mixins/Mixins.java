@@ -12,12 +12,14 @@ import dev.rndmorris.tfixins.config.IEnabler;
 public enum Mixins {
 
     // spotless:off
+    // Tweaks
+    NODE_GENERATION_WEIGHTS(MixinSide.BOTH, FixinsConfig.tweaksModule.nodeModifierWeights, "world.MixinThaumcraftWorldGenerator"),
 
     // Biome colors
-    BIOME_EERIE_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenEerie"),
-    BIOME_ELDRITCH_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenEldritch"),
-    BIOME_MAGICALFOREST_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenMagicalForest"),
-    BIOME_TAINT_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "biomes.MixinBiomeGenTaint"),
+    BIOME_EERIE_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "world.biomes.MixinBiomeGenEerie"),
+    BIOME_ELDRITCH_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "world.biomes.MixinBiomeGenEldritch"),
+    BIOME_MAGICALFOREST_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "world.biomes.MixinBiomeGenMagicalForest"),
+    BIOME_TAINT_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "world.biomes.MixinBiomeGenTaint"),
 
     // Bugfixes
     ARCANE_FURNACE_DUPE_FIX(MixinSide.BOTH, FixinsConfig.bugfixesModule.infernalFurnaceDupeFix, "blocks.MixinBlockArcaneFurnace"),
@@ -36,6 +38,7 @@ public enum Mixins {
     CTRL_SCROLL_NAVIGATION(MixinSide.CLIENT, FixinsConfig.researchBrowserModule.scrollwheelEnabled, "gui.MixinGuiResearchBrowser"),
     RESEARCH_ID_POPUP(MixinSide.CLIENT, FixinsConfig.researchBrowserModule.showResearchId, "gui.MixinGuiResearchBrowser"),
     RIGHT_CLICK_NAVIAGTION(MixinSide.CLIENT, FixinsConfig.researchBrowserModule.rightClickClose, "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
+
 
     ;
     // spotless:on
