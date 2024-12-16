@@ -1,7 +1,5 @@
 package dev.rndmorris.tfixins.mixins.late.events;
 
-import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
-
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,6 +19,8 @@ public abstract class MixinEventHandlerEntity {
             value = "INVOKE",
             target = "Lthaumcraft/common/lib/WarpEvents;checkWarpEvent(Lnet/minecraft/entity/player/EntityPlayer;)V"))
     private void suppressCreativeWarpEvent(EntityPlayer player, Operation<EntityPlayer> original) {
+        // I put this check in the event handler, instead checkWarpEvent itself, to avoid interfering
+        // with any mods or addons that want to call that method themselves.
         if (player.capabilities.isCreativeMode) {
             return;
         }
