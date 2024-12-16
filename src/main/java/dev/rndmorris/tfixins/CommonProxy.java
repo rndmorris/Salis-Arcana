@@ -101,16 +101,15 @@ public class CommonProxy {
             fixinsSilverwoodPlanks);
 
         // Greatwood Slabs
-        registerSlabRecipes(
-            new ItemStack(ConfigBlocks.blockSlabWood, 6, 0),
-            thaumGreatwoodPlanks,
-            fixinsGreatwoodPlanks);
+        final var greatwoodSlabs = new ItemStack(ConfigBlocks.blockSlabWood, 6, 0);
+        registerSlabRecipes(greatwoodSlabs, thaumGreatwoodPlanks, fixinsGreatwoodPlanks);
+        GameRegistry.addRecipe(new ShapedOreRecipe(greatwoodSlabs, "PPP", 'P', CustomBlocks.ORE_DICT_GREATWOOD_PLANKS));
 
         // Silverwood Slabs
-        registerSlabRecipes(
-            new ItemStack(ConfigBlocks.blockSlabWood, 6, 1),
-            thaumSilverwoodPlanks,
-            fixinsSilverwoodPlanks);
+        final var silverwoodSlabs = new ItemStack(ConfigBlocks.blockSlabWood, 6, 1);
+        registerSlabRecipes(silverwoodSlabs, thaumSilverwoodPlanks, fixinsSilverwoodPlanks);
+        GameRegistry
+            .addRecipe(new ShapedOreRecipe(silverwoodSlabs, "PPP", 'P', CustomBlocks.ORE_DICT_SILVERWOOD_PLANKS));
 
         // Greatwood Stairs
         GameRegistry.addRecipe(
@@ -134,9 +133,6 @@ public class CommonProxy {
     }
 
     private void registerSlabRecipes(ItemStack output, ItemStack tcPlanks, ItemStack tfPlanks) {
-        GameRegistry.addRecipe(
-            new ShapedOreRecipe(new ItemStack(ConfigBlocks.blockSlabWood, 6, 0), "PPP", 'P', "greatwoodPlanks"));
-
         // with one Fixins plank
         GameRegistry.addShapedRecipe(output, "CCF", 'C', tcPlanks, 'F', tfPlanks);
         GameRegistry.addShapedRecipe(output, "CFC", 'C', tcPlanks, 'F', tfPlanks);
