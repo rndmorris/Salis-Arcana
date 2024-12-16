@@ -33,8 +33,11 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         BiomeOverrides.apply();
-        CustomBlocks.registerBlocks();
-        registerPlankRecipes();
+
+        if (workaroundsModule.plankBlocks.isEnabled()) {
+            CustomBlocks.registerBlocks();
+            registerPlankRecipes();
+        }
     }
 
     private void registerPlankRecipes() {
@@ -45,34 +48,32 @@ public class CommonProxy {
 
         ItemStack conversionOutput;
 
-        if (workaroundsModule.plankBlocks.isEnabled()) {
-            conversionOutput = fixinsGreatwoodPlanks.copy();
-            conversionOutput.stackSize = 8;
+        conversionOutput = fixinsGreatwoodPlanks.copy();
+        conversionOutput.stackSize = 8;
 
-            GameRegistry.addShapelessRecipe(
-                conversionOutput,
-                thaumGreatwoodPlanks,
-                thaumGreatwoodPlanks,
-                thaumGreatwoodPlanks,
-                thaumGreatwoodPlanks,
-                thaumGreatwoodPlanks,
-                thaumGreatwoodPlanks,
-                thaumGreatwoodPlanks,
-                thaumGreatwoodPlanks);
+        GameRegistry.addShapelessRecipe(
+            conversionOutput,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks,
+            thaumGreatwoodPlanks);
 
-            conversionOutput = fixinsSilverwoodPlanks.copy();
-            conversionOutput.stackSize = 8;
-            GameRegistry.addShapelessRecipe(
-                conversionOutput,
-                thaumSilverwoodPlanks,
-                thaumSilverwoodPlanks,
-                thaumSilverwoodPlanks,
-                thaumSilverwoodPlanks,
-                thaumSilverwoodPlanks,
-                thaumSilverwoodPlanks,
-                thaumSilverwoodPlanks,
-                thaumSilverwoodPlanks);
-        }
+        conversionOutput = fixinsSilverwoodPlanks.copy();
+        conversionOutput.stackSize = 8;
+        GameRegistry.addShapelessRecipe(
+            conversionOutput,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks,
+            thaumSilverwoodPlanks);
 
         conversionOutput = thaumGreatwoodPlanks.copy();
         conversionOutput.stackSize = 8;
