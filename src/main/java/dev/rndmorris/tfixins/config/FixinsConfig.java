@@ -8,6 +8,7 @@ import dev.rndmorris.tfixins.config.biomes.BiomeColorModule;
 import dev.rndmorris.tfixins.config.bugfixes.BugfixesModule;
 import dev.rndmorris.tfixins.config.commands.CommandsModule;
 import dev.rndmorris.tfixins.config.thaumonomicon.ThaumonomiconModule;
+import dev.rndmorris.tfixins.config.tweaks.TweaksModule;
 import dev.rndmorris.tfixins.config.workarounds.WorkaroundsModule;
 
 public class FixinsConfig {
@@ -17,22 +18,24 @@ public class FixinsConfig {
     public static final CommandsModule commandsModule;
     public static final ThaumonomiconModule researchBrowserModule;
     public static final WorkaroundsModule workaroundsModule;
+    public static final TweaksModule tweaksModule;
 
     private static final IConfigModule[] modules;
 
     static {
         // spotless:off
-        modules = new IConfigModule[] {
+            modules = new IConfigModule[] {
             biomeColorModule = new BiomeColorModule(),
             bugfixesModule = new BugfixesModule(),
             commandsModule = new CommandsModule(),
             researchBrowserModule = new ThaumonomiconModule(),
             workaroundsModule = new WorkaroundsModule(),
+            tweaksModule = new TweaksModule(),
         };
         // spotless:on
     }
 
-    public static void synchronizeConfiguration(File configFile) {
+    public static void synchronizeConfiguration(File configFile, ConfigPhase phase) {
         Configuration configuration = new Configuration(configFile);
 
         final var modulesCategory = "00_modules";
@@ -47,7 +50,7 @@ public class FixinsConfig {
                 .getBoolean(toggleName, modulesCategory, module.isEnabled(), module.getModuleComment());
             module.setEnabled(enabled);
             if (enabled) {
-                module.loadModuleFromConfig(configuration);
+                module.loadModuleFromConfig(configuration, phase);
             }
         }
 
@@ -55,5 +58,4 @@ public class FixinsConfig {
             configuration.save();
         }
     }
-
 }

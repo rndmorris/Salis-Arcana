@@ -1,17 +1,14 @@
 package dev.rndmorris.tfixins.config.biomes;
 
-import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeEerie;
-import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeEldritchLands;
-import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeMagicalForest;
-import static thaumcraft.common.lib.world.ThaumcraftWorldGenerator.biomeTaint;
-
 import java.lang.ref.WeakReference;
 
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.IConfigModule;
+import dev.rndmorris.tfixins.config.Setting;
 
 public class BiomeColorModule implements IConfigModule {
 
@@ -22,12 +19,18 @@ public class BiomeColorModule implements IConfigModule {
     public final BiomeColorsSettings magicalForestBiomeColorsSettings;
     public final BiomeColorsSettings taintBiomeColorsSettings;
 
+    private final Setting[] settings;
+
     public BiomeColorModule() {
         final var thisRef = new WeakReference<IConfigModule>(this);
-        eerieBiomeColorsSettings = new BiomeColorsSettings(thisRef, "eerie", biomeEerie);
-        eldritchBiomeColorsSettings = new BiomeColorsSettings(thisRef, "eldritch", biomeEldritchLands);
-        magicalForestBiomeColorsSettings = new BiomeColorsSettings(thisRef, "magical forest", biomeMagicalForest);
-        taintBiomeColorsSettings = new BiomeColorsSettings(thisRef, "taint", biomeTaint);
+        settings = new Setting[] {
+
+            eerieBiomeColorsSettings = new BiomeColorsSettings(thisRef, ConfigPhase.LATE, "Eerie"),
+            eldritchBiomeColorsSettings = new BiomeColorsSettings(thisRef, ConfigPhase.LATE, "Eldritch"),
+            magicalForestBiomeColorsSettings = new BiomeColorsSettings(thisRef, ConfigPhase.LATE, "Magical Forest"),
+            taintBiomeColorsSettings = new BiomeColorsSettings(thisRef, ConfigPhase.LATE, "Tainted Land"),
+
+        };
     }
 
     @Nonnull
@@ -48,13 +51,13 @@ public class BiomeColorModule implements IConfigModule {
     }
 
     @Override
-    public void loadModuleFromConfig(@Nonnull Configuration configuration) {
+    public void loadModuleFromConfig(@Nonnull Configuration configuration, ConfigPhase phase) {
         configuration.setCategoryComment(getModuleId(), getModuleComment());
-
-        eerieBiomeColorsSettings.loadFromConfiguration(configuration);
-        eldritchBiomeColorsSettings.loadFromConfiguration(configuration);
-        magicalForestBiomeColorsSettings.loadFromConfiguration(configuration);
-        magicalForestBiomeColorsSettings.loadFromConfiguration(configuration);
+        for (Setting setting : settings) {
+            if (setting.phase == phase) {
+                setting.loadFromConfiguration(configuration);
+            }
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.lang.ref.WeakReference;
 
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.IConfigModule;
 import dev.rndmorris.tfixins.config.Setting;
 
@@ -11,8 +12,8 @@ public class BlockCosmeticSolidBeaconFix extends Setting {
 
     private final boolean[] blockCosmeticSolidBeaconIds = new boolean[16];
 
-    public BlockCosmeticSolidBeaconFix(WeakReference<IConfigModule> getModule) {
-        super(getModule);
+    public BlockCosmeticSolidBeaconFix(WeakReference<IConfigModule> getModule, ConfigPhase phase) {
+        super(getModule, phase);
     }
 
     public boolean isBeaconMetadata(int id) {

@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.IConfigModule;
 import dev.rndmorris.tfixins.config.Setting;
 import dev.rndmorris.tfixins.config.ToggleSetting;
@@ -19,22 +20,31 @@ public class ThaumonomiconModule implements IConfigModule {
 
     private boolean enabled = true;
 
+    private final Setting[] settings;
+
     public ThaumonomiconModule() {
         final var thisRef = new WeakReference<IConfigModule>(this);
-        invertedScrolling = new ToggleSetting(thisRef, "Inverse Scrolling", "Inverts the scrolling for tab switching")
-            .setEnabled(false);
-        rightClickClose = new ToggleSetting(
-            thisRef,
-            "Right-Click Navigation",
-            "Right clicking in a research will take you back to the previous research, or back to the Thaumonomicon.");
-        scrollwheelEnabled = new ToggleSetting(
-            thisRef,
-            "Enable Scrollwheel",
-            "Enables ctrl + scroll to quick switch tabs");
-        showResearchId = new ToggleSetting(
-            thisRef,
-            "Show Research Key",
-            "Allows you to view the internal name of a research while hovering over it and holding control");
+        settings = new Setting[] {
+            this.invertedScrolling = new ToggleSetting(
+                thisRef,
+                ConfigPhase.EARLY,
+                "Inverse Scrolling",
+                "Inverts the scrolling for tab switching").setEnabled(false),
+            rightClickClose = new ToggleSetting(
+                thisRef,
+                ConfigPhase.EARLY,
+                "Right-Click Navigation",
+                "Right clicking in a research will take you back to the previous research, or back to the Thaumonomicon."),
+            scrollwheelEnabled = new ToggleSetting(
+                thisRef,
+                ConfigPhase.EARLY,
+                "Enable Scrollwheel",
+                "Enables ctrl + scroll to quick switch tabs"),
+            showResearchId = new ToggleSetting(
+                thisRef,
+                ConfigPhase.EARLY,
+                "Show Research Key",
+                "Allows you to view the internal name of a research while hovering over it and holding control"), };
     }
 
     @Nonnull
@@ -55,11 +65,12 @@ public class ThaumonomiconModule implements IConfigModule {
     }
 
     @Override
-    public void loadModuleFromConfig(@Nonnull Configuration configuration) {
-        scrollwheelEnabled.loadFromConfiguration(configuration);
-        invertedScrolling.loadFromConfiguration(configuration);
-        rightClickClose.loadFromConfiguration(configuration);
-        showResearchId.loadFromConfiguration(configuration);
+    public void loadModuleFromConfig(@Nonnull Configuration configuration, ConfigPhase phase) {
+        for (Setting setting : settings) {
+            if (setting.phase == phase) {
+                setting.loadFromConfiguration(configuration);
+            }
+        }
     }
 
     @Override
