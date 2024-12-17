@@ -20,6 +20,7 @@ public class BugfixesModule implements IConfigModule {
     public final ToggleSetting deadMobsDontAttack;
     public final ToggleSetting infernalFurnaceDupeFix;
     public final ToggleSetting itemShardColor;
+    public final ToggleSetting persistVisRelayConnections;
     public final ToggleSetting renderRedstoneFix;
     public final ToggleSetting suppressWarpEventsInCreative;
     public final ToggleSetting useAllBaublesSlots;
@@ -50,6 +51,11 @@ public class BugfixesModule implements IConfigModule {
                 ConfigPhase.EARLY,
                 "shardMetadataCrash",
                 "Fixes a crash with invalid shard metadata"),
+            persistVisRelayConnections = new ToggleSetting(
+                thisRef,
+                ConfigPhase.EARLY,
+                "persistVisRelayConnections",
+                "Experimental. Persist vis relay connections to save data. This should help them behave better when loaded and unloaded, and when a vis network is partially chunkloaded."),
             renderRedstoneFix = new ToggleSetting(
                 thisRef,
                 ConfigPhase.EARLY,
