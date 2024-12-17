@@ -7,13 +7,13 @@ import java.lang.ref.WeakReference;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.IConfigModule;
 import dev.rndmorris.tfixins.config.Setting;
 
 public class BiomeColorsSettings extends Setting {
 
     private final String biomeName;
-    private final BiomeGenBase biome;
 
     public boolean baseSet = false;
     public int base = -1;
@@ -30,14 +30,16 @@ public class BiomeColorsSettings extends Setting {
     public boolean waterSet = false;
     public int water = -1;
 
-    public BiomeColorsSettings(WeakReference<IConfigModule> parentModule, String biomeName, BiomeGenBase biome) {
-        super(parentModule);
+    public BiomeColorsSettings(WeakReference<IConfigModule> parentModule, ConfigPhase phase, String biomeName) {
+        super(parentModule, phase);
         this.biomeName = biomeName;
-        this.biome = biome;
+
     }
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
+        BiomeGenBase biome = this.getBiomeByName(biomeName);
+        System.out.println(biome);
         IConfigModule module;
         if ((module = moduleRef.get()) == null) {
             return;
@@ -123,4 +125,14 @@ public class BiomeColorsSettings extends Setting {
             water = colorInt;
         }
     }
+
+    private BiomeGenBase getBiomeByName(String name) {
+        for (BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
+            if (biome != null && biome.biomeName.equals(name)) {
+                return biome;
+            }
+        }
+        return null;
+    }
+
 }

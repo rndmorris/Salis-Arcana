@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.mixins.late.biomes;
+package dev.rndmorris.tfixins.mixins.late.world.biomes;
 
 import static dev.rndmorris.tfixins.config.FixinsConfig.biomeColorModule;
 

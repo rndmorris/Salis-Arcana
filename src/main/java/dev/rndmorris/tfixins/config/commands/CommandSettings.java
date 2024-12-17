@@ -15,6 +15,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.ThaumicFixins;
 import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
+import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.IConfigModule;
 import dev.rndmorris.tfixins.config.Setting;
 
@@ -29,8 +30,8 @@ public class CommandSettings extends Setting {
     private @Nonnull String description = "";
     private byte permissionLevel = 4;
 
-    public CommandSettings(@Nonnull String name, WeakReference<IConfigModule> parentModule) {
-        super(parentModule);
+    public CommandSettings(@Nonnull String name, WeakReference<IConfigModule> parentModule, ConfigPhase phase) {
+        super(parentModule, phase);
         this.name = name;
     }
 

@@ -32,8 +32,9 @@ public interface IConfigModule extends IEnabler {
      * Load the module's config settings. Only called if the module is enabled.
      *
      * @param configuration The configuration from which to load the module's settings.
+     * @param phase         The current configuration load phase
      */
-    void loadModuleFromConfig(@Nonnull Configuration configuration);
+    void loadModuleFromConfig(@Nonnull Configuration configuration, ConfigPhase phase);
 
     /**
      * Enable or disable this module.

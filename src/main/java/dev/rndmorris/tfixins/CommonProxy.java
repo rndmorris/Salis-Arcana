@@ -3,6 +3,8 @@ package dev.rndmorris.tfixins;
 import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
 import static dev.rndmorris.tfixins.config.FixinsConfig.workaroundsModule;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.function.Supplier;
 
 import net.minecraft.item.ItemStack;
@@ -23,6 +25,8 @@ import dev.rndmorris.tfixins.common.commands.HelpCommand;
 import dev.rndmorris.tfixins.common.commands.ListResearchCommand;
 import dev.rndmorris.tfixins.common.commands.PrerequisitesCommand;
 import dev.rndmorris.tfixins.common.commands.UpdateNodeCommand;
+import dev.rndmorris.tfixins.config.ConfigPhase;
+import dev.rndmorris.tfixins.config.FixinsConfig;
 import dev.rndmorris.tfixins.config.commands.CommandSettings;
 import thaumcraft.common.config.ConfigBlocks;
 
@@ -38,6 +42,10 @@ public class CommonProxy {
             CustomBlocks.registerBlocks();
             registerPlankRecipes();
         }
+
+        String path = Paths.get("config", ThaumicFixins.MODID + ".cfg")
+            .toString();
+        FixinsConfig.synchronizeConfiguration(new File(path), ConfigPhase.LATE);
     }
 
     private void registerPlankRecipes() {

@@ -6,7 +6,9 @@ import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.IConfigModule;
+import dev.rndmorris.tfixins.config.Setting;
 import dev.rndmorris.tfixins.config.ToggleSetting;
 
 public class WorkaroundsModule implements IConfigModule {
@@ -15,11 +17,16 @@ public class WorkaroundsModule implements IConfigModule {
 
     private boolean enabled = true;
 
+    private final Setting[] settings;
+
     public WorkaroundsModule() {
-        enableLookalikePlanks = new ToggleSetting(
+        settings = new Setting[] { enableLookalikePlanks = new ToggleSetting(
             new WeakReference<>(this),
+            ConfigPhase.EARLY,
             "enableLookalikePlanks",
-            "Add look-a-like greatwood and silverwood planks that behave as normal planks, instead of the weirdness of TC4's planks.");
+            "Add look-a-like greatwood and silverwood planks that behave as normal planks, instead of the weirdness of TC4's planks."),
+
+        };
     }
 
     @Nonnull
@@ -40,8 +47,12 @@ public class WorkaroundsModule implements IConfigModule {
     }
 
     @Override
-    public void loadModuleFromConfig(@Nonnull Configuration configuration) {
-        enableLookalikePlanks.loadFromConfiguration(configuration);
+    public void loadModuleFromConfig(@Nonnull Configuration configuration, ConfigPhase phase) {
+        for (Setting setting : settings) {
+            if (setting.phase == phase) {
+                setting.loadFromConfiguration(configuration);
+            }
+        }
     }
 
     @Override

@@ -10,15 +10,16 @@ public class ToggleSetting extends Setting {
     private final String comment;
     private final boolean defaultValue;
 
-    public ToggleSetting(WeakReference<IConfigModule> getModule, String name, String comment, boolean defaultValue) {
-        super(getModule);
+    public ToggleSetting(WeakReference<IConfigModule> getModule, ConfigPhase phase, String name, String comment,
+        boolean defaultValue) {
+        super(getModule, phase);
         this.name = name;
         this.comment = comment;
         this.defaultValue = defaultValue;
     }
 
-    public ToggleSetting(WeakReference<IConfigModule> getModule, String name, String comment) {
-        this(getModule, name, comment, true);
+    public ToggleSetting(WeakReference<IConfigModule> getModule, ConfigPhase phase, String name, String comment) {
+        this(getModule, phase, name, comment, true);
     }
 
     @Override
