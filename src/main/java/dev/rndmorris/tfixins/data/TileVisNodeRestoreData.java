@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
-public class TileVisNodeRestoreData implements IReadFromNBT, IWriteToNBT {
+public class TileVisNodeRestoreData {
 
     private static final String TAG_PARENT = "parent";
     private static final String TAG_CHILDREN = "children";
@@ -18,7 +18,6 @@ public class TileVisNodeRestoreData implements IReadFromNBT, IWriteToNBT {
     public byte[] parentOffsets;
     public final List<byte[]> childrenOffsets = new ArrayList<>();
 
-    @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
         if (nbttagcompound.hasKey(TAG_PARENT, Constants.NBT.TAG_COMPOUND)) {
             final var parentTag = nbttagcompound.getCompoundTag(TAG_PARENT);
@@ -37,7 +36,6 @@ public class TileVisNodeRestoreData implements IReadFromNBT, IWriteToNBT {
         }
     }
 
-    @Override
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         if (parentOffsets != null) {
             NBTTagCompound parent;
