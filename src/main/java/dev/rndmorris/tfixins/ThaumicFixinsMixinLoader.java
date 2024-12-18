@@ -1,7 +1,5 @@
 package dev.rndmorris.tfixins;
 
-import java.io.File;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 
@@ -16,10 +14,7 @@ import dev.rndmorris.tfixins.mixins.Mixins;
 public class ThaumicFixinsMixinLoader implements ILateMixinLoader {
 
     public ThaumicFixinsMixinLoader() {
-        String path = Paths.get("config", ThaumicFixins.MODID + ".cfg")
-            .toString();
-
-        FixinsConfig.synchronizeConfiguration(new File(path), ConfigPhase.EARLY);
+        FixinsConfig.synchronizeConfiguration(ConfigPhase.EARLY);
     }
 
     @Override

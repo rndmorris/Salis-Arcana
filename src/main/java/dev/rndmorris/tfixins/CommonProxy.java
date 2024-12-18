@@ -2,8 +2,6 @@ package dev.rndmorris.tfixins;
 
 import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
 
-import java.io.File;
-import java.nio.file.Paths;
 import java.util.function.Supplier;
 
 import net.minecraft.item.ItemStack;
@@ -34,14 +32,12 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
+        FixinsConfig.synchronizeConfiguration(ConfigPhase.LATE);
+
         if (FixinsConfig.enhancements.lookalikePlanks.isEnabled()) {
             CustomBlocks.registerBlocks();
             registerPlankRecipes();
         }
-
-        String path = Paths.get("config", ThaumicFixins.MODID + ".cfg")
-            .toString();
-        FixinsConfig.synchronizeConfiguration(new File(path), ConfigPhase.LATE);
     }
 
     private void registerPlankRecipes() {

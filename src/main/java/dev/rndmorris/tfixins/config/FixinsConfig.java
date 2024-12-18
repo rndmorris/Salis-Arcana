@@ -1,9 +1,11 @@
 package dev.rndmorris.tfixins.config;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.tfixins.ThaumicFixins;
 import dev.rndmorris.tfixins.config.biomes.BiomeColorModule;
 import dev.rndmorris.tfixins.config.bugfixes.BugfixesModule;
 import dev.rndmorris.tfixins.config.commands.CommandsModule;
@@ -27,6 +29,12 @@ public class FixinsConfig {
             enhancements = new EnhancementsModule(),
         };
         // spotless:on
+    }
+
+    public static void synchronizeConfiguration(ConfigPhase phase) {
+        final var baseConfigPath = Paths.get("config", ThaumicFixins.MODID + ".cfg")
+            .toString();
+        synchronizeConfiguration(new File(baseConfigPath), phase);
     }
 
     public static void synchronizeConfiguration(File configFile, ConfigPhase phase) {
