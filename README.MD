@@ -1,84 +1,26 @@
 # Salis Arcana
-*A collection of bugfixes, enhancements, and utility options for Thaumcraft 4*
+Secret salt to enhance and refine Thaumcraft 4
 
-## Features
+## Bugfixes
+* Prevent Infernal Furnaces from duplicating items
+* Eliminate floating-point math errors in the Infusion Altar's stabilizer calculations
+* Persist Vis Relay connection data to help prevent breakage
+* *[And more...](./docs/bugfixes.md)*
 
-### Bugfixes
+## Enhancements
+* Support for expanded bauble slots
+* Suppress warp events for creative players
+* Additional controls for navigating the Thaumonomicon
+* *[And more...](./docs/enhancements.md)*
 
-<details>
+## Commands
+*Including:*
+* Create and modify nodes
+* Search and manage player research
+* Look up prerequisite research for research and item recipes
+* *[And more...](./docs/commands.md)*
 
-#### Beacon Blocks
-
-
-#### Block/Item Color Safety Checks
-shardMetadataCrash
-candleMetadataCrash
-
-
-#### Stop Dead Mobs from Attacking When Dead
-
-#### No more Infernal Furnace item duplication
-infernalFurnaceDupeFix
-
-#### Infusion Matrix Fixes
-integerInfusionMatrixMath
-strictInfusionMatrixInputChecks
-
-#### TC4 Ores Can Pass a Redstone Signal
-renderRedstoneFix
-
-</details>
-
-### Enhancements
-
-<details>
-
-#### Configurable Biome Colors
-Biomes module
-
-#### Suppress Warp Events in Creative Mode
-suppressWarpEventsInCreative
-
-#### Support for more bauble slots
-useAllBaublesSlots
-
-#### Thaumonomicon Controlls
-Scrollwheel
-Inverse Scrolling
-Right-Click Navigation
-Show Research Key
-
-#### Weighted Node Generation
-enableNodeModifierWeights
-enableNodeTypeWeights
-
-#### Look-a-like Plank Blocks
-enableLookalikePlanks
-
-</details>
-
-
-### Commands
-
-<details>
-
-#### create-node
-
-#### forget-research
-
-#### forget-scanned
-
-#### help
-
-#### list-research
-
-#### prereqs
-
-#### update-node
-
-</details>
-
-## Credits
+# Credits
 * rndmorris (Project co-lead)
 * Midnight145 (Project co-lead)
-* jss2a98aj (fixes from BugTorch)
+* jss2a98aj (metadata safety checks from [BugTorch](https://github.com/jss2a98aj/BugTorch))
