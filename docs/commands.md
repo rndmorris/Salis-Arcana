@@ -97,7 +97,7 @@ Get help information about a Salis Arcana command.
 
 |  Argument   | Required | Details                                        |
 |:-----------:|:--------:|:-----------------------------------------------|
-| `<command>` |   Yes    | The name or alias of a Thaumic Mixins command. |
+| `<command>` |   Yes    | The name or alias of a Thaumic Fixins command. |
 
 **Default aliases:**
 * `/tf-help`
