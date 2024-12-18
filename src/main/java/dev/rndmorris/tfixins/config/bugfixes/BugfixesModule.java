@@ -22,6 +22,7 @@ public class BugfixesModule implements IConfigModule {
     public final ToggleSetting integerInfusionMatrixMath;
     public final ToggleSetting itemShardColor;
     public final ToggleSetting renderRedstoneFix;
+    public final ToggleSetting strictInfusionMatrixInputChecks;
     public final ToggleSetting suppressWarpEventsInCreative;
     public final ToggleSetting useAllBaublesSlots;
 
@@ -61,6 +62,11 @@ public class BugfixesModule implements IConfigModule {
                 ConfigPhase.EARLY,
                 "renderRedstoneFix",
                 "Fixes an issue with ores where they don't get rendered as normal blocks, not allowing you to push a redstone signal through them."),
+            strictInfusionMatrixInputChecks = new ToggleSetting(
+                thisRef,
+                ConfigPhase.EARLY,
+                "strictInfusionMatrixInputChecks",
+                "Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting."),
             suppressWarpEventsInCreative = new ToggleSetting(
                 thisRef,
                 ConfigPhase.EARLY,

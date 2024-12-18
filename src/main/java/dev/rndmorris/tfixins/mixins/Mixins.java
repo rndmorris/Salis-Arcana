@@ -28,6 +28,7 @@ public enum Mixins {
     ITEMSHARD_OOB(MixinSide.BOTH, FixinsConfig.bugfixesModule.itemShardColor, "items.MixinItemShard"),
     RENDER_REDSTONE_FIX(MixinSide.BOTH, FixinsConfig.bugfixesModule.renderRedstoneFix, "blocks.MixinBlockCustomOre"),
     SUPPRESS_CREATIVE_WARP(MixinSide.BOTH, FixinsConfig.bugfixesModule.suppressWarpEventsInCreative, "events.MixinEventHandlerEntity"),
+    STRICT_INFUSION_INPUTS(MixinSide.BOTH, FixinsConfig.bugfixesModule.strictInfusionMatrixInputChecks, "tiles.MixinTileInfusionMatrix_InputEnforcement"),
 
     // Baubles
     EXTENDED_BAUBLES_SUPPORT(MixinSide.BOTH, FixinsConfig.bugfixesModule.useAllBaublesSlots, "events.MixinEventHandlerRunic", "items.MixinWandManager"),
