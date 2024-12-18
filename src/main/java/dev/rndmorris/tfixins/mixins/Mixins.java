@@ -24,6 +24,7 @@ public enum Mixins {
     BEACON_BLOCKS(MixinSide.BOTH, FixinsConfig.bugfixesModule.blockCosmeticSolidBeaconFix, "blocks.MixinBlockCosmeticSolid"),
     BLOCKCANDLE_OOB(MixinSide.BOTH, FixinsConfig.bugfixesModule.candleRendererCrashes, "blocks.MixinBlockCandleRenderer", "blocks.MixinBlockCandle"),
     DEAD_MOBS_DONT_ATTACK(MixinSide.BOTH, FixinsConfig.bugfixesModule.deadMobsDontAttack, "entities.MixinEntityTaintacle", "entities.MixinEntityEldritchCrab", "entities.MixinEntityThaumicSlime"),
+    INTEGER_INFUSION_MATRIX(MixinSide.BOTH, FixinsConfig.bugfixesModule.integerInfusionMatrixMath, "tiles.MixinTileInfusionMatrix"),
     ITEMSHARD_OOB(MixinSide.BOTH, FixinsConfig.bugfixesModule.itemShardColor, "items.MixinItemShard"),
     RENDER_REDSTONE_FIX(MixinSide.BOTH, FixinsConfig.bugfixesModule.renderRedstoneFix, "blocks.MixinBlockCustomOre"),
     SUPPRESS_CREATIVE_WARP(MixinSide.BOTH, FixinsConfig.bugfixesModule.suppressWarpEventsInCreative, "events.MixinEventHandlerEntity"),

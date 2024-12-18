@@ -19,6 +19,7 @@ public class BugfixesModule implements IConfigModule {
     public final ToggleSetting candleRendererCrashes;
     public final ToggleSetting deadMobsDontAttack;
     public final ToggleSetting infernalFurnaceDupeFix;
+    public final ToggleSetting integerInfusionMatrixMath;
     public final ToggleSetting itemShardColor;
     public final ToggleSetting renderRedstoneFix;
     public final ToggleSetting suppressWarpEventsInCreative;
@@ -45,6 +46,11 @@ public class BugfixesModule implements IConfigModule {
                 ConfigPhase.EARLY,
                 "infernalFurnaceDupeFix",
                 "Fixes a smelting duplication glitch with the Infernal Furnace"),
+            integerInfusionMatrixMath = new ToggleSetting(
+                thisRef,
+                ConfigPhase.EARLY,
+                "integerInfusionMatrixMath",
+                "Calculate infusion stabilizers with integer math instead of floating-point math. This eliminates a rounding error that sometimes makes an infusion altar slightly less stable than it should be."),
             itemShardColor = new ToggleSetting(
                 thisRef,
                 ConfigPhase.EARLY,
