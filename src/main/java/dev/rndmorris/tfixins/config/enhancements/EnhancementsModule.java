@@ -4,9 +4,9 @@ import javax.annotation.Nonnull;
 
 import dev.rndmorris.tfixins.config.BaseConfigModule;
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.IntArraySetting;
-import dev.rndmorris.tfixins.config.Setting;
-import dev.rndmorris.tfixins.config.ToggleSetting;
+import dev.rndmorris.tfixins.config.settings.IntArraySetting;
+import dev.rndmorris.tfixins.config.settings.Setting;
+import dev.rndmorris.tfixins.config.settings.ToggleSetting;
 
 public class EnhancementsModule extends BaseConfigModule {
 

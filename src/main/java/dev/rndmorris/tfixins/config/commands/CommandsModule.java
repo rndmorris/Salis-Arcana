@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 
 import dev.rndmorris.tfixins.config.BaseConfigModule;
 import dev.rndmorris.tfixins.config.ConfigPhase;
+import dev.rndmorris.tfixins.config.settings.CommandSettings;
 
 public class CommandsModule extends BaseConfigModule {
 

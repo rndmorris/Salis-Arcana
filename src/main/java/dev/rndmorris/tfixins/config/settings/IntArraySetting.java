@@ -1,8 +1,11 @@
-package dev.rndmorris.tfixins.config;
+package dev.rndmorris.tfixins.config.settings;
 
 import java.lang.ref.WeakReference;
 
 import net.minecraftforge.common.config.Configuration;
+
+import dev.rndmorris.tfixins.config.ConfigPhase;
+import dev.rndmorris.tfixins.config.IConfigModule;
 
 public class IntArraySetting extends Setting {
 

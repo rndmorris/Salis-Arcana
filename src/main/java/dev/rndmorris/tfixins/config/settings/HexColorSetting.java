@@ -1,10 +1,13 @@
-package dev.rndmorris.tfixins.config;
+package dev.rndmorris.tfixins.config.settings;
 
 import static dev.rndmorris.tfixins.lib.IntegerHelper.tryParseHexInteger;
 
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.lang3.text.WordUtils;
+
+import dev.rndmorris.tfixins.config.ConfigPhase;
+import dev.rndmorris.tfixins.config.IConfigModule;
 
 public class HexColorSetting extends Setting {
 

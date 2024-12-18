@@ -25,7 +25,7 @@ import dev.rndmorris.tfixins.common.commands.PrerequisitesCommand;
 import dev.rndmorris.tfixins.common.commands.UpdateNodeCommand;
 import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.FixinsConfig;
-import dev.rndmorris.tfixins.config.commands.CommandSettings;
+import dev.rndmorris.tfixins.config.settings.CommandSettings;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class CommonProxy {

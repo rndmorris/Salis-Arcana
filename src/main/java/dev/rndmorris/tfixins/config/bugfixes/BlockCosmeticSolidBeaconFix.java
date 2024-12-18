@@ -6,7 +6,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.IConfigModule;
-import dev.rndmorris.tfixins.config.Setting;
+import dev.rndmorris.tfixins.config.settings.Setting;
 
 public class BlockCosmeticSolidBeaconFix extends Setting {
 

@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.config.commands;
+package dev.rndmorris.tfixins.config.settings;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
@@ -17,7 +17,6 @@ import dev.rndmorris.tfixins.ThaumicFixins;
 import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
 import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.IConfigModule;
-import dev.rndmorris.tfixins.config.Setting;
 
 public class CommandSettings extends Setting {
 

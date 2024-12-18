@@ -8,6 +8,8 @@ import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.tfixins.config.settings.Setting;
+
 public abstract class BaseConfigModule implements IConfigModule {
 
     private boolean enabled = true;

@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 
 import dev.rndmorris.tfixins.config.BaseConfigModule;
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.ToggleSetting;
+import dev.rndmorris.tfixins.config.settings.ToggleSetting;
 
 public class BugfixesModule extends BaseConfigModule {
 

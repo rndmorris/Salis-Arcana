@@ -3,9 +3,9 @@ package dev.rndmorris.tfixins.config.biomes;
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.HexColorSetting;
 import dev.rndmorris.tfixins.config.IConfigModule;
-import dev.rndmorris.tfixins.config.Setting;
+import dev.rndmorris.tfixins.config.settings.HexColorSetting;
+import dev.rndmorris.tfixins.config.settings.Setting;
 
 public class BiomeColorsSettings extends Setting {
 
