@@ -42,13 +42,6 @@ Add a safety check to prevent the creation of Thaumcraft candles with invalid me
 
 Add a safety check to prevent the creation of Thaumcraft shards with invalid metadata.
 
-## Persisted Vis Relay Connection Data
-
-**Config option:** `persistVisRelayConnections`
-
-Vis relays will persist their parent and child connections to NBT. Helps prevent Vis Relay networks that cross chunk
-chunk boundaries from breaking as easily.
-
 ## TC4 Ores Redstone Fix
 
 **Config option:** `renderRedstoneFix`

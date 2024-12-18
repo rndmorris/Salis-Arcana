@@ -2,9 +2,9 @@
 Secret salt to enhance and refine Thaumcraft 4
 
 ## Bugfixes
-* Prevent Infernal Furnaces from duplicating items
+* Prevent the Infernal Furnace from duplicating items
 * Eliminate floating-point math errors in the Infusion Altar's stabilizer calculations
-* Persist Vis Relay connection data to help prevent breakage
+* Prevent mobs from attacking during their death animation
 * *[And more...](./docs/bugfixes.md)*
 
 ## Enhancements
