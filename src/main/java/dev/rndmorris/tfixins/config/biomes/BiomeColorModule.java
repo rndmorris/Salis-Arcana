@@ -23,7 +23,7 @@ public class BiomeColorModule implements IConfigModule {
         settings = new Setting[] {
             eerie = new BiomeColorsSettings(
                 this,
-                ConfigPhase.LATE,
+                ConfigPhase.EARLY,
                 "Eerie",
                 "0x404840",
                 "0x405340",
@@ -32,7 +32,7 @@ public class BiomeColorModule implements IConfigModule {
                 "0x2e535f"),
             eldritch = new BiomeColorsSettings(
                 this,
-                ConfigPhase.LATE,
+                ConfigPhase.EARLY,
                 "Eldritch",
                 "0x000000",
                 "0x000000",
@@ -41,7 +41,7 @@ public class BiomeColorModule implements IConfigModule {
                 "0xffffff"),
             magicalForest = new BiomeColorsSettings(
                 this,
-                ConfigPhase.LATE,
+                ConfigPhase.EARLY,
                 "Magical Forest",
                 "0x66f4ab",
                 "0x66ffc5",
@@ -50,7 +50,7 @@ public class BiomeColorModule implements IConfigModule {
                 "0x0077ee"),
             taint = new BiomeColorsSettings(
                 this,
-                ConfigPhase.LATE,
+                ConfigPhase.EARLY,
                 "Tainted Land",
                 "0x6d4189",
                 "0x7c6d87",
@@ -78,7 +78,6 @@ public class BiomeColorModule implements IConfigModule {
 
     @Override
     public void loadModuleFromConfig(@Nonnull Configuration configuration, ConfigPhase phase) {
-        configuration.setCategoryComment(getModuleId(), getModuleComment());
         for (Setting setting : settings) {
             if (setting.phase == phase) {
                 setting.loadFromConfiguration(configuration);

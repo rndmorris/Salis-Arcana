@@ -50,6 +50,7 @@ public class FixinsConfig {
                 .getBoolean(toggleName, modulesCategory, module.isEnabled(), module.getModuleComment());
             module.setEnabled(enabled);
             if (enabled) {
+                configuration.setCategoryComment(module.getModuleId(), module.getModuleComment());
                 module.loadModuleFromConfig(configuration, phase);
             }
         }
