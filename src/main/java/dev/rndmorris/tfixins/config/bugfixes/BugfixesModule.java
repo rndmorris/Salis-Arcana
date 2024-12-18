@@ -51,7 +51,7 @@ public class BugfixesModule implements IConfigModule {
                 thisRef,
                 ConfigPhase.EARLY,
                 "integerInfusionMatrixMath",
-                "Calculate infusion stabilizers with integer math instead of floating-point math. This eliminates a rounding error that sometimes makes an infusion altar slightly less stable than it should be."),
+                "Calculate infusion stabilizers with integer math instead of floating-point math. This eliminates a rounding error that sometimes makes an infusion altar slightly less stable than it should be. Also corrects a logic error causing the Infusion Matrix to check the wrong coordinates for a symmetrical stabilizer."),
             itemShardColor = new ToggleSetting(
                 thisRef,
                 ConfigPhase.EARLY,
