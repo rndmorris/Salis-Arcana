@@ -2,25 +2,18 @@ package dev.rndmorris.tfixins.config.biomes;
 
 import javax.annotation.Nonnull;
 
-import net.minecraftforge.common.config.Configuration;
-
+import dev.rndmorris.tfixins.config.BaseConfigModule;
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.IConfigModule;
-import dev.rndmorris.tfixins.config.Setting;
 
-public class BiomeColorModule implements IConfigModule {
-
-    private boolean enabled = false;
+public class BiomeColorModule extends BaseConfigModule {
 
     public final BiomeColorsSettings eerie;
     public final BiomeColorsSettings eldritch;
     public final BiomeColorsSettings magicalForest;
     public final BiomeColorsSettings taint;
 
-    private final Setting[] settings;
-
     public BiomeColorModule() {
-        settings = new Setting[] {
+        addSettings(
             eerie = new BiomeColorsSettings(
                 this,
                 ConfigPhase.EARLY,
@@ -56,7 +49,7 @@ public class BiomeColorModule implements IConfigModule {
                 "0x7c6d87",
                 "0x6d4189",
                 "0x7c44ff",
-                "0xcc1188"), };
+                "0xcc1188"));
     }
 
     @Nonnull
@@ -70,24 +63,4 @@ public class BiomeColorModule implements IConfigModule {
     public String getModuleComment() {
         return "Override the colors of TC4's biomes.";
     }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Override
-    public void loadModuleFromConfig(@Nonnull Configuration configuration, ConfigPhase phase) {
-        for (Setting setting : settings) {
-            if (setting.phase == phase) {
-                setting.loadFromConfiguration(configuration);
-            }
-        }
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
 }

@@ -4,14 +4,10 @@ import static dev.rndmorris.tfixins.common.commands.ListResearchCommand.listOthe
 
 import javax.annotation.Nonnull;
 
-import net.minecraftforge.common.config.Configuration;
-
+import dev.rndmorris.tfixins.config.BaseConfigModule;
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.IConfigModule;
 
-public class CommandsModule implements IConfigModule {
-
-    private boolean enabled = true;
+public class CommandsModule extends BaseConfigModule {
 
     public final @Nonnull CommandSettings createNode;
     public final @Nonnull CommandSettings forgetResearch;
@@ -52,6 +48,8 @@ public class CommandsModule implements IConfigModule {
             updateNode = new CommandSettings("update-node", this, ConfigPhase.LATE).addDefaultAlias()
                 .setDescription("Update the properties of a node at the specified coordiantes.")
                 .setPermissionLevel(2) };
+
+        addSettings(commandsSettings);
     }
 
     @Nonnull
@@ -64,25 +62,6 @@ public class CommandsModule implements IConfigModule {
     @Override
     public String getModuleComment() {
         return "Helper and admin commands.";
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Override
-    public void loadModuleFromConfig(@Nonnull Configuration configuration, ConfigPhase phase) {
-        for (var settings : commandsSettings) {
-            if (settings.phase == phase) {
-                settings.loadFromConfiguration(configuration);
-            }
-        }
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
 }

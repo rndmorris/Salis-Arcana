@@ -2,16 +2,11 @@ package dev.rndmorris.tfixins.config.bugfixes;
 
 import javax.annotation.Nonnull;
 
-import net.minecraftforge.common.config.Configuration;
-
+import dev.rndmorris.tfixins.config.BaseConfigModule;
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.IConfigModule;
-import dev.rndmorris.tfixins.config.Setting;
 import dev.rndmorris.tfixins.config.ToggleSetting;
 
-public class BugfixesModule implements IConfigModule {
-
-    private boolean enabled = true;
+public class BugfixesModule extends BaseConfigModule {
 
     public final BlockCosmeticSolidBeaconFix blockCosmeticSolidBeaconFix;
     public final ToggleSetting candleRendererCrashes;
@@ -24,10 +19,8 @@ public class BugfixesModule implements IConfigModule {
     public final ToggleSetting suppressWarpEventsInCreative;
     public final ToggleSetting useAllBaublesSlots;
 
-    private final Setting[] settings;
-
     public BugfixesModule() {
-        settings = new Setting[] {
+        addSettings(
             blockCosmeticSolidBeaconFix = new BlockCosmeticSolidBeaconFix(this, ConfigPhase.EARLY),
             candleRendererCrashes = new ToggleSetting(
                 this,
@@ -73,7 +66,7 @@ public class BugfixesModule implements IConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "useAllBaublesSlots",
-                "Enables support for mods that increase the number of baubles slots."), };
+                "Enables support for mods that increase the number of baubles slots."));
     }
 
     @Nonnull
@@ -88,22 +81,4 @@ public class BugfixesModule implements IConfigModule {
         return "Fixes for bugs in TC4";
     }
 
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Override
-    public void loadModuleFromConfig(@Nonnull Configuration configuration, ConfigPhase phase) {
-        for (Setting setting : settings) {
-            if (setting.phase == phase) {
-                setting.loadFromConfiguration(configuration);
-            }
-        }
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 }
