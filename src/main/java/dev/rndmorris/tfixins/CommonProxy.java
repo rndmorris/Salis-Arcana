@@ -15,7 +15,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dev.rndmorris.tfixins.common.biomes.BiomeOverrides;
 import dev.rndmorris.tfixins.common.blocks.CustomBlocks;
 import dev.rndmorris.tfixins.common.commands.CreateNodeCommand;
 import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
@@ -36,8 +35,6 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
-        BiomeOverrides.apply();
-
         if (workaroundsModule.enableLookalikePlanks.isEnabled()) {
             CustomBlocks.registerBlocks();
             registerPlankRecipes();

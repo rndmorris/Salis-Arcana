@@ -14,23 +14,52 @@ public class BiomeColorModule implements IConfigModule {
 
     private boolean enabled = false;
 
-    public final BiomeColorsSettings eerieBiomeColorsSettings;
-    public final BiomeColorsSettings eldritchBiomeColorsSettings;
-    public final BiomeColorsSettings magicalForestBiomeColorsSettings;
-    public final BiomeColorsSettings taintBiomeColorsSettings;
+    public final BiomeColorsSettings eerie;
+    public final BiomeColorsSettings eldritch;
+    public final BiomeColorsSettings magicalForest;
+    public final BiomeColorsSettings taint;
 
     private final Setting[] settings;
 
     public BiomeColorModule() {
         final var thisRef = new WeakReference<IConfigModule>(this);
         settings = new Setting[] {
-
-            eerieBiomeColorsSettings = new BiomeColorsSettings(thisRef, ConfigPhase.LATE, "Eerie"),
-            eldritchBiomeColorsSettings = new BiomeColorsSettings(thisRef, ConfigPhase.LATE, "Eldritch"),
-            magicalForestBiomeColorsSettings = new BiomeColorsSettings(thisRef, ConfigPhase.LATE, "Magical Forest"),
-            taintBiomeColorsSettings = new BiomeColorsSettings(thisRef, ConfigPhase.LATE, "Tainted Land"),
-
-        };
+            eerie = new BiomeColorsSettings(
+                thisRef,
+                ConfigPhase.LATE,
+                "Eerie",
+                "0x404840",
+                "0x405340",
+                "0x404840",
+                "0x222299",
+                "0x2e535f"),
+            eldritch = new BiomeColorsSettings(
+                thisRef,
+                ConfigPhase.LATE,
+                "Eldritch",
+                "0x000000",
+                "0x000000",
+                "0x000000",
+                "0xff7ba5ff",
+                "0xffffff"),
+            magicalForest = new BiomeColorsSettings(
+                thisRef,
+                ConfigPhase.LATE,
+                "Magical Forest",
+                "0x66f4ab",
+                "0x66ffc5",
+                "0x55ff81",
+                "0xff7aa6ff",
+                "0x0077ee"),
+            taint = new BiomeColorsSettings(
+                thisRef,
+                ConfigPhase.LATE,
+                "Tainted Land",
+                "0x6d4189",
+                "0x7c6d87",
+                "0x6d4189",
+                "0x7c44ff",
+                "0xcc1188"), };
     }
 
     @Nonnull

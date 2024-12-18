@@ -14,10 +14,29 @@ public enum Mixins {
     // spotless:off
 
     // Biome colors
-    BIOME_EERIE_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "world.biomes.MixinBiomeGenEerie"),
-    BIOME_ELDRITCH_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "world.biomes.MixinBiomeGenEldritch"),
-    BIOME_MAGICALFOREST_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "world.biomes.MixinBiomeGenMagicalForest"),
-    BIOME_TAINT_MODULE(MixinSide.BOTH, FixinsConfig.biomeColorModule, "world.biomes.MixinBiomeGenTaint"),
+    BIOME_COLOR_EERIE_BASE_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.eerie.baseColor, "world.biomes.eerie.MixinBaseColor"),
+    BIOME_COLOR_EERIE_FOLIAGE_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.eerie.foliageColor, "world.biomes.eerie.MixinFoliageColor"),
+    BIOME_COLOR_EERIE_GRASS_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.eerie.grassColor, "world.biomes.eerie.MixinGrassColor"),
+    BIOME_COLOR_EERIE_SKY_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.eerie.skyColor, "world.biomes.eerie.MixinSkyColor"),
+    BIOME_COLOR_EERIE_WATER_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.eerie.waterColorMultiplier, "world.biomes.eerie.MixinWaterColor"),
+
+    BIOME_COLOR_ELDRITCH_BASE_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.eldritch.baseColor, "world.biomes.eldritch.MixinBaseColor"),
+    BIOME_COLOR_ELDRITCH_FOLIAGE_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.eldritch.foliageColor, "world.biomes.eldritch.MixinFoliageColor"),
+    BIOME_COLOR_ELDRITCH_GRASS_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.eldritch.grassColor, "world.biomes.eldritch.MixinGrassColor"),
+    BIOME_COLOR_ELDRITCH_SKY_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.eldritch.skyColor, "world.biomes.eldritch.MixinSkyColor"),
+    BIOME_COLOR_ELDRITCH_WATER_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.eldritch.waterColorMultiplier, "world.biomes.eldritch.MixinWaterColor"),
+
+    BIOME_COLOR_MAGICAL_FOREST_BASE_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.magicalForest.baseColor, "world.biomes.magicalforest.MixinBaseColor"),
+    BIOME_COLOR_MAGICAL_FOREST_FOLIAGE_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.magicalForest.foliageColor, "world.biomes.magicalforest.MixinFoliageColor"),
+    BIOME_COLOR_MAGICAL_FOREST_GRASS_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.magicalForest.grassColor, "world.biomes.magicalforest.MixinGrassColor"),
+    BIOME_COLOR_MAGICAL_FOREST_SKY_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.magicalForest.skyColor, "world.biomes.magicalforest.MixinSkyColor"),
+    BIOME_COLOR_MAGICAL_FOREST_WATER_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.magicalForest.waterColorMultiplier, "world.biomes.magicalforest.MixinWaterColor"),
+
+    BIOME_COLOR_TAINT_BASE_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.taint.baseColor, "world.biomes.taint.MixinBaseColor"),
+    BIOME_COLOR_TAINT_FOLIAGE_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.taint.foliageColor, "world.biomes.taint.MixinFoliageColor"),
+    BIOME_COLOR_TAINT_GRASS_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.taint.grassColor, "world.biomes.taint.MixinGrassColor"),
+    BIOME_COLOR_TAINT_SKY_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.taint.skyColor, "world.biomes.taint.MixinSkyColor"),
+    BIOME_COLOR_TAINT_WATER_COLOR(MixinSide.BOTH, FixinsConfig.biomeColorModule.taint.waterColorMultiplier, "world.biomes.taint.MixinWaterColor"),
 
     // Bugfixes
     ARCANE_FURNACE_DUPE_FIX(MixinSide.BOTH, FixinsConfig.bugfixesModule.infernalFurnaceDupeFix, "blocks.MixinBlockArcaneFurnace"),
