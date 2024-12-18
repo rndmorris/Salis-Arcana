@@ -19,8 +19,10 @@ public class BugfixesModule implements IConfigModule {
     public final ToggleSetting candleRendererCrashes;
     public final ToggleSetting deadMobsDontAttack;
     public final ToggleSetting infernalFurnaceDupeFix;
+    public final ToggleSetting integerInfusionMatrixMath;
     public final ToggleSetting itemShardColor;
     public final ToggleSetting renderRedstoneFix;
+    public final ToggleSetting strictInfusionMatrixInputChecks;
     public final ToggleSetting suppressWarpEventsInCreative;
     public final ToggleSetting useAllBaublesSlots;
 
@@ -45,6 +47,11 @@ public class BugfixesModule implements IConfigModule {
                 ConfigPhase.EARLY,
                 "infernalFurnaceDupeFix",
                 "Fixes a smelting duplication glitch with the Infernal Furnace"),
+            integerInfusionMatrixMath = new ToggleSetting(
+                thisRef,
+                ConfigPhase.EARLY,
+                "integerInfusionMatrixMath",
+                "Calculate infusion stabilizers with integer math instead of floating-point math. This eliminates a rounding error that sometimes makes an infusion altar slightly less stable than it should be. Also corrects a logic error causing the Infusion Matrix to check the wrong coordinates for a symmetrical stabilizer."),
             itemShardColor = new ToggleSetting(
                 thisRef,
                 ConfigPhase.EARLY,
@@ -55,6 +62,11 @@ public class BugfixesModule implements IConfigModule {
                 ConfigPhase.EARLY,
                 "renderRedstoneFix",
                 "Fixes an issue with ores where they don't get rendered as normal blocks, not allowing you to push a redstone signal through them."),
+            strictInfusionMatrixInputChecks = new ToggleSetting(
+                thisRef,
+                ConfigPhase.EARLY,
+                "strictInfusionMatrixInputChecks",
+                "Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting."),
             suppressWarpEventsInCreative = new ToggleSetting(
                 thisRef,
                 ConfigPhase.EARLY,
