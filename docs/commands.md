@@ -87,7 +87,7 @@ Reset the list of things a player has scanned, allowing those things to be scann
 <details>
 
 **Description:**
-Get help information about a Salis Arcana command.
+Get help information about a Thaumic Fixins command.
 
 **Usage:**
 
