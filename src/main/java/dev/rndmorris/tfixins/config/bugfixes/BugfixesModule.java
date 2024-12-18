@@ -16,8 +16,6 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting itemShardColor;
     public final ToggleSetting renderRedstoneFix;
     public final ToggleSetting strictInfusionMatrixInputChecks;
-    public final ToggleSetting suppressWarpEventsInCreative;
-    public final ToggleSetting useAllBaublesSlots;
 
     public BugfixesModule() {
         addSettings(
@@ -56,17 +54,7 @@ public class BugfixesModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "strictInfusionMatrixInputChecks",
-                "Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting."),
-            suppressWarpEventsInCreative = new ToggleSetting(
-                this,
-                ConfigPhase.EARLY,
-                "suppressWarpEventsInCreative",
-                "Prevent random warp events from firing for players in creative mode."),
-            useAllBaublesSlots = new ToggleSetting(
-                this,
-                ConfigPhase.EARLY,
-                "useAllBaublesSlots",
-                "Enables support for mods that increase the number of baubles slots."));
+                "Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting."));
     }
 
     @Nonnull

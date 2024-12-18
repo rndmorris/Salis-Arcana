@@ -7,18 +7,14 @@ import net.minecraftforge.common.config.Configuration;
 import dev.rndmorris.tfixins.config.biomes.BiomeColorModule;
 import dev.rndmorris.tfixins.config.bugfixes.BugfixesModule;
 import dev.rndmorris.tfixins.config.commands.CommandsModule;
-import dev.rndmorris.tfixins.config.thaumonomicon.ThaumonomiconModule;
-import dev.rndmorris.tfixins.config.tweaks.TweaksModule;
-import dev.rndmorris.tfixins.config.workarounds.WorkaroundsModule;
+import dev.rndmorris.tfixins.config.enhancements.EnhancementsModule;
 
 public class FixinsConfig {
 
     public static final BiomeColorModule biomeColorModule;
     public static final BugfixesModule bugfixesModule;
     public static final CommandsModule commandsModule;
-    public static final ThaumonomiconModule researchBrowserModule;
-    public static final WorkaroundsModule workaroundsModule;
-    public static final TweaksModule tweaksModule;
+    public static final EnhancementsModule enhancements;
 
     private static final IConfigModule[] modules;
 
@@ -28,9 +24,7 @@ public class FixinsConfig {
             biomeColorModule = new BiomeColorModule(),
             bugfixesModule = new BugfixesModule(),
             commandsModule = new CommandsModule(),
-            researchBrowserModule = new ThaumonomiconModule(),
-            workaroundsModule = new WorkaroundsModule(),
-            tweaksModule = new TweaksModule(),
+            enhancements = new EnhancementsModule(),
         };
         // spotless:on
     }

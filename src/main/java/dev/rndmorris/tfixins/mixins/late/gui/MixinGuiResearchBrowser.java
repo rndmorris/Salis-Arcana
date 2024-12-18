@@ -43,7 +43,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     @Override
     public void handleKeyboardInput() {
         super.handleKeyboardInput();
-        if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled()) {
+        if (FixinsConfig.enhancements.showResearchId.isEnabled()) {
             $tfShowResearchId_handleKeyboardInput();
         }
     }
@@ -56,7 +56,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     @Override
     public void handleInput() {
         super.handleInput();
-        if (FixinsConfig.researchBrowserModule.scrollwheelEnabled.isEnabled()) {
+        if (FixinsConfig.enhancements.scrollwheelEnabled.isEnabled()) {
             $tfCtrlScroll_handleInput();
         }
 
@@ -79,7 +79,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
                     categories.add(category);
                 }
 
-                if (FixinsConfig.researchBrowserModule.invertedScrolling.isEnabled()) {
+                if (FixinsConfig.enhancements.invertedScrolling.isEnabled()) {
                     dir *= -1;
                 }
 
@@ -96,7 +96,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
 
     @Inject(method = "mouseClicked", at = @At(value = "HEAD"), cancellable = true)
     private void onMouseClicked(int mouseX, int mouseY, int button, CallbackInfo ci) {
-        if (FixinsConfig.researchBrowserModule.rightClickClose.isEnabled()) {
+        if (FixinsConfig.enhancements.rightClickClose.isEnabled()) {
             $tfRightClickClose_mouseClicked(button, ci);
         }
     }
@@ -111,7 +111,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
 
     @Inject(method = "drawScreen", at = @At(value = "TAIL"))
     private void mixinDrawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
-        if (FixinsConfig.researchBrowserModule.showResearchId.isEnabled()) {
+        if (FixinsConfig.enhancements.showResearchId.isEnabled()) {
             $tfShowResearchId_drawScreen(mouseX, mouseY);
         }
     }

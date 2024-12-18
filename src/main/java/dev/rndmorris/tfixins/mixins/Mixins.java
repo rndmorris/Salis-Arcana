@@ -46,21 +46,19 @@ public enum Mixins {
     INTEGER_INFUSION_MATRIX(MixinSide.BOTH, FixinsConfig.bugfixesModule.integerInfusionMatrixMath, "tiles.MixinTileInfusionMatrix_IntegerStabilizers"),
     ITEMSHARD_OOB(MixinSide.BOTH, FixinsConfig.bugfixesModule.itemShardColor, "items.MixinItemShard"),
     RENDER_REDSTONE_FIX(MixinSide.BOTH, FixinsConfig.bugfixesModule.renderRedstoneFix, "blocks.MixinBlockCustomOre"),
-    SUPPRESS_CREATIVE_WARP(MixinSide.BOTH, FixinsConfig.bugfixesModule.suppressWarpEventsInCreative, "events.MixinEventHandlerEntity"),
     STRICT_INFUSION_INPUTS(MixinSide.BOTH, FixinsConfig.bugfixesModule.strictInfusionMatrixInputChecks, "tiles.MixinTileInfusionMatrix_InputEnforcement"),
 
-    // Baubles
-    EXTENDED_BAUBLES_SUPPORT(MixinSide.BOTH, FixinsConfig.bugfixesModule.useAllBaublesSlots, "events.MixinEventHandlerRunic", "items.MixinWandManager"),
-    EXTENDED_BAUBLES_SUPPORT_CLIENT(MixinSide.CLIENT, FixinsConfig.bugfixesModule.useAllBaublesSlots, "gui.MixinREHWandHandler"),
+    // Enhancements
+    EXTENDED_BAUBLES_SUPPORT(MixinSide.BOTH, FixinsConfig.enhancements.useAllBaublesSlots, "events.MixinEventHandlerRunic", "items.MixinWandManager"),
+    EXTENDED_BAUBLES_SUPPORT_CLIENT(MixinSide.CLIENT, FixinsConfig.enhancements.useAllBaublesSlots, "gui.MixinREHWandHandler"),
+    SUPPRESS_CREATIVE_WARP(MixinSide.BOTH, FixinsConfig.enhancements.suppressWarpEventsInCreative, "events.MixinEventHandlerEntity"),
 
-    // Thaumonomicon
-    CTRL_SCROLL_NAVIGATION(MixinSide.CLIENT, FixinsConfig.researchBrowserModule.scrollwheelEnabled, "gui.MixinGuiResearchBrowser"),
-    RESEARCH_ID_POPUP(MixinSide.CLIENT, FixinsConfig.researchBrowserModule.showResearchId, "gui.MixinGuiResearchBrowser"),
-    RIGHT_CLICK_NAVIAGTION(MixinSide.CLIENT, FixinsConfig.researchBrowserModule.rightClickClose, "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
+    CTRL_SCROLL_NAVIGATION(MixinSide.CLIENT, FixinsConfig.enhancements.scrollwheelEnabled, "gui.MixinGuiResearchBrowser"),
+    RESEARCH_ID_POPUP(MixinSide.CLIENT, FixinsConfig.enhancements.showResearchId, "gui.MixinGuiResearchBrowser"),
+    RIGHT_CLICK_NAVIAGTION(MixinSide.CLIENT, FixinsConfig.enhancements.rightClickClose, "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
 
-    // Tweaks
-    NODE_GENERATION_MODIFIER_WEIGHTS(MixinSide.BOTH, FixinsConfig.tweaksModule.nodeModifierWeights, "world.MixinThaumcraftWorldGenerator"),
-    NODE_GENERATION_TYPE_WEIGHTS(MixinSide.BOTH, FixinsConfig.tweaksModule.nodeTypeWeights, "world.MixinThaumcraftWorldGenerator"),
+    NODE_GENERATION_MODIFIER_WEIGHTS(MixinSide.BOTH, FixinsConfig.enhancements.nodeModifierWeights, "world.MixinThaumcraftWorldGenerator"),
+    NODE_GENERATION_TYPE_WEIGHTS(MixinSide.BOTH, FixinsConfig.enhancements.nodeTypeWeights, "world.MixinThaumcraftWorldGenerator"),
 
     ;
     // spotless:on

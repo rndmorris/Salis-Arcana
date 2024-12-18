@@ -1,7 +1,6 @@
 package dev.rndmorris.tfixins;
 
 import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
-import static dev.rndmorris.tfixins.config.FixinsConfig.workaroundsModule;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -35,7 +34,7 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
-        if (workaroundsModule.enableLookalikePlanks.isEnabled()) {
+        if (FixinsConfig.enhancements.lookalikePlanks.isEnabled()) {
             CustomBlocks.registerBlocks();
             registerPlankRecipes();
         }

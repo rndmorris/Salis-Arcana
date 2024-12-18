@@ -31,13 +31,13 @@ public class MixinThaumcraftWorldGenerator {
         @Local LocalRef<NodeModifier> modifier) {
         int rand;
 
-        if (FixinsConfig.tweaksModule.nodeModifierWeights.isEnabled()) {
-            rand = RandomHelper.weightedRandom(random, FixinsConfig.tweaksModule.nodeModifierWeights.getValue());
+        if (FixinsConfig.enhancements.nodeModifierWeights.isEnabled()) {
+            rand = RandomHelper.weightedRandom(random, FixinsConfig.enhancements.nodeModifierWeights.getValue());
             modifier.set(rand == NodeModifier.values().length || rand == -1 ? null : NodeModifier.values()[rand]);
         }
-        if (FixinsConfig.tweaksModule.nodeTypeWeights.isEnabled()) {
+        if (FixinsConfig.enhancements.nodeTypeWeights.isEnabled()) {
             if (!silverwood && !eerie) {
-                rand = RandomHelper.weightedRandom(random, FixinsConfig.tweaksModule.nodeTypeWeights.getValue());
+                rand = RandomHelper.weightedRandom(random, FixinsConfig.enhancements.nodeTypeWeights.getValue());
                 type.set(rand == NodeType.values().length || rand == -1 ? NodeType.NORMAL : NodeType.values()[rand]);
             }
         }
