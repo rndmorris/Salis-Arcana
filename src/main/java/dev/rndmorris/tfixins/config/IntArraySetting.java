@@ -6,6 +6,8 @@ import net.minecraftforge.common.config.Configuration;
 
 public class IntArraySetting extends Setting {
 
+    private final WeakReference<IConfigModule> parentModule;
+
     protected final String name;
     protected final String comment;
     protected final int[] defaultValue;
@@ -15,9 +17,9 @@ public class IntArraySetting extends Setting {
 
     Setting pairedSetting;
 
-    public IntArraySetting(WeakReference<IConfigModule> getModule, ConfigPhase phase, String name, String comment,
-        int[] defaultValue, int min, int max) {
-        super(getModule, phase);
+    public IntArraySetting(IConfigModule module, ConfigPhase phase, String name, String comment, int[] defaultValue,
+        int min, int max) {
+        super(module, phase);
         this.name = name;
         this.phase = phase;
         this.comment = comment;
@@ -25,17 +27,14 @@ public class IntArraySetting extends Setting {
         this.minValue = min;
         this.maxValue = max;
 
+        parentModule = new WeakReference<>(module);
+
         pairedSetting = new ToggleSetting(
-            getModule,
+            module,
             phase,
             "enable" + name.substring(0, 1)
                 .toUpperCase() + name.substring(1),
-            "Enable " + name + "?",
-            enabled);
-    }
-
-    public IntArraySetting(WeakReference<IConfigModule> getModule, ConfigPhase phase, String name, String comment) {
-        this(getModule, phase, name, comment, new int[] {}, 0, 0);
+            "Enable " + name + "?");
     }
 
     @Override
@@ -56,8 +55,8 @@ public class IntArraySetting extends Setting {
     @Override
     public void loadFromConfiguration(Configuration configuration) {
         pairedSetting.loadFromConfiguration(configuration);
-        IConfigModule module;
-        if ((module = moduleRef.get()) == null) {
+        final var module = parentModule.get();
+        if (module == null) {
             return;
         }
         this.value = configuration

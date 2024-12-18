@@ -1,7 +1,5 @@
 package dev.rndmorris.tfixins.config.bugfixes;
 
-import java.lang.ref.WeakReference;
-
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
@@ -29,51 +27,50 @@ public class BugfixesModule implements IConfigModule {
     private final Setting[] settings;
 
     public BugfixesModule() {
-        final var thisRef = new WeakReference<IConfigModule>(this);
         settings = new Setting[] {
-            blockCosmeticSolidBeaconFix = new BlockCosmeticSolidBeaconFix(thisRef, ConfigPhase.EARLY),
+            blockCosmeticSolidBeaconFix = new BlockCosmeticSolidBeaconFix(this, ConfigPhase.EARLY),
             candleRendererCrashes = new ToggleSetting(
-                thisRef,
+                this,
                 ConfigPhase.EARLY,
                 "candleMetadataCrash",
                 "Fixes several crashes with invalid candle metadata"),
             deadMobsDontAttack = new ToggleSetting(
-                thisRef,
+                this,
                 ConfigPhase.EARLY,
                 "deadMobsDontAttack",
                 "Prevents eldritch crabs, all taintacles, and thaumic slimes from attacking during their death animation."),
             infernalFurnaceDupeFix = new ToggleSetting(
-                thisRef,
+                this,
                 ConfigPhase.EARLY,
                 "infernalFurnaceDupeFix",
                 "Fixes a smelting duplication glitch with the Infernal Furnace"),
             integerInfusionMatrixMath = new ToggleSetting(
-                thisRef,
+                this,
                 ConfigPhase.EARLY,
                 "integerInfusionMatrixMath",
                 "Calculate infusion stabilizers with integer math instead of floating-point math. This eliminates a rounding error that sometimes makes an infusion altar slightly less stable than it should be. Also corrects a logic error causing the Infusion Matrix to check the wrong coordinates for a symmetrical stabilizer."),
             itemShardColor = new ToggleSetting(
-                thisRef,
+                this,
                 ConfigPhase.EARLY,
                 "shardMetadataCrash",
                 "Fixes a crash with invalid shard metadata"),
             renderRedstoneFix = new ToggleSetting(
-                thisRef,
+                this,
                 ConfigPhase.EARLY,
                 "renderRedstoneFix",
                 "Fixes an issue with ores where they don't get rendered as normal blocks, not allowing you to push a redstone signal through them."),
             strictInfusionMatrixInputChecks = new ToggleSetting(
-                thisRef,
+                this,
                 ConfigPhase.EARLY,
                 "strictInfusionMatrixInputChecks",
                 "Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting."),
             suppressWarpEventsInCreative = new ToggleSetting(
-                thisRef,
+                this,
                 ConfigPhase.EARLY,
                 "suppressWarpEventsInCreative",
                 "Prevent random warp events from firing for players in creative mode."),
             useAllBaublesSlots = new ToggleSetting(
-                thisRef,
+                this,
                 ConfigPhase.EARLY,
                 "useAllBaublesSlots",
                 "Enables support for mods that increase the number of baubles slots."), };

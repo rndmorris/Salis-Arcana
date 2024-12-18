@@ -6,12 +6,12 @@ import net.minecraftforge.common.config.Configuration;
 
 public abstract class Setting implements IEnabler {
 
-    protected final WeakReference<IConfigModule> moduleRef;
+    protected final WeakReference<IEnabler> parentEnabler;
     protected boolean enabled = true;
     public ConfigPhase phase;
 
-    public Setting(WeakReference<IConfigModule> getModule, ConfigPhase phase) {
-        this.moduleRef = getModule;
+    public Setting(IEnabler parentSetting, ConfigPhase phase) {
+        this.parentEnabler = new WeakReference<>(parentSetting);
         this.phase = phase;
     }
 
@@ -20,8 +20,8 @@ public abstract class Setting implements IEnabler {
      */
     @Override
     public boolean isEnabled() {
-        IConfigModule parent;
-        return enabled && (parent = moduleRef.get()) != null && parent.isEnabled();
+        IEnabler parent;
+        return enabled && (parent = parentEnabler.get()) != null && parent.isEnabled();
     }
 
     /**

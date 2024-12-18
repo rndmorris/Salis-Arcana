@@ -1,7 +1,5 @@
 package dev.rndmorris.tfixins.config.tweaks;
 
-import java.lang.ref.WeakReference;
-
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
@@ -19,7 +17,7 @@ public class TweaksModule implements IConfigModule {
 
     public TweaksModule() {
         nodeModifierWeights = new IntArraySetting(
-            new WeakReference<>(this),
+            this,
             ConfigPhase.EARLY,
             "nodeModifierWeights",
             "Node Modifier Worldgen Weights (bright, pale, fading, normal)",
@@ -27,7 +25,7 @@ public class TweaksModule implements IConfigModule {
             0,
             100).setEnabled(false);
         nodeTypeWeights = new IntArraySetting(
-            new WeakReference<>(this),
+            this,
             ConfigPhase.EARLY,
             "nodeTypeWeights",
             "Node Type Worldgen Weights (unstable, dark, hungry, pure, normal)",

@@ -1,7 +1,5 @@
 package dev.rndmorris.tfixins.config.biomes;
 
-import java.lang.ref.WeakReference;
-
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
@@ -22,10 +20,9 @@ public class BiomeColorModule implements IConfigModule {
     private final Setting[] settings;
 
     public BiomeColorModule() {
-        final var thisRef = new WeakReference<IConfigModule>(this);
         settings = new Setting[] {
             eerie = new BiomeColorsSettings(
-                thisRef,
+                this,
                 ConfigPhase.LATE,
                 "Eerie",
                 "0x404840",
@@ -34,7 +31,7 @@ public class BiomeColorModule implements IConfigModule {
                 "0x222299",
                 "0x2e535f"),
             eldritch = new BiomeColorsSettings(
-                thisRef,
+                this,
                 ConfigPhase.LATE,
                 "Eldritch",
                 "0x000000",
@@ -43,7 +40,7 @@ public class BiomeColorModule implements IConfigModule {
                 "0xff7ba5ff",
                 "0xffffff"),
             magicalForest = new BiomeColorsSettings(
-                thisRef,
+                this,
                 ConfigPhase.LATE,
                 "Magical Forest",
                 "0x66f4ab",
@@ -52,7 +49,7 @@ public class BiomeColorModule implements IConfigModule {
                 "0xff7aa6ff",
                 "0x0077ee"),
             taint = new BiomeColorsSettings(
-                thisRef,
+                this,
                 ConfigPhase.LATE,
                 "Tainted Land",
                 "0x6d4189",

@@ -2,8 +2,6 @@ package dev.rndmorris.tfixins.config.commands;
 
 import static dev.rndmorris.tfixins.common.commands.ListResearchCommand.listOthersReserach;
 
-import java.lang.ref.WeakReference;
-
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
@@ -26,33 +24,32 @@ public class CommandsModule implements IConfigModule {
     public final CommandSettings[] commandsSettings;
 
     public CommandsModule() {
-        final var thisRef = new WeakReference<IConfigModule>(this);
         commandsSettings = new CommandSettings[] {
-            createNode = new CommandSettings("create-node", thisRef, ConfigPhase.LATE).addDefaultAlias()
+            createNode = new CommandSettings("create-node", this, ConfigPhase.LATE).addDefaultAlias()
                 .setDescription(
                     "Create a node at specified coordinates, optionally with specified brightness, type, and aspects.")
                 .setPermissionLevel(2),
-            forgetResearch = new CommandSettings("forget-research", thisRef, ConfigPhase.LATE)
+            forgetResearch = new CommandSettings("forget-research", this, ConfigPhase.LATE)
                 .setDescription("Remove one or more research item's from a player's knowledge.")
                 .addDefaultAlias()
                 .setPermissionLevel(2),
-            forgetScanned = new CommandSettings("forget-scanned", thisRef, ConfigPhase.LATE)
+            forgetScanned = new CommandSettings("forget-scanned", this, ConfigPhase.LATE)
                 .setDescription("Remove entries from a player's list of scanned things")
                 .addDefaultAlias()
                 .setPermissionLevel(2),
-            help = new CommandSettings("help", thisRef, ConfigPhase.LATE).addAlias("tf-help")
+            help = new CommandSettings("help", this, ConfigPhase.LATE).addAlias("tf-help")
                 .setDescription("Get help information about Thaumic Fixins' commands.")
                 .setPermissionLevel(0),
-            playerResearch = new CommandSettings("list-research", thisRef, ConfigPhase.LATE)
+            playerResearch = new CommandSettings("list-research", this, ConfigPhase.LATE)
                 .setDescription("List and filter through TC4's research.")
                 .addDefaultAlias()
                 .setPermissionLevel(0)
                 .addChildPermissionLevel(listOthersReserach, 2, "list another player's research."),
-            prerequisites = new CommandSettings("prereqs", thisRef, ConfigPhase.LATE).addDefaultAlias()
+            prerequisites = new CommandSettings("prereqs", this, ConfigPhase.LATE).addDefaultAlias()
                 .setDescription(
                     "Lists the prerequisites to unlock a specific research, or the research required to craft a specific item.")
                 .setPermissionLevel(0),
-            updateNode = new CommandSettings("update-node", thisRef, ConfigPhase.LATE).addDefaultAlias()
+            updateNode = new CommandSettings("update-node", this, ConfigPhase.LATE).addDefaultAlias()
                 .setDescription("Update the properties of a node at the specified coordiantes.")
                 .setPermissionLevel(2) };
     }

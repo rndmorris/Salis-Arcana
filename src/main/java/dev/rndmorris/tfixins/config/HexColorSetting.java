@@ -2,8 +2,6 @@ package dev.rndmorris.tfixins.config;
 
 import static dev.rndmorris.tfixins.lib.IntegerHelper.tryParseHexInteger;
 
-import java.lang.ref.WeakReference;
-
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -18,9 +16,9 @@ public class HexColorSetting extends Setting {
 
     private int colorValue = -1;
 
-    public HexColorSetting(WeakReference<IConfigModule> getModule, ConfigPhase phase, String category, String name,
-        String comment, String defaultHexString) {
-        super(getModule, phase);
+    public HexColorSetting(IConfigModule module, ConfigPhase phase, String category, String name, String comment,
+        String defaultHexString) {
+        super(module, phase);
 
         this.category = category;
         this.name = name;

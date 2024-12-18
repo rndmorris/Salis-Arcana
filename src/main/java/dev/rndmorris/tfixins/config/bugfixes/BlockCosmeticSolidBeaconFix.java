@@ -11,9 +11,11 @@ import dev.rndmorris.tfixins.config.Setting;
 public class BlockCosmeticSolidBeaconFix extends Setting {
 
     private final boolean[] blockCosmeticSolidBeaconIds = new boolean[16];
+    private final WeakReference<IConfigModule> parentModule;
 
-    public BlockCosmeticSolidBeaconFix(WeakReference<IConfigModule> getModule, ConfigPhase phase) {
-        super(getModule, phase);
+    public BlockCosmeticSolidBeaconFix(IConfigModule module, ConfigPhase phase) {
+        super(module, phase);
+        parentModule = new WeakReference<>(module);
     }
 
     public boolean isBeaconMetadata(int id) {
@@ -22,8 +24,8 @@ public class BlockCosmeticSolidBeaconFix extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        IConfigModule module;
-        if ((module = moduleRef.get()) == null) {
+        final var module = parentModule.get();
+        if (module == null) {
             return;
         }
         final var beaconIds = configuration.get(

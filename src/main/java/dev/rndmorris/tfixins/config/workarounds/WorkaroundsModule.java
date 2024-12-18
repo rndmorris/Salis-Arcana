@@ -1,7 +1,5 @@
 package dev.rndmorris.tfixins.config.workarounds;
 
-import java.lang.ref.WeakReference;
-
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
@@ -21,7 +19,7 @@ public class WorkaroundsModule implements IConfigModule {
 
     public WorkaroundsModule() {
         settings = new Setting[] { enableLookalikePlanks = new ToggleSetting(
-            new WeakReference<>(this),
+            this,
             ConfigPhase.EARLY,
             "enableLookalikePlanks",
             "Add look-a-like greatwood and silverwood planks that behave as normal planks, instead of the weirdness of TC4's planks."),

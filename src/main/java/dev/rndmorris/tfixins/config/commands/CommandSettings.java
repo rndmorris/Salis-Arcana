@@ -26,13 +26,15 @@ public class CommandSettings extends Setting {
     public final Map<String, Byte> childPermissionLevels = new TreeMap<>();
     public final @Nonnull String name;
 
+    private final WeakReference<IConfigModule> parentModule;
     private @Nullable Supplier<FixinsCommandBase<?>> commandGetter;
     private @Nonnull String description = "";
     private byte permissionLevel = 4;
 
-    public CommandSettings(@Nonnull String name, WeakReference<IConfigModule> parentModule, ConfigPhase phase) {
+    public CommandSettings(@Nonnull String name, IConfigModule parentModule, ConfigPhase phase) {
         super(parentModule, phase);
         this.name = name;
+        this.parentModule = new WeakReference<>(parentModule);
     }
 
     public CommandSettings addAlias(String alias) {
@@ -83,8 +85,8 @@ public class CommandSettings extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        IConfigModule module;
-        if ((module = moduleRef.get()) == null) {
+        final var module = parentModule.get();
+        if (module == null) {
             return;
         }
 

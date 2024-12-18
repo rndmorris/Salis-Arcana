@@ -1,7 +1,5 @@
 package dev.rndmorris.tfixins.config.biomes;
 
-import java.lang.ref.WeakReference;
-
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
@@ -19,8 +17,8 @@ public class BiomeColorsSettings extends Setting {
 
     private final Setting[] settings;
 
-    public BiomeColorsSettings(WeakReference<IConfigModule> parentModule, ConfigPhase phase, String biomeName,
-        String baseColor, String foliageColor, String grassColor, String skyColor, String waterColor) {
+    public BiomeColorsSettings(IConfigModule parentModule, ConfigPhase phase, String biomeName, String baseColor,
+        String foliageColor, String grassColor, String skyColor, String waterColor) {
         super(parentModule, phase);
 
         final var category = "biome_colors_" + biomeName.toLowerCase()
