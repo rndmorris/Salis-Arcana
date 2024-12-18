@@ -19,7 +19,7 @@ import thaumcraft.api.crafting.IInfusionStabiliser;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 @Mixin(value = TileInfusionMatrix.class, remap = false)
-public class MixinTileInfusionMatrix extends TileThaumcraft {
+public class MixinTileInfusionMatrix_IntegerStabilizers extends TileThaumcraft {
 
     @Shadow
     public int symmetry;
