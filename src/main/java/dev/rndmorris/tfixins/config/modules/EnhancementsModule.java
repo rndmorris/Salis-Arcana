@@ -1,8 +1,7 @@
-package dev.rndmorris.tfixins.config.enhancements;
+package dev.rndmorris.tfixins.config.modules;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.tfixins.config.BaseConfigModule;
 import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.settings.IntArraySetting;
 import dev.rndmorris.tfixins.config.settings.Setting;

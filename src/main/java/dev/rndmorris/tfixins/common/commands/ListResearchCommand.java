@@ -14,17 +14,17 @@ import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.SearchHandler;
-import dev.rndmorris.tfixins.config.FixinsConfig;
+import dev.rndmorris.tfixins.config.ModuleRoot;
 import dev.rndmorris.tfixins.lib.ResearchHelper;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
 
 public class ListResearchCommand extends FixinsCommandBase<ListResearchCommand.Arguments> {
 
-    public static final String listOthersReserach = "List Other's Research";
+    public static final String listOthersReserach = "permissionLevel_ListOthersResearch";
 
     public ListResearchCommand() {
-        super(FixinsConfig.commandsModule.playerResearch);
+        super(ModuleRoot.commandsModule.playerResearch);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ListResearchCommand extends FixinsCommandBase<ListResearchCommand.A
 
         if (arguments.forPlayer != null) {
             if (!sender.canCommandSenderUseCommand(
-                settings.childPermissionLevels.get(listOthersReserach),
+                settings.getChildPermissionLevel(listOthersReserach),
                 settings.getFullName())) {
                 CommandErrors.insufficientPermission();
             }

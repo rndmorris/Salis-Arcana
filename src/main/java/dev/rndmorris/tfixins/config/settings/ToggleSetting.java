@@ -1,30 +1,23 @@
 package dev.rndmorris.tfixins.config.settings;
 
-import java.lang.ref.WeakReference;
-
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.IConfigModule;
+import dev.rndmorris.tfixins.config.IEnabler;
 
 public class ToggleSetting extends Setting {
 
     private final String name;
     private final String comment;
-    private final WeakReference<IConfigModule> parentModule;
 
-    public ToggleSetting(IConfigModule module, ConfigPhase phase, String name, String comment) {
-        super(module, phase);
+    public ToggleSetting(IEnabler parentSetting, ConfigPhase phase, String name, String comment) {
+        super(parentSetting, phase);
         this.name = name;
         this.comment = comment;
-        parentModule = new WeakReference<>(module);
     }
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        final var module = parentModule.get();
-        if (module != null) {
-            enabled = configuration.getBoolean(name, module.getModuleId(), enabled, comment);
-        }
+        enabled = configuration.getBoolean(name, getCategory(), enabled, comment);
     }
 }

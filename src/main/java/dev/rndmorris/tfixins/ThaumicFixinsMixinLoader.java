@@ -7,14 +7,14 @@ import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.FixinsConfig;
+import dev.rndmorris.tfixins.config.ModuleRoot;
 import dev.rndmorris.tfixins.mixins.Mixins;
 
 @LateMixin
 public class ThaumicFixinsMixinLoader implements ILateMixinLoader {
 
     public ThaumicFixinsMixinLoader() {
-        FixinsConfig.synchronizeConfiguration(ConfigPhase.EARLY);
+        ModuleRoot.synchronizeConfiguration(ConfigPhase.EARLY);
     }
 
     @Override

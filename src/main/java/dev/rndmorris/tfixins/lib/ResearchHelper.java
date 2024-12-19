@@ -1,6 +1,6 @@
 package dev.rndmorris.tfixins.lib;
 
-import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
+import static dev.rndmorris.tfixins.config.ModuleRoot.commandsModule;
 
 import java.util.ArrayList;
 import java.util.Collection;

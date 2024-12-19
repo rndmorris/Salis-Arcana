@@ -1,8 +1,11 @@
-package dev.rndmorris.tfixins.config;
+package dev.rndmorris.tfixins.config.modules;
 
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
+
+import dev.rndmorris.tfixins.config.ConfigPhase;
+import dev.rndmorris.tfixins.config.IEnabler;
 
 /**
  * A group of related settings that can be collectively enabled or disabled.

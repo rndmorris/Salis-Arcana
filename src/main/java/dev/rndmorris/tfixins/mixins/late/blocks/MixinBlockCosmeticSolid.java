@@ -1,6 +1,6 @@
 package dev.rndmorris.tfixins.mixins.late.blocks;
 
-import static dev.rndmorris.tfixins.config.FixinsConfig.bugfixesModule;
+import static dev.rndmorris.tfixins.config.ModuleRoot.bugfixesModule;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

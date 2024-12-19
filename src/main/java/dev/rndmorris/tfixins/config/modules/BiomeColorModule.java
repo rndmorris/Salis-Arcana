@@ -1,9 +1,9 @@
-package dev.rndmorris.tfixins.config.biomes;
+package dev.rndmorris.tfixins.config.modules;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.tfixins.config.BaseConfigModule;
 import dev.rndmorris.tfixins.config.ConfigPhase;
+import dev.rndmorris.tfixins.config.settings.BiomeColorsSettings;
 
 public class BiomeColorModule extends BaseConfigModule {
 

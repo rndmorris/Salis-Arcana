@@ -1,10 +1,9 @@
-package dev.rndmorris.tfixins.config.commands;
+package dev.rndmorris.tfixins.config.modules;
 
 import static dev.rndmorris.tfixins.common.commands.ListResearchCommand.listOthersReserach;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.tfixins.config.BaseConfigModule;
 import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.settings.CommandSettings;
 
@@ -41,7 +40,10 @@ public class CommandsModule extends BaseConfigModule {
                 .setDescription("List and filter through TC4's research.")
                 .addDefaultAlias()
                 .setPermissionLevel(0)
-                .addChildPermissionLevel(listOthersReserach, 2, "list another player's research."),
+                .addChildPermissionLevel(
+                    listOthersReserach,
+                    2,
+                    "The permission level required to list another player's research."),
             prerequisites = new CommandSettings("prereqs", this, ConfigPhase.LATE).addDefaultAlias()
                 .setDescription(
                     "Lists the prerequisites to unlock a specific research, or the research required to craft a specific item.")
@@ -64,5 +66,4 @@ public class CommandsModule extends BaseConfigModule {
     public String getModuleComment() {
         return "Helper and admin commands.";
     }
-
 }

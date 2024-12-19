@@ -1,4 +1,4 @@
-package dev.rndmorris.tfixins.config;
+package dev.rndmorris.tfixins.config.modules;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.settings.Setting;
 
 public abstract class BaseConfigModule implements IConfigModule {

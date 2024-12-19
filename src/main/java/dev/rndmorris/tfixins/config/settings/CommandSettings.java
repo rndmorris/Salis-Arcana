@@ -1,6 +1,5 @@
 package dev.rndmorris.tfixins.config.settings;
 
-import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -16,16 +15,15 @@ import net.minecraftforge.common.config.Configuration;
 import dev.rndmorris.tfixins.ThaumicFixins;
 import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.IConfigModule;
+import dev.rndmorris.tfixins.config.modules.IConfigModule;
 
 public class CommandSettings extends Setting {
 
     public final Set<String> aliases = new HashSet<>();
-    public final Map<String, String> childPermissionDescription = new TreeMap<>();
-    public final Map<String, Byte> childPermissionLevels = new TreeMap<>();
     public final @Nonnull String name;
 
-    private final WeakReference<IConfigModule> parentModule;
+    private final Map<String, ChildPermission> childPermissions = new TreeMap<>();
+
     private @Nullable Supplier<FixinsCommandBase<?>> commandGetter;
     private @Nonnull String description = "";
     private byte permissionLevel = 4;
@@ -33,7 +31,7 @@ public class CommandSettings extends Setting {
     public CommandSettings(@Nonnull String name, IConfigModule parentModule, ConfigPhase phase) {
         super(parentModule, phase);
         this.name = name;
-        this.parentModule = new WeakReference<>(parentModule);
+        setCategory(name.replace('-', '_'));
     }
 
     public CommandSettings addAlias(String alias) {
@@ -41,9 +39,11 @@ public class CommandSettings extends Setting {
         return this;
     }
 
-    public CommandSettings addChildPermissionLevel(String name, int level, String description) {
-        childPermissionLevels.put(name, (byte) level);
-        childPermissionDescription.put(name, description);
+    public CommandSettings addChildPermissionLevel(String configKey, int level, String description) {
+        final var permission = new ChildPermission();
+        permission.permissionLevel = (byte) level;
+        permission.description = description;
+        childPermissions.put(configKey, permission);
         return this;
     }
 
@@ -84,46 +84,45 @@ public class CommandSettings extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        final var module = parentModule.get();
-        if (module == null) {
-            return;
-        }
+        configuration.setCategoryComment(getCategory(), String.format("/%s | %s", getFullName(), getDescription()));
 
-        enabled = configuration
-            .getBoolean(String.format("Enable %s command", name), module.getModuleId(), enabled, description);
-
-        if (!enabled) {
-            return;
-        }
-
-        final var category = String.format("%s_%s", module.getModuleId(), name.replace('-', '_'));
-        configuration.setCategoryComment(category, description);
+        enabled = configuration.getBoolean("commandEnabled", getCategory(), enabled, "Enable or disable the command.");
 
         final var configAliases = configuration.getStringList(
-            "Aliases",
-            category,
+            "aliases",
+            getCategory(),
             aliases.toArray(new String[0]),
             "Secondary names that refer to this command.");
         aliases.clear();
         Collections.addAll(aliases, configAliases);
 
         permissionLevel = (byte) configuration.getInt(
-            "Permission Level",
-            category,
+            "permissionLevel",
+            getCategory(),
             permissionLevel,
             0,
             4,
             "The permission level required to execute the command.");
 
-        for (var childPermName : childPermissionLevels.keySet()) {
-            final var childPermissionLevel = configuration.getInt(
-                String.format("Permission Level - %s", childPermName),
-                category,
-                (int) childPermissionLevels.get(childPermName),
-                0,
-                4,
-                String.format("The permission level required to %s", childPermissionDescription.get(childPermName)));
-            childPermissionLevels.put(childPermName, (byte) childPermissionLevel);
+        for (var childConfig : childPermissions.keySet()) {
+            final var childPerm = childPermissions.get(childConfig);
+            final var configLevel = configuration
+                .getInt(childConfig, getCategory(), childPerm.permissionLevel, 0, 4, childPerm.description);
+            childPerm.permissionLevel = (byte) configLevel;
         }
+    }
+
+    public byte getChildPermissionLevel(String configName) {
+        final var childPerm = childPermissions.get(configName);
+        if (childPerm == null) {
+            return Byte.MAX_VALUE;
+        }
+        return childPerm.permissionLevel;
+    }
+
+    private static class ChildPermission {
+
+        public String description;
+        public byte permissionLevel;
     }
 }

@@ -4,7 +4,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-import dev.rndmorris.tfixins.config.FixinsConfig;
+import dev.rndmorris.tfixins.config.ModuleRoot;
 import thaumcraft.common.lib.world.biomes.BiomeGenEldritch;
 
 @Mixin(value = BiomeGenEldritch.class, remap = false)
@@ -16,6 +16,6 @@ public abstract class MixinFoliageColor extends BiomeGenBase {
 
     @Override
     public int getBiomeFoliageColor(int x, int y, int z) {
-        return FixinsConfig.biomeColorModule.eldritch.foliageColor.getColorValue();
+        return ModuleRoot.biomeColorModule.eldritch.foliageColor.getColorValue();
     }
 }

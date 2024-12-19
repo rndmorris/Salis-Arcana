@@ -5,7 +5,7 @@ import java.lang.ref.WeakReference;
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.IConfigModule;
+import dev.rndmorris.tfixins.config.modules.IConfigModule;
 
 public class IntArraySetting extends Setting {
 
@@ -58,12 +58,8 @@ public class IntArraySetting extends Setting {
     @Override
     public void loadFromConfiguration(Configuration configuration) {
         pairedSetting.loadFromConfiguration(configuration);
-        final var module = parentModule.get();
-        if (module == null) {
-            return;
-        }
         this.value = configuration
-            .get(module.getModuleId(), this.name, this.defaultValue, this.comment, this.minValue, this.maxValue)
+            .get(getCategory(), this.name, this.defaultValue, this.comment, this.minValue, this.maxValue)
             .getIntList();
     }
 

@@ -1,12 +1,11 @@
-package dev.rndmorris.tfixins.config.bugfixes;
+package dev.rndmorris.tfixins.config.settings;
 
 import java.lang.ref.WeakReference;
 
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.IConfigModule;
-import dev.rndmorris.tfixins.config.settings.Setting;
+import dev.rndmorris.tfixins.config.modules.IConfigModule;
 
 public class BlockCosmeticSolidBeaconFix extends Setting {
 
@@ -29,7 +28,7 @@ public class BlockCosmeticSolidBeaconFix extends Setting {
             return;
         }
         final var beaconIds = configuration.get(
-            module.getModuleId(),
+            getCategory(),
             "BlockCosmeticSolid Beacon Ids",
             new int[] { 4 },
             "Which metadata values of BlockCosmeticSolid are considered beacon base blocks. Default: 4 (Thaumium Block).",
