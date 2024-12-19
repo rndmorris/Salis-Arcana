@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "minVersion": "0.7.10",
+  "refmap": "mixins.salisarcana.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8"
+}
