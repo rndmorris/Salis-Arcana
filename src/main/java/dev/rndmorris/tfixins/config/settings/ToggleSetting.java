@@ -10,8 +10,8 @@ public class ToggleSetting extends Setting {
     private final String name;
     private final String comment;
 
-    public ToggleSetting(IEnabler parentSetting, ConfigPhase phase, String name, String comment) {
-        super(parentSetting, phase);
+    public ToggleSetting(IEnabler dependency, ConfigPhase phase, String name, String comment) {
+        super(dependency, phase);
         this.name = name;
         this.comment = comment;
     }

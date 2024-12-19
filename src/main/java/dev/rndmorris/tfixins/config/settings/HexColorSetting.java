@@ -7,7 +7,7 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.commons.lang3.text.WordUtils;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.modules.IConfigModule;
+import dev.rndmorris.tfixins.config.IEnabler;
 
 public class HexColorSetting extends Setting {
 
@@ -18,8 +18,7 @@ public class HexColorSetting extends Setting {
 
     private int colorValue = -1;
 
-    public HexColorSetting(IConfigModule module, ConfigPhase phase, String name, String comment,
-        String defaultHexString) {
+    public HexColorSetting(IEnabler module, ConfigPhase phase, String name, String comment, String defaultHexString) {
         super(module, phase);
 
         this.name = name;

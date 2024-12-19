@@ -12,14 +12,14 @@ import dev.rndmorris.tfixins.config.IEnabler;
 public abstract class Setting implements IEnabler {
 
     public static final String defaultCategory = "general";
-    protected final WeakReference<IEnabler> parentEnabler;
+    protected final @Nullable WeakReference<IEnabler> dependencyRef;
     protected boolean enabled = true;
     public ConfigPhase phase;
 
     private @Nullable String category;
 
-    public Setting(IEnabler parentSetting, ConfigPhase phase) {
-        this.parentEnabler = new WeakReference<>(parentSetting);
+    public Setting(IEnabler dependency, ConfigPhase phase) {
+        this.dependencyRef = new WeakReference<>(dependency);
         this.phase = phase;
     }
 
@@ -35,16 +35,18 @@ public abstract class Setting implements IEnabler {
     }
 
     /**
-     * Whether the individual setting, and its parent setting, is enabled.
+     * Whether the individual setting, ands it dependency if it has one, is enabled.
      */
     @Override
     public boolean isEnabled() {
-        IEnabler parent;
-        return enabled && (parent = parentEnabler.get()) != null && parent.isEnabled();
-    }
-
-    public boolean getEnabled() {
-        return enabled;
+        if (!enabled) {
+            return false;
+        }
+        if (dependencyRef == null) {
+            return true;
+        }
+        final var dependency = dependencyRef.get();
+        return dependency != null && dependency.isEnabled();
     }
 
     /**

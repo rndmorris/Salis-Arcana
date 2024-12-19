@@ -6,11 +6,11 @@ import java.nio.file.Paths;
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.ThaumicFixins;
+import dev.rndmorris.tfixins.config.modules.BaseConfigModule;
 import dev.rndmorris.tfixins.config.modules.BiomeColorModule;
 import dev.rndmorris.tfixins.config.modules.BugfixesModule;
 import dev.rndmorris.tfixins.config.modules.CommandsModule;
 import dev.rndmorris.tfixins.config.modules.EnhancementsModule;
-import dev.rndmorris.tfixins.config.modules.IConfigModule;
 
 public class ConfigModuleRoot {
 
@@ -19,7 +19,7 @@ public class ConfigModuleRoot {
     public static final CommandsModule commands;
     public static final EnhancementsModule enhancements;
 
-    private static final IConfigModule[] modules = new IConfigModule[] { biomeColors = new BiomeColorModule(),
+    private static final BaseConfigModule[] modules = new BaseConfigModule[] { biomeColors = new BiomeColorModule(),
         bugfixes = new BugfixesModule(), commands = new CommandsModule(), enhancements = new EnhancementsModule(), };
 
     public static void synchronizeConfiguration(ConfigPhase phase) {
@@ -51,7 +51,7 @@ public class ConfigModuleRoot {
         }
     }
 
-    private static Configuration getModuleConfig(IConfigModule module) {
+    private static Configuration getModuleConfig(BaseConfigModule module) {
         final var path = Paths.get("config", ThaumicFixins.MODID, module.getModuleId() + ".cfg")
             .toString();
         return new Configuration(new File(path));

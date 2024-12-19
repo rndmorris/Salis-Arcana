@@ -3,7 +3,7 @@ package dev.rndmorris.tfixins.config.settings;
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.modules.IConfigModule;
+import dev.rndmorris.tfixins.config.IEnabler;
 
 public class BeaconBlockFixSetting extends IntArraySetting {
 
@@ -12,8 +12,8 @@ public class BeaconBlockFixSetting extends IntArraySetting {
 
     private final boolean[] isBeaconMetadata = new boolean[16];
 
-    public BeaconBlockFixSetting(IConfigModule module, ConfigPhase phase) {
-        super(module, phase, configName, comment, new int[] { 4 }, 0, 15);
+    public BeaconBlockFixSetting(IEnabler dependency, ConfigPhase phase) {
+        super(dependency, phase, configName, comment, new int[] { 4 }, 0, 15);
     }
 
     public boolean isBeaconMetadata(int metadata) {

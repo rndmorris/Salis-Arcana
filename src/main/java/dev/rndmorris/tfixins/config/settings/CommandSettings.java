@@ -15,7 +15,7 @@ import net.minecraftforge.common.config.Configuration;
 import dev.rndmorris.tfixins.ThaumicFixins;
 import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.modules.IConfigModule;
+import dev.rndmorris.tfixins.config.IEnabler;
 
 public class CommandSettings extends Setting {
 
@@ -28,8 +28,8 @@ public class CommandSettings extends Setting {
     private @Nonnull String description = "";
     private byte permissionLevel = 4;
 
-    public CommandSettings(@Nonnull String name, IConfigModule parentModule, ConfigPhase phase) {
-        super(parentModule, phase);
+    public CommandSettings(@Nonnull String name, IEnabler dependency, ConfigPhase phase) {
+        super(dependency, phase);
         this.name = name;
         setCategory(name.replace('-', '_'));
     }

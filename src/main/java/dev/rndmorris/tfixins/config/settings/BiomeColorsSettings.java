@@ -3,7 +3,7 @@ package dev.rndmorris.tfixins.config.settings;
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.modules.IConfigModule;
+import dev.rndmorris.tfixins.config.IEnabler;
 
 public class BiomeColorsSettings extends Setting {
 
@@ -15,9 +15,9 @@ public class BiomeColorsSettings extends Setting {
 
     private final Setting[] settings;
 
-    public BiomeColorsSettings(IConfigModule parentModule, ConfigPhase phase, String biomeName, String baseColor,
+    public BiomeColorsSettings(IEnabler dependency, ConfigPhase phase, String biomeName, String baseColor,
         String foliageColor, String grassColor, String skyColor, String waterColorMultiplier) {
-        super(parentModule, phase);
+        super(dependency, phase);
 
         setCategory(
             biomeName.toLowerCase()
@@ -25,31 +25,31 @@ public class BiomeColorsSettings extends Setting {
 
         settings = new Setting[] {
             this.baseColor = new HexColorSetting(
-                parentModule,
+                dependency,
                 phase,
                 "Base Color Override",
                 "Override the biome's base color",
                 baseColor),
             this.grassColor = new HexColorSetting(
-                parentModule,
+                dependency,
                 phase,
                 "Grass Color Override",
                 "Override the biome's grass color",
                 grassColor),
             this.foliageColor = new HexColorSetting(
-                parentModule,
+                dependency,
                 phase,
                 "Foliage Color Override",
                 "Override the biome's foliage color",
                 foliageColor),
             this.skyColor = new HexColorSetting(
-                parentModule,
+                dependency,
                 phase,
                 "Sky Color Override",
                 "Override the biome's sky color",
                 skyColor),
             this.waterColorMultiplier = new HexColorSetting(
-                parentModule,
+                dependency,
                 phase,
                 "Water Color Override",
                 "Override the biome's water color",

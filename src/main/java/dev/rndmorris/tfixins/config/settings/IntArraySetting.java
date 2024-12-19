@@ -1,15 +1,11 @@
 package dev.rndmorris.tfixins.config.settings;
 
-import java.lang.ref.WeakReference;
-
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.modules.IConfigModule;
+import dev.rndmorris.tfixins.config.IEnabler;
 
 public class IntArraySetting extends Setting {
-
-    private final WeakReference<IConfigModule> parentModule;
 
     protected final String name;
     protected final String comment;
@@ -20,9 +16,9 @@ public class IntArraySetting extends Setting {
 
     Setting pairedSetting;
 
-    public IntArraySetting(IConfigModule module, ConfigPhase phase, String name, String comment, int[] defaultValue,
+    public IntArraySetting(IEnabler dependency, ConfigPhase phase, String name, String comment, int[] defaultValue,
         int min, int max) {
-        super(module, phase);
+        super(dependency, phase);
         this.name = name;
         this.phase = phase;
         this.comment = comment;
@@ -30,10 +26,8 @@ public class IntArraySetting extends Setting {
         this.minValue = min;
         this.maxValue = max;
 
-        parentModule = new WeakReference<>(module);
-
         pairedSetting = new ToggleSetting(
-            module,
+            dependency,
             phase,
             "enable" + name.substring(0, 1)
                 .toUpperCase() + name.substring(1),
