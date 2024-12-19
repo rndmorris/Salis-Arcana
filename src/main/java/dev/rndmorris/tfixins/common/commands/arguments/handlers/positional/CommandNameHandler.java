@@ -32,7 +32,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        final var settingsArr = ConfigModuleRoot.commandsModule.commandsSettings;
+        final var settingsArr = ConfigModuleRoot.commands.commandsSettings;
         if (!args.hasNext()) {
             final var results = new ArrayList<String>(settingsArr.length * 2);
             for (var settings : settingsArr) {
@@ -57,7 +57,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
 
     private CommandSettings findCommand(String current) {
         CommandSettings foundCommand = null;
-        for (var settings : ConfigModuleRoot.commandsModule.commandsSettings) {
+        for (var settings : ConfigModuleRoot.commands.commandsSettings) {
             if (!settings.isEnabled()) {
                 continue;
             }

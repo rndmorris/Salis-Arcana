@@ -1,6 +1,6 @@
 package dev.rndmorris.tfixins;
 
-import static dev.rndmorris.tfixins.config.ConfigModuleRoot.commandsModule;
+import static dev.rndmorris.tfixins.config.ConfigModuleRoot.commands;
 
 import java.util.function.Supplier;
 
@@ -155,13 +155,13 @@ public class CommonProxy {
 
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {
-        maybeRegister(event, commandsModule.createNode, CreateNodeCommand::new);
-        maybeRegister(event, commandsModule.forgetResearch, ForgetResearchCommand::new);
-        maybeRegister(event, commandsModule.forgetScanned, ForgetScannedCommand::new);
-        maybeRegister(event, commandsModule.help, HelpCommand::new);
-        maybeRegister(event, commandsModule.prerequisites, PrerequisitesCommand::new);
-        maybeRegister(event, commandsModule.playerResearch, ListResearchCommand::new);
-        maybeRegister(event, commandsModule.updateNode, UpdateNodeCommand::new);
+        maybeRegister(event, commands.createNode, CreateNodeCommand::new);
+        maybeRegister(event, commands.forgetResearch, ForgetResearchCommand::new);
+        maybeRegister(event, commands.forgetScanned, ForgetScannedCommand::new);
+        maybeRegister(event, commands.help, HelpCommand::new);
+        maybeRegister(event, commands.prerequisites, PrerequisitesCommand::new);
+        maybeRegister(event, commands.playerResearch, ListResearchCommand::new);
+        maybeRegister(event, commands.updateNode, UpdateNodeCommand::new);
     }
 
     private void maybeRegister(FMLServerStartingEvent event, CommandSettings settings,

@@ -24,7 +24,7 @@ public class ListResearchCommand extends FixinsCommandBase<ListResearchCommand.A
     public static final String listOthersReserach = "permissionLevel_ListOthersResearch";
 
     public ListResearchCommand() {
-        super(ConfigModuleRoot.commandsModule.playerResearch);
+        super(ConfigModuleRoot.commands.playerResearch);
     }
 
     @Override

@@ -30,7 +30,7 @@ import thaumcraft.common.config.Config;
 public class ForgetResearchCommand extends FixinsCommandBase<ForgetResearchCommand.Arguments> {
 
     public ForgetResearchCommand() {
-        super(ConfigModuleRoot.commandsModule.forgetResearch);
+        super(ConfigModuleRoot.commands.forgetResearch);
     }
 
     @Override

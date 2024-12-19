@@ -14,7 +14,7 @@ import dev.rndmorris.tfixins.config.settings.CommandSettings;
 public class HelpCommand extends FixinsCommandBase<HelpCommand.Arguments> {
 
     public HelpCommand() {
-        super(ConfigModuleRoot.commandsModule.help);
+        super(ConfigModuleRoot.commands.help);
     }
 
     @Override

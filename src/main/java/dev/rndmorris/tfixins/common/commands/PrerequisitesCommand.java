@@ -1,7 +1,7 @@
 package dev.rndmorris.tfixins.common.commands;
 
 import static dev.rndmorris.tfixins.ThaumicFixins.LOG;
-import static dev.rndmorris.tfixins.config.ConfigModuleRoot.commandsModule;
+import static dev.rndmorris.tfixins.config.ConfigModuleRoot.commands;
 import static dev.rndmorris.tfixins.lib.ArrayHelper.toList;
 import static dev.rndmorris.tfixins.lib.ResearchHelper.formatResearch;
 import static dev.rndmorris.tfixins.lib.ResearchHelper.formatResearchClickCommand;
@@ -64,7 +64,7 @@ public class PrerequisitesCommand extends FixinsCommandBase<PrerequisitesCommand
     }
 
     public PrerequisitesCommand() {
-        super(commandsModule.prerequisites);
+        super(commands.prerequisites);
     }
 
     @Nonnull

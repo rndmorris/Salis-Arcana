@@ -27,7 +27,7 @@ import thaumcraft.common.tiles.TileNode;
 public class UpdateNodeCommand extends FixinsCommandBase<UpdateNodeCommand.Arguments> {
 
     public UpdateNodeCommand() {
-        super(ConfigModuleRoot.commandsModule.updateNode);
+        super(ConfigModuleRoot.commands.updateNode);
     }
 
     protected void process(ICommandSender sender, String[] args) {

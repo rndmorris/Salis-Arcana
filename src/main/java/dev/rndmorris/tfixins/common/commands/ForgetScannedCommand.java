@@ -22,7 +22,7 @@ import thaumcraft.common.Thaumcraft;
 public class ForgetScannedCommand extends FixinsCommandBase<ForgetScannedCommand.Arguments> {
 
     public ForgetScannedCommand() {
-        super(ConfigModuleRoot.commandsModule.forgetScanned);
+        super(ConfigModuleRoot.commands.forgetScanned);
     }
 
     @Override

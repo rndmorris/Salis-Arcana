@@ -29,7 +29,7 @@ import thaumcraft.common.tiles.TileNode;
 public class CreateNodeCommand extends FixinsCommandBase<CreateNodeCommand.Arguments> {
 
     public CreateNodeCommand() {
-        super(ConfigModuleRoot.commandsModule.createNode);
+        super(ConfigModuleRoot.commands.createNode);
     }
 
     protected void process(ICommandSender sender, String[] args) {

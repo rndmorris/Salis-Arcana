@@ -1,6 +1,6 @@
 package dev.rndmorris.tfixins.lib;
 
-import static dev.rndmorris.tfixins.config.ConfigModuleRoot.commandsModule;
+import static dev.rndmorris.tfixins.config.ConfigModuleRoot.commands;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -105,8 +105,8 @@ public class ResearchHelper {
     }
 
     public static ClickEvent suggestResearchCommandOnClick(ResearchItem research) {
-        if (commandsModule.prerequisites.isEnabled()
-            && commandsModule.prerequisites.getCommand() instanceof PrerequisitesCommand command) {
+        if (commands.prerequisites.isEnabled()
+            && commands.prerequisites.getCommand() instanceof PrerequisitesCommand command) {
             return new ClickEvent(
                 ClickEvent.Action.SUGGEST_COMMAND,
                 String.format("/%s --research %s", command.getCommandName(), research.key));
