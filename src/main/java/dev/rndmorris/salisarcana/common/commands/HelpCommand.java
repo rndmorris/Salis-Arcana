@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.common.commands;
 
+import static dev.rndmorris.salisarcana.SalisArcana.LOG;
+
 import javax.annotation.Nonnull;
 
 import net.minecraft.command.ICommandSender;
@@ -20,12 +22,12 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
     @Override
     protected void process(ICommandSender sender, Arguments arguments, String[] args) {
         if (arguments.forCommand == null) {
-            return;
+            arguments.forCommand = this.settings;
         }
 
         final var command = arguments.forCommand.getCommand();
         if (command == null) {
-            this.printHelp(sender);
+            LOG.error("HelpCommand argument \"forCommand\" was not null, but a command was not found");
             return;
         }
 
@@ -38,6 +40,11 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
             Arguments.class,
             Arguments::new,
             new IArgumentHandler[] { CommandNameHandler.INSTANCE });
+    }
+
+    @Override
+    protected int minimumRequiredArgs() {
+        return 0;
     }
 
     public static class Arguments {

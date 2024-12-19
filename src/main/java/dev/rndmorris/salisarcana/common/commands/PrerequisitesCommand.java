@@ -460,6 +460,11 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
         return blue().setItalic(true);
     }
 
+    @Override
+    protected int minimumRequiredArgs() {
+        return 1;
+    }
+
     public static class Arguments {
 
         @NamedArg(name = "--research", excludes = "--item", handler = ResearchHandler.class, descLangKey = "research")

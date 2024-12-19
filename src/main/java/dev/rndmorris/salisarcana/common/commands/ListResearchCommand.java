@@ -62,6 +62,11 @@ public class ListResearchCommand extends ArcanaCommandBase<ListResearchCommand.A
         results.forEach(sender::addChatMessage);
     }
 
+    @Override
+    protected int minimumRequiredArgs() {
+        return 0;
+    }
+
     public static class Arguments {
 
         @NamedArg(name = "--player", handler = PlayerHandler.class, descLangKey = "player")

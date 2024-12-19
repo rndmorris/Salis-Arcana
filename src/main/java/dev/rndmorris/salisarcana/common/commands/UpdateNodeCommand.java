@@ -88,6 +88,11 @@ public class UpdateNodeCommand extends ArcanaCommandBase<UpdateNodeCommand.Argum
                 QuantitativeAspectHandler.INSTANCE, AspectHandler.INSTANCE });
     }
 
+    @Override
+    protected int minimumRequiredArgs() {
+        return 3;
+    }
+
     public static class Arguments {
 
         @PositionalArg(index = 0, handler = CoordinateHandler.class, descLangKey = "coord")

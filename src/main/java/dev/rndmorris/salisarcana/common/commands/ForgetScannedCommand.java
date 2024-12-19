@@ -79,6 +79,11 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         return count;
     }
 
+    @Override
+    protected int minimumRequiredArgs() {
+        return 1;
+    }
+
     public static class Arguments {
 
         @NamedArg(name = "--player", handler = PlayerHandler.class, descLangKey = "player")

@@ -76,6 +76,11 @@ public class CreateNodeCommand extends ArcanaCommandBase<CreateNodeCommand.Argum
                 FlagHandler.INSTANCE, QuantitativeAspectHandler.INSTANCE });
     }
 
+    @Override
+    protected int minimumRequiredArgs() {
+        return 3;
+    }
+
     public static class Arguments {
 
         @PositionalArg(index = 0, handler = CoordinateHandler.class, descLangKey = "coord")

@@ -52,6 +52,10 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
+        if (args.length < minimumRequiredArgs()) {
+            printUsage(sender);
+            return;
+        }
         process(sender, argumentProcessor.process(sender, args), args);
     }
 
@@ -62,10 +66,15 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
             argumentProcessor.getAutocompletionSuggestions(sender, args));
     }
 
-    public void printHelp(ICommandSender sender) {
+    private ChatStyle titleStyle() {
         final var titleStyle = new ChatStyle();
         titleStyle.setBold(true);
         titleStyle.setColor(EnumChatFormatting.BLUE);
+        return titleStyle;
+    }
+
+    public void printHelp(ICommandSender sender) {
+        final var titleStyle = titleStyle();
 
         final var description = new ChatComponentTranslation("salisarcana:command.desc");
         description.setChatStyle(titleStyle);
@@ -97,9 +106,12 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
             .forEachOrdered(sender::addChatMessage);
     }
 
-    public int getMinimumExpectedArgs() {
-        return 0;
+    public void printUsage(ICommandSender sender) {
+        sender.addChatMessage(new ChatComponentTranslation("salisarcana:command.usage").setChatStyle(titleStyle()));
+        sender.addChatMessage(new ChatComponentTranslation(getCommandUsage(sender)));
     }
+
+    protected abstract int minimumRequiredArgs();
 
     protected abstract void process(ICommandSender sender, T arguments, String[] args);
 }
