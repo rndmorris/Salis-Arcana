@@ -16,8 +16,8 @@ public class BeaconBlockFixSetting extends IntArraySetting {
         super(module, phase, configName, comment, new int[] { 4 }, 0, 15);
     }
 
-    public boolean isBeaconMetadata(int id) {
-        return isBeaconMetadata[id % isBeaconMetadata.length];
+    public boolean isBeaconMetadata(int metadata) {
+        return isBeaconMetadata[metadata % isBeaconMetadata.length];
     }
 
     @Override
