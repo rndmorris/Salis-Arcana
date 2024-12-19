@@ -57,29 +57,4 @@ public class ConfigModuleRoot {
             .toString();
         return new Configuration(new File(path));
     }
-
-    public static void synchronizeConfiguration(File configFile, ConfigPhase phase) {
-        Configuration configuration = new Configuration(configFile);
-
-        final var modulesCategory = "00_modules";
-
-        configuration.setCategoryComment(
-            modulesCategory,
-            "Enable and disable Thaumic Fixins modules. Disabled modules will not generate or read from entries in the config file.");
-
-        for (var module : modules) {
-            final var toggleName = String.format("Enable %s module", module.getModuleId());
-            final var enabled = configuration
-                .getBoolean(toggleName, modulesCategory, module.isEnabled(), module.getModuleComment());
-            module.setEnabled(enabled);
-            if (enabled) {
-                configuration.setCategoryComment(module.getModuleId(), module.getModuleComment());
-                module.loadModuleFromConfig(configuration, phase);
-            }
-        }
-
-        if (configuration.hasChanged()) {
-            configuration.save();
-        }
-    }
 }
