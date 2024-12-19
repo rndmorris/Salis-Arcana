@@ -11,7 +11,7 @@ Some commands may have additional "permission level" config options used to cont
 that command. Setting these to a lower permission level than the base `permissionLevel` config option will have
 no effect.
 
-## /tfixins-create-node
+## /salisarcana-create-node
 
 <details>
 
@@ -21,7 +21,7 @@ Create a new node at the specified coordinates.
 
 **Usage:**
 
-`/tfixins-create-node <x> <y> <z> [-t <type>] [-m <modifier>] [--silverwood] [--eerie] [--small] [-a <aspect1> <count1>[ -a <aspect2> <count2>[ ...]]]`
+`/salisarcana-create-node <x> <y> <z> [-t <type>] [-m <modifier>] [--silverwood] [--eerie] [--small] [-a <aspect1> <count1>[ -a <aspect2> <count2>[ ...]]]`
 
 **Arguments:**
 
@@ -41,7 +41,7 @@ Create a new node at the specified coordinates.
 </details>
 
 
-## /tfixins-forget-research
+## /salisarcana-forget-research
 
 <details>
 
@@ -51,7 +51,7 @@ Remove research from a player's knowledge.
 
 **Usage:**
 
-`/tfixins-forget-research [--all] [--research-key <key> [--research-key <key> [ ...]]] [--player <username>] [--scalpel]`
+`/salisarcana-forget-research [--all] [--research-key <key> [--research-key <key> [ ...]]] [--player <username>] [--scalpel]`
 
 **Arguments:**
 
@@ -67,7 +67,7 @@ Remove research from a player's knowledge.
 
 </details>
 
-## /tfixins-forget-scanned
+## /salisarcana-forget-scanned
 
 <details>
 
@@ -76,7 +76,7 @@ Reset the list of things a player has scanned, allowing those things to be scann
 
 **Usage:**
 
-`/tfixins-forget-scanned [--player <username>] [--objects] [--entities] [--nodes] [--all]`
+`/salisarcana-forget-scanned [--player <username>] [--objects] [--entities] [--nodes] [--all]`
 
 **Arguments:**
 
@@ -93,29 +93,29 @@ Reset the list of things a player has scanned, allowing those things to be scann
 
 </details>
 
-## /tfixins-help
+## /salisarcana-help
 
 <details>
 
 **Description:**
-Get help information about a Thaumic Fixins command.
+Get help information about a Salis Arcana command.
 
 **Usage:**
 
-`/tfixins-help <command>`
+`/salisarcana-help <command>`
 
 **Arguments:**
 
-|  Argument   | Required | Details                                        |
-|:-----------:|:--------:|:-----------------------------------------------|
-| `<command>` |   Yes    | The name or alias of a Thaumic Fixins command. |
+|  Argument   | Required | Details                                      |
+|:-----------:|:--------:|:---------------------------------------------|
+| `<command>` |   Yes    | The name or alias of a Salis Arcana command. |
 
 **Default aliases:**
-* `/tf-help`
+* `/arcana-help`
 
 </details>
 
-## /tfixins-list-research
+## /salisarcana-list-research
 
 <details>
 
@@ -125,7 +125,7 @@ List registered Thaumcraft research, grouped by tab in the Thaumonomicon.
 
 **Usage:**
 
-`/tfixins-list-research [--player <username>] [--search <search term>]`
+`/salisarcana-list-research [--player <username>] [--search <search term>]`
 
 **Arguments:**
 
@@ -139,7 +139,7 @@ List registered Thaumcraft research, grouped by tab in the Thaumonomicon.
 
 </details>
 
-## /tfixins-prereqs
+## /salisarcana-prereqs
 
 <details>
 
@@ -147,7 +147,7 @@ List registered Thaumcraft research, grouped by tab in the Thaumonomicon.
 Lists the prerequisites to unlock a specific research, or the research required to craft a specific item.
 
 **Usage:**
-`/tfixins-prereqs [--research <key> [--completed]] [--item <item-id> [item-damage]]`
+`/salisarcana-prereqs [--research <key> [--completed]] [--item <item-id> [item-damage]]`
 
 **Arguments:**
 
@@ -161,7 +161,7 @@ Lists the prerequisites to unlock a specific research, or the research required 
 
 </details>
 
-## /tfixins-update-node
+## /salisarcana-update-node
 
 <details>
 
@@ -171,7 +171,7 @@ Update the properties of the node at the specified coordinates.
 
 **Usage:**
 
-`/tfixins-update-node <x> <y> <z> [-t <type>] [-m <modifier>] [--set <aspect1> <count1>[ --set <aspect2> <count2>[ ...]]] [--rem <aspect3>[ --rem <aspect4>]]`
+`/salisarcana-update-node <x> <y> <z> [-t <type>] [-m <modifier>] [--set <aspect1> <count1>[ --set <aspect2> <count2>[ ...]]] [--rem <aspect3>[ --rem <aspect4>]]`
 
 **Arguments:**
 
