@@ -16,7 +16,7 @@ public abstract class MixinSkyColor extends BiomeGenBase {
 
     @Override
     public int getSkyColorByTemp(float temp) {
-        return ConfigModuleRoot.biomeColorModule.magicalForest.skyColor.getColorValue();
+        return ConfigModuleRoot.biomeColors.magicalForest.skyColor.getColorValue();
     }
 
 }

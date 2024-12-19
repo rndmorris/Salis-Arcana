@@ -19,7 +19,7 @@ public abstract class MixinBaseColor extends BiomeGenBase {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void mixinInit(int biomeId, CallbackInfo ci) {
-        setColor(ConfigModuleRoot.biomeColorModule.magicalForest.baseColor.getColorValue());
+        setColor(ConfigModuleRoot.biomeColors.magicalForest.baseColor.getColorValue());
     }
 
 }

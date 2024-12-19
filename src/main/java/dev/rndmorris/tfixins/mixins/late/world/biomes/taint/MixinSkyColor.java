@@ -19,7 +19,7 @@ public abstract class MixinSkyColor extends BiomeGenBase {
 
     @Inject(method = "getSkyColorByTemp", at = @At("HEAD"), cancellable = true)
     private void mixinGetSkyColorByTemp(float temp, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(ConfigModuleRoot.biomeColorModule.taint.skyColor.getColorValue());
+        cir.setReturnValue(ConfigModuleRoot.biomeColors.taint.skyColor.getColorValue());
         cir.cancel();
     }
 

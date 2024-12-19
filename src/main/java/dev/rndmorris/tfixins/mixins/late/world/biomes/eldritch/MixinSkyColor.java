@@ -16,7 +16,7 @@ public abstract class MixinSkyColor extends BiomeGenBase {
 
     @Override
     public int getSkyColorByTemp(float temp) {
-        return ConfigModuleRoot.biomeColorModule.eldritch.skyColor.getColorValue();
+        return ConfigModuleRoot.biomeColors.eldritch.skyColor.getColorValue();
     }
 
 }

@@ -1,6 +1,6 @@
 package dev.rndmorris.tfixins.mixins.late.blocks;
 
-import static dev.rndmorris.tfixins.config.ConfigModuleRoot.bugfixesModule;
+import static dev.rndmorris.tfixins.config.ConfigModuleRoot.bugfixes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -25,7 +25,7 @@ public abstract class MixinBlockCosmeticSolid extends Block {
         CallbackInfoReturnable<Boolean> cir) {
         final var metadata = worldObj.getBlockMetadata(x, y, z);
 
-        cir.setReturnValue(bugfixesModule.beaconBlockFixSetting.isBeaconMetadata(metadata));
+        cir.setReturnValue(bugfixes.beaconBlockFixSetting.isBeaconMetadata(metadata));
         cir.cancel();
     }
 }

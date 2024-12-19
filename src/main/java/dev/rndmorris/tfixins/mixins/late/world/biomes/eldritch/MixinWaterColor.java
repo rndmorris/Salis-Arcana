@@ -16,7 +16,7 @@ public abstract class MixinWaterColor extends BiomeGenBase {
 
     @Override
     public int getWaterColorMultiplier() {
-        return ConfigModuleRoot.biomeColorModule.eldritch.waterColorMultiplier.getColorValue();
+        return ConfigModuleRoot.biomeColors.eldritch.waterColorMultiplier.getColorValue();
     }
 
 }

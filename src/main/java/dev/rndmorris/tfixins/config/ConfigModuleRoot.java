@@ -14,14 +14,13 @@ import dev.rndmorris.tfixins.config.modules.IConfigModule;
 
 public class ConfigModuleRoot {
 
-    public static final BiomeColorModule biomeColorModule;
-    public static final BugfixesModule bugfixesModule;
-    public static final CommandsModule commandsModule;
+    public static final BiomeColorModule biomeColors;
+    public static final BugfixesModule bugfixes;
+    public static final CommandsModule commands;
     public static final EnhancementsModule enhancements;
 
-    private static final IConfigModule[] modules = new IConfigModule[] { biomeColorModule = new BiomeColorModule(),
-        bugfixesModule = new BugfixesModule(), commandsModule = new CommandsModule(),
-        enhancements = new EnhancementsModule(), };
+    private static final IConfigModule[] modules = new IConfigModule[] { biomeColors = new BiomeColorModule(),
+        bugfixes = new BugfixesModule(), commands = new CommandsModule(), enhancements = new EnhancementsModule(), };
 
     public static void synchronizeConfiguration(ConfigPhase phase) {
         final var rootConfigFile = Paths.get("config", ThaumicFixins.MODID + ".cfg")

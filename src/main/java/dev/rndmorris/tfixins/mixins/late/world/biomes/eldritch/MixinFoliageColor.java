@@ -16,6 +16,6 @@ public abstract class MixinFoliageColor extends BiomeGenBase {
 
     @Override
     public int getBiomeFoliageColor(int x, int y, int z) {
-        return ConfigModuleRoot.biomeColorModule.eldritch.foliageColor.getColorValue();
+        return ConfigModuleRoot.biomeColors.eldritch.foliageColor.getColorValue();
     }
 }

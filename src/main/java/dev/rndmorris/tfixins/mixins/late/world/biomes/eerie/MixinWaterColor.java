@@ -19,7 +19,7 @@ public abstract class MixinWaterColor extends BiomeGenBase {
 
     @Inject(method = "getWaterColorMultiplier", at = @At("HEAD"), cancellable = true)
     private void mixinGetWaterColorMultiplier(CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(ConfigModuleRoot.biomeColorModule.eerie.waterColorMultiplier.getColorValue());
+        cir.setReturnValue(ConfigModuleRoot.biomeColors.eerie.waterColorMultiplier.getColorValue());
         cir.cancel();
     }
 

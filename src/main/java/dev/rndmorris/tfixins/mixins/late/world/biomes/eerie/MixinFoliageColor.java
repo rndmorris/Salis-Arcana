@@ -19,7 +19,7 @@ public abstract class MixinFoliageColor extends BiomeGenBase {
 
     @Inject(method = "getBiomeFoliageColor", at = @At("HEAD"), cancellable = true)
     private void mixinGetBiomeFoliageColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(ConfigModuleRoot.biomeColorModule.eerie.foliageColor.getColorValue());
+        cir.setReturnValue(ConfigModuleRoot.biomeColors.eerie.foliageColor.getColorValue());
         cir.cancel();
     }
 

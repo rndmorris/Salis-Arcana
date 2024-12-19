@@ -16,7 +16,7 @@ public abstract class MixinGrassColor extends BiomeGenBase {
 
     @Override
     public int getBiomeGrassColor(int x, int y, int z) {
-        return ConfigModuleRoot.biomeColorModule.eldritch.grassColor.getColorValue();
+        return ConfigModuleRoot.biomeColors.eldritch.grassColor.getColorValue();
     }
 
 }
