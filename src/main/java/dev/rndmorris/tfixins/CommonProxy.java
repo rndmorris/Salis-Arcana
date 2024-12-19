@@ -1,10 +1,7 @@
 package dev.rndmorris.tfixins;
 
-import static dev.rndmorris.tfixins.config.FixinsConfig.commandsModule;
-import static dev.rndmorris.tfixins.config.FixinsConfig.workaroundsModule;
+import static dev.rndmorris.tfixins.config.ConfigModuleRoot.commands;
 
-import java.io.File;
-import java.nio.file.Paths;
 import java.util.function.Supplier;
 
 import net.minecraft.item.ItemStack;
@@ -15,7 +12,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dev.rndmorris.tfixins.common.biomes.BiomeOverrides;
 import dev.rndmorris.tfixins.common.blocks.CustomBlocks;
 import dev.rndmorris.tfixins.common.commands.CreateNodeCommand;
 import dev.rndmorris.tfixins.common.commands.FixinsCommandBase;
@@ -25,9 +21,9 @@ import dev.rndmorris.tfixins.common.commands.HelpCommand;
 import dev.rndmorris.tfixins.common.commands.ListResearchCommand;
 import dev.rndmorris.tfixins.common.commands.PrerequisitesCommand;
 import dev.rndmorris.tfixins.common.commands.UpdateNodeCommand;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.FixinsConfig;
-import dev.rndmorris.tfixins.config.commands.CommandSettings;
+import dev.rndmorris.tfixins.config.settings.CommandSettings;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class CommonProxy {
@@ -36,16 +32,12 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
-        BiomeOverrides.apply();
+        ConfigModuleRoot.synchronizeConfiguration(ConfigPhase.LATE);
 
-        if (workaroundsModule.enableLookalikePlanks.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.lookalikePlanks.isEnabled()) {
             CustomBlocks.registerBlocks();
             registerPlankRecipes();
         }
-
-        String path = Paths.get("config", ThaumicFixins.MODID + ".cfg")
-            .toString();
-        FixinsConfig.synchronizeConfiguration(new File(path), ConfigPhase.LATE);
     }
 
     private void registerPlankRecipes() {
@@ -163,13 +155,13 @@ public class CommonProxy {
 
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {
-        maybeRegister(event, commandsModule.createNode, CreateNodeCommand::new);
-        maybeRegister(event, commandsModule.forgetResearch, ForgetResearchCommand::new);
-        maybeRegister(event, commandsModule.forgetScanned, ForgetScannedCommand::new);
-        maybeRegister(event, commandsModule.help, HelpCommand::new);
-        maybeRegister(event, commandsModule.prerequisites, PrerequisitesCommand::new);
-        maybeRegister(event, commandsModule.playerResearch, ListResearchCommand::new);
-        maybeRegister(event, commandsModule.updateNode, UpdateNodeCommand::new);
+        maybeRegister(event, commands.createNode, CreateNodeCommand::new);
+        maybeRegister(event, commands.forgetResearch, ForgetResearchCommand::new);
+        maybeRegister(event, commands.forgetScanned, ForgetScannedCommand::new);
+        maybeRegister(event, commands.help, HelpCommand::new);
+        maybeRegister(event, commands.prerequisites, PrerequisitesCommand::new);
+        maybeRegister(event, commands.playerResearch, ListResearchCommand::new);
+        maybeRegister(event, commands.updateNode, UpdateNodeCommand::new);
     }
 
     private void maybeRegister(FMLServerStartingEvent event, CommandSettings settings,
