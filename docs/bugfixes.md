@@ -7,7 +7,7 @@ Config file: `config/salisarcana/bugfixes.cfg`
 **Config option:** `blockCosmeticSolidBeaconIds`
 
 Configure which variants of BlockCosmeticSolid (tallow blocks, arcane stone blocks/bricks, obsidian tiles,
-thaumium blocks, etc.) are considered valid beacon blocks. By default, this setting makes Thaumium Blocks as
+thaumium blocks, etc.) are considered valid beacon blocks. By default, this setting makes Thaumium Blocks
 the only valid variant.
 
 ## Dying Mobs No Longer Attack
