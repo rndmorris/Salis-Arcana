@@ -2,6 +2,15 @@
 
 Config file: `config/salisarcana/commands.cfg`
 
+Each command can be configured separately from the others, but share common options.
+* `aliases` - Alternate, often less-verbose, names that can be used to execute the command.
+* `commandEnabled` - Enables or disables the command. Disabled commands are inaccessible in-game.
+* `permissionLevel` - The minimum permission level a player must have to execute the command at all.
+
+Some commands may have additional "permission level" config options used to control access to additional functions of
+that command. Setting these to a lower permission level than the base `permissionLevel` config option will have
+no effect.
+
 ## /tfixins-create-node
 
 <details>
