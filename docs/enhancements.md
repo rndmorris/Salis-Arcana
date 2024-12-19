@@ -1,5 +1,7 @@
 # Enhancements
 
+Config file: `config/salisarcana/enhancements.cfg`
+
 ## Additional Bauble Slot Support
 
 **Config option:** `useAllBaublesSlots`

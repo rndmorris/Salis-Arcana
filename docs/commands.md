@@ -1,5 +1,7 @@
 # Commands
 
+Config file: `config/salisarcana/commands.cfg`
+
 ## /tfixins-create-node
 
 <details>

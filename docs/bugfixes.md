@@ -1,5 +1,7 @@
 # Bugfixes
 
+Config file: `config/salisarcana/bugfixes.cfg`
+
 ## Beacon Blocks
 
 **Config option:** `blockCosmeticSolidBeaconIds`
