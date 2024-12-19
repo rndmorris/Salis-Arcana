@@ -32,8 +32,7 @@ public class CreateNodeCommand extends ArcanaCommandBase<CreateNodeCommand.Argum
         super(ConfigModuleRoot.commands.createNode);
     }
 
-    protected void process(ICommandSender sender, String[] args) {
-        final var arguments = argumentProcessor.process(sender, args);
+    protected void process(ICommandSender sender, Arguments arguments, String[] args) {
 
         final var world = sender.getEntityWorld();
         final var pos = arguments.createAt;
@@ -75,6 +74,11 @@ public class CreateNodeCommand extends ArcanaCommandBase<CreateNodeCommand.Argum
             Arguments::new,
             new IArgumentHandler[] { CoordinateHandler.INSTANCE, NodeTypeHandler.INSTANCE, NodeModifierHandler.INSTANCE,
                 FlagHandler.INSTANCE, QuantitativeAspectHandler.INSTANCE });
+    }
+
+    @Override
+    protected int minimumRequiredArgs() {
+        return 3;
     }
 
     public static class Arguments {

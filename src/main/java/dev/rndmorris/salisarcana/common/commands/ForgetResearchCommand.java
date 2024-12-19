@@ -42,9 +42,7 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
     }
 
     @Override
-    protected void process(ICommandSender sender, String[] args) {
-        final var arguments = argumentProcessor.process(sender, args);
-
+    protected void process(ICommandSender sender, Arguments arguments, String[] args) {
         if (arguments.targetPlayer == null) {
             arguments.targetPlayer = getCommandSenderAsPlayer(sender);
         }
@@ -143,6 +141,11 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
                 removedCount,
                 permWarp,
                 stickyWarp));
+    }
+
+    @Override
+    protected int minimumRequiredArgs() {
+        return 1;
     }
 
     public static class Arguments {

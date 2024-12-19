@@ -1,8 +1,14 @@
 package dev.rndmorris.salisarcana.common.commands;
 
+import static dev.rndmorris.salisarcana.SalisArcana.LOG;
+
+import java.util.Arrays;
+
 import javax.annotation.Nonnull;
 
 import net.minecraft.command.ICommandSender;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 
 import dev.rndmorris.salisarcana.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.PositionalArg;
@@ -18,14 +24,14 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
     }
 
     @Override
-    protected void process(ICommandSender sender, String[] args) {
-        final var arguments = argumentProcessor.process(sender, args);
+    protected void process(ICommandSender sender, Arguments arguments, String[] args) {
         if (arguments.forCommand == null) {
-            return;
+            arguments.forCommand = settings;
         }
 
         final var command = arguments.forCommand.getCommand();
         if (command == null) {
+            LOG.error("HelpCommand argument \"forCommand\" was not null, but a command was not found. How?!?");
             return;
         }
 
@@ -38,6 +44,50 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
             Arguments.class,
             Arguments::new,
             new IArgumentHandler[] { CommandNameHandler.INSTANCE });
+    }
+
+    @Override
+    protected int minimumRequiredArgs() {
+        return 0;
+    }
+
+    @Override
+    public void printHelp(ICommandSender sender) {
+        super.printHelp(sender);
+        printAvailableCommands(sender);
+    }
+
+    private void printAvailableCommands(ICommandSender sender) {
+        final var listMessage = new ChatComponentText("");
+        var any = false;
+
+        final var settings$ = Arrays.stream(ConfigModuleRoot.commands.commandsSettings)
+            .iterator();
+
+        while (settings$.hasNext()) {
+            final var setting = settings$.next();
+
+            if (!setting.isEnabled()) {
+                continue;
+            }
+            if (!sender.canCommandSenderUseCommand(setting.getPermissionLevel(), settings.getFullName())) {
+                continue;
+            }
+            any = true;
+            listMessage.appendText(setting.getFullName());
+            if (settings$.hasNext()) {
+                listMessage.appendText(", ");
+            }
+        }
+
+        if (any) {
+            sender.addChatMessage(
+                new ChatComponentTranslation("salisarcana:command.help.available").setChatStyle(titleStyle()));
+            sender.addChatMessage(listMessage);
+            return;
+        }
+        // this should *never* happen, since the user needs to be able to run "salisarcana-help" at all
+        sender.addChatMessage(new ChatComponentTranslation("salisarcana:command.help.nocommands"));
     }
 
     public static class Arguments {

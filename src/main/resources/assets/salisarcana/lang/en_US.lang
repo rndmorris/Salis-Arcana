@@ -4,7 +4,7 @@ salisarcana:command.usage=Usage:
 salisarcana:command.args=Arguments:
 
 salisarcana:command.create-node.desc=Create a new randomly-generated node at the specified coordinates.
-salisarcana:command.create-node.usage=§7/salisarcana-create-node §7<x> §7<y> §7<z> §7[-t §7<type>] §7[-m §7<modifier>] §7[--silverwood] §7[--eerie] §7[--small] §7[-a §7<aspect1> §7<count1>[ §7-a §7<aspect2> §7<count2>[ ...]]]§r
+salisarcana:command.create-node.usage=§7/salisarcana-create-node §7<x> §7<y> §7<z> §7[-t §7<type>] §7[-m §7<modifier>] §7[--silverwood] §7[--eerie] §7[--small] §7[-a §7<aspect1> §7<count1>[ §7-a §7<aspect2> §7<count2>[ §7...]]]§r
 salisarcana:command.create-node.args.coord=§7§o<x> <y> <z>§r §cRequired.§r Specify where the node will be created.
 salisarcana:command.create-node.args.type=§7§o[-t <type>]§r Specify the new node's type
 salisarcana:command.create-node.args.modifier=§7§o[-m <modifier>]§r Specify the new node's modifier
@@ -25,7 +25,7 @@ salisarcana:command.forget-research.args.scalpel=§7[--scalpel]§r If set, the s
 salisarcana:command.forget-research.success=§9Success:§r Removed %d research items collectively worth %d permanent warp and %d sticky warp.
 
 salisarcana:command.forget-scanned.desc=Resets the lists of things a player has scanned, allowing those things to be scanned again.
-salisarcana:command.forget-scanned.usage=§7/salisarcana-forget-scanned §7[--player <username>] §7[--objects] §7[--entities] §7[--nodes] §7[--all]§r
+salisarcana:command.forget-scanned.usage=§7/salisarcana-forget-scanned §7[--player §7<username>] §7[--objects] §7[--entities] §7[--nodes] §7[--all]§r
 salisarcana:command.forget-scanned.player=§7[--player <username>]§r Specify the player whose scanned things will be altered. If not provided, defaults to the player executing this command.
 salisarcana:command.forget-scanned.objects=§7[--objects]§r Reset scanned items and blocks.
 salisarcana:command.forget-scanned.entities=§7[--entities]§r Reset scanned entities, including mobs.
@@ -36,8 +36,11 @@ salisarcana:command.forget-scanned.success=§9Success:§r %d entries were remove
 salisarcana:command.forget-scanned.failure=§Failure:§rThere was nothing to remove from %s's scan lists.
 
 salisarcana:command.help.desc=Get help information about a Salis Arcana command.
-salisarcana:command.help.usage=§7/salisarcana-help §7<command>§r
-salisarcana:command.help.args.cmd=§7§o<command>§r §cRequired.§r The name or alias of a Salis Arcana command.
+salisarcana:command.help.usage=§7/salisarcana-help §7[command]§r
+salisarcana:command.help.args.cmd=§7§o[command]§r The name or alias of a Salis Arcana command.
+
+salisarcana:command.help.available=Available commands:
+salisarcana:command.help.nocommands=There are no enabled Salis Mundis commands you have permission to use.
 
 salisarcana:command.list-research.desc=List registered TC4 research, grouped by tab in the Thaumonomicon.
 salisarcana:command.list-research.usage=§7/salisarcana-list-research §7[--player §7<username>] §7[--search §7<search §7term>]§r
@@ -46,7 +49,7 @@ salisarcana:command.list-research.args.search=§7[--search §7<search §7term>§
 salisarcana:command.list-research.no_results=No research found.
 
 salisarcana:command.prereqs.desc=Lists the prerequisites to unlock a specific research, or the research required to craft a specific item.
-salisarcana:command.prereqs.usage=§7/salisarcana-prereqs §7[--research <research-key> §7[--completed]] §7[--item §7<item-id> §7[item-damage]]
+salisarcana:command.prereqs.usage=§7/salisarcana-prereqs §7[--research §7<research-key> §7[--completed]] §7[--item §7<item-id> §7[item-damage]]
 salisarcana:command.prereqs.args.research=§7[--research]§r The unique key of the research to look up. Mutually exclusive with §7item§r.
 salisarcana:command.prereqs.args.all=§7[--completed]§r Include prerequisite research you have already completed. Only available if using §7research§r.
 salisarcana:command.prereqs.args.item=§7[--item <item-id> [item-damage]]§r The string id and optional damage value of the item to look up. Mutually exclusive with §7research§r. 
@@ -68,7 +71,7 @@ salisarcana:command.prereqs.header_item=Research requirements to craft %s:
 salisarcana:command.prereqs.item_not_found=No research required to craft %s was found.
 
 salisarcana:command.update-node.desc=Update the properties of the node at the specified coordinates.
-salisarcana:command.update-node.usage=§7/salisarcana-update-node §7<x> <y> <z>§r §7[-t <type>] §7[-m <modifier>] §7[--set §7<aspect1> §7<count1>[ §7--set §7<aspect2> §7<count2> [...]]] §7[--rem §7<aspect3>[ §7--rem §7<aspect4>]]§r
+salisarcana:command.update-node.usage=§7/salisarcana-update-node §7<x> §7<y> §7<z>§r §7[-t §7<type>] §7[-m §7<modifier>] §7[--set §7<aspect1> §7<count1>[ §7--set §7<aspect2> §7<count2> §7[...]]] §7[--rem §7<aspect3>[ §7--rem §7<aspect4>]]§r
 salisarcana:command.update-node.args.coord=§7§o<x> <y> <z>§r §cRequired.§r Specify the coordinates of the node to update.
 salisarcana:command.update-node.args.type=§7§o[-t <type>]§r Change the node's type
 salisarcana:command.update-node.args.modifier=§7§o[-m <modifier>]§r Change the node's modifier

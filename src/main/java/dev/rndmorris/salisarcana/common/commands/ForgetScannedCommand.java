@@ -34,9 +34,7 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
     }
 
     @Override
-    protected void process(ICommandSender sender, String[] args) {
-        final var arguments = argumentProcessor.process(sender, args);
-
+    protected void process(ICommandSender sender, Arguments arguments, String[] args) {
         if (arguments.targetPlayer == null) {
             arguments.targetPlayer = getCommandSenderAsPlayer(sender);
         }
@@ -79,6 +77,11 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
             list.clear();
         }
         return count;
+    }
+
+    @Override
+    protected int minimumRequiredArgs() {
+        return 1;
     }
 
     public static class Arguments {

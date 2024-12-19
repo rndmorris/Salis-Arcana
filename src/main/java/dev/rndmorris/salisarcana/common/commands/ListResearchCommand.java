@@ -36,9 +36,7 @@ public class ListResearchCommand extends ArcanaCommandBase<ListResearchCommand.A
     }
 
     @Override
-    protected void process(ICommandSender sender, String[] args) {
-        final var arguments = argumentProcessor.process(sender, args);
-
+    protected void process(ICommandSender sender, Arguments arguments, String[] args) {
         Predicate<ResearchItem> predicate = (r) -> true;
 
         if (arguments.forPlayer != null) {
@@ -62,6 +60,11 @@ public class ListResearchCommand extends ArcanaCommandBase<ListResearchCommand.A
             throw new CommandException("salisarcana:command.player-research.no_results");
         }
         results.forEach(sender::addChatMessage);
+    }
+
+    @Override
+    protected int minimumRequiredArgs() {
+        return 0;
     }
 
     public static class Arguments {
