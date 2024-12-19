@@ -136,16 +136,14 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
     }
 
     @Override
-    protected void process(ICommandSender sender, String[] args) {
-        final var argsObj = argumentProcessor.process(sender, args);
-
-        if (argsObj.research != null) {
-            sendPrereqsForResearch(sender, argsObj.research, argsObj.allResearch);
+    protected void process(ICommandSender sender, Arguments arguments, String[] args) {
+        if (arguments.research != null) {
+            sendPrereqsForResearch(sender, arguments.research, arguments.allResearch);
             return;
         }
 
-        if (argsObj.itemStack != null) {
-            sendPrereqsForItem(sender, argsObj.itemStack);
+        if (arguments.itemStack != null) {
+            sendPrereqsForItem(sender, arguments.itemStack);
             return;
         }
 

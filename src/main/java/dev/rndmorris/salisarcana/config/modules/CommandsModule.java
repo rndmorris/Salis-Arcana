@@ -33,7 +33,7 @@ public class CommandsModule extends BaseConfigModule {
                 .setDescription("Remove entries from a player's list of scanned things")
                 .addDefaultAlias()
                 .setPermissionLevel(2),
-            help = new CommandSettings("help", this, ConfigPhase.LATE).addAlias("tf-help")
+            help = new CommandSettings("help", this, ConfigPhase.LATE).addAlias("arcana-help")
                 .setDescription("Get help information about Salis Arcana's commands.")
                 .setPermissionLevel(0),
             playerResearch = new CommandSettings("list-research", this, ConfigPhase.LATE)
@@ -49,7 +49,7 @@ public class CommandsModule extends BaseConfigModule {
                     "Lists the prerequisites to unlock a specific research, or the research required to craft a specific item.")
                 .setPermissionLevel(0),
             updateNode = new CommandSettings("update-node", this, ConfigPhase.LATE).addDefaultAlias()
-                .setDescription("Update the properties of a node at the specified coordiantes.")
+                .setDescription("Update the properties of a node at the specified coordinates.")
                 .setPermissionLevel(2) };
 
         addSettings(commandsSettings);

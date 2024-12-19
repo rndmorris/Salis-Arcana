@@ -18,14 +18,14 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
     }
 
     @Override
-    protected void process(ICommandSender sender, String[] args) {
-        final var arguments = argumentProcessor.process(sender, args);
+    protected void process(ICommandSender sender, Arguments arguments, String[] args) {
         if (arguments.forCommand == null) {
             return;
         }
 
         final var command = arguments.forCommand.getCommand();
         if (command == null) {
+            this.printHelp(sender);
             return;
         }
 

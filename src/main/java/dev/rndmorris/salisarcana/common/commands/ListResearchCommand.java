@@ -36,9 +36,7 @@ public class ListResearchCommand extends ArcanaCommandBase<ListResearchCommand.A
     }
 
     @Override
-    protected void process(ICommandSender sender, String[] args) {
-        final var arguments = argumentProcessor.process(sender, args);
-
+    protected void process(ICommandSender sender, Arguments arguments, String[] args) {
         Predicate<ResearchItem> predicate = (r) -> true;
 
         if (arguments.forPlayer != null) {

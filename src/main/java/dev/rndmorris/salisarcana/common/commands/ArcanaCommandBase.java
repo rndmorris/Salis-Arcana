@@ -52,7 +52,7 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        process(sender, args);
+        process(sender, argumentProcessor.process(sender, args), args);
     }
 
     @Override
@@ -97,5 +97,9 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
             .forEachOrdered(sender::addChatMessage);
     }
 
-    protected abstract void process(ICommandSender sender, String[] args);
+    public int getMinimumExpectedArgs() {
+        return 0;
+    }
+
+    protected abstract void process(ICommandSender sender, T arguments, String[] args);
 }

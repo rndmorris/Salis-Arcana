@@ -30,9 +30,7 @@ public class UpdateNodeCommand extends ArcanaCommandBase<UpdateNodeCommand.Argum
         super(ConfigModuleRoot.commands.updateNode);
     }
 
-    protected void process(ICommandSender sender, String[] args) {
-        final var arguments = argumentProcessor.process(sender, args);
-
+    protected void process(ICommandSender sender, Arguments arguments, String[] args) {
         final var pos = arguments.updateAt;
 
         final var world = sender.getEntityWorld();
