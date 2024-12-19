@@ -6,8 +6,8 @@ import java.util.Set;
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
 
-import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.ConfigModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.mixins.Mixins;
 
 @LateMixin

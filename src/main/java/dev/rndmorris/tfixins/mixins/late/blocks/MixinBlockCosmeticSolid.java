@@ -25,7 +25,7 @@ public abstract class MixinBlockCosmeticSolid extends Block {
         CallbackInfoReturnable<Boolean> cir) {
         final var metadata = worldObj.getBlockMetadata(x, y, z);
 
-        cir.setReturnValue(bugfixesModule.blockCosmeticSolidBeaconFix.isBeaconMetadata(metadata));
+        cir.setReturnValue(bugfixesModule.beaconBlockFixSetting.isBeaconMetadata(metadata));
         cir.cancel();
     }
 }

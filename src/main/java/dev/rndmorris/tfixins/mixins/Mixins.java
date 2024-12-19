@@ -6,8 +6,8 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.Side;
-import dev.rndmorris.tfixins.config.IEnabler;
 import dev.rndmorris.tfixins.config.ConfigModuleRoot;
+import dev.rndmorris.tfixins.config.IEnabler;
 
 public enum Mixins {
 
@@ -40,7 +40,7 @@ public enum Mixins {
 
     // Bugfixes
     ARCANE_FURNACE_DUPE_FIX(MixinSide.BOTH, ConfigModuleRoot.bugfixesModule.infernalFurnaceDupeFix, "blocks.MixinBlockArcaneFurnace"),
-    BEACON_BLOCKS(MixinSide.BOTH, ConfigModuleRoot.bugfixesModule.blockCosmeticSolidBeaconFix, "blocks.MixinBlockCosmeticSolid"),
+    BEACON_BLOCKS(MixinSide.BOTH, ConfigModuleRoot.bugfixesModule.beaconBlockFixSetting, "blocks.MixinBlockCosmeticSolid"),
     BLOCKCANDLE_OOB(MixinSide.BOTH, ConfigModuleRoot.bugfixesModule.candleRendererCrashes, "blocks.MixinBlockCandleRenderer", "blocks.MixinBlockCandle"),
     DEAD_MOBS_DONT_ATTACK(MixinSide.BOTH, ConfigModuleRoot.bugfixesModule.deadMobsDontAttack, "entities.MixinEntityTaintacle", "entities.MixinEntityEldritchCrab", "entities.MixinEntityThaumicSlime"),
     INTEGER_INFUSION_MATRIX(MixinSide.BOTH, ConfigModuleRoot.bugfixesModule.integerInfusionMatrixMath, "tiles.MixinTileInfusionMatrix_IntegerStabilizers"),

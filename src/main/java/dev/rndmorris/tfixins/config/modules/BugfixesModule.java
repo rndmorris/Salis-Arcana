@@ -3,12 +3,12 @@ package dev.rndmorris.tfixins.config.modules;
 import javax.annotation.Nonnull;
 
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.settings.BlockCosmeticSolidBeaconFix;
+import dev.rndmorris.tfixins.config.settings.BeaconBlockFixSetting;
 import dev.rndmorris.tfixins.config.settings.ToggleSetting;
 
 public class BugfixesModule extends BaseConfigModule {
 
-    public final BlockCosmeticSolidBeaconFix blockCosmeticSolidBeaconFix;
+    public final BeaconBlockFixSetting beaconBlockFixSetting;
     public final ToggleSetting candleRendererCrashes;
     public final ToggleSetting deadMobsDontAttack;
     public final ToggleSetting infernalFurnaceDupeFix;
@@ -19,7 +19,7 @@ public class BugfixesModule extends BaseConfigModule {
 
     public BugfixesModule() {
         addSettings(
-            blockCosmeticSolidBeaconFix = new BlockCosmeticSolidBeaconFix(this, ConfigPhase.EARLY),
+            beaconBlockFixSetting = new BeaconBlockFixSetting(this, ConfigPhase.EARLY),
             candleRendererCrashes = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,

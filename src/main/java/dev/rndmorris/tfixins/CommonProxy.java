@@ -21,8 +21,8 @@ import dev.rndmorris.tfixins.common.commands.HelpCommand;
 import dev.rndmorris.tfixins.common.commands.ListResearchCommand;
 import dev.rndmorris.tfixins.common.commands.PrerequisitesCommand;
 import dev.rndmorris.tfixins.common.commands.UpdateNodeCommand;
-import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.ConfigModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigPhase;
 import dev.rndmorris.tfixins.config.settings.CommandSettings;
 import thaumcraft.common.config.ConfigBlocks;
 
