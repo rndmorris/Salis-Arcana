@@ -21,7 +21,7 @@ import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.NodeModifi
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.NodeTypeHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.QuantitativeAspectHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.positional.CoordinateHandler;
-import dev.rndmorris.tfixins.config.FixinsConfig;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 import thaumcraft.common.tiles.TileNode;
@@ -29,7 +29,7 @@ import thaumcraft.common.tiles.TileNode;
 public class CreateNodeCommand extends FixinsCommandBase<CreateNodeCommand.Arguments> {
 
     public CreateNodeCommand() {
-        super(FixinsConfig.commandsModule.createNode);
+        super(ConfigModuleRoot.commands.createNode);
     }
 
     protected void process(ICommandSender sender, String[] args) {

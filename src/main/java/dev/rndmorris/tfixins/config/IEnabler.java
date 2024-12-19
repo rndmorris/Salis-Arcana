@@ -6,5 +6,8 @@ package dev.rndmorris.tfixins.config;
  */
 public interface IEnabler {
 
+    /**
+     * Whether this module or setting is currently enabled.
+     */
     boolean isEnabled();
 }

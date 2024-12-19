@@ -16,13 +16,13 @@ import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.PlayerHandler;
-import dev.rndmorris.tfixins.config.FixinsConfig;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import thaumcraft.common.Thaumcraft;
 
 public class ForgetScannedCommand extends FixinsCommandBase<ForgetScannedCommand.Arguments> {
 
     public ForgetScannedCommand() {
-        super(FixinsConfig.commandsModule.forgetScanned);
+        super(ConfigModuleRoot.commands.forgetScanned);
     }
 
     @Override

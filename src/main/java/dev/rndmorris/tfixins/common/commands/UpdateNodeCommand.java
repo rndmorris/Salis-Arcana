@@ -20,14 +20,14 @@ import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.NodeModifi
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.NodeTypeHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.QuantitativeAspectHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.positional.CoordinateHandler;
-import dev.rndmorris.tfixins.config.FixinsConfig;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.tiles.TileNode;
 
 public class UpdateNodeCommand extends FixinsCommandBase<UpdateNodeCommand.Arguments> {
 
     public UpdateNodeCommand() {
-        super(FixinsConfig.commandsModule.updateNode);
+        super(ConfigModuleRoot.commands.updateNode);
     }
 
     protected void process(ICommandSender sender, String[] args) {

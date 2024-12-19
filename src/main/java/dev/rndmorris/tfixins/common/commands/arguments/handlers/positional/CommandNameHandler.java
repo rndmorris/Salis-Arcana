@@ -11,8 +11,8 @@ import net.minecraft.command.ICommandSender;
 
 import dev.rndmorris.tfixins.common.commands.CommandErrors;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
-import dev.rndmorris.tfixins.config.FixinsConfig;
-import dev.rndmorris.tfixins.config.commands.CommandSettings;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
+import dev.rndmorris.tfixins.config.settings.CommandSettings;
 
 public class CommandNameHandler implements IPositionalArgumentHandler {
 
@@ -32,7 +32,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        final var settingsArr = FixinsConfig.commandsModule.commandsSettings;
+        final var settingsArr = ConfigModuleRoot.commands.commandsSettings;
         if (!args.hasNext()) {
             final var results = new ArrayList<String>(settingsArr.length * 2);
             for (var settings : settingsArr) {
@@ -57,7 +57,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
 
     private CommandSettings findCommand(String current) {
         CommandSettings foundCommand = null;
-        for (var settings : FixinsConfig.commandsModule.commandsSettings) {
+        for (var settings : ConfigModuleRoot.commands.commandsSettings) {
             if (!settings.isEnabled()) {
                 continue;
             }
