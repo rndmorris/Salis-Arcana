@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.rndmorris.tfixins.config.ModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import thaumcraft.common.lib.world.biomes.BiomeGenTaint;
 
 @Mixin(value = BiomeGenTaint.class, remap = false)
@@ -19,7 +19,7 @@ public abstract class MixinBaseColor extends BiomeGenBase {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void mixinInit(int biomeId, CallbackInfo ci) {
-        setColor(ModuleRoot.biomeColorModule.taint.baseColor.getColorValue());
+        setColor(ConfigModuleRoot.biomeColorModule.taint.baseColor.getColorValue());
     }
 
 }

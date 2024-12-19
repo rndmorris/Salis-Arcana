@@ -20,7 +20,7 @@ import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.ResearchKeyHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.PlayerHandler;
-import dev.rndmorris.tfixins.config.ModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -30,7 +30,7 @@ import thaumcraft.common.config.Config;
 public class ForgetResearchCommand extends FixinsCommandBase<ForgetResearchCommand.Arguments> {
 
     public ForgetResearchCommand() {
-        super(ModuleRoot.commandsModule.forgetResearch);
+        super(ConfigModuleRoot.commandsModule.forgetResearch);
     }
 
     @Override

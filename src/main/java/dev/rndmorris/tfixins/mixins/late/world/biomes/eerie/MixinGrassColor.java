@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import dev.rndmorris.tfixins.config.ModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import thaumcraft.common.lib.world.biomes.BiomeGenEerie;
 
 @Mixin(value = BiomeGenEerie.class, remap = false)
@@ -19,7 +19,7 @@ public abstract class MixinGrassColor extends BiomeGenBase {
 
     @Inject(method = "getBiomeGrassColor", at = @At("HEAD"), cancellable = true)
     private void mixinGetBiomeGrassColor(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(ModuleRoot.biomeColorModule.eerie.grassColor.getColorValue());
+        cir.setReturnValue(ConfigModuleRoot.biomeColorModule.eerie.grassColor.getColorValue());
         cir.cancel();
     }
 

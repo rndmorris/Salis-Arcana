@@ -14,7 +14,7 @@ import dev.rndmorris.tfixins.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.tfixins.common.commands.arguments.handlers.named.SearchHandler;
-import dev.rndmorris.tfixins.config.ModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import dev.rndmorris.tfixins.lib.ResearchHelper;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
@@ -24,7 +24,7 @@ public class ListResearchCommand extends FixinsCommandBase<ListResearchCommand.A
     public static final String listOthersReserach = "permissionLevel_ListOthersResearch";
 
     public ListResearchCommand() {
-        super(ModuleRoot.commandsModule.playerResearch);
+        super(ConfigModuleRoot.commandsModule.playerResearch);
     }
 
     @Override

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 
-import dev.rndmorris.tfixins.config.ModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import dev.rndmorris.tfixins.lib.RandomHelper;
 import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.api.nodes.NodeType;
@@ -31,13 +31,13 @@ public class MixinThaumcraftWorldGenerator {
         @Local LocalRef<NodeModifier> modifier) {
         int rand;
 
-        if (ModuleRoot.enhancements.nodeModifierWeights.isEnabled()) {
-            rand = RandomHelper.weightedRandom(random, ModuleRoot.enhancements.nodeModifierWeights.getValue());
+        if (ConfigModuleRoot.enhancements.nodeModifierWeights.isEnabled()) {
+            rand = RandomHelper.weightedRandom(random, ConfigModuleRoot.enhancements.nodeModifierWeights.getValue());
             modifier.set(rand == NodeModifier.values().length || rand == -1 ? null : NodeModifier.values()[rand]);
         }
-        if (ModuleRoot.enhancements.nodeTypeWeights.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.nodeTypeWeights.isEnabled()) {
             if (!silverwood && !eerie) {
-                rand = RandomHelper.weightedRandom(random, ModuleRoot.enhancements.nodeTypeWeights.getValue());
+                rand = RandomHelper.weightedRandom(random, ConfigModuleRoot.enhancements.nodeTypeWeights.getValue());
                 type.set(rand == NodeType.values().length || rand == -1 ? NodeType.NORMAL : NodeType.values()[rand]);
             }
         }

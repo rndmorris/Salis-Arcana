@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import dev.rndmorris.tfixins.config.ModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import thaumcraft.common.lib.world.biomes.BiomeGenTaint;
 
 @Mixin(value = BiomeGenTaint.class, remap = false)
@@ -19,7 +19,7 @@ public abstract class MixinSkyColor extends BiomeGenBase {
 
     @Inject(method = "getSkyColorByTemp", at = @At("HEAD"), cancellable = true)
     private void mixinGetSkyColorByTemp(float temp, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(ModuleRoot.biomeColorModule.taint.skyColor.getColorValue());
+        cir.setReturnValue(ConfigModuleRoot.biomeColorModule.taint.skyColor.getColorValue());
         cir.cancel();
     }
 

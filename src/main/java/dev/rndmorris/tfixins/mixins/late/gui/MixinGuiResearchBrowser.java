@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.rndmorris.tfixins.config.ModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
@@ -43,7 +43,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     @Override
     public void handleKeyboardInput() {
         super.handleKeyboardInput();
-        if (ModuleRoot.enhancements.showResearchId.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.showResearchId.isEnabled()) {
             $tfShowResearchId_handleKeyboardInput();
         }
     }
@@ -56,7 +56,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     @Override
     public void handleInput() {
         super.handleInput();
-        if (ModuleRoot.enhancements.scrollwheelEnabled.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.scrollwheelEnabled.isEnabled()) {
             $tfCtrlScroll_handleInput();
         }
 
@@ -79,7 +79,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
                     categories.add(category);
                 }
 
-                if (ModuleRoot.enhancements.invertedScrolling.isEnabled()) {
+                if (ConfigModuleRoot.enhancements.invertedScrolling.isEnabled()) {
                     dir *= -1;
                 }
 
@@ -96,7 +96,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
 
     @Inject(method = "mouseClicked", at = @At(value = "HEAD"), cancellable = true)
     private void onMouseClicked(int mouseX, int mouseY, int button, CallbackInfo ci) {
-        if (ModuleRoot.enhancements.rightClickClose.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.rightClickClose.isEnabled()) {
             $tfRightClickClose_mouseClicked(button, ci);
         }
     }
@@ -111,7 +111,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
 
     @Inject(method = "drawScreen", at = @At(value = "TAIL"))
     private void mixinDrawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
-        if (ModuleRoot.enhancements.showResearchId.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.showResearchId.isEnabled()) {
             $tfShowResearchId_drawScreen(mouseX, mouseY);
         }
     }

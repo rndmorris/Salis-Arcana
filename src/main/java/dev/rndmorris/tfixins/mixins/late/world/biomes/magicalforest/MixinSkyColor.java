@@ -4,7 +4,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-import dev.rndmorris.tfixins.config.ModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import thaumcraft.common.lib.world.biomes.BiomeGenMagicalForest;
 
 @Mixin(value = BiomeGenMagicalForest.class, remap = false)
@@ -16,7 +16,7 @@ public abstract class MixinSkyColor extends BiomeGenBase {
 
     @Override
     public int getSkyColorByTemp(float temp) {
-        return ModuleRoot.biomeColorModule.magicalForest.skyColor.getColorValue();
+        return ConfigModuleRoot.biomeColorModule.magicalForest.skyColor.getColorValue();
     }
 
 }

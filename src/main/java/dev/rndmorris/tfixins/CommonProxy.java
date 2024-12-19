@@ -1,6 +1,6 @@
 package dev.rndmorris.tfixins;
 
-import static dev.rndmorris.tfixins.config.ModuleRoot.commandsModule;
+import static dev.rndmorris.tfixins.config.ConfigModuleRoot.commandsModule;
 
 import java.util.function.Supplier;
 
@@ -22,7 +22,7 @@ import dev.rndmorris.tfixins.common.commands.ListResearchCommand;
 import dev.rndmorris.tfixins.common.commands.PrerequisitesCommand;
 import dev.rndmorris.tfixins.common.commands.UpdateNodeCommand;
 import dev.rndmorris.tfixins.config.ConfigPhase;
-import dev.rndmorris.tfixins.config.ModuleRoot;
+import dev.rndmorris.tfixins.config.ConfigModuleRoot;
 import dev.rndmorris.tfixins.config.settings.CommandSettings;
 import thaumcraft.common.config.ConfigBlocks;
 
@@ -32,9 +32,9 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
-        ModuleRoot.synchronizeConfiguration(ConfigPhase.LATE);
+        ConfigModuleRoot.synchronizeConfiguration(ConfigPhase.LATE);
 
-        if (ModuleRoot.enhancements.lookalikePlanks.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.lookalikePlanks.isEnabled()) {
             CustomBlocks.registerBlocks();
             registerPlankRecipes();
         }

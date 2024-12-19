@@ -12,7 +12,7 @@ import dev.rndmorris.tfixins.config.modules.CommandsModule;
 import dev.rndmorris.tfixins.config.modules.EnhancementsModule;
 import dev.rndmorris.tfixins.config.modules.IConfigModule;
 
-public class ModuleRoot {
+public class ConfigModuleRoot {
 
     public static final BiomeColorModule biomeColorModule;
     public static final BugfixesModule bugfixesModule;
