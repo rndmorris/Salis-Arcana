@@ -53,9 +53,9 @@ public enum Mixins {
     EXTENDED_BAUBLES_SUPPORT_CLIENT(MixinSide.CLIENT, ConfigModuleRoot.enhancements.useAllBaublesSlots, "gui.MixinREHWandHandler"),
     SUPPRESS_CREATIVE_WARP(MixinSide.BOTH, ConfigModuleRoot.enhancements.suppressWarpEventsInCreative, "events.MixinEventHandlerEntity"),
 
-    CTRL_SCROLL_NAVIGATION(MixinSide.CLIENT, ConfigModuleRoot.enhancements.scrollwheelEnabled, "gui.MixinGuiResearchBrowser"),
-    RESEARCH_ID_POPUP(MixinSide.CLIENT, ConfigModuleRoot.enhancements.showResearchId, "gui.MixinGuiResearchBrowser"),
-    RIGHT_CLICK_NAVIAGTION(MixinSide.CLIENT, ConfigModuleRoot.enhancements.rightClickClose, "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
+    CTRL_SCROLL_NAVIGATION(MixinSide.CLIENT, ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled, "gui.MixinGuiResearchBrowser"),
+    RESEARCH_ID_POPUP(MixinSide.CLIENT, ConfigModuleRoot.enhancements.nomiconShowResearchId, "gui.MixinGuiResearchBrowser"),
+    RIGHT_CLICK_NAVIAGTION(MixinSide.CLIENT, ConfigModuleRoot.enhancements.nomiconRightClickClose, "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
 
     NODE_GENERATION_MODIFIER_WEIGHTS(MixinSide.BOTH, ConfigModuleRoot.enhancements.nodeModifierWeights, "world.MixinThaumcraftWorldGenerator"),
     NODE_GENERATION_TYPE_WEIGHTS(MixinSide.BOTH, ConfigModuleRoot.enhancements.nodeTypeWeights, "world.MixinThaumcraftWorldGenerator"),

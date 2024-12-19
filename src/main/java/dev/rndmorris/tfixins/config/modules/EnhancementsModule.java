@@ -15,10 +15,10 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting suppressWarpEventsInCreative;
     public final ToggleSetting useAllBaublesSlots;
 
-    public final Setting scrollwheelEnabled;
-    public final Setting invertedScrolling;
-    public final Setting rightClickClose;
-    public final Setting showResearchId;
+    public final Setting nomiconScrollwheelEnabled;
+    public final Setting nomiconInvertedScrolling;
+    public final Setting nomiconRightClickClose;
+    public final Setting nomiconShowResearchId;
 
     public EnhancementsModule() {
         addSettings(
@@ -53,26 +53,26 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "useAllBaublesSlots",
                 "Enables support for mods that increase the number of baubles slots."),
-            invertedScrolling = new ToggleSetting(
+            nomiconInvertedScrolling = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
                 "Inverse Scrolling",
-                "Inverts the scrolling for tab switching").setEnabled(false),
-            rightClickClose = new ToggleSetting(
+                "While viewing the Thaumonomicon, inverts the scrolling for tab switching").setEnabled(false),
+            nomiconRightClickClose = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
                 "Right-Click Navigation",
-                "Right clicking in a research will take you back to the previous research, or back to the Thaumonomicon."),
-            scrollwheelEnabled = new ToggleSetting(
+                "While viewing the Thaumonomicon, right clicking in a research will take you back to the previous research, or back to the Thaumonomicon."),
+            nomiconScrollwheelEnabled = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
                 "Enable Scrollwheel",
-                "Enables ctrl + scroll to quick switch tabs"),
-            showResearchId = new ToggleSetting(
+                "While viewing the Thaumonomicon, enables ctrl + scroll to quick switch tabs"),
+            nomiconShowResearchId = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
                 "Show Research Key",
-                "Allows you to view the internal name of a research while hovering over it and holding control"));
+                "While viewing the Thaumonomicon, allows you to view the internal name of a research while hovering over it and holding control"));
     }
 
     @Nonnull

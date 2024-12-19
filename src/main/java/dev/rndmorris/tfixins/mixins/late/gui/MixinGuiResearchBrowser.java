@@ -43,7 +43,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     @Override
     public void handleKeyboardInput() {
         super.handleKeyboardInput();
-        if (ConfigModuleRoot.enhancements.showResearchId.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.nomiconShowResearchId.isEnabled()) {
             $tfShowResearchId_handleKeyboardInput();
         }
     }
@@ -56,7 +56,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     @Override
     public void handleInput() {
         super.handleInput();
-        if (ConfigModuleRoot.enhancements.scrollwheelEnabled.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled.isEnabled()) {
             $tfCtrlScroll_handleInput();
         }
 
@@ -79,7 +79,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
                     categories.add(category);
                 }
 
-                if (ConfigModuleRoot.enhancements.invertedScrolling.isEnabled()) {
+                if (ConfigModuleRoot.enhancements.nomiconInvertedScrolling.isEnabled()) {
                     dir *= -1;
                 }
 
@@ -96,7 +96,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
 
     @Inject(method = "mouseClicked", at = @At(value = "HEAD"), cancellable = true)
     private void onMouseClicked(int mouseX, int mouseY, int button, CallbackInfo ci) {
-        if (ConfigModuleRoot.enhancements.rightClickClose.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.nomiconRightClickClose.isEnabled()) {
             $tfRightClickClose_mouseClicked(button, ci);
         }
     }
@@ -111,7 +111,7 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
 
     @Inject(method = "drawScreen", at = @At(value = "TAIL"))
     private void mixinDrawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
-        if (ConfigModuleRoot.enhancements.showResearchId.isEnabled()) {
+        if (ConfigModuleRoot.enhancements.nomiconShowResearchId.isEnabled()) {
             $tfShowResearchId_drawScreen(mouseX, mouseY);
         }
     }
