@@ -10,7 +10,7 @@ All bauble slots, including those added by mods that extend Baubles' API, will b
 calculating vis discounts, runic armor, and focus pouches containing wand foci.
 
 ## Configurable Biome Colors
-Want to tainted lands to look like The Crimson? Want the eerie biome that manifests around sinster nodes to bleach the world of color?
+Want tainted lands to look like The Crimson? Want the eerie biome that manifests around sinster nodes to bleach the world of color?
 
 [Give the biome color module a try](./biome-colors.md)
 
