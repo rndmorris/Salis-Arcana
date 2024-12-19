@@ -66,7 +66,7 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
             argumentProcessor.getAutocompletionSuggestions(sender, args));
     }
 
-    private ChatStyle titleStyle() {
+    protected ChatStyle titleStyle() {
         final var titleStyle = new ChatStyle();
         titleStyle.setBold(true);
         titleStyle.setColor(EnumChatFormatting.BLUE);
