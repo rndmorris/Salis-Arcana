@@ -14,7 +14,6 @@ Secret salt to enhance and refine Thaumcraft 4
 * *[And more...](./docs/enhancements.md)*
 
 ## Commands
-*Including:*
 * Create and modify nodes
 * Search and manage player research
 * Look up prerequisite research for research and item recipes
