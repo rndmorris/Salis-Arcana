@@ -24,3 +24,4 @@ Secret salt to enhance and refine Thaumcraft 4
 * rndmorris (Project co-lead)
 * Midnight145 (Project co-lead)
 * jss2a98aj (metadata safety checks from [BugTorch](https://github.com/jss2a98aj/BugTorch))
+* [Art Credits](./branding/art-credits.md)
