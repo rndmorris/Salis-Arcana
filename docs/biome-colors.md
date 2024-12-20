@@ -8,7 +8,7 @@ hexadecimal color value.
 
 **The colors that can be overridden are:**
 * `Base Color`
-* `Foliage Color`
+* `Foliage Color` - Leaves and the like
 * `Grass Color`
 * `Sky Color`
-* `Water Color` - This overrides water's color multiplier, rather than the color of water itself. Harder to notica than others.
+* `Water Color` - This overrides water's color multiplier, rather than the color of water itself. Harder to notice than others.
