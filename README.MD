@@ -20,6 +20,10 @@ Secret salt to enhance and refine Thaumcraft 4
 * Look up prerequisite research for research and item recipes
 * *[And more...](./docs/commands.md)*
 
+# Dependencies
+* [Thaumcraft 4](https://www.curseforge.com/minecraft/mc-mods/thaumcraft)
+* [Unimixins 0.7.10+](https://github.com/LegacyModdingMC/UniMixins)
+
 # Credits
 * rndmorris - Project co-lead
 * Midnight145 - Project co-lead
