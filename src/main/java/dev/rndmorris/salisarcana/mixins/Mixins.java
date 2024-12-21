@@ -97,25 +97,25 @@ public enum Mixins {
         BOTH;
 
         public boolean matchesFMLSide(Side side) {
-            final var pass = switch (this) {
+            return switch (this) {
                 case BOTH -> true;
                 case CLIENT -> side == Side.CLIENT;
                 case SERVER -> side == Side.SERVER;
             };
-
-            if (!pass) {
-                LOG.info("Prevented load of {} due to known mixin conflict.", this);
-            }
-
-            return pass;
         }
     }
 
     private boolean modlistPredicates(Set<String> loadedMods) {
-        return switch (this) {
+        final var pass = switch (this) {
             case BLOCKCANDLE_OOB, ITEMSHARD_OOB -> doesNotHaveDuplicateCandleOrShardFix(loadedMods);
             default -> true;
         };
+
+        if (!pass) {
+            LOG.info("Prevented load of {} due to known mixin conflict.", this);
+        }
+
+        return pass;
     }
 
     private boolean doesNotHaveDuplicateCandleOrShardFix(Set<String> loadedMods) {
