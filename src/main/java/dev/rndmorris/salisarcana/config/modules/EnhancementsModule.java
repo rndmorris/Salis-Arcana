@@ -40,7 +40,7 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "nodeTypeWeights",
-                "Node Type Worldgen Weights (unstable, dark, hungry, pure, normal)",
+                "Node Type Worldgen Weights (normal, unstable, dark, tainted, hungry)",
                 // calculated based on TC4's default `specialNodeRarity` value
                 new int[] { 16666, 16666, 5555, 16666, 944444, },
                 0,
