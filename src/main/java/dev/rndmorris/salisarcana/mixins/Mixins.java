@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.mixins;
 
+import static dev.rndmorris.salisarcana.SalisArcana.LOG;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -95,11 +97,17 @@ public enum Mixins {
         BOTH;
 
         public boolean matchesFMLSide(Side side) {
-            return switch (this) {
+            final var pass = switch (this) {
                 case BOTH -> true;
                 case CLIENT -> side == Side.CLIENT;
                 case SERVER -> side == Side.SERVER;
             };
+
+            if (!pass) {
+                LOG.info("Prevented load of {} due to known mixin conflict.", this);
+            }
+
+            return pass;
         }
     }
 
