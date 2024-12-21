@@ -39,7 +39,7 @@ public class MixinTileInfusionMatrix_IntegerStabilizers extends TileThaumcraft {
             final var oppX = xCoord + (xCoord - cc.posX);
             final var oppZ = zCoord + (zCoord - cc.posZ);
             if (sa$isStabilizer(oppX, cc.posY, oppZ)) {
-                instabilityModifier += 2;
+                instabilityModifier -= 2;
             }
         }
 
