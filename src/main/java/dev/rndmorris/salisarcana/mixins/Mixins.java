@@ -1,8 +1,11 @@
 package dev.rndmorris.salisarcana.mixins;
 
+import static dev.rndmorris.salisarcana.SalisArcana.LOG;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -67,10 +70,10 @@ public enum Mixins {
     private final MixinSide side;
     private final IEnabler config;
 
-    public static List<String> getMixins() {
+    public static List<String> getMixins(Set<String> loadedMods) {
         final List<String> mixins = new ArrayList<>();
         for (Mixins mixin : Mixins.values()) {
-            if (mixin.isEnabled()) {
+            if (mixin.isEnabled() && mixin.modlistPredicates(loadedMods)) {
                 mixins.addAll(mixin.classes);
             }
         }
@@ -100,5 +103,22 @@ public enum Mixins {
                 case SERVER -> side == Side.SERVER;
             };
         }
+    }
+
+    private boolean modlistPredicates(Set<String> loadedMods) {
+        final var pass = switch (this) {
+            case BLOCKCANDLE_OOB, ITEMSHARD_OOB -> doesNotHaveDuplicateCandleOrShardFix(loadedMods);
+            default -> true;
+        };
+
+        if (!pass) {
+            LOG.info("Prevented load of {} due to known mixin conflict.", this);
+        }
+
+        return pass;
+    }
+
+    private boolean doesNotHaveDuplicateCandleOrShardFix(Set<String> loadedMods) {
+        return !(loadedMods.contains("bugtorch") || loadedMods.contains("thaumicmixins"));
     }
 }
