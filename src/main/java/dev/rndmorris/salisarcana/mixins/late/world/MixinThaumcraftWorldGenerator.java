@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,6 +22,14 @@ import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 @Mixin(value = ThaumcraftWorldGenerator.class, remap = false)
 public class MixinThaumcraftWorldGenerator {
 
+    @Unique
+    private static final NodeModifier[] sa$modifiers = new NodeModifier[] { null, NodeModifier.BRIGHT,
+        NodeModifier.PALE, NodeModifier.FADING, };
+
+    @Unique
+    private static final NodeType[] sa$types = new NodeType[] { NodeType.NORMAL, NodeType.UNSTABLE, NodeType.DARK,
+        NodeType.HUNGRY, NodeType.PURE, };
+
     @Inject(
         method = "createRandomNodeAt",
         at = @At(
@@ -29,16 +38,24 @@ public class MixinThaumcraftWorldGenerator {
     private static void mixinCreateRandomNodeAt(World world, int x, int y, int z, Random random, boolean silverwood,
         boolean eerie, boolean small, CallbackInfo ci, @Local LocalRef<NodeType> type,
         @Local LocalRef<NodeModifier> modifier) {
-        int rand;
+        int index;
 
         if (ConfigModuleRoot.enhancements.nodeModifierWeights.isEnabled()) {
-            rand = RandomHelper.weightedRandom(random, ConfigModuleRoot.enhancements.nodeModifierWeights.getValue());
-            modifier.set(rand == NodeModifier.values().length || rand == -1 ? null : NodeModifier.values()[rand]);
+            index = RandomHelper.weightedRandom(random, ConfigModuleRoot.enhancements.nodeModifierWeights.getValue());
+            if (index == -1) {
+                modifier.set(null);
+            } else {
+                modifier.set(sa$modifiers[index]);
+            }
         }
         if (ConfigModuleRoot.enhancements.nodeTypeWeights.isEnabled()) {
             if (!silverwood && !eerie) {
-                rand = RandomHelper.weightedRandom(random, ConfigModuleRoot.enhancements.nodeTypeWeights.getValue());
-                type.set(rand == NodeType.values().length || rand == -1 ? NodeType.NORMAL : NodeType.values()[rand]);
+                index = RandomHelper.weightedRandom(random, ConfigModuleRoot.enhancements.nodeTypeWeights.getValue());
+                if (index == -1) {
+                    type.set(NodeType.NORMAL);
+                } else {
+                    type.set(sa$types[index]);
+                }
             }
         }
     }

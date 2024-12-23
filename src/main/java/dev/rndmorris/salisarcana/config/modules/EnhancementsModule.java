@@ -31,18 +31,20 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "nodeModifierWeights",
-                "Node Modifier Worldgen Weights (bright, pale, fading, normal)",
-                new int[] { 0, 0, 0, 0 },
+                "Node Modifier Worldgen Weights (normal, bright, pale, fading)",
+                // calculated based on TC4's default `specialNodeRarity` value
+                new int[] { 972222, 9259, 9259, 9259, },
                 0,
-                100).setEnabled(false),
+                1000000).setEnabled(false),
             nodeTypeWeights = new IntArraySetting(
                 this,
                 ConfigPhase.EARLY,
                 "nodeTypeWeights",
-                "Node Type Worldgen Weights (unstable, dark, hungry, pure, normal)",
-                new int[] { 0, 0, 0, 0, 0 },
+                "Node Type Worldgen Weights (normal, unstable, dark, pure, hungry)",
+                // calculated based on TC4's default `specialNodeRarity` value
+                new int[] { 944444, 16666, 16666, 16666, 5555, },
                 0,
-                100).setEnabled(false),
+                1000000).setEnabled(false),
             suppressWarpEventsInCreative = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
