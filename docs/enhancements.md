@@ -64,3 +64,52 @@ If enabled, randomly generated nodes will pick their type from the weighted list
 The weights used to pick the type of nodes when randomly generated.
 
 
+# Enhancements - Infusion
+
+## Stabilizer Additions
+
+### Config option: `enableStabilizerAdditions`
+
+If enabled, blocks specified in `stabilizerAdditions` will be treated as infusion stabilizers, even if they normally would not.
+
+### Config option: `stabilizerAdditions`
+
+A list of blocks that should be treated as infusion stabilizers. Each block should be on its own line, and be in the
+format `modId:blockId` or `modId:blockId:metadata`. If `:metadata` is not specified, metadata will be ignored when
+determining if a block should be included.
+
+<u>Example:</u>
+
+* `minecraft:lapis_block` will include Minecraft's Lapis Lazuli Block
+* `Thaumcraft:blockCosmeticSolid` will include Thaumcraft's Obsidian Totem, Obsidian Tile, Paving Stone of Travel/Warding, Thaumium Blocks, etc.
+* `Thaumcraft:blockCosmeticSolid:0` will include Thaumcraft's Obsidian Totem, but none of the block's other variants.
+
+## Stabilizer Exclusions
+
+### Config option: `enableStabilizerExclusions`
+
+If enabled, blocks specified in `stabilizerExclusions` will ***NOT*** be treated as infusion stabilizers, even if they normally would.
+
+### Config option: `stabilizerExclusions`
+
+A list of blocks that should *not* be treated as infusion stabilizers, even if they normally would. Each block should be on its own line, and be in the
+format `modId:blockId` or `modId:blockId:metadata`. If `:metadata` is not specified, metadata will be ignored when
+determining if a block should be excluded.
+
+<u>Example:</u>
+
+* `minecraft:skull` will exclude all of Minecraft's skulls and heads
+* `minecraft:skull:2` will exclude Minecraft's Zombie Head
+* `Thaumcraft:blockCosmeticSolid` will include Thaumcraft's Obsidian Totem, Obsidian Tile, Paving Stone of Travel/Warding, Thaumium Blocks, etc.
+* `Thaumcraft:blockCosmeticSolid:0` will include Thaumcraft's Obsidian Totem, but none of the block's other variants.
+
+## How Additions and Exclusions Interact
+
+If a block matches an entry on the Additions list, it is *always* treated as an infusion stabilizer, even if it also
+appears on the Exclusions list. This interaction can be used to succinctly exclude only some existing stabilizers.
+
+<u>Example:</u>
+If the Additions list contains `Thaumcraft:blockCandle:10` (Purple Tallow Candles), and the Exclusions list contains
+`Thaumcraft:blockCandle` (all Tallow Candles), Purple Tallow Candles will help stabilize an infusion but other colors
+will not.
+

@@ -42,9 +42,9 @@ salisarcana:command.help.args.cmd=§7§o[command]§r The name or alias of a Sali
 salisarcana:command.help.available=Available commands:
 salisarcana:command.help.nocommands=There are no enabled Salis Mundis commands you have permission to use.
 
-salisarrcana:command.infusion-symmetry.desc=
-salisarrcana:command.infusion-symmetry.usage=
-salisarrcana:command.infusion-symmetry.args.coord=
+salisarrcana:command.infusion-symmetry.desc=Get the symmetry of the nearest runic matrix within 8 blocks, or at the specified coordinates.
+salisarrcana:command.infusion-symmetry.usage=§7/salisarcana-infusion-symmetry §7[<x> §7<y> §7<z>]§r
+salisarrcana:command.infusion-symmetry.args.coord=§7[<x> §7<y> §7<z>]§r Optional. The coordinates of the Runic Matrix whose stability should be checked.
 salisarrcana:command.infusion-symmetry.not_found_coords=A runic matrix was not found at the given coordinates.
 salisarrcana:command.infusion-symmetry.not_found_nearby=No runic matrix found nearby.
 salisarrcana:command.infusion-symmetry.found=§9This runic matrix can stabilize recipes up to instability§r %d.
