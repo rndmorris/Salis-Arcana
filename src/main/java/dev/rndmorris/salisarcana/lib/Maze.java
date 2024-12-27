@@ -81,6 +81,7 @@ public class Maze {
     }
 
     public static void readNBT(NBTTagCompound tag, int version) {
+        mazes.clear();
         if (version == 1) {
 
         } else if (version == 2) {
