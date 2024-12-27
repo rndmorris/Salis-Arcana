@@ -42,6 +42,14 @@ salisarcana:command.help.args.cmd=§7§o[command]§r The name or alias of a Sali
 salisarcana:command.help.available=Available commands:
 salisarcana:command.help.nocommands=There are no enabled Salis Mundis commands you have permission to use.
 
+salisarrcana:command.infusion-symmetry.desc=
+salisarrcana:command.infusion-symmetry.usage=
+salisarrcana:command.infusion-symmetry.args.coord=
+salisarrcana:command.infusion-symmetry.not_found_coords=A runic matrix was not found at the given coordinates.
+salisarrcana:command.infusion-symmetry.not_found_nearby=No runic matrix found nearby.
+salisarrcana:command.infusion-symmetry.found=§9This runic matrix can stabilize recipes up to instability§r %d.
+salisarrcana:command.infusion-symmetry.accessError=Something went wrong with this command. Please report this to the mod authors.
+
 salisarcana:command.list-research.desc=List registered TC4 research, grouped by tab in the Thaumonomicon.
 salisarcana:command.list-research.usage=§7/salisarcana-list-research §7[--player §7<username>] §7[--search §7<search §7term>]§r
 salisarcana:command.list-research.args.player=§7[--player §7<username>]§r Restrict results to only research known by this player.
