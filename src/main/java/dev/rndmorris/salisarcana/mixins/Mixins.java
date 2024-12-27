@@ -59,6 +59,7 @@ public enum Mixins {
     CTRL_SCROLL_NAVIGATION(MixinSide.CLIENT, ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled, "gui.MixinGuiResearchBrowser"),
     RESEARCH_ID_POPUP(MixinSide.CLIENT, ConfigModuleRoot.enhancements.nomiconShowResearchId, "gui.MixinGuiResearchBrowser"),
     RIGHT_CLICK_NAVIAGTION(MixinSide.CLIENT, ConfigModuleRoot.enhancements.nomiconRightClickClose, "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
+    TC4TWEAKS_RCLICK_COMPAT(MixinSide.CLIENT, ConfigModuleRoot.enhancements.nomiconRightClickClose, "tc4tweaks.MixinClientProxy"),
 
     NODE_GENERATION_MODIFIER_WEIGHTS(MixinSide.BOTH, ConfigModuleRoot.enhancements.nodeModifierWeights, "world.MixinThaumcraftWorldGenerator"),
     NODE_GENERATION_TYPE_WEIGHTS(MixinSide.BOTH, ConfigModuleRoot.enhancements.nodeTypeWeights, "world.MixinThaumcraftWorldGenerator"),
@@ -108,6 +109,7 @@ public enum Mixins {
     private boolean modlistPredicates(Set<String> loadedMods) {
         final var pass = switch (this) {
             case BLOCKCANDLE_OOB, ITEMSHARD_OOB -> doesNotHaveDuplicateCandleOrShardFix(loadedMods);
+            case TC4TWEAKS_RCLICK_COMPAT -> loadedMods.contains("tc4tweak");
             default -> true;
         };
 
