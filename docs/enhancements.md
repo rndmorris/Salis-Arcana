@@ -78,7 +78,7 @@ A list of blocks that should be treated as infusion stabilizers. Each block shou
 format `modId:blockId` or `modId:blockId:metadata`. If `:metadata` is not specified, metadata will be ignored when
 determining if a block should be included.
 
-<u>Example:</u>
+<ins>Example:</ins>
 
 * `minecraft:lapis_block` will include Minecraft's Lapis Lazuli Block
 * `Thaumcraft:blockCosmeticSolid` will include Thaumcraft's Obsidian Totem, Obsidian Tile, Paving Stone of Travel/Warding, Thaumium Blocks, etc.
@@ -96,7 +96,7 @@ A list of blocks that should *not* be treated as infusion stabilizers, even if t
 format `modId:blockId` or `modId:blockId:metadata`. If `:metadata` is not specified, metadata will be ignored when
 determining if a block should be excluded.
 
-<u>Example:</u>
+<ins>Example:</ins>
 
 * `minecraft:skull` will exclude all of Minecraft's skulls and heads
 * `minecraft:skull:2` will exclude Minecraft's Zombie Head
@@ -107,7 +107,7 @@ determining if a block should be excluded.
 If a block matches an entry on the Additions list, it is *always* treated as an infusion stabilizer, even if it also
 appears on the Exclusions list. This interaction can be used to succinctly exclude only some existing stabilizers.
 
-<u>Example:</u>
+<ins>Example:</ins>
 If the Additions list contains `Thaumcraft:blockCandle:10` (Purple Tallow Candles), and the Exclusions list contains
 `Thaumcraft:blockCandle` (all Tallow Candles), Purple Tallow Candles will help stabilize an infusion but other colors
 will not.
