@@ -23,8 +23,9 @@ public abstract class Setting implements IEnabler {
         this.phase = phase;
     }
 
-    public void setCategory(String category) {
+    public Setting setCategory(String category) {
         this.category = category;
+        return this;
     }
 
     public String getCategory() {
