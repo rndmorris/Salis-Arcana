@@ -3,17 +3,25 @@ package dev.rndmorris.salisarcana.lib;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 
 public class Maze {
 
-    private static final ConcurrentLinkedQueue<Maze> mazes = new ConcurrentLinkedQueue<>();
+    private static final ConcurrentLinkedQueue<Maze> mazes = new ConcurrentLinkedQueue<>(); // todo: clear this on save
+                                                                                            // unload
 
     public int x, z, x1, z1, w, h;
     int[][] rooms;
-    int[] data;
+    int[] data; // used for saving back to NBT
 
     public Maze(int[] data) {
+        /*
+         * Data Structure:
+         * First four integers are the bounding box, x, z, x1, z1
+         * Fifth integer is the width of the maze
+         * Height is autocalculated based on the remaining data
+         */
         this.data = data;
         this.x = data[0];
         this.z = data[1];
@@ -22,9 +30,11 @@ public class Maze {
         this.w = data[4];
         this.h = (data.length - 6) / w;
         this.rooms = new int[w][h];
-        for (int i = 1; i < data.length; i++) {
-            this.rooms[i % w][i / w] = data[i];
+
+        for (int i = 5; i < data.length; i++) {
+            this.rooms[i % w][i / w] = data[i]; // convert 1d array to 2d array
         }
+
         mazes.add(this);
     }
 
@@ -33,6 +43,7 @@ public class Maze {
     }
 
     private boolean __intersects(int x, int z) {
+        // Private helper method to check a specific maze against any given point
         return x >= this.x && x <= this.x1 && z >= this.z && z <= this.z1;
     }
 
@@ -56,30 +67,31 @@ public class Maze {
 
     public static NBTTagCompound writeNBT(int version) {
         NBTTagCompound tag = new NBTTagCompound();
+        tag.setInteger("version", version);
         if (version == 2) {
-            tag.setInteger("version", version);
             NBTTagList list = new NBTTagList();
             for (Maze maze : mazes) {
-                NBTTagCompound mazeTag = new NBTTagCompound();
-                mazeTag.setIntArray("data", maze.data);
+                // foreach maze, pull stored data into the tag list
+                NBTTagIntArray mazeTag = new NBTTagIntArray(maze.data);
                 list.appendTag(mazeTag);
             }
+            tag.setTag("data", list); // we have to do this for compat
         }
         return tag;
     }
 
-    public static NBTTagCompound readNBT(NBTTagCompound tag) {
-        if (tag.hasKey("version")) {
-            int version = tag.getInteger("version");
-            if (version == 2) {
-                NBTTagList list = tag.getTagList("mazes", 10);
-                for (int i = 0; i < list.tagCount(); i++) {
-                    NBTTagCompound mazeTag = list.getCompoundTagAt(i);
-                    new Maze(mazeTag.getIntArray("data"));
-                }
+    public static void readNBT(NBTTagCompound tag, int version) {
+        if (version == 1) {
+
+        } else if (version == 2) {
+
+            // type 11 denotes NBTTagIntArray
+            NBTTagList list = tag.getTagList("mazes", 11);
+            for (int i = 0; i < list.tagCount(); i++) {
+                int[] mazeData = list.func_150306_c(i); // func_150306_c is getIntArray
+                new Maze(mazeData);
             }
         }
-        return tag;
     }
 
 }
