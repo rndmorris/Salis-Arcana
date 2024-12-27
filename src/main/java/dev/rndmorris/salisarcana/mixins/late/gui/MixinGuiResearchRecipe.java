@@ -57,12 +57,6 @@ public class MixinGuiResearchRecipe extends GuiScreen {
                         this.guiMapY));
             }
             ci.cancel();
-        } else {
-            if ((int) sa$screenStack.peek()
-                .getSecond() != this.page) {
-                sa$screenStack.pop();
-                sa$screenStack.push(new Tuple(this.research, this.page));
-            }
         }
     }
 }
