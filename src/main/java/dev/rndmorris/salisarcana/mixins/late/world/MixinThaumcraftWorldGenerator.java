@@ -28,7 +28,7 @@ public class MixinThaumcraftWorldGenerator {
 
     @Unique
     private static final NodeType[] sa$types = new NodeType[] { NodeType.NORMAL, NodeType.UNSTABLE, NodeType.DARK,
-        NodeType.HUNGRY, NodeType.PURE, };
+        NodeType.PURE, NodeType.HUNGRY, };
 
     @Inject(
         method = "createRandomNodeAt",
