@@ -1,9 +1,5 @@
 package dev.rndmorris.salisarcana.common.commands;
 
-import static dev.rndmorris.salisarcana.SalisArcana.LOG;
-
-import java.lang.reflect.Method;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -19,24 +15,13 @@ import dev.rndmorris.salisarcana.common.commands.arguments.annotations.Positiona
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional.CoordinateHandler;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.lib.InfusionMatrixLogic;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 public class InfusionSymmetryCommand extends ArcanaCommandBase<InfusionSymmetryCommand.Arguments> {
 
-    @Nullable
-    private final Method getSurroundings;
-
     public InfusionSymmetryCommand() {
         super(ConfigModuleRoot.commands.infusionSymmetry);
-        Method getSurroundings = null;
-        try {
-            getSurroundings = TileInfusionMatrix.class.getDeclaredMethod("getSurroundings");
-            getSurroundings.setAccessible(true);
-        } catch (NoSuchMethodException e) {
-            LOG.error("Could not access TileInfusionMatrix.getSurroundings().", e);
-        }
-
-        this.getSurroundings = getSurroundings;
     }
 
     @Nonnull
@@ -70,9 +55,6 @@ public class InfusionSymmetryCommand extends ArcanaCommandBase<InfusionSymmetryC
             }
         }
         final var symmetry = getMatrixSymmetry(matrix);
-        if (symmetry == null) {
-            throw new CommandException("salisarrcana:command.infusion-symmetry.accessError");
-        }
 
         sender.addChatMessage(new ChatComponentTranslation("salisarrcana:command.infusion-symmetry.found", -symmetry));
     }
@@ -103,19 +85,9 @@ public class InfusionSymmetryCommand extends ArcanaCommandBase<InfusionSymmetryC
         return nearest;
     }
 
-    private Integer getMatrixSymmetry(TileInfusionMatrix matrix) {
-        if (getSurroundings == null) {
-            // should hopefully never happen
-            return null;
-        }
-
-        try {
-            getSurroundings.invoke(matrix);
-            return matrix.symmetry;
-        } catch (Exception e) {
-            LOG.error("An error occurred trying to invoke getSurroundings().", e);
-        }
-        return null;
+    private int getMatrixSymmetry(TileInfusionMatrix matrix) {
+        return InfusionMatrixLogic
+            .checkMatrixSurroundings(matrix.getWorldObj(), matrix.xCoord, matrix.yCoord, matrix.zCoord).symmetry;
     }
 
     public static class Arguments {

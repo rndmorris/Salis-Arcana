@@ -54,7 +54,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.LATE,
                 "stabilizerAdditions",
                 "Blocks that should contribute to stabilizing an infusion altar. Format: `modId:blockId:metadata` (metadata is optional).")
-                    .addDefaults("minecraft:skull")
                     .setListType(BlockItemListSetting.ListType.BLOCKS)
                     .setCategory("infusion"),
             stabilizerExclusions = (BlockItemListSetting) new BlockItemListSetting(

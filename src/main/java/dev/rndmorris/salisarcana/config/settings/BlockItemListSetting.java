@@ -106,7 +106,6 @@ public class BlockItemListSetting extends Setting {
         if (resolved) {
             return;
         }
-        resolved = true;
 
         switch (listType) {
             case BOTH -> resolveBothList();
@@ -114,6 +113,7 @@ public class BlockItemListSetting extends Setting {
             case ITEMS -> resolveItemList();
         }
 
+        resolved = true;
         entriesToResolve.clear();
     }
 
