@@ -4,6 +4,7 @@ import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -31,8 +32,8 @@ public class BlockItemListSetting extends Setting {
     private final List<String> defaults = new ArrayList<>();
 
     private final Set<ParsedEntry> entriesToResolve = new HashSet<>();
-    private final List<BlockEntry> blockEntries = new ArrayList<>();
-    private final List<ItemEntry> itemEntries = new ArrayList<>();
+    private final HashMap<Block, Set<Integer>> blockMap = new HashMap<>();
+    private final HashMap<Item, Set<Integer>> itemMap = new HashMap<>();
     private boolean resolved = false;
 
     public BlockItemListSetting(IEnabler dependency, ConfigPhase phase, String name, String comment) {
@@ -67,24 +68,28 @@ public class BlockItemListSetting extends Setting {
         if (!resolved) {
             resolveAllEntries();
         }
-        for (var entry : blockEntries) {
-            if (entry.isMatch(block, metadata)) {
-                return true;
-            }
+        final var mdSet = blockMap.get(block);
+        if (mdSet == null) {
+            return false;
         }
-        return false;
+        if (mdSet.isEmpty()) {
+            return true;
+        }
+        return mdSet.contains(metadata);
     }
 
     public boolean hasMatch(Item item, int metadata) {
         if (!resolved) {
             resolveAllEntries();
         }
-        for (var entry : itemEntries) {
-            if (entry.isMatch(item, metadata)) {
-                return true;
-            }
+        final var mdSet = itemMap.get(item);
+        if (mdSet == null) {
+            return false;
         }
-        return false;
+        if (mdSet.isEmpty()) {
+            return true;
+        }
+        return mdSet.contains(metadata);
     }
 
     public boolean hasMatch(ItemStack itemStack) {
@@ -96,6 +101,7 @@ public class BlockItemListSetting extends Setting {
             return false;
         }
         final var block = Block.getBlockFromItem(item);
+        // we check for air specifically because `getBlockFromItem` will return air if it doesn't find the block
         if (block != null && block != Blocks.air) {
             return hasMatch(block, itemStack.getItemDamage());
         }
@@ -122,14 +128,10 @@ public class BlockItemListSetting extends Setting {
             return;
         }
         for (var entry : entriesToResolve) {
-            final var blockEntry = resolveBlock(entry);
-            if (blockEntry != null) {
-                blockEntries.add(blockEntry);
+            if (tryAddBlock(entry)) {
                 continue;
             }
-            final var itemEntry = resolveItem(entry);
-            if (itemEntry != null) {
-                itemEntries.add(itemEntry);
+            if (tryAddItem(entry)) {
                 continue;
             }
             LOG.error("Could not locate a block or item with full id \"{}\".", entry.getFullId());
@@ -142,12 +144,9 @@ public class BlockItemListSetting extends Setting {
         }
 
         for (var entry : entriesToResolve) {
-            final var blockEntry = resolveBlock(entry);
-            if (blockEntry != null) {
-                blockEntries.add(blockEntry);
-                continue;
+            if (!tryAddBlock(entry)) {
+                LOG.error("Could not locate a block with full id \"{}\".", entry.getFullId());
             }
-            LOG.error("Could not locate a block with full id \"{}\".", entry.getFullId());
         }
     }
 
@@ -156,29 +155,56 @@ public class BlockItemListSetting extends Setting {
             return;
         }
         for (var entry : entriesToResolve) {
-            final var itemEntry = resolveItem(entry);
-            if (itemEntry != null) {
-                itemEntries.add(itemEntry);
-                continue;
+            if (!tryAddItem(entry)) {
+                LOG.error("Could not locate an item with full id \"{}\".", entry.getFullId());
             }
-            LOG.error("Could not locate an item with full id \"{}\".", entry.getFullId());
         }
     }
 
-    private BlockEntry resolveBlock(ParsedEntry entry) {
-        final var block = Block.getBlockFromName(entry.getFullId());
+    private boolean tryAddBlock(ParsedEntry entry) {
+        final var block = resolveBlock(entry);
         if (block == null) {
-            return null;
+            return false;
         }
-        return new BlockEntry(block, entry.metadata);
+        if (block == Blocks.air) {
+            LOG.error("Attempted to add Air to {}. For technical reasons, this is not allowed.", name);
+            return false;
+        }
+        final var mdSet = blockMap.computeIfAbsent(block, k -> new HashSet<>());
+        if (entry.metadata > -1) {
+            mdSet.add(entry.metadata);
+        }
+        return true;
     }
 
-    private ItemEntry resolveItem(ParsedEntry entry) {
+    private boolean tryAddItem(ParsedEntry entry) {
+        final var item = resolveItem(entry);
+        if (item == null) {
+            return false;
+        }
+
+        if (item == Item.getItemFromBlock(Blocks.air)) {
+            LOG.error("Attempted to add Air to {}. For technical reasons, this is not allowed.", name);
+            return false;
+        }
+
+        final var mdSet = itemMap.computeIfAbsent(item, k -> new HashSet<>());
+        if (entry.metadata > -1) {
+            mdSet.add(entry.metadata);
+        }
+        return true;
+    }
+
+    private Block resolveBlock(ParsedEntry entry) {
+        return Block.getBlockFromName(entry.getFullId());
+    }
+
+    private Item resolveItem(ParsedEntry entry) {
         final var registeredItem = Item.itemRegistry.getObject(entry.getFullId());
         if (!(registeredItem instanceof Item item)) {
             return null;
         }
-        return new ItemEntry(item, entry.metadata);
+        return item;
     }
 
     public BlockItemListSetting addDefaults(String... defaults) {
@@ -245,47 +271,4 @@ public class BlockItemListSetting extends Setting {
             return Objects.hash(modId, id, metadata);
         }
     }
-
-    private static class BlockEntry {
-
-        private final Block block;
-        private final int metadata;
-
-        public BlockEntry(Block block, int metadata) {
-            this.block = block;
-            this.metadata = metadata;
-        }
-
-        public boolean isMatch(@Nonnull Block block, int metadata) {
-            if (this.block != block) {
-                return false;
-            }
-            if (this.metadata < 0) {
-                return true;
-            }
-            return this.metadata == metadata;
-        }
-    }
-
-    private static class ItemEntry {
-
-        private final Item item;
-        private final int metadata;
-
-        public ItemEntry(Item item, int metadata) {
-            this.item = item;
-            this.metadata = metadata;
-        }
-
-        public boolean isMatch(@Nonnull Item item, int metadata) {
-            if (this.item != item) {
-                return false;
-            }
-            if (this.metadata < 0) {
-                return true;
-            }
-            return this.metadata == metadata;
-        }
-    }
-
 }
