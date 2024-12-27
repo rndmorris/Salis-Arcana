@@ -14,6 +14,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntArraySetting nodeTypeWeights;
     public final ToggleSetting suppressWarpEventsInCreative;
     public final ToggleSetting useAllBaublesSlots;
+    public final ToggleSetting optimizeMazeStorage;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -53,6 +54,11 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "useAllBaublesSlots",
                 "Enables support for mods that increase the number of baubles slots."),
+            optimizeMazeStorage = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "optimizeMazeStorage",
+                "Optimize the storage of maze data to reduce the size of the labyrinth.dat file"),
             nomiconInvertedScrolling = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
