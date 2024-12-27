@@ -100,8 +100,7 @@ determining if a block should be excluded.
 
 * `minecraft:skull` will exclude all of Minecraft's skulls and heads
 * `minecraft:skull:2` will exclude Minecraft's Zombie Head
-* `Thaumcraft:blockCosmeticSolid` will include Thaumcraft's Obsidian Totem, Obsidian Tile, Paving Stone of Travel/Warding, Thaumium Blocks, etc.
-* `Thaumcraft:blockCosmeticSolid:0` will include Thaumcraft's Obsidian Totem, but none of the block's other variants.
+* `Thaumcraft:blockCandle` will exclude all Thaumcraft candles
 
 ## How Additions and Exclusions Interact
 
