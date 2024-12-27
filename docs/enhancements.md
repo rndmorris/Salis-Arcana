@@ -108,6 +108,7 @@ If a block matches an entry on the Additions list, it is *always* treated as an 
 appears on the Exclusions list. This interaction can be used to succinctly exclude only some existing stabilizers.
 
 <ins>Example:</ins>
+
 If the Additions list contains `Thaumcraft:blockCandle:10` (Purple Tallow Candles), and the Exclusions list contains
 `Thaumcraft:blockCandle` (all Tallow Candles), Purple Tallow Candles will help stabilize an infusion but other colors
 will not.
