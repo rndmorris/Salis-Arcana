@@ -38,5 +38,5 @@ dependencies {
     runtimeOnly("com.github.GTNewHorizons:waila:1.8.2:dev@jar")
     api("com.github.GTNewHorizons:Baubles:1.0.4:dev")
     api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
-    api(rfg.deobf("curse.maven:tc4tweaks-431297:6019390"))
+    runtimeOnly(rfg.deobf("curse.maven:tc4tweaks-431297:6019390"))
 }
