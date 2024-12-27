@@ -13,7 +13,7 @@ import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 @Mixin(value = TileInfusionMatrix.class, remap = false)
-public class MixinTileInfusionMatrix_IntegerStabilizers extends TileThaumcraft {
+public class MixinTileInfusionMatrix_SymmetryAdjustments extends TileThaumcraft {
 
     @Shadow
     private ArrayList<ChunkCoordinates> pedestals;

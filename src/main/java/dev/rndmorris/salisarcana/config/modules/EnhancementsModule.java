@@ -53,14 +53,14 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.LATE,
                 "stabilizerAdditions",
-                "Blocks that should contribute to stabilizing an infusion altar. Format: `modId:blockId:metadata` (metadata is optional).")
+                "Requires integerInfusionMatrixMath=true in the bugfixes module. Blocks specified here will contribute to stabilizing an infusion altar, even if they normally wouldn't. Format: `modId:blockId:metadata` (metadata is optional).")
                     .setListType(BlockItemListSetting.ListType.BLOCKS)
                     .setCategory("infusion"),
             stabilizerExclusions = (BlockItemListSetting) new BlockItemListSetting(
                 this,
                 ConfigPhase.LATE,
                 "stabilizerExclusions",
-                "Blocks that would normally stabilize an infusion altar, but should not. Format: `modId:blockId:metadata` (metadata is optional).")
+                "Requires integerInfusionMatrixMath=true in the bugfixes module. Blocks specified here will NOT contribute to stabilizing an infusion altar, even if they normally would. Format: `modId:blockId:metadata` (metadata is optional).")
                     .setListType(BlockItemListSetting.ListType.BLOCKS)
                     .setCategory("infusion"),
             suppressWarpEventsInCreative = new ToggleSetting(

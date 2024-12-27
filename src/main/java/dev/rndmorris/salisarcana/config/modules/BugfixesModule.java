@@ -12,7 +12,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting candleRendererCrashes;
     public final ToggleSetting deadMobsDontAttack;
     public final ToggleSetting infernalFurnaceDupeFix;
-    public final ToggleSetting integerInfusionMatrixMath;
+    public final ToggleSetting infusionMatrixSymmetryEnhancements;
     public final ToggleSetting itemShardColor;
     public final ToggleSetting renderRedstoneFix;
     public final ToggleSetting strictInfusionMatrixInputChecks;
@@ -35,11 +35,11 @@ public class BugfixesModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "infernalFurnaceDupeFix",
                 "Fixes a smelting duplication glitch with the Infernal Furnace"),
-            integerInfusionMatrixMath = new ToggleSetting(
+            infusionMatrixSymmetryEnhancements = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
                 "integerInfusionMatrixMath",
-                "Calculate infusion stabilizers with integer math instead of floating-point math. This eliminates a rounding error that sometimes makes an infusion altar slightly less stable than it should be. Also corrects a logic error causing the Infusion Matrix to check the wrong coordinates for a symmetrical stabilizer."),
+                "Correct a number of issues with how the Runic Matrix calculates symmetry, including a switch to use integer logic math of floating point, and fixes an issue checking the incorrect coordinates for a stabilizer's symmetrical pair. Incompatible with any other mod that changes the Infusion Altar's internal surroundings-checking logic."),
             itemShardColor = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
