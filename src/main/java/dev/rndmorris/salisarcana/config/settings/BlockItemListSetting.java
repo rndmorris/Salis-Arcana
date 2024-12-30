@@ -17,6 +17,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.oredict.OreDictionary;
 
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
@@ -162,11 +163,11 @@ public class BlockItemListSetting extends Setting {
             return false;
         }
         if (block == Blocks.air) {
-            LOG.error("Attempted to add Air to {}. For technical reasons, this is not allowed.", name);
+            logAirError();
             return false;
         }
         final var mdSet = blockMap.computeIfAbsent(block, k -> new HashSet<>());
-        if (entry.metadata > -1) {
+        if (entry.metadata != OreDictionary.WILDCARD_VALUE) {
             mdSet.add(entry.metadata);
         }
         return true;
@@ -179,15 +180,19 @@ public class BlockItemListSetting extends Setting {
         }
 
         if (item == Item.getItemFromBlock(Blocks.air)) {
-            LOG.error("Attempted to add Air to {}. For technical reasons, this is not allowed.", name);
+            logAirError();
             return false;
         }
 
         final var mdSet = itemMap.computeIfAbsent(item, k -> new HashSet<>());
-        if (entry.metadata > -1) {
+        if (entry.metadata != OreDictionary.WILDCARD_VALUE) {
             mdSet.add(entry.metadata);
         }
         return true;
+    }
+
+    private void logAirError() {
+        LOG.error("Attempted to add Air to {}. For technical reasons, this is not allowed.", name);
     }
 
     private Block resolveBlock(ParsedEntry entry) {
@@ -222,7 +227,7 @@ public class BlockItemListSetting extends Setting {
 
         public String modId;
         public String id;
-        public int metadata = -1;
+        public int metadata = 0;
 
         public String getFullId() {
             return modId + ":" + id;
@@ -237,12 +242,14 @@ public class BlockItemListSetting extends Setting {
             result.modId = parts[0];
             result.id = parts[1];
 
-            // beyond this point, everything is optional (even if it doesn't parse correctly)
-
             if (parts.length > 2) {
-                final var metadata = IntegerHelper.tryParse(parts[2]);
-                if (metadata != null) {
-                    result.metadata = metadata;
+                if ("*".equals(parts[2])) {
+                    result.metadata = OreDictionary.WILDCARD_VALUE;
+                } else {
+                    final var metadata = IntegerHelper.tryParse(parts[2]);
+                    if (metadata != null) {
+                        result.metadata = metadata;
+                    }
                 }
             }
 
