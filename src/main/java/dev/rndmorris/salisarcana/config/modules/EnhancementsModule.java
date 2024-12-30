@@ -21,6 +21,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final Setting nomiconRightClickClose;
     public final Setting nomiconShowResearchId;
 
+    public final ToggleSetting stabilizerRewrite;
     public final BlockItemListSetting stabilizerAdditions;
     public final BlockItemListSetting stabilizerExclusions;
 
@@ -53,16 +54,23 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.LATE,
                 "stabilizerAdditions",
-                "Requires integerInfusionMatrixMath=true in the bugfixes module. Blocks specified here will contribute to stabilizing an infusion altar, even if they normally wouldn't. Format: `modId:blockId:metadata` (metadata is optional).")
+                "Requires stabilizerRewrite=true. Blocks specified here will contribute to stabilizing an infusion altar, even if they normally wouldn't. Format: `modId:blockId:metadata` (metadata is optional).")
                     .setListType(BlockItemListSetting.ListType.BLOCKS)
                     .setCategory("infusion"),
             stabilizerExclusions = (BlockItemListSetting) new BlockItemListSetting(
                 this,
                 ConfigPhase.LATE,
                 "stabilizerExclusions",
-                "Requires integerInfusionMatrixMath=true in the bugfixes module. Blocks specified here will NOT contribute to stabilizing an infusion altar, even if they normally would. Format: `modId:blockId:metadata` (metadata is optional).")
+                "Requires stabilizerRewrite=true. Blocks specified here will NOT contribute to stabilizing an infusion altar, even if they normally would. Format: `modId:blockId:metadata` (metadata is optional).")
                     .setListType(BlockItemListSetting.ListType.BLOCKS)
                     .setCategory("infusion"),
+            stabilizerRewrite = (ToggleSetting) new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "useStabilizerRewrite",
+                "Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers.")
+                    .setCategory("infusion")
+                    .setEnabled(false),
             suppressWarpEventsInCreative = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
