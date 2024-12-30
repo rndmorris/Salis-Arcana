@@ -13,6 +13,7 @@ public class CommandsModule extends BaseConfigModule {
     public final @Nonnull CommandSettings forgetResearch;
     public final @Nonnull CommandSettings forgetScanned;
     public final @Nonnull CommandSettings help;
+    public final @Nonnull CommandSettings infusionSymmetry;
     public final @Nonnull CommandSettings playerResearch;
     public final @Nonnull CommandSettings prerequisites;
     public final @Nonnull CommandSettings updateNode;
@@ -35,6 +36,11 @@ public class CommandsModule extends BaseConfigModule {
                 .setPermissionLevel(2),
             help = new CommandSettings("help", this, ConfigPhase.LATE).addAlias("arcana-help")
                 .setDescription("Get help information about Salis Arcana's commands.")
+                .setPermissionLevel(0),
+            infusionSymmetry = new CommandSettings("infusion-symmetry", this, ConfigPhase.LATE)
+                .setDescription(
+                    "Get the symmetry of the nearest runic matrix within 8 blocks, or at the specified coordinates.")
+                .addDefaultAlias()
                 .setPermissionLevel(0),
             playerResearch = new CommandSettings("list-research", this, ConfigPhase.LATE)
                 .setDescription("List and filter through TC4's research.")
