@@ -50,27 +50,27 @@ public class EnhancementsModule extends BaseConfigModule {
                 new int[] { 944444, 16666, 16666, 16666, 5555, },
                 0,
                 1000000).setEnabled(false),
-            stabilizerAdditions = (BlockItemListSetting) new BlockItemListSetting(
-                this,
-                ConfigPhase.LATE,
-                "stabilizerAdditions",
-                "Requires stabilizerRewrite=true. Blocks specified here will contribute to stabilizing an infusion altar, even if they normally wouldn't. Format: `modId:blockId:metadata` (metadata is optional).")
-                    .setListType(BlockItemListSetting.ListType.BLOCKS)
-                    .setCategory("infusion"),
-            stabilizerExclusions = (BlockItemListSetting) new BlockItemListSetting(
-                this,
-                ConfigPhase.LATE,
-                "stabilizerExclusions",
-                "Requires stabilizerRewrite=true. Blocks specified here will NOT contribute to stabilizing an infusion altar, even if they normally would. Format: `modId:blockId:metadata` (metadata is optional).")
-                    .setListType(BlockItemListSetting.ListType.BLOCKS)
-                    .setCategory("infusion"),
             stabilizerRewrite = (ToggleSetting) new ToggleSetting(
                 this,
-                ConfigPhase.LATE,
+                ConfigPhase.EARLY,
                 "useStabilizerRewrite",
                 "Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers.")
                     .setCategory("infusion")
                     .setEnabled(false),
+            stabilizerAdditions = (BlockItemListSetting) new BlockItemListSetting(
+                stabilizerRewrite,
+                ConfigPhase.LATE,
+                "stabilizerAdditions",
+                "Requires useStabilizerRewrite=true. Blocks specified here will contribute to stabilizing an infusion altar, even if they normally wouldn't. Format: `modId:blockId:metadata` (metadata is optional).")
+                    .setListType(BlockItemListSetting.ListType.BLOCKS)
+                    .setCategory("infusion"),
+            stabilizerExclusions = (BlockItemListSetting) new BlockItemListSetting(
+                stabilizerRewrite,
+                ConfigPhase.LATE,
+                "stabilizerExclusions",
+                "Requires useStabilizerRewrite=true. Blocks specified here will NOT contribute to stabilizing an infusion altar, even if they normally would. Format: `modId:blockId:metadata` (metadata is optional).")
+                    .setListType(BlockItemListSetting.ListType.BLOCKS)
+                    .setCategory("infusion"),
             suppressWarpEventsInCreative = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
