@@ -115,6 +115,27 @@ Get help information about a Salis Arcana command.
 
 </details>
 
+## /salisarcana-infusion-symmetry
+
+<details>
+
+**Description:**
+Get the symmetry of the nearest runic matrix within 8 blocks, or at the specified coordinates.
+
+**Usage:**
+`/salisarcana-infusion-symmetry [<x> <y> <z>]`
+
+**Arguments:**
+
+|   Argument    | Required | Details                                                                |
+|:-------------:|:--------:|:-----------------------------------------------------------------------|
+| `<x> <y> <z>` |    No    | The coordinates of the Runic Matrix whose stability should be checked. |
+
+**Default aliases:**
+* `/infusion-symmetry`
+
+</details>
+
 ## /salisarcana-list-research
 
 <details>
