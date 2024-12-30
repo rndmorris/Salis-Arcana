@@ -40,6 +40,10 @@ Check the infusion matrix's center item more strictly. Prevents an exploit with 
 
 Add a safety check to prevent the creation of Thaumcraft candles with invalid metadata.
 
+**Config option:** `itemLootBagMetadata`
+
+Add a safety check to prevent crashes when creating a treasure bag with invalid metadata.
+
 **Config option:** `shardMetadataCrash`,
 
 Add a safety check to prevent the creation of Thaumcraft shards with invalid metadata.
