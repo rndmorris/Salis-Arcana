@@ -18,8 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
@@ -44,9 +42,6 @@ public class BlockItemListSetting extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        final var enabledOptionName = "enable" + WordUtils.capitalize(name);
-        enabled = configuration.getBoolean(enabledOptionName, getCategory(), enabled, "Enable " + name);
-
         final var rawEntries = configuration
             .getStringList(name, getCategory(), defaults.toArray(new String[0]), comment);
 
