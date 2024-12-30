@@ -30,9 +30,6 @@ Prevent the Infernal Furnace from duplicating inputs when items are spam-tossed 
 Calculate infusion stabilizers with integer math instead of floating-point math. This eliminates a rounding error that
 sometimes makes an infusion altar slightly less stable than it should be.
 
-<u>**Important:**</u> This is a full rewrite of the infusion altar's logic to check its surroundings. Any other mod
-that *also* changes this logic is incompatible.
-
 **Config option:** `strictInfusionMatrixInputChecks`
 
 Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting.
