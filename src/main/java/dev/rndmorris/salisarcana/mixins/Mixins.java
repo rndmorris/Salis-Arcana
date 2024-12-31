@@ -1,128 +1,400 @@
+// Code here adapted from
+// https://github.com/GTNewHorizons/Hodgepodge/blob/master/src/main/java/com/mitchej123/hodgepodge/mixins/Mixins.java
+// and therefore under the LGPL-3.0 license.
+
 package dev.rndmorris.salisarcana.mixins;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
-import cpw.mods.fml.relauncher.Side;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
-import dev.rndmorris.salisarcana.config.IEnabler;
-import dev.rndmorris.salisarcana.config.settings.EnablerLogic;
 
 public enum Mixins {
 
-    // spotless:off
+    // Morpheus
+    BIOME_COLOR_EERIE_BASE_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.eerie.baseColor::isEnabled)
+        .addMixinClasses("world.biomes.eerie.MixinBaseColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_EERIE_FOLIAGE_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.eerie.foliageColor::isEnabled)
+        .addMixinClasses("world.biomes.eerie.MixinFoliageColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_EERIE_GRASS_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.eerie.grassColor::isEnabled)
+        .addMixinClasses("world.biomes.eerie.MixinGrassColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_EERIE_SKY_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.eerie.skyColor::isEnabled)
+        .addMixinClasses("world.biomes.eerie.MixinSkyColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_EERIE_WATER_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.eerie.waterColorMultiplier::isEnabled)
+        .addMixinClasses("world.biomes.eerie.MixinWaterColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    // Biome colors
-    BIOME_COLOR_EERIE_BASE_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.eerie.baseColor, "world.biomes.eerie.MixinBaseColor"),
-    BIOME_COLOR_EERIE_FOLIAGE_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.eerie.foliageColor, "world.biomes.eerie.MixinFoliageColor"),
-    BIOME_COLOR_EERIE_GRASS_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.eerie.grassColor, "world.biomes.eerie.MixinGrassColor"),
-    BIOME_COLOR_EERIE_SKY_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.eerie.skyColor, "world.biomes.eerie.MixinSkyColor"),
-    BIOME_COLOR_EERIE_WATER_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.eerie.waterColorMultiplier, "world.biomes.eerie.MixinWaterColor"),
+    BIOME_COLOR_ELDRITCH_BASE_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.eldritch.baseColor::isEnabled)
+        .addMixinClasses("world.biomes.eldritch.MixinBaseColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_ELDRITCH_FOLIAGE_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.eldritch.foliageColor::isEnabled)
+        .addMixinClasses("world.biomes.eldritch.MixinFoliageColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_ELDRITCH_GRASS_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.eldritch.grassColor::isEnabled)
+        .addMixinClasses("world.biomes.eldritch.MixinGrassColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_ELDRITCH_SKY_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.eldritch.skyColor::isEnabled)
+        .addMixinClasses("world.biomes.eldritch.MixinSkyColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_ELDRITCH_WATER_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.eldritch.waterColorMultiplier::isEnabled)
+        .addMixinClasses("world.biomes.eldritch.MixinWaterColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    BIOME_COLOR_ELDRITCH_BASE_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.eldritch.baseColor, "world.biomes.eldritch.MixinBaseColor"),
-    BIOME_COLOR_ELDRITCH_FOLIAGE_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.eldritch.foliageColor, "world.biomes.eldritch.MixinFoliageColor"),
-    BIOME_COLOR_ELDRITCH_GRASS_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.eldritch.grassColor, "world.biomes.eldritch.MixinGrassColor"),
-    BIOME_COLOR_ELDRITCH_SKY_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.eldritch.skyColor, "world.biomes.eldritch.MixinSkyColor"),
-    BIOME_COLOR_ELDRITCH_WATER_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.eldritch.waterColorMultiplier, "world.biomes.eldritch.MixinWaterColor"),
+    BIOME_COLOR_MAGICAL_FOREST_BASE_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.magicalForest.baseColor::isEnabled)
+        .addMixinClasses("world.biomes.magicalforest.MixinBaseColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_MAGICAL_FOREST_FOLIAGE_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.magicalForest.foliageColor::isEnabled)
+        .addMixinClasses("world.biomes.magicalforest.MixinFoliageColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_MAGICAL_FOREST_GRASS_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.magicalForest.grassColor::isEnabled)
+        .addMixinClasses("world.biomes.magicalforest.MixinGrassColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_MAGICAL_FOREST_SKY_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.magicalForest.skyColor::isEnabled)
+        .addMixinClasses("world.biomes.magicalforest.MixinSkyColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_MAGICAL_FOREST_WATER_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.magicalForest.waterColorMultiplier::isEnabled)
+        .addMixinClasses("world.biomes.magicalforest.MixinWaterColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    BIOME_COLOR_MAGICAL_FOREST_BASE_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.magicalForest.baseColor, "world.biomes.magicalforest.MixinBaseColor"),
-    BIOME_COLOR_MAGICAL_FOREST_FOLIAGE_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.magicalForest.foliageColor, "world.biomes.magicalforest.MixinFoliageColor"),
-    BIOME_COLOR_MAGICAL_FOREST_GRASS_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.magicalForest.grassColor, "world.biomes.magicalforest.MixinGrassColor"),
-    BIOME_COLOR_MAGICAL_FOREST_SKY_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.magicalForest.skyColor, "world.biomes.magicalforest.MixinSkyColor"),
-    BIOME_COLOR_MAGICAL_FOREST_WATER_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.magicalForest.waterColorMultiplier, "world.biomes.magicalforest.MixinWaterColor"),
-
-    BIOME_COLOR_TAINT_BASE_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.taint.baseColor, "world.biomes.taint.MixinBaseColor"),
-    BIOME_COLOR_TAINT_FOLIAGE_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.taint.foliageColor, "world.biomes.taint.MixinFoliageColor"),
-    BIOME_COLOR_TAINT_GRASS_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.taint.grassColor, "world.biomes.taint.MixinGrassColor"),
-    BIOME_COLOR_TAINT_SKY_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.taint.skyColor, "world.biomes.taint.MixinSkyColor"),
-    BIOME_COLOR_TAINT_WATER_COLOR(MixinSide.BOTH, ConfigModuleRoot.biomeColors.taint.waterColorMultiplier, "world.biomes.taint.MixinWaterColor"),
+    BIOME_COLOR_TAINT_BASE_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.taint.baseColor::isEnabled)
+        .addMixinClasses("world.biomes.taint.MixinBaseColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_TAINT_FOLIAGE_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.taint.foliageColor::isEnabled)
+        .addMixinClasses("world.biomes.taint.MixinFoliageColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_TAINT_GRASS_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.taint.grassColor::isEnabled)
+        .addMixinClasses("world.biomes.taint.MixinGrassColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_TAINT_SKY_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.taint.skyColor::isEnabled)
+        .addMixinClasses("world.biomes.taint.MixinSkyColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BIOME_COLOR_TAINT_WATER_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.biomeColors.taint.waterColorMultiplier::isEnabled)
+        .addMixinClasses("world.biomes.taint.MixinWaterColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Bugfixes
-    ARCANE_FURNACE_DUPE_FIX(MixinSide.BOTH, ConfigModuleRoot.bugfixes.infernalFurnaceDupeFix, "blocks.MixinBlockArcaneFurnace"),
-    BEACON_BLOCKS(MixinSide.BOTH, ConfigModuleRoot.bugfixes.beaconBlockFixSetting, "blocks.MixinBlockCosmeticSolid"),
-    BLOCKCANDLE_OOB(MixinSide.BOTH, ConfigModuleRoot.bugfixes.candleRendererCrashes, "blocks.MixinBlockCandleRenderer", "blocks.MixinBlockCandle"),
-    DEAD_MOBS_DONT_ATTACK(MixinSide.BOTH, ConfigModuleRoot.bugfixes.deadMobsDontAttack, "entities.MixinEntityTaintacle", "entities.MixinEntityEldritchCrab", "entities.MixinEntityThaumicSlime"),
-    INTEGER_INFUSION_MATRIX(MixinSide.BOTH, EnablerLogic.and(ConfigModuleRoot.bugfixes.integerInfusionMatrixMath, EnablerLogic.not(ConfigModuleRoot.enhancements.stabilizerRewrite)), "tiles.MixinTileInfusionMatrix_IntegerStabilizers"),
-    ITEMSHARD_OOB(MixinSide.BOTH, ConfigModuleRoot.bugfixes.itemShardColor, "items.MixinItemShard"),
-    ITEM_ICON_OOB(MixinSide.BOTH, ConfigModuleRoot.bugfixes.itemMetadataSafetyCheck, "items.Mixin_ItemIconFix", "items.MixinItemWandRod"),
-    RENDER_REDSTONE_FIX(MixinSide.BOTH, ConfigModuleRoot.bugfixes.renderRedstoneFix, "blocks.MixinBlockCustomOre"),
-    STRICT_INFUSION_INPUTS(MixinSide.BOTH, ConfigModuleRoot.bugfixes.strictInfusionMatrixInputChecks, "tiles.MixinTileInfusionMatrix_InputEnforcement"),
+    ARCANE_FURNACE_DUPE_FIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.infernalFurnaceDupeFix::isEnabled)
+        .addMixinClasses("blocks.MixinBlockArcaneFurnace")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BEACON_BLOCKS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.beaconBlockFixSetting::isEnabled)
+        .addMixinClasses("blocks.MixinBlockCosmeticSolid")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BLOCKCANDLE_OOB(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.candleRendererCrashes::isEnabled)
+        .addMixinClasses("blocks.MixinBlockCandleRenderer", "blocks.MixinBlockCandle")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    DEAD_MOBS_DONT_ATTACK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.deadMobsDontAttack::isEnabled)
+        .addMixinClasses(
+            "entities.MixinEntityTaintacle",
+            "entities.MixinEntityEldritchCrab",
+            "entities.MixinEntityThaumicSlime")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    INTEGER_INFUSION_MATRIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(
+            () -> ConfigModuleRoot.bugfixes.integerInfusionMatrixMath.isEnabled()
+                && !ConfigModuleRoot.enhancements.stabilizerRewrite.isEnabled())
+        .addMixinClasses("tiles.MixinTileInfusionMatrix_IntegerStabilizers")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ITEMSHARD_OOB(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.itemShardColor::isEnabled)
+        .addMixinClasses("items.MixinItemShard")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RENDER_REDSTONE_FIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.renderRedstoneFix::isEnabled)
+        .addMixinClasses("blocks.MixinBlockCustomOre")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    STRICT_INFUSION_INPUTS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.strictInfusionMatrixInputChecks::isEnabled)
+        .addMixinClasses("tiles.MixinTileInfusionMatrix_InputEnforcement")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
-    EXTENDED_BAUBLES_SUPPORT(MixinSide.BOTH, ConfigModuleRoot.enhancements.useAllBaublesSlots, "events.MixinEventHandlerRunic", "items.MixinWandManager"),
-    EXTENDED_BAUBLES_SUPPORT_CLIENT(MixinSide.CLIENT, ConfigModuleRoot.enhancements.useAllBaublesSlots, "gui.MixinREHWandHandler"),
-    SUPPRESS_CREATIVE_WARP(MixinSide.BOTH, ConfigModuleRoot.enhancements.suppressWarpEventsInCreative, "events.MixinEventHandlerEntity"),
+    EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.useAllBaublesSlots::isEnabled)
+        .addMixinClasses("events.MixinEventHandlerRunic", "items.MixinWandManager")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    EXTENDED_BAUBLES_SUPPORT_CLIENT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(ConfigModuleRoot.enhancements.useAllBaublesSlots::isEnabled)
+        .addMixinClasses("gui.MixinREHWandHandler")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    SUPPRESS_CREATIVE_WARP(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.suppressWarpEventsInCreative::isEnabled)
+        .addMixinClasses("events.MixinEventHandlerEntity")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    CTRL_SCROLL_NAVIGATION(MixinSide.CLIENT, ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled, "gui.MixinGuiResearchBrowser"),
-    RESEARCH_ID_POPUP(MixinSide.CLIENT, ConfigModuleRoot.enhancements.nomiconShowResearchId, "gui.MixinGuiResearchBrowser"),
-    RIGHT_CLICK_NAVIAGTION(MixinSide.CLIENT, ConfigModuleRoot.enhancements.nomiconRightClickClose, "gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe"),
+    CTRL_SCROLL_NAVIGATION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled::isEnabled)
+        .addMixinClasses("gui.MixinGuiResearchBrowser")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RESEARCH_ID_POPUP(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(ConfigModuleRoot.enhancements.nomiconShowResearchId::isEnabled)
+        .addMixinClasses("gui.MixinGuiResearchBrowser")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RIGHT_CLICK_NAVIAGTION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(ConfigModuleRoot.enhancements.nomiconRightClickClose::isEnabled)
+        .addMixinClasses("gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    NODE_GENERATION_MODIFIER_WEIGHTS(MixinSide.BOTH, ConfigModuleRoot.enhancements.nodeModifierWeights, "world.MixinThaumcraftWorldGenerator"),
-    NODE_GENERATION_TYPE_WEIGHTS(MixinSide.BOTH, ConfigModuleRoot.enhancements.nodeTypeWeights, "world.MixinThaumcraftWorldGenerator"),
+    NODE_GENERATION_MODIFIER_WEIGHTS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.nodeModifierWeights::isEnabled)
+        .addMixinClasses("world.MixinThaumcraftWorldGenerator")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    NODE_GENERATION_TYPE_WEIGHTS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.nodeTypeWeights::isEnabled)
+        .addMixinClasses("world.MixinThaumcraftWorldGenerator")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    STABILIZER_REWRITE(MixinSide.BOTH, ConfigModuleRoot.enhancements.stabilizerRewrite, "tiles.MixinTileInfusionMatrix_StabilizerRewrite")
+    STABILIZER_REWRITE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.stabilizerRewrite::isEnabled)
+        .addMixinClasses("tiles.MixinTileInfusionMatrix_StabilizerRewrite")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    WAND_PEDESTAL_CV(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.wandPedestalUseCV::isEnabled)
+        .addMixinClasses("tiles.MixinTileWandPedestal")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)
+        .addExcludedMod(TargetedMod.HODGEPODGE))
 
     ;
-    // spotless:on
 
-    private final List<String> classes;
-    private final MixinSide side;
-    private final IEnabler config;
+    private final List<String> mixinClasses;
+    private final List<TargetedMod> targetedMods;
+    private final List<TargetedMod> excludedMods;
+    private final Supplier<Boolean> setApplyIf;
+    private final Phase phase;
+    private final Side side;
 
-    public static List<String> getMixins(Set<String> loadedMods) {
+    Mixins(Builder builder) {
+        this.mixinClasses = builder.mixinClasses;
+        this.targetedMods = builder.targetedMods;
+        this.excludedMods = builder.excludedMods;
+        this.setApplyIf = builder.setApplyIf;
+        this.phase = builder.phase;
+        this.side = builder.side;
+        if (this.mixinClasses.isEmpty()) {
+            throw new RuntimeException("No mixin class specified for Mixin : " + this.name());
+        }
+        if (this.targetedMods.isEmpty()) {
+            throw new RuntimeException("No targeted mods specified for Mixin : " + this.name());
+        }
+        if (this.setApplyIf == null) {
+            throw new RuntimeException("No new Builder().setApplyIf method specified for Mixin : " + this.name());
+        }
+        if (this.phase == null) {
+            throw new RuntimeException("No Phase specified for Mixin : " + this.name());
+        } else if (builder.phaseError) {
+            throw new RuntimeException("Trying to define Phase twice for " + this.name());
+        }
+        if (this.side == null) {
+            throw new RuntimeException("No new Builder().setSide(Side function specified for Mixin : " + this.name());
+        } else if (builder.sideError) {
+            throw new RuntimeException("Trying to define Side twice for " + this.name());
+        }
+    }
+
+    public static List<String> getEarlyMixins(Set<String> loadedCoreMods) {
         final List<String> mixins = new ArrayList<>();
+        final List<String> notLoading = new ArrayList<>();
         for (Mixins mixin : Mixins.values()) {
-            if (mixin.isEnabled() && mixin.modlistPredicates(loadedMods)) {
-                mixins.addAll(mixin.classes);
+            if (mixin.phase == Phase.EARLY) {
+                if (mixin.shouldLoad(loadedCoreMods, Collections.emptySet())) {
+                    mixins.addAll(mixin.mixinClasses);
+                } else {
+                    notLoading.addAll(mixin.mixinClasses);
+                }
             }
         }
+        LOG.info("Not loading the following EARLY mixins: {}", notLoading.toString());
         return mixins;
     }
 
-    Mixins(MixinSide side, IEnabler config, String... classes) {
-        this.side = side;
-        this.config = config;
-        this.classes = Arrays.asList(classes);
+    public static List<String> getLateMixins(Set<String> loadedMods) {
+        // NOTE: Any targetmod here needs a modid, not a coremod id
+        final List<String> mixins = new ArrayList<>();
+        final List<String> notLoading = new ArrayList<>();
+        for (Mixins mixin : Mixins.values()) {
+            if (mixin.phase == Phase.LATE) {
+                if (mixin.shouldLoad(Collections.emptySet(), loadedMods)) {
+                    mixins.addAll(mixin.mixinClasses);
+                } else {
+                    notLoading.addAll(mixin.mixinClasses);
+                }
+            }
+        }
+        LOG.info("Not loading the following LATE mixins: {}", notLoading.toString());
+        return mixins;
     }
 
-    private boolean isEnabled() {
-        return side.matchesFMLSide(FMLLaunchHandler.side()) && this.config.isEnabled();
+    private boolean shouldLoadSide() {
+        return side == Side.BOTH || (side == Side.SERVER && FMLLaunchHandler.side()
+            .isServer())
+            || (side == Side.CLIENT && FMLLaunchHandler.side()
+                .isClient());
     }
 
-    private enum MixinSide {
+    private boolean allModsLoaded(List<TargetedMod> targetedMods, Set<String> loadedCoreMods, Set<String> loadedMods) {
+        if (targetedMods.isEmpty()) return false;
 
+        for (TargetedMod target : targetedMods) {
+            if (target == TargetedMod.VANILLA) continue;
+
+            // Check coremod first
+            if (!loadedCoreMods.isEmpty() && target.coreModClass != null
+                && !loadedCoreMods.contains(target.coreModClass)) return false;
+            else if (!loadedMods.isEmpty() && target.modId != null && !loadedMods.contains(target.modId)) return false;
+        }
+
+        return true;
+    }
+
+    private boolean noModsLoaded(List<TargetedMod> targetedMods, Set<String> loadedCoreMods, Set<String> loadedMods) {
+        if (targetedMods.isEmpty()) return true;
+
+        for (TargetedMod target : targetedMods) {
+            if (target == TargetedMod.VANILLA) continue;
+
+            // Check coremod first
+            if (!loadedCoreMods.isEmpty() && target.coreModClass != null
+                && loadedCoreMods.contains(target.coreModClass)) return false;
+            else if (!loadedMods.isEmpty() && target.modId != null && loadedMods.contains(target.modId)) return false;
+        }
+
+        return true;
+    }
+
+    private boolean shouldLoad(Set<String> loadedCoreMods, Set<String> loadedMods) {
+        return (shouldLoadSide() && setApplyIf.get()
+            && allModsLoaded(targetedMods, loadedCoreMods, loadedMods)
+            && noModsLoaded(excludedMods, loadedCoreMods, loadedMods));
+    }
+
+    private static class Builder {
+
+        private final List<String> mixinClasses = new ArrayList<>();
+        private final List<TargetedMod> targetedMods = new ArrayList<>();
+        private final List<TargetedMod> excludedMods = new ArrayList<>();
+        private Supplier<Boolean> setApplyIf = null;
+        private Phase phase = null;
+        private Side side = null;
+        private boolean sideError, phaseError;
+
+        public Builder addMixinClasses(String... mixinClasses) {
+            this.mixinClasses.addAll(Arrays.asList(mixinClasses));
+            return this;
+        }
+
+        public Builder setPhase(Phase phase) {
+            if (this.phase != null) {
+                this.phaseError = true;
+            }
+            this.phase = phase;
+            return this;
+        }
+
+        public Builder setSide(Side side) {
+            if (this.side != null) {
+                this.sideError = true;
+            }
+            this.side = side;
+            return this;
+        }
+
+        public Builder setApplyIf(Supplier<Boolean> setApplyIf) {
+            this.setApplyIf = setApplyIf;
+            return this;
+        }
+
+        public Builder addTargetedMod(TargetedMod mod) {
+            this.targetedMods.add(mod);
+            return this;
+        }
+
+        public Builder addExcludedMod(TargetedMod mod) {
+            this.excludedMods.add(mod);
+            return this;
+        }
+    }
+
+    private enum Side {
+        BOTH,
         CLIENT,
-        SERVER,
-        BOTH;
-
-        public boolean matchesFMLSide(Side side) {
-            return switch (this) {
-                case BOTH -> true;
-                case CLIENT -> side == Side.CLIENT;
-                case SERVER -> side == Side.SERVER;
-            };
-        }
+        SERVER
     }
 
-    private boolean modlistPredicates(Set<String> loadedMods) {
-        final var pass = switch (this) {
-            case BLOCKCANDLE_OOB, ITEMSHARD_OOB -> doesNotHaveDuplicateCandleOrShardFix(loadedMods);
-            default -> true;
-        };
-
-        if (!pass) {
-            LOG.info("Prevented load of {} due to known mixin conflict.", this);
-        }
-
-        return pass;
-    }
-
-    private boolean doesNotHaveDuplicateCandleOrShardFix(Set<String> loadedMods) {
-        return !(loadedMods.contains("bugtorch") || loadedMods.contains("thaumicmixins"));
+    private enum Phase {
+        EARLY,
+        LATE,
     }
 }

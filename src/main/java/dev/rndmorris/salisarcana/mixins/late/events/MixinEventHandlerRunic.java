@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import baubles.api.BaublesApi;
 import thaumcraft.common.lib.events.EventHandlerRunic;
 
-@Mixin(value = EventHandlerRunic.class, remap = false)
+@Mixin(value = EventHandlerRunic.class, remap = false, priority = 1001)
 public abstract class MixinEventHandlerRunic {
 
     @ModifyConstant(method = "livingTick", constant = @Constant(intValue = 4, ordinal = 1), remap = false)
