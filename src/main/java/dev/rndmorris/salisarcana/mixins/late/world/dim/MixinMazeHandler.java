@@ -11,6 +11,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 
@@ -21,14 +23,14 @@ import thaumcraft.common.lib.world.dim.MazeHandler;
 @Mixin(value = MazeHandler.class, remap = false)
 public class MixinMazeHandler {
 
-    /**
-     * @author Midnight145
-     * @reason The current data stored in labyrinth.dat is inefficient, so we modify the stored data structure which is
-     *         not compatible with the current MazeThread implementation.
-     */
-    @Overwrite
-    private static void readNBT(NBTTagCompound nbt) {
-        Maze.readNBT(nbt);
+    @WrapOperation(method = "readNBT", at = @At("HEAD"))
+    private static void wrapReadNBT(NBTTagCompound tag, Operation<Void> original) {
+        if (tag.hasKey("version")) {
+            Maze.readNBT(tag, tag.getInteger("version"));
+            return;
+        }
+        original.call(tag);
+        Maze.readNBT(tag, 1);
     }
 
     /**
@@ -67,5 +69,4 @@ public class MixinMazeHandler {
         Maze maze = Maze.getMazeAtPoint(cx, cz);
         cell.set(new Cell(maze.getRoom(cx, cz)));
     }
-
 }

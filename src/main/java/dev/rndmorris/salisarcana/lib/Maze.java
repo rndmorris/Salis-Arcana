@@ -8,8 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 
 public class Maze {
 
-    private static final ConcurrentLinkedQueue<Maze> mazes = new ConcurrentLinkedQueue<>(); // todo: clear this on save
-                                                                                            // unload
+    private static final ConcurrentLinkedQueue<Maze> mazes = new ConcurrentLinkedQueue<>();
 
     public int x, z, x1, z1, w, h;
     int[][] rooms;
