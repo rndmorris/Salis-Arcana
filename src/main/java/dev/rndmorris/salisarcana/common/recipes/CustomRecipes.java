@@ -6,14 +6,26 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class CustomRecipes {
 
     public static void registerRecipes() {
 
-        if (ConfigModuleRoot.enhancements.lookalikePlanks.isEnabled()) {
+        final var enhancements = ConfigModuleRoot.enhancements;
+
+        if (enhancements.lookalikePlanks.isEnabled()) {
             registerPlankRecipes();
+        }
+
+        if (enhancements.lessPickyPrimalCharmRecipe.isEnabled()) {
+            final var primalCharmAlt = new RecipeForgivingPrimalCharm();
+            if (primalCharmAlt.initializedSuccessfully) {
+                // noinspection unchecked
+                ThaumcraftApi.getCraftingRecipes()
+                    .add(primalCharmAlt);
+            }
         }
 
     }

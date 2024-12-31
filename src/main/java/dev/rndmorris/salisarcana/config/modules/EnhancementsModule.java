@@ -10,6 +10,8 @@ import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
 public class EnhancementsModule extends BaseConfigModule {
 
+    public final ToggleSetting lessPickyPrimalCharmRecipe;
+
     public final ToggleSetting lookalikePlanks;
     public final IntArraySetting nodeModifierWeights;
     public final IntArraySetting nodeTypeWeights;
@@ -29,6 +31,12 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public EnhancementsModule() {
         addSettings(
+            lessPickyPrimalCharmRecipe = (ToggleSetting) new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "lessPickyPrimalCharmRecipe",
+                "Make the primal charm's crafting recipe less picky about the order in which primal shards are placed in the top and bottom rows.")
+                    .setCategory("recipes"),
             lookalikePlanks = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
