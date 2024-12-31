@@ -1,6 +1,9 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -8,6 +11,7 @@ import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
 
 public class CustomRecipes {
 
@@ -25,6 +29,9 @@ public class CustomRecipes {
                 .add(new RecipeForgivingPrimalCharm());
         }
 
+        if (enhancements.rotatedThaumometerRecipe.isEnabled()) {
+            registerThaumometerRecipe();
+        }
     }
 
     private static void registerPlankRecipes() {
@@ -132,6 +139,21 @@ public class CustomRecipes {
 
         // only Arcana planks
         GameRegistry.addShapedRecipe(output, "FFF", 'F', tfPlanks);
+    }
+
+    private static void registerThaumometerRecipe() {
+        final var recipe = new ShapedOreRecipe(
+            ConfigItems.itemThaumometer,
+            " I ",
+            "SGS",
+            " I ",
+            'I',
+            Items.gold_ingot,
+            'G',
+            Blocks.glass,
+            'S',
+            new ItemStack(ConfigItems.itemShard, 1, OreDictionary.WILDCARD_VALUE));
+        GameRegistry.addRecipe(recipe);
     }
 
 }
