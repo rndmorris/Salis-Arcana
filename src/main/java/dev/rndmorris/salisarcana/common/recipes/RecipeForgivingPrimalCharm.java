@@ -1,7 +1,5 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
-import static dev.rndmorris.salisarcana.SalisArcana.LOG;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -10,35 +8,19 @@ import net.minecraft.world.World;
 
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
-import thaumcraft.api.ItemApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
-import thaumcraft.common.items.ItemResource;
+import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.ItemShard;
 
 public class RecipeForgivingPrimalCharm implements IArcaneRecipe {
 
     private final ItemShard shardItem;
     private final ItemStack primalCharmItemStack;
-    public final boolean initializedSuccessfully;
 
     public RecipeForgivingPrimalCharm() {
-        final var shardStack = ItemApi.getItem("itemShard", 0);
-        if (shardStack == null || !(shardStack.getItem() instanceof ItemShard shard)) {
-            LOG.error("Failed to look up TC4's shard item in {}.", RecipeForgivingPrimalCharm.class.getName());
-            shardItem = null;
-        } else {
-            shardItem = shard;
-        }
-        final var charmStack = ItemApi.getItem("itemResource", 15);
-        if (charmStack == null || !(charmStack.getItem() instanceof ItemResource)) {
-            LOG.error("Failed to look up TC4's primal charm in {}.", RecipeForgivingPrimalCharm.class.getName());
-            primalCharmItemStack = null;
-        } else {
-            primalCharmItemStack = charmStack;
-        }
-
-        initializedSuccessfully = shardItem != null && primalCharmItemStack != null;
+        shardItem = (ItemShard) ConfigItems.itemShard;
+        primalCharmItemStack = new ItemStack(ConfigItems.itemResource, 1, 15);
     }
 
     private final int[] SLOT_PRIMAL = new int[] { 0, 1, 2, 6, 7, 8, };

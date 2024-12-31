@@ -20,12 +20,9 @@ public class CustomRecipes {
         }
 
         if (enhancements.lessPickyPrimalCharmRecipe.isEnabled()) {
-            final var primalCharmAlt = new RecipeForgivingPrimalCharm();
-            if (primalCharmAlt.initializedSuccessfully) {
-                // noinspection unchecked
-                ThaumcraftApi.getCraftingRecipes()
-                    .add(primalCharmAlt);
-            }
+            // noinspection unchecked
+            ThaumcraftApi.getCraftingRecipes()
+                .add(new RecipeForgivingPrimalCharm());
         }
 
     }
