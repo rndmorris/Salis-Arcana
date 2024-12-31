@@ -124,7 +124,7 @@ Make the primal charm's crafting recipe less picky about the order in which prim
 <ins>Note:</ins> this recipe's changes will not appear in NEI.
 
 ## Config option: `rotatedFoci`
-Add rotated recipes for the fire, shock, frost, equal rade, excavation, and primal wand foci.
+Add rotated recipes for the fire, shock, frost, equal trade, excavation, and primal wand foci.
 
 ## Config option: `rotatedThaumometer`
 Add a rotated crafting recipe for the Thaumometer.
