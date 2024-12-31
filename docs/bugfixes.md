@@ -40,9 +40,17 @@ Check the infusion matrix's center item more strictly. Prevents an exploit with 
 
 Add a safety check to prevent the creation of Thaumcraft candles with invalid metadata.
 
-**Config option:** `itemLootBagMetadata`
+**Config option:** `itemMetadataFix`
 
-Add a safety check to prevent crashes when creating a treasure bag with invalid metadata.
+Add a safety check to several Thaumcraft items to prevent crashes when creating those items with invalid metadata.
+
+Affected items include:
+* Treasure bags
+* Nuggets and clusters
+* Resource items (alumentum, tallow, etc)
+* Runic baubles
+* Primal arrows
+* Wand caps and rods
 
 **Config option:** `shardMetadataCrash`,
 
