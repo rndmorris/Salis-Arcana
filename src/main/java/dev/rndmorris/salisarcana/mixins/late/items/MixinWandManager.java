@@ -13,7 +13,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.items.wands.WandManager;
 
-@Mixin(WandManager.class)
+@Mixin(value = WandManager.class, priority = 1001)
 public abstract class MixinWandManager {
 
     @ModifyConstant(method = "getTotalVisDiscount", constant = @Constant(intValue = 4, ordinal = 0), remap = false)

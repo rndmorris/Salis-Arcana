@@ -26,6 +26,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final BlockItemListSetting stabilizerAdditions;
     public final BlockItemListSetting stabilizerExclusions;
 
+    public final ToggleSetting wandPedestalUseCV;
+
     public EnhancementsModule() {
         addSettings(
             lookalikePlanks = new ToggleSetting(
@@ -106,7 +108,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "Show Research Key",
-                "While viewing the Thaumonomicon, allows you to view the internal name of a research while hovering over it and holding control"));
+                "While viewing the Thaumonomicon, allows you to view the internal name of a research while hovering over it and holding control"),
+            wandPedestalUseCV = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "Wand Pedestal CV Support",
+                "Allows wand pedestals to draw from centivis instead of just regular nodes"));
     }
 
     @Nonnull

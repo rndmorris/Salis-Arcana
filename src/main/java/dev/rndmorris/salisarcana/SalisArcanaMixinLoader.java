@@ -24,6 +24,6 @@ public class SalisArcanaMixinLoader implements ILateMixinLoader {
 
     @Override
     public List<String> getMixins(Set<String> loadedMods) {
-        return Mixins.getMixins(loadedMods);
+        return Mixins.getLateMixins(loadedMods);
     }
 }
