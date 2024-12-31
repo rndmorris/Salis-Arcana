@@ -6,6 +6,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.common.item.BlockPlankItem;
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class CustomBlocks {
@@ -16,6 +17,14 @@ public class CustomBlocks {
     public static final String ORE_DICT_SILVERWOOD_PLANKS = "plankSilverwood";
 
     public static void registerBlocks() {
+
+        if (ConfigModuleRoot.enhancements.lookalikePlanks.isEnabled()) {
+            registerLookaLikePlanks();
+        }
+
+    }
+
+    private static void registerLookaLikePlanks() {
         blockPlank = new BlockPlank();
         GameRegistry.registerBlock(blockPlank, BlockPlankItem.class, "blockCustomPlank");
         // To-do: is this needed? It appears to break the ore-dicted slab and stair recipes

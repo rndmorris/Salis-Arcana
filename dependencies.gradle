@@ -39,4 +39,5 @@ dependencies {
     api("com.github.GTNewHorizons:Baubles:1.0.4:dev")
     api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     runtimeOnly(rfg.deobf("curse.maven:tc4tweaks-431297:6019390"))
+    runtimeOnly(rfg.deobf"curse.maven:tcneiplugin-225095:2241913")
 }
