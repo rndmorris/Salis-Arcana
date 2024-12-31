@@ -116,3 +116,15 @@ If the Additions list contains `Thaumcraft:blockCandle:10` (Purple Tallow Candle
 `Thaumcraft:blockCandle:*` (all Tallow Candles), Purple Tallow Candles will help stabilize an infusion but other colors
 will not.
 
+# Enhancements - Recipes
+
+## Config option: `friendlyPrimalCharm`
+Make the primal charm's crafting recipe less picky about the order in which primal shards are placed in the top and bottom rows.
+
+<ins>Note:</ins> this recipe's changes will not appear in NEI.
+
+## Config option: `rotatedFoci`
+Add rotated recipes for the fire, shock, frost, equal rade, excavation, and primal wand foci.
+
+## Config option: `rotatedThaumometer`
+Add a rotated crafting recipe for the Thaumometer.

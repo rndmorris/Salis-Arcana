@@ -36,19 +36,19 @@ public class EnhancementsModule extends BaseConfigModule {
             lessPickyPrimalCharmRecipe = (ToggleSetting) new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
-                "lessPickyPrimalCharmRecipe",
+                "friendlyPrimalCharm",
                 "Make the primal charm's crafting recipe less picky about the order in which primal shards are placed in the top and bottom rows.")
                     .setCategory("recipes"),
             rotatedFociRecipes = (ToggleSetting) new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
-                "rotatedFociRecipes",
+                "rotatedFoci",
                 "Add rotated recipes for the fire, shock, frost, equal rade, excavation, and primal wand foci.")
                     .setCategory("recipes"),
             rotatedThaumometerRecipe = (ToggleSetting) new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
-                "rotatedThaumometerRecipe",
+                "rotatedThaumometer",
                 "Add a rotated crafting recipe for the Thaumometer.").setCategory("recipes"),
             lookalikePlanks = new ToggleSetting(
                 this,
