@@ -11,6 +11,7 @@ import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 public class EnhancementsModule extends BaseConfigModule {
 
     public final ToggleSetting lessPickyPrimalCharmRecipe;
+    public final ToggleSetting rotatedFociRecipes;
     public final ToggleSetting rotatedThaumometerRecipe;
 
     public final ToggleSetting lookalikePlanks;
@@ -32,17 +33,23 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public EnhancementsModule() {
         addSettings(
-            rotatedThaumometerRecipe = (ToggleSetting) new ToggleSetting(
-                this,
-                ConfigPhase.LATE,
-                "rotatedThaumometerRecipe",
-                "Add a rotated crafting recipe for the Thaumometer.").setCategory("recipes"),
             lessPickyPrimalCharmRecipe = (ToggleSetting) new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
                 "lessPickyPrimalCharmRecipe",
                 "Make the primal charm's crafting recipe less picky about the order in which primal shards are placed in the top and bottom rows.")
                     .setCategory("recipes"),
+            rotatedFociRecipes = (ToggleSetting) new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "rotatedFociRecipes",
+                "Add rotated recipes for the fire, shock, frost, equal rade, excavation, and primal wand foci.")
+                    .setCategory("recipes"),
+            rotatedThaumometerRecipe = (ToggleSetting) new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "rotatedThaumometerRecipe",
+                "Add a rotated crafting recipe for the Thaumometer.").setCategory("recipes"),
             lookalikePlanks = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,

@@ -1,7 +1,12 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -10,6 +15,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 
@@ -30,7 +37,14 @@ public class CustomRecipes {
         }
 
         if (enhancements.rotatedThaumometerRecipe.isEnabled()) {
-            registerThaumometerRecipe();
+            registerRotatedThaumometer();
+        }
+    }
+
+    public static void registerRecipesPostInit() {
+        if (ConfigModuleRoot.enhancements.rotatedFociRecipes.isEnabled()) {
+            // registered here because TC4 doesn't register its recipes until post init
+            registerRotatedFoci();
         }
     }
 
@@ -141,7 +155,7 @@ public class CustomRecipes {
         GameRegistry.addShapedRecipe(output, "FFF", 'F', tfPlanks);
     }
 
-    private static void registerThaumometerRecipe() {
+    private static void registerRotatedThaumometer() {
         final var recipe = new ShapedOreRecipe(
             ConfigItems.itemThaumometer,
             " I ",
@@ -154,6 +168,80 @@ public class CustomRecipes {
             'S',
             new ItemStack(ConfigItems.itemShard, 1, OreDictionary.WILDCARD_VALUE));
         GameRegistry.addRecipe(recipe);
+    }
+
+    private static void registerRotatedFoci() {
+        final var toFind = new HashSet<Item>();
+        final var toAdd = new ArrayList<ShapedArcaneRecipe>();
+        Collections.addAll(
+            toFind,
+            ConfigItems.itemFocusFire,
+            ConfigItems.itemFocusShock,
+            ConfigItems.itemFocusFrost,
+            ConfigItems.itemFocusTrade,
+            ConfigItems.itemFocusExcavation,
+            ConfigItems.itemFocusPrimal);
+
+        for (var recipe : ThaumcraftApi.getCraftingRecipes()) {
+            ItemStack output;
+            Item outputItem;
+            if (recipe instanceof ShapedArcaneRecipe arcaneRecipe && (output = arcaneRecipe.getRecipeOutput()) != null
+                && (outputItem = output.getItem()) != null
+                && toFind.contains(outputItem)) {
+                toAdd.add(createCopy(arcaneRecipe));
+                toFind.remove(outputItem);
+            }
+        }
+
+        // noinspection unchecked
+        ThaumcraftApi.getCraftingRecipes()
+            .addAll(toAdd);
+    }
+
+    private static ShapedArcaneRecipe createCopy(ShapedArcaneRecipe inputRecipe) {
+        final var newRecipe = new ShapedArcaneRecipe(
+            "DUMMY",
+            new ItemStack(Items.stick),
+            new AspectList(),
+            "   ",
+            " S ",
+            "   ",
+            'S',
+            Items.stick);
+        newRecipe.output = inputRecipe.output;
+        newRecipe.input = copyRotated(inputRecipe.input);
+        newRecipe.aspects = inputRecipe.aspects.copy();
+        newRecipe.research = inputRecipe.research;
+        newRecipe.width = inputRecipe.width;
+        newRecipe.height = inputRecipe.height;
+        return newRecipe;
+    }
+
+    private static Object[] copyRotated(Object[] input) {
+        final var output = new Object[9];
+        for (var index = 0; index < input.length && index < 9; ++index) {
+            final var newIndex = getRotatedIndex(index);
+            if (newIndex < 0) {
+                continue;
+            }
+            output[newIndex] = input[index];
+        }
+        return output;
+    }
+
+    private static int getRotatedIndex(int index) {
+        return switch (index) {
+            case 0 -> 1;
+            case 1 -> 2;
+            case 2 -> 5;
+            case 3 -> 0;
+            case 4 -> 4;
+            case 5 -> 8;
+            case 6 -> 3;
+            case 7 -> 6;
+            case 8 -> 7;
+            default -> -1;
+        };
     }
 
 }
