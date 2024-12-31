@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.Side;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.IEnabler;
+import dev.rndmorris.salisarcana.config.settings.EnablerLogic;
 
 public enum Mixins {
 
@@ -46,7 +47,7 @@ public enum Mixins {
     BEACON_BLOCKS(MixinSide.BOTH, ConfigModuleRoot.bugfixes.beaconBlockFixSetting, "blocks.MixinBlockCosmeticSolid"),
     BLOCKCANDLE_OOB(MixinSide.BOTH, ConfigModuleRoot.bugfixes.candleRendererCrashes, "blocks.MixinBlockCandleRenderer", "blocks.MixinBlockCandle"),
     DEAD_MOBS_DONT_ATTACK(MixinSide.BOTH, ConfigModuleRoot.bugfixes.deadMobsDontAttack, "entities.MixinEntityTaintacle", "entities.MixinEntityEldritchCrab", "entities.MixinEntityThaumicSlime"),
-    INTEGER_INFUSION_MATRIX(MixinSide.BOTH, ConfigModuleRoot.bugfixes.integerInfusionMatrixMath, "tiles.MixinTileInfusionMatrix_IntegerStabilizers"),
+    INTEGER_INFUSION_MATRIX(MixinSide.BOTH, EnablerLogic.and(ConfigModuleRoot.bugfixes.integerInfusionMatrixMath, EnablerLogic.not(ConfigModuleRoot.enhancements.stabilizerRewrite)), "tiles.MixinTileInfusionMatrix_IntegerStabilizers"),
     ITEMSHARD_OOB(MixinSide.BOTH, ConfigModuleRoot.bugfixes.itemShardColor, "items.MixinItemShard"),
     ITEM_LOOTBAG_OOB(MixinSide.BOTH, ConfigModuleRoot.bugfixes.itemLootBagMetadata, "items.MixinItemLootBag"),
     RENDER_REDSTONE_FIX(MixinSide.BOTH, ConfigModuleRoot.bugfixes.renderRedstoneFix, "blocks.MixinBlockCustomOre"),
@@ -63,6 +64,8 @@ public enum Mixins {
 
     NODE_GENERATION_MODIFIER_WEIGHTS(MixinSide.BOTH, ConfigModuleRoot.enhancements.nodeModifierWeights, "world.MixinThaumcraftWorldGenerator"),
     NODE_GENERATION_TYPE_WEIGHTS(MixinSide.BOTH, ConfigModuleRoot.enhancements.nodeTypeWeights, "world.MixinThaumcraftWorldGenerator"),
+
+    STABILIZER_REWRITE(MixinSide.BOTH, ConfigModuleRoot.enhancements.stabilizerRewrite, "tiles.MixinTileInfusionMatrix_StabilizerRewrite")
 
     ;
     // spotless:on
