@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import thaumcraft.common.blocks.BlockCosmeticSolid;
 
-@Mixin(BlockCosmeticSolid.class)
+@Mixin(value = BlockCosmeticSolid.class, priority = 1001)
 public abstract class MixinBlockCosmeticSolid extends Block {
 
     protected MixinBlockCosmeticSolid(Material materialIn) {
