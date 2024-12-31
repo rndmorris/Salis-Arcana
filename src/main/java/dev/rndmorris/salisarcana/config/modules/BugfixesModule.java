@@ -13,6 +13,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting deadMobsDontAttack;
     public final ToggleSetting infernalFurnaceDupeFix;
     public final ToggleSetting integerInfusionMatrixMath;
+    public final ToggleSetting itemMetadataSafetyCheck;
     public final ToggleSetting itemShardColor;
     public final ToggleSetting renderRedstoneFix;
     public final ToggleSetting strictInfusionMatrixInputChecks;
@@ -40,6 +41,11 @@ public class BugfixesModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "integerInfusionMatrixMath",
                 "Calculate infusion stabilizers with integer math instead of floating-point math. This eliminates a rounding error that sometimes makes an infusion altar slightly less stable than it should be. Also corrects a logic error causing the Infusion Matrix to check the wrong coordinates for a symmetrical stabilizer."),
+            itemMetadataSafetyCheck = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "itemMetadataFix",
+                "Add a safety check to several Thaumcraft items to prevent crashes when creating those items with invalid metadata."),
             itemShardColor = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,

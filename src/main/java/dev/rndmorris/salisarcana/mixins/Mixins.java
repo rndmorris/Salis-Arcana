@@ -49,6 +49,7 @@ public enum Mixins {
     DEAD_MOBS_DONT_ATTACK(MixinSide.BOTH, ConfigModuleRoot.bugfixes.deadMobsDontAttack, "entities.MixinEntityTaintacle", "entities.MixinEntityEldritchCrab", "entities.MixinEntityThaumicSlime"),
     INTEGER_INFUSION_MATRIX(MixinSide.BOTH, EnablerLogic.and(ConfigModuleRoot.bugfixes.integerInfusionMatrixMath, EnablerLogic.not(ConfigModuleRoot.enhancements.stabilizerRewrite)), "tiles.MixinTileInfusionMatrix_IntegerStabilizers"),
     ITEMSHARD_OOB(MixinSide.BOTH, ConfigModuleRoot.bugfixes.itemShardColor, "items.MixinItemShard"),
+    ITEM_ICON_OOB(MixinSide.BOTH, ConfigModuleRoot.bugfixes.itemMetadataSafetyCheck, "items.Mixin_ItemIconFix", "items.MixinItemWandRod"),
     RENDER_REDSTONE_FIX(MixinSide.BOTH, ConfigModuleRoot.bugfixes.renderRedstoneFix, "blocks.MixinBlockCustomOre"),
     STRICT_INFUSION_INPUTS(MixinSide.BOTH, ConfigModuleRoot.bugfixes.strictInfusionMatrixInputChecks, "tiles.MixinTileInfusionMatrix_InputEnforcement"),
 
