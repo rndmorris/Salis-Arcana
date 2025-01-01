@@ -10,6 +10,14 @@ import javax.annotation.Nullable;
 
 public class ArrayHelper {
 
+    public static boolean tryAssign(boolean[] arr, int index, boolean value) {
+        if (0 <= index && index < arr.length) {
+            arr[index] = value;
+            return true;
+        }
+        return false;
+    }
+
     @Nonnull
     public static <T> List<T> toList(@Nullable T[] arr) {
 
