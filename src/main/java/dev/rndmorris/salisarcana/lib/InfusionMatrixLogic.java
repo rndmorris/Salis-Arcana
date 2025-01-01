@@ -19,10 +19,29 @@ public class InfusionMatrixLogic {
     final static int rangeDown = 10;
     final static int pedestalRange = 8;
 
+    private static int defaultStrength;
+    private static boolean loadedStrength = false;
+
+    public static int strength() {
+        final var strSetting = ConfigModuleRoot.enhancements.stabilizerStrength;
+        if (!strSetting.isEnabled()) {
+            return strSetting.getDefaultValue();
+        }
+        if (!loadedStrength) {
+            defaultStrength = ConfigModuleRoot.enhancements.stabilizerStrength.getValue();
+            loadedStrength = true;
+        }
+        return defaultStrength;
+    }
+
+    public static int penalty(int strength) {
+        return (int) Math.ceil(((double) strength) / 2D);
+    }
+
     /**
      * Calculate a matrix's stability and symmetry at a given position. Does not require a matrix actually be at that
      * position.
-     * 
+     *
      * @param world The world to check.
      * @param x     The z coordinate of the matrix.
      * @param y     The y coordinate of the matrix.
@@ -112,7 +131,7 @@ public class InfusionMatrixLogic {
 
     /**
      * Get the symmetry modifier for the block at the given relative coordinates.
-     * 
+     *
      * @param matrix The matrix to use as the center point
      * @return The effective
      */
@@ -126,11 +145,11 @@ public class InfusionMatrixLogic {
             return 0;
         }
 
-        var modifier = 1;
+        var modifier = penalty(strength());
 
         var twin = getTwinnedCoord(matrix, x, z);
         if (InfusionMatrixLogic.isStabilizer(world, twin[0], y, twin[1])) {
-            modifier = -2;
+            modifier = -strength();
         }
 
         return modifier;
