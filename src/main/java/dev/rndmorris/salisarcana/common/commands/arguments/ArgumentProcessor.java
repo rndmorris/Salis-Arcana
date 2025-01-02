@@ -27,6 +27,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.PositionalArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.lib.ClassComparator;
+import dev.rndmorris.salisarcana.lib.PeekIterator;
 
 public class ArgumentProcessor<TArguments> {
 
@@ -56,8 +57,9 @@ public class ArgumentProcessor<TArguments> {
         final var excludedNames = new TreeSet<>(String::compareToIgnoreCase);
         final var arguments = initializer.get();
 
-        final var $args = Arrays.stream(args)
-            .iterator();
+        final var $args = new PeekIterator<>(
+            Arrays.stream(args)
+                .iterator());
         var index = 0;
 
         while ($args.hasNext()) {
@@ -108,8 +110,9 @@ public class ArgumentProcessor<TArguments> {
     public List<String> getAutocompletionSuggestions(ICommandSender sender, String[] args) {
         final var excludedNames = new TreeSet<String>();
 
-        final var $args = Arrays.stream(args)
-            .iterator();
+        final var $args = new PeekIterator<>(
+            Arrays.stream(args)
+                .iterator());
         var index = 0;
 
         while ($args.hasNext()) {

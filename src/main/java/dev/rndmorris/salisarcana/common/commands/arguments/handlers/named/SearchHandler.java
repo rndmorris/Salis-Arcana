@@ -1,7 +1,6 @@
 package dev.rndmorris.salisarcana.common.commands.arguments.handlers.named;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -9,6 +8,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.command.ICommandSender;
 
 import com.google.common.collect.Iterators;
+import com.google.common.collect.PeekingIterator;
 
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 
@@ -17,12 +17,12 @@ public class SearchHandler implements INamedArgumentHandler {
     public static final IArgumentHandler INSTANCE = new SearchHandler();
 
     @Override
-    public Object parse(ICommandSender sender, String current, Iterator<String> args) {
+    public Object parse(ICommandSender sender, String current, PeekingIterator<String> args) {
         return buildSearchTerm(current, args);
     }
 
     @Override
-    public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
+    public List<String> getAutocompleteOptions(ICommandSender sender, String current, PeekingIterator<String> args) {
         buildSearchTerm(current, args);
         if (!args.hasNext()) {
             return Collections.emptyList();
@@ -36,7 +36,7 @@ public class SearchHandler implements INamedArgumentHandler {
         return String.class;
     }
 
-    private String buildSearchTerm(String current, Iterator<String> args) {
+    private String buildSearchTerm(String current, PeekingIterator<String> args) {
         var insideQuote = false;
         var escapeNext = false;
 
