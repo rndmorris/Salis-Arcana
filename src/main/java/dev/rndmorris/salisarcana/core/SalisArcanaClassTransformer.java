@@ -18,9 +18,7 @@ public class SalisArcanaClassTransformer implements IClassTransformer {
         if (bytes == null) return null;
 
         for (IAsmEditor editor : SalisArcanaCore.editors) {
-
             if (s1.equals(editor.getClassName())) {
-                System.out.println("SalisArcanaClassTransformer: " + editor.getClassName());
                 bytes = updateMethod(bytes, editor);
             }
         }
@@ -36,7 +34,6 @@ public class SalisArcanaClassTransformer implements IClassTransformer {
         boolean foundMethod = false;
         for (MethodNode method : node.methods) {
             if (method.name.equals(editor.getMethodName()) && method.desc.equals(editor.getMethodDesc())) {
-                System.out.println("SalisArcanaClassTransformer: Found method " + editor.getMethodName());
                 foundMethod = true;
                 editor.edit(method);
             }

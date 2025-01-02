@@ -7,7 +7,7 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
-import dev.rndmorris.salisarcana.core.asm.TMixinsCompat;
+import dev.rndmorris.salisarcana.core.asm.compat.TMixinsCompat;
 
 public class SalisArcanaCore implements IFMLLoadingPlugin {
 
@@ -34,7 +34,19 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
 
     @Override
     public void injectData(Map<String, Object> data) {
-        editors.add(new TMixinsCompat());
+
+        editors.add(
+            new TMixinsCompat(
+                "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins",
+                "getMixins",
+                "(Ljava/util/Set;)Ljava/util/List;")
+                    .addConflict("MixinBlockCosmeticSolid", ConfigModuleRoot.bugfixes.beaconBlockFixSetting)
+                    .addConflict("MixinBlockCandleRenderer", ConfigModuleRoot.bugfixes.candleRendererCrashes)
+                    .addConflict("MixinBlockCandle", ConfigModuleRoot.bugfixes.candleRendererCrashes)
+                    .addConflict("MixinItemShard", ConfigModuleRoot.bugfixes.itemShardColor)
+                    .addConflict("MixinWandManager", ConfigModuleRoot.enhancements.useAllBaublesSlots)
+                    .addConflict("MixinEventHandlerRunic", ConfigModuleRoot.enhancements.useAllBaublesSlots)
+                    .addConflict("MixinWarpEvents", ConfigModuleRoot.enhancements.useAllBaublesSlots));
     }
 
     @Override
