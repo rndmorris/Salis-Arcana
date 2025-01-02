@@ -29,7 +29,7 @@ import thaumcraft.common.items.baubles.ItemAmuletVis;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileWandPedestal;
 
-@Mixin(value = TileWandPedestal.class)
+@Mixin(TileWandPedestal.class)
 public abstract class MixinTileWandPedestal extends TileThaumcraft implements ISidedInventory {
 
     @Unique

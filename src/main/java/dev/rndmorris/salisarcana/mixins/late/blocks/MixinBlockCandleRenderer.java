@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import thaumcraft.client.renderers.block.BlockCandleRenderer;
 import thaumcraft.common.lib.utils.Utils;
 
-@Mixin(value = BlockCandleRenderer.class, priority = 1001)
+@Mixin(BlockCandleRenderer.class)
 public abstract class MixinBlockCandleRenderer {
 
     /**

@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import thaumcraft.common.blocks.BlockCandle;
 import thaumcraft.common.lib.utils.Utils;
 
-@Mixin(value = BlockCandle.class, priority = 1001)
+@Mixin(BlockCandle.class)
 public abstract class MixinBlockCandle extends Block {
 
     protected MixinBlockCandle(Material material) {

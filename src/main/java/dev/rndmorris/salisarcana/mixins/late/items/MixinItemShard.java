@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.common.blocks.BlockCustomOreItem;
 import thaumcraft.common.items.ItemShard;
 
-@Mixin(value = ItemShard.class, priority = 1001)
+@Mixin(ItemShard.class)
 public class MixinItemShard extends Item {
 
     /**

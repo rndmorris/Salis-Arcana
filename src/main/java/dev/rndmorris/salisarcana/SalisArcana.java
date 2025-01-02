@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
     version = Tags.VERSION,
     name = "Salis Arcana",
     acceptedMinecraftVersions = "[1.7.10]",
-    dependencies = "after:Thaumcraft")
+    dependencies = "after:Thaumcraft;after:hodgepodge;after:bugtorch")
 public class SalisArcana {
 
     public static final String MODID = "salisarcana";
