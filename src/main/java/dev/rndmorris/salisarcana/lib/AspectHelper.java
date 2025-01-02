@@ -1,9 +1,23 @@
 package dev.rndmorris.salisarcana.lib;
 
+import javax.annotation.Nullable;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
 public class AspectHelper {
+
+    public static @Nullable Aspect findAspect(String tag) {
+        if (tag != null && !tag.isEmpty()) {
+            for (var kv : Aspect.aspects.entrySet()) {
+                if (kv.getKey()
+                    .equalsIgnoreCase(tag)) {
+                    return kv.getValue();
+                }
+            }
+        }
+        return null;
+    }
 
     public static AspectList primalList(int amount) {
         return primalList(amount, amount, amount, amount, amount, amount);

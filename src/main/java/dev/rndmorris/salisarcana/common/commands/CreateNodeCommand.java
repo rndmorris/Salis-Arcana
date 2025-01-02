@@ -101,7 +101,11 @@ public class CreateNodeCommand extends ArcanaCommandBase<CreateNodeCommand.Argum
         @FlagArg(name = "--small", excludes = { "--silverwood", "-a" }, descLangKey = "small")
         public boolean small;
 
-        @NamedArg(name = "-a", handler = QuantitativeAspectHandler.class, excludes = "--small", descLangKey = "aspect")
+        @NamedArg(
+            name = "-a",
+            handler = QuantitativeAspectHandler.class,
+            excludes = { "--small", "-a" },
+            descLangKey = "aspect")
         public ArrayList<QuantitativeAspectArgument> aspects = new ArrayList<>();
 
     }
