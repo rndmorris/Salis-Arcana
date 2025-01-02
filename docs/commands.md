@@ -21,19 +21,19 @@ Create a new node at the specified coordinates.
 
 **Usage:**
 
-`/salisarcana-create-node <x> <y> <z> [-t <type>] [-m <modifier>] [--silverwood] [--eerie] [--small] [-a <aspect1> <count1>[ -a <aspect2> <count2>[ ...]]]`
+`/salisarcana-create-node <x> <y> <z> [-t <type>] [-m <modifier>] [--silverwood] [--eerie] [--small] [-a <aspect1> <amount1>[ <aspect2> <amount2>[ ...]]]`
 
 **Arguments:**
 
-|       Argument        | Required? | Details                                                                                                                                                                        |
-|:---------------------:|:---------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|     `<x> <y> <z>`     |    Yes    | The coordinates at which to create a new node.                                                                                                                                 |
-|      `-t <type>`      |    No     | Specify the type of the new node. If unset, a type will be picked at random.                                                                                                   |
-|    `-m <modifier>`    |    No     | Specify the modifier of the new node. If unset, a modifier will be picked at random.                                                                                           |
-|    `--silverwood`     |    No     | Spawn a pure, small node, as though generated in a silverwood tree. Mutually exclusive with `--eerie` and `--small`.                                                           |
-|       `--eerie`       |    No     | Spawn a dark node, as though generated in an obsidian totem.  Mutually exclusive with `--silverwood`.                                                                          |
-|       `--small`       |    No     | Randomly-picked aspects will be low in amount. Mutually exclusive with `--silverwood` and `-a`.                                                                                |
-| `-a <aspect> <count>` |    No     | Specify the new node's aspects. Can be included multiple times to specify additional aspects. If not set, aspects will be picked at random. Mutually exclusive with `--small`. |
+|                       Argument                       | Required? | Details                                                                                                              |
+|:----------------------------------------------------:|:---------:|:---------------------------------------------------------------------------------------------------------------------|
+|                    `<x> <y> <z>`                     |    Yes    | The coordinates at which to create a new node.                                                                       |
+|                     `-t <type>`                      |    No     | Specify the type of the new node. If unset, a type will be picked at random.                                         |
+|                   `-m <modifier>`                    |    No     | Specify the modifier of the new node. If unset, a modifier will be picked at random.                                 |
+|                    `--silverwood`                    |    No     | Spawn a pure, small node, as though generated in a silverwood tree. Mutually exclusive with `--eerie` and `--small`. |
+|                      `--eerie`                       |    No     | Spawn a dark node, as though generated in an obsidian totem.  Mutually exclusive with `--silverwood`.                |
+|                      `--small`                       |    No     | Randomly-picked aspects will be low in amount. Mutually exclusive with `--silverwood` and `-a`.                      |
+| `-a <aspect1> <amount1>[ <aspect2> <amount2>[ ...]]` |    No     | Override the new node's aspects and amounts. Mutually exclusive with `--small`.                                      |
 
 **Default aliases:**
 * `/create-node`
@@ -192,17 +192,17 @@ Update the properties of the node at the specified coordinates.
 
 **Usage:**
 
-`/salisarcana-update-node <x> <y> <z> [-t <type>] [-m <modifier>] [--set <aspect1> <count1>[ --set <aspect2> <count2>[ ...]]] [--rem <aspect3>[ --rem <aspect4>]]`
+`/salisarcana-update-node <x> <y> <z> [-t <type>] [-m <modifier>] [--set <aspect1> <amount1>[ --set <aspect2> <amount2>[ ...]]] [--rem <aspect3>[ --rem <aspect4>]]`
 
 **Arguments:**
 
-|         Argument         | Required? | Details                                                                                                               |
-|:------------------------:|:---------:|:----------------------------------------------------------------------------------------------------------------------|
-|      `<x> <y> <z>`       |    Yes    | The coordinates of the node to update.                                                                                |
-|       `-t <type>`        |    No     | Specify the node's new type.                                                                                          |
-|     `-m <modifier>`      |    No     | Specify the node's new modifier.                                                                                      |
-| `--set <aspect> <count>` |    No     | Set how much vis of the specified aspect the node contains. Can be provided multiple times to set additional aspects. |
-|    `--rem <aspect>>`     |    No     | Remove an aspect form the node. Can be provided multiple times to remove additional aspects.                          |
+|                     Argument                      | Required? | Details                                                                                    |
+|:-------------------------------------------------:|:---------:|:-------------------------------------------------------------------------------------------|
+|                   `<x> <y> <z>`                   |    Yes    | The coordinates of the node to update.                                                     |
+|                    `-t <type>`                    |    No     | Specify the node's new type.                                                               |
+|                  `-m <modifier>`                  |    No     | Specify the node's new modifier.                                                           |
+| `--set <aspect1> <amount1>[ <aspect2> <amount2>]` |    No     | Set how much vis of an aspect the node contains. Can specify multiple aspects and amounts. |
+|        `--rem <aspect1>[ <aspect2>[ ...]]`        |    No     | Remove one or more aspects aspects from the node.                                          |
 
 **Default aliases:**
 * `/update-node`
