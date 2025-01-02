@@ -174,7 +174,7 @@ public enum Mixins {
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.useAllBaublesSlots::isEnabled)
-        .addMixinClasses("events.MixinEventHandlerRunic", "items.MixinWandManager")
+        .addMixinClasses("events.MixinEventHandlerRunic", "items.MixinWandManager", "lib.MixinWarpEvents")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     EXTENDED_BAUBLES_SUPPORT_CLIENT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
@@ -225,7 +225,7 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.wandPedestalUseCV::isEnabled)
         .addMixinClasses("tiles.MixinTileWandPedestal")
         .addTargetedMod(TargetedMod.THAUMCRAFT)
-        .addExcludedMod(TargetedMod.HODGEPODGE))
+        .addExcludedMod(TargetedMod.HODGEPODGE)),
 
     ;
 
