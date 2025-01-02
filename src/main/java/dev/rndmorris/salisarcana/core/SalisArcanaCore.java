@@ -7,8 +7,9 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
-import dev.rndmorris.salisarcana.core.asm.compat.TMixinsCompat;
+import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 
+@IFMLLoadingPlugin.MCVersion("1.7.10")
 public class SalisArcanaCore implements IFMLLoadingPlugin {
 
     public SalisArcanaCore() {
@@ -36,7 +37,7 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
     public void injectData(Map<String, Object> data) {
 
         editors.add(
-            new TMixinsCompat(
+            new ModCompatEditor(
                 "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins",
                 "getMixins",
                 "(Ljava/util/Set;)Ljava/util/List;")
