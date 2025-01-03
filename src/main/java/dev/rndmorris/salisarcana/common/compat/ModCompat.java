@@ -20,13 +20,13 @@ public class ModCompat {
         if (Loader.isModLoaded("hodgepodge")) {
             disableWandCV = TweaksConfig.addCVSupportToWandPedestal;
             if (disableWandCV) {
-                LOG.info("Salis Arcana: Disabling Wand Pedestal CV support");
+                LOG.info("Salis Arcana: Disabling Wand Pedestal CV support -- Hodgepodge Enabled");
             }
         }
         if (Loader.isModLoaded("bugtorch")) {
             disableBlockCandleFixes = BugTorchConfig.fixThaumcraftCandleColorArrayOutOfBounds;
             if (disableBlockCandleFixes) {
-                LOG.info("Salis Arcana: Disabling Thaumcraft candle color array out of bounds fix");
+                LOG.info("Salis Arcana: Disabling Thaumcraft candle color array out of bounds fix -- BugTorch Enabled");
             }
         }
     }
