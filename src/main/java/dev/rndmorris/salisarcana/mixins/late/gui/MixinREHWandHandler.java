@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import baubles.api.BaublesApi;
 import thaumcraft.client.lib.REHWandHandler;
 
-@Mixin(value = REHWandHandler.class, remap = false, priority = 1001)
+@Mixin(value = REHWandHandler.class, remap = false)
 public class MixinREHWandHandler {
 
     @ModifyConstant(method = "handleFociRadial", constant = @Constant(intValue = 4, ordinal = 0), remap = false)
