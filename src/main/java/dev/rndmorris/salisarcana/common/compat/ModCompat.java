@@ -13,6 +13,10 @@ public class ModCompat {
     public static boolean disableBlockCandleFixes = false;
 
     public static void init() {
+        // Both Hodgepodge and BugTorch register their configs in a coremod, so they are already loaded by the time
+        // we get here.
+
+        // For other mods, we may have to fetch config values manually.
         if (Loader.isModLoaded("hodgepodge")) {
             disableWandCV = TweaksConfig.addCVSupportToWandPedestal;
             if (disableWandCV) {
