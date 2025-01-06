@@ -1,8 +1,10 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Map;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -11,14 +13,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import ganymedes01.etfuturum.ModBlocks;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
+import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.config.ConfigResearch;
 
 public class CustomRecipes {
 
@@ -45,6 +52,9 @@ public class CustomRecipes {
         if (ConfigModuleRoot.enhancements.rotatedFociRecipes.isEnabled()) {
             // registered here because TC4 doesn't register its recipes until post init
             registerRotatedFoci();
+        }
+        if (ConfigModuleRoot.bugfixes.fixEFRRecipes.isEnabled() && Loader.isModLoaded("etfuturum")) {
+            registerEFRTrapdoors();
         }
     }
 
@@ -153,6 +163,64 @@ public class CustomRecipes {
 
         // only Arcana planks
         GameRegistry.addShapedRecipe(output, "FFF", 'F', tfPlanks);
+    }
+
+    public static void registerEFRTrapdoors() {
+        IArcaneRecipe newRecipe = null;
+
+        if (OreDictionary.getOres("trapdoorWood")
+            .isEmpty()) {
+            OreDictionary.registerOre("trapdoorWood", new ItemStack(Blocks.trapdoor));
+            for (ModBlocks entry : ModBlocks.TRAPDOORS) {
+                OreDictionary.registerOre("trapdoorWood", entry.newItemStack());
+            }
+        }
+        ArrayList<ItemStack> oredict = OreDictionary.getOres("trapdoorWood");
+
+        for (Map.Entry<String, Object> entry : ConfigResearch.recipes.entrySet()) {
+            Object recipeObject = entry.getValue();
+            if (recipeObject instanceof ShapedArcaneRecipe recipe) {
+                if (Arrays.asList(recipe.getInput())
+                    .contains(Blocks.trapdoor)) {
+                    Object[] newInput = new Object[recipe.getInput().length];
+                    for (int i = 0; i < recipe.getInput().length; i++) {
+                        if (recipe.getInput()[i] instanceof ItemStack item) {
+                            if (item.getItem() == Item.getItemFromBlock(Blocks.trapdoor)) {
+                                newInput[i] = oredict;
+                            }
+                        } else {
+                            newInput[i] = recipe.getInput()[i];
+                        }
+                    }
+                    newRecipe = new ShapedArcaneRecipe(
+                        recipe.getResearch(),
+                        recipe.getRecipeOutput(),
+                        recipe.getAspects(),
+                        newInput);
+                }
+            } else if (recipeObject instanceof ShapelessArcaneRecipe) {
+                ShapelessArcaneRecipe recipe = (ShapelessArcaneRecipe) recipeObject;
+                if (recipe.getInput()
+                    .contains(Blocks.trapdoor)) {
+                    ArrayList<Object> newIngredients = new ArrayList<>();
+                    for (Object ingredient : recipe.getInput()) {
+                        if (ingredient instanceof ItemStack item) {
+                            if (item.getItem() == Item.getItemFromBlock(Blocks.trapdoor)) {
+                                newIngredients.add(oredict.toArray());
+                            } else {
+                                newIngredients.add(ingredient);
+                            }
+                        }
+                    }
+                    newRecipe = new ShapelessArcaneRecipe(
+                        recipe.getResearch(),
+                        recipe.getRecipeOutput(),
+                        recipe.getAspects(),
+                        newIngredients.toArray());
+                }
+            }
+            ConfigResearch.recipes.put(entry.getKey(), newRecipe);
+        }
     }
 
     private static void registerRotatedThaumometer() {
