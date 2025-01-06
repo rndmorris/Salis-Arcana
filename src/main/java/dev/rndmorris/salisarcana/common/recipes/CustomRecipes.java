@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -178,49 +179,45 @@ public class CustomRecipes {
         ArrayList<ItemStack> oredict = OreDictionary.getOres("trapdoorWood");
 
         for (Map.Entry<String, Object> entry : ConfigResearch.recipes.entrySet()) {
-            Object recipeObject = entry.getValue();
-            if (recipeObject instanceof ShapedArcaneRecipe recipe) {
-                if (Arrays.asList(recipe.getInput())
-                    .contains(Blocks.trapdoor)) {
-                    Object[] newInput = new Object[recipe.getInput().length];
+            if (entry.getValue() instanceof ShapedArcaneRecipe recipe) {
+                if (recipeContains(recipe.getInput(), Blocks.trapdoor)) {
                     for (int i = 0; i < recipe.getInput().length; i++) {
                         if (recipe.getInput()[i] instanceof ItemStack item) {
                             if (item.getItem() == Item.getItemFromBlock(Blocks.trapdoor)) {
-                                newInput[i] = oredict;
-                            }
-                        } else {
-                            newInput[i] = recipe.getInput()[i];
-                        }
-                    }
-                    newRecipe = new ShapedArcaneRecipe(
-                        recipe.getResearch(),
-                        recipe.getRecipeOutput(),
-                        recipe.getAspects(),
-                        newInput);
-                }
-            } else if (recipeObject instanceof ShapelessArcaneRecipe) {
-                ShapelessArcaneRecipe recipe = (ShapelessArcaneRecipe) recipeObject;
-                if (recipe.getInput()
-                    .contains(Blocks.trapdoor)) {
-                    ArrayList<Object> newIngredients = new ArrayList<>();
-                    for (Object ingredient : recipe.getInput()) {
-                        if (ingredient instanceof ItemStack item) {
-                            if (item.getItem() == Item.getItemFromBlock(Blocks.trapdoor)) {
-                                newIngredients.add(oredict.toArray());
-                            } else {
-                                newIngredients.add(ingredient);
+                                recipe.getInput()[i] = oredict;
                             }
                         }
                     }
-                    newRecipe = new ShapelessArcaneRecipe(
-                        recipe.getResearch(),
-                        recipe.getRecipeOutput(),
-                        recipe.getAspects(),
-                        newIngredients.toArray());
                 }
-            }
-            ConfigResearch.recipes.put(entry.getKey(), newRecipe);
+            } else if (entry.getValue() instanceof ShapelessArcaneRecipe recipe && recipeContains(
+                recipe.getInput()
+                    .toArray(),
+                Blocks.trapdoor)) {
+                    if (recipe.getInput()
+                        .contains(Item.getItemFromBlock(Blocks.trapdoor))) {
+                        ArrayList<Object> newIngredients = new ArrayList<>();
+                        for (Object ingredient : recipe.getInput()) {
+                            if (ingredient instanceof ItemStack item) {
+                                if (item.getItem() == Item.getItemFromBlock(Blocks.trapdoor)) {
+                                    newIngredients.add(oredict.toArray());
+                                } else {
+                                    newIngredients.add(ingredient);
+                                }
+                            }
+                        }
+                        recipe.getInput()
+                            .clear();
+                        // noinspection unchecked
+                        recipe.getInput()
+                            .addAll(newIngredients);
+                    }
+                }
         }
+    }
+
+    private static boolean recipeContains(Object[] input, Block block) {
+        return Arrays.stream(input)
+            .anyMatch(o -> o instanceof ItemStack item && item.getItem() == Item.getItemFromBlock(block));
     }
 
     private static void registerRotatedThaumometer() {

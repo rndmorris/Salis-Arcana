@@ -42,5 +42,5 @@ dependencies {
     runtimeOnly(rfg.deobf"curse.maven:tcneiplugin-225095:2241913")
     compileOnly("curse.maven:hodgepodge-688899:6039713")
     compileOnly("maven.modrinth:bugtorch:1.2.13")
-    compileOnly("maven.modrinth:etfuturum:2.6.2")
+    compileOnly(rfg.deobf("maven.modrinth:etfuturum:2.6.2"))
 }
