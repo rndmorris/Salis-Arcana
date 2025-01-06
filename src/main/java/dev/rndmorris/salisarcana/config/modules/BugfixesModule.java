@@ -34,7 +34,7 @@ public class BugfixesModule extends BaseConfigModule {
                 "Prevents eldritch crabs, all taintacles, and thaumic slimes from attacking during their death animation."),
             fixEFRRecipes = new ToggleSetting(
                 this,
-                ConfigPhase.EARLY,
+                ConfigPhase.LATE,
                 "fixEFRRecipes",
                 "Fixes several recipes to work with EFR versions of blocks, like trapdoors, if EFR is installed"),
             infernalFurnaceDupeFix = new ToggleSetting(
