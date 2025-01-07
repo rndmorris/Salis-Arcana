@@ -11,6 +11,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final BeaconBlockFixSetting beaconBlockFixSetting;
     public final ToggleSetting candleRendererCrashes;
     public final ToggleSetting deadMobsDontAttack;
+    public final ToggleSetting fixEFRRecipes;
     public final ToggleSetting infernalFurnaceDupeFix;
     public final ToggleSetting integerInfusionMatrixMath;
     public final ToggleSetting itemMetadataSafetyCheck;
@@ -31,6 +32,11 @@ public class BugfixesModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "deadMobsDontAttack",
                 "Prevents eldritch crabs, all taintacles, and thaumic slimes from attacking during their death animation."),
+            fixEFRRecipes = new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "fixEFRRecipes",
+                "Fixes several recipes to work with EFR versions of blocks, like trapdoors, if EFR is installed"),
             infernalFurnaceDupeFix = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,

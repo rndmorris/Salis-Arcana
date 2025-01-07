@@ -2,7 +2,9 @@ package dev.rndmorris.salisarcana.common.recipes;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -11,14 +13,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
+import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.config.ConfigResearch;
 
 public class CustomRecipes {
 
@@ -45,6 +50,9 @@ public class CustomRecipes {
         if (ConfigModuleRoot.enhancements.rotatedFociRecipes.isEnabled()) {
             // registered here because TC4 doesn't register its recipes until post init
             registerRotatedFoci();
+        }
+        if (ConfigModuleRoot.bugfixes.fixEFRRecipes.isEnabled() && Loader.isModLoaded("etfuturum")) {
+            registerEFRRecipes();
         }
     }
 
@@ -153,6 +161,34 @@ public class CustomRecipes {
 
         // only Arcana planks
         GameRegistry.addShapedRecipe(output, "FFF", 'F', tfPlanks);
+    }
+
+    public static void registerEFRRecipes() {
+        HashMap<Item, String> map = new HashMap<>();
+        map.put(Item.getItemFromBlock(Blocks.trapdoor), "trapdoorWood");
+
+        for (Map.Entry<String, Object> entry : ConfigResearch.recipes.entrySet()) {
+            if (entry.getValue() instanceof ShapedArcaneRecipe recipe) {
+                Object[] input = recipe.getInput();
+                for (int i = 0; i < recipe.getInput().length; i++) {
+                    if (input[i] instanceof ItemStack item) {
+                        if (map.containsKey(item.getItem())) {
+                            input[i] = OreDictionary.getOres(map.get(item.getItem()));
+                        }
+                    }
+                }
+            } else if (entry.getValue() instanceof ShapelessArcaneRecipe recipe) {
+                // noinspection unchecked
+                ArrayList<Object> input = recipe.getInput();
+                for (int i = 0; i < input.size(); i++) {
+                    if (input.get(i) instanceof ItemStack item) {
+                        if (map.containsKey(item.getItem())) {
+                            input.set(i, OreDictionary.getOres(map.get(item.getItem())));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private static void registerRotatedThaumometer() {
