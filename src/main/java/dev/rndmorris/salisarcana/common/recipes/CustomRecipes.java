@@ -1,12 +1,11 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -18,10 +17,8 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
-import ganymedes01.etfuturum.ModBlocks;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 import thaumcraft.common.config.ConfigBlocks;
@@ -55,7 +52,7 @@ public class CustomRecipes {
             registerRotatedFoci();
         }
         if (ConfigModuleRoot.bugfixes.fixEFRRecipes.isEnabled() && Loader.isModLoaded("etfuturum")) {
-            registerEFRTrapdoors();
+            registerEFRRecipes();
         }
     }
 
@@ -166,58 +163,32 @@ public class CustomRecipes {
         GameRegistry.addShapedRecipe(output, "FFF", 'F', tfPlanks);
     }
 
-    public static void registerEFRTrapdoors() {
-        IArcaneRecipe newRecipe = null;
-
-        if (OreDictionary.getOres("trapdoorWood")
-            .isEmpty()) {
-            OreDictionary.registerOre("trapdoorWood", new ItemStack(Blocks.trapdoor));
-            for (ModBlocks entry : ModBlocks.TRAPDOORS) {
-                OreDictionary.registerOre("trapdoorWood", entry.newItemStack());
-            }
-        }
-        ArrayList<ItemStack> oredict = OreDictionary.getOres("trapdoorWood");
+    public static void registerEFRRecipes() {
+        HashMap<Item, String> map = new HashMap<>();
+        map.put(Item.getItemFromBlock(Blocks.trapdoor), "trapdoorWood");
 
         for (Map.Entry<String, Object> entry : ConfigResearch.recipes.entrySet()) {
             if (entry.getValue() instanceof ShapedArcaneRecipe recipe) {
-                if (recipeContains(recipe.getInput(), Blocks.trapdoor)) {
-                    for (int i = 0; i < recipe.getInput().length; i++) {
-                        if (recipe.getInput()[i] instanceof ItemStack item) {
-                            if (item.getItem() == Item.getItemFromBlock(Blocks.trapdoor)) {
-                                recipe.getInput()[i] = oredict;
-                            }
+                Object[] input = recipe.getInput();
+                for (int i = 0; i < recipe.getInput().length; i++) {
+                    if (input[i] instanceof ItemStack item) {
+                        if (map.containsKey(item.getItem())) {
+                            input[i] = OreDictionary.getOres(map.get(item.getItem()));
                         }
                     }
                 }
-            } else if (entry.getValue() instanceof ShapelessArcaneRecipe recipe && recipeContains(
-                recipe.getInput()
-                    .toArray(),
-                Blocks.trapdoor)) {
-                    if (recipe.getInput()
-                        .contains(Item.getItemFromBlock(Blocks.trapdoor))) {
-                        ArrayList<Object> newIngredients = new ArrayList<>();
-                        for (Object ingredient : recipe.getInput()) {
-                            if (ingredient instanceof ItemStack item) {
-                                if (item.getItem() == Item.getItemFromBlock(Blocks.trapdoor)) {
-                                    newIngredients.add(oredict.toArray());
-                                } else {
-                                    newIngredients.add(ingredient);
-                                }
-                            }
+            } else if (entry.getValue() instanceof ShapelessArcaneRecipe recipe) {
+                // noinspection unchecked
+                ArrayList<Object> input = recipe.getInput();
+                for (int i = 0; i < input.size(); i++) {
+                    if (input.get(i) instanceof ItemStack item) {
+                        if (map.containsKey(item.getItem())) {
+                            input.set(i, OreDictionary.getOres(map.get(item.getItem())));
                         }
-                        recipe.getInput()
-                            .clear();
-                        // noinspection unchecked
-                        recipe.getInput()
-                            .addAll(newIngredients);
                     }
                 }
+            }
         }
-    }
-
-    private static boolean recipeContains(Object[] input, Block block) {
-        return Arrays.stream(input)
-            .anyMatch(o -> o instanceof ItemStack item && item.getItem() == Item.getItemFromBlock(block));
     }
 
     private static void registerRotatedThaumometer() {
