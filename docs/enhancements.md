@@ -72,21 +72,39 @@ Rewrites the Runic Matrix's surroundings-check logic to be more flexible when ch
 This is a significant change, and will conflict with any other mod that also modifies the matrix's
 surroundings-checking logic.
 
+## Config option: `stabilizerStrength`
+
+Requires `useStabilizerRewrite=true`.
+
+The amount (in one-hundredths of a point) of symmetry each stabilizer block adds to an infusion altar. If a stabilizer doesn't have a symmetrical opposite, an equivalent amount of symmetry will be subtracted instead.
+
+Negative strengths will invert a stabilizer's behavior by stabilizing an infusion altar if placed asymmetrically, and destabilizing an altar if placed symmetrically.
+
+The default value of `10` is equivalent to vanilla Thaumcraft's stabilizer strength.
+
 ## Config option: `stabilizerAdditions`
 
 Requires `useStabilizerRewrite=true`.
 
 A list of blocks that should be treated as infusion stabilizers, even if they normally would not. Each block should
-be on its own line, and be in the format `modId:blockId` or `modId:blockId:metadata`.
+be on its own line, and be in the format `modId:blockId` or `modId:blockId:metadata` or `modId:blockId:metadata`.
 
-If no metadata is specified, a default value of `0` will be used. If metadata is `*` or `32767`, metadata will be
-ignored when determining if a block is present on this list.
+**Metadata:**
+* Defaults to 0 if not set.
+* If set to * or 32767, all metadata variants of the block will be included.
+
+**Strength:**
+* Defaults to `stabilizerStrength` if not set.
+* Range: -10000 to 10000
 
 <ins>Example:</ins>
 
 * `minecraft:lapis_block` will include Minecraft's Lapis Lazuli Block
 * `Thaumcraft:blockCosmeticSolid` or `Thaumcraft:blockCosmeticSolid:0` will include Thaumcraft's Obsidian Totem, but none of the block's other variants.
 * `Thaumcraft:blockCosmeticSolid:*` or `Thaumcraft:blockCosmeticSolid:32767` will include Thaumcraft's Obsidian Totem, Obsidian Tile, Paving Stone of Travel/Warding, Thaumium Blocks, etc.
+* `Thaumcraft:blockCosmeticSolid:0:20` will make obsidian totem blocks will contribute twice as much stability as normal stabilizers.
+* `minecraft:skull:*:5` will make all vanilla Minecraft skulls contribute half as much stability as normal stabilizers.
+* `Thaumcraft:blockCandle:*:0` will make all Thaumcraft candles count as stabilizers for their symmetrical twin, but not contribute any stability themselves.
 
 ## Config option: `stabilizerExclusions`
 
