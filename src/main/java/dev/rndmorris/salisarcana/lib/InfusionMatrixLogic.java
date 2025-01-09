@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 
 import com.github.bsideup.jabel.Desugar;
 
+import dev.rndmorris.salisarcana.api.IVariableInfusionStabilizer;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import thaumcraft.common.tiles.TilePedestal;
@@ -18,25 +19,6 @@ public class InfusionMatrixLogic {
     final static int rangeUp = 5;
     final static int rangeDown = 10;
     final static int pedestalRange = 8;
-
-    private static int defaultStrength;
-    private static boolean loadedStrength = false;
-
-    public static int strength() {
-        final var strSetting = ConfigModuleRoot.enhancements.stabilizerStrength;
-        if (!strSetting.isEnabled()) {
-            return strSetting.getDefaultValue();
-        }
-        if (!loadedStrength) {
-            defaultStrength = ConfigModuleRoot.enhancements.stabilizerStrength.getValue();
-            loadedStrength = true;
-        }
-        return defaultStrength;
-    }
-
-    public static int penalty(int strength) {
-        return (int) Math.ceil(((double) strength) / 2D);
-    }
 
     /**
      * Calculate a matrix's stability and symmetry at a given position. Does not require a matrix actually be at that
@@ -71,7 +53,7 @@ public class InfusionMatrixLogic {
             }
         }
 
-        result.symmetry += stabilizerModifier / 10;
+        result.symmetry += stabilizerModifier / 100;
 
         return result;
     }
@@ -145,14 +127,37 @@ public class InfusionMatrixLogic {
             return 0;
         }
 
-        var modifier = penalty(strength());
+        final var strength = strengthForBlock(world, x, y, z);
+        var modifier = strength;
 
         var twin = getTwinnedCoord(matrix, x, z);
         if (InfusionMatrixLogic.isStabilizer(world, twin[0], y, twin[1])) {
-            modifier = -strength();
+            modifier -= strength * 2;
         }
 
         return modifier;
+    }
+
+    private static int strengthForBlock(World world, int x, int y, int z) {
+        final var module = ConfigModuleRoot.enhancements;
+        if (!module.stabilizerStrength.isEnabled()) {
+            return module.stabilizerStrength.getValueOrDefault();
+        }
+
+        final var block = world.getBlock(x, y, z);
+        final var metadata = world.getBlockMetadata(x, y, z);
+
+        final var additionData = module.stabilizerAdditions.getData(block, metadata);
+
+        if (additionData.containedKeys) {
+            return additionData.data != null ? additionData.data : module.stabilizerStrength.getValueOrDefault();
+        }
+
+        if (block instanceof IVariableInfusionStabilizer stabilizer) {
+            return stabilizer.getStabilizerStrength(world, x, y, z);
+        }
+
+        return module.stabilizerStrength.getValueOrDefault();
     }
 
     private static int[] getTwinnedCoord(MatrixOrigin matrix, int x, int z) {

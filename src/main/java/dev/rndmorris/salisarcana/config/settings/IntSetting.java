@@ -23,15 +23,27 @@ public class IntSetting extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        value = configuration.getInt(name, getCategory(), value, minValue, maxValue, comment);
+        value = configuration.getInt(name, getCategory(), defaultValue, minValue, maxValue, comment);
     }
 
     public int getDefaultValue() {
         return defaultValue;
     }
 
+    public int getMaxValue() {
+        return maxValue;
+    }
+
+    public int getMinValue() {
+        return minValue;
+    }
+
     public int getValue() {
         return value;
+    }
+
+    public int getValueOrDefault() {
+        return enabled ? value : defaultValue;
     }
 
     public IntSetting setMaxValue(int maxValue) {
