@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 
 import com.github.bsideup.jabel.Desugar;
 
+import dev.rndmorris.salisarcana.api.IVariableInfusionStabilizer;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import thaumcraft.common.tiles.TilePedestal;
@@ -22,7 +23,7 @@ public class InfusionMatrixLogic {
     /**
      * Calculate a matrix's stability and symmetry at a given position. Does not require a matrix actually be at that
      * position.
-     * 
+     *
      * @param world The world to check.
      * @param x     The z coordinate of the matrix.
      * @param y     The y coordinate of the matrix.
@@ -52,7 +53,7 @@ public class InfusionMatrixLogic {
             }
         }
 
-        result.symmetry += stabilizerModifier / 10;
+        result.symmetry += stabilizerModifier / 100;
 
         return result;
     }
@@ -62,7 +63,7 @@ public class InfusionMatrixLogic {
         final var metadata = world.getBlockMetadata(x, y, z);
 
         final var additions = ConfigModuleRoot.enhancements.stabilizerAdditions;
-        if (additions.isEnabled() && additions.hasMatch(block, metadata)) {
+        if (additions.isEnabled() && additions.hasEntry(block, metadata)) {
             return true;
         }
 
@@ -74,7 +75,7 @@ public class InfusionMatrixLogic {
         }
 
         final var exclusions = ConfigModuleRoot.enhancements.stabilizerExclusions;
-        return !(exclusions.isEnabled() && exclusions.hasMatch(block, metadata));
+        return !(exclusions.isEnabled() && exclusions.hasEntry(block, metadata));
     }
 
     private static boolean checkForAndHandlePedestal(MatrixOrigin matrix, MatrixSurroundingsResult result, int dX,
@@ -112,9 +113,9 @@ public class InfusionMatrixLogic {
 
     /**
      * Get the symmetry modifier for the block at the given relative coordinates.
-     * 
+     *
      * @param matrix The matrix to use as the center point
-     * @return The effective
+     * @return The stabilizer's symmetry modifier.
      */
     private static int getStabilityModifierAt(MatrixOrigin matrix, int dX, int dY, int dZ) {
         final var x = matrix.xCoord + dX;
@@ -126,14 +127,40 @@ public class InfusionMatrixLogic {
             return 0;
         }
 
-        var modifier = 1;
-
+        final var strength = strengthForBlock(world, x, y, z);
         var twin = getTwinnedCoord(matrix, x, z);
-        if (InfusionMatrixLogic.isStabilizer(world, twin[0], y, twin[1])) {
-            modifier = -2;
+
+        return InfusionMatrixLogic.isStabilizer(world, twin[0], y, twin[1]) ? strength * -1 : strength;
+    }
+
+    /**
+     * Get the stabilizer strength of a block
+     */
+    private static int strengthForBlock(World world, int x, int y, int z) {
+        final var module = ConfigModuleRoot.enhancements;
+
+        // If we're not using the rewrite, use the default stabilizer strength
+        // Should only be called by the symmetry-check command
+        if (!module.stabilizerStrength.isEnabled()) {
+            return module.stabilizerStrength.getDefaultValue();
         }
 
-        return modifier;
+        final var block = world.getBlock(x, y, z);
+        final var metadata = world.getBlockMetadata(x, y, z);
+
+        // If we have an override, use the override's value (or default if no value specified)
+        final var additionData = module.stabilizerAdditions.getData(block, metadata);
+        if (additionData.containedKeys) {
+            return additionData.data != null ? additionData.data : module.stabilizerStrength.getValueOrDefault();
+        }
+
+        // If an addon has tapped into Salis Arcana's API
+        if (block instanceof IVariableInfusionStabilizer stabilizer) {
+            return stabilizer.getStabilizerStrength(world, x, y, z);
+        }
+
+        // Or just the default strength
+        return module.stabilizerStrength.getValueOrDefault();
     }
 
     private static int[] getTwinnedCoord(MatrixOrigin matrix, int x, int z) {
@@ -142,7 +169,14 @@ public class InfusionMatrixLogic {
 
     public static class MatrixSurroundingsResult {
 
+        /**
+         * The pedestals in range of an infusion altar (excluding directly above or below the matrix).
+         */
         public final ArrayList<ChunkCoordinates> pedestals = new ArrayList<>();
+
+        /**
+         * How symmetrical an infusion altar is. Lower values are good, higher values are bad.
+         */
         public int symmetry = 0;
     }
 

@@ -7,15 +7,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -23,22 +25,29 @@ import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
-public class BlockItemListSetting extends Setting {
+public class BlockItemListSetting<DATA> extends Setting {
 
     public final String comment;
     public final String name;
     private ListType listType = ListType.BOTH;
     private final List<String> defaults = new ArrayList<>();
 
+    private Function<String[], DATA> parser;
+
     private final Set<ParsedEntry> entriesToResolve = new HashSet<>();
-    private final HashMap<Block, Set<Integer>> blockMap = new HashMap<>();
-    private final HashMap<Item, Set<Integer>> itemMap = new HashMap<>();
+    private final HashMap<Block, Map<Integer, DATA>> blockMap = new HashMap<>();
+    private final HashMap<Item, Map<Integer, DATA>> itemMap = new HashMap<>();
     private boolean resolved = false;
 
     public BlockItemListSetting(IEnabler dependency, ConfigPhase phase, String name, String comment) {
         super(dependency, phase);
         this.name = name;
         this.comment = comment;
+    }
+
+    public BlockItemListSetting<DATA> withAdditionalData(Function<String[], DATA> parser) {
+        this.parser = parser;
+        return this;
     }
 
     @Override
@@ -51,7 +60,7 @@ public class BlockItemListSetting extends Setting {
                 .isEmpty()) {
                 continue;
             }
-            final var entry = ParsedEntry.parse(rawEntry);
+            final var entry = parseEntry(rawEntry);
             if (entry == null) {
                 LOG.error("Invalid syntax for {} entry \"{}\"", name, rawEntries);
                 continue;
@@ -60,48 +69,39 @@ public class BlockItemListSetting extends Setting {
         }
     }
 
-    public boolean hasMatch(Block block, int metadata) {
-        if (!resolved) {
-            resolveAllEntries();
-        }
-        final var mdSet = blockMap.get(block);
-        if (mdSet == null) {
-            return false;
-        }
-        if (mdSet.isEmpty()) {
-            return true;
-        }
-        return mdSet.contains(metadata);
+    public boolean hasEntry(Block block, int metadata) {
+        return getData(block, metadata).containedKeys;
     }
 
-    public boolean hasMatch(Item item, int metadata) {
-        if (!resolved) {
-            resolveAllEntries();
-        }
-        final var mdSet = itemMap.get(item);
-        if (mdSet == null) {
-            return false;
-        }
-        if (mdSet.isEmpty()) {
-            return true;
-        }
-        return mdSet.contains(metadata);
+    public boolean hasEntry(Item item, int metadata) {
+        return getData(item, metadata).containedKeys;
     }
 
-    public boolean hasMatch(ItemStack itemStack) {
+    public @Nonnull GetDataResult getData(Block block, int metadata) {
         if (!resolved) {
             resolveAllEntries();
         }
-        final var item = itemStack.getItem();
-        if (item == null) {
-            return false;
+        return getData(metadata, blockMap.get(block));
+    }
+
+    public @Nonnull GetDataResult getData(Item item, int metadata) {
+        if (!resolved) {
+            resolveAllEntries();
         }
-        final var block = Block.getBlockFromItem(item);
-        // we check for air specifically because `getBlockFromItem` will return air if it doesn't find the block
-        if (block != null && block != Blocks.air) {
-            return hasMatch(block, itemStack.getItemDamage());
+        return getData(metadata, itemMap.get(item));
+    }
+
+    private @Nonnull GetDataResult getData(int metadata, Map<Integer, DATA> dataMap) {
+        if (dataMap == null) {
+            return new GetDataResult(false, null);
         }
-        return hasMatch(item, itemStack.getItemDamage());
+        if (dataMap.containsKey(metadata)) {
+            return new GetDataResult(true, dataMap.get(metadata));
+        }
+        if (dataMap.containsKey(OreDictionary.WILDCARD_VALUE)) {
+            return new GetDataResult(true, dataMap.get(OreDictionary.WILDCARD_VALUE));
+        }
+        return new GetDataResult(false, null);
     }
 
     private void resolveAllEntries() {
@@ -166,10 +166,8 @@ public class BlockItemListSetting extends Setting {
             logAirError();
             return false;
         }
-        final var mdSet = blockMap.computeIfAbsent(block, k -> new HashSet<>());
-        if (entry.metadata != OreDictionary.WILDCARD_VALUE) {
-            mdSet.add(entry.metadata);
-        }
+        final var dataMap = blockMap.computeIfAbsent(block, k -> new HashMap<>());
+        dataMap.put(entry.metadata, entry.data);
         return true;
     }
 
@@ -184,10 +182,8 @@ public class BlockItemListSetting extends Setting {
             return false;
         }
 
-        final var mdSet = itemMap.computeIfAbsent(item, k -> new HashSet<>());
-        if (entry.metadata != OreDictionary.WILDCARD_VALUE) {
-            mdSet.add(entry.metadata);
-        }
+        final var dataMap = itemMap.computeIfAbsent(item, k -> new HashMap<>());
+        dataMap.put(entry.metadata, entry.data);
         return true;
     }
 
@@ -207,12 +203,12 @@ public class BlockItemListSetting extends Setting {
         return item;
     }
 
-    public BlockItemListSetting addDefaults(String... defaults) {
+    public BlockItemListSetting<DATA> addDefaults(String... defaults) {
         Collections.addAll(this.defaults, defaults);
         return this;
     }
 
-    public BlockItemListSetting setListType(@Nonnull ListType listType) {
+    public BlockItemListSetting<DATA> setListType(@Nonnull ListType listType) {
         this.listType = listType;
         return this;
     }
@@ -223,37 +219,42 @@ public class BlockItemListSetting extends Setting {
         ITEMS;
     }
 
-    private static class ParsedEntry {
+    private @Nullable ParsedEntry parseEntry(String rawEntry) {
+        final var parts = rawEntry.split(":");
+        if (parts.length < 2) {
+            return null;
+        }
+        final var result = new ParsedEntry();
+        result.modId = parts[0];
+        result.id = parts[1];
+
+        if (parts.length > 2) {
+            if ("*".equals(parts[2])) {
+                result.metadata = OreDictionary.WILDCARD_VALUE;
+            } else {
+                final var metadata = IntegerHelper.tryParse(parts[2]);
+                if (metadata != null) {
+                    result.metadata = metadata;
+                }
+            }
+        }
+
+        if (parser != null) {
+            result.data = parser.apply(parts);
+        }
+
+        return result;
+    }
+
+    private class ParsedEntry {
 
         public String modId;
         public String id;
         public int metadata = 0;
+        public DATA data = null;
 
         public String getFullId() {
             return modId + ":" + id;
-        }
-
-        private static ParsedEntry parse(String entry) {
-            final var parts = entry.split(":");
-            if (parts.length < 2) {
-                return null;
-            }
-            final var result = new ParsedEntry();
-            result.modId = parts[0];
-            result.id = parts[1];
-
-            if (parts.length > 2) {
-                if ("*".equals(parts[2])) {
-                    result.metadata = OreDictionary.WILDCARD_VALUE;
-                } else {
-                    final var metadata = IntegerHelper.tryParse(parts[2]);
-                    if (metadata != null) {
-                        result.metadata = metadata;
-                    }
-                }
-            }
-
-            return result;
         }
 
         @Override
@@ -264,6 +265,7 @@ public class BlockItemListSetting extends Setting {
             if (object == null || getClass() != object.getClass()) {
                 return false;
             }
+            // noinspection unchecked
             ParsedEntry entry = (ParsedEntry) object;
             return metadata == entry.metadata && Objects.equals(modId, entry.modId) && Objects.equals(id, entry.id);
         }
@@ -271,6 +273,17 @@ public class BlockItemListSetting extends Setting {
         @Override
         public int hashCode() {
             return Objects.hash(modId, id, metadata);
+        }
+    }
+
+    public class GetDataResult {
+
+        public final boolean containedKeys;
+        public final @Nullable DATA data;
+
+        private GetDataResult(boolean containedKeys, DATA data) {
+            this.containedKeys = containedKeys;
+            this.data = data;
         }
     }
 }
