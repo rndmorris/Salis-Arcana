@@ -8,6 +8,7 @@ import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.Setting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
+import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
 public class EnhancementsModule extends BaseConfigModule {
 
@@ -27,8 +28,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final Setting nomiconShowResearchId;
 
     public final ToggleSetting stabilizerRewrite;
-    public final BlockItemListSetting stabilizerAdditions;
-    public final BlockItemListSetting stabilizerExclusions;
+    public final BlockItemListSetting<Integer> stabilizerAdditions;
+    public final BlockItemListSetting<Object> stabilizerExclusions;
     public final IntSetting stabilizerStrength;
 
     public final ToggleSetting wandPedestalUseCV;
@@ -113,35 +114,43 @@ public class EnhancementsModule extends BaseConfigModule {
 
         // stabilizer settings
         addSettings(
-            stabilizerRewrite = (ToggleSetting) new ToggleSetting(
+            stabilizerRewrite = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
                 "useStabilizerRewrite",
-                "Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers.")
-                    .setCategory("infusion")
-                    .setEnabled(false),
-            stabilizerAdditions = (BlockItemListSetting) new BlockItemListSetting(
+                "Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers."),
+            stabilizerAdditions = new BlockItemListSetting<Integer>(
                 stabilizerRewrite,
                 ConfigPhase.LATE,
                 "stabilizerAdditions",
                 "Requires useStabilizerRewrite=true. Blocks specified here will contribute to stabilizing an infusion altar, even if they normally wouldn't. Format: `modId:blockId` or `modId:blockId:metadata`. If not set, metadata defaults to 0. Set metadata to * or 32767 to match all metadata values.")
                     .setListType(BlockItemListSetting.ListType.BLOCKS)
-                    .setCategory("infusion"),
-            stabilizerExclusions = (BlockItemListSetting) new BlockItemListSetting(
+                    .withAdditionalData((strSlice) -> {
+                        if (strSlice.length < 4) {
+                            return null;
+                        }
+                        return IntegerHelper.tryParse(strSlice[3]);
+                    }),
+            stabilizerExclusions = new BlockItemListSetting<>(
                 stabilizerRewrite,
                 ConfigPhase.LATE,
                 "stabilizerExclusions",
                 "Requires useStabilizerRewrite=true. Blocks specified here will NOT contribute to stabilizing an infusion altar, even if they normally would. Format: `modId:blockId` or `modId:blockId:metadata`. If not set, metadata defaults to 0. Set metadata to * or 32767 to match all metadata values.")
-                    .setListType(BlockItemListSetting.ListType.BLOCKS)
-                    .setCategory("infusion"),
-            stabilizerStrength = (IntSetting) new IntSetting(
+                    .setListType(BlockItemListSetting.ListType.BLOCKS),
+            stabilizerStrength = new IntSetting(
                 stabilizerRewrite,
                 ConfigPhase.LATE,
                 "stabilizerStrength",
                 "Requires useStabilizerRewrite=true. The amount (in tenths of a point) of symmetry each stabilizer block contributes to an infusion altar. Half this value (rounded up) will be subtracted if a stabilizer does not have a symmetrical opposite.",
                 2).setMinValue(0)
-                    .setMaxValue(100)
-                    .setCategory("infusion"));
+                    .setMaxValue(100));
+
+        final var infusion = "infusion";
+        stabilizerRewrite.setCategory(infusion)
+            .setEnabled(false);
+        stabilizerAdditions.setCategory(infusion);
+        stabilizerExclusions.setCategory(infusion);
+        stabilizerStrength.setCategory(infusion);
     }
 
     @Nonnull

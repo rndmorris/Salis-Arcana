@@ -81,7 +81,7 @@ public class InfusionMatrixLogic {
         final var metadata = world.getBlockMetadata(x, y, z);
 
         final var additions = ConfigModuleRoot.enhancements.stabilizerAdditions;
-        if (additions.isEnabled() && additions.hasMatch(block, metadata)) {
+        if (additions.isEnabled() && additions.hasEntry(block, metadata)) {
             return true;
         }
 
@@ -93,7 +93,7 @@ public class InfusionMatrixLogic {
         }
 
         final var exclusions = ConfigModuleRoot.enhancements.stabilizerExclusions;
-        return !(exclusions.isEnabled() && exclusions.hasMatch(block, metadata));
+        return !(exclusions.isEnabled() && exclusions.hasEntry(block, metadata));
     }
 
     private static boolean checkForAndHandlePedestal(MatrixOrigin matrix, MatrixSurroundingsResult result, int dX,
