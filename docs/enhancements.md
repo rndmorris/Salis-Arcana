@@ -78,6 +78,8 @@ Requires `useStabilizerRewrite=true`.
 
 The amount (in one-hundredths of a point) of symmetry each stabilizer block adds to an infusion altar. If a stabilizer doesn't have a symmetrical opposite, an equivalent amount of symmetry will be subtracted instead.
 
+Negative strengths will invert a stabilizer's behavior by stabilizing an infusion altar if placed asymmetrically, and destabilizing an altar if placed symmetrically.
+
 The default value of `10` is equivalent to vanilla Thaumcraft's stabilizer strength.
 
 ## Config option: `stabilizerAdditions`
