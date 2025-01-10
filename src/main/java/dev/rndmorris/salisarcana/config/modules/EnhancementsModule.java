@@ -21,6 +21,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntArraySetting nodeTypeWeights;
     public final ToggleSetting suppressWarpEventsInCreative;
     public final ToggleSetting useAllBaublesSlots;
+    public final ToggleSetting stopCreativeModeItemConsumption;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -139,7 +140,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 "eldritchObjectStackSize",
                 "The maximum stack size for Eldritch Objects (Primordial Pearl, Eldritch Eye, Crimson Rites, Eldritch Obelisk Placer, Runed Tablet).",
                 16).setMinValue(1)
-                    .setMaxValue(64));
+                    .setMaxValue(64),
+            stopCreativeModeItemConsumption = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "stopCreativeModeItemConsumption",
+                "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode."));
 
         // noinspection unchecked
         addSettings(
