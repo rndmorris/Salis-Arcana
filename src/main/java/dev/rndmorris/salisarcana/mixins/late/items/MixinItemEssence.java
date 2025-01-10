@@ -28,7 +28,6 @@ public class MixinItemEssence {
         if (player.capabilities.isCreativeMode) {
             itemstack.stackSize += 1;
             world.playSoundAtEntity(player, "game.neutral.swim", 0.25F, 1.0F);
-            // player.inventoryContainer.detectAndSendChanges();
             cir.setReturnValue(true);
             cir.cancel();
         }
