@@ -18,8 +18,7 @@ public class FuelBurnTimeEventHandler {
 
     @SubscribeEvent
     public void onFuelBurnTimeEvent(FuelBurnTimeEvent event) {
-        if (event.burnTime < 0 && event.fuel != null
-            && event.fuel.getItem() != null
+        if (event.fuel != null && event.fuel.getItem() != null
             && BlockCosmeticWoodSlab.getBlockFromItem(event.fuel.getItem()) instanceof BlockCosmeticWoodSlab) {
             event.burnTime = 150;
             event.setResult(Event.Result.ALLOW);
