@@ -18,6 +18,7 @@ import dev.rndmorris.salisarcana.common.commands.InfusionSymmetryCommand;
 import dev.rndmorris.salisarcana.common.commands.ListResearchCommand;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
 import dev.rndmorris.salisarcana.common.commands.UpdateNodeCommand;
+import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
@@ -55,6 +56,7 @@ public class CommonProxy {
         maybeRegister(event, commands.prerequisites, PrerequisitesCommand::new);
         maybeRegister(event, commands.playerResearch, ListResearchCommand::new);
         maybeRegister(event, commands.updateNode, UpdateNodeCommand::new);
+        maybeRegister(event, commands.upgradeFocus, UpgradeFocusCommand::new);
     }
 
     private void maybeRegister(FMLServerStartingEvent event, CommandSettings settings,

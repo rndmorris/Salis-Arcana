@@ -17,6 +17,7 @@ public class CommandsModule extends BaseConfigModule {
     public final @Nonnull CommandSettings playerResearch;
     public final @Nonnull CommandSettings prerequisites;
     public final @Nonnull CommandSettings updateNode;
+    public final @Nonnull CommandSettings upgradeFocus;
 
     public final CommandSettings[] commandsSettings;
 
@@ -56,7 +57,10 @@ public class CommandsModule extends BaseConfigModule {
                 .setPermissionLevel(0),
             updateNode = new CommandSettings("update-node", this, ConfigPhase.LATE).addDefaultAlias()
                 .setDescription("Update the properties of a node at the specified coordinates.")
-                .setPermissionLevel(2) };
+                .setPermissionLevel(2),
+            upgradeFocus = new CommandSettings("upgrade-focus", this, ConfigPhase.LATE).addDefaultAlias()
+                .setPermissionLevel(2),
+            };
 
         addSettings(commandsSettings);
     }
