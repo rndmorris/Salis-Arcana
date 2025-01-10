@@ -25,12 +25,16 @@ public class MixinMazeHandler {
 
     @WrapOperation(method = "readNBT", at = @At("HEAD"))
     private static void wrapReadNBT(NBTTagCompound tag, Operation<Void> original) {
-        if (tag.hasKey("version")) {
-            Maze.readNBT(tag, tag.getInteger("version"));
-            return;
+        try {
+            if (tag.hasKey("version")) {
+                Maze.readNBT(tag, tag.getInteger("version"));
+                return;
+            }
+            original.call(tag);
+            Maze.readNBT(tag, 1);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        original.call(tag);
-        Maze.readNBT(tag, 1);
     }
 
     /**

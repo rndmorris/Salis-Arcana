@@ -12,6 +12,8 @@ public class ModCompat {
     public static boolean disableWandCV = false;
     public static boolean disableBlockCandleFixes = false;
 
+    public static boolean hodgepodgeMazeSavingEnabled = false;
+
     public static void init() {
         // Both Hodgepodge and BugTorch register their configs in a coremod, so they are already loaded by the time
         // we get here.
@@ -28,6 +30,12 @@ public class ModCompat {
             if (disableBlockCandleFixes) {
                 LOG.info("Salis Arcana: Disabling Thaumcraft candle color array out of bounds fix -- BugTorch Enabled");
             }
+        }
+    }
+
+    public static void postinit() {
+        if (Loader.isModLoaded("hodgepodge")) {
+            hodgepodgeMazeSavingEnabled = TweaksConfig.threadedWorldDataSaving;
         }
     }
 }

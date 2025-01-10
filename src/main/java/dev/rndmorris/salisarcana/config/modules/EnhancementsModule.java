@@ -34,6 +34,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting stabilizerStrength;
 
     public final ToggleSetting wandPedestalUseCV;
+    public final ToggleSetting mazeOptimization;
 
     public EnhancementsModule() {
         addSettings(
@@ -136,7 +137,12 @@ public class EnhancementsModule extends BaseConfigModule {
                     ""),
                 10).setMinValue(-10000)
                     .setMaxValue(10000)
-                    .setCategory("infusion"));
+                    .setCategory("infusion"),
+            mazeOptimization = (ToggleSetting) new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "mazeOptimization",
+                "Optimize the labyrinth.dat file to reduce its size and improve performance.").setEnabled(false));
 
         // noinspection unchecked
         addSettings(

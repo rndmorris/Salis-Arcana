@@ -1,10 +1,16 @@
 package dev.rndmorris.salisarcana.lib;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
+
+import org.apache.commons.lang3.NotImplementedException;
 
 public class Maze {
 
@@ -79,12 +85,18 @@ public class Maze {
         return tag;
     }
 
-    public static void readNBT(NBTTagCompound tag, int version) {
+    public static void readNBT(NBTTagCompound tag, int version) throws IOException {
         mazes.clear();
         if (version == 1) {
-
+            throw new NotImplementedException("Porting from version 1 is not yet supported");
         } else if (version == 2) {
-
+            File file = new File(String.format("labyrinth_v%d.dat", version));
+            if (!file.exists()) {
+                if (!file.createNewFile()) {
+                    throw new IOException("Failed to create labyrinth.dat file");
+                }
+            }
+            tag = CompressedStreamTools.readCompressed(new FileInputStream(file));
             // type 11 denotes NBTTagIntArray
             NBTTagList list = tag.getTagList("mazes", 11);
             for (int i = 0; i < list.tagCount(); i++) {

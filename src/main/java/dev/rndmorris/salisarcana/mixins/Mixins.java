@@ -228,6 +228,12 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileWandPedestal")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    MAZE_OPTIMIZATION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.mazeOptimization::isEnabled)
+        .addMixinClasses("world.dim.MixinMazeHandler", "world.dim.MixinMazeThread")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ;
 
     private final List<String> mixinClasses;
