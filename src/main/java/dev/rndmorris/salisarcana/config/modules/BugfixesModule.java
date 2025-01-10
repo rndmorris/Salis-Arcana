@@ -17,6 +17,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting itemMetadataSafetyCheck;
     public final ToggleSetting itemShardColor;
     public final ToggleSetting renderRedstoneFix;
+    public final ToggleSetting slabBurnTimeFix;
     public final ToggleSetting strictInfusionMatrixInputChecks;
 
     public BugfixesModule() {
@@ -62,6 +63,11 @@ public class BugfixesModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "renderRedstoneFix",
                 "Fixes an issue with ores where they don't get rendered as normal blocks, not allowing you to push a redstone signal through them."),
+            slabBurnTimeFix = new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "slabBurnTimeFix",
+                "Reduce the burn time of Thaumcraft's greatwood and silverwood slabs to match that of Minecraft's wooden slabs."),
             strictInfusionMatrixInputChecks = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,

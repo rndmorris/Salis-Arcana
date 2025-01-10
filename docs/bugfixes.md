@@ -61,3 +61,9 @@ Add a safety check to prevent the creation of Thaumcraft shards with invalid met
 **Config option:** `renderRedstoneFix`
 
 Update Thaumcraft ore blocks so they can convey a redstone signal.
+
+## Wooden Slab Burn Time
+
+**Config option:** `slabBurnTimeFix`
+
+Reduce the burn time of Thaumcraft's greatwood and silverwood slabs to match that of Minecraft's wooden slabs.
