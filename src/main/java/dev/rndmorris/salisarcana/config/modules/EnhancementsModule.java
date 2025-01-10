@@ -32,6 +32,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final BlockItemListSetting<Object> stabilizerExclusions;
     public final IntSetting stabilizerStrength;
 
+    public final IntSetting itemEldritchObjectStackSize;
+
     public final ToggleSetting wandPedestalUseCV;
 
     public EnhancementsModule() {
@@ -130,7 +132,14 @@ public class EnhancementsModule extends BaseConfigModule {
                     ""),
                 10).setMinValue(-10000)
                     .setMaxValue(10000)
-                    .setCategory("infusion"));
+                    .setCategory("infusion"),
+            itemEldritchObjectStackSize = new IntSetting(
+                this,
+                ConfigPhase.EARLY,
+                "eldritchObjectStackSize",
+                "The maximum stack size for Eldritch Objects (Primordial Pearl, Eldritch Eye, Crimson Rites, Eldritch Obelisk Placer, Runed Tablet).",
+                16).setMinValue(1)
+                    .setMaxValue(64));
 
         // noinspection unchecked
         addSettings(

@@ -228,6 +228,12 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileWandPedestal")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    ITEM_ELDRITCH_OBJECT_STACK_SIZE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.itemEldritchObjectStackSize::isEnabled)
+        .addMixinClasses("items.MixinItemEldritchObject")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ;
 
     private final List<String> mixinClasses;
