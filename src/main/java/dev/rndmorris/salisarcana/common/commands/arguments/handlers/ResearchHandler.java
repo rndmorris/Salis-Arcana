@@ -19,7 +19,7 @@ public class ResearchHandler implements INamedArgumentHandler, IPositionalArgume
 
     @Override
     public Object parse(ICommandSender sender, PeekingIterator<String> args) {
-        final var result = ResearchKeyHandler.INSTANCE.parse(sender, current, args);
+        final var result = ResearchKeyHandler.INSTANCE.parse(sender, args);
         if (result instanceof String key) {
             return ResearchCategories.getResearch(key);
         }
@@ -28,7 +28,7 @@ public class ResearchHandler implements INamedArgumentHandler, IPositionalArgume
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
-        return ResearchKeyHandler.INSTANCE.getAutocompleteOptions(sender, current, args);
+        return ResearchKeyHandler.INSTANCE.getAutocompleteOptions(sender, args);
     }
 
     @Nonnull

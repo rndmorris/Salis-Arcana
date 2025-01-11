@@ -21,7 +21,7 @@ public class PlayerHandler implements INamedArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, PeekingIterator<String> args) {
-        final var player = CommandBase.getPlayer(sender, current);
+        final var player = CommandBase.getPlayer(sender, args.next());
         if (player == null) {
             CommandErrors.playerNotFound();
         }
@@ -30,6 +30,7 @@ public class PlayerHandler implements INamedArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
+        args.next();
         if (args.hasNext()) {
             return null;
         }

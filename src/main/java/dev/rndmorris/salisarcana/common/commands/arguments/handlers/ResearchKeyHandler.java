@@ -21,6 +21,7 @@ public class ResearchKeyHandler implements INamedArgumentHandler, IPositionalArg
 
     @Override
     public Object parse(ICommandSender sender, PeekingIterator<String> args) {
+        final var current = args.next();
         final var results = allResearchKeys().filter(current::equals)
             .collect(Collectors.toList());
         if (results.isEmpty()) {
@@ -32,6 +33,7 @@ public class ResearchKeyHandler implements INamedArgumentHandler, IPositionalArg
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
+        args.next();
         if (args.hasNext()) {
             return null;
         }

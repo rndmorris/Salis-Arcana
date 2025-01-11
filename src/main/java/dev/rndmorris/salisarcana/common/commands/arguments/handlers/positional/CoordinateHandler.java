@@ -20,21 +20,21 @@ public class CoordinateHandler implements IPositionalArgumentHandler {
     public static final IArgumentHandler INSTANCE = new CoordinateHandler();
 
     @Override
-    public Object parse(ICommandSender sender, PeekingIterator<String> input) {
+    public Object parse(ICommandSender sender, PeekingIterator<String> args) {
         final var player = CommandBase.getCommandSenderAsPlayer(sender);
 
-        final var x = parsePosition(sender, player.posX, current);
+        final var x = parsePosition(sender, player.posX, args.next());
 
-        if (!input.hasNext()) {
+        if (!args.hasNext()) {
             CommandErrors.invalidSyntax();
         }
 
-        final var y = parsePosition(sender, player.posY, input.next());
+        final var y = parsePosition(sender, player.posY, args.next());
 
-        if (!input.hasNext()) {
+        if (!args.hasNext()) {
             CommandErrors.invalidSyntax();
         }
-        final var z = parsePosition(sender, player.posZ, input.next());
+        final var z = parsePosition(sender, player.posZ, args.next());
 
         return new CoordinateArgument(x, y, z);
     }
@@ -46,6 +46,7 @@ public class CoordinateHandler implements IPositionalArgumentHandler {
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
         final var tilde = Collections.singletonList("~");
+        args.next();
         if (!args.hasNext()) {
             return tilde;
         }

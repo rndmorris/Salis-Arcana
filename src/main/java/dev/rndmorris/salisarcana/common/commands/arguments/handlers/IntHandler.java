@@ -46,11 +46,12 @@ public class IntHandler implements INamedArgumentHandler, IPositionalArgumentHan
 
     @Override
     public Object parse(ICommandSender sender, PeekingIterator<String> args) {
-        return CommandBase.parseIntBounded(sender, current, minValue, maxValue);
+        return CommandBase.parseIntBounded(sender, args.next(), minValue, maxValue);
     }
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
+        args.next();
         if (args.hasNext()) {
             return null;
         }

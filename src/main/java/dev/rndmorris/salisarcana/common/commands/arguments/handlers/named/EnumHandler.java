@@ -24,9 +24,9 @@ public abstract class EnumHandler<E extends Enum<E>> implements INamedArgumentHa
     @Override
     public Object parse(ICommandSender sender, PeekingIterator<String> args) {
 
-        final var result = EnumHelper.tryParseEnum(enumDefinition.getEnumConstants(), current);
+        final var result = EnumHelper.tryParseEnum(enumDefinition.getEnumConstants(), args.next());
         if (result == null) {
-            throw new CommandException("salisarcana:error.unknown_value", current);
+            throw new CommandException("salisarcana:error.unknown_value", args.next());
         }
 
         return result;
@@ -34,6 +34,7 @@ public abstract class EnumHandler<E extends Enum<E>> implements INamedArgumentHa
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
+        args.next();
         if (args.hasNext()) {
             return null;
         }

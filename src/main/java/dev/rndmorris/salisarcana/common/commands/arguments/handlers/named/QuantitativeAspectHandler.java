@@ -22,13 +22,13 @@ public class QuantitativeAspectHandler implements INamedArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, PeekingIterator<String> args) {
-        final var aspect = getAspect(current);
+        final var aspect = getAspect(args.next());
 
-        current = "";
+        var next = "";
         if (args.hasNext()) {
-            current = args.next();
+            next = args.next();
         }
-        final var amount = getAmount(sender, current);
+        final var amount = getAmount(sender, next);
 
         return new QuantitativeAspectArgument(aspect, amount);
     }
@@ -51,6 +51,7 @@ public class QuantitativeAspectHandler implements INamedArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
+        args.next();
         if (!args.hasNext()) {
             return new ArrayList<>(Aspect.aspects.keySet());
         }

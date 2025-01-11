@@ -21,7 +21,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, PeekingIterator<String> args) {
-        final var command = findCommand(current);
+        final var command = findCommand(args.next());
         if (command == null) {
             CommandErrors.commandNotFound();
         }
@@ -33,6 +33,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
+        args.next();
         final var settingsArr = ConfigModuleRoot.commands.commandsSettings;
         if (!args.hasNext()) {
             final var results = new ArrayList<String>(settingsArr.length * 2);

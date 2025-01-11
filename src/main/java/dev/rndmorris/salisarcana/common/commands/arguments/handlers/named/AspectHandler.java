@@ -19,7 +19,7 @@ public class AspectHandler implements INamedArgumentHandler {
 
     @Override
     public Object parse(ICommandSender sender, PeekingIterator<String> args) {
-        return getAspect(current);
+        return getAspect(args.next());
     }
 
     private Aspect getAspect(String input) {
@@ -36,6 +36,7 @@ public class AspectHandler implements INamedArgumentHandler {
 
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
+        args.next();
         if (!args.hasNext()) {
             return new ArrayList<>(Aspect.aspects.keySet());
         }
