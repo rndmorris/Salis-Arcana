@@ -240,6 +240,12 @@ public enum Mixins {
         .addMixinClasses("blocks.MixinBlockEldritch", "items.MixinItemEssence")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    CREATIVE_MODE_VIS_CONSUMPTION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.infiniteCreativeVis::isEnabled)
+        .addMixinClasses("items.MixinItemWandCasting")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ;
 
     private final List<String> mixinClasses;
