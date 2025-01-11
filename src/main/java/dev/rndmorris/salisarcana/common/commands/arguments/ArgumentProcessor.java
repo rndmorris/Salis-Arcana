@@ -16,8 +16,6 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
@@ -174,6 +172,7 @@ public class ArgumentProcessor<TArguments> {
             }
 
             final var fieldType = field.getType();
+            final var outputType = entry.handler.getOutputType();
 
             if (fieldType.isInterface()) {
                 throw new RuntimeException(
@@ -184,17 +183,30 @@ public class ArgumentProcessor<TArguments> {
             }
 
             entry.isList = List.class.isAssignableFrom(fieldType);
+            final var outputIsList = List.class.isAssignableFrom(outputType);
 
-            Class<?> expectedOutput = getExpectedOutputClass(field, entry, fieldType);
-
-            if (!expectedOutput.isAssignableFrom(entry.handler.getOutputType())) {
+            if (!entry.isList && outputIsList) {
                 throw new RuntimeException(
                     String.format(
-                        "Handler output (%s) is not assignable to target field %s (%s) on %s",
-                        entry.handler.getOutputType(),
+                        "Handler output (%s) is not assignable to target field %s (%s) on %s.",
+                        outputType,
                         field.getName(),
-                        expectedOutput,
+                        field.getType(),
                         argumentsClass.getName()));
+            }
+
+            if (!outputIsList) {
+                Class<?> expectedOutput = getExpectedOutputClass(field, entry, fieldType);
+
+                if (!expectedOutput.isAssignableFrom(entry.handler.getOutputType())) {
+                    throw new RuntimeException(
+                        String.format(
+                            "Handler output (%s) is not assignable to target field %s (%s) on %s",
+                            entry.handler.getOutputType(),
+                            field.getName(),
+                            expectedOutput,
+                            argumentsClass.getName()));
+                }
             }
 
             if (entry.isList) {
@@ -210,8 +222,11 @@ public class ArgumentProcessor<TArguments> {
                             // noinspection unchecked
                             list = (List<Object>) fieldObj;
                         }
-
-                        list.add(val);
+                        if (val instanceof List<?>listVal) {
+                            list.addAll(listVal);
+                        } else {
+                            list.add(val);
+                        }
                     } catch (IllegalAccessException e) {
                         LOG.error(e);
                     }
@@ -317,24 +332,6 @@ public class ArgumentProcessor<TArguments> {
         entry.argType = ArgType.NAMED;
 
         return true;
-    }
-
-    private void removeEntry(@Nonnull ArgEntry entry) {
-        final Map<?, ArgEntry> map = entry.argType == ArgType.POS ? positionalArgs
-            : entry.argType == ArgType.FLAG ? flagArgs : entry.argType == ArgType.NAMED ? namedArgs : null;
-        if (map == null) {
-            return;
-        }
-        Object key = null;
-        for (var pair : map.entrySet()) {
-            if (pair.getValue() == entry) {
-                key = pair.getKey();
-                break;
-            }
-        }
-        if (key != null) {
-            map.remove(key);
-        }
     }
 
     private static class ArgEntry {
