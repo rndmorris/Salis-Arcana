@@ -107,7 +107,7 @@ public class UpdateNodeCommand extends ArcanaCommandBase<UpdateNodeCommand.Argum
         @NamedArg(name = "--set", handler = QuantitativeAspectHandler.class, descLangKey = "set")
         public ArrayList<QuantitativeAspectArgument> addAspects = new ArrayList<>();
 
-        @NamedArg(name = "--rem", handler = AspectHandler.class, descLangKey = "rem")
+        @NamedArg(name = "--rem", handler = AspectHandler.class, descLangKey = "rem", excludes = "--rem")
         public ArrayList<Aspect> removeAspects = new ArrayList<>();
     }
 }
