@@ -22,6 +22,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting suppressWarpEventsInCreative;
     public final ToggleSetting useAllBaublesSlots;
     public final ToggleSetting stopCreativeModeItemConsumption;
+    public final IntSetting manaPodGrowthRate;
     public final ToggleSetting infiniteCreativeVis;
 
     public final Setting nomiconScrollwheelEnabled;
@@ -151,7 +152,14 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "infiniteCreativeVis",
-                "Allow wands to have infinite vis in creative mode."));
+                "Allow wands to have infinite vis in creative mode."),
+            manaPodGrowthRate = new IntSetting(
+                this,
+                ConfigPhase.EARLY,
+                "manaBeanGrowthChance",
+                "The chance for a mana bean to grow when a mana pod is updated. Lower values are more likely to grow, with 0 growing every random tick.",
+                30).setMinValue(0)
+                    .setMaxValue(100));
 
         // noinspection unchecked
         addSettings(

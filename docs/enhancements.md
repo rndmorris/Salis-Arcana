@@ -77,6 +77,10 @@ If enabled, randomly generated nodes will pick their type from the weighted list
 **Config option:** `nodeTypeWeights`
 The weights used to pick the type of nodes when randomly generated.
 
+## Mana Bean Growth Rate
+
+**Config Option:** `manaBeanGrowthChance`
+The random chance for mana beans to grow every block tick. Valid values are 0, 100 inclusive. Lower values are more likely to happen, with 0 being guaranteed.
 
 # Enhancements - Infusion
 
