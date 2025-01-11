@@ -23,6 +23,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting useAllBaublesSlots;
     public final ToggleSetting stopCreativeModeItemConsumption;
     public final IntSetting manaPodGrowthRate;
+    public final ToggleSetting infiniteCreativeVis;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -147,6 +148,11 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "stopCreativeModeItemConsumption",
                 "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode."),
+            infiniteCreativeVis = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "infiniteCreativeVis",
+                "Allow wands to have infinite vis in creative mode."),
             manaPodGrowthRate = new IntSetting(
                 this,
                 ConfigPhase.EARLY,
