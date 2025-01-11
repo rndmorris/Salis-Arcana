@@ -1,10 +1,12 @@
 package dev.rndmorris.salisarcana.lib;
 
-import com.google.common.collect.PeekingIterator;
-import org.apache.commons.lang3.NotImplementedException;
+import java.util.Iterator;
 
 import javax.annotation.Nonnull;
-import java.util.Iterator;
+
+import org.apache.commons.lang3.NotImplementedException;
+
+import com.google.common.collect.PeekingIterator;
 
 public class PeekableIterator<E> implements PeekingIterator<E> {
 
@@ -16,7 +18,6 @@ public class PeekableIterator<E> implements PeekingIterator<E> {
     public PeekableIterator(Iterator<E> wrappedIterator) {
         this.wrappedIterator = wrappedIterator;
     }
-
 
     @Override
     public E peek() {

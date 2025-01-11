@@ -2,12 +2,13 @@ package dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.command.ICommandSender;
+
+import com.google.common.collect.PeekingIterator;
 
 import dev.rndmorris.salisarcana.common.commands.CommandErrors;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
@@ -19,7 +20,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
     public static final IArgumentHandler INSTANCE = new CommandNameHandler();
 
     @Override
-    public Object parse(ICommandSender sender, String current, Iterator<String> args) {
+    public Object parse(ICommandSender sender, PeekingIterator<String> args) {
         final var command = findCommand(current);
         if (command == null) {
             CommandErrors.commandNotFound();
@@ -31,7 +32,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
     }
 
     @Override
-    public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
+    public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
         final var settingsArr = ConfigModuleRoot.commands.commandsSettings;
         if (!args.hasNext()) {
             final var results = new ArrayList<String>(settingsArr.length * 2);

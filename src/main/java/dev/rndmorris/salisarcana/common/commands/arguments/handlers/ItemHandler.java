@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana.common.commands.arguments.handlers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -11,6 +10,8 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import com.google.common.collect.PeekingIterator;
 
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.INamedArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional.IPositionalArgumentHandler;
@@ -35,7 +36,7 @@ public class ItemHandler implements INamedArgumentHandler, IPositionalArgumentHa
     }
 
     @Override
-    public Object parse(ICommandSender sender, String current, Iterator<String> args) {
+    public Object parse(ICommandSender sender, PeekingIterator<String> args) {
         final var item = CommandBase.getItemByText(sender, current);
         Integer damage = null;
         if (args.hasNext()) {
@@ -49,7 +50,7 @@ public class ItemHandler implements INamedArgumentHandler, IPositionalArgumentHa
     }
 
     @Override
-    public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
+    public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
         if (!args.hasNext()) {
             if (itemKeys != null) {
                 return itemKeys;

@@ -27,6 +27,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.PositionalArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.lib.ClassComparator;
+import dev.rndmorris.salisarcana.lib.PeekableIterator;
 
 public class ArgumentProcessor<TArguments> {
 
@@ -56,20 +57,24 @@ public class ArgumentProcessor<TArguments> {
         final var excludedNames = new TreeSet<>(String::compareToIgnoreCase);
         final var arguments = initializer.get();
 
-        final var $args = Arrays.stream(args)
-            .iterator();
+        final var $args = new PeekableIterator<>(
+            Arrays.stream(args)
+                .iterator());
         var index = 0;
 
         while ($args.hasNext()) {
-            var current = $args.next();
+            String current = null;
             ArgEntry entry = null;
 
             if (positionalArgs.containsKey(index)) {
                 entry = positionalArgs.get(index);
-            } else if (flagArgs.containsKey(current)) {
-                entry = flagArgs.get(current);
-            } else if (namedArgs.containsKey(current)) {
-                entry = namedArgs.get(current);
+            } else {
+                current = $args.next();
+                if (flagArgs.containsKey(current)) {
+                    entry = flagArgs.get(current);
+                } else if (namedArgs.containsKey(current)) {
+                    entry = namedArgs.get(current);
+                }
             }
 
             if (entry != null && (entry.argType == ArgType.FLAG || entry.argType == ArgType.NAMED)) {
@@ -87,16 +92,12 @@ public class ArgumentProcessor<TArguments> {
                 throw new CommandException("salisarcana:error.unexpected_value", current);
             }
 
-            // pre-advance the iterator for named arguments, because they ALL need it
-            if (entry.argType == ArgType.NAMED) {
-                if ($args.hasNext()) {
-                    current = $args.next();
-                } else {
-                    CommandErrors.invalidSyntax();
-                }
+            // all named args will require at least one value
+            if (entry.argType == ArgType.NAMED && !$args.hasNext()) {
+                CommandErrors.invalidSyntax();
             }
 
-            final var value = entry.handler.parse(sender, current, $args);
+            final var value = entry.handler.parse(sender, $args);
             entry.fieldSetter.accept(arguments, value);
 
             index += 1;
@@ -108,20 +109,24 @@ public class ArgumentProcessor<TArguments> {
     public List<String> getAutocompletionSuggestions(ICommandSender sender, String[] args) {
         final var excludedNames = new TreeSet<String>();
 
-        final var $args = Arrays.stream(args)
-            .iterator();
+        final var $args = new PeekableIterator<>(
+            Arrays.stream(args)
+                .iterator());
         var index = 0;
 
         while ($args.hasNext()) {
-            var current = $args.next();
+            String current = null;
             ArgEntry entry = null;
 
             if (positionalArgs.containsKey(index)) {
                 entry = positionalArgs.get(index);
-            } else if (flagArgs.containsKey(current)) {
-                entry = flagArgs.get(current);
-            } else if (namedArgs.containsKey(current)) {
-                entry = namedArgs.get(current);
+            } else {
+                current = $args.next();
+                if (flagArgs.containsKey(current)) {
+                    entry = flagArgs.get(current);
+                } else if (namedArgs.containsKey(current)) {
+                    entry = namedArgs.get(current);
+                }
             }
 
             if (entry != null && (entry.argType == ArgType.FLAG || entry.argType == ArgType.NAMED)) {
@@ -146,16 +151,7 @@ public class ArgumentProcessor<TArguments> {
                     .collect(Collectors.toList());
             }
 
-            // pre-advance the iterator for named arguments, because they ALL need it
-            if (entry.argType == ArgType.NAMED) {
-                if ($args.hasNext()) {
-                    current = $args.next();
-                } else {
-                    return Collections.emptyList();
-                }
-            }
-
-            final var result = entry.handler.getAutocompleteOptions(sender, current, $args);
+            final var result = entry.handler.getAutocompleteOptions(sender, $args);
             if (result != null) {
                 return result;
             }

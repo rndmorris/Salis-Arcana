@@ -1,13 +1,14 @@
 package dev.rndmorris.salisarcana.common.commands.arguments.handlers;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+
+import com.google.common.collect.PeekingIterator;
 
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.INamedArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional.IPositionalArgumentHandler;
@@ -44,12 +45,12 @@ public class IntHandler implements INamedArgumentHandler, IPositionalArgumentHan
     }
 
     @Override
-    public Object parse(ICommandSender sender, String current, Iterator<String> args) {
+    public Object parse(ICommandSender sender, PeekingIterator<String> args) {
         return CommandBase.parseIntBounded(sender, current, minValue, maxValue);
     }
 
     @Override
-    public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
+    public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
         if (args.hasNext()) {
             return null;
         }
