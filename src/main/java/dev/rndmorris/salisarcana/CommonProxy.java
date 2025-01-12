@@ -4,8 +4,6 @@ import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
 
 import java.util.function.Supplier;
 
-import net.minecraftforge.client.ClientCommandHandler;
-
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -19,27 +17,21 @@ import dev.rndmorris.salisarcana.common.commands.HelpCommand;
 import dev.rndmorris.salisarcana.common.commands.InfusionSymmetryCommand;
 import dev.rndmorris.salisarcana.common.commands.ListResearchCommand;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
-import dev.rndmorris.salisarcana.common.commands.UpdateCommand;
 import dev.rndmorris.salisarcana.common.commands.UpdateNodeCommand;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
-import dev.rndmorris.salisarcana.updater.Updater;
 
 public class CommonProxy {
 
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
 
-    public static Updater updater = null;
-
     public void preInit(FMLPreInitializationEvent event) {
         ConfigModuleRoot.synchronizeConfiguration(ConfigPhase.LATE);
 
         CustomBlocks.registerBlocks();
-
-        updater = new Updater();
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
@@ -51,7 +43,6 @@ public class CommonProxy {
     // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
     public void postInit(FMLPostInitializationEvent event) {
         CustomRecipes.registerRecipesPostInit();
-        ClientCommandHandler.instance.registerCommand(new UpdateCommand());
     }
 
     // register server commands in this event handler (Remove if not needed)

@@ -3,25 +3,17 @@ package dev.rndmorris.salisarcana.updater;
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
-
-import org.apache.commons.io.FileUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,12 +26,9 @@ import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 
 public class Updater {
 
-    public boolean hasCheckedVersion = ConfigModuleRoot.enableVersionChecking; // if true, version checking is disabled,
-    // so we don't check
+    public boolean hasCheckedVersion = !ConfigModuleRoot.enableVersionChecking;
 
-    private static final String versionURL = "https://raw.githubusercontent.com/rndmorris/Salis-Arcana/refs/heads/versions/versions.json";
-
-    public static Map<String, VersionDetails> versions;
+    private static final String versionURL = "https://api.modrinth.com/v2/project/y1bqIjK6/version";
 
     public Updater() {
         FMLCommonHandler.instance()
@@ -47,23 +36,27 @@ public class Updater {
             .register(this);
     }
 
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!hasCheckedVersion) {
             // check for new version
             hasCheckedVersion = true;
-            String newVersion = checkForNewVersion();
+            VersionInfo newVersion = checkForNewVersion();
             if (newVersion != null) {
                 IChatComponent message = new ChatComponentText(
-                    "A new version of Salis Arcana is available. Click here to automatically update.");
+                    String.format(
+                        "A new version of Salis Arcana is available (%s). Click here to open the download page.",
+                        newVersion.getVersionNumber()));
                 message.getChatStyle()
                     .setChatClickEvent(
-                        new ClickEvent(ClickEvent.Action.RUN_COMMAND, "salis-arcana-update " + newVersion));
+                        new ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/mod/salis-arcana"));
+                event.player.addChatMessage(message);
             }
         }
     }
 
-    private String checkForNewVersion() {
+    private VersionInfo checkForNewVersion() {
 
         try {
             URL url = new URL(versionURL);
@@ -72,24 +65,21 @@ public class Updater {
             conn.setRequestProperty("Accept", "application/json");
 
             if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("HTTP GET Request Failed with Error Code : " + conn.getResponseCode());
+                LOG.error("Version Check Failed: HTTP GET Request Failed with Error Code : {}", conn.getResponseCode());
             }
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder json = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                json.append(line);
-            }
+            Gson gson = new Gson();
+            List<VersionInfo> versions = gson.fromJson(reader, new TypeToken<List<VersionInfo>>() {}.getType());
             reader.close();
             conn.disconnect();
-            Gson gson = new Gson();
-            Type type = new TypeToken<Map<String, VersionDetails>>() {}.getType();
-            versions = gson.fromJson(json.toString(), type);
-            List<String> versionList = new ArrayList<>(versions.keySet());
-            Collections.sort(versionList);
-            String latestVersion = versionList.get(versionList.size() - 1);
-            if (!latestVersion.equals(Tags.VERSION)) {
+
+            versions.sort(
+                Comparator.comparing(VersionInfo::getVersionNumber)
+                    .reversed());
+            VersionInfo latestVersion = versions.get(0);
+            if (!latestVersion.getVersionNumber()
+                .equals(Tags.VERSION)) {
                 return latestVersion;
             }
         } catch (Exception e) {
@@ -97,87 +87,55 @@ public class Updater {
         }
         return null;
     }
-
-    public static boolean downloadNewVersion(String version) {
-        String baseUrl = "https://github.com/rndmorris/Salis-Arcana/releases/download/";
-        VersionDetails details = versions.get(version);
-        if (details != null) {
-            String url = baseUrl + version + "/salisarcana-" + version + ".jar";
-            try {
-                URL downloadUrl = new URL(url);
-                HttpURLConnection conn = (HttpURLConnection) downloadUrl.openConnection();
-                conn.setRequestMethod("GET");
-
-                if (conn.getResponseCode() != 200) {
-                    throw new RuntimeException("HTTP GET Request Failed with Error Code : " + conn.getResponseCode());
-                }
-                ByteArrayInputStream stream = new ByteArrayInputStream(
-                    conn.getInputStream()
-                        .readAllBytes());
-                conn.disconnect();
-
-                // check hash
-                String hash = generateMD5(stream);
-                if (hash == null || !hash.equals(details.getRelease())) {
-                    return false;
-                }
-                File file = new File("mods/salisarcana-" + version + ".jar");
-                boolean success = file.createNewFile();
-                if (!file.exists() || !success) {
-
-                    return false;
-                }
-                FileUtils.writeByteArrayToFile(new File("mods/salisarcana-" + version + ".jar"), stream.readAllBytes());
-                return true;
-            } catch (Exception e) {
-                LOG.error(e);
-            }
-        }
-        return false;
-    }
-
-    public static String generateMD5(ByteArrayInputStream input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(input.readAllBytes());
-            BigInteger no = new BigInteger(1, messageDigest);
-            StringBuilder hashtext = new StringBuilder(no.toString(16));
-
-            // Pad with leading zeros if necessary
-            while (hashtext.length() < 32) {
-                hashtext.insert(0, "0");
-            }
-
-            return hashtext.toString();
-        } catch (NoSuchAlgorithmException e) {
-            return null;
-        }
-    }
-
-    public static String getUrl(String version) {
-        return "https://github.com/rndmorris/Salis-Arcana/releases/download/" + version
-            + "/salisarcana-"
-            + version
-            + ".jar";
-    }
-
 }
 
-final class VersionDetails {
+@SuppressWarnings("unused")
+class VersionInfo {
 
-    private String dev;
-    private String sources;
-    private String release;
+    private List<String> game_versions;
+    private List<String> loaders;
+    private String id;
+    private String project_id;
+    private String author_id;
+    private boolean featured;
+    private String name;
+    private String version_number;
+    private String changelog;
+    private String changelog_url;
+    private String date_published;
+    private int downloads;
+    private String version_type;
+    private String status;
+    private String requested_status;
+    private List<File> files;
+    private List<Dependency> dependencies;
 
-    public String getDev() {
-        return dev;
+    // Getters and setters
+    public String getVersionNumber() {
+        return version_number == null ? "0" : version_number;
     }
+}
 
-    public String getSources() {
-        return sources;
-    }
+@SuppressWarnings("unused")
+class VersionFile {
 
-    public String getRelease() {
-        return release;
-    }
+    private Map<String, String> hashes;
+    private String url;
+    private String filename;
+    private boolean primary;
+    private int size;
+    private String file_type;
+
+    // Getters and setters
+}
+
+@SuppressWarnings("unused")
+class Dependency {
+
+    private String version_id;
+    private String project_id;
+    private String file_name;
+    private String dependency_type;
+
+    // Getters and setters
 }
