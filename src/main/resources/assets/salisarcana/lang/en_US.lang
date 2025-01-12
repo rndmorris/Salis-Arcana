@@ -36,7 +36,7 @@ salisarcana:command.forget-scanned.nodes=§7[--nodes]§r Reset scanned nodes.
 salisarcana:command.forget-scanned.all=§7[--all]§r Combines the effects of §7objects§r, §7entities§r, and §7nodes§r
 
 salisarcana:command.forget-scanned.success=§9Success:§r %d entries were removed from %s's scan lists.
-salisarcana:command.forget-scanned.failure=§Failure:§rThere was nothing to remove from %s's scan lists.
+salisarcana:command.forget-scanned.failure=§cFailure:§r There was nothing to remove from %s's scan lists.
 
 salisarcana:command.help.desc=Get help information about a Salis Arcana command.
 salisarcana:command.help.usage=§7/salisarcana-help §7[command]§r
