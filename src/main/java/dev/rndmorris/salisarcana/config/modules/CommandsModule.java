@@ -59,8 +59,7 @@ public class CommandsModule extends BaseConfigModule {
                 .setDescription("Update the properties of a node at the specified coordinates.")
                 .setPermissionLevel(2),
             upgradeFocus = new CommandSettings("upgrade-focus", this, ConfigPhase.LATE).addDefaultAlias()
-                .setPermissionLevel(2),
-            };
+                .setPermissionLevel(2), };
 
         addSettings(commandsSettings);
     }
