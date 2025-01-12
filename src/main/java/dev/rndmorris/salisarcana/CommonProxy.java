@@ -9,6 +9,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.common.commands.ArcanaCommandBase;
 import dev.rndmorris.salisarcana.common.commands.CreateNodeCommand;
@@ -52,6 +53,7 @@ public class CommonProxy {
     // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
     public void postInit(FMLPostInitializationEvent event) {
         CustomRecipes.registerRecipesPostInit();
+        CustomResearch.init();
     }
 
     // register server commands in this event handler (Remove if not needed)

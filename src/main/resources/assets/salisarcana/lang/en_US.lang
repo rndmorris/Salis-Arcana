@@ -118,3 +118,6 @@ tc.research_name.ROD_wood=Wooden Wand Core
 salisarcana:tcinventoryscan.scanning=Scanning
 salisarcana:tcinventoryscan.thaumometerTooltip=Inventory Scanning available
 salisarcana:tcinventoryscan.thaumometerTooltipMore=Hover items with the Thaumometer\non the cursor to scan.
+
+tc.research_name.salisarcana:REPLACEWANDCAPS=Wand Core Substitution
+tc.research_name.salisarcana:REPLACEWANDCORE=Wand Cap Substitution

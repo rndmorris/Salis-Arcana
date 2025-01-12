@@ -6,6 +6,7 @@ import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
+import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
 import dev.rndmorris.salisarcana.config.settings.Setting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
@@ -15,6 +16,10 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting lessPickyPrimalCharmRecipe;
     public final ToggleSetting rotatedFociRecipes;
     public final ToggleSetting rotatedThaumometerRecipe;
+
+    public final ReplaceWandComponentSettings replaceWandCapsSettings;
+    public final ReplaceWandComponentSettings replaceWandCoreSettings;
+    public final ToggleSetting enforceWandCoreTypes;
 
     public final ToggleSetting lookalikePlanks;
     public final IntArraySetting nodeModifierWeights;
@@ -208,6 +213,27 @@ public class EnhancementsModule extends BaseConfigModule {
                     "    * If set to * or 32767, all metadata variants of the block will be included.",
                     "")).setListType(BlockItemListSetting.ListType.BLOCKS)
                         .setCategory("infusion"));
+
+        final var wandCategory = "wand_component_swapping";
+        addSettings(
+            replaceWandCapsSettings = (ReplaceWandComponentSettings) new ReplaceWandComponentSettings(
+                this,
+                ConfigPhase.LATE,
+                ReplaceWandComponentSettings.Component.CAPS,
+                4,
+                2).setCategory(wandCategory),
+            replaceWandCoreSettings = (ReplaceWandComponentSettings) new ReplaceWandComponentSettings(
+                this,
+                ConfigPhase.LATE,
+                ReplaceWandComponentSettings.Component.CORE,
+                -6,
+                2).setCategory(wandCategory),
+            enforceWandCoreTypes = (ToggleSetting) new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "enforceWandCoreTypes",
+                "If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core.\nDisable to allow upgrading a wand to a staff and vice versa.")
+                    .setCategory(wandCategory));
     }
 
     @Nonnull
