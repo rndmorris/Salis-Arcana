@@ -219,7 +219,7 @@ Update the properties of the node at the specified coordinates.
 
 **Description:**
 
-Add focus upgrades your or another player's held wand focus. Will not apply upgrades beyond the focus's five-upgrade limit.
+Add focus upgrades to a wand focus held in your or another player's hand. Will not apply upgrades beyond the focus's five-upgrade limit.
 
 **Usage:**
 
