@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.common.commands;
 
+import static dev.rndmorris.salisarcana.SalisArcana.LOG;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -56,14 +59,42 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
             printUsage(sender);
             return;
         }
-        process(sender, argumentProcessor.process(sender, args), args);
+        try {
+            process(sender, argumentProcessor.process(sender, args), args);
+        } catch (Exception ex) {
+            if (ex instanceof CommandException ce) {
+                throw ce;
+            }
+            LOG.error(
+                String.format(
+                    "An error occurred for player %s while executing /%s.",
+                    sender.getCommandSenderName(),
+                    String.join(" ", args)),
+                ex);
+            sender.addChatMessage(
+                new ChatComponentTranslation("salisarcana:command.error.execute")
+                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+        }
     }
 
     @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
-        return CommandBase.getListOfStringsFromIterableMatchingLastWord(
-            args,
-            argumentProcessor.getAutocompletionSuggestions(sender, args));
+        try {
+            return CommandBase.getListOfStringsFromIterableMatchingLastWord(
+                args,
+                argumentProcessor.getAutocompletionSuggestions(sender, args));
+        } catch (Exception ex) {
+            LOG.error(
+                String.format(
+                    "An error occurred for player %s while providing tab completion for /%s.",
+                    sender.getCommandSenderName(),
+                    String.join(" ", args)),
+                ex);
+            sender.addChatMessage(
+                new ChatComponentTranslation("salisarcana:command.error.tabcomplete")
+                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+        }
+        return null;
     }
 
     protected ChatStyle titleStyle() {

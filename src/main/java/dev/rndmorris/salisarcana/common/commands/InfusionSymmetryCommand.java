@@ -93,7 +93,7 @@ public class InfusionSymmetryCommand extends ArcanaCommandBase<InfusionSymmetryC
     public static class Arguments {
 
         @PositionalArg(index = 0, handler = CoordinateHandler.class, descLangKey = "coord")
-        CoordinateArgument coordinates;
+        public CoordinateArgument coordinates;
     }
 
 }
