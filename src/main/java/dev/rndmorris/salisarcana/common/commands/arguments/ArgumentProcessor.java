@@ -27,6 +27,11 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHan
 import dev.rndmorris.salisarcana.lib.ClassComparator;
 import dev.rndmorris.salisarcana.lib.PeekableIterator;
 
+/**
+ * Parses through a {@link String[]} of command arguments and constructs a {@link TArguments} object from it
+ * 
+ * @param <TArguments>
+ */
 public class ArgumentProcessor<TArguments> {
 
     private final Map<Class<? extends IArgumentHandler>, IArgumentHandler> argumentHandlers = new TreeMap<>(
@@ -40,6 +45,15 @@ public class ArgumentProcessor<TArguments> {
 
     public final List<String> descriptionLangKeys = new ArrayList<>();
 
+    /**
+     * Initializer
+     * 
+     * @param argumentsClass   The type of {@link TArguments}
+     * @param initializer      Usually {@code TArguments::new}.
+     * @param argumentHandlers Any and all handlers used to parse the command. E.g.
+     *                         {@link dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler} if
+     *                         you want to parse value-less flags.
+     */
     public ArgumentProcessor(Class<TArguments> argumentsClass, Supplier<TArguments> initializer,
         IArgumentHandler[] argumentHandlers) {
         this.argumentsClass = argumentsClass;
@@ -50,6 +64,13 @@ public class ArgumentProcessor<TArguments> {
         buildArgumentMaps();
     }
 
+    /**
+     * Parse the given arguments and construct a {@link TArguments} instance with values from it
+     * 
+     * @param sender The command sender, used to send error messages
+     * @param args   The arg array to parse
+     * @return The parsed arguments
+     */
     public TArguments process(ICommandSender sender, String[] args) {
 
         final var excludedNames = new TreeSet<>(String::compareToIgnoreCase);
@@ -104,6 +125,13 @@ public class ArgumentProcessor<TArguments> {
         return arguments;
     }
 
+    /**
+     * Parse the given arguments return tab-completion suggestions based on what arguments have already been provided.
+     * 
+     * @param sender The command sender, used to send error messages
+     * @param args   The arg array to parse
+     * @return Tab-completion suggestions
+     */
     public List<String> getAutocompletionSuggestions(ICommandSender sender, String[] args) {
         final var excludedNames = new TreeSet<String>();
 
@@ -160,6 +188,10 @@ public class ArgumentProcessor<TArguments> {
         return Collections.emptyList();
     }
 
+    /**
+     * Only called at initialization. Reflects through {@link TArguments} and builds maps of which public fields
+     * correspond to which argument handlers
+     */
     private void buildArgumentMaps() {
         for (var field : argumentsClass.getFields()) {
             field.setAccessible(true);
@@ -244,6 +276,9 @@ public class ArgumentProcessor<TArguments> {
         }
     }
 
+    /**
+     * Helper for {@link ArgumentProcessor#buildArgumentMaps()}
+     */
     private Class<?> getExpectedOutputClass(Field field, ArgEntry entry, Class<?> fieldType) {
         Class<?> valueClass;
 
@@ -266,6 +301,13 @@ public class ArgumentProcessor<TArguments> {
         return valueClass;
     }
 
+    /**
+     * Check if the field is annotated as a positional argument, and register it with the processor's maps
+     * 
+     * @param field The field to check
+     * @param entry The registration entry this field will be associated with
+     * @return {@code true} if the field was a positional argument, {@code false} otherwise.
+     */
     private boolean evaluatePositionalArg(Field field, ArgEntry entry) {
         var posArg = field.getAnnotation(PositionalArg.class);
         if (posArg == null) {
@@ -286,6 +328,13 @@ public class ArgumentProcessor<TArguments> {
         return true;
     }
 
+    /**
+     * Check if the field is annotated as a flag argument, and register it with the processor's maps
+     * 
+     * @param field The field to check
+     * @param entry The registration entry this field will be associated with
+     * @return {@code true} if the field was a flag argument, {@code false} otherwise.
+     */
     private boolean evaluateFlagArg(Field field, ArgEntry entry) {
         var flagArg = field.getAnnotation(FlagArg.class);
         if (flagArg == null) {
@@ -310,6 +359,13 @@ public class ArgumentProcessor<TArguments> {
         return true;
     }
 
+    /**
+     * Check if the field is annotated as a named argument, and register it with the processor's maps
+     * 
+     * @param field The field to check
+     * @param entry The registration entry this field will be associated with
+     * @return {@code true} if the field was a named argument, {@code false} otherwise.
+     */
     private boolean evaluateNamedArg(Field field, ArgEntry entry) {
         final var namedArg = field.getAnnotation(NamedArg.class);
         if (namedArg == null) {
@@ -334,6 +390,9 @@ public class ArgumentProcessor<TArguments> {
         return true;
     }
 
+    /**
+     * Internal class used to store argument handlers, field setters, and other metadata about an argument
+     */
     private static class ArgEntry {
 
         public IArgumentHandler handler;
