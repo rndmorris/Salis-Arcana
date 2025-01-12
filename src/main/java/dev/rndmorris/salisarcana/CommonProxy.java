@@ -25,6 +25,7 @@ import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
+import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.updater.Updater;
 
 public class CommonProxy {
@@ -44,8 +45,8 @@ public class CommonProxy {
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
     public void init(FMLInitializationEvent event) {
-
         CustomRecipes.registerRecipes();
+        NetworkHandler.init();
     }
 
     // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
@@ -74,4 +75,5 @@ public class CommonProxy {
             event.registerServerCommand(init.get());
         }
     }
+
 }

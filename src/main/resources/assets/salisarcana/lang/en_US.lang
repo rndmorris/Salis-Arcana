@@ -114,3 +114,7 @@ salisarcana:update_available=A new version of Salis Arcana is available (%s). Cl
 
 tc.research_name.CAP_iron=Iron Wand Caps
 tc.research_name.ROD_wood=Wooden Wand Core
+
+salisarcana:tcinventoryscan.scanning=Scanning
+salisarcana:tcinventoryscan.thaumometerTooltip=Inventory Scanning available
+salisarcana:tcinventoryscan.thaumometerTooltipMore=Hover items with the Thaumometer\non the cursor to scan.
