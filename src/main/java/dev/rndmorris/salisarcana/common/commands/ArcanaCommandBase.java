@@ -71,7 +71,9 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
                     sender.getCommandSenderName(),
                     String.join(" ", args)),
                 ex);
-            CommandErrors.generic();
+            sender.addChatMessage(
+                new ChatComponentTranslation("salisarcana:command.error.execute")
+                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
         }
     }
 
@@ -89,7 +91,7 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
                     String.join(" ", args)),
                 ex);
             sender.addChatMessage(
-                new ChatComponentTranslation("salisarcana:command.error.execute")
+                new ChatComponentTranslation("salisarcana:command.error.tabcomplete")
                     .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
         }
         return null;
