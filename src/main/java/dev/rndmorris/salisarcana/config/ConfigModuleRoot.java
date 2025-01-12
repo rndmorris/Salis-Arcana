@@ -19,6 +19,8 @@ public class ConfigModuleRoot {
     public static final CommandsModule commands;
     public static final EnhancementsModule enhancements;
 
+    public static boolean enableVersionChecking;
+
     private static final BaseConfigModule[] modules = new BaseConfigModule[] { biomeColors = new BiomeColorModule(),
         bugfixes = new BugfixesModule(), commands = new CommandsModule(), enhancements = new EnhancementsModule(), };
 
@@ -26,6 +28,9 @@ public class ConfigModuleRoot {
         final var rootConfigFile = Paths.get("config", SalisArcana.MODID + ".cfg")
             .toString();
         final var rootConfig = new Configuration(new File(rootConfigFile));
+
+        enableVersionChecking = rootConfig
+            .getBoolean("enableversionChecking", "general", true, "Check for new versions of Salis Arcana on startup");
 
         for (var module : modules) {
 

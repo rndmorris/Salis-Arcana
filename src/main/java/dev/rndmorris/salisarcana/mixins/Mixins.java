@@ -228,6 +228,30 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileWandPedestal")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    ITEM_ELDRITCH_OBJECT_STACK_SIZE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.itemEldritchObjectStackSize::isEnabled)
+        .addMixinClasses("items.MixinItemEldritchObject")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    CREATIVE_MODE_ITEM_CONSUMPTION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.stopCreativeModeItemConsumption::isEnabled)
+        .addMixinClasses("blocks.MixinBlockEldritch", "items.MixinItemEssence")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    CREATIVE_MODE_VIS_CONSUMPTION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.infiniteCreativeVis::isEnabled)
+        .addMixinClasses("items.MixinItemWandCasting")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    MANA_POD_GROWTH_RATE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.manaPodGrowthRate::isEnabled)
+        .addMixinClasses("blocks.MixinBlockManaPod")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ;
 
     private final List<String> mixinClasses;

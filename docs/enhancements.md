@@ -21,11 +21,25 @@ Want tainted lands to look like The Crimson? Want the eerie biome that manifests
 Adds decorative Greatwood and Silverwood plank blocks that behave as normal blocks should. Allows using those textures
 while avoiding the weirdness in Thaumcraft's plank blocks implementation.
 
-## Suppress Warp Events in Creative Mode
+## Increased Item Stack Size
+
+Config Option: `eldritchObjectStackSize`
+
+Increases the stack size of Primordial Pearls, Eldritch Eyes, Crimson Rites, Eldritch Obelisk Placers, and Runed Tablets. Default of 16.
+
+## Enhancements - Creative Mode
 
 **Config option:** `suppressWarpEventsInCreative`
 
 Prevent random warp events from occurring for players in creative mode.
+
+**Config option:** `stopCreativeModeItemConsumption`
+
+Prevents Eldritch eyes and essentia phials from being consumed in Creative mode.
+
+**Config Option:** `infiniteCreativeVis`
+
+Gives creative mode players infinite vis in wands
 
 ## Thaumonomicon Controls
 
@@ -63,6 +77,10 @@ If enabled, randomly generated nodes will pick their type from the weighted list
 **Config option:** `nodeTypeWeights`
 The weights used to pick the type of nodes when randomly generated.
 
+## Mana Bean Growth Rate
+
+**Config Option:** `manaBeanGrowthChance`
+The random chance for mana beans to grow every block tick. Valid values are 0, 100 inclusive. Lower values are more likely to happen, with 0 being guaranteed.
 
 # Enhancements - Infusion
 

@@ -1,7 +1,6 @@
 package dev.rndmorris.salisarcana.common.commands.arguments.handlers.named;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -11,6 +10,8 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 
+import com.google.common.collect.PeekingIterator;
+
 import dev.rndmorris.salisarcana.common.commands.CommandErrors;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 
@@ -19,8 +20,8 @@ public class PlayerHandler implements INamedArgumentHandler {
     public static final IArgumentHandler INSTANCE = new PlayerHandler();
 
     @Override
-    public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-        final var player = CommandBase.getPlayer(sender, current);
+    public Object parse(ICommandSender sender, PeekingIterator<String> args) {
+        final var player = CommandBase.getPlayer(sender, args.next());
         if (player == null) {
             CommandErrors.playerNotFound();
         }
@@ -28,7 +29,8 @@ public class PlayerHandler implements INamedArgumentHandler {
     }
 
     @Override
-    public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
+    public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
+        args.next();
         if (args.hasNext()) {
             return null;
         }

@@ -4,6 +4,7 @@ import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
 
 import java.util.function.Supplier;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -23,6 +24,7 @@ import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
+import dev.rndmorris.salisarcana.updater.Updater;
 
 public class CommonProxy {
 
@@ -33,6 +35,10 @@ public class CommonProxy {
         ConfigModuleRoot.synchronizeConfiguration(ConfigPhase.LATE);
 
         CustomBlocks.registerBlocks();
+
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new Updater());
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)

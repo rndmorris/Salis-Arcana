@@ -6,9 +6,15 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.Block;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.MovingObjectPosition;
 
 import dev.rndmorris.salisarcana.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.FlagArg;
@@ -18,6 +24,8 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHan
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.lib.research.ScanManager;
+import thaumcraft.common.lib.utils.BlockUtils;
 
 public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand.Arguments> {
 
@@ -42,6 +50,46 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         final var playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
         final var toClear = new ArrayList<Map<String, ArrayList<String>>>(3);
 
+        int removedCount = 0;
+
+        if (arguments.hand) {
+            if (forgetSingle(sender, arguments.targetPlayer.getHeldItem())) {
+                removedCount++;
+            }
+        }
+        if (arguments.inventory) {
+            final var inventory = arguments.targetPlayer.inventory;
+            for (var i = 0; i < inventory.getSizeInventory(); i++) {
+                if (forgetSingle(sender, inventory.getStackInSlot(i))) {
+                    removedCount++;
+                }
+            }
+        }
+        if (arguments.looking) {
+            MovingObjectPosition target = getLookingAt(arguments.targetPlayer);
+            Block block = arguments.targetPlayer.worldObj.getBlock(target.blockX, target.blockY, target.blockZ);
+            if (block != null) {
+                ItemStack item = new ItemStack(
+                    block,
+                    1,
+                    arguments.targetPlayer.worldObj.getBlockMetadata(target.blockX, target.blockY, target.blockZ));
+                if (forgetSingle(sender, item)) {
+                    removedCount++;
+                }
+            }
+        }
+        if (arguments.container) {
+            MovingObjectPosition target = getLookingAt(arguments.targetPlayer);
+            TileEntity tile = arguments.targetPlayer.worldObj
+                .getTileEntity(target.blockX, target.blockY, target.blockZ);
+            if (tile instanceof IInventory inventory) {
+                for (var i = 0; i < inventory.getSizeInventory(); i++) {
+                    if (forgetSingle(sender, inventory.getStackInSlot(i))) {
+                        removedCount++;
+                    }
+                }
+            }
+        }
         if (arguments.all || arguments.objects) {
             toClear.add(playerKnowledge.objectsScanned);
         }
@@ -53,7 +101,9 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         }
 
         final var playerName = arguments.targetPlayer.getCommandSenderName();
-        final var removedCount = forget(playerName, toClear);
+        if (!toClear.isEmpty()) {
+            removedCount = forget(playerName, toClear);
+        }
         if (removedCount > 0) {
             sender.addChatMessage(
                 new ChatComponentTranslation("salisarcana:command.forget-scanned.success", removedCount, playerName));
@@ -79,6 +129,21 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         return count;
     }
 
+    private boolean forgetSingle(ICommandSender sender, ItemStack item) {
+        if (item == null) {
+            return false;
+        }
+        final var playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
+        final var playerName = sender.getCommandSenderName();
+        final var objectsScanned = playerKnowledge.objectsScanned.get(playerName);
+        String key = "@" + ScanManager.generateItemHash(item.getItem(), item.getItemDamage());
+        return objectsScanned != null && objectsScanned.remove(key);
+    }
+
+    private MovingObjectPosition getLookingAt(EntityPlayer player) {
+        return BlockUtils.getTargetBlock(player.worldObj, player, false);
+    }
+
     @Override
     protected int minimumRequiredArgs() {
         return 1;
@@ -100,6 +165,18 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
 
         @FlagArg(name = "--all", excludes = { "--objects", "--entities", "--nodes" }, descLangKey = "all")
         public boolean all;
+
+        @FlagArg(name = "--hand", excludes = "--all", descLangKey = "hand")
+        public boolean hand;
+
+        @FlagArg(name = "--inventory", excludes = "--all", descLangKey = "research")
+        public boolean inventory;
+
+        @FlagArg(name = "--looking", excludes = "--all", descLangKey = "looking")
+        public boolean looking;
+
+        @FlagArg(name = "--container", excludes = "--all", descLangKey = "container")
+        public boolean container;
 
     }
 }

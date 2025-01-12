@@ -3,6 +3,9 @@ salisarcana:command.desc=Description:
 salisarcana:command.usage=Usage:
 salisarcana:command.args=Arguments:
 
+salisarcana:command.error.tabcomplete=An error occurred while getting tab-completion suggestions. Please open a bug report, including your sever log, on the the Salis Arcana GitHub.
+salisarcana:command.error.execute=An error occurred while executing this command. If this happens again, please open a bug report, including your sever log, on the the Salis Arcana GitHub.
+
 salisarcana:command.create-node.desc=Create a new randomly-generated node at the specified coordinates.
 salisarcana:command.create-node.usage=§7/salisarcana-create-node §7<x> §7<y> §7<z> §7[-t §7<type>] §7[-m §7<modifier>] §7[--silverwood] §7[--eerie] §7[--small] §7[-a §7<aspect1> §7<count1>[ §7-a §7<aspect2> §7<count2>[ §7...]]]§r
 salisarcana:command.create-node.args.coord=§7§o<x> <y> <z>§r §cRequired.§r Specify where the node will be created.
@@ -26,14 +29,18 @@ salisarcana:command.forget-research.success=§9Success:§r Removed %d research i
 
 salisarcana:command.forget-scanned.desc=Resets the lists of things a player has scanned, allowing those things to be scanned again.
 salisarcana:command.forget-scanned.usage=§7/salisarcana-forget-scanned §7[--player §7<username>] §7[--objects] §7[--entities] §7[--nodes] §7[--all]§r
-salisarcana:command.forget-scanned.player=§7[--player <username>]§r Specify the player whose scanned things will be altered. If not provided, defaults to the player executing this command.
-salisarcana:command.forget-scanned.objects=§7[--objects]§r Reset scanned items and blocks.
-salisarcana:command.forget-scanned.entities=§7[--entities]§r Reset scanned entities, including mobs.
-salisarcana:command.forget-scanned.nodes=§7[--nodes]§r Reset scanned nodes.
+salisarcana:command.forget-scanned.args.player=§7[--player <username>]§r Specify the player whose scanned things will be altered. If not provided, defaults to the player executing this command.
+salisarcana:command.forget-scanned.args.objects=§7[--objects]§r Reset scanned items and blocks.
+salisarcana:command.forget-scanned.args.entities=§7[--entities]§r Reset scanned entities, including mobs.
+salisarcana:command.forget-scanned.args.nodes=§7[--nodes]§r Reset scanned nodes.
+salisarcana:command.forget-scanned.args.hand=§7[--hand]§r Reset the item currently held. Mutually exclusive with §7--all§r.
+salisarcana:command.forget-scanned.args.inventory=§7[--inventory]§r Reset all items in your inventory. Mutually exclusive with §7--all§r.
+salisarcana:command.forget-scanned.args.looking=§7[--looking]§r Reset the block you are currently looking at. Mutually exclusive with §7--all§r.
+salisarcana:command.forget-scanned.args.container=§7[--container]§r Reset all items in the container (eg. Chest) you are looking at. Mutually exclusive with §7--all§r.
 salisarcana:command.forget-scanned.all=§7[--all]§r Combines the effects of §7objects§r, §7entities§r, and §7nodes§r
 
 salisarcana:command.forget-scanned.success=§9Success:§r %d entries were removed from %s's scan lists.
-salisarcana:command.forget-scanned.failure=§Failure:§rThere was nothing to remove from %s's scan lists.
+salisarcana:command.forget-scanned.failure=§cFailure:§r There was nothing to remove from %s's scan lists.
 
 salisarcana:command.help.desc=Get help information about a Salis Arcana command.
 salisarcana:command.help.usage=§7/salisarcana-help §7[command]§r
@@ -94,6 +101,8 @@ salisarcana:error.invalid_node_type=%s is not a known node type.
 salisarcana:error.unexpected_value=Unexpected input "%s".
 salisarcana:error.unknown_value=Unknown value "%s".
 salisarcana:error.unknown_research=%s is not a known research key.
+
+salisarcana:update_available=A new version of Salis Arcana is available (%s). Click here to open the download page.
 
 tc.research_name.CAP_iron=Iron Wand Caps
 tc.research_name.ROD_wood=Wooden Wand Core

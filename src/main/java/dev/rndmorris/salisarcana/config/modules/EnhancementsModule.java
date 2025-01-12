@@ -21,6 +21,9 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntArraySetting nodeTypeWeights;
     public final ToggleSetting suppressWarpEventsInCreative;
     public final ToggleSetting useAllBaublesSlots;
+    public final ToggleSetting stopCreativeModeItemConsumption;
+    public final IntSetting manaPodGrowthRate;
+    public final ToggleSetting infiniteCreativeVis;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -31,6 +34,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final BlockItemListSetting<Integer> stabilizerAdditions;
     public final BlockItemListSetting<Object> stabilizerExclusions;
     public final IntSetting stabilizerStrength;
+
+    public final IntSetting itemEldritchObjectStackSize;
 
     public final ToggleSetting wandPedestalUseCV;
 
@@ -130,7 +135,31 @@ public class EnhancementsModule extends BaseConfigModule {
                     ""),
                 10).setMinValue(-10000)
                     .setMaxValue(10000)
-                    .setCategory("infusion"));
+                    .setCategory("infusion"),
+            itemEldritchObjectStackSize = new IntSetting(
+                this,
+                ConfigPhase.EARLY,
+                "eldritchObjectStackSize",
+                "The maximum stack size for Eldritch Objects (Primordial Pearl, Eldritch Eye, Crimson Rites, Eldritch Obelisk Placer, Runed Tablet).",
+                16).setMinValue(1)
+                    .setMaxValue(64),
+            stopCreativeModeItemConsumption = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "stopCreativeModeItemConsumption",
+                "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode."),
+            infiniteCreativeVis = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "infiniteCreativeVis",
+                "Allow wands to have infinite vis in creative mode."),
+            manaPodGrowthRate = new IntSetting(
+                this,
+                ConfigPhase.EARLY,
+                "manaBeanGrowthChance",
+                "The chance for a mana bean to grow when a mana pod is updated. Lower values are more likely to grow, with 0 growing every random tick.",
+                30).setMinValue(0)
+                    .setMaxValue(100));
 
         // noinspection unchecked
         addSettings(

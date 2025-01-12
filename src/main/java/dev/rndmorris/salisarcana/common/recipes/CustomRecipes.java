@@ -10,6 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -43,6 +44,10 @@ public class CustomRecipes {
 
         if (enhancements.rotatedThaumometerRecipe.isEnabled()) {
             registerRotatedThaumometer();
+        }
+
+        if (ConfigModuleRoot.bugfixes.slabBurnTimeFix.isEnabled()) {
+            MinecraftForge.EVENT_BUS.register(new FuelBurnTimeEventHandler());
         }
     }
 
