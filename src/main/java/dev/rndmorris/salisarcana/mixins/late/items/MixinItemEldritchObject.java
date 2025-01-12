@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.common.items.ItemEldritchObject;
 
-@Mixin(ItemEldritchObject.class)
+@Mixin(value = ItemEldritchObject.class, remap = false)
 public class MixinItemEldritchObject {
 
     @ModifyConstant(method = "<init>", constant = { @Constant(intValue = 1, ordinal = 0) })
