@@ -29,7 +29,7 @@ import dev.rndmorris.salisarcana.lib.PeekableIterator;
 
 /**
  * Parses through a {@link String[]} of command arguments and constructs a {@link TArguments} object from it
- * 
+ *
  * @param <TArguments>
  */
 public class ArgumentProcessor<TArguments> {
@@ -47,7 +47,7 @@ public class ArgumentProcessor<TArguments> {
 
     /**
      * Initializer
-     * 
+     *
      * @param argumentsClass   The type of {@link TArguments}
      * @param initializer      Usually {@code TArguments::new}.
      * @param argumentHandlers Any and all handlers used to parse the command. E.g.
@@ -66,7 +66,7 @@ public class ArgumentProcessor<TArguments> {
 
     /**
      * Parse the given arguments and construct a {@link TArguments} instance with values from it
-     * 
+     *
      * @param sender The command sender, used to send error messages
      * @param args   The arg array to parse
      * @return The parsed arguments
@@ -86,8 +86,11 @@ public class ArgumentProcessor<TArguments> {
             ArgEntry entry = null;
 
             if (positionalArgs.containsKey(index)) {
+                // positional args will handle advancing the iterator themselves
                 entry = positionalArgs.get(index);
             } else {
+                // but named/flag args will need to be advanced at least once so the next arg (if any) is the actual
+                // data being given to them
                 current = $args.next();
                 if (flagArgs.containsKey(current)) {
                     entry = flagArgs.get(current);
@@ -96,6 +99,7 @@ public class ArgumentProcessor<TArguments> {
                 }
             }
 
+            // adds excluded arguments to the set, and prevents excluded arguments from being used
             if (entry != null && (entry.argType == ArgType.FLAG || entry.argType == ArgType.NAMED)) {
                 if (excludedNames.contains(current)) {
                     entry = null;
@@ -107,6 +111,7 @@ public class ArgumentProcessor<TArguments> {
                 }
             }
 
+            // generic "this wasn't a valid argument" message
             if (entry == null) {
                 throw new CommandException("salisarcana:error.unexpected_value", current);
             }
@@ -127,7 +132,7 @@ public class ArgumentProcessor<TArguments> {
 
     /**
      * Parse the given arguments return tab-completion suggestions based on what arguments have already been provided.
-     * 
+     *
      * @param sender The command sender, used to send error messages
      * @param args   The arg array to parse
      * @return Tab-completion suggestions
@@ -145,8 +150,11 @@ public class ArgumentProcessor<TArguments> {
             ArgEntry entry = null;
 
             if (positionalArgs.containsKey(index)) {
+                // positional args will handle advancing the iterator themselves
                 entry = positionalArgs.get(index);
             } else {
+                // but named/flag args will need to be advanced at least once so the next arg (if any) is the actual
+                // data being given to them
                 current = $args.next();
                 if (flagArgs.containsKey(current)) {
                     entry = flagArgs.get(current);
@@ -155,6 +163,7 @@ public class ArgumentProcessor<TArguments> {
                 }
             }
 
+            // adds excluded arguments to the set, and prevents excluded arguments from being used
             if (entry != null && (entry.argType == ArgType.FLAG || entry.argType == ArgType.NAMED)) {
                 if (excludedNames.contains(current)) {
                     entry = null;
@@ -167,6 +176,8 @@ public class ArgumentProcessor<TArguments> {
             }
 
             if (entry == null || !$args.hasNext()) {
+                // we don't have a current entry, so we instead return suggestions for non-excluded flags and named
+                // arguments
                 final var availableFlags = flagArgs.keySet()
                     .stream()
                     .filter(k -> !excludedNames.contains(k));
@@ -177,6 +188,7 @@ public class ArgumentProcessor<TArguments> {
                     .collect(Collectors.toList());
             }
 
+            // if the handler has *any* results, we return them. If it returns null, we advance to the next handler.
             final var result = entry.handler.getAutocompleteOptions(sender, $args);
             if (result != null) {
                 return result;
@@ -198,6 +210,7 @@ public class ArgumentProcessor<TArguments> {
 
             final var entry = new ArgEntry();
 
+            // evaulate if the current field is an argument we can register
             if (!(evaluatePositionalArg(field, entry) || evaluateFlagArg(field, entry)
                 || evaluateNamedArg(field, entry))) {
                 continue;
@@ -206,6 +219,7 @@ public class ArgumentProcessor<TArguments> {
             final var fieldType = field.getType();
             final var outputType = entry.handler.getOutputType();
 
+            // It's a headache otherwise, trust me
             if (fieldType.isInterface()) {
                 throw new RuntimeException(
                     String.format(
@@ -227,6 +241,7 @@ public class ArgumentProcessor<TArguments> {
                         argumentsClass.getName()));
             }
 
+            // basic type checking to catch blatant type mismatches
             if (!outputIsList) {
                 Class<?> expectedOutput = getExpectedOutputClass(field, entry, fieldType);
 
@@ -242,6 +257,7 @@ public class ArgumentProcessor<TArguments> {
             }
 
             if (entry.isList) {
+                // append single and list values to a list field
                 entry.fieldSetter = (arguments, val) -> {
                     try {
                         // ensure the field value is an initialized list
@@ -264,6 +280,7 @@ public class ArgumentProcessor<TArguments> {
                     }
                 };
             } else {
+                // or just set the field's value
                 entry.fieldSetter = (arguments, val) -> {
                     try {
                         field.set(arguments, val);
@@ -303,7 +320,7 @@ public class ArgumentProcessor<TArguments> {
 
     /**
      * Check if the field is annotated as a positional argument, and register it with the processor's maps
-     * 
+     *
      * @param field The field to check
      * @param entry The registration entry this field will be associated with
      * @return {@code true} if the field was a positional argument, {@code false} otherwise.
@@ -330,7 +347,7 @@ public class ArgumentProcessor<TArguments> {
 
     /**
      * Check if the field is annotated as a flag argument, and register it with the processor's maps
-     * 
+     *
      * @param field The field to check
      * @param entry The registration entry this field will be associated with
      * @return {@code true} if the field was a flag argument, {@code false} otherwise.
@@ -361,7 +378,7 @@ public class ArgumentProcessor<TArguments> {
 
     /**
      * Check if the field is annotated as a named argument, and register it with the processor's maps
-     * 
+     *
      * @param field The field to check
      * @param entry The registration entry this field will be associated with
      * @return {@code true} if the field was a named argument, {@code false} otherwise.
