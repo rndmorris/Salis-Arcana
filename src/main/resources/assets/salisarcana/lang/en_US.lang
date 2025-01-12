@@ -92,10 +92,18 @@ salisarcana:command.update-node.args.type=§7§o[-t <type>]§r Change the node's
 salisarcana:command.update-node.args.modifier=§7§o[-m <modifier>]§r Change the node's modifier
 salisarcana:command.update-node.args.set=§7§o[--set <aspect> <count>]§r Set how much vis of the specified aspect the node contains. Can be used multiple times to set additional aspects.
 salisarcana:command.update-node.args.rem=§7§o[--rem <aspect> <count>]§r Remove an aspect from the node. Can be used multiple times to remove additional aspects.
-
 salisarcana:command.update-node.not_found=A node was not found at %d %d %d.
 
+salisarcana:command.upgrade-focus.desc=Add focus upgrades your or another player's held wand focus. Will not apply upgrades beyond the focus's five-upgrade limit.
+salisarcana:command.upgrade-focus.usage=§7/salisarcana-update-focus §7<upgrade[ §7upgrade[ §7...]]> §7[--player §7<username>]
+salisarcana:command.upgrade-focus.args.upgrades=§7<upgrade-id>§r Required. A list of one or more upgrades to be applied. 
+salisarcana:command.upgrade-focus.args.player=§7[--player]§r If set, apply upgrades to the specified player's held focus instead of your own.
+salisarcana:command.upgrade-focus.noItem=Target player is not holding a wand focus.
+salisarcana:command.upgrade-focus.tooManyUpgrades=%d upgrade(s) could not be applied due to the five-upgrade limit. 
+salisarcana:command.upgrade-focus.success=All focus upgrades applied successfully.
+
 salisarcana:error.invalid_aspect="%s" is not a known aspect.
+salisarcana:error.invalid_focus_upgrade=%s is not a known focus upgrade.
 salisarcana:error.invalid_node_modifier=%s is not a known node modifier.
 salisarcana:error.invalid_node_type=%s is not a known node type.
 salisarcana:error.unexpected_value=Unexpected input "%s".

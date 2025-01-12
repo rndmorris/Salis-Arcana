@@ -8,6 +8,8 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.github.bsideup.jabel.Desugar;
+
 public class ArrayHelper {
 
     public static boolean tryAssign(boolean[] arr, int index, boolean value) {
@@ -16,6 +18,13 @@ public class ArrayHelper {
             return true;
         }
         return false;
+    }
+
+    public static <E> TryGetResult<E> tryGet(E[] arr, int index) {
+        if (0 <= index && index < arr.length) {
+            return TryGetResult.success(arr[index]);
+        }
+        return TryGetResult.failure();
     }
 
     @Nonnull
@@ -31,6 +40,18 @@ public class ArrayHelper {
             Collections.addAll(result, arr);
         }
         return result;
+    }
+
+    @Desugar
+    public record TryGetResult<E> (boolean success, E data) {
+
+        public static <E> TryGetResult<E> failure() {
+            return new TryGetResult<>(false, null);
+        }
+
+        public static <E> TryGetResult<E> success(E data) {
+            return new TryGetResult<>(true, data);
+        }
     }
 
 }
