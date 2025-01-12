@@ -4,7 +4,9 @@ import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
+import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
@@ -29,7 +31,7 @@ public class CustomResearch {
             ConfigModuleRoot.enhancements.replaceWandCapsSettings,
             "REPLACEWANDCAPS",
             "CAP_gold",
-            wand);
+            PlaceholderItem.capPlaceholder);
 
         wandItem.setRod(wand, ConfigItems.WAND_ROD_GREATWOOD);
         wandItem.setCap(wand, ConfigItems.WAND_CAP_IRON);
@@ -37,11 +39,11 @@ public class CustomResearch {
             ConfigModuleRoot.enhancements.replaceWandCoreSettings,
             "REPLACEWANDCORE",
             "ROD_greatwood",
-            wand);
+            PlaceholderItem.rodPlaceholder);
     }
 
     private static ResearchItem maybeRegister(ReplaceWandComponentSettings settings, String key, String siblingKey,
-        ItemStack iconItem) {
+        PlaceholderItem placeholderItem) {
         if (!settings.isEnabled()) {
             return null;
         }
@@ -50,9 +52,16 @@ public class CustomResearch {
         final var col = settings.getResearchCol();
         final var row = settings.getResearchRow();
 
-        final var research = new ResearchItem(fullKey, category, new AspectList(), col, row, 1, iconItem).setConcealed()
-            .setSpecial()
-            .registerResearchItem();
+        final var research = new ResearchItem(
+            fullKey,
+            category,
+            new AspectList(),
+            col,
+            row,
+            1,
+            new ItemStack(placeholderItem, 0, OreDictionary.WILDCARD_VALUE)).setConcealed()
+                .setSpecial()
+                .registerResearchItem();
 
         final var sibling = ResearchCategories.getResearch(siblingKey);
         if (sibling == null) {

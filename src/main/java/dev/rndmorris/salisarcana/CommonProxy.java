@@ -21,6 +21,7 @@ import dev.rndmorris.salisarcana.common.commands.ListResearchCommand;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
 import dev.rndmorris.salisarcana.common.commands.UpdateNodeCommand;
 import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
+import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
@@ -38,6 +39,7 @@ public class CommonProxy {
         ConfigModuleRoot.synchronizeConfiguration(ConfigPhase.LATE);
 
         CustomBlocks.registerBlocks();
+        PlaceholderItem.registerPlaceholders();
 
         FMLCommonHandler.instance()
             .bus()
