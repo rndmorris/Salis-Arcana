@@ -252,6 +252,12 @@ public enum Mixins {
         .addMixinClasses("blocks.MixinBlockManaPod")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    THAUMOMETER_SCAN_CONTAINERS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.thaumometerScanContainers::isEnabled)
+        .addMixinClasses("items.MixinItemThaumometer")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ;
 
     private final List<String> mixinClasses;

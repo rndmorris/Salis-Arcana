@@ -38,9 +38,11 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting itemEldritchObjectStackSize;
 
     public final ToggleSetting wandPedestalUseCV;
+    public ToggleSetting thaumometerScanContainers;
 
     public EnhancementsModule() {
         addSettings(
+            // spotless:off
             lessPickyPrimalCharmRecipe = (ToggleSetting) new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
@@ -159,8 +161,16 @@ public class EnhancementsModule extends BaseConfigModule {
                 "manaBeanGrowthChance",
                 "The chance for a mana bean to grow when a mana pod is updated. Lower values are more likely to grow, with 0 growing every random tick.",
                 30).setMinValue(0)
-                    .setMaxValue(100));
+                    .setMaxValue(100),
+            thaumometerScanContainers = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "thaumometerScanContainers",
+                "Allow the thaumometer to scan the contents of inventories when right-clicking on them.")
 
+        );
+
+        // spotless:on
         // noinspection unchecked
         addSettings(
             stabilizerAdditions = (BlockItemListSetting<Integer>) new BlockItemListSetting<Integer>(
