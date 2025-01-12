@@ -1,18 +1,26 @@
 package dev.rndmorris.salisarcana.common.commands;
 
-import dev.rndmorris.salisarcana.common.commands.arguments.ArgumentProcessor;
-import dev.rndmorris.salisarcana.common.commands.arguments.annotations.NamedArg;
-import dev.rndmorris.salisarcana.common.commands.arguments.handlers.FociUpgradesHandler;
-import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
-import dev.rndmorris.salisarcana.config.settings.CommandSettings;
-import net.minecraft.command.ICommandSender;
+import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
 
-import static dev.rndmorris.salisarcana.SalisArcana.LOG;
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.ChatComponentTranslation;
 
-public class UpgradeFocusCommand extends ArcanaCommandBase<UpgradeFocusCommand.Arguments>{
+import dev.rndmorris.salisarcana.common.commands.arguments.ArgumentProcessor;
+import dev.rndmorris.salisarcana.common.commands.arguments.annotations.NamedArg;
+import dev.rndmorris.salisarcana.common.commands.arguments.annotations.PositionalArg;
+import dev.rndmorris.salisarcana.common.commands.arguments.handlers.FociUpgradesHandler;
+import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
+import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.lib.WandFocusHelper;
+import thaumcraft.api.wands.FocusUpgradeType;
+
+public class UpgradeFocusCommand extends ArcanaCommandBase<UpgradeFocusCommand.Arguments> {
 
     public UpgradeFocusCommand() {
         super(ConfigModuleRoot.commands.upgradeFocus);
@@ -21,9 +29,10 @@ public class UpgradeFocusCommand extends ArcanaCommandBase<UpgradeFocusCommand.A
     @Nonnull
     @Override
     protected ArgumentProcessor<Arguments> initializeProcessor() {
-        return new ArgumentProcessor<>(Arguments.class, Arguments::new, new IArgumentHandler[] {
-            FociUpgradesHandler.INSTANCE,
-        });
+        return new ArgumentProcessor<>(
+            Arguments.class,
+            Arguments::new,
+            new IArgumentHandler[] { FociUpgradesHandler.INSTANCE, PlayerHandler.INSTANCE, });
     }
 
     @Override
@@ -33,11 +42,40 @@ public class UpgradeFocusCommand extends ArcanaCommandBase<UpgradeFocusCommand.A
 
     @Override
     protected void process(ICommandSender sender, Arguments arguments, String[] args) {
-        LOG.info("Test! {}", arguments.upgrade);
+        final var executingPlayer = CommandBase.getCommandSenderAsPlayer(sender);
+        if (arguments.player == null) {
+            arguments.player = executingPlayer;
+        }
+
+        final var heldItem = arguments.player.getCurrentEquippedItem();
+        final var heldFocus = WandFocusHelper.getFocusFrom(heldItem);
+        if (heldItem == null || heldFocus == null) {
+            throw new CommandException("salisarcana:command.upgrade-focus.noItem");
+        }
+
+        final var appliedUpgrades = WandFocusHelper.getAppliedUpgrades(heldFocus, heldItem);
+        var applied = 0;
+        for (var upgrade : arguments.upgrades) {
+            if (appliedUpgrades.size() == 5) {
+                throw new CommandException(
+                    "salisarcana:command.upgrade-focus.tooManyUpgrades",
+                    arguments.upgrades.size() - applied);
+            }
+            appliedUpgrades.add(upgrade);
+            heldFocus.applyUpgrade(heldItem, upgrade, appliedUpgrades.size());
+            applied += 1;
+        }
+
+        sender.addChatMessage(new ChatComponentTranslation("salisarcana:command.upgrade-focus.success"));
     }
 
     public static class Arguments {
-        @NamedArg(name = "--upgrade", handler = FociUpgradesHandler.class, excludes = {"--upgrade"})
-        int upgrade = -1;
+
+        @PositionalArg(index = 0, handler = FociUpgradesHandler.class, descLangKey = "upgrades")
+        public ArrayList<FocusUpgradeType> upgrades;
+
+        @NamedArg(name = "--player", handler = PlayerHandler.class, descLangKey = "player")
+        public EntityPlayerMP player;
+
     }
 }

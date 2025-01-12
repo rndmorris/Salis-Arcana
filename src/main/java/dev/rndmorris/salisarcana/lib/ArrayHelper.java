@@ -8,6 +8,8 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import scala.Tuple2;
+
 public class ArrayHelper {
 
     public static boolean tryAssign(boolean[] arr, int index, boolean value) {
@@ -16,6 +18,13 @@ public class ArrayHelper {
             return true;
         }
         return false;
+    }
+
+    public static <E> Tuple2<Boolean, E> tryGet(E[] arr, int index) {
+        if (0 <= index && index < arr.length) {
+            return Tuple2.apply(true, arr[index]);
+        }
+        return Tuple2.apply(false, null);
     }
 
     @Nonnull
