@@ -138,7 +138,7 @@ public class ArgumentProcessor<TArguments> {
                 }
             }
 
-            if (entry == null) {
+            if (entry == null || !$args.hasNext()) {
                 final var availableFlags = flagArgs.keySet()
                     .stream()
                     .filter(k -> !excludedNames.contains(k));
