@@ -27,6 +27,12 @@ Config Option: `eldritchObjectStackSize`
 
 Increases the stack size of Primordial Pearls, Eldritch Eyes, Crimson Rites, Eldritch Obelisk Placers, and Runed Tablets. Default of 16.
 
+## Container Scanning
+
+Config Option: `thaumometerScanContainers`
+
+Allows the Thaumometer to scan the contents of containers (eg. chests, barrels) when scanning the block.
+
 ## Enhancements - Creative Mode
 
 **Config option:** `suppressWarpEventsInCreative`
