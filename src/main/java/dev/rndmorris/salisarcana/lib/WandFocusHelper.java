@@ -21,10 +21,10 @@ public class WandFocusHelper {
                 break;
             }
             final var tryGetResult = tryGet(FocusUpgradeType.types, upgradeId);
-            if (!tryGetResult._1()) {
+            if (!tryGetResult.success()) {
                 break;
             }
-            applied.add(tryGetResult._2());
+            applied.add(tryGetResult.data());
         }
         return applied;
     }

@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import scala.Tuple2;
+import com.github.bsideup.jabel.Desugar;
 
 public class ArrayHelper {
 
@@ -20,11 +20,11 @@ public class ArrayHelper {
         return false;
     }
 
-    public static <E> Tuple2<Boolean, E> tryGet(E[] arr, int index) {
+    public static <E> TryGetResult<E> tryGet(E[] arr, int index) {
         if (0 <= index && index < arr.length) {
-            return Tuple2.apply(true, arr[index]);
+            return TryGetResult.success(arr[index]);
         }
-        return Tuple2.apply(false, null);
+        return TryGetResult.failure();
     }
 
     @Nonnull
@@ -40,6 +40,18 @@ public class ArrayHelper {
             Collections.addAll(result, arr);
         }
         return result;
+    }
+
+    @Desugar
+    public record TryGetResult<E> (boolean success, E data) {
+
+        public static <E> TryGetResult<E> failure() {
+            return new TryGetResult<>(false, null);
+        }
+
+        public static <E> TryGetResult<E> success(E data) {
+            return new TryGetResult<>(true, data);
+        }
     }
 
 }
