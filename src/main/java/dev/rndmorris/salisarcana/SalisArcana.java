@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana;
 
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,6 +11,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.network.NetworkCheckHandler;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(
     modid = SalisArcana.MODID,
@@ -25,6 +29,7 @@ public class SalisArcana {
         clientSide = "dev.rndmorris.salisarcana.ClientProxy",
         serverSide = "dev.rndmorris.salisarcana.CommonProxy")
     public static CommonProxy proxy;
+    public static boolean isServerSideInstalled;
 
     @Mod.EventHandler
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
@@ -49,5 +54,13 @@ public class SalisArcana {
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {
         proxy.serverStarting(event);
+    }
+
+    @NetworkCheckHandler
+    public boolean checkNetwork(Map<String, String> map, Side side) {
+        if (side == Side.SERVER) {
+            isServerSideInstalled = map.containsKey(MODID);
+        }
+        return true;
     }
 }

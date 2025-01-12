@@ -1,11 +1,12 @@
 package dev.rndmorris.salisarcana.common.commands.arguments.handlers;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.command.ICommandSender;
+
+import com.google.common.collect.PeekingIterator;
 
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.INamedArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional.IPositionalArgumentHandler;
@@ -17,8 +18,8 @@ public class ResearchHandler implements INamedArgumentHandler, IPositionalArgume
     public static final ResearchHandler INSTANCE = new ResearchHandler();
 
     @Override
-    public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-        final var result = ResearchKeyHandler.INSTANCE.parse(sender, current, args);
+    public Object parse(ICommandSender sender, PeekingIterator<String> args) {
+        final var result = ResearchKeyHandler.INSTANCE.parse(sender, args);
         if (result instanceof String key) {
             return ResearchCategories.getResearch(key);
         }
@@ -26,8 +27,8 @@ public class ResearchHandler implements INamedArgumentHandler, IPositionalArgume
     }
 
     @Override
-    public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        return ResearchKeyHandler.INSTANCE.getAutocompleteOptions(sender, current, args);
+    public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
+        return ResearchKeyHandler.INSTANCE.getAutocompleteOptions(sender, args);
     }
 
     @Nonnull

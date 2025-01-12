@@ -28,6 +28,7 @@ Secret salt to enhance and refine Thaumcraft 4
 * Midnight145 - Project co-lead
 * jss2a98aj - Metadata safety checks from [BugTorch](https://github.com/jss2a98aj/BugTorch)
 * The GTNH Team - The Mixin framework, several mixins from [Hodgepodge](https://github.com/GTNewHorizons/Hodgepodge)
+* Christopher "BlayTheNinth" Baker - Thaumic Inventory Scanning
 
 # Art Credits
 ## Salt shaker on white background

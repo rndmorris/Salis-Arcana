@@ -24,6 +24,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting stopCreativeModeItemConsumption;
     public final IntSetting manaPodGrowthRate;
     public final ToggleSetting infiniteCreativeVis;
+    public final ToggleSetting thaumicInventoryScanning;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -162,6 +163,11 @@ public class EnhancementsModule extends BaseConfigModule {
                 "The chance for a mana bean to grow when a mana pod is updated. Lower values are more likely to grow, with 0 growing every random tick.",
                 30).setMinValue(0)
                     .setMaxValue(100),
+            thaumicInventoryScanning = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "thaumicInventoryScanning",
+                "Enable the ability to scan items in inventories using the Thaumometer. Replaces the Thaumic Inventory Scanning mod."),
             thaumometerScanContainers = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,

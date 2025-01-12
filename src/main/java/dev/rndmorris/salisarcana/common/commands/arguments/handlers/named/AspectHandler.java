@@ -1,15 +1,19 @@
 package dev.rndmorris.salisarcana.common.commands.arguments.handlers.named;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
+import com.google.common.collect.PeekingIterator;
+
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
+import dev.rndmorris.salisarcana.lib.AspectHelper;
 import thaumcraft.api.aspects.Aspect;
 
 public class AspectHandler implements INamedArgumentHandler {
@@ -17,26 +21,43 @@ public class AspectHandler implements INamedArgumentHandler {
     public static final IArgumentHandler INSTANCE = new AspectHandler();
 
     @Override
-    public Object parse(ICommandSender sender, String current, Iterator<String> args) {
-        return getAspect(current);
-    }
+    public Object parse(ICommandSender sender, PeekingIterator<String> args) {
+        final var result = new TreeSet<>(AspectHelper.COMPARATOR);
 
-    private Aspect getAspect(String input) {
-        if (input != null && !input.isEmpty()) {
-            for (var kv : Aspect.aspects.entrySet()) {
-                if (kv.getKey()
-                    .equalsIgnoreCase(input)) {
-                    return kv.getValue();
-                }
+        String peeked;
+        do {
+            final var tag = args.hasNext() ? args.next() : "";
+            final var aspect = AspectHelper.aspectsCI()
+                .get(tag);
+            if (aspect == null) {
+                throw new CommandException("salisarcana:error.invalid_aspect", tag);
             }
-        }
-        throw new CommandException("salisarcana:error.invalid_aspect", input);
+            result.add(aspect);
+        } while (args.hasNext() && (peeked = args.peek()) != null && !peeked.startsWith("-"));
+
+        return new ArrayList<>(result);
     }
 
     @Override
-    public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
-        if (!args.hasNext()) {
-            return new ArrayList<>(Aspect.aspects.keySet());
+    public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
+        final var alreadyIncluded = new TreeSet<>(AspectHelper.COMPARATOR);
+
+        String peeked = null;
+        do {
+            final var tag = args.next();
+            final var aspect = AspectHelper.aspectsCI()
+                .get(tag);
+            if (aspect == null) {
+                continue;
+            }
+            alreadyIncluded.add(aspect);
+        } while (args.hasNext() && (peeked = args.peek()) != null && !peeked.startsWith("-"));
+
+        if (!args.hasNext() || (peeked != null && !peeked.startsWith("-"))) {
+            return AspectHelper.aspectsExcept(alreadyIncluded)
+                .stream()
+                .map(Aspect::getTag)
+                .collect(Collectors.toList());
         }
 
         return null;
@@ -45,6 +66,6 @@ public class AspectHandler implements INamedArgumentHandler {
     @Nonnull
     @Override
     public Class<?> getOutputType() {
-        return Aspect.class;
+        return List.class;
     }
 }

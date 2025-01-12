@@ -212,3 +212,27 @@ Update the properties of the node at the specified coordinates.
 * `/update-node`
 
 </details>
+
+## /salisarcana-upgrade-focus
+
+<details>
+
+**Description:**
+
+Add focus upgrades to a wand focus held in your or another player's hand. Will not apply upgrades beyond the focus's five-upgrade limit.
+
+**Usage:**
+
+`/salisarcana-upgrade-focus <upgrade[ upgrade[ ...]]> [--player <username>]`
+
+**Arguments:**
+
+|            Argument             | Required? | Details                                                                          |
+|:-------------------------------:|:---------:|:---------------------------------------------------------------------------------|
+| `<upgrade [upgrade[ upgrade]]>` |    Yes    | A list of one or more upgrades to be applied.                                    |
+|      `--player <username>`      |    No     | If set, apply upgrades to the specified player's held focus instead of your own. |
+
+**Default aliases:**
+* `/upgrade-focus`
+
+</details>
