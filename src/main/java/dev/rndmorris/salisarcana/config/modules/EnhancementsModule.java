@@ -25,6 +25,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting manaPodGrowthRate;
     public final ToggleSetting infiniteCreativeVis;
     public final ToggleSetting thaumicInventoryScanning;
+    public final ToggleSetting thaumcraftCommandTabCompletion;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -41,6 +42,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting wandPedestalUseCV;
 
     public EnhancementsModule() {
+        // spotless:off
         addSettings(
             lessPickyPrimalCharmRecipe = (ToggleSetting) new ToggleSetting(
                 this,
@@ -165,8 +167,16 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "thaumicInventoryScanning",
-                "Enable the ability to scan items in inventories using the Thaumometer. Replaces the Thaumic Inventory Scanning mod."));
+                "Enable the ability to scan items in inventories using the Thaumometer. Replaces the Thaumic Inventory Scanning mod."),
+            thaumcraftCommandTabCompletion = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "thaumcraftCommandTabCompletion",
+                "Enable tab completion for Thaumcraft commands.")
 
+        );
+
+        // spotless:on
         // noinspection unchecked
         addSettings(
             stabilizerAdditions = (BlockItemListSetting<Integer>) new BlockItemListSetting<Integer>(
