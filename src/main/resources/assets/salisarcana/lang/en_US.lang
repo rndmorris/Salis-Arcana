@@ -99,5 +99,7 @@ salisarcana:error.unexpected_value=Unexpected input "%s".
 salisarcana:error.unknown_value=Unknown value "%s".
 salisarcana:error.unknown_research=%s is not a known research key.
 
+salisarcana:update_available=A new version of Salis Arcana is available (%s). Click here to open the download page.
+
 tc.research_name.CAP_iron=Iron Wand Caps
 tc.research_name.ROD_wood=Wooden Wand Core

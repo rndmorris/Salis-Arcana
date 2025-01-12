@@ -12,13 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.event.ClickEvent;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import dev.rndmorris.salisarcana.Tags;
@@ -30,12 +29,6 @@ public class Updater {
 
     private static final String versionURL = "https://api.modrinth.com/v2/project/y1bqIjK6/version";
 
-    public Updater() {
-        FMLCommonHandler.instance()
-            .bus()
-            .register(this);
-    }
-
     @SuppressWarnings("unused")
     @SubscribeEvent
     public void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
@@ -44,13 +37,14 @@ public class Updater {
             hasCheckedVersion = true;
             VersionInfo newVersion = checkForNewVersion();
             if (newVersion != null) {
-                IChatComponent message = new ChatComponentText(
-                    String.format(
-                        "A new version of Salis Arcana is available (%s). Click here to open the download page.",
-                        newVersion.getVersionNumber()));
+                IChatComponent message = new ChatComponentTranslation(
+                    "salisarcana:update_available",
+                    newVersion.getVersionNumber());
                 message.getChatStyle()
                     .setChatClickEvent(
-                        new ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/mod/salis-arcana"));
+                        new ClickEvent(
+                            ClickEvent.Action.OPEN_URL,
+                            "https://modrinth.com/mod/salis-arcana/version/" + newVersion.getVersionNumber()));
                 event.player.addChatMessage(message);
             }
         }
