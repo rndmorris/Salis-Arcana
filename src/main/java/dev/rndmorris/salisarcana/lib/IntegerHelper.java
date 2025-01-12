@@ -10,6 +10,14 @@ public class IntegerHelper {
         }
     }
 
+    public static Integer tryParseWithMin(String val, int min) {
+        final var result = tryParse(val);
+        if (result != null && result < min) {
+            return null;
+        }
+        return result;
+    }
+
     public static Integer tryParseHexInteger(String hexInteger) {
 
         var color = hexInteger;

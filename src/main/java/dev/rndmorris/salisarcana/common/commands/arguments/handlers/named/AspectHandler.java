@@ -25,15 +25,15 @@ public class AspectHandler implements INamedArgumentHandler {
         final var result = new TreeSet<>(AspectHelper.COMPARATOR);
 
         String peeked;
-        while (args.hasNext() && (peeked = args.peek()) != null && !peeked.startsWith("-")) {
-            final var tag = args.next();
+        do {
+            final var tag = args.hasNext() ? args.next() : "";
             final var aspect = AspectHelper.aspectsCI()
                 .get(tag);
             if (aspect == null) {
                 throw new CommandException("salisarcana:error.invalid_aspect", tag);
             }
             result.add(aspect);
-        }
+        } while (args.hasNext() && (peeked = args.peek()) != null && !peeked.startsWith("-"));
 
         return new ArrayList<>(result);
     }
@@ -43,7 +43,7 @@ public class AspectHandler implements INamedArgumentHandler {
         final var alreadyIncluded = new TreeSet<>(AspectHelper.COMPARATOR);
 
         String peeked = null;
-        while (args.hasNext() && (peeked = args.peek()) != null && !peeked.startsWith("-")) {
+        do {
             final var tag = args.next();
             final var aspect = AspectHelper.aspectsCI()
                 .get(tag);
@@ -51,7 +51,7 @@ public class AspectHandler implements INamedArgumentHandler {
                 continue;
             }
             alreadyIncluded.add(aspect);
-        }
+        } while (args.hasNext() && (peeked = args.peek()) != null && !peeked.startsWith("-"));
 
         if (!args.hasNext() || (peeked != null && !peeked.startsWith("-"))) {
             return AspectHelper.aspectsExcept(alreadyIncluded)
