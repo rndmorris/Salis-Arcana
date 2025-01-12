@@ -1,20 +1,23 @@
 package dev.rndmorris.salisarcana.common.commands.arguments.handlers;
 
-import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.INamedArgumentHandler;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.wands.FocusUpgradeType;
-import thaumcraft.api.wands.ItemFocusBasic;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.item.ItemStack;
+
+import com.google.common.collect.PeekingIterator;
+
+import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.INamedArgumentHandler;
+import thaumcraft.api.wands.FocusUpgradeType;
+import thaumcraft.api.wands.ItemFocusBasic;
 
 public class FociUpgradesHandler implements INamedArgumentHandler {
 
@@ -27,8 +30,13 @@ public class FociUpgradesHandler implements INamedArgumentHandler {
             upgradesToKeys = new TreeMap<>(Comparator.comparingInt(upgrade -> upgrade.id));
             for (var index = 0; index < FocusUpgradeType.types.length; ++index) {
                 final var type = FocusUpgradeType.types[index];
-                //final var cleanedName = type.getLocalizedName().replaceAll();
-                final var key = String.format("%s-%d", type.getLocalizedName().toLowerCase().replace(" ", "-"), index);
+                // final var cleanedName = type.getLocalizedName().replaceAll();
+                final var key = String.format(
+                    "%s-%d",
+                    type.getLocalizedName()
+                        .toLowerCase()
+                        .replace(" ", "-"),
+                    index);
                 upgradesToKeys.put(type, key);
             }
         }
@@ -36,12 +44,12 @@ public class FociUpgradesHandler implements INamedArgumentHandler {
     }
 
     @Override
-    public Object parse(ICommandSender sender, String current, Iterator<String> args) {
+    public Object parse(ICommandSender sender, PeekingIterator<String> args) {
         return 0;
     }
 
     @Override
-    public List<String> getAutocompleteOptions(ICommandSender sender, String current, Iterator<String> args) {
+    public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
         if (args.hasNext()) {
             return null;
         }
