@@ -255,7 +255,7 @@ public enum Mixins {
     THAUMOMETER_SCAN_CONTAINERS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.thaumometerScanContainers::isEnabled)
-        .addMixinClasses("items.MixinItemThaumometer")
+        .addMixinClasses("items.MixinItemThaumometer", "lib.MixinScanManager")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     ;
