@@ -246,6 +246,12 @@ public enum Mixins {
         .addMixinClasses("items.MixinItemWandCasting")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    MANA_POD_GROWTH_RATE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.manaPodGrowthRate::isEnabled)
+        .addMixinClasses("blocks.MixinBlockManaPod")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ;
 
     private final List<String> mixinClasses;
