@@ -33,6 +33,16 @@ Config Option: `thaumometerScanContainers`
 
 Allows the Thaumometer to scan the contents of containers (eg. chests, barrels) when scanning the block.
 
+## Thaumcraft Command
+
+Config Option: `thaumcraftCommandTabCompletion`
+
+Adds tab completion to the `/thaumcraft command`
+
+Config Option: `thaumcraftCommandWarpArgAll`
+
+Adds an ALL parameter to the `/thaumcraft warp` command
+
 ## Enhancements - Creative Mode
 
 **Config option:** `suppressWarpEventsInCreative`
