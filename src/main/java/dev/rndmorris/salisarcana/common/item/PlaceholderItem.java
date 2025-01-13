@@ -2,7 +2,9 @@ package dev.rndmorris.salisarcana.common.item;
 
 import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -45,19 +47,17 @@ public abstract class PlaceholderItem extends Item {
         setHasSubtypes(true);
     }
 
-    public int minItemDamage() {
-        return 0;
-    }
-
-    public int maxItemDamage() {
-        return baseItemCache().length - 1;
-    }
-
     private ItemStack[] baseItemCache() {
         if (baseItemCache == null) {
             baseItemCache = getBaseItems().toArray(ItemStack[]::new);
         }
         return baseItemCache;
+    }
+
+    public List<ItemStack> getAllBaseItems() {
+        final var result = new ArrayList<ItemStack>();
+        Collections.addAll(result, baseItemCache());
+        return result;
     }
 
     @SideOnly(Side.CLIENT)
