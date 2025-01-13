@@ -200,7 +200,7 @@ public class CustomResearch {
             scepterList.toArray(new IArcaneRecipe[0]), staffList.toArray(new IArcaneRecipe[0]), };
     }
 
-    private static ResearchItem maybeRegister(ReplaceWandComponentSettings settings, String key, String siblingKey,
+    private static ResearchItem maybeRegister(ReplaceWandComponentSettings settings, String key, String parentKey,
         PlaceholderItem placeholderItem, IArcaneRecipe[]... recipeSets) {
         if (!settings.isEnabled()) {
             return null;
@@ -218,6 +218,8 @@ public class CustomResearch {
             row,
             1,
             new ItemStack(placeholderItem, 0, OreDictionary.WILDCARD_VALUE)).setConcealed()
+                .setParents(parentKey)
+                .setStub()
                 .setSpecial();
         final var pages = new ArrayList<ResearchPage>();
         pages.add(new ResearchPage("tc.research_page." + fullKey + ".0"));
@@ -232,9 +234,9 @@ public class CustomResearch {
         research.setPages(pages.toArray(new ResearchPage[0]));
         research.registerResearchItem();
 
-        final var sibling = ResearchCategories.getResearch(siblingKey);
+        final var sibling = ResearchCategories.getResearch(parentKey);
         if (sibling == null) {
-            LOG.error("Could not locate research {} for {}.", siblingKey, fullKey);
+            LOG.error("Could not locate research {} for {}.", parentKey, fullKey);
             return research;
         }
 
