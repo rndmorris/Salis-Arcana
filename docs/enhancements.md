@@ -57,6 +57,10 @@ Prevents Eldritch eyes and essentia phials from being consumed in Creative mode.
 
 Gives creative mode players infinite vis in wands
 
+**Config Option:** `creativeOpThaumonomicon`
+
+Ctrl-clicking on a research in the Thaumonomicon while in Creative mode will autocomplete the research.
+
 ## Thaumonomicon Controls
 
 **Config option:**: `Enable Scrollwheel`

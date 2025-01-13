@@ -33,6 +33,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting thaumicInventoryScanning;
     public final ToggleSetting thaumcraftCommandTabCompletion;
     public final ToggleSetting thaumcraftCommandWarpArgAll;
+    public final ToggleSetting creativeOpThaumonomicon;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -190,8 +191,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "thaumcraftCommandWarpArgAll",
-                "Allow the use of `ALL` as an argument for the warp command.")
-
+                "Allow the use of `ALL` as an argument for the warp command."),
+            creativeOpThaumonomicon = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "creativeOpThaumonomicon",
+                "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it.")
         );
 
         // spotless:on

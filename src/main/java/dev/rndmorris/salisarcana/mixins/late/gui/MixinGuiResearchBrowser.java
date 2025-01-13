@@ -2,7 +2,9 @@ package dev.rndmorris.salisarcana.mixins.late.gui;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
@@ -44,12 +47,12 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     public void handleKeyboardInput() {
         super.handleKeyboardInput();
         if (ConfigModuleRoot.enhancements.nomiconShowResearchId.isEnabled()) {
-            $tfShowResearchId_handleKeyboardInput();
+            sa$ShowResearchId_handleKeyboardInput();
         }
     }
 
     @Unique
-    private void $tfShowResearchId_handleKeyboardInput() {
+    private void sa$ShowResearchId_handleKeyboardInput() {
         this.sa$isControlHeld = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
     }
 
@@ -57,13 +60,16 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     public void handleInput() {
         super.handleInput();
         if (ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled.isEnabled()) {
-            $tfCtrlScroll_handleInput();
+            sa$CtrlScroll_handleInput();
+        }
+        if (ConfigModuleRoot.enhancements.creativeOpThaumonomicon.isEnabled()) {
+            sa$opThaumonomiconHandleInput();
         }
 
     }
 
     @Unique
-    private void $tfCtrlScroll_handleInput() {
+    private void sa$CtrlScroll_handleInput() {
         // We need to run this every time to avoid buffering a scroll
         int dir = (int) Math.signum(Mouse.getDWheel()); // We want DWheel since last call, not last mouse event, as
         // it's possible no new mouse events will have been sent
@@ -97,12 +103,12 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     @Inject(method = "mouseClicked", at = @At(value = "HEAD"), cancellable = true)
     private void onMouseClicked(int mouseX, int mouseY, int button, CallbackInfo ci) {
         if (ConfigModuleRoot.enhancements.nomiconRightClickClose.isEnabled()) {
-            $tfRightClickClose_mouseClicked(button, ci);
+            sa$RightClickClose_mouseClicked(button, ci);
         }
     }
 
     @Unique
-    private void $tfRightClickClose_mouseClicked(int button, CallbackInfo ci) {
+    private void sa$RightClickClose_mouseClicked(int button, CallbackInfo ci) {
         if (button == 1) {
             this.mc.displayGuiScreen(null);
             ci.cancel();
@@ -112,12 +118,12 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
     @Inject(method = "drawScreen", at = @At(value = "TAIL"))
     private void mixinDrawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         if (ConfigModuleRoot.enhancements.nomiconShowResearchId.isEnabled()) {
-            $tfShowResearchId_drawScreen(mouseX, mouseY);
+            sa$ShowResearchId_drawScreen(mouseX, mouseY);
         }
     }
 
     @Unique
-    private void $tfShowResearchId_drawScreen(int mouseX, int mouseY) {
+    private void sa$ShowResearchId_drawScreen(int mouseX, int mouseY) {
         if (this.sa$isControlHeld && this.currentHighlight != null) {
             sa$drawPopup(mouseX, mouseY, this.currentHighlight.key);
         }
@@ -151,4 +157,23 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
 
         GL11.glPopMatrix();
     }
+
+    @Unique
+    private void sa$opThaumonomiconHandleInput() {
+        if (currentHighlight == null) {
+            return;
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+            if (Mouse.isButtonDown(0)) {
+                EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+                if (player.capabilities.isCreativeMode) {
+                    String username = player.getCommandSenderName();
+                    if (!ResearchManager.isResearchComplete(username, currentHighlight.key)) {
+                        ResearchHelper.completeResearchClient(player, currentHighlight.key);
+                    }
+                }
+            }
+        }
+    }
+
 }
