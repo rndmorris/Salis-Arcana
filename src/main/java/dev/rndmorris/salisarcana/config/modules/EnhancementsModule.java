@@ -39,9 +39,11 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting itemEldritchObjectStackSize;
 
     public final ToggleSetting wandPedestalUseCV;
+    public ToggleSetting thaumometerScanContainers;
 
     public EnhancementsModule() {
         addSettings(
+            // spotless:off
             lessPickyPrimalCharmRecipe = (ToggleSetting) new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
@@ -165,8 +167,16 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "thaumicInventoryScanning",
-                "Enable the ability to scan items in inventories using the Thaumometer. Replaces the Thaumic Inventory Scanning mod."));
+                "Enable the ability to scan items in inventories using the Thaumometer. Replaces the Thaumic Inventory Scanning mod."),
+            thaumometerScanContainers = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "thaumometerScanContainers",
+                "Allow the thaumometer to scan the contents of inventories when right-clicking on them.")
 
+        );
+
+        // spotless:on
         // noinspection unchecked
         addSettings(
             stabilizerAdditions = (BlockItemListSetting<Integer>) new BlockItemListSetting<Integer>(
