@@ -163,9 +163,11 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
         if (currentHighlight == null || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
             if (Mouse.isButtonDown(0)) {
                 EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-                String username = player.getCommandSenderName();
-                if (!ResearchManager.isResearchComplete(username, currentHighlight.key)) {
-                    ResearchHelper.completeResearchClient(player, currentHighlight.key);
+                if (player.capabilities.isCreativeMode) {
+                    String username = player.getCommandSenderName();
+                    if (!ResearchManager.isResearchComplete(username, currentHighlight.key)) {
+                        ResearchHelper.completeResearchClient(player, currentHighlight.key);
+                    }
                 }
             }
         }
