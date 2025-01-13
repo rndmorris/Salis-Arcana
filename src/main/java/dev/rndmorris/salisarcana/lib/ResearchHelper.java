@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.server.MinecraftServer;
@@ -23,6 +24,8 @@ import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
 import thaumcraft.common.lib.research.ResearchManager;
 
 public class ResearchHelper {
@@ -32,7 +35,7 @@ public class ResearchHelper {
     /**
      * A fake player whose entire purpose is to know all Thaumcraft research (created to support
      * {@link dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand}.
-     * 
+     *
      * @return The fake player.
      */
     public static FakePlayer knowItAll() {
@@ -153,5 +156,14 @@ public class ResearchHelper {
                 String.format("/%s --research %s", command.getCommandName(), research.key));
         }
         return null;
+    }
+
+    public static void completeResearchClient(EntityPlayer player, String research) {
+        PacketHandler.INSTANCE.sendToServer(
+            new PacketPlayerCompleteToServer(
+                research,
+                player.getCommandSenderName(),
+                player.worldObj.provider.dimensionId,
+                (byte) 0));
     }
 }

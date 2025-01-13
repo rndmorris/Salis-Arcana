@@ -258,6 +258,12 @@ public enum Mixins {
         .addMixinClasses("items.MixinItemThaumometer", "lib.MixinScanManager")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    CREATIVE_OP_THAUMONOMICON(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.creativeOpThaumonomicon::isEnabled)
+        .addMixinClasses("gui.MixinGuiResearchBrowser")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ;
 
     private final List<String> mixinClasses;

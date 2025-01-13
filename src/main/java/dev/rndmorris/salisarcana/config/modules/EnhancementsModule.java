@@ -31,6 +31,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting manaPodGrowthRate;
     public final ToggleSetting infiniteCreativeVis;
     public final ToggleSetting thaumicInventoryScanning;
+    public final ToggleSetting creativeOpThaumonomicon;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -178,8 +179,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "thaumometerScanContainers",
-                "Allow the thaumometer to scan the contents of inventories when right-clicking on them.")
-
+                "Allow the thaumometer to scan the contents of inventories when right-clicking on them."),
+            creativeOpThaumonomicon = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "creativeOpThaumonomicon",
+                "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it.")
         );
 
         // spotless:on
