@@ -26,6 +26,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting infiniteCreativeVis;
     public final ToggleSetting thaumicInventoryScanning;
     public final ToggleSetting thaumcraftCommandTabCompletion;
+    public final ToggleSetting thaumcraftCommandWarpArgAll;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -172,7 +173,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "thaumcraftCommandTabCompletion",
-                "Enable tab completion for Thaumcraft commands.")
+                "Enable tab completion for Thaumcraft commands."),
+            thaumcraftCommandWarpArgAll = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "thaumcraftCommandWarpArgAll",
+                "Allow the use of `ALL` as an argument for the warp command.")
 
         );
 
