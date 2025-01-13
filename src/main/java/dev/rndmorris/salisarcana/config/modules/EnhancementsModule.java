@@ -41,6 +41,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting itemEldritchObjectStackSize;
 
     public final ToggleSetting wandPedestalUseCV;
+    public ToggleSetting thaumometerScanContainers;
 
     public EnhancementsModule() {
         // spotless:off
@@ -169,6 +170,11 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "thaumicInventoryScanning",
                 "Enable the ability to scan items in inventories using the Thaumometer. Replaces the Thaumic Inventory Scanning mod."),
+            thaumometerScanContainers = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "thaumometerScanContainers",
+                "Allow the thaumometer to scan the contents of inventories when right-clicking on them."),
             thaumcraftCommandTabCompletion = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
@@ -210,7 +216,7 @@ public class EnhancementsModule extends BaseConfigModule {
                         .setCategory("infusion"));
         // noinspection unchecked
         addSettings(
-            stabilizerExclusions = (BlockItemListSetting<Object>) new BlockItemListSetting<Object>(
+            stabilizerExclusions = (BlockItemListSetting<Object>) new BlockItemListSetting<>(
                 stabilizerRewrite,
                 ConfigPhase.LATE,
                 "stabilizerExclusions",

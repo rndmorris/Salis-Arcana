@@ -264,6 +264,12 @@ public enum Mixins {
         .addMixinClasses("events.MixinCommandThaumcraft_WarpArg")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    THAUMOMETER_SCAN_CONTAINERS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.thaumometerScanContainers::isEnabled)
+        .addMixinClasses("items.MixinItemThaumometer", "lib.MixinScanManager")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ;
 
     private final List<String> mixinClasses;
