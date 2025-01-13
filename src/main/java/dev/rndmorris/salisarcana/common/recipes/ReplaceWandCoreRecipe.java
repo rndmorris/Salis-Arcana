@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 
 import com.github.bsideup.jabel.Desugar;
 
+import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
@@ -25,6 +26,9 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe {
 
     @Override
     public boolean matches(IInventory tableInv, World world, EntityPlayer player) {
+        if (!ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), getResearch())) {
+            return false;
+        }
         final var scanResult = scanTable(tableInv);
         if (scanResult == null || scanResult.invalidInputs()) {
             return false;
@@ -104,7 +108,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe {
 
     @Override
     public String getResearch() {
-        return "";
+        return CustomResearch.replaceCoreResearch.key;
     }
 
     private @Nullable InvScanResult scanTable(IInventory tableInv) {
