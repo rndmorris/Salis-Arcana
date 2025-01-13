@@ -252,6 +252,18 @@ public enum Mixins {
         .addMixinClasses("blocks.MixinBlockManaPod")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    THAUMCRAFT_COMMAND_TAB_COMPLETION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.thaumcraftCommandTabCompletion::isEnabled)
+        .addMixinClasses("events.MixinCommandThaumcraft_TabCompletion")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    THAUMCRAFT_COMMAND_WARP_ARG_ALL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.thaumcraftCommandWarpArgAll::isEnabled)
+        .addMixinClasses("events.MixinCommandThaumcraft_WarpArg")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     THAUMOMETER_SCAN_CONTAINERS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.thaumometerScanContainers::isEnabled)

@@ -31,6 +31,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting manaPodGrowthRate;
     public final ToggleSetting infiniteCreativeVis;
     public final ToggleSetting thaumicInventoryScanning;
+    public final ToggleSetting thaumcraftCommandTabCompletion;
+    public final ToggleSetting thaumcraftCommandWarpArgAll;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -48,8 +50,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public ToggleSetting thaumometerScanContainers;
 
     public EnhancementsModule() {
+        // spotless:off
         addSettings(
-            // spotless:off
             lessPickyPrimalCharmRecipe = (ToggleSetting) new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
@@ -178,7 +180,17 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "thaumometerScanContainers",
-                "Allow the thaumometer to scan the contents of inventories when right-clicking on them.")
+                "Allow the thaumometer to scan the contents of inventories when right-clicking on them."),
+            thaumcraftCommandTabCompletion = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "thaumcraftCommandTabCompletion",
+                "Enable tab completion for Thaumcraft commands."),
+            thaumcraftCommandWarpArgAll = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "thaumcraftCommandWarpArgAll",
+                "Allow the use of `ALL` as an argument for the warp command.")
 
         );
 
@@ -210,7 +222,7 @@ public class EnhancementsModule extends BaseConfigModule {
                         .setCategory("infusion"));
         // noinspection unchecked
         addSettings(
-            stabilizerExclusions = (BlockItemListSetting<Object>) new BlockItemListSetting<Object>(
+            stabilizerExclusions = (BlockItemListSetting<Object>) new BlockItemListSetting<>(
                 stabilizerRewrite,
                 ConfigPhase.LATE,
                 "stabilizerExclusions",
