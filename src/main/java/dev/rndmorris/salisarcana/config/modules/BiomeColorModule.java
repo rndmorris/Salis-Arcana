@@ -4,8 +4,11 @@ import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.BiomeColorsSettings;
+import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
 public class BiomeColorModule extends BaseConfigModule {
+
+    public final ToggleSetting acknowledgeDeprecation;
 
     public final BiomeColorsSettings eerie;
     public final BiomeColorsSettings eldritch;
@@ -14,6 +17,13 @@ public class BiomeColorModule extends BaseConfigModule {
 
     public BiomeColorModule() {
         addSettings(
+            acknowledgeDeprecation = (ToggleSetting) new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "acknowledgeDeprecation",
+                "Set to true to acknowledge that the biome color module is being deprecated, and silence the warning message.")
+                    .setEnabled(false)
+                    .setCategory("_notices"),
             eerie = new BiomeColorsSettings(
                 this,
                 ConfigPhase.EARLY,
@@ -61,6 +71,6 @@ public class BiomeColorModule extends BaseConfigModule {
     @Nonnull
     @Override
     public String getModuleComment() {
-        return "Override the colors of TC4's biomes.";
+        return "Notice: This is broken for some users, and slated for removal in a future update.\nOverride the colors of TC4's biomes.";
     }
 }
