@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 
 import com.github.bsideup.jabel.Desugar;
 
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
@@ -21,11 +22,6 @@ import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class ReplaceWandCapsRecipe implements IArcaneRecipe {
-
-    final int SLOT_WAND = 4;
-    final int[] SLOTS_CAP = new int[] { 2, 6, };
-    final int[] SLOTS_SHARD = new int[] { 1, 3, 5, 7, };
-    final int[] SLOTS_EMPTY = new int[] { 0, 8, };
 
     @Override
     public boolean matches(IInventory tableInv, World world, EntityPlayer player) {
@@ -51,7 +47,10 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe {
         final var outputItem = scanResult.wandItem()
             .copy();
         wandInstance.setCap(outputItem, scanResult.newCaps());
-        wandInstance.storeAllVis(outputItem, AspectHelper.primalList(0));
+
+        if (!ConfigModuleRoot.enhancements.preserveWandVis.isEnabled()) {
+            wandInstance.storeAllVis(outputItem, AspectHelper.primalList(0));
+        }
 
         return outputItem;
     }

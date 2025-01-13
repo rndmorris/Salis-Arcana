@@ -50,7 +50,18 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe {
         final var outputItem = scanResult.wandItem()
             .copy();
         wandInstance.setRod(outputItem, scanResult.newRod());
-        wandInstance.storeAllVis(outputItem, AspectHelper.primalList(0));
+
+        if (ConfigModuleRoot.enhancements.preserveWandVis.isEnabled()) {
+            final var maxVis = wandInstance.getMaxVis(outputItem);
+            final var newVis = new AspectList();
+            final var originalVis = wandInstance.getAllVis(outputItem);
+            for (var entry : originalVis.aspects.entrySet()) {
+                newVis.add(entry.getKey(), Integer.min(maxVis, entry.getValue()));
+            }
+            wandInstance.storeAllVis(outputItem, newVis);
+        } else {
+            wandInstance.storeAllVis(outputItem, AspectHelper.primalList(0));
+        }
 
         return outputItem;
     }
