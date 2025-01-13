@@ -160,7 +160,10 @@ public abstract class MixinGuiResearchBrowser extends GuiScreen {
 
     @Unique
     private void sa$opThaumonomiconHandleInput() {
-        if (currentHighlight == null || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+        if (currentHighlight == null) {
+            return;
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
             if (Mouse.isButtonDown(0)) {
                 EntityPlayer player = Minecraft.getMinecraft().thePlayer;
                 if (player.capabilities.isCreativeMode) {
