@@ -159,6 +159,9 @@ public class ResearchHelper {
     }
 
     public static void completeResearchClient(EntityPlayer player, String research) {
+        if (!player.worldObj.isRemote) {
+            return;
+        }
         PacketHandler.INSTANCE.sendToServer(
             new PacketPlayerCompleteToServer(
                 research,
