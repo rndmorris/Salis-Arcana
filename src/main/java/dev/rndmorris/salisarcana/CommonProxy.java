@@ -28,7 +28,8 @@ import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
-import dev.rndmorris.salisarcana.updater.Updater;
+import dev.rndmorris.salisarcana.notifications.StartupNotifications;
+import dev.rndmorris.salisarcana.notifications.Updater;
 
 public class CommonProxy {
 
@@ -44,6 +45,9 @@ public class CommonProxy {
         FMLCommonHandler.instance()
             .bus()
             .register(new Updater());
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new StartupNotifications());
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)

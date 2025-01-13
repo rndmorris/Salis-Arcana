@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.updater;
+package dev.rndmorris.salisarcana.notifications;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
@@ -37,9 +37,9 @@ public class Updater {
             hasCheckedVersion = true;
             VersionInfo newVersion = checkForNewVersion();
             if (newVersion != null) {
-                IChatComponent message = new ChatComponentTranslation(
-                    "salisarcana:update_available",
-                    newVersion.getVersionNumber());
+                event.player.addChatMessage(
+                    new ChatComponentTranslation("salisarcana:update_available", newVersion.getVersionNumber()));
+                IChatComponent message = new ChatComponentTranslation("salisarcana:update_link");
                 message.getChatStyle()
                     .setChatClickEvent(
                         new ClickEvent(
