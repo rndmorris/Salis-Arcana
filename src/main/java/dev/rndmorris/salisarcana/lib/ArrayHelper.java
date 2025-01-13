@@ -12,6 +12,15 @@ import com.github.bsideup.jabel.Desugar;
 
 public class ArrayHelper {
 
+    public static String[] appendToArray(String[] array, String newValue) {
+        final var list = new ArrayList<String>();
+        if (array != null) {
+            Collections.addAll(list, array);
+        }
+        list.add(newValue);
+        return list.toArray(new String[0]);
+    }
+
     public static boolean tryAssign(boolean[] arr, int index, boolean value) {
         if (0 <= index && index < arr.length) {
             arr[index] = value;

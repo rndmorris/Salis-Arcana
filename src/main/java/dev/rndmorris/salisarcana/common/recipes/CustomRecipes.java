@@ -49,6 +49,17 @@ public class CustomRecipes {
         if (ConfigModuleRoot.bugfixes.slabBurnTimeFix.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new FuelBurnTimeEventHandler());
         }
+
+        if (enhancements.replaceWandCapsSettings.isEnabled()) {
+            // noinspection unchecked
+            ThaumcraftApi.getCraftingRecipes()
+                .add(new ReplaceWandCapsRecipe());
+        }
+        if (enhancements.replaceWandCoreSettings.isEnabled()) {
+            // noinspection unchecked
+            ThaumcraftApi.getCraftingRecipes()
+                .add(new ReplaceWandCoreRecipe());
+        }
     }
 
     public static void registerRecipesPostInit() {

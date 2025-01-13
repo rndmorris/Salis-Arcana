@@ -170,3 +170,29 @@ Add rotated recipes for the fire, shock, frost, equal trade, excavation, and pri
 
 ## Config option: `rotatedThaumometer`
 Add a rotated crafting recipe for the Thaumometer.
+
+# Enhancements - Wand Component Replacement
+
+## Config option: `enableReplaceWandCapsRecipe`
+If `true`, enables an Arcane Worktable recipe to replace a wand, scepter, or staff's caps.
+
+## Config option: `replaceCapsResearchCategory`, `replaceCapsResearchColumn` and `replaceCapsResearchRow`
+
+Requires `enableReplaceWandCapsRecipe=true`.
+
+Used to set the tab of the Thaumonomicon on which the "Wand Cap Substitution" research appears, and its position on that tab.
+
+## Config option: `enableReplaceWandCoreRecipe`
+If `true`, enables an Arcane Worktable recipe to replace a wand, scepter, or staff's core.
+
+## Config option: `replaceCoreResearchCategory`, `replaceCoreResearchColumn` and `replaceCoreResearchRow`
+
+Requires `enableReplaceWandCoreRecipe=true`.
+
+Used to set the tab of the Thaumonomicon on which the "Wand Core Substitution" research appears, and its position on that tab.
+
+## Config option: `enforceWandCoreTypes`
+
+Requires `enableReplaceWandCoreRecipe=true`.
+
+If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core. Disable to allow converting a wand to a staff and vice versa.
