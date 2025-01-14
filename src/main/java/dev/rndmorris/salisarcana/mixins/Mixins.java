@@ -171,6 +171,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.strictInfusionMatrixInputChecks::isEnabled)
         .addMixinClasses("tiles.MixinTileInfusionMatrix_InputEnforcement")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    UN_OREDICT_GOLD_COIN(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.unOredictGoldCoin::isEnabled)
+        .addMixinClasses("config.MixinConfigItems_UnOredictGoldCoin")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
