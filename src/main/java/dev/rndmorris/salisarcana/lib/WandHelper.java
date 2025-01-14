@@ -1,13 +1,15 @@
 package dev.rndmorris.salisarcana.lib;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
 
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
+import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class WandHelper {
@@ -109,32 +111,43 @@ public class WandHelper {
         return wandInstance;
     }
 
-    public static boolean isScepter(@Nullable ItemStack itemStack) {
-        final var wandInstance = getWandItem(itemStack);
-        return wandInstance != null && wandInstance.isSceptre(itemStack);
+    private static ArrayList<WandCap> allVanillaCaps;
+
+    public static List<WandCap> allVanillaCaps() {
+        if (allVanillaCaps == null) {
+            final var allCaps = new WandCap[] { ConfigItems.WAND_CAP_IRON, ConfigItems.WAND_CAP_COPPER,
+                ConfigItems.WAND_CAP_GOLD, ConfigItems.WAND_CAP_SILVER, ConfigItems.WAND_CAP_THAUMIUM,
+                ConfigItems.WAND_CAP_VOID, };
+            allVanillaCaps = new ArrayList<>(allCaps.length);
+            for (var wandCap : allCaps) {
+                if (wandCap == null) {
+                    continue;
+                }
+                allVanillaCaps.add(wandCap);
+            }
+        }
+        return new ArrayList<>(allVanillaCaps);
     }
 
-    public static boolean isStaff(@Nullable ItemStack itemStack) {
-        final var wandInstance = getWandItem(itemStack);
-        return wandInstance != null && wandInstance.isStaff(itemStack);
-    }
+    private static ArrayList<WandRod> allVanillaRods;
 
-    public static boolean isWand(@Nullable ItemStack itemStack) {
-        final var wandInstance = getWandItem(itemStack);
-        return wandInstance != null && !wandInstance.isSceptre(itemStack) && !wandInstance.isStaff(itemStack);
-    }
-
-    public static AspectList primalAspectList(int amount) {
-        return primalAspectList(amount, amount, amount, amount, amount, amount);
-    }
-
-    public static AspectList primalAspectList(int airAmount, int earthAmount, int fireAmount, int waterAmount,
-        int orderAmount, int entropyAmount) {
-        return new AspectList().add(Aspect.AIR, airAmount)
-            .add(Aspect.EARTH, earthAmount)
-            .add(Aspect.FIRE, fireAmount)
-            .add(Aspect.WATER, waterAmount)
-            .add(Aspect.ORDER, orderAmount)
-            .add(Aspect.ENTROPY, entropyAmount);
+    public static List<WandRod> allVanillaRods() {
+        if (allVanillaRods == null) {
+            final var allRods = new WandRod[] { ConfigItems.WAND_ROD_WOOD, ConfigItems.WAND_ROD_GREATWOOD,
+                ConfigItems.WAND_ROD_OBSIDIAN, ConfigItems.WAND_ROD_BLAZE, ConfigItems.WAND_ROD_ICE,
+                ConfigItems.WAND_ROD_QUARTZ, ConfigItems.WAND_ROD_BONE, ConfigItems.WAND_ROD_REED,
+                ConfigItems.WAND_ROD_SILVERWOOD, ConfigItems.STAFF_ROD_GREATWOOD, ConfigItems.STAFF_ROD_OBSIDIAN,
+                ConfigItems.STAFF_ROD_BLAZE, ConfigItems.STAFF_ROD_ICE, ConfigItems.STAFF_ROD_QUARTZ,
+                ConfigItems.STAFF_ROD_BONE, ConfigItems.STAFF_ROD_REED, ConfigItems.STAFF_ROD_SILVERWOOD,
+                ConfigItems.STAFF_ROD_PRIMAL, };
+            allVanillaRods = new ArrayList<>(allRods.length);
+            for (var wandRod : allRods) {
+                if (wandRod == null) {
+                    continue;
+                }
+                allVanillaRods.add(wandRod);
+            }
+        }
+        return new ArrayList<>(allVanillaRods);
     }
 }

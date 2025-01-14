@@ -14,6 +14,7 @@ import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
+import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
@@ -22,8 +23,6 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.StaffRod;
-import thaumcraft.api.wands.WandCap;
-import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
@@ -78,7 +77,7 @@ public class CustomResearch {
         final var staffList = new ArrayList<IArcaneRecipe>();
         final var scepterList = new ArrayList<IArcaneRecipe>();
 
-        WandCap.caps.values()
+        WandHelper.allVanillaCaps()
             .stream()
             .filter(
                 wandCap -> wandCap != null && wandCap.getItem() != null
@@ -157,7 +156,7 @@ public class CustomResearch {
         final var scepterList = new ArrayList<IArcaneRecipe>();
         final var staffList = new ArrayList<IArcaneRecipe>();
 
-        WandRod.rods.values()
+        WandHelper.allVanillaRods()
             .stream()
             .filter(
                 wandRod -> wandRod != null && wandRod.getItem() != null
