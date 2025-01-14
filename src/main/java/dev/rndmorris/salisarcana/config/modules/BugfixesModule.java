@@ -19,6 +19,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting renderRedstoneFix;
     public final ToggleSetting slabBurnTimeFix;
     public final ToggleSetting strictInfusionMatrixInputChecks;
+    public final ToggleSetting unOredictGoldCoin;
 
     public BugfixesModule() {
         addSettings(
@@ -72,7 +73,12 @@ public class BugfixesModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "strictInfusionMatrixInputChecks",
-                "Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting."));
+                "Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting."),
+            unOredictGoldCoin = (ToggleSetting) new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "unOredictGoldCoin",
+                "Remove gold coins from the gold nugget ore dictionary.").setEnabled(false));
     }
 
     @Nonnull
