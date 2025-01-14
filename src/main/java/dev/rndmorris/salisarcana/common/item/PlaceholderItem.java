@@ -18,6 +18,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
+import thaumcraft.common.config.ConfigItems;
 
 /**
  * Placeholder item class, for use in the Thaumonomicon
@@ -108,8 +109,10 @@ public abstract class PlaceholderItem extends Item {
 
         @Override
         public Stream<ItemStack> getBaseItems() {
-            return WandCap.caps.values()
-                .stream()
+            return Arrays
+                .stream(
+                    new WandCap[] { ConfigItems.WAND_CAP_IRON, ConfigItems.WAND_CAP_COPPER, ConfigItems.WAND_CAP_GOLD,
+                        ConfigItems.WAND_CAP_SILVER, ConfigItems.WAND_CAP_THAUMIUM, ConfigItems.WAND_CAP_VOID, })
                 .filter(Objects::nonNull)
                 .map(WandCap::getItem);
         }
@@ -119,8 +122,15 @@ public abstract class PlaceholderItem extends Item {
 
         @Override
         public Stream<ItemStack> getBaseItems() {
-            return WandRod.rods.values()
-                .stream()
+            return Arrays
+                .stream(
+                    new WandRod[] { ConfigItems.WAND_ROD_WOOD, ConfigItems.WAND_ROD_GREATWOOD,
+                        ConfigItems.WAND_ROD_OBSIDIAN, ConfigItems.WAND_ROD_BLAZE, ConfigItems.WAND_ROD_ICE,
+                        ConfigItems.WAND_ROD_QUARTZ, ConfigItems.WAND_ROD_BONE, ConfigItems.WAND_ROD_REED,
+                        ConfigItems.WAND_ROD_SILVERWOOD, ConfigItems.STAFF_ROD_GREATWOOD,
+                        ConfigItems.STAFF_ROD_OBSIDIAN, ConfigItems.STAFF_ROD_BLAZE, ConfigItems.STAFF_ROD_ICE,
+                        ConfigItems.STAFF_ROD_QUARTZ, ConfigItems.STAFF_ROD_BONE, ConfigItems.STAFF_ROD_REED,
+                        ConfigItems.STAFF_ROD_SILVERWOOD, ConfigItems.STAFF_ROD_PRIMAL, })
                 .filter(Objects::nonNull)
                 .map(WandRod::getItem);
         }
