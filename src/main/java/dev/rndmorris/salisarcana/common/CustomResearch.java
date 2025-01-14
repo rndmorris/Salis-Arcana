@@ -77,53 +77,57 @@ public class CustomResearch {
         final var staffList = new ArrayList<IArcaneRecipe>();
         final var scepterList = new ArrayList<IArcaneRecipe>();
 
-        for (var capItem : PlaceholderItem.capPlaceholder.getAllBaseItems()) {
-            if (baseCap.getItem()
-                .isItemEqual(capItem)) {
-                continue;
-            }
-            final var cap = WandHelper.getWandCapFromItem(capItem);
-            if (cap == null) {
-                continue;
-            }
-            final var outputWand = wandItem.copy();
-            final var outputStaff = staffItem.copy();
-            final var outputscepter = scepterItem.copy();
-            wand.setCap(outputWand, cap);
-            wand.setCap(outputStaff, cap);
-            wand.setCap(outputscepter, cap);
+        WandHelper.allVanillaCaps()
+            .stream()
+            .filter(
+                wandCap -> wandCap != null && wandCap.getItem() != null
+                    && wandCap.getItem()
+                        .getItem() != null)
+            .forEach(wandCap -> {
+                if (baseCap == wandCap) {
+                    return;
+                }
 
-            final var wandCost = WandType.WAND.getCraftingVisCost(cap, baseWandRod);
-            wandList.add(
-                new ShapelessArcaneRecipe(
-                    null,
-                    outputWand,
-                    AspectHelper.primalList(wandCost),
-                    wandItem.copy(),
-                    capItem,
-                    capItem));
+                final ItemStack wandCapItem = wandCap.getItem();
 
-            final var staffCost = WandType.STAFF.getCraftingVisCost(cap, baseStaffRod);
-            staffList.add(
-                new ShapelessArcaneRecipe(
-                    null,
-                    outputStaff,
-                    AspectHelper.primalList(staffCost),
-                    staffItem.copy(),
-                    capItem,
-                    capItem));
+                final var outputWand = wandItem.copy();
+                final var outputStaff = staffItem.copy();
+                final var outputScepter = scepterItem.copy();
+                wand.setCap(outputWand, wandCap);
+                wand.setCap(outputStaff, wandCap);
+                wand.setCap(outputScepter, wandCap);
 
-            final var scepterCost = WandType.SCEPTER.getCraftingVisCost(cap, baseWandRod);
-            scepterList.add(
-                new ShapelessArcaneRecipe(
-                    null,
-                    outputscepter,
-                    AspectHelper.primalList(scepterCost),
-                    scepterItem.copy(),
-                    capItem,
-                    capItem,
-                    capItem));
-        }
+                final var wandCost = WandType.WAND.getCraftingVisCost(wandCap, baseWandRod);
+                wandList.add(
+                    new ShapelessArcaneRecipe(
+                        null,
+                        outputWand,
+                        AspectHelper.primalList(wandCost),
+                        wandItem,
+                        wandCapItem,
+                        wandCapItem));
+
+                final var staffCost = WandType.STAFF.getCraftingVisCost(wandCap, baseStaffRod);
+                staffList.add(
+                    new ShapelessArcaneRecipe(
+                        null,
+                        outputStaff,
+                        AspectHelper.primalList(staffCost),
+                        staffItem.copy(),
+                        wandCapItem,
+                        wandCapItem));
+
+                final var scepterCost = WandType.SCEPTER.getCraftingVisCost(wandCap, baseWandRod);
+                scepterList.add(
+                    new ShapelessArcaneRecipe(
+                        null,
+                        outputScepter,
+                        AspectHelper.primalList(scepterCost),
+                        scepterItem.copy(),
+                        wandCapItem,
+                        wandCapItem,
+                        wandCapItem));
+            });
 
         return new IArcaneRecipe[][] { wandList.toArray(new IArcaneRecipe[0]), staffList.toArray(new IArcaneRecipe[0]),
             scepterList.toArray(new IArcaneRecipe[0]), };
@@ -152,49 +156,58 @@ public class CustomResearch {
         final var scepterList = new ArrayList<IArcaneRecipe>();
         final var staffList = new ArrayList<IArcaneRecipe>();
 
-        for (var rodItem : PlaceholderItem.rodPlaceholder.getAllBaseItems()) {
-            final var rod = WandHelper.getWandRodFromItem(rodItem);
-            if (rod == null) {
-                continue;
-            }
-            if (rod instanceof StaffRod) {
-                if (rod == baseStaffRod) {
-                    continue;
+        WandHelper.allVanillaRods()
+            .stream()
+            .filter(
+                wandRod -> wandRod != null && wandRod.getItem() != null
+                    && wandRod.getItem()
+                        .getItem() != null)
+            .forEach(wandRod -> {
+                final ItemStack rodItem = wandRod.getItem();
+
+                if (wandRod instanceof StaffRod) {
+                    if (wandRod == baseStaffRod) {
+                        return;
+                    }
+                    final var outputStaff = staffItem.copy();
+                    wand.setRod(outputStaff, wandRod);
+
+                    final var staffCost = WandType.STAFF.getCraftingVisCost(baseCap, wandRod);
+                    staffList.add(
+                        new ShapelessArcaneRecipe(
+                            null,
+                            outputStaff,
+                            AspectHelper.primalList(staffCost),
+                            staffItem,
+                            rodItem));
+                } else {
+                    if (wandRod == baseWandRod) {
+                        return;
+                    }
+                    final var outputWand = wandItem.copy();
+                    final var outputScepter = scepterItem.copy();
+                    wand.setRod(outputWand, wandRod);
+                    wand.setRod(outputScepter, wandRod);
+
+                    final var wandCost = WandType.WAND.getCraftingVisCost(baseCap, wandRod);
+                    wandList.add(
+                        new ShapelessArcaneRecipe(
+                            null,
+                            outputWand,
+                            AspectHelper.primalList(wandCost),
+                            wandItem,
+                            rodItem));
+
+                    final var scepterCost = WandType.SCEPTER.getCraftingVisCost(baseCap, wandRod);
+                    scepterList.add(
+                        new ShapelessArcaneRecipe(
+                            null,
+                            outputScepter,
+                            AspectHelper.primalList(scepterCost),
+                            scepterItem,
+                            rodItem));
                 }
-                final var outputStaff = staffItem.copy();
-                wand.setRod(outputStaff, rod);
-
-                final var staffCost = WandType.STAFF.getCraftingVisCost(baseCap, rod);
-                staffList.add(
-                    new ShapelessArcaneRecipe(
-                        null,
-                        outputStaff,
-                        AspectHelper.primalList(staffCost),
-                        staffItem,
-                        rodItem));
-            } else {
-                if (rod == baseWandRod) {
-                    continue;
-                }
-                final var outputWand = wandItem.copy();
-                final var outputScepter = scepterItem.copy();
-                wand.setRod(outputWand, rod);
-                wand.setRod(outputScepter, rod);
-
-                final var wandCost = WandType.WAND.getCraftingVisCost(baseCap, rod);
-                wandList.add(
-                    new ShapelessArcaneRecipe(null, outputWand, AspectHelper.primalList(wandCost), wandItem, rodItem));
-
-                final var scepterCost = WandType.SCEPTER.getCraftingVisCost(baseCap, rod);
-                scepterList.add(
-                    new ShapelessArcaneRecipe(
-                        null,
-                        outputScepter,
-                        AspectHelper.primalList(scepterCost),
-                        scepterItem,
-                        rodItem));
-            }
-        }
+            });
 
         return new IArcaneRecipe[][] { wandList.toArray(new IArcaneRecipe[0]),
             scepterList.toArray(new IArcaneRecipe[0]), staffList.toArray(new IArcaneRecipe[0]), };

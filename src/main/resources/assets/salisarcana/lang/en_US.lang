@@ -124,8 +124,8 @@ salisarcana:tcinventoryscan.thaumometerTooltipMore=Hover items with the Thaumome
 
 tc.research_name.salisarcana:REPLACEWANDCAPS=Wand Cap Substitution
 tc.research_text.salisarcana:REPLACEWANDCAPS=Improving what is
-tc.research_page.salisarcana:REPLACEWANDCAPS.0=With proper technique, a casting implement's caps can be replaced. This destroys the implement's existing caps, but preserves its core.
+tc.research_page.salisarcana:REPLACEWANDCAPS.0=With proper technique, a casting implement's caps can be replaced. This destroys the implement's existing caps, but preserves its core.<BR>Replacing an implement's caps requires the same amount of vis as it would take to craft the same implement from scratch. Upgrading a Gold Banded Greatwood Wand to a Thaumium Bossed Greatwood Wand will cost just as much vis as creating a Thaumium Bossed Greatwood Wand directly.  
 
 tc.research_name.salisarcana:REPLACEWANDCORE=Wand Core Substitution
 tc.research_text.salisarcana:REPLACEWANDCORE=Improving what is
-tc.research_page.salisarcana:REPLACEWANDCORE.0=With proper technique, a casting implement's core can be replaced. This destroys the implement's existing core, but preserves its caps.
+tc.research_page.salisarcana:REPLACEWANDCORE.0=With proper technique, a casting implement's core can be replaced. This destroys the implement's existing core, but preserves its caps.<BR>Replacing an implement's core requires the same amount of vis as it would take to craft the same implement from scratch. Upgrading a Gold Banded Greatwood Wand to a Gold Banded Silverwood Wand will cost just as much vis as creating a Gold Banded Silverwood Wand directly.

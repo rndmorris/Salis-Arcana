@@ -2,9 +2,7 @@ package dev.rndmorris.salisarcana.common.item;
 
 import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -18,6 +16,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.lib.WandHelper;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 
@@ -49,15 +48,10 @@ public abstract class PlaceholderItem extends Item {
 
     private ItemStack[] baseItemCache() {
         if (baseItemCache == null) {
-            baseItemCache = getBaseItems().toArray(ItemStack[]::new);
+            baseItemCache = getBaseItems().filter(i -> i != null && i.getItem() != null)
+                .toArray(ItemStack[]::new);
         }
         return baseItemCache;
-    }
-
-    public List<ItemStack> getAllBaseItems() {
-        final var result = new ArrayList<ItemStack>();
-        Collections.addAll(result, baseItemCache());
-        return result;
     }
 
     @SideOnly(Side.CLIENT)
@@ -115,8 +109,9 @@ public abstract class PlaceholderItem extends Item {
 
         @Override
         public Stream<ItemStack> getBaseItems() {
-            return WandCap.caps.values()
+            return WandHelper.allVanillaCaps()
                 .stream()
+                .filter(Objects::nonNull)
                 .map(WandCap::getItem);
         }
     }
@@ -125,8 +120,9 @@ public abstract class PlaceholderItem extends Item {
 
         @Override
         public Stream<ItemStack> getBaseItems() {
-            return WandRod.rods.values()
+            return WandHelper.allVanillaRods()
                 .stream()
+                .filter(Objects::nonNull)
                 .map(WandRod::getItem);
         }
     }
