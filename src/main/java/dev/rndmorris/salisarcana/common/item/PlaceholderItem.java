@@ -2,9 +2,7 @@ package dev.rndmorris.salisarcana.common.item;
 
 import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -49,15 +47,10 @@ public abstract class PlaceholderItem extends Item {
 
     private ItemStack[] baseItemCache() {
         if (baseItemCache == null) {
-            baseItemCache = getBaseItems().toArray(ItemStack[]::new);
+            baseItemCache = getBaseItems().filter(i -> i != null && i.getItem() != null)
+                .toArray(ItemStack[]::new);
         }
         return baseItemCache;
-    }
-
-    public List<ItemStack> getAllBaseItems() {
-        final var result = new ArrayList<ItemStack>();
-        Collections.addAll(result, baseItemCache());
-        return result;
     }
 
     @SideOnly(Side.CLIENT)
@@ -117,6 +110,7 @@ public abstract class PlaceholderItem extends Item {
         public Stream<ItemStack> getBaseItems() {
             return WandCap.caps.values()
                 .stream()
+                .filter(Objects::nonNull)
                 .map(WandCap::getItem);
         }
     }
@@ -127,6 +121,7 @@ public abstract class PlaceholderItem extends Item {
         public Stream<ItemStack> getBaseItems() {
             return WandRod.rods.values()
                 .stream()
+                .filter(Objects::nonNull)
                 .map(WandRod::getItem);
         }
     }
