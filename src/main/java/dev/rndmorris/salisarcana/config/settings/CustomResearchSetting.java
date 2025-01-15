@@ -4,8 +4,6 @@ import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
 import net.minecraftforge.common.config.Configuration;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 import thaumcraft.api.aspects.Aspect;
@@ -19,9 +17,6 @@ public class CustomResearchSetting extends Setting {
 
     // The base name of the config entry, will be used to generate the config entries for the research.
     public final String configName;
-
-    // The paired setting that will enable/disable the research. If set to null, the research will always be enabled.
-    public ToggleSetting pairedSetting;
 
     // Research Info
     public String researchName;
@@ -52,40 +47,19 @@ public class CustomResearchSetting extends Setting {
         this.configName = configName + "Research";
         this.configComment = configComment;
 
-        this.pairedSetting = new ToggleSetting(
-            dependency,
-            phase,
-            "_enable" + WordUtils.capitalize(this.configName), // _ to force it to the top
-            configComment);
-        this.setCategory(configName + "Research");
-        this.pairedSetting.setCategory(this.getCategory());
-
-        this.enabled = this.pairedSetting.isEnabled();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Setting> T setCategory(String category) {
         super.setCategory(category);
-        if (this.pairedSetting != null) {
-            this.pairedSetting.setCategory(category);
-        }
-        return (T) this;
-    }
-
-    @SuppressWarnings({ "unchecked", "unused" })
-    public <T extends CustomResearchSetting> T setPairedSetting(ToggleSetting pairedSetting) {
-        this.pairedSetting = pairedSetting;
         return (T) this;
     }
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        if (this.pairedSetting != null) {
-            this.pairedSetting.loadFromConfiguration(configuration);
-            this.enabled = this.pairedSetting.isEnabled();
-        }
-
+        this.enabled = configuration
+            .getBoolean("_enabled" + this.configName, this.getCategory(), this.enabled, this.configComment);
         researchName = configuration
             .getString(configName + "Name", this.getCategory(), researchName, "The research entry ID");
 
@@ -143,14 +117,6 @@ public class CustomResearchSetting extends Setting {
                 researchAspects.add(Aspect.getAspect(aspectParts[0]), Integer.parseInt(aspectParts[1]));
             }
         }
-    }
-
-    @Override
-    public boolean isEnabled() {
-        if (pairedSetting != null) {
-            return super.isEnabled() && pairedSetting.isEnabled();
-        }
-        return super.isEnabled() && this.enabled;
     }
 
     // Helper class for research info to be used in the constructor, avoids ugly constructor calls

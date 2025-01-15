@@ -17,7 +17,6 @@ public class ReplaceWandComponentSettings extends CustomResearchSetting {
             "replaceWand" + component.nameProper(),
             "Enable a recipe to swap an existing existing wand, scepter, or staff's " + component.nameLower() + ".",
             info);
-        this.pairedSetting = null;
     }
 
     public enum Component {

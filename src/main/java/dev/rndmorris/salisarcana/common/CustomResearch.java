@@ -259,7 +259,7 @@ public class CustomResearch {
             final var sibling = ResearchCategories.getResearch(parentResearch);
             if (sibling == null) {
                 LOG.error("Could not locate research {} for {}.", parentResearch, fullKey);
-                return research;
+                continue;
             }
             sibling.siblings = ArrayHelper.appendToArray(sibling.siblings, fullKey);
         }
