@@ -50,13 +50,6 @@ public class CustomResearchSetting extends Setting {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T extends Setting> T setCategory(String category) {
-        super.setCategory(category);
-        return (T) this;
-    }
-
-    @Override
     public void loadFromConfiguration(Configuration configuration) {
         this.enabled = configuration
             .getBoolean("_enabled" + this.configName, this.getCategory(), this.enabled, this.configComment);
