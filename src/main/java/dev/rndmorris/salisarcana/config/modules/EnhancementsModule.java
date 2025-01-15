@@ -204,7 +204,7 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.LATE,
                 "thaumometerScanContainers",
                 "Enable the thaumometer to scan the contents of inventories when right-clicking on them.",
-                new CustomResearchSetting.ResearchInfo("CHESTSCAN", "BASICS", 8, 3, 3)
+                new CustomResearchSetting.ResearchInfo("CHESTSCAN", "BASICS", 8, 3).setDifficulty(3)
                     .setParents("DECONSTRUCTOR").setAspects("ordo:10", "perditio:10", "permutatio:10"))
                     .setCategory("thaumometer_container_scan")
         );
@@ -256,13 +256,13 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.LATE,
                 ReplaceWandComponentSettings.Component.CAPS,
-                new CustomResearchSetting.ResearchInfo("REPLACEWANDCAPS", "THAUMATURGY", 4, 2, 3).setParents("CAP_gold")
+                new CustomResearchSetting.ResearchInfo("REPLACEWANDCAPS", "THAUMATURGY", 4, 2).setParents("CAP_gold")
                     .setAutoUnlock()).setCategory(wandCategory),
             replaceWandCoreSettings = new ReplaceWandComponentSettings(
                 this,
                 ConfigPhase.LATE,
                 ReplaceWandComponentSettings.Component.CORE,
-                new CustomResearchSetting.ResearchInfo("REPLACEWANDCORE", "THAUMATURGY", -6, 2, 3)
+                new CustomResearchSetting.ResearchInfo("REPLACEWANDCORE", "THAUMATURGY", -6, 2)
                     .setParents("ROD_greatwood")
                     .setAutoUnlock()).setCategory(wandCategory),
             enforceWandCoreTypes = new ToggleSetting(

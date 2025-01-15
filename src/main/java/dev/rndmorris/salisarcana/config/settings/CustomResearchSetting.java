@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.config.settings;
 
+import static dev.rndmorris.salisarcana.SalisArcana.LOG;
+
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -11,19 +13,28 @@ import thaumcraft.api.aspects.AspectList;
 
 public class CustomResearchSetting extends Setting {
 
+    // Comment to be used in the paired togglesetting, will be at the top as a general explanation for what the research
+    // does. Paired setting is optional.
     public final String configComment;
+
+    // The base name of the config entry, will be used to generate the config entries for the research.
     public final String configName;
+
+    // The paired setting that will enable/disable the research. If set to null, the research will always be enabled.
+    public ToggleSetting pairedSetting;
+
+    // Research Info
     public String researchName;
     public String researchCategory;
     public int researchCol;
     public int researchRow;
     public int difficulty;
     public String[] parentResearches;
-    public ToggleSetting pairedSetting;
     public boolean purchasable;
-    public String[] aspectStrings;
     public AspectList researchAspects;
     public boolean autoUnlock;
+
+    public String[] aspectStrings; // formatted aspect:amount
 
     public CustomResearchSetting(IEnabler dependency, ConfigPhase phase, String configName, String configComment,
         ResearchInfo researchInfo) {
@@ -44,7 +55,7 @@ public class CustomResearchSetting extends Setting {
         this.pairedSetting = new ToggleSetting(
             dependency,
             phase,
-            "_enable" + WordUtils.capitalize(this.configName),
+            "_enable" + WordUtils.capitalize(this.configName), // _ to force it to the top
             configComment);
         this.category = configName + "Research";
         this.pairedSetting.setCategory(this.category);
@@ -117,12 +128,17 @@ public class CustomResearchSetting extends Setting {
             this.category,
             this.aspectStrings,
             "The aspects required for the research entry");
+
         this.researchAspects = new AspectList();
         for (String aspect : aspectStrings) {
             String[] aspectParts = aspect.split(":");
             if (aspectParts.length == 2) {
                 if (Aspect.aspects.get(aspectParts[0]) == null) {
-                    throw new IllegalArgumentException("Invalid aspect: " + aspectParts[0]);
+                    LOG.error(
+                        "Error: Aspect {} in custom research {} does not exist!",
+                        aspectParts[0],
+                        this.configName);
+                    continue;
                 }
                 researchAspects.add(Aspect.getAspect(aspectParts[0]), Integer.parseInt(aspectParts[1]));
             }
@@ -137,38 +153,25 @@ public class CustomResearchSetting extends Setting {
         return super.isEnabled() && this.enabled;
     }
 
+    // Helper class for research info to be used in the constructor, avoids ugly constructor calls
     @SuppressWarnings("unused")
     public static class ResearchInfo {
 
-        public int researchRow;
-        public int researchCol;
-        public int difficulty;
-        public String researchCategory;
-        public String researchName;
-        public String[] researchParents = new String[0];
-        public boolean purchasable = false;
-        public String[] researchAspects = new String[0];
-        public boolean autoUnlock = false;
+        private int researchRow;
+        private int researchCol;
+        private int difficulty;
+        private String researchCategory;
+        private String researchName;
+        private String[] researchParents = new String[0];
+        private boolean purchasable = false;
+        private String[] researchAspects = new String[0];
+        private boolean autoUnlock = false;
 
-        public ResearchInfo() {
-
-        }
-
-        public ResearchInfo(String researchName, String researchCategory, int researchCol, int researchRow,
-            int difficulty) {
+        public ResearchInfo(String researchName, String researchCategory, int researchCol, int researchRow) {
             this.researchName = researchName;
             this.researchCategory = researchCategory;
             this.researchCol = researchCol;
             this.researchRow = researchRow;
-        }
-
-        public ResearchInfo(String researchName, String researchCategory, int researchCol, int researchRow,
-            int difficulty, boolean purchasable) {
-            this.researchName = researchName;
-            this.researchCategory = researchCategory;
-            this.researchCol = researchCol;
-            this.researchRow = researchRow;
-            this.purchasable = purchasable;
         }
 
         public ResearchInfo setResearchName(String researchName) {
