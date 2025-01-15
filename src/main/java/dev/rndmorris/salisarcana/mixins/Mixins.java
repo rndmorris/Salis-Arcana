@@ -281,6 +281,12 @@ public enum Mixins {
         .addMixinClasses("gui.MixinGuiResearchBrowser")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    LEVITATOR_SHIFT_FIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.levitatorShiftFix::isEnabled)
+        .addMixinClasses("tiles.MixinTileLifter")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ;
 
     private final List<String> mixinClasses;
