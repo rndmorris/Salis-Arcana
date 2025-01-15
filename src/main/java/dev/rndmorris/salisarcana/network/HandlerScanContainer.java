@@ -10,7 +10,9 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.research.ScanResult;
+import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.research.ScanManager;
 
 public class HandlerScanContainer implements IMessageHandler<MessageScanContainer, IMessage> {
@@ -18,6 +20,15 @@ public class HandlerScanContainer implements IMessageHandler<MessageScanContaine
     @Override
     public IMessage onMessage(MessageScanContainer message, MessageContext ctx) {
         EntityPlayerMP entityPlayer = ctx.getServerHandler().playerEntity;
+        // we do this check serverside since the client can lie
+        if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()) {
+            if (!ResearchManager.isResearchComplete(
+                entityPlayer.getCommandSenderName(),
+                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
+                return null;
+            }
+        }
+
         World world = entityPlayer.worldObj;
         TileEntity tile = world.getTileEntity(message.x, message.y, message.z);
         if (tile instanceof IInventory inventory) {
