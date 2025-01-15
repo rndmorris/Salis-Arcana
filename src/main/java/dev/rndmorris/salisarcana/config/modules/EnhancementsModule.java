@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
+import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
 import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
@@ -48,24 +49,25 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting itemEldritchObjectStackSize;
 
     public final ToggleSetting wandPedestalUseCV;
-    public ToggleSetting thaumometerScanContainers;
+    public final ToggleSetting thaumometerScanContainers;
+    public final CustomResearchSetting thaumometerScanContainersResearch;
 
     public EnhancementsModule() {
         // spotless:off
         addSettings(
-            lessPickyPrimalCharmRecipe = (ToggleSetting) new ToggleSetting(
+            lessPickyPrimalCharmRecipe = new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
                 "friendlyPrimalCharm",
                 "Make the primal charm's crafting recipe less picky about the order in which primal shards are placed in the top and bottom rows.")
                     .setCategory("recipes"),
-            rotatedFociRecipes = (ToggleSetting) new ToggleSetting(
+            rotatedFociRecipes = new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
                 "rotatedFoci",
                 "Add rotated recipes for the fire, shock, frost, equal rade, excavation, and primal wand foci.")
                     .setCategory("recipes"),
-            rotatedThaumometerRecipe = (ToggleSetting) new ToggleSetting(
+            rotatedThaumometerRecipe = new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
                 "rotatedThaumometer",
@@ -128,14 +130,14 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "Wand Pedestal CV Support",
                 "Allows wand pedestals to draw from centivis instead of just regular nodes"),
-            stabilizerRewrite = (ToggleSetting) new ToggleSetting(
+            stabilizerRewrite = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
                 "useStabilizerRewrite",
                 "Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers.")
                     .setCategory("infusion")
                     .setEnabled(false),
-            stabilizerStrength = (IntSetting) new IntSetting(
+            stabilizerStrength = new IntSetting(
                 stabilizerRewrite,
                 ConfigPhase.LATE,
                 "stabilizerStrength",
@@ -181,7 +183,7 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "thaumometerScanContainers",
-                "Allow the thaumometer to scan the contents of inventories when right-clicking on them."),
+                "Allow the thaumometer to scan the contents of inventories when right-clicking on them.").setCategory("thaumometer_container_scan"),
             thaumcraftCommandTabCompletion = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
@@ -196,13 +198,20 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "creativeOpThaumonomicon",
-                "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it.")
+                "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
+            thaumometerScanContainersResearch = new CustomResearchSetting(
+                thaumometerScanContainers,
+                ConfigPhase.LATE,
+                "thaumometerScanContainers",
+                "Enable the thaumometer to scan the contents of inventories when right-clicking on them.",
+                new CustomResearchSetting.ResearchInfo("CHESTSCAN", "BASICS", 8, 3).setDifficulty(3)
+                    .setParents("DECONSTRUCTOR").setAspects("ordo:10", "perditio:10", "permutatio:10"))
+                    .setCategory("thaumometer_container_scan")
         );
 
         // spotless:on
-        // noinspection unchecked
         addSettings(
-            stabilizerAdditions = (BlockItemListSetting<Integer>) new BlockItemListSetting<Integer>(
+            stabilizerAdditions = new BlockItemListSetting<Integer>(
                 stabilizerRewrite,
                 ConfigPhase.LATE,
                 "stabilizerAdditions",
@@ -225,9 +234,8 @@ public class EnhancementsModule extends BaseConfigModule {
                             return IntegerHelper.tryParse(strSlice[3]);
                         })
                         .setCategory("infusion"));
-        // noinspection unchecked
         addSettings(
-            stabilizerExclusions = (BlockItemListSetting<Object>) new BlockItemListSetting<>(
+            stabilizerExclusions = new BlockItemListSetting<>(
                 stabilizerRewrite,
                 ConfigPhase.LATE,
                 "stabilizerExclusions",
@@ -244,25 +252,26 @@ public class EnhancementsModule extends BaseConfigModule {
 
         final var wandCategory = "wand_component_swapping";
         addSettings(
-            replaceWandCapsSettings = (ReplaceWandComponentSettings) new ReplaceWandComponentSettings(
+            replaceWandCapsSettings = new ReplaceWandComponentSettings(
                 this,
                 ConfigPhase.LATE,
                 ReplaceWandComponentSettings.Component.CAPS,
-                4,
-                2).setCategory(wandCategory),
-            replaceWandCoreSettings = (ReplaceWandComponentSettings) new ReplaceWandComponentSettings(
+                new CustomResearchSetting.ResearchInfo("REPLACEWANDCAPS", "THAUMATURGY", 4, 2).setParents("CAP_gold")
+                    .setAutoUnlock()).setCategory(wandCategory),
+            replaceWandCoreSettings = new ReplaceWandComponentSettings(
                 this,
                 ConfigPhase.LATE,
                 ReplaceWandComponentSettings.Component.CORE,
-                -6,
-                2).setCategory(wandCategory),
-            enforceWandCoreTypes = (ToggleSetting) new ToggleSetting(
+                new CustomResearchSetting.ResearchInfo("REPLACEWANDCORE", "THAUMATURGY", -6, 2)
+                    .setParents("ROD_greatwood")
+                    .setAutoUnlock()).setCategory(wandCategory),
+            enforceWandCoreTypes = new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
                 "enforceWandCoreTypes",
                 "If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core.\nDisable to allow upgrading a wand to a staff and vice versa.")
                     .setCategory(wandCategory),
-            preserveWandVis = (ToggleSetting) new ToggleSetting(
+            preserveWandVis = new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
                 "preserveWandVis",

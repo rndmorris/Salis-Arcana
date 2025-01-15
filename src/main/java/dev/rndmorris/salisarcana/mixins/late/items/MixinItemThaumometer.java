@@ -16,10 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.network.MessageScanContainer;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.api.research.ScanResult;
 import thaumcraft.common.items.relics.ItemThaumometer;
+import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(value = ItemThaumometer.class, remap = false)
 public class MixinItemThaumometer extends Item {
@@ -27,10 +29,10 @@ public class MixinItemThaumometer extends Item {
     @Inject(
         method = "onUsingTick",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/EntityPlayer;stopUsingItem()V"))
-    private void mixinOnUsingTick(ItemStack stack, EntityPlayer p, int count, CallbackInfo ci) {
-        MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(p.worldObj, p, true);
+    private void mixinOnUsingTick(ItemStack stack, EntityPlayer player, int count, CallbackInfo ci) {
+        MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
         if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-            TileEntity tile = p.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
+            TileEntity tile = player.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
             if (tile instanceof IInventory) {
                 NetworkHandler.instance.sendToServer(new MessageScanContainer(mop.blockX, mop.blockY, mop.blockZ));
             }
@@ -43,15 +45,23 @@ public class MixinItemThaumometer extends Item {
             value = "INVOKE",
             target = "Lthaumcraft/common/lib/research/ScanManager;isValidScanTarget(Lnet/minecraft/entity/player/EntityPlayer;Lthaumcraft/api/research/ScanResult;Ljava/lang/String;)Z",
             ordinal = 2))
-    private boolean rescanInventory(EntityPlayer list, ScanResult item, String t, Operation<Boolean> original) {
+    private boolean rescanInventory(EntityPlayer player, ScanResult item, String t, Operation<Boolean> original) {
+        if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()) {
+
+            if (!ResearchManager.isResearchComplete(
+                player.getCommandSenderName(),
+                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
+                return original.call(player, item, t);
+            }
+        }
         Block block = Block.getBlockFromItem(Item.getItemById(item.id));
         if (block != null && block.hasTileEntity(item.meta)) {
-            TileEntity tile = block.createTileEntity(list.worldObj, item.meta);
+            TileEntity tile = block.createTileEntity(player.worldObj, item.meta);
+            tile.invalidate();
             if (tile instanceof IInventory) {
-                tile.invalidate();
                 return true;
             }
         }
-        return original.call(list, item, t);
+        return original.call(player, item, t);
     }
 }

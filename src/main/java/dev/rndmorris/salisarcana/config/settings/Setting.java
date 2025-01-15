@@ -23,9 +23,9 @@ public abstract class Setting implements IEnabler {
         this.phase = phase;
     }
 
-    public Setting setCategory(String category) {
+    public <T extends Setting> T setCategory(String category) {
         this.category = category;
-        return this;
+        return (T) this;
     }
 
     public String getCategory() {
@@ -53,9 +53,9 @@ public abstract class Setting implements IEnabler {
     /**
      * Enable or disable the individual setting. Enabling will have no effect if the parent module is disabled.
      */
-    public Setting setEnabled(boolean enabled) {
+    public <T extends Setting> T setEnabled(boolean enabled) {
         this.enabled = enabled;
-        return this;
+        return (T) this;
     }
 
     /**
