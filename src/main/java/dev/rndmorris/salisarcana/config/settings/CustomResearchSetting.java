@@ -57,8 +57,8 @@ public class CustomResearchSetting extends Setting {
             phase,
             "_enable" + WordUtils.capitalize(this.configName), // _ to force it to the top
             configComment);
-        this.category = configName + "Research";
-        this.pairedSetting.setCategory(this.category);
+        this.setCategory(configName + "Research");
+        this.pairedSetting.setCategory(this.getCategory());
 
         this.enabled = this.pairedSetting.isEnabled();
     }
@@ -66,7 +66,7 @@ public class CustomResearchSetting extends Setting {
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Setting> T setCategory(String category) {
-        this.category = category;
+        this.setCategory(category);
         if (this.pairedSetting != null) {
             this.pairedSetting.setCategory(category);
         }
@@ -87,17 +87,17 @@ public class CustomResearchSetting extends Setting {
         }
 
         researchName = configuration
-            .getString(configName + "Name", this.category, researchName, "The research entry ID");
+            .getString(configName + "Name", this.getCategory(), researchName, "The research entry ID");
 
         researchCategory = configuration.getString(
             configName + "Category",
-            this.category,
+            this.getCategory(),
             researchCategory,
             "The tab in the Thaumonomicon in which the research should appear");
 
         researchCol = configuration.getInt(
             configName + "Col",
-            this.category,
+            this.getCategory(),
             researchCol,
             Integer.MIN_VALUE,
             Integer.MAX_VALUE,
@@ -105,7 +105,7 @@ public class CustomResearchSetting extends Setting {
 
         researchRow = configuration.getInt(
             configName + "Row",
-            this.category,
+            this.getCategory(),
             researchRow,
             Integer.MIN_VALUE,
             Integer.MAX_VALUE,
@@ -113,19 +113,19 @@ public class CustomResearchSetting extends Setting {
 
         parentResearches = configuration.getStringList(
             configName + "Parents",
-            this.category,
+            this.getCategory(),
             parentResearches,
             "The research entry IDs of the parent research entries");
 
         purchasable = configuration.getBoolean(
             configName + "Purchasable",
-            this.category,
+            this.getCategory(),
             purchasable,
             "Whether the research should be purchasable with aspects instead of the normal minigame");
 
         this.aspectStrings = configuration.getStringList(
             configName + "Aspects",
-            this.category,
+            this.getCategory(),
             this.aspectStrings,
             "The aspects required for the research entry");
 

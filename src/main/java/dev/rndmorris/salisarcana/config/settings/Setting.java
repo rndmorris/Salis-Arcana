@@ -16,7 +16,7 @@ public abstract class Setting implements IEnabler {
     protected boolean enabled = true;
     public ConfigPhase phase;
 
-    protected @Nullable String category;
+    private @Nullable String category;
 
     public Setting(IEnabler dependency, ConfigPhase phase) {
         this.dependencyRef = new WeakReference<>(dependency);

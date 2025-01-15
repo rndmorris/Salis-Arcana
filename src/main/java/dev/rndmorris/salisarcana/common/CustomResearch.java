@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.common;
 
+import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
 import java.util.ArrayList;
@@ -13,11 +14,13 @@ import net.minecraftforge.oredict.OreDictionary;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
+import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
+import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.StaffRod;
@@ -252,14 +255,14 @@ public class CustomResearch {
         }
         research.registerResearchItem();
 
-        // for (String parentResearch : settings.parentResearches) {
-        // final var sibling = ResearchCategories.getResearch(parentResearch);
-        // if (sibling == null) {
-        // LOG.error("Could not locate research {} for {}.", parentResearch, fullKey);
-        // return research;
-        // }
-        // sibling.siblings = ArrayHelper.appendToArray(sibling.siblings, fullKey);
-        // }
+        for (String parentResearch : settings.parentResearches) {
+            final var sibling = ResearchCategories.getResearch(parentResearch);
+            if (sibling == null) {
+                LOG.error("Could not locate research {} for {}.", parentResearch, fullKey);
+                return research;
+            }
+            sibling.siblings = ArrayHelper.appendToArray(sibling.siblings, fullKey);
+        }
 
         return research;
     }

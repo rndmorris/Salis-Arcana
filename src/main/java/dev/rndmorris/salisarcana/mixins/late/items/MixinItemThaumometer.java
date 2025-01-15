@@ -57,8 +57,8 @@ public class MixinItemThaumometer extends Item {
         Block block = Block.getBlockFromItem(Item.getItemById(item.id));
         if (block != null && block.hasTileEntity(item.meta)) {
             TileEntity tile = block.createTileEntity(player.worldObj, item.meta);
+            tile.invalidate();
             if (tile instanceof IInventory) {
-                tile.invalidate();
                 return true;
             }
         }
