@@ -66,7 +66,7 @@ public class CustomResearchSetting extends Setting {
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Setting> T setCategory(String category) {
-        this.setCategory(category);
+        super.setCategory(category);
         if (this.pairedSetting != null) {
             this.pairedSetting.setCategory(category);
         }
