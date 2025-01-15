@@ -21,8 +21,9 @@ public class CustomResearchSetting extends Setting {
     public String[] parentResearches;
     public ToggleSetting pairedSetting;
     public boolean purchasable;
+    public String[] aspectStrings;
     public AspectList researchAspects;
-    public boolean stub;
+    public boolean autoUnlock;
 
     public CustomResearchSetting(IEnabler dependency, ConfigPhase phase, String configName, String configComment,
         ResearchInfo researchInfo) {
@@ -34,8 +35,8 @@ public class CustomResearchSetting extends Setting {
         this.researchRow = researchInfo.getResearchRow();
         this.parentResearches = researchInfo.getParents();
         this.difficulty = researchInfo.getDifficulty();
-        this.stub = researchInfo.getStub();
-        this.researchAspects = researchInfo.getResearchAspects();
+        this.autoUnlock = researchInfo.getAutoUnlock();
+        this.aspectStrings = researchInfo.getResearchAspects();
 
         this.configName = configName + "Research";
         this.configComment = configComment;
@@ -111,12 +112,13 @@ public class CustomResearchSetting extends Setting {
             purchasable,
             "Whether the research should be purchasable with aspects instead of the normal minigame");
 
-        String[] aspects = configuration.getStringList(
+        this.aspectStrings = configuration.getStringList(
             configName + "Aspects",
             this.category,
-            new String[0],
+            this.aspectStrings,
             "The aspects required for the research entry");
-        for (String aspect : aspects) {
+        this.researchAspects = new AspectList();
+        for (String aspect : aspectStrings) {
             String[] aspectParts = aspect.split(":");
             if (aspectParts.length == 2) {
                 if (Aspect.aspects.get(aspectParts[0]) == null) {
@@ -143,10 +145,10 @@ public class CustomResearchSetting extends Setting {
         public int difficulty;
         public String researchCategory;
         public String researchName;
-        public String[] researchParents;
+        public String[] researchParents = new String[0];
         public boolean purchasable = false;
-        public AspectList researchAspects = new AspectList();
-        public boolean stub = false;
+        public String[] researchAspects = new String[0];
+        public boolean autoUnlock = false;
 
         public ResearchInfo() {
 
@@ -199,8 +201,8 @@ public class CustomResearchSetting extends Setting {
             return this;
         }
 
-        public ResearchInfo setAspects(AspectList researchAspects) {
-            this.researchAspects = researchAspects;
+        public ResearchInfo setAspects(String... aspects) {
+            this.researchAspects = aspects;
             return this;
         }
 
@@ -209,8 +211,8 @@ public class CustomResearchSetting extends Setting {
             return this;
         }
 
-        public ResearchInfo setStub() {
-            this.stub = true;
+        public ResearchInfo setAutoUnlock() {
+            this.autoUnlock = true;
             return this;
         }
 
@@ -238,7 +240,7 @@ public class CustomResearchSetting extends Setting {
             return purchasable;
         }
 
-        public AspectList getResearchAspects() {
+        public String[] getResearchAspects() {
             return researchAspects;
         }
 
@@ -246,8 +248,8 @@ public class CustomResearchSetting extends Setting {
             return difficulty;
         }
 
-        public boolean getStub() {
-            return stub;
+        public boolean getAutoUnlock() {
+            return autoUnlock;
         }
 
     }

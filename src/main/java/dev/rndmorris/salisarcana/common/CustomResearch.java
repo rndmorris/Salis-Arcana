@@ -1,24 +1,23 @@
 package dev.rndmorris.salisarcana.common;
 
-import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
 import java.util.ArrayList;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraftforge.oredict.OreDictionary;
 
+import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
-import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
-import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.StaffRod;
@@ -32,26 +31,26 @@ public class CustomResearch {
     public static ResearchItem chestScanResearch;
 
     public static void init() {
-        // final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
-        // final var wand = new ItemStack(wandItem);
-        //
-        // wandItem.setRod(wand, ConfigItems.WAND_ROD_WOOD);
-        // wandItem.setCap(wand, ConfigItems.WAND_CAP_GOLD);
-        // replaceCapsResearch = maybeRegister(
-        // ConfigModuleRoot.enhancements.replaceWandCapsSettings,
-        // PlaceholderItem.capPlaceholder,
-        // exampleCapRecipes());
-        //
-        // wandItem.setRod(wand, ConfigItems.WAND_ROD_GREATWOOD);
-        // wandItem.setCap(wand, ConfigItems.WAND_CAP_IRON);
-        // replaceCoreResearch = maybeRegister(
-        // ConfigModuleRoot.enhancements.replaceWandCoreSettings,
-        // PlaceholderItem.rodPlaceholder,
-        // exampleRodRecipes());
-        //
-        // chestScanResearch = maybeRegister(
-        // ConfigModuleRoot.enhancements.thaumometerScanContainersResearch,
-        // Item.getItemFromBlock(Blocks.chest));
+        final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
+        final var wand = new ItemStack(wandItem);
+
+        wandItem.setRod(wand, ConfigItems.WAND_ROD_WOOD);
+        wandItem.setCap(wand, ConfigItems.WAND_CAP_GOLD);
+        replaceCapsResearch = maybeRegister(
+            ConfigModuleRoot.enhancements.replaceWandCapsSettings,
+            PlaceholderItem.capPlaceholder,
+            exampleCapRecipes());
+
+        wandItem.setRod(wand, ConfigItems.WAND_ROD_GREATWOOD);
+        wandItem.setCap(wand, ConfigItems.WAND_CAP_IRON);
+        replaceCoreResearch = maybeRegister(
+            ConfigModuleRoot.enhancements.replaceWandCoreSettings,
+            PlaceholderItem.rodPlaceholder,
+            exampleRodRecipes());
+
+        chestScanResearch = maybeRegister(
+            ConfigModuleRoot.enhancements.thaumometerScanContainersResearch,
+            Item.getItemFromBlock(Blocks.chest));
 
     }
 
@@ -234,8 +233,8 @@ public class CustomResearch {
             new ItemStack(placeholderItem, 0, OreDictionary.WILDCARD_VALUE)).setConcealed()
                 .setParents(settings.parentResearches)
                 .setSpecial();
-        if (settings.stub) {
-            research.setStub();
+        if (settings.autoUnlock) {
+            research.setAutoUnlock();
         }
         final var pages = new ArrayList<ResearchPage>();
         pages.add(new ResearchPage("tc.research_page." + fullKey + ".0"));
@@ -253,14 +252,14 @@ public class CustomResearch {
         }
         research.registerResearchItem();
 
-        for (String parentResearch : settings.parentResearches) {
-            final var sibling = ResearchCategories.getResearch(parentResearch);
-            if (sibling == null) {
-                LOG.error("Could not locate research {} for {}.", parentResearch, fullKey);
-                return research;
-            }
-            sibling.siblings = ArrayHelper.appendToArray(sibling.siblings, fullKey);
-        }
+        // for (String parentResearch : settings.parentResearches) {
+        // final var sibling = ResearchCategories.getResearch(parentResearch);
+        // if (sibling == null) {
+        // LOG.error("Could not locate research {} for {}.", parentResearch, fullKey);
+        // return research;
+        // }
+        // sibling.siblings = ArrayHelper.appendToArray(sibling.siblings, fullKey);
+        // }
 
         return research;
     }

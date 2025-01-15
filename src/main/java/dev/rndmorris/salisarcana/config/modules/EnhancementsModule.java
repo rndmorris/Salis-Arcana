@@ -11,8 +11,6 @@ import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
 import dev.rndmorris.salisarcana.config.settings.Setting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
 
 public class EnhancementsModule extends BaseConfigModule {
 
@@ -207,11 +205,7 @@ public class EnhancementsModule extends BaseConfigModule {
                 "thaumometerScanContainers",
                 "Enable the thaumometer to scan the contents of inventories when right-clicking on them.",
                 new CustomResearchSetting.ResearchInfo("CHESTSCAN", "BASICS", 8, 3, 3)
-                    .setParents("DECONSTRUCTOR")
-                    .setAspects(new AspectList()
-                        .add(Aspect.ORDER, 10)
-                        .add(Aspect.ENTROPY, 10)
-                        .add(Aspect.MAGIC, 10)))
+                    .setParents("DECONSTRUCTOR").setAspects("ordo:10", "perditio:10", "permutatio:10"))
                     .setCategory("thaumometer_container_scan")
         );
 
@@ -263,14 +257,14 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.LATE,
                 ReplaceWandComponentSettings.Component.CAPS,
                 new CustomResearchSetting.ResearchInfo("REPLACEWANDCAPS", "THAUMATURGY", 4, 2, 3).setParents("CAP_gold")
-                    .setStub()).setCategory(wandCategory),
+                    .setAutoUnlock()).setCategory(wandCategory),
             replaceWandCoreSettings = new ReplaceWandComponentSettings(
                 this,
                 ConfigPhase.LATE,
                 ReplaceWandComponentSettings.Component.CORE,
                 new CustomResearchSetting.ResearchInfo("REPLACEWANDCORE", "THAUMATURGY", -6, 2, 3)
                     .setParents("ROD_greatwood")
-                    .setStub()).setCategory(wandCategory),
+                    .setAutoUnlock()).setCategory(wandCategory),
             enforceWandCoreTypes = new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
