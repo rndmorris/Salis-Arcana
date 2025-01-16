@@ -17,18 +17,6 @@ import thaumcraft.common.tiles.TileLifter;
 @Mixin(TileLifter.class)
 public abstract class MixinTileLifter extends TileEntity {
 
-    // @Shadow
-    // private int counter;
-    //
-    // @Shadow
-    // public boolean requiresUpdate;
-    //
-    // @Shadow
-    // public boolean lastPowerState;
-    //
-    // @Shadow
-    // public abstract boolean gettingPower();
-
     @Shadow
     public int rangeAbove;
 
