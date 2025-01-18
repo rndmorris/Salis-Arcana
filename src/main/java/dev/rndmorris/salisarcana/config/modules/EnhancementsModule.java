@@ -211,7 +211,7 @@ public class EnhancementsModule extends BaseConfigModule {
             pureNodeBiomeChange = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
-                "pureNodeBiomeChange",
+                "pureNodeAlwaysMagicalForest",
                 "By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location.")
 
         );

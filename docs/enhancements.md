@@ -104,9 +104,9 @@ The weights used to pick the type of nodes when randomly generated.
 
 The random chance for mana beans to grow every block tick. Valid values are 0, 100 inclusive. Lower values are more likely to happen, with 0 being guaranteed.
 
-## Pure Node Biome Change Tweak
+## Pure Nodes Always Create Magical Forest
 
-**Config Option:** `pureNodeBiomeChange`
+**Config Option:** `pureNodeAlwaysMagicalForest`
 
 By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location.
 
