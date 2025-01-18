@@ -95,12 +95,20 @@ The weights used to pick the modifier of nodes when randomly generated.
 If enabled, randomly generated nodes will pick their type from the weighted list specified in the `nodeTypeWeights` config option.
 
 **Config option:** `nodeTypeWeights`
+
 The weights used to pick the type of nodes when randomly generated.
 
 ## Mana Bean Growth Rate
 
 **Config Option:** `manaBeanGrowthChance`
+
 The random chance for mana beans to grow every block tick. Valid values are 0, 100 inclusive. Lower values are more likely to happen, with 0 being guaranteed.
+
+## Pure Node Biome Change Tweak
+
+**Config Option:** `pureNodeBiomeChange`
+
+By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location.
 
 # Enhancements - Infusion
 

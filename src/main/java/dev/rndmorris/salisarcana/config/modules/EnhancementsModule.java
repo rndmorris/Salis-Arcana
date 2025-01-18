@@ -51,6 +51,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting wandPedestalUseCV;
     public final ToggleSetting thaumometerScanContainers;
     public final CustomResearchSetting thaumometerScanContainersResearch;
+    public final ToggleSetting pureNodeBiomeChange;
 
     public EnhancementsModule() {
         // spotless:off
@@ -206,7 +207,13 @@ public class EnhancementsModule extends BaseConfigModule {
                 "Enable the thaumometer to scan the contents of inventories when right-clicking on them.",
                 new CustomResearchSetting.ResearchInfo("CHESTSCAN", "BASICS", 8, 3).setDifficulty(3)
                     .setParents("DECONSTRUCTOR").setAspects("ordo:10", "perditio:10", "permutatio:10"))
-                    .setCategory("thaumometer_container_scan")
+                    .setCategory("thaumometer_container_scan"),
+            pureNodeBiomeChange = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "pureNodeBiomeChange",
+                "By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location.")
+
         );
 
         // spotless:on
