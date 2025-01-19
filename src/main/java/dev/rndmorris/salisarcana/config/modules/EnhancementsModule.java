@@ -226,7 +226,7 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "eldritchAltarSpawningMethod",
-                "How eldritch altars should attempt to spawn crimson knights and eldritch guardians.")
+                "Override how eldritch altars pick where to try spawning crimson knights and eldritch guardians.")
         );
 
         // spotless:on

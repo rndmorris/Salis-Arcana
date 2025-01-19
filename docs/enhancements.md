@@ -117,6 +117,15 @@ Has the side effect of making non-shifting entities, like passive mobs, unable t
 
 By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location.
 
+## Alternate Eldritch Altar Mob Spawning
+
+**Config Option:** `eldritchAltarSpawningMethod`
+
+Override how eldritch altars pick where to try spawning crimson knights and eldritch guardians. [The default approach is... unusual](https://github.com/rndmorris/Salis-Arcana/issues/99).
+
+* `EVEN_SPREAD`: each valid coordinate in range has an equal chance of being selected. Will not try to spawn in spaces occupied by the altar itself.
+* `CENTER_WEIGHTED`: weighted towards coordinates near the altar. Will not try to spawn in spaces occupied by the altar itself.
+
 # Enhancements - Infusion
 
 ## Config option: `useStabilizerRewrite`
