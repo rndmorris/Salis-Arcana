@@ -52,6 +52,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting thaumometerScanContainers;
     public final CustomResearchSetting thaumometerScanContainersResearch;
     public final ToggleSetting levitatorShiftFix;
+    public final ToggleSetting pureNodeBiomeChange;
 
     public EnhancementsModule() {
         // spotless:off
@@ -212,7 +213,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "levitatorShiftFix",
-                "Fixes some general jankiness with levitators, however, non-player entities will no longer be able to be lowered.")
+                "Fixes some general jankiness with levitators, however, non-player entities will no longer be able to be lowered."),
+            pureNodeBiomeChange = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "pureNodeAlwaysMagicalForest",
+                "By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location.")
 
         );
 
