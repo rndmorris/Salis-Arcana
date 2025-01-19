@@ -18,7 +18,7 @@ import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.tiles.TileEldritchAltar;
 
 @Mixin(value = TileEldritchAltar.class, remap = false)
-public abstract class MixinTileEldritchAltar_MobSpawning extends TileThaumcraft {
+public abstract class MixinTileEldritchAltar_CenteredMobSpread extends TileThaumcraft {
 
     @WrapOperation(
         method = { "spawnGuards", "spawnGuardian" },
@@ -37,24 +37,30 @@ public abstract class MixinTileEldritchAltar_MobSpawning extends TileThaumcraft 
     private boolean pickAndCheckCoords(IBlockAccess worldIn, int x, int y, int z, Operation<Boolean> original,
         @Local(name = "i1") LocalIntRef xRef, @Local(name = "j1") LocalIntRef yRef,
         @Local(name = "k1") LocalIntRef zRef) {
-        x = xCoord + sa$randomHorizontal();
-        y = yCoord + sa$randomVertical();
-        z = zCoord + sa$randomHorizontal();
 
-        xRef.set(x);
-        yRef.set(y);
-        zRef.set(z);
+        xRef.set(x = xCoord + sa$randomHorizontal());
+        yRef.set(y = yCoord + sa$randomVertical());
+        zRef.set(z = zCoord + sa$randomHorizontal());
 
         return original.call(worldIn, x, y - 1, z);
     }
 
     @Unique
     private int sa$randomHorizontal() {
-        return (MathHelper.getRandomIntegerInRange(worldObj.rand, 0, 6) + 4) * (worldObj.rand.nextBoolean() ? 1 : -1);
+        final var rand = worldObj.rand;
+        final var val = MathHelper.getRandomIntegerInRange(rand, 0, 6) - MathHelper.getRandomIntegerInRange(rand, 0, 6);
+        if (val == 0) {
+            return val + (4 * (rand.nextBoolean() ? 1 : -1));
+        }
+        if (val < 0) {
+            return val - 4;
+        }
+        return val + 4;
     }
 
     @Unique
     private int sa$randomVertical() {
-        return MathHelper.getRandomIntegerInRange(worldObj.rand, -3, 3);
+        return MathHelper.getRandomIntegerInRange(worldObj.rand, 0, 3)
+            - MathHelper.getRandomIntegerInRange(worldObj.rand, 0, 3);
     }
 }

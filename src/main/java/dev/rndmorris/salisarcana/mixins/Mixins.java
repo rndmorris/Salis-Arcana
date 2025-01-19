@@ -293,10 +293,16 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileNode")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    ELDRITCH_ALTAR_MOB_ADJUSTMENTS(new Builder().setPhase(Phase.LATE)
+    ELDRITCH_ALTAR_EVEN_SPREAD_MOBS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.evenEldritchAltarMobSpawningDistribution::isEnabled)
-        .addMixinClasses("tiles.MixinTileEldritchAltar_MobSpawning")
+        .setApplyIf(ConfigModuleRoot.enhancements.eldritchAltarSpawningMethod::isEvenSpread)
+        .addMixinClasses("tiles.MixinTileEldritchAltar_EvenMobSpread")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    ELDRITCH_ALTAR_CENTER_WEIGHTED_MOBS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.eldritchAltarSpawningMethod::isCenterWeighted)
+        .addMixinClasses("tiles.MixinTileEldritchAltar_CenteredMobSpread")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     ;
