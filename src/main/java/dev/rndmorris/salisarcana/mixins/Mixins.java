@@ -287,6 +287,12 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileLifter")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    PURE_NODE_BIOMECHANGE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.pureNodeBiomeChange::isEnabled)
+        .addMixinClasses("tiles.MixinTileNode")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ELDRITCH_ALTAR_MOB_ADJUSTMENTS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.evenEldritchAltarMobSpawningDistribution::isEnabled)
