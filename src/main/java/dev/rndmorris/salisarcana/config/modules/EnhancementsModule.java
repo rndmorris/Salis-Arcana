@@ -47,6 +47,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting stabilizerStrength;
 
     public final IntSetting itemEldritchObjectStackSize;
+    public final ToggleSetting evenEldritchAltarMobSpawningDistribution;
 
     public final ToggleSetting wandPedestalUseCV;
     public final ToggleSetting thaumometerScanContainers;
@@ -212,8 +213,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "levitatorShiftFix",
-                "Fixes some general jankiness with levitators, however, non-player entities will no longer be able to be lowered.")
-
+                "Fixes some general jankiness with levitators, however, non-player entities will no longer be able to be lowered."),
+            evenEldritchAltarMobSpawningDistribution = new ToggleSetting(
+                this, ConfigPhase.EARLY,
+                "evenEldritchAltarMobSpawningDistribution",
+                "Force Eldritch Altars to use an even distribution when choosing coordinates at which to spawn crimson knights and eldritch guardians.")
+            .setEnabled(false)
         );
 
         // spotless:on
