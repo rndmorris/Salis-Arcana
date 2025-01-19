@@ -1,8 +1,8 @@
 ---
-name: PR
-about: Suggest an idea for this project
+name: Pull Request
+about: Submit a pull request
 title: ''
-labels: enhancement
+labels: ''
 assignees: ''
 # source https://axolo.co/blog/p/part-3-github-pull-request-template
 ---
@@ -16,10 +16,7 @@ assignees: ''
 **What is the new behavior (if this is a feature change)?**
 
 
-**Does this PR introduce a breaking change?** (What changes might users need to make in their application due to this PR?)
-
-
-**If this is a code change, did you run the spotlessApply task?**
+**Does this PR introduce a breaking change?**
 
 
 **Other information**:
