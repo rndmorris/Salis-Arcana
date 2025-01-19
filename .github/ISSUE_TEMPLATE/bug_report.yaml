@@ -1,0 +1,62 @@
+name: Bug Report
+description: Something is wrong with Thaumcraft 4 or Salis Arcana
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: input
+    id: salis-version
+    attributes:
+      label: Salis Arcana Version
+      description: Which version of Salis Arcana are you using?
+    validations:
+      required: true
+  - type: dropdown
+    id: origin
+    attributes:
+      label: Where is the bug?
+      description: Is the bug in Thaumcraft 4 or with Salis Arcana?
+      options:
+        - Thaumcraft 4
+        - Salis Arcana
+        - "Don't know"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and consice description of what the bug is
+    validations:
+      required: true
+  - type: textarea
+    id: repro-steps
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the bug
+      value: |
+        1. Do a thing
+        2. Do another thing
+        3. Etc
+        4. See the bug
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Attachments
+      description: Any screenshots, crash logs, configuration files, mod list, or other items that could be helpful
+  - type: textarea
+    id: more-info
+    attributes:
+      label: Additional Context
+      description: Any other context about the problem
+  - type: markdown
+    attributes:
+      value: "Thanks for submitting a bug report!"
