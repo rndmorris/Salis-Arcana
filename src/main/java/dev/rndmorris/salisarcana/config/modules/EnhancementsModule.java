@@ -51,6 +51,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting wandPedestalUseCV;
     public final ToggleSetting thaumometerScanContainers;
     public final CustomResearchSetting thaumometerScanContainersResearch;
+    public final ToggleSetting levitatorShiftFix;
     public final ToggleSetting pureNodeBiomeChange;
 
     public EnhancementsModule() {
@@ -208,6 +209,11 @@ public class EnhancementsModule extends BaseConfigModule {
                 new CustomResearchSetting.ResearchInfo("CHESTSCAN", "BASICS", 8, 3).setDifficulty(3)
                     .setParents("DECONSTRUCTOR").setAspects("ordo:10", "perditio:10", "permutatio:10"))
                     .setCategory("thaumometer_container_scan"),
+            levitatorShiftFix = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "levitatorShiftFix",
+                "Fixes some general jankiness with levitators, however, non-player entities will no longer be able to be lowered."),
             pureNodeBiomeChange = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,

@@ -104,6 +104,13 @@ The weights used to pick the type of nodes when randomly generated.
 
 The random chance for mana beans to grow every block tick. Valid values are 0, 100 inclusive. Lower values are more likely to happen, with 0 being guaranteed.
 
+## Arcane Levitator Behavior
+
+**Config Option:** `levitatorShiftFix`
+Modifies the Arcane Levitator behavior where only the shifting entity will be lowered, instead of all entities (including other players) on top of any given levitator, as well as no longer triggering when you press shift while a menu is open, like your inventory or chat.
+
+Has the side effect of making non-shifting entities, like passive mobs, unable to be lowered.
+
 ## Pure Nodes Always Create Magical Forest
 
 **Config Option:** `pureNodeAlwaysMagicalForest`
