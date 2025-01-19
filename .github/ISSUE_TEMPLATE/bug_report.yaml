@@ -18,7 +18,7 @@ body:
       options:
         - label: Thaumcraft 4
         - label: Salis Arcana
-        - label: 'Don\'t know'
+        - label: "Don't know"
     validations:
       required: true
   - type: textarea
