@@ -54,6 +54,11 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
     }
 
     @Override
+    public boolean canCommandSenderUseCommand(ICommandSender sender) {
+        return getRequiredPermissionLevel() == 0 || super.canCommandSenderUseCommand(sender);
+    }
+
+    @Override
     public void processCommand(ICommandSender sender, String[] args) {
         if (args.length < minimumRequiredArgs()) {
             printUsage(sender);
