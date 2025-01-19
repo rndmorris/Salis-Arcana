@@ -34,6 +34,7 @@ public abstract class MixinTileEldritchAltar_CenteredMobSpread extends TileThaum
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/World;doesBlockHaveSolidTopSurface(Lnet/minecraft/world/IBlockAccess;III)Z"))
+    @SuppressWarnings("ParameterCanBeLocal")
     private boolean pickAndCheckCoords(IBlockAccess worldIn, int x, int y, int z, Operation<Boolean> original,
         @Local(name = "i1") LocalIntRef xRef, @Local(name = "j1") LocalIntRef yRef,
         @Local(name = "k1") LocalIntRef zRef) {

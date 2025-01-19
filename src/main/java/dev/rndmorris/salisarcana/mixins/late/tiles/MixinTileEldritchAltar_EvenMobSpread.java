@@ -34,16 +34,14 @@ public abstract class MixinTileEldritchAltar_EvenMobSpread extends TileThaumcraf
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/World;doesBlockHaveSolidTopSurface(Lnet/minecraft/world/IBlockAccess;III)Z"))
+    @SuppressWarnings("ParameterCanBeLocal")
     private boolean pickAndCheckCoords(IBlockAccess worldIn, int x, int y, int z, Operation<Boolean> original,
         @Local(name = "i1") LocalIntRef xRef, @Local(name = "j1") LocalIntRef yRef,
         @Local(name = "k1") LocalIntRef zRef) {
-        x = xCoord + sa$randomHorizontal();
-        y = yCoord + sa$randomVertical();
-        z = zCoord + sa$randomHorizontal();
 
-        xRef.set(x);
-        yRef.set(y);
-        zRef.set(z);
+        xRef.set(x = xCoord + sa$randomHorizontal());
+        yRef.set(y = yCoord + sa$randomVertical());
+        zRef.set(z = zCoord + sa$randomHorizontal());
 
         return original.call(worldIn, x, y - 1, z);
     }
