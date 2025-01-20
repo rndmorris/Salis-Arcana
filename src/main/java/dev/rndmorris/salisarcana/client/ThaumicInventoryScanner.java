@@ -161,8 +161,11 @@ public class ThaumicInventoryScanner {
      **/
     private void tryCompleteScan(EntityPlayer player) {
         try {
-            if (ScanManager.completeScan(player, currentScan, "@")) NetworkHandler.instance.sendToServer(
-                isHoveringOverPlayer ? new MessageScanSelf() : new MessageScanSlot(hoveringSlot.slotNumber));
+
+            if (ScanManager.isValidScanTarget(player, currentScan, "@")) {
+                NetworkHandler.instance.sendToServer(
+                    isHoveringOverPlayer ? new MessageScanSelf() : new MessageScanSlot(hoveringSlot.getSlotIndex()));
+            }
         } catch (StackOverflowError e) {
             // Can't do anything about Thaumcraft freaking out except for calming it down if it
             // does.
