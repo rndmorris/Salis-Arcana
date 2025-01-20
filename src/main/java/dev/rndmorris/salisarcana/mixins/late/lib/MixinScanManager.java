@@ -7,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -24,11 +23,6 @@ import thaumcraft.common.lib.research.ScanManager;
 
 @Mixin(value = ScanManager.class, remap = false)
 public class MixinScanManager {
-
-    @Shadow
-    public static boolean isValidScanTarget(EntityPlayer player, ScanResult scan, String s) {
-        return false;
-    }
 
     @Inject(
         method = "completeScan",
@@ -50,7 +44,7 @@ public class MixinScanManager {
             if (block != null && block.hasTileEntity(scan.meta)) {
                 TileEntity tile = block.createTileEntity(player.worldObj, scan.meta);
                 tile.invalidate();
-                if (tile instanceof IInventory && !isValidScanTarget(player, scan, "@")) {
+                if (tile instanceof IInventory && !ScanManager.isValidScanTarget(player, scan, "@")) {
                     if (player.isClientWorld()) {
                         NetworkHandler.instance.sendToServer(new PacketScanIInventory(scan.id, scan.meta));
                     }
