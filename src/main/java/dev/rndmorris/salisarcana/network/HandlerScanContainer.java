@@ -24,7 +24,7 @@ public class HandlerScanContainer implements IMessageHandler<MessageScanContaine
         if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
                 entityPlayer.getCommandSenderName(),
-                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
+                "salisarcana:" + ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
                 return null;
             }
         }
@@ -46,6 +46,7 @@ public class HandlerScanContainer implements IMessageHandler<MessageScanContaine
                 if (ScanManager.isValidScanTarget(entityPlayer, result, "@")
                     && !ScanManager.getScanAspects(result, entityPlayer.worldObj).aspects.isEmpty()) {
                     ScanManager.completeScan(entityPlayer, result, "@");
+
                 }
             }
         }

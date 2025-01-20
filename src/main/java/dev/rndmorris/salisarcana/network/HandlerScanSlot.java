@@ -31,13 +31,16 @@ public class HandlerScanSlot implements IMessageHandler<MessageScanSlot, IMessag
             Slot slot = container.inventorySlots.get(message.getSlotNumber());
             if (slot.getStack() != null && slot.canTakeStack(entityPlayer) && !(slot instanceof SlotCrafting)) {
                 ItemStack itemStack = slot.getStack();
-                ScanResult scan = new ScanResult(
+                ScanResult result = new ScanResult(
                     (byte) 1,
                     Item.getIdFromItem(itemStack.getItem()),
                     itemStack.getItemDamage(),
                     null,
                     "");
-                ScanManager.completeScan(entityPlayer, scan, "@");
+                if (ScanManager.isValidScanTarget(entityPlayer, result, "@")
+                    && !ScanManager.getScanAspects(result, entityPlayer.worldObj).aspects.isEmpty()) {
+                    ScanManager.completeScan(entityPlayer, result, "@");
+                }
             }
         }
         return null;
