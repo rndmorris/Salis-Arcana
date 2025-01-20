@@ -12,5 +12,6 @@ public class NetworkHandler {
         instance.registerMessage(HandlerScanSlot.class, MessageScanSlot.class, 0, Side.SERVER);
         instance.registerMessage(HandlerScanSelf.class, MessageScanSelf.class, 1, Side.SERVER);
         instance.registerMessage(HandlerScanContainer.class, MessageScanContainer.class, 2, Side.SERVER);
+        instance.registerMessage(PacketScanIInventory.class, PacketScanIInventory.class, 3, Side.SERVER);
     }
 }
