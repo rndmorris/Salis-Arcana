@@ -67,3 +67,9 @@ Update Thaumcraft ore blocks so they can convey a redstone signal.
 **Config option:** `slabBurnTimeFix`
 
 Reduce the burn time of Thaumcraft's greatwood and silverwood slabs to match that of Minecraft's wooden slabs.
+
+## Staff Foci Effect Fixes
+
+**Config option:** `staffFocusEffectFix`
+
+Fixes a graphical error where focus effects would appear below the tip of a staff.

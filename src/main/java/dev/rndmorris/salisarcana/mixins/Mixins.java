@@ -176,6 +176,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.unOredictGoldCoin::isEnabled)
         .addMixinClasses("config.MixinConfigItems_UnOredictGoldCoin")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCI_STAFF_VISUAL_FIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.staffFocusEffectFix::isEnabled)
+        .addMixinClasses("client.fx.beams.MixinFXBeamWand")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)

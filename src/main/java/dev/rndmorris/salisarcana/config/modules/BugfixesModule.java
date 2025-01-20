@@ -20,6 +20,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting slabBurnTimeFix;
     public final ToggleSetting strictInfusionMatrixInputChecks;
     public final ToggleSetting unOredictGoldCoin;
+    public final ToggleSetting staffFocusEffectFix;
 
     public BugfixesModule() {
         addSettings(
@@ -78,7 +79,12 @@ public class BugfixesModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "unOredictGoldCoin",
-                "Remove gold coins from the gold nugget ore dictionary.").setEnabled(false));
+                "Remove gold coins from the gold nugget ore dictionary.").setEnabled(false),
+            staffFocusEffectFix = new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "staffFocusEffectFix",
+                "Fixes a graphical error where focus effects would appear below the tip of a staff."));
     }
 
     @Nonnull
