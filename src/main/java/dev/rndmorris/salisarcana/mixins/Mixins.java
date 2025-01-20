@@ -295,14 +295,8 @@ public enum Mixins {
 
     ELDRITCH_ALTAR_EVEN_SPREAD_MOBS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.eldritchAltarSpawningMethod::isEvenSpread)
-        .addMixinClasses("tiles.MixinTileEldritchAltar_EvenMobSpread")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
-    ELDRITCH_ALTAR_CENTER_WEIGHTED_MOBS(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.eldritchAltarSpawningMethod::isCenterWeighted)
-        .addMixinClasses("tiles.MixinTileEldritchAltar_CenteredMobSpread")
+        .setApplyIf(ConfigModuleRoot.enhancements.eldritchAltarSpawningMethod::isEnabled)
+        .addMixinClasses("tiles.MixinTileEldritchAltar_SpawnMobs")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     ;
