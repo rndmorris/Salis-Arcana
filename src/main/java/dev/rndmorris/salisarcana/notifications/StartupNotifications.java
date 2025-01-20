@@ -15,14 +15,20 @@ public class StartupNotifications {
 
     @SubscribeEvent
     public void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        sendDeprecationNotice(event);
+        sendTCInventoryScanNotice(event);
+    }
+
+    private void sendDeprecationNotice(PlayerEvent.PlayerLoggedInEvent event) {
         final var biomeColors = ConfigModuleRoot.biomeColors;
-        if (deprecationNoticeSent || !biomeColors.isEnabled() || biomeColors.acknowledgeDeprecation.isEnabled()) {
-            return;
-        } else {
+        if (!deprecationNoticeSent && biomeColors.isEnabled() && !biomeColors.acknowledgeDeprecation.isEnabled()) {
             deprecationNoticeSent = true;
             event.player.addChatMessage(new ChatComponentTranslation("salisarcana:biome_color_deprecation"));
             event.player.addChatMessage(new ChatComponentTranslation("salisarcana:biome_color_deprecation_suppress"));
         }
+    }
+
+    private void sendTCInventoryScanNotice(PlayerEvent.PlayerLoggedInEvent event) {
         if (!tcInventoryScanNoticeSent) {
             tcInventoryScanNoticeSent = true;
             event.player.addChatMessage(new ChatComponentTranslation("salisarcana:tcinventoryscan_notice"));
