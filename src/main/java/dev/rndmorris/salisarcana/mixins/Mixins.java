@@ -293,6 +293,12 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileNode")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    ELDRITCH_ALTAR_EVEN_SPREAD_MOBS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.eldritchAltarSpawningMethod::isEnabled)
+        .addMixinClasses("tiles.MixinTileEldritchAltar_SpawnMobs")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     ;
 
     private final List<String> mixinClasses;

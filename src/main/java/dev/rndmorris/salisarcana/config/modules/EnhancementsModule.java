@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
+import dev.rndmorris.salisarcana.config.settings.EldritchAltarMobSpawnSetting;
 import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
@@ -47,6 +48,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting stabilizerStrength;
 
     public final IntSetting itemEldritchObjectStackSize;
+
+    public final EldritchAltarMobSpawnSetting eldritchAltarSpawningMethod;
 
     public final ToggleSetting wandPedestalUseCV;
     public final ToggleSetting thaumometerScanContainers;
@@ -218,8 +221,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "pureNodeAlwaysMagicalForest",
-                "By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location.")
-
+                "By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location."),
+            eldritchAltarSpawningMethod = new EldritchAltarMobSpawnSetting(
+                this,
+                ConfigPhase.EARLY,
+                "eldritchAltarSpawningMethod",
+                "Override how eldritch altars pick where to try spawning crimson knights and eldritch guardians.")
         );
 
         // spotless:on

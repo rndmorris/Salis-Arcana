@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import thaumcraft.common.tiles.TileLifter;
 
-@Mixin(TileLifter.class)
+@Mixin(value = TileLifter.class, remap = false)
 public abstract class MixinTileLifter extends TileEntity {
 
     @Shadow
