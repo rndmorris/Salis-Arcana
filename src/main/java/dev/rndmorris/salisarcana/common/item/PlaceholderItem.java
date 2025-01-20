@@ -1,7 +1,5 @@
 package dev.rndmorris.salisarcana.common.item;
 
-import static dev.rndmorris.salisarcana.SalisArcana.MODID;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -30,10 +28,10 @@ public abstract class PlaceholderItem extends Item {
 
     public static void registerPlaceholders() {
         if (ConfigModuleRoot.enhancements.replaceWandCapsSettings.isEnabled()) {
-            GameRegistry.registerItem(capPlaceholder = new WandCapPlaceholderItem(), MODID + ":capPlaceholder");
+            GameRegistry.registerItem(capPlaceholder = new WandCapPlaceholderItem(), "capPlaceholder");
         }
         if (ConfigModuleRoot.enhancements.replaceWandCoreSettings.isEnabled()) {
-            GameRegistry.registerItem(rodPlaceholder = new WandRodPlaceholderItem(), MODID + ":rodPlaceholder");
+            GameRegistry.registerItem(rodPlaceholder = new WandRodPlaceholderItem(), "rodPlaceholder");
         }
     }
 
