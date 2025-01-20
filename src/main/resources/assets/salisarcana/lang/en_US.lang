@@ -115,6 +115,8 @@ salisarcana:biome_color_deprecation_suppress= Set §7acknowledgeDeprecation§r t
 salisarcana:update_available=A new version of Salis Arcana is available (%s). 
 salisarcana:update_link= §9Click here to open the download page.§r
 
+salisarcana:tcinventoryscan_notice=§eNotice:§r Thaumic Inventory Scanning is installed. It is §cdeprecated§r by Salis Arcana, and should be removed to avoid conflicts. You can enable Salis Arcana's scanning features in salisarcana/enhancements.cfg.
+
 tc.research_name.CAP_iron=Iron Wand Caps
 tc.research_name.ROD_wood=Wooden Wand Core
 
@@ -132,4 +134,4 @@ tc.research_page.salisarcana:REPLACEWANDCORE.0=With proper technique, a casting 
 
 tc.research_name.salisarcana:CHESTSCAN=Container Scanning
 tc.research_text.salisarcana:CHESTSCAN=Looking a little closer
-tc.research_page.salisarcana:CHESTSCAN.0=Thanks to your research about deconstructing items, you've learned to "look inside" other blocks with your Thaumometer by using it to "deconstruct" the block magically. You can scan any block that can hold items, such as a chest or hopper, to scan all contained items automatically.
+tc.research_page.salisarcana:CHESTSCAN.0=Thanks to your research about deconstructing items, you've learned to look inside other blocks with your Thaumometer by using it to "deconstruct" the block magically. You can scan any block that can hold items, such as a chest or hopper, to scan all contained items automatically.
