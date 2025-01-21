@@ -9,13 +9,13 @@ import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketSyncScannedItems;
 import thaumcraft.common.lib.research.ScanManager;
 
-public class PacketScanIInventory implements IMessage, IMessageHandler<PacketScanIInventory, IMessage> {
+public class MessageScanIInventory implements IMessage, IMessageHandler<MessageScanIInventory, IMessage> {
 
     int id, meta;
 
-    public PacketScanIInventory() {}
+    public MessageScanIInventory() {}
 
-    public PacketScanIInventory(int id, int meta) {
+    public MessageScanIInventory(int id, int meta) {
         this.id = id;
         this.meta = meta;
     }
@@ -33,7 +33,7 @@ public class PacketScanIInventory implements IMessage, IMessageHandler<PacketSca
     }
 
     @Override
-    public IMessage onMessage(PacketScanIInventory message, MessageContext ctx) {
+    public IMessage onMessage(MessageScanIInventory message, MessageContext ctx) {
         ScanResult sr = new ScanResult((byte) 1, message.id, message.meta, null, "");
         if (ScanManager.isValidScanTarget(ctx.getServerHandler().playerEntity, sr, "@")
             && !ScanManager.getScanAspects(sr, ctx.getServerHandler().playerEntity.worldObj).aspects.isEmpty()) {
