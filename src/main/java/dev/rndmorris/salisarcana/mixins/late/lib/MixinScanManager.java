@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.llamalad7.mixinextras.sugar.Local;
 
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.network.MessageScanIInventory;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
-import dev.rndmorris.salisarcana.network.PacketScanIInventory;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ScanResult;
 import thaumcraft.common.lib.research.ResearchManager;
@@ -46,7 +46,7 @@ public class MixinScanManager {
                 tile.invalidate();
                 if (tile instanceof IInventory && !ScanManager.isValidScanTarget(player, scan, "@")) {
                     if (player.isClientWorld()) {
-                        NetworkHandler.instance.sendToServer(new PacketScanIInventory(scan.id, scan.meta));
+                        NetworkHandler.instance.sendToServer(new MessageScanIInventory(scan.id, scan.meta));
                     }
                     cir.cancel();
                 }
