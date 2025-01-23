@@ -47,6 +47,10 @@ public class UpgradeFocusCommand extends ArcanaCommandBase<UpgradeFocusCommand.A
             arguments.player = executingPlayer;
         }
 
+        if (arguments.upgrades == null || arguments.upgrades.size() < 1) {
+            throw new CommandException("salisarcana:command.upgrade-focus.noUpgrades");
+        }
+
         final var heldItem = arguments.player.getCurrentEquippedItem();
         final var heldFocus = WandFocusHelper.getFocusFrom(heldItem);
         if (heldItem == null || heldFocus == null) {
