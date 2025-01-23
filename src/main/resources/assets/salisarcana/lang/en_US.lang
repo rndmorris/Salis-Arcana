@@ -3,8 +3,8 @@ salisarcana:command.desc=Description:
 salisarcana:command.usage=Usage:
 salisarcana:command.args=Arguments:
 
-salisarcana:command.error.tabcomplete=An error occurred while getting tab-completion suggestions. Please open a bug report, including your sever log, on the the Salis Arcana GitHub.
-salisarcana:command.error.execute=An error occurred while executing this command. If this happens again, please open a bug report, including your sever log, on the the Salis Arcana GitHub.
+salisarcana:command.error.tabcomplete=An error occurred while getting tab-completion suggestions. Please open a bug report, including your server log, on the the Salis Arcana GitHub.
+salisarcana:command.error.execute=An error occurred while executing this command. If this happens again, please open a bug report, including your server log, on the the Salis Arcana GitHub.
 
 salisarcana:command.create-node.desc=Create a new randomly-generated node at the specified coordinates.
 salisarcana:command.create-node.usage=§7/salisarcana-create-node §7<x> §7<y> §7<z> §7[-t §7<type>] §7[-m §7<modifier>] §7[--silverwood] §7[--eerie] §7[--small] §7[-a §7<aspect1> §7<count1>[ §7-a §7<aspect2> §7<count2>[ §7...]]]§r
