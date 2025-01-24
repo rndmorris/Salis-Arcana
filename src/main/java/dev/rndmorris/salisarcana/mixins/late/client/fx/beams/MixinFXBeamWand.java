@@ -15,12 +15,13 @@ import thaumcraft.api.wands.WandRod;
 import thaumcraft.client.fx.beams.FXBeamWand;
 
 @Mixin(value = FXBeamWand.class, remap = false)
-public class MixinFXBeamWand {
+public abstract class MixinFXBeamWand {
 
     @Shadow
     private double offset;
 
     @Inject(method = "<init>", at = @At("RETURN"))
+    // Inject because there doesn't seem to be a way to wrap a constructor
     private void updateOffset(World par1World, EntityPlayer player, double tx, double ty, double tz, float red,
         float green, float blue, int age, CallbackInfo ci) {
         WandRod rod = WandHelper.getWandRodFromWand(player.getHeldItem());
@@ -28,4 +29,5 @@ public class MixinFXBeamWand {
             this.offset += .07D;
         }
     }
+
 }
