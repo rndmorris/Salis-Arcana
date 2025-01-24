@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.lib;
 
+import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
 
 import java.util.ArrayList;
@@ -17,11 +18,16 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.util.FakePlayer;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.mojang.authlib.GameProfile;
 
 import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
+import dev.rndmorris.salisarcana.config.settings.ResearchEntry;
 import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.network.PacketHandler;
@@ -168,5 +174,53 @@ public class ResearchHelper {
                 player.getCommandSenderName(),
                 player.worldObj.provider.dimensionId,
                 (byte) 0));
+    }
+
+    public static String dumpResearchToJson(ResearchItem research) {
+        if (research == null) {
+            return null;
+        }
+        ResearchEntry entry = new ResearchEntry(research);
+        Gson gson = new GsonBuilder().setPrettyPrinting()
+            .create();
+        return gson.toJson(entry);
+    }
+
+    public static String dumpResearchToJson(String researchKey) {
+        ResearchItem research = ResearchCategories.getResearch(researchKey);
+        return dumpResearchToJson(research);
+    }
+
+    public static ResearchEntry loadResearchFromJson(String json) throws JsonSyntaxException {
+        Gson gson = new Gson();
+        return gson.fromJson(json, ResearchEntry.class);
+    }
+
+    public static boolean registerCustomResearch(ResearchEntry research) {
+        if (research.getKey() == null || research.getKey()
+            .isEmpty()) {
+            LOG.error("Research entry missing key.");
+            return false;
+        } else if (research.getCategory() == null || research.getCategory()
+            .isEmpty() || ResearchCategories.getResearchList(research.getCategory()) == null) {
+                LOG.error("Research entry {} category missing or invalid.", research.getKey());
+                return false;
+            }
+        ResearchItem original = ResearchCategories.getResearch(research.getKey());
+        if (original != null) {
+            research.updateResearchItem(original);
+            return true;
+        }
+        LOG.info("Registering custom research: {}", research.getKey());
+        ResearchItem newResearch = new ResearchItem(research.getKey(), research.getCategory());
+        research.updateResearchItem(newResearch);
+        ResearchCategoryList categoryList = ResearchCategories.getResearchList(research.getCategory());
+        categoryList.research.put(research.getKey(), newResearch);
+        newResearch.registerResearchItem();
+        return true;
+    }
+
+    public static boolean registerCustomResearch(String json) {
+        return registerCustomResearch(loadResearchFromJson(json));
     }
 }

@@ -1,16 +1,25 @@
 package dev.rndmorris.salisarcana;
 
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dev.rndmorris.salisarcana.client.ThaumicInventoryScanner;
+import dev.rndmorris.salisarcana.common.commands.CommandDumpResearch;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 
 public class ClientProxy extends CommonProxy {
 
     ThaumicInventoryScanner scanner;
+
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        super.preInit(event);
+        ClientCommandHandler.instance.registerCommand(new CommandDumpResearch());
+    }
 
     @Override
     public void init(FMLInitializationEvent event) {

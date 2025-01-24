@@ -102,6 +102,10 @@ salisarcana:command.upgrade-focus.noItem=Target player is not holding a wand foc
 salisarcana:command.upgrade-focus.tooManyUpgrades=%d upgrade(s) could not be applied due to the five-upgrade limit. 
 salisarcana:command.upgrade-focus.success=All focus upgrades applied successfully.
 
+salisarcana:commands.dump_research.success=§9Success:§r Dumped %s research to %s.
+salisarcana:commands.dump_research.usage=/salisarcana-dump-research --research <research-key> [--overwrite]
+salisarcana:commands.dump_research.failed=§cFailure:§r Failed to dump %s. Research likely has unsupported properties.
+
 salisarcana:error.invalid_aspect="%s" is not a known aspect.
 salisarcana:error.invalid_focus_upgrade=%s is not a known focus upgrade.
 salisarcana:error.invalid_node_modifier=%s is not a known node modifier.
@@ -131,7 +135,3 @@ tc.research_page.salisarcana:REPLACEWANDCAPS.0=With proper technique, a casting 
 tc.research_name.salisarcana:REPLACEWANDCORE=Wand Core Substitution
 tc.research_text.salisarcana:REPLACEWANDCORE=Improving what is
 tc.research_page.salisarcana:REPLACEWANDCORE.0=With proper technique, a casting implement's core can be replaced. This destroys the implement's existing core, but preserves its caps.<BR>Replacing an implement's core requires the same amount of vis as it would take to craft the same implement from scratch. Upgrading a Gold Banded Greatwood Wand to a Gold Banded Silverwood Wand will cost just as much vis as creating a Gold Banded Silverwood Wand directly.
-
-tc.research_name.salisarcana:CHESTSCAN=Container Scanning
-tc.research_text.salisarcana:CHESTSCAN=Looking a little closer
-tc.research_page.salisarcana:CHESTSCAN.0=Thanks to your research about deconstructing items, you've learned to look inside other blocks with your Thaumometer by using it to "deconstruct" the block magically. You can scan any block that can hold items, such as a chest or hopper, to scan all contained items automatically.
