@@ -5,9 +5,9 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import thaumcraft.common.entities.monster.EntityTaintacle;
 
@@ -18,11 +18,12 @@ public abstract class MixinEntityTaintacle extends EntityMob {
         super(p_i1738_1_);
     }
 
-    @Inject(method = "attackEntity", at = @At("HEAD"), cancellable = true, remap = false)
-    public void onAttackEntity(Entity entity, float distance, CallbackInfo ci) {
+    @WrapMethod(method = "attackEntity")
+    private void onAttackEntity(Entity entity, float distance, Operation<Void> original) {
         if (!this.isEntityAlive()) {
-            ci.cancel();
+            return;
         }
+        original.call(entity, distance);
     }
 
 }
