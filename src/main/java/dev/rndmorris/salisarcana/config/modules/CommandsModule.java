@@ -18,6 +18,7 @@ public class CommandsModule extends BaseConfigModule {
     public final @Nonnull CommandSettings prerequisites;
     public final @Nonnull CommandSettings updateNode;
     public final @Nonnull CommandSettings upgradeFocus;
+    public final @Nonnull CommandSettings dumpResearch;
 
     public final CommandSettings[] commandsSettings;
 
@@ -59,7 +60,9 @@ public class CommandsModule extends BaseConfigModule {
                 .setDescription("Update the properties of a node at the specified coordinates.")
                 .setPermissionLevel(2),
             upgradeFocus = new CommandSettings("upgrade-focus", this, ConfigPhase.LATE).addDefaultAlias()
-                .setPermissionLevel(2), };
+                .setPermissionLevel(2),
+            dumpResearch = new CommandSettings("dump-research", this, ConfigPhase.LATE).addDefaultAlias()
+                .setPermissionLevel(0) };
 
         addSettings(commandsSettings);
     }
