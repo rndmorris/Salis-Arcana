@@ -10,6 +10,7 @@ import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
 import dev.rndmorris.salisarcana.config.settings.Setting;
+import dev.rndmorris.salisarcana.config.settings.StringSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
@@ -19,7 +20,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting rotatedFociRecipes;
     public final ToggleSetting rotatedThaumometerRecipe;
 
-    public final ReplaceWandComponentSettings replaceWandCapsSettings;
+    public final CustomResearchSetting replaceWandCapsSettings;
     public final ReplaceWandComponentSettings replaceWandCoreSettings;
     public final ToggleSetting enforceWandCoreTypes;
     public final ToggleSetting preserveWandVis;
@@ -53,7 +54,7 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public final ToggleSetting wandPedestalUseCV;
     public final ToggleSetting thaumometerScanContainers;
-    public final CustomResearchSetting thaumometerScanContainersResearch;
+    public final StringSetting thaumometerScanContainersResearch;
     public final ToggleSetting levitatorShiftFix;
     public final ToggleSetting pureNodeBiomeChange;
 
@@ -204,13 +205,11 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "creativeOpThaumonomicon",
                 "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
-            thaumometerScanContainersResearch = new CustomResearchSetting(
-                thaumometerScanContainers,
-                ConfigPhase.LATE,
-                "thaumometerScanContainers",
-                "Enable the thaumometer to scan the contents of inventories when right-clicking on them.",
-                new CustomResearchSetting.ResearchInfo("CHESTSCAN", "BASICS", 8, 3).setDifficulty(3)
-                    .setParents("DECONSTRUCTOR").setAspects("ordo:10", "perditio:10", "permutatio:10"))
+            thaumometerScanContainersResearch = new StringSetting(
+                this,
+                ConfigPhase.EARLY,
+                "thaumometerScanContainersResearch",
+                "Research required to unlock the ability to scan the contents of inventories with the Thaumometer.", "salisarcana:CHESTSCAN")
                     .setCategory("thaumometer_container_scan"),
             levitatorShiftFix = new ToggleSetting(
                 this,
