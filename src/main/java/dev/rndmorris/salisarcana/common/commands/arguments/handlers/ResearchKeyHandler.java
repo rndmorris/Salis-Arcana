@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.common.commands.arguments.handlers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -8,6 +9,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.util.StatCollector;
 
 import com.google.common.collect.PeekingIterator;
 
@@ -47,10 +49,16 @@ public class ResearchKeyHandler implements INamedArgumentHandler, IPositionalArg
     }
 
     private Stream<String> allResearchKeys() {
-        return ResearchCategories.researchCategories.values()
-            .stream()
-            .flatMap(
-                c -> c.research.keySet()
-                    .stream());
+        List<String> keys = new ArrayList<>();
+        for (final var category : ResearchCategories.researchCategories.values()) {
+            for (final var research : category.research.values()) {
+                // Thaumcraft keys are already localized, but some mods (eg. Thaumic Tinkerer) may override getName()
+                // and use their own localization prefix, not tc.research_name., so we need to localize them again
+                // This doesn't affect any already-localized keys, as translateToLocal() will fail and just return
+                // the input string.
+                keys.add(StatCollector.translateToLocal(research.key));
+            }
+        }
+        return keys.stream();
     }
 }
