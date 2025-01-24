@@ -50,7 +50,7 @@ public class MixinItemThaumometer extends Item {
 
             if (!ResearchManager.isResearchComplete(
                 player.getCommandSenderName(),
-                "salisarcana:" + ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
+                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.getValue())) {
                 return original.call(player, item, t);
             }
         }
