@@ -23,7 +23,7 @@ import thaumcraft.api.research.ScanResult;
 import thaumcraft.common.items.relics.ItemThaumometer;
 import thaumcraft.common.lib.research.ResearchManager;
 
-@Mixin(value = ItemThaumometer.class, remap = false)
+@Mixin(value = ItemThaumometer.class)
 public class MixinItemThaumometer extends Item {
 
     @Inject(
@@ -44,7 +44,8 @@ public class MixinItemThaumometer extends Item {
         at = @At(
             value = "INVOKE",
             target = "Lthaumcraft/common/lib/research/ScanManager;isValidScanTarget(Lnet/minecraft/entity/player/EntityPlayer;Lthaumcraft/api/research/ScanResult;Ljava/lang/String;)Z",
-            ordinal = 2))
+            ordinal = 2),
+        remap = false)
     private boolean rescanInventory(EntityPlayer player, ScanResult item, String t, Operation<Boolean> original) {
         if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()) {
 

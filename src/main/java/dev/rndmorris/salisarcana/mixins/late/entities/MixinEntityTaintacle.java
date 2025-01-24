@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import thaumcraft.common.entities.monster.EntityTaintacle;
 
-@Mixin(value = EntityTaintacle.class, remap = false)
+@Mixin(value = EntityTaintacle.class)
 public abstract class MixinEntityTaintacle extends EntityMob {
 
     public MixinEntityTaintacle(World p_i1738_1_) {
