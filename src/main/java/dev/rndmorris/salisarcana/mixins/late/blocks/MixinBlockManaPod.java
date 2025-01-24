@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.common.blocks.BlockManaPod;
 
-@Mixin(value = BlockManaPod.class, remap = false)
+@Mixin(value = BlockManaPod.class)
 public class MixinBlockManaPod {
 
     @ModifyConstant(method = "updateTick", constant = @Constant(intValue = 30))
