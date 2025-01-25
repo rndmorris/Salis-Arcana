@@ -227,10 +227,37 @@ Add focus upgrades to a wand focus held in your or another player's hand. Will n
 
 **Arguments:**
 
-|            Argument             | Required? | Details                                                                          |
-|:-------------------------------:|:---------:|:---------------------------------------------------------------------------------|
-| `<upgrade [upgrade[ upgrade]]>` |    Yes    | A list of one or more upgrades to be applied.                                    |
-|      `--player <username>`      |    No     | If set, apply upgrades to the specified player's held focus instead of your own. |
+|            Argument             | Required? | Details                                                                                                                                            |
+|:-------------------------------:|:---------:|:---------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<upgrade [upgrade[ upgrade]]>` |    Yes    | A list of one to five upgrade ids to be applied. Use tab-completion, or see the table below (vanilla Thaumcraft only), to view available upgrades. |
+|      `--player <username>`      |    No     | If set, apply upgrades to the specified player's held focus instead of your own.                                                                   |
+
+The `upgrade` argument is presented in the form `internalid-name`. The upgrades available as part of base Thaumcraft are
+presented below. Upgrades added by Thaumcraft addons should be automatically supported by the command.
+
+|      Upgrade      | Internal Id | Expected Argument  |
+|:-----------------:|:-----------:|:-------------------|
+|      Potency      |      0      | 0-potency          |
+|      Frugal       |      1      | 1-frugal           |
+|     Treasure      |      2      | 2-treasure         |
+|      Enlarge      |      3      | 3-enlarge          |
+| Alchemist's Fire  |      4      | 4-alchemists-fire  |
+| Alchemist's Frost |      5      | 5-alchemists-frost |
+|     Architect     |      6      | 6-architect        |
+|      Extend       |      7      | 7-extend           |
+|    Silk Touch     |      8      | 8-silk-touch       |
+|     Fireball      |      9      | 9-fireball         |
+|     Fire Beam     |     10      | 10-fire-beam       |
+|    Scattershot    |     11      | 11-scattershot     |
+|    Ice Boulder    |     12      | 12-ice-boulder     |
+|     Bat Bombs     |     13      | 13-bat-bombs       |
+|    Devil Bats     |     14      | 14-devil-bats      |
+|    Nightshade     |     15      | 15-nightshade      |
+|      Seeker       |     16      | 16-seeker          |
+|  Chain Lightning  |     17      | 17-chain-lightning |
+|    Earth Shock    |     18      | 18-earth-shock     |
+|   Vampire Bats    |     19      | 19-vampire-bats    |
+|      Dowsing      |     20      | 20-dowsing         |
 
 **Default aliases:**
 * `/upgrade-focus`
