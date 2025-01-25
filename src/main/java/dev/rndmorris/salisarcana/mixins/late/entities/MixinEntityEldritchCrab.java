@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import thaumcraft.common.entities.monster.EntityEldritchCrab;
 
-@Mixin(value = EntityEldritchCrab.class, remap = false)
+@Mixin(value = EntityEldritchCrab.class)
 public abstract class MixinEntityEldritchCrab extends EntityMob {
 
     public MixinEntityEldritchCrab(World p_i1738_1_) {
         super(p_i1738_1_);
     }
 
-    @Inject(method = "attackEntityAsMob", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "attackEntityAsMob", at = @At("HEAD"), cancellable = true)
     public void onAttackEntityAsMob(Entity entity, CallbackInfoReturnable<Boolean> ci) {
         if (!this.isEntityAlive()) {
             ci.setReturnValue(false);
