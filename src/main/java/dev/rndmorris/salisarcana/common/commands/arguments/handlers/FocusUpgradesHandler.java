@@ -4,12 +4,14 @@ import static dev.rndmorris.salisarcana.lib.WandFocusHelper.getAppliedUpgrades;
 import static dev.rndmorris.salisarcana.lib.WandFocusHelper.getFocusFrom;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -20,43 +22,17 @@ import com.google.common.collect.PeekingIterator;
 
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.INamedArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional.IPositionalArgumentHandler;
+import dev.rndmorris.salisarcana.lib.ArrayHelper;
+import dev.rndmorris.salisarcana.lib.IntegerHelper;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 
-public class FociUpgradesHandler implements INamedArgumentHandler, IPositionalArgumentHandler {
+public class FocusUpgradesHandler implements INamedArgumentHandler, IPositionalArgumentHandler {
 
-    public static final FociUpgradesHandler INSTANCE = new FociUpgradesHandler();
+    public static final FocusUpgradesHandler INSTANCE = new FocusUpgradesHandler();
 
-    private static Map<FocusUpgradeType, String> upgradesToKeys;
-    private static Map<String, FocusUpgradeType> keysToUpgrades;
-
-    private static Map<FocusUpgradeType, String> upgradesToKeys() {
-        if (upgradesToKeys == null) {
-            upgradesToKeys = new TreeMap<>(Comparator.comparingInt(upgrade -> upgrade.id));
-            for (var index = 0; index < FocusUpgradeType.types.length; ++index) {
-                final var type = FocusUpgradeType.types[index];
-                final var cleanedName = type.getLocalizedName()
-                    .toLowerCase()
-                    .replaceAll(" +", "-")
-                    .replaceAll("[^\\w-]", "");
-                // final var cleanedName = type.getLocalizedName().replaceAll();
-                final var key = String.format("%d-%s", index, cleanedName);
-                upgradesToKeys.put(type, key);
-            }
-        }
-        return upgradesToKeys;
-    }
-
-    private static Map<String, FocusUpgradeType> keysToUpgrades() {
-        if (keysToUpgrades == null) {
-            keysToUpgrades = new TreeMap<>(String::compareToIgnoreCase);
-            for (var entry : upgradesToKeys().entrySet()) {
-                keysToUpgrades.put(entry.getValue(), entry.getKey());
-            }
-        }
-        return keysToUpgrades;
-    }
+    private final Map<Short, String> upgradeKeyCache = new TreeMap<>();
 
     @Override
     public Object parse(ICommandSender sender, PeekingIterator<String> args) {
@@ -64,7 +40,7 @@ public class FociUpgradesHandler implements INamedArgumentHandler, IPositionalAr
         String peeked = null;
         while (args.hasNext() && (peeked = args.peek()) != null && !peeked.startsWith("-")) {
             final var key = args.next();
-            final var upgrade = keysToUpgrades().get(key);
+            final var upgrade = getUpgradeFromKey(key);
             if (upgrade == null) {
                 throw new CommandException("salisarcana:error.invalid_focus_upgrade", key);
             }
@@ -80,7 +56,9 @@ public class FociUpgradesHandler implements INamedArgumentHandler, IPositionalAr
         ItemStack heldItem;
         ItemFocusBasic heldFocus;
         if ((heldItem = player.getCurrentEquippedItem()) == null || (heldFocus = getFocusFrom(heldItem)) == null) {
-            return new ArrayList<>(upgradesToKeys().values());
+            return Arrays.stream(FocusUpgradeType.types)
+                .map(this::formatUpgradeKey)
+                .collect(Collectors.toList());
         }
 
         // copied, so we can modify it as we work
@@ -96,7 +74,7 @@ public class FociUpgradesHandler implements INamedArgumentHandler, IPositionalAr
             && (peeked = args.peek()) != null
             && !peeked.startsWith("-")) {
             final var key = args.next();
-            final var upgrade = keysToUpgrades().get(key);
+            final var upgrade = getUpgradeFromKey(key);
             if (upgrade != null) {
                 appliedUpgrades.add(upgrade);
                 heldFocus.applyUpgrade(workingItem, upgrade, appliedUpgrades.size());
@@ -111,12 +89,12 @@ public class FociUpgradesHandler implements INamedArgumentHandler, IPositionalAr
         if (possibleUpgrades == null) {
             return null;
         }
-        final var upgradeKeys = upgradesToKeys();
+
         final var result = new ArrayList<String>(possibleUpgrades.length);
         for (var upgrade : possibleUpgrades) {
             if (heldFocus
                 .canApplyUpgrade(workingItem, ResearchHelper.knowItAll(), upgrade, appliedUpgrades.size() + 1)) {
-                result.add(upgradeKeys.get(upgrade));
+                result.add(formatUpgradeKey(upgrade));
             }
         }
 
@@ -127,6 +105,29 @@ public class FociUpgradesHandler implements INamedArgumentHandler, IPositionalAr
     @Override
     public Class<?> getOutputType() {
         return List.class;
+    }
+
+    private @Nonnull String formatUpgradeKey(@Nonnull FocusUpgradeType focusUpgrade) {
+        return upgradeKeyCache.computeIfAbsent(focusUpgrade.id, (id) -> {
+            final var cleanedName = focusUpgrade.getLocalizedName()
+                .toLowerCase()
+                .replaceAll(" +", "-")
+                .replaceAll("[^\\w-]", "");
+            return String.format("%s-%d", cleanedName, focusUpgrade.id);
+        });
+    }
+
+    private @Nullable FocusUpgradeType getUpgradeFromKey(@Nonnull String key) {
+        final var keyParts = key.split("-");
+        if (keyParts.length < 1) {
+            return null;
+        }
+        final var upgradeId = IntegerHelper.tryParse(keyParts[keyParts.length - 1]);
+        if (upgradeId == null) {
+            return null;
+        }
+        return ArrayHelper.tryGet(FocusUpgradeType.types, upgradeId)
+            .data();
     }
 
 }
