@@ -28,9 +28,9 @@ import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 
-public class FociUpgradesHandler implements INamedArgumentHandler, IPositionalArgumentHandler {
+public class FocusUpgradesHandler implements INamedArgumentHandler, IPositionalArgumentHandler {
 
-    public static final FociUpgradesHandler INSTANCE = new FociUpgradesHandler();
+    public static final FocusUpgradesHandler INSTANCE = new FocusUpgradesHandler();
 
     private final Map<Short, String> upgradeKeyCache = new TreeMap<>();
 
@@ -113,7 +113,7 @@ public class FociUpgradesHandler implements INamedArgumentHandler, IPositionalAr
                 .toLowerCase()
                 .replaceAll(" +", "-")
                 .replaceAll("[^\\w-]", "");
-            return String.format("%d-%s", focusUpgrade.id, cleanedName);
+            return String.format("%s-%d", cleanedName, focusUpgrade.id);
         });
     }
 
@@ -122,7 +122,7 @@ public class FociUpgradesHandler implements INamedArgumentHandler, IPositionalAr
         if (keyParts.length < 1) {
             return null;
         }
-        final var upgradeId = IntegerHelper.tryParse(keyParts[0]);
+        final var upgradeId = IntegerHelper.tryParse(keyParts[keyParts.length - 1]);
         if (upgradeId == null) {
             return null;
         }

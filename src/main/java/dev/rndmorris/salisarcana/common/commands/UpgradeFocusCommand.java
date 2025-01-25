@@ -13,7 +13,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import dev.rndmorris.salisarcana.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.PositionalArg;
-import dev.rndmorris.salisarcana.common.commands.arguments.handlers.FociUpgradesHandler;
+import dev.rndmorris.salisarcana.common.commands.arguments.handlers.FocusUpgradesHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
@@ -32,7 +32,7 @@ public class UpgradeFocusCommand extends ArcanaCommandBase<UpgradeFocusCommand.A
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,
-            new IArgumentHandler[] { FociUpgradesHandler.INSTANCE, PlayerHandler.INSTANCE, });
+            new IArgumentHandler[] { FocusUpgradesHandler.INSTANCE, PlayerHandler.INSTANCE, });
     }
 
     @Override
@@ -75,7 +75,7 @@ public class UpgradeFocusCommand extends ArcanaCommandBase<UpgradeFocusCommand.A
 
     public static class Arguments {
 
-        @PositionalArg(index = 0, handler = FociUpgradesHandler.class, descLangKey = "upgrades")
+        @PositionalArg(index = 0, handler = FocusUpgradesHandler.class, descLangKey = "upgrades")
         public ArrayList<FocusUpgradeType> upgrades;
 
         @NamedArg(name = "--player", handler = PlayerHandler.class, descLangKey = "player")
