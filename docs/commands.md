@@ -232,7 +232,7 @@ Add focus upgrades to a wand focus held in your or another player's hand. Will n
 | `<upgrade [upgrade[ upgrade]]>` |    Yes    | A list of one to five upgrade ids to be applied. Use tab-completion, or see the table below (vanilla Thaumcraft only), to view available upgrades. |
 |      `--player <username>`      |    No     | If set, apply upgrades to the specified player's held focus instead of your own.                                                                   |
 
-The `upgrade` argument is presented in the form `internalid-name`. The upgrades available as part of base Thaumcraft are
+The `upgrade` argument is presented in the form `internalId-defaultLocalizedName`. The upgrades available as part of base Thaumcraft are
 presented below. Upgrades added by Thaumcraft addons should be automatically supported by the command.
 
 |      Upgrade      | Internal Id | Expected Argument  |
