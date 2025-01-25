@@ -232,32 +232,32 @@ Add focus upgrades to a wand focus held in your or another player's hand. Will n
 | `<upgrade [upgrade[ upgrade]]>` |    Yes    | A list of one to five upgrade ids to be applied. Use tab-completion, or see the table below (vanilla Thaumcraft only), to view available upgrades. |
 |      `--player <username>`      |    No     | If set, apply upgrades to the specified player's held focus instead of your own.                                                                   |
 
-The `upgrade` argument is presented in the form `internalId-defaultLocalizedName`. The upgrades available as part of base Thaumcraft are
+The `upgrade` argument is presented in the form `defaultLocalizedName-internalId`. The upgrades available as part of base Thaumcraft are
 presented below. Upgrades added by Thaumcraft addons should be automatically supported by the command.
 
 |      Upgrade      | Internal Id | Expected Argument  |
 |:-----------------:|:-----------:|:-------------------|
-|      Potency      |      0      | 0-potency          |
-|      Frugal       |      1      | 1-frugal           |
-|     Treasure      |      2      | 2-treasure         |
-|      Enlarge      |      3      | 3-enlarge          |
-| Alchemist's Fire  |      4      | 4-alchemists-fire  |
-| Alchemist's Frost |      5      | 5-alchemists-frost |
-|     Architect     |      6      | 6-architect        |
-|      Extend       |      7      | 7-extend           |
-|    Silk Touch     |      8      | 8-silk-touch       |
-|     Fireball      |      9      | 9-fireball         |
-|     Fire Beam     |     10      | 10-fire-beam       |
-|    Scattershot    |     11      | 11-scattershot     |
-|    Ice Boulder    |     12      | 12-ice-boulder     |
-|     Bat Bombs     |     13      | 13-bat-bombs       |
-|    Devil Bats     |     14      | 14-devil-bats      |
-|    Nightshade     |     15      | 15-nightshade      |
-|      Seeker       |     16      | 16-seeker          |
-|  Chain Lightning  |     17      | 17-chain-lightning |
-|    Earth Shock    |     18      | 18-earth-shock     |
-|   Vampire Bats    |     19      | 19-vampire-bats    |
-|      Dowsing      |     20      | 20-dowsing         |
+|      Potency      |      0      | potency-0          |
+|      Frugal       |      1      | frugal-1           |
+|     Treasure      |      2      | treasure-2         |
+|      Enlarge      |      3      | enlarge-3          |
+| Alchemist's Fire  |      4      | alchemists-fire-4  |
+| Alchemist's Frost |      5      | alchemists-frost-5 |
+|     Architect     |      6      | architect-6        |
+|      Extend       |      7      | extend-7           |
+|    Silk Touch     |      8      | silk-touch-8       |
+|     Fireball      |      9      | fireball-9         |
+|     Fire Beam     |     10      | fire-beam-10       |
+|    Scattershot    |     11      | scattershot-11     |
+|    Ice Boulder    |     12      | ice-boulder-12     |
+|     Bat Bombs     |     13      | bat-bombs-13       |
+|    Devil Bats     |     14      | devil-bats-14      |
+|    Nightshade     |     15      | nightshade-15      |
+|      Seeker       |     16      | seeker-16          |
+|  Chain Lightning  |     17      | chain-lightning-17 |
+|    Earth Shock    |     18      | earth-shock-18     |
+|   Vampire Bats    |     19      | vampire-bats-19    |
+|      Dowsing      |     20      | dowsing-20         |
 
 **Default aliases:**
 * `/upgrade-focus`
