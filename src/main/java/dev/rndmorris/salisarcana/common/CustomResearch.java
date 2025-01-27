@@ -5,6 +5,7 @@ import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,12 +46,14 @@ public class CustomResearch {
 
     public static void registerResearchFromFiles() {
         if (FMLCommonHandler.instance()
-            .getSide()
+            .getEffectiveSide()
             .isClient()) {
             return;
         }
         List<ResearchEntry> researches = new ArrayList<>();
-        File researchPath = new File("config/salisarcana/research");
+
+        File researchPath = Paths.get("config", "salisarcana", "research")
+            .toFile();
         if (researchPath.exists() && researchPath.isDirectory()) {
             File[] files = researchPath.listFiles((dir, name) -> name.endsWith(".json"));
             if (files == null) {
@@ -287,7 +290,7 @@ public class CustomResearch {
                 .setParents(settings.parentResearches)
                 .setSpecial();
         if (settings.autoUnlock) {
-            research.setAutoUnlock();
+            research.setStub();
         }
         final var pages = new ArrayList<ResearchPage>();
         pages.add(new ResearchPage("tc.research_page." + fullKey + ".0"));

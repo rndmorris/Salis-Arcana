@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
@@ -39,6 +40,20 @@ public class AssetHelper {
             .get(languageList, Map.class);
     }
 
+    public static String lookupLangEntryByValue(String value) {
+        ArrayList<String> keys = new ArrayList<>();
+        LANGUAGE.entrySet()
+            .stream()
+            .filter(
+                e -> e.getValue()
+                    .equals(value))
+            .forEach(e -> keys.add(e.getKey()));
+        if (keys.isEmpty()) {
+            return null;
+        }
+        return keys.get(0); // In almost all cases, there should only be one key for a given value
+    }
+
     public static void addLangEntry(String key, String value) {
         LANGUAGE.put(key, value);
     }
@@ -54,9 +69,20 @@ public class AssetHelper {
                 return;
             }
         }
-        extractFilesFromResources(RESOURCE_PATH, CONFIG_PATH);
+        if (extractFilesFromResources(RESOURCE_PATH, CONFIG_PATH)) {
+            LOG.info("Successfully copied research files to config directory.");
+        } else {
+            LOG.error("Failed to copy research files to config directory.");
+        }
     }
 
+    /**
+     * Extracts files from the mod's resources to a destination directory.
+     *
+     * @param resource    The resource path in the jar to extract from.
+     * @param destination The destination directory on the filesystem to extract to.
+     * @return True if the extraction was successful, false otherwise.
+     */
     private static boolean extractFilesFromResources(String resource, String destination) {
         try {
             Path outputDir = Paths.get(destination);

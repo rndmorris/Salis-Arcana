@@ -13,6 +13,8 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
+import com.google.gson.annotations.SerializedName;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.lib.AssetHelper;
 import dev.rndmorris.salisarcana.lib.R;
@@ -207,12 +209,16 @@ public class ResearchEntry {
             ResearchCategories.researchCategories.get(research.category).research.remove(research.key);
             ResearchCategories.researchCategories.get(research.category).research.put(research.key, research);
         }
-        String name = research.getName();
-        String text = research.getText();
-        String parsed = name.substring(0, name.indexOf(key)) + name.substring(name.indexOf(key));
-        AssetHelper.addLangEntry(parsed + this.getKey(), this.getName());
-        parsed = text.substring(0, text.indexOf(key)) + text.substring(name.indexOf(key));
-        AssetHelper.addLangEntry(parsed + this.getKey(), this.getTooltip());
+        String key = AssetHelper.lookupLangEntryByValue(research.getName());
+        if (key == null) {
+            key = research.getName();
+        }
+        AssetHelper.addLangEntry(key, this.getName());
+        key = AssetHelper.lookupLangEntryByValue(research.getText());
+        if (key == null) {
+            key = research.getText();
+        }
+        AssetHelper.addLangEntry(key, this.getTooltip());
 
         research.setParents(parents);
         research.setParentsHidden(parentsHidden);
@@ -245,6 +251,7 @@ public class ResearchEntry {
         for (ResearchPageEntry entry : this.pages) {
             if (entry.getType()
                 .equals("text")) {
+                AssetHelper.addLangEntry(AssetHelper.lookupLangEntryByValue(entry.getText()), entry.getText());
                 AssetHelper
                     .addLangEntry("tc_research_page." + this.getKey() + "." + entry.getNumber(), entry.getText());
                 pages.add(new ResearchPage(entry.getText()));
@@ -278,6 +285,7 @@ class AspectEntry {
 
 class ResearchPageEntry {
 
+    @SerializedName("pageType")
     public String type;
     public int number;
     public String text = "";

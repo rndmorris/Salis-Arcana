@@ -14,7 +14,7 @@ import io.netty.buffer.ByteBuf;
 public class MessageSendResearch implements IMessage, IMessageHandler<MessageSendResearch, IMessage> {
 
     private ResearchEntry research;
-    private static Gson gson = new Gson();
+    private static Gson gson = null;
 
     // We don't want to use ResearchHelper's gson instance because it's set up to pretty print, which is wasteful for
     // network messages

@@ -18,9 +18,9 @@ import dev.rndmorris.salisarcana.common.commands.arguments.annotations.FlagArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.ResearchHandler;
-import dev.rndmorris.salisarcana.common.commands.arguments.handlers.ResearchKeyHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.settings.ResearchEntry;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import thaumcraft.api.research.ResearchItem;
 
@@ -35,7 +35,7 @@ public class CommandExportResearch extends ArcanaCommandBase<CommandExportResear
         return new ArgumentProcessor<>(
             CommandExportResearch.Arguments.class,
             CommandExportResearch.Arguments::new,
-            new IArgumentHandler[] { ResearchKeyHandler.INSTANCE, FlagHandler.INSTANCE });
+            new IArgumentHandler[] { ResearchHandler.INSTANCE, FlagHandler.INSTANCE });
     }
 
     @Override
@@ -45,7 +45,7 @@ public class CommandExportResearch extends ArcanaCommandBase<CommandExportResear
 
     @Override
     protected void process(ICommandSender sender, CommandExportResearch.Arguments arguments, String[] args) {
-        Path path = Paths.get("config/salisarcana/research/export");
+        Path path = Paths.get("config", "salisarcana", "research", "export");
         if (!Files.exists(path)) {
             try {
                 Files.createDirectories(path);
@@ -57,13 +57,13 @@ public class CommandExportResearch extends ArcanaCommandBase<CommandExportResear
         }
         for (ResearchItem research : arguments.researches) {
             String researchKey = research.key;
-            File file = Paths.get("config/salisarcana/research/export/" + researchKey + ".json")
+            File file = Paths.get("config", "salisarcana", "research", "export", researchKey + ".json")
                 .toFile();
             if (file.exists() && !arguments.overwrite) {
                 continue;
             }
             try {
-                ResearchHelper.exportResearchToJson(research, file);
+                ResearchHelper.exportResearchToJson(new ResearchEntry(research), file);
             } catch (Exception e) {
                 sender.addChatMessage(
                     new ChatComponentTranslation("salisarcana:commands.export-research.failed", researchKey));

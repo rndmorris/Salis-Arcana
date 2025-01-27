@@ -1,24 +1,24 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Research",
-  "description": "A Thaumcraft research to add or modify",
+  "description": "A Thaumcraft research to add or modify.",
   "type": "object",
   "properties": {
     "key": {
       "type": "string",
-      "description": "The unique key for this research. If this key already exists, the research will be updated"
+      "description": "The unique key for this research. If this key already exists, the research will be updated."
     },
     "category": {
       "type": "string",
-      "description": "The category in the Thaumonomicon to place this research"
+      "description": "The category in the Thaumonomicon to place this research."
     },
     "name": {
       "type": "string",
-      "description": "The localized name of this research"
+      "description": "The localized name of this research."
     },
     "tooltip": {
       "type": "string",
-      "description": "The localized tooltip of this research"
+      "description": "The localized tooltip of this research."
     },
     "aspects": {
       "type": "array",
@@ -28,20 +28,19 @@
         "properties": {
           "aspect": {
             "type": "string",
-            "description": "The aspect itself"
+            "description": "The aspect itself."
           },
           "amount": {
             "type": "integer",
-            "description": "The amount of the aspect"
+            "description": "The amount of the aspect."
           }
         }
       },
-      "minItems": 1,
       "uniqueItems": true
     },
     "parents": {
       "type": "array",
-      "description": "The parent researches required for this research",
+      "description": "The parent researches required for this research.",
       "items": {
         "type": "string"
       },
@@ -49,7 +48,7 @@
     },
     "siblings": {
       "type": "array",
-      "description": "The sibling researches for this research",
+      "description": "The sibling researches for this research. Sibling research will be automatically completed upon completion of this research.",
       "items": {
         "type": "string"
       },
@@ -57,11 +56,11 @@
     },
     "displayColumn": {
       "type": "integer",
-      "description": "The column to display this research in"
+      "description": "The column to display this research in."
     },
     "displayRow": {
       "type": "integer",
-      "description": "The row to display this research in"
+      "description": "The row to display this research in."
     },
     "icon_item": {
       "type": "string",
@@ -73,15 +72,15 @@
     },
     "complexity": {
       "type": "integer",
-      "description": "The complexity of this research. Used in creating research notes."
+      "description": "The complexity of this research. Used in determining the size of the research note minigame."
     },
     "isSpecial": {
       "type": "boolean",
-      "description": "Whether this research is \"special\". Slightly changes the icon of the research. Mutually exclusive with isRound."
+      "description": "Whether this research is \"special\". Changes the icon to be the \"star\" shape. Mutually exclusive with isRound."
     },
     "isSecondary": {
       "type": "boolean",
-      "description": "Whether this research is secondary"
+      "description": "Whether this research is secondary. Secondary researches are purchasable with aspects instead of being unlocked by the minigame."
     },
     "isRound": {
       "type": "boolean",
@@ -89,31 +88,31 @@
     },
     "isStub": {
       "type": "boolean",
-      "description": "Whether this research is a stub"
+      "description": "Whether this research should be auto-completed upon completion of parent research."
     },
     "isVirtual": {
       "type": "boolean",
-      "description": "Whether this research is virtual. This will not be displayed in the Thaumonomicon, but can be used as a parent for other researches"
+      "description": "Whether this research is virtual. This will not be displayed in the Thaumonomicon, but can be used as a parent for other researches."
     },
     "isConcealed": {
       "type": "boolean",
-      "description": "Whether this research is concealed until parents are completed."
+      "description": "Whether this research is concealed until parents are completed. The research will be invisible until all parent researches are completed."
     },
     "isHidden": {
       "type": "boolean",
-      "description": "Whether this research is hidden until parents are completed."
+      "description": "Whether this research is hidden, which is required for itemTriggers, entityTriggers, or aspectTriggers to work."
     },
     "isLost": {
       "type": "boolean",
-      "description": "Whether this research is \"lost\". Seems to have something to do with Eldritch research"
+      "description": "Whether this research is \"lost\". Seems to have something to do with Eldritch research."
     },
     "isAutoUnlock": {
       "type": "boolean",
-      "description": "Whether this research is auto-unlocked on completion of parents"
+      "description": "Whether this research will always be unlocked. This will override all other unlock conditions and cause buggy behavior if there are parents."
     },
     "itemTriggers": {
       "type": "array",
-      "description": "The item triggers for this research",
+      "description": "The item triggers for this research. These are items you must scan to unlock the research.",
       "items": {
         "type": "string"
       },
@@ -121,7 +120,7 @@
     },
     "entityTriggers": {
       "type": "array",
-      "description": "The entity triggers for this research",
+      "description": "The entity triggers for this research. These are entities you must scan to unlock the research.",
       "items": {
         "type": "string"
       },
@@ -129,7 +128,7 @@
     },
     "aspectTriggers": {
       "type": "array",
-      "description": "The aspect triggers for this research",
+      "description": "The aspect triggers for this research. These are aspects you must discover to unlock the research.",
       "items": {
         "type": "string"
       },
@@ -137,7 +136,7 @@
     },
     "pages": {
       "type": "array",
-      "description": "The pages for this research",
+      "description": "The pages for this research.",
       "items": {
         "type": "object",
         "properties": {
@@ -148,50 +147,50 @@
           },
           "number": {
             "type": "integer",
-            "description": "The page number. Must start at 0 and increase by 1 for each page",
+            "description": "The page number. Must start at 0 and increase by 1 for each page.",
             "minimum": 0,
             "uniqueItems": true
           },
           "text": {
             "type": "string",
-            "description": "The text description on the page, if the page type is \"text\" or \"image\""
+            "description": "The text description on the page, if the page type is \"text\" or \"image\"."
           },
           "resource": {
             "type": "string",
-            "description": "The resource of the image shown on the page, if the page type is \"image\""
+            "description": "The resource of the image shown on the page, if the page type is \"image\"."
           },
           "item": {
             "type": "object",
             "properties": {
               "item": {
                 "type": "string",
-                "description": "The output of the recipe. Required for page types \"arcane\", \"recipe\", \"smelting\", \"crafting\", and \"infusion\""
+                "description": "The output of the recipe. Required for page types \"arcane\", \"recipe\", \"smelting\", \"crafting\", and \"infusion\"."
               },
               "meta": {
                 "type": "integer",
-                "description": "The meta of the item",
+                "description": "The meta of the item.",
                 "minimum": 0
               },
               "amount": {
                 "type": "integer",
-                "description": "The amount of the item",
+                "description": "The amount of the item.",
                 "minimum": 1
               }
             }
           },
           "aspects": {
             "type": "array",
-            "description": "The aspects of the page. Required for page type \"aspect\"",
+            "description": "The aspects of the page. Required for page type \"aspect\".",
             "items": {
               "type": "object",
               "properties": {
                 "aspect": {
                   "type": "string",
-                  "description": "The aspect of the page"
+                  "description": "The aspect of the page."
                 },
                 "amount": {
                   "type": "integer",
-                  "description": "The amount of the aspect",
+                  "description": "The amount of the aspect.",
                   "minimum": 1
                 }
               }

@@ -192,7 +192,7 @@ public class ResearchHelper {
                 (byte) 0));
     }
 
-    public static void exportResearchToJson(@Nonnull ResearchItem research, File dumpTo) throws IOException {
+    public static void exportResearchToJson(@Nonnull ResearchEntry research, File dumpTo) throws IOException {
         try (FileWriter writer = new FileWriter(dumpTo)) {
             researchGson().toJson(research, writer);
         }
