@@ -8,12 +8,15 @@ public final class StringHelper {
 
     /**
      * Parses an ItemStack from a string in the format "modid:itemname[:metadata[:stacksize]]".
-     * 
+     *
      * @param string The string to parse.
      * @return The ItemStack, or null if the item could not be found.
      */
     public static ItemStack parseItemFromString(String string) {
         String[] split = string.split(":");
+        if (split.length < 2) {
+            return null;
+        }
         ItemStack stack = GameRegistry.findItemStack(split[0], split[1], 1);
         if (stack == null) {
             return null;

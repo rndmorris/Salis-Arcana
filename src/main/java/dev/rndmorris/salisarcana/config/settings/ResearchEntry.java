@@ -24,6 +24,7 @@ import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
+import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.common.config.ConfigResearch;
@@ -176,7 +177,10 @@ public class ResearchEntry {
         }
         List<ItemStack> itemList = new ArrayList<>();
         for (String item : itemTriggers) {
-            itemList.add(StringHelper.parseItemFromString(item));
+            ItemStack stack = StringHelper.parseItemFromString(item);
+            if (stack != null) {
+                itemList.add(stack);
+            }
         }
         return itemList.toArray(new ItemStack[0]);
     }
@@ -194,7 +198,11 @@ public class ResearchEntry {
 
     public void updateResearchItem(ResearchItem research) {
         R r = new R(research);
-        r.set("category", this.getCategory());
+        if (research.category != this.getCategory()) {
+            r.set("category", this.getCategory());
+            ResearchCategories.researchCategories.get(research.category).research.remove(research.key);
+            ResearchCategories.researchCategories.get(research.category).research.put(research.key, research);
+        }
         AssetHelper.addLangEntry("tc.research_name." + this.getKey(), this.getName());
         AssetHelper.addLangEntry("tc.research_text." + this.getKey(), this.getTooltip());
 
