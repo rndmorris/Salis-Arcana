@@ -25,15 +25,17 @@ public class AssetHelper {
         var localizedName = "field_74839_a";
         var languageList = "field_74816_c";
         if (Arrays.stream(StatCollector.class.getDeclaredFields())
-            .anyMatch(f -> f.getName().equals("localizedName"))) {
+            .anyMatch(
+                f -> f.getName()
+                    .equals("localizedName"))) {
             // use deobfuscated names
             localizedName = "localizedName";
             languageList = "languageList";
         }
         // noinspection unchecked
         LANGUAGE = R.of(
-                R.of(StatCollector.class)
-                    .get(localizedName, StringTranslate.class))
+            R.of(StatCollector.class)
+                .get(localizedName, StringTranslate.class))
             .get(languageList, Map.class);
     }
 

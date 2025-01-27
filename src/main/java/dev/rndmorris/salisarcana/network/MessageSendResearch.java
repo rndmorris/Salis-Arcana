@@ -15,14 +15,15 @@ public class MessageSendResearch implements IMessage, IMessageHandler<MessageSen
 
     private ResearchEntry research;
     private static Gson gson = new Gson();
-    // We don't want to use ResearchHelper's gson instance because it's set up to pretty print, which is wasteful for network messages
+
+    // We don't want to use ResearchHelper's gson instance because it's set up to pretty print, which is wasteful for
+    // network messages
     private static synchronized Gson getGson() {
         if (gson == null) {
             gson = new Gson();
         }
         return gson;
     }
-
 
     public MessageSendResearch() {
 

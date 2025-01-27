@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.salisarcana.common.commands.arguments.handlers.ResearchHandler;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentTranslation;
 
@@ -18,6 +17,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.FlagArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
+import dev.rndmorris.salisarcana.common.commands.arguments.handlers.ResearchHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.ResearchKeyHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
@@ -57,7 +57,8 @@ public class CommandExportResearch extends ArcanaCommandBase<CommandExportResear
         }
         for (ResearchItem research : arguments.researches) {
             String researchKey = research.key;
-            File file = Paths.get("config/salisarcana/research/export/" + researchKey + ".json").toFile();
+            File file = Paths.get("config/salisarcana/research/export/" + researchKey + ".json")
+                .toFile();
             if (file.exists() && !arguments.overwrite) {
                 continue;
             }

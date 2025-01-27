@@ -67,7 +67,16 @@ public class ResearchEntry {
         this.category = research.category;
         this.name = research.getName();
         this.tooltip = research.getText();
-        this.aspects = research.tags.aspects.entrySet() .stream() .map(entry -> { var aspectEntry = new AspectEntry(); aspectEntry.aspect = entry.getKey() .getTag(); aspectEntry.amount = entry.getValue(); return aspectEntry; }) .toArray(AspectEntry[]::new);
+        this.aspects = research.tags.aspects.entrySet()
+            .stream()
+            .map(entry -> {
+                var aspectEntry = new AspectEntry();
+                aspectEntry.aspect = entry.getKey()
+                    .getTag();
+                aspectEntry.amount = entry.getValue();
+                return aspectEntry;
+            })
+            .toArray(AspectEntry[]::new);
         this.parents = research.parents;
         this.parentsHidden = research.parentsHidden;
         this.siblings = research.siblings;
@@ -322,12 +331,15 @@ class ResearchPageEntry {
             case ASPECTS:
                 type = "aspect";
                 number = index;
-                aspects = page.aspects.aspects.entrySet() .stream()
+                aspects = page.aspects.aspects.entrySet()
+                    .stream()
                     .map(entry -> {
                         var aspectEntry = new AspectEntry();
-                        aspectEntry.aspect = entry.getKey() .getTag();
+                        aspectEntry.aspect = entry.getKey()
+                            .getTag();
                         aspectEntry.amount = entry.getValue();
-                        return aspectEntry; })
+                        return aspectEntry;
+                    })
                     .toArray(AspectEntry[]::new);
                 return;
         }

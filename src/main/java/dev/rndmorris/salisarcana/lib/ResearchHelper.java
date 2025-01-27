@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
@@ -38,11 +40,10 @@ import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
 import thaumcraft.common.lib.research.ResearchManager;
 
-import javax.annotation.Nonnull;
-
 public class ResearchHelper {
 
     private static Gson _researchGson;
+
     public static synchronized Gson researchGson() {
         if (_researchGson == null) {
             _researchGson = new GsonBuilder().setPrettyPrinting()

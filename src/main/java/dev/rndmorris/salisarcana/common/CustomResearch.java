@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
@@ -16,6 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.spongepowered.libraries.com.google.gson.JsonSyntaxException;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
@@ -44,7 +44,9 @@ public class CustomResearch {
     public static ResearchItem replaceCoreResearch;
 
     public static void registerResearchFromFiles() {
-        if (FMLCommonHandler.instance().getSide().isClient()) {
+        if (FMLCommonHandler.instance()
+            .getSide()
+            .isClient()) {
             return;
         }
         List<ResearchEntry> researches = new ArrayList<>();
