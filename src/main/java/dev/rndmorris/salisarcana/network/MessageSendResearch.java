@@ -28,7 +28,7 @@ public class MessageSendResearch implements IMessage, IMessageHandler<MessageSen
     public void fromBytes(ByteBuf buf) {
         String json = new String(buf.array());
         String parsed = json.substring(json.indexOf('{'), json.lastIndexOf('}') + 1); // remove any weird characters
-        ResearchEntry research = ResearchHelper.loadResearchFromJson(parsed);
+        ResearchEntry research = ResearchHelper.importResearchFromJson(parsed);
         if (research == null) {
             LOG.error("Failed to parse research from message: {}", json);
             return;

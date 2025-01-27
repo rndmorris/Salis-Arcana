@@ -4,9 +4,7 @@ import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +59,7 @@ public class CustomResearch {
                     continue;
                 }
                 try {
-                    ResearchEntry research = ResearchHelper.loadResearchFromJson(file);
+                    ResearchEntry research = ResearchHelper.importResearchFromJson(file);
                     researches.add(research);
                 } catch (IOException e) {
                     LOG.error("Could not read research file {}.", file.getName());

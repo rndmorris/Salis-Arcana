@@ -4,11 +4,13 @@ import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
 
+import dev.rndmorris.salisarcana.common.commands.arguments.handlers.ResearchHandler;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentTranslation;
 
@@ -20,18 +22,19 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.ResearchKeyH
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
+import thaumcraft.api.research.ResearchItem;
 
-public class CommandDumpResearch extends ArcanaCommandBase<CommandDumpResearch.Arguments> {
+public class CommandExportResearch extends ArcanaCommandBase<CommandExportResearch.Arguments> {
 
-    public CommandDumpResearch() {
-        super(ConfigModuleRoot.commands.dumpResearch);
+    public CommandExportResearch() {
+        super(ConfigModuleRoot.commands.exportResearch);
     }
 
     @Override
-    protected @Nonnull ArgumentProcessor<CommandDumpResearch.Arguments> initializeProcessor() {
+    protected @Nonnull ArgumentProcessor<CommandExportResearch.Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
-            CommandDumpResearch.Arguments.class,
-            CommandDumpResearch.Arguments::new,
+            CommandExportResearch.Arguments.class,
+            CommandExportResearch.Arguments::new,
             new IArgumentHandler[] { ResearchKeyHandler.INSTANCE, FlagHandler.INSTANCE });
     }
 
@@ -41,33 +44,33 @@ public class CommandDumpResearch extends ArcanaCommandBase<CommandDumpResearch.A
     }
 
     @Override
-    protected void process(ICommandSender sender, CommandDumpResearch.Arguments arguments, String[] args) {
-        for (String researchKey : arguments.researchKeys) {
-            String json;
+    protected void process(ICommandSender sender, CommandExportResearch.Arguments arguments, String[] args) {
+        Path path = Paths.get("config/salisarcana/research/export");
+        if (!Files.exists(path)) {
             try {
-                json = ResearchHelper.dumpResearchToJson(researchKey);
-            } catch (Exception e) {
-                sender.addChatMessage(
-                    new ChatComponentTranslation("salisarcana:commands.dump_research.failed", researchKey));
-                continue;
-            }
-
-            File file = new File("config/salisarcana/research/" + researchKey + ".json");
-            if (file.exists() && !arguments.overwrite) {
-                continue;
-            }
-
-            try {
-                Files.write(Paths.get(file.toURI()), json.getBytes());
+                Files.createDirectories(path);
             } catch (Exception e) {
                 LOG.error(e);
                 CommandErrors.generic();
                 return;
             }
-
+        }
+        for (ResearchItem research : arguments.researches) {
+            String researchKey = research.key;
+            File file = Paths.get("config/salisarcana/research/export/" + researchKey + ".json").toFile();
+            if (file.exists() && !arguments.overwrite) {
+                continue;
+            }
+            try {
+                ResearchHelper.exportResearchToJson(research, file);
+            } catch (Exception e) {
+                sender.addChatMessage(
+                    new ChatComponentTranslation("salisarcana:commands.export-research.failed", researchKey));
+                continue;
+            }
             sender.addChatMessage(
                 new ChatComponentTranslation(
-                    "salisarcana:commands.dump_research.success",
+                    "salisarcana:commands.export-research.success",
                     researchKey,
                     file.getPath()));
         }
@@ -75,8 +78,8 @@ public class CommandDumpResearch extends ArcanaCommandBase<CommandDumpResearch.A
 
     public static class Arguments {
 
-        @NamedArg(name = "--research", handler = ResearchKeyHandler.class)
-        public ArrayList<String> researchKeys = new ArrayList<>();
+        @NamedArg(name = "--research", handler = ResearchHandler.class)
+        public ArrayList<ResearchItem> researches = new ArrayList<>();
 
         @FlagArg(name = "--overwrite")
         public boolean overwrite = false;

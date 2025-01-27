@@ -191,30 +191,17 @@ public class ResearchHelper {
                 (byte) 0));
     }
 
-    public static void dumpResearchToJson(@Nonnull ResearchItem research, File dumpTo) throws IOException {
+    public static void exportResearchToJson(@Nonnull ResearchItem research, File dumpTo) throws IOException {
         try (FileWriter writer = new FileWriter(dumpTo)) {
             researchGson().toJson(research, writer);
         }
     }
 
-    public static String dumpResearchToJson(ResearchItem research) {
-        if (research == null) {
-            return null;
-        }
-        ResearchEntry entry = new ResearchEntry(research);
-        return researchGson().toJson(entry);
-    }
-
-    public static String dumpResearchToJson(String researchKey) {
-        ResearchItem research = ResearchCategories.getResearch(researchKey);
-        return dumpResearchToJson(research);
-    }
-
-    public static ResearchEntry loadResearchFromJson(String json) throws JsonSyntaxException {
+    public static ResearchEntry importResearchFromJson(String json) throws JsonSyntaxException {
         return researchGson().fromJson(json, ResearchEntry.class);
     }
 
-    public static ResearchEntry loadResearchFromJson(@Nonnull File file) throws IOException {
+    public static ResearchEntry importResearchFromJson(@Nonnull File file) throws IOException {
         if (!file.exists() || !file.isFile()) {
             return null;
         }
@@ -248,6 +235,6 @@ public class ResearchHelper {
     }
 
     public static boolean registerCustomResearch(String json) {
-        return registerCustomResearch(loadResearchFromJson(json));
+        return registerCustomResearch(importResearchFromJson(json));
     }
 }

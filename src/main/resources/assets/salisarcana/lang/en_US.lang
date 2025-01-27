@@ -102,9 +102,9 @@ salisarcana:command.upgrade-focus.noItem=Target player is not holding a wand foc
 salisarcana:command.upgrade-focus.tooManyUpgrades=%d upgrade(s) could not be applied due to the five-upgrade limit. 
 salisarcana:command.upgrade-focus.success=All focus upgrades applied successfully.
 
-salisarcana:commands.dump_research.success=§9Success:§r Dumped %s research to %s.
-salisarcana:commands.dump_research.usage=/salisarcana-dump-research --research <research-key> [--overwrite]
-salisarcana:commands.dump_research.failed=§cFailure:§r Failed to dump %s. Research likely has unsupported properties.
+salisarcana:commands.export-research.success=§9Success:§r Exported %s research to %s.
+salisarcana:commands.export-research.usage=/salisarcana-export-research --research <research-key> [--overwrite]
+salisarcana:commands.export-research.failed=§cFailure:§r Failed to export %s. Research likely has unsupported properties.
 
 salisarcana:error.invalid_aspect="%s" is not a known aspect.
 salisarcana:error.invalid_focus_upgrade=%s is not a known focus upgrade.

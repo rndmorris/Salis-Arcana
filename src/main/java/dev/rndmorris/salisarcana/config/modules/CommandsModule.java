@@ -18,7 +18,7 @@ public class CommandsModule extends BaseConfigModule {
     public final @Nonnull CommandSettings prerequisites;
     public final @Nonnull CommandSettings updateNode;
     public final @Nonnull CommandSettings upgradeFocus;
-    public final @Nonnull CommandSettings dumpResearch;
+    public final @Nonnull CommandSettings exportResearch;
 
     public final CommandSettings[] commandsSettings;
 
@@ -61,7 +61,7 @@ public class CommandsModule extends BaseConfigModule {
                 .setPermissionLevel(2),
             upgradeFocus = new CommandSettings("upgrade-focus", this, ConfigPhase.LATE).addDefaultAlias()
                 .setPermissionLevel(2),
-            dumpResearch = new CommandSettings("dump-research", this, ConfigPhase.LATE).addDefaultAlias()
+            exportResearch = new CommandSettings("export-research", this, ConfigPhase.LATE).addDefaultAlias()
                 .setPermissionLevel(0) };
 
         addSettings(commandsSettings);
