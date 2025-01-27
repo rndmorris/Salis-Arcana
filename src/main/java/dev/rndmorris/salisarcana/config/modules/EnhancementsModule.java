@@ -54,6 +54,7 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public final ToggleSetting wandPedestalUseCV;
     public final ToggleSetting thaumometerScanContainers;
+    public final ToggleSetting thaumometerScanResearchEnabled;
     public final StringSetting thaumometerScanContainersResearch;
     public final ToggleSetting levitatorShiftFix;
     public final ToggleSetting pureNodeBiomeChange;
@@ -204,9 +205,15 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "creativeOpThaumonomicon",
+
                 "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
-            thaumometerScanContainersResearch = new StringSetting(
+            thaumometerScanResearchEnabled = new ToggleSetting(
                 this,
+                ConfigPhase.EARLY,
+                "thaumometerScanResearchEnabled",
+                "Whether the ability to scan the contents of inventories is locked behind research."),
+            thaumometerScanContainersResearch = new StringSetting(
+                thaumometerScanResearchEnabled,
                 ConfigPhase.EARLY,
                 "thaumometerScanContainersResearch",
                 "Research required to unlock the ability to scan the contents of inventories with the Thaumometer.", "salisarcana:CHESTSCAN")

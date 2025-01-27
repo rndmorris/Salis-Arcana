@@ -2,7 +2,7 @@ package dev.rndmorris.salisarcana.network;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
-import com.google.gson.GsonBuilder;
+import com.google.gson.Gson;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -14,6 +14,15 @@ import io.netty.buffer.ByteBuf;
 public class MessageSendResearch implements IMessage, IMessageHandler<MessageSendResearch, IMessage> {
 
     private ResearchEntry research;
+    private static Gson gson = new Gson();
+    // We don't want to use ResearchHelper's gson instance because it's set up to pretty print, which is wasteful for network messages
+    private static synchronized Gson getGson() {
+        if (gson == null) {
+            gson = new Gson();
+        }
+        return gson;
+    }
+
 
     public MessageSendResearch() {
 
@@ -41,9 +50,7 @@ public class MessageSendResearch implements IMessage, IMessageHandler<MessageSen
 
     @Override
     public void toBytes(ByteBuf buf) {
-        // we don't use ResearchHelper here because we don't want to pretty-print to save space
-        String json = new GsonBuilder().create()
-            .toJson(research, ResearchEntry.class);
+        String json = getGson().toJson(research, ResearchEntry.class);
         buf.writeBytes(json.getBytes());
     }
 
