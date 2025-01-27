@@ -4,11 +4,13 @@ import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
@@ -44,28 +46,29 @@ public class CustomResearch {
     public static ResearchItem replaceCoreResearch;
 
     public static void registerResearchFromFiles() {
+        if (FMLCommonHandler.instance().getSide().isClient()) {
+            return;
+        }
         List<ResearchEntry> researches = new ArrayList<>();
         File researchPath = new File("config/salisarcana/research");
         if (researchPath.exists() && researchPath.isDirectory()) {
-            File[] files = researchPath.listFiles();
+            File[] files = researchPath.listFiles((dir, name) -> name.endsWith(".json"));
             if (files == null) {
                 return;
             }
             for (File file : files) {
-                if (file.getName()
-                    .endsWith(".json")) {
-                    try {
-                        List<String> lines = Files.readAllLines(file.toPath());
-                        String json = String.join("", lines);
-                        ResearchEntry research = ResearchHelper.loadResearchFromJson(json);
-                        researches.add(research);
-                    } catch (IOException e) {
-                        LOG.error("Could not read research file {}.", file.getName());
-                        LOG.error(e);
-                    } catch (JsonSyntaxException e) {
-                        LOG.error("Could not parse research file {}.", file.getName());
-                        LOG.error(e);
-                    }
+                if (file.isDirectory()) {
+                    continue;
+                }
+                try {
+                    ResearchEntry research = ResearchHelper.loadResearchFromJson(file);
+                    researches.add(research);
+                } catch (IOException e) {
+                    LOG.error("Could not read research file {}.", file.getName());
+                    LOG.error(e);
+                } catch (JsonSyntaxException e) {
+                    LOG.error("Could not parse research file {}.", file.getName());
+                    LOG.error(e);
                 }
             }
         } else {

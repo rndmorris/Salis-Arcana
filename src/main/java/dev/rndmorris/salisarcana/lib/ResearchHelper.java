@@ -3,6 +3,10 @@ package dev.rndmorris.salisarcana.lib;
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
@@ -34,7 +38,18 @@ import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
 import thaumcraft.common.lib.research.ResearchManager;
 
+import javax.annotation.Nonnull;
+
 public class ResearchHelper {
+
+    private static Gson _researchGson;
+    public static synchronized Gson researchGson() {
+        if (_researchGson == null) {
+            _researchGson = new GsonBuilder().setPrettyPrinting()
+                .create();
+        }
+        return _researchGson;
+    }
 
     private static FakePlayer knowItAll;
 
@@ -176,14 +191,18 @@ public class ResearchHelper {
                 (byte) 0));
     }
 
+    public static void dumpResearchToJson(@Nonnull ResearchItem research, File dumpTo) throws IOException {
+        try (FileWriter writer = new FileWriter(dumpTo)) {
+            researchGson().toJson(research, writer);
+        }
+    }
+
     public static String dumpResearchToJson(ResearchItem research) {
         if (research == null) {
             return null;
         }
         ResearchEntry entry = new ResearchEntry(research);
-        Gson gson = new GsonBuilder().setPrettyPrinting()
-            .create();
-        return gson.toJson(entry);
+        return researchGson().toJson(entry);
     }
 
     public static String dumpResearchToJson(String researchKey) {
@@ -192,8 +211,16 @@ public class ResearchHelper {
     }
 
     public static ResearchEntry loadResearchFromJson(String json) throws JsonSyntaxException {
-        Gson gson = new Gson();
-        return gson.fromJson(json, ResearchEntry.class);
+        return researchGson().fromJson(json, ResearchEntry.class);
+    }
+
+    public static ResearchEntry loadResearchFromJson(@Nonnull File file) throws IOException {
+        if (!file.exists() || !file.isFile()) {
+            return null;
+        }
+        try (FileReader reader = new FileReader(file)) {
+            return researchGson().fromJson(reader, ResearchEntry.class);
+        }
     }
 
     public static boolean registerCustomResearch(ResearchEntry research) {
