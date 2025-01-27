@@ -67,25 +67,20 @@ public class ResearchEntry {
         this.category = research.category;
         this.name = research.getName();
         this.tooltip = research.getText();
-        this.aspects = new AspectEntry[research.tags.size()];
-        int i = 0;
-        for (Map.Entry<Aspect, Integer> entry : research.tags.aspects.entrySet()) {
-            AspectEntry aspectEntry = new AspectEntry();
-            aspectEntry.aspect = entry.getKey()
-                .getTag();
-            aspectEntry.amount = entry.getValue();
-            this.aspects[i] = aspectEntry;
-            i++;
-        }
+        this.aspects = research.tags.aspects.entrySet() .stream() .map(entry -> { var aspectEntry = new AspectEntry(); aspectEntry.aspect = entry.getKey() .getTag(); aspectEntry.amount = entry.getValue(); return aspectEntry; }) .toArray(AspectEntry[]::new);
         this.parents = research.parents;
         this.parentsHidden = research.parentsHidden;
         this.siblings = research.siblings;
         this.displayColumn = research.displayColumn;
         this.displayRow = research.displayRow;
-        this.icon_item = String.format(
-            "%s:%d",
-            GameRegistry.findUniqueIdentifierFor(research.icon_item.getItem()),
-            research.icon_item.getItemDamage());
+        if (research.icon_item == null || GameRegistry.findUniqueIdentifierFor(research.icon_item.getItem()) == null) {
+            this.icon_item = "";
+        } else {
+            this.icon_item = String.format(
+                "%s:%d",
+                GameRegistry.findUniqueIdentifierFor(research.icon_item.getItem()),
+                research.icon_item.getItemDamage());
+        }
         this.icon_resource = research.icon_resource != null ? research.icon_resource.toString() : "";
         this.complexity = research.getComplexity();
         this.isSpecial = research.isSpecial();
@@ -175,25 +170,25 @@ public class ResearchEntry {
         if (itemTriggers == null) {
             return new ItemStack[0];
         }
-        List<ItemStack> itemList = new ArrayList<>();
-        for (String item : itemTriggers) {
-            ItemStack stack = StringHelper.parseItemFromString(item);
+        ItemStack[] ret = new ItemStack[itemTriggers.length];
+        for (int i = 0; i < itemTriggers.length; i++) {
+            ItemStack stack = StringHelper.parseItemFromString(itemTriggers[i]);
             if (stack != null) {
-                itemList.add(stack);
+                ret[i] = stack;
             }
         }
-        return itemList.toArray(new ItemStack[0]);
+        return ret;
     }
 
     public Aspect[] getAspectTriggers() {
         if (aspectTriggers == null) {
             return new Aspect[0];
         }
-        List<Aspect> aspectList = new ArrayList<>();
-        for (AspectEntry entry : aspectTriggers) {
-            aspectList.add(Aspect.getAspect(entry.getAspect()));
+        Aspect[] ret = new Aspect[aspectTriggers.length];
+        for (int i = 0; i < aspectTriggers.length; i++) {
+            ret[i] = Aspect.getAspect(aspectTriggers[i].getAspect());
         }
-        return aspectList.toArray(new Aspect[0]);
+        return ret;
     }
 
     public void updateResearchItem(ResearchItem research) {
@@ -203,8 +198,15 @@ public class ResearchEntry {
             ResearchCategories.researchCategories.get(research.category).research.remove(research.key);
             ResearchCategories.researchCategories.get(research.category).research.put(research.key, research);
         }
-        AssetHelper.addLangEntry("tc.research_name." + this.getKey(), this.getName());
-        AssetHelper.addLangEntry("tc.research_text." + this.getKey(), this.getTooltip());
+        if (research.getClass() != ResearchItem.class) {
+
+        }
+        String name = research.getName();
+        String text = research.getText();
+        String parsed = name.substring(0, name.indexOf(key));
+        AssetHelper.addLangEntry(parsed + this.getKey(), this.getName());
+        parsed = text.substring(0, text.indexOf(key));
+        AssetHelper.addLangEntry(parsed + this.getKey(), this.getTooltip());
 
         research.setParents(parents);
         research.setParentsHidden(parentsHidden);
@@ -302,10 +304,13 @@ class ResearchPageEntry {
             case NORMAL_CRAFTING:
             case SMELTING: {
 
-                type = page.type == ResearchPage.PageType.CRUCIBLE_CRAFTING ? "crucible"
-                    : page.type == ResearchPage.PageType.INFUSION_CRAFTING ? "infusion"
-                        : page.type == ResearchPage.PageType.ARCANE_CRAFTING ? "arcane"
-                            : page.type == ResearchPage.PageType.SMELTING ? "smelting" : "crafting";
+                type = switch (page.type) {
+                    case ARCANE_CRAFTING -> "arcane";
+                    case CRUCIBLE_CRAFTING -> "crucible";
+                    case INFUSION_CRAFTING -> "infusion";
+                    case SMELTING -> "smelting";
+                    default -> "crafting";
+                };
                 number = index;
                 item = new ItemEntry();
                 item.item = GameRegistry.findUniqueIdentifierFor(page.recipeOutput.getItem())
@@ -317,16 +322,13 @@ class ResearchPageEntry {
             case ASPECTS:
                 type = "aspect";
                 number = index;
-                aspects = new AspectEntry[page.aspects.size()];
-                int i = 0;
-                for (Map.Entry<Aspect, Integer> entry : page.aspects.aspects.entrySet()) {
-                    AspectEntry aspectEntry = new AspectEntry();
-                    aspectEntry.aspect = entry.getKey()
-                        .getTag();
-                    aspectEntry.amount = entry.getValue();
-                    aspects[i] = aspectEntry;
-                    i++;
-                }
+                aspects = page.aspects.aspects.entrySet() .stream()
+                    .map(entry -> {
+                        var aspectEntry = new AspectEntry();
+                        aspectEntry.aspect = entry.getKey() .getTag();
+                        aspectEntry.amount = entry.getValue();
+                        return aspectEntry; })
+                    .toArray(AspectEntry[]::new);
                 return;
         }
     }
