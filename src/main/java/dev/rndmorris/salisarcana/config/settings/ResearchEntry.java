@@ -202,19 +202,16 @@ public class ResearchEntry {
 
     public void updateResearchItem(ResearchItem research) {
         R r = new R(research);
-        if (research.category != this.getCategory()) {
+        if (!research.category.equals(this.getCategory())) {
             r.set("category", this.getCategory());
             ResearchCategories.researchCategories.get(research.category).research.remove(research.key);
             ResearchCategories.researchCategories.get(research.category).research.put(research.key, research);
         }
-        if (research.getClass() != ResearchItem.class) {
-
-        }
         String name = research.getName();
         String text = research.getText();
-        String parsed = name.substring(0, name.indexOf(key));
+        String parsed = name.substring(0, name.indexOf(key)) + name.substring(name.indexOf(key));
         AssetHelper.addLangEntry(parsed + this.getKey(), this.getName());
-        parsed = text.substring(0, text.indexOf(key));
+        parsed = text.substring(0, text.indexOf(key)) + text.substring(name.indexOf(key));
         AssetHelper.addLangEntry(parsed + this.getKey(), this.getTooltip());
 
         research.setParents(parents);
