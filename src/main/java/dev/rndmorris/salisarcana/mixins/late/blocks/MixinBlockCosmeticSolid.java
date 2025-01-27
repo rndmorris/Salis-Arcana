@@ -7,25 +7,25 @@ import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import thaumcraft.common.blocks.BlockCosmeticSolid;
 
-@Mixin(BlockCosmeticSolid.class)
+@Mixin(value = BlockCosmeticSolid.class, remap = false)
 public abstract class MixinBlockCosmeticSolid extends Block {
 
     protected MixinBlockCosmeticSolid(Material materialIn) {
         super(materialIn);
     }
 
-    @Inject(method = "isBeaconBase", at = @At("HEAD"), cancellable = true, remap = false)
-    public void onIsBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ,
-        CallbackInfoReturnable<Boolean> cir) {
+    @WrapMethod(method = "isBeaconBase")
+    public boolean onIsBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ,
+        Operation<Boolean> cir) {
         final var metadata = worldObj.getBlockMetadata(x, y, z);
 
-        cir.setReturnValue(bugfixes.beaconBlockFixSetting.isBeaconMetadata(metadata));
-        cir.cancel();
+        return bugfixes.beaconBlockFixSetting.isBeaconMetadata(metadata);
     }
+
 }
