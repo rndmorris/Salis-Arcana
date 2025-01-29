@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
@@ -41,17 +40,17 @@ public class AssetHelper {
     }
 
     public static String lookupLangEntryByValue(String value) {
-        ArrayList<String> keys = new ArrayList<>();
-        LANGUAGE.entrySet()
+        final var keys = LANGUAGE.entrySet()
             .stream()
             .filter(
                 e -> e.getValue()
                     .equals(value))
-            .forEach(e -> keys.add(e.getKey()));
-        if (keys.isEmpty()) {
-            return null;
-        }
-        return keys.get(0); // In almost all cases, there should only be one key for a given value
+            .map(Map.Entry::getKey)
+            // In almost all cases, there should only be one key for a given value
+            .limit(1)
+            .toArray(String[]::new);
+        return ArrayHelper.tryGet(keys, 0)
+            .data();
     }
 
     public static void addLangEntry(String key, String value) {

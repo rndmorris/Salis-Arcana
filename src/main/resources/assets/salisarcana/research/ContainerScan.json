@@ -24,7 +24,7 @@
   "complexity": 3,
   "pages": [
     {
-      "type": "text",
+      "pageType": "text",
       "number": 0,
       "text": "Thanks to your research about deconstructing items, you've learned to look inside other blocks with your Thaumometer by using it to \"deconstruct\" the block magically. You can scan any block that can hold items, such as a chest or hopper, to scan all contained items automatically."
     }
