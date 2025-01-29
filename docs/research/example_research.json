@@ -42,13 +42,13 @@
   "aspectTriggers": [],
   "pages": [
     {
-      "type": "text",
+      "pageType": "text",
       "number": 0,
       "text": "Gold is a far superior focusing agent than iron, and wands capped with this material takes no penalty when used to channel vis.",
       "resource": ""
     },
     {
-      "type": "arcane",
+      "pageType": "arcane",
       "number": 1,
       "text": "",
       "item": {
