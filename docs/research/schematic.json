@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research",
+  "description": "A Thaumcraft research to add or modify.",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "The unique key for this research. If this key already exists, the research will be updated."
+    },
+    "category": {
+      "type": "string",
+      "description": "The category in the Thaumonomicon to place this research."
+    },
+    "name": {
+      "type": "string",
+      "description": "The localized name of this research."
+    },
+    "tooltip": {
+      "type": "string",
+      "description": "The localized tooltip of this research."
+    },
+    "aspects": {
+      "type": "array",
+      "description": "The aspects required for this research. This is used for things like purchasing the research or creating research notes.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "aspect": {
+            "type": "string",
+            "description": "The aspect itself."
+          },
+          "amount": {
+            "type": "integer",
+            "description": "The amount of the aspect."
+          }
+        }
+      },
+      "uniqueItems": true
+    },
+    "parents": {
+      "type": "array",
+      "description": "The parent researches required for this research.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "siblings": {
+      "type": "array",
+      "description": "The sibling researches for this research. Sibling research will be automatically completed upon completion of this research.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "displayColumn": {
+      "type": "integer",
+      "description": "The column to display this research in."
+    },
+    "displayRow": {
+      "type": "integer",
+      "description": "The row to display this research in."
+    },
+    "icon_item": {
+      "type": "string",
+      "description": "The item icon for this research. Mutually exclusive with icon_research."
+    },
+    "icon_resource": {
+      "type": "string",
+      "description": "The resource icon for this research. Mutually exclusive with icon_item."
+    },
+    "complexity": {
+      "type": "integer",
+      "description": "The complexity of this research. Used in determining the size of the research note minigame."
+    },
+    "isSpecial": {
+      "type": "boolean",
+      "description": "Whether this research is \"special\". Changes the icon to be the \"star\" shape. Mutually exclusive with isRound."
+    },
+    "isSecondary": {
+      "type": "boolean",
+      "description": "Whether this research is secondary. Secondary researches are purchasable with aspects instead of being unlocked by the minigame."
+    },
+    "isRound": {
+      "type": "boolean",
+      "description": "Whether this research is round. Changes the icon of the research. Mutually exclusive with isSpecial."
+    },
+    "isStub": {
+      "type": "boolean",
+      "description": "Whether this research should be auto-completed upon completion of parent research."
+    },
+    "isVirtual": {
+      "type": "boolean",
+      "description": "Whether this research is virtual. This will not be displayed in the Thaumonomicon, but can be used as a parent for other researches."
+    },
+    "isConcealed": {
+      "type": "boolean",
+      "description": "Whether this research is concealed until parents are completed. The research will be invisible until all parent researches are completed."
+    },
+    "isHidden": {
+      "type": "boolean",
+      "description": "Whether this research is hidden, which is required for itemTriggers, entityTriggers, or aspectTriggers to work."
+    },
+    "isLost": {
+      "type": "boolean",
+      "description": "Whether this research is \"lost\". Seems to have something to do with Eldritch research."
+    },
+    "isAutoUnlock": {
+      "type": "boolean",
+      "description": "Whether this research will always be unlocked. This will override all other unlock conditions and cause buggy behavior if there are parents."
+    },
+    "itemTriggers": {
+      "type": "array",
+      "description": "The item triggers for this research. These are items you must scan to unlock the research.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "entityTriggers": {
+      "type": "array",
+      "description": "The entity triggers for this research. These are entities you must scan to unlock the research.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "aspectTriggers": {
+      "type": "array",
+      "description": "The aspect triggers for this research. These are aspects you must discover to unlock the research.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "pages": {
+      "type": "array",
+      "description": "The pages for this research.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pageType": {
+            "type": "string",
+            "description": "The type of the page",
+            "enum": ["text", "arcane", "recipe", "image", "smelting", "crafting", "infusion"]
+          },
+          "number": {
+            "type": "integer",
+            "description": "The page number. Must start at 0 and increase by 1 for each page.",
+            "minimum": 0,
+            "uniqueItems": true
+          },
+          "text": {
+            "type": "string",
+            "description": "The text description on the page, if the page type is \"text\" or \"image\"."
+          },
+          "resource": {
+            "type": "string",
+            "description": "The resource of the image shown on the page, if the page type is \"image\"."
+          },
+          "item": {
+            "type": "object",
+            "properties": {
+              "item": {
+                "type": "string",
+                "description": "The output of the recipe. Required for page types \"arcane\", \"recipe\", \"smelting\", \"crafting\", and \"infusion\"."
+              },
+              "meta": {
+                "type": "integer",
+                "description": "The meta of the item.",
+                "minimum": 0
+              },
+              "amount": {
+                "type": "integer",
+                "description": "The amount of the item.",
+                "minimum": 1
+              }
+            }
+          },
+          "aspects": {
+            "type": "array",
+            "description": "The aspects of the page. Required for page type \"aspect\".",
+            "items": {
+              "type": "object",
+              "properties": {
+                "aspect": {
+                  "type": "string",
+                  "description": "The aspect of the page."
+                },
+                "amount": {
+                  "type": "integer",
+                  "description": "The amount of the aspect.",
+                  "minimum": 1
+                }
+              }
+            },
+            "uniqueItems": true
+          }
+        }
+      },
+      "dependentSchemas": {
+
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["key", "category", "pages", "displayColumn", "displayRow", "tooltip"]
+}
+

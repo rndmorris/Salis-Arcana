@@ -37,21 +37,21 @@ public class MixinScanManager {
             return;
         }
         if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()
-            && ResearchManager.isResearchComplete(
+            && !ResearchManager.isResearchComplete(
                 player.getCommandSenderName(),
-                "salisarcana:" + ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
-            Block block = Block.getBlockFromItem(Item.getItemById(scan.id));
-            if (block != null && block.hasTileEntity(scan.meta)) {
-                TileEntity tile = block.createTileEntity(player.worldObj, scan.meta);
-                tile.invalidate();
-                if (tile instanceof IInventory && !ScanManager.isValidScanTarget(player, scan, "@")) {
-                    if (player.isClientWorld()) {
-                        NetworkHandler.instance.sendToServer(new MessageScanIInventory(scan.id, scan.meta));
-                    }
-                    cir.cancel();
+                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.getValue())) {
+            return;
+        }
+        Block block = Block.getBlockFromItem(Item.getItemById(scan.id));
+        if (block != null && block.hasTileEntity(scan.meta)) {
+            TileEntity tile = block.createTileEntity(player.worldObj, scan.meta);
+            tile.invalidate();
+            if (tile instanceof IInventory && !ScanManager.isValidScanTarget(player, scan, "@")) {
+                if (player.isClientWorld()) {
+                    NetworkHandler.instance.sendToServer(new MessageScanIInventory(scan.id, scan.meta));
                 }
+                cir.cancel();
             }
         }
     }
-
 }

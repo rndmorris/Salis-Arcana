@@ -1,0 +1,62 @@
+{
+  "key": "CAP_gold",
+  "category": "THAUMATURGY",
+  "name": "Gold Wand Caps",
+  "tooltip": "Capping things off with style",
+  "aspects": [
+    {
+      "aspect": "metallum",
+      "amount": 3
+    },
+    {
+      "aspect": "lucrum",
+      "amount": 3
+    },
+    {
+      "aspect": "instrumentum",
+      "amount": 3
+    }
+  ],
+  "parents": [
+    "BASICTHAUMATURGY"
+  ],
+  "siblings": [
+    "salisarcana:REPLACEWANDCAPS"
+  ],
+  "displayColumn": 3,
+  "displayRow": 2,
+  "icon_item": "Thaumcraft:WandCap:1",
+  "icon_resource": "",
+  "complexity": 1,
+  "isSpecial": false,
+  "isSecondary": false,
+  "isRound": false,
+  "isStub": false,
+  "isVirtual": false,
+  "isConcealed": false,
+  "isHidden": false,
+  "isLost": false,
+  "isAutoUnlock": false,
+  "itemTriggers": [],
+  "entityTriggers": [],
+  "aspectTriggers": [],
+  "pages": [
+    {
+      "pageType": "text",
+      "number": 0,
+      "text": "Gold is a far superior focusing agent than iron, and wands capped with this material takes no penalty when used to channel vis.",
+      "resource": ""
+    },
+    {
+      "pageType": "arcane",
+      "number": 1,
+      "text": "",
+      "item": {
+        "item": "Thaumcraft:WandCap",
+        "meta": 1,
+        "amount": 1
+      },
+      "resource": ""
+    }
+  ]
+}
