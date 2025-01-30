@@ -3,21 +3,33 @@ package dev.rndmorris.salisarcana.common;
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraftforge.oredict.OreDictionary;
 
+import org.spongepowered.libraries.com.google.gson.JsonSyntaxException;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
+import dev.rndmorris.salisarcana.config.settings.ResearchEntry;
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
+import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
+import dev.rndmorris.salisarcana.network.MessageInvalidateCache;
+import dev.rndmorris.salisarcana.network.MessageSendResearch;
+import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 import thaumcraft.api.research.ResearchCategories;
@@ -31,7 +43,56 @@ public class CustomResearch {
 
     public static ResearchItem replaceCapsResearch;
     public static ResearchItem replaceCoreResearch;
-    public static ResearchItem chestScanResearch;
+
+    public static void registerResearchFromFiles() {
+        if (FMLCommonHandler.instance()
+            .getEffectiveSide()
+            .isClient()) {
+            return;
+        }
+        List<ResearchEntry> researches = new ArrayList<>();
+
+        File researchPath = Paths.get("config", "salisarcana", "research")
+            .toFile();
+        if (researchPath.exists() && researchPath.isDirectory()) {
+            File[] files = researchPath.listFiles((dir, name) -> name.endsWith(".json"));
+            if (files == null) {
+                return;
+            }
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    continue;
+                }
+                try {
+                    ResearchEntry research = ResearchHelper.importResearchFromJson(file);
+                    if (research == null || !research.isEnabled()) {
+                        continue;
+                    }
+                    researches.add(research);
+                } catch (IOException e) {
+                    LOG.error("Could not read research file {}.", file.getName());
+                    LOG.error(e);
+                } catch (JsonSyntaxException e) {
+                    LOG.error("Could not parse research file {}.", file.getName());
+                    LOG.error(e);
+                }
+            }
+        } else {
+            if (!researchPath.mkdirs()) {
+                LOG.warn("Could not create research config directory.");
+            }
+        }
+        if (researches.isEmpty()) {
+            return;
+        }
+        for (ResearchEntry research : researches) {
+            ResearchHelper.registerCustomResearch(research);
+            NetworkHandler.instance.sendToAll(new MessageSendResearch(research));
+        }
+        if (Loader.isModLoaded("tc4tweak")) {
+            NetworkHandler.instance.sendToAll(new MessageInvalidateCache());
+        }
+    }
 
     public static void init() {
         final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
@@ -50,11 +111,6 @@ public class CustomResearch {
             ConfigModuleRoot.enhancements.replaceWandCoreSettings,
             PlaceholderItem.rodPlaceholder,
             exampleRodRecipes());
-
-        chestScanResearch = maybeRegister(
-            ConfigModuleRoot.enhancements.thaumometerScanContainersResearch,
-            Item.getItemFromBlock(Blocks.chest));
-
     }
 
     private static IArcaneRecipe[][] exampleCapRecipes() {
@@ -237,7 +293,7 @@ public class CustomResearch {
                 .setParents(settings.parentResearches)
                 .setSpecial();
         if (settings.autoUnlock) {
-            research.setAutoUnlock();
+            research.setStub();
         }
         final var pages = new ArrayList<ResearchPage>();
         pages.add(new ResearchPage("tc.research_page." + fullKey + ".0"));
