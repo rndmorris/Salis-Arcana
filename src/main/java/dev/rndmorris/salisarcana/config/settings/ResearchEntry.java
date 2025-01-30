@@ -327,8 +327,12 @@ class ResearchPageEntry {
                 };
                 number = index;
                 item = new ItemEntry();
-                item.item = GameRegistry.findUniqueIdentifierFor(page.recipeOutput.getItem())
-                    .toString();
+                GameRegistry.UniqueIdentifier identifier = GameRegistry
+                    .findUniqueIdentifierFor(page.recipeOutput.getItem());
+                if (identifier == null) {
+                    return;
+                }
+                item.item = identifier.toString();
                 item.meta = page.recipeOutput.getItemDamage();
                 item.amount = page.recipeOutput.stackSize;
                 return;
