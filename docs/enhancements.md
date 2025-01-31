@@ -209,6 +209,9 @@ Add rotated recipes for the fire, shock, frost, equal trade, excavation, and pri
 ## Config option: `rotatedThaumometer`
 Add a rotated crafting recipe for the Thaumometer.
 
+## Config option: `rottenFleshRecipe`
+Add a recipe to convert flesh blocks back into rotten flesh.
+
 # Enhancements - Wand Component Replacement
 
 ## Config option: `enableReplaceWandCapsRecipe`

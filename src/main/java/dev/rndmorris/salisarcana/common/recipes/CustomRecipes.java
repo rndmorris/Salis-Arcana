@@ -55,10 +55,16 @@ public class CustomRecipes {
             ThaumcraftApi.getCraftingRecipes()
                 .add(new ReplaceWandCapsRecipe());
         }
+
         if (enhancements.replaceWandCoreSettings.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
                 .add(new ReplaceWandCoreRecipe());
+        }
+
+        if (enhancements.rottenFleshRecipe.isEnabled()) {
+            GameRegistry
+                .addShapelessRecipe(new ItemStack(Items.rotten_flesh, 9), new ItemStack(ConfigBlocks.blockTaint, 1, 2));
         }
     }
 
