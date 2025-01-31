@@ -8,6 +8,11 @@
       "type": "boolean",
       "description": "Whether this research is enabled. If false, the research will not be added or modified."
     },
+    "action": {
+      "type": "string",
+      "description": "Whether this will create, replace, or update a research.",
+      "enum": ["create", "replace", "update"]
+    },
     "key": {
       "type": "string",
       "description": "The unique key for this research. If this key already exists, the research will be updated."

@@ -1,6 +1,7 @@
 package dev.rndmorris.salisarcana.config.settings;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,8 @@ import thaumcraft.common.config.ConfigResearch;
 public class ResearchEntry {
 
     private boolean enabled;
+    @SerializedName("action")
+    private String type;
     private String key = "";
     private String category = "";
     private String name = "";
@@ -208,6 +211,13 @@ public class ResearchEntry {
     }
 
     public void updateResearchItem(ResearchItem research) {
+        switch (this.type) {
+            case "replace", "create" -> this.doReplace(research);
+            case "update" -> this.doUpdate(research);
+        }
+    }
+
+    private void doReplace(ResearchItem research) {
         R r = new R(research);
         if (!research.category.equals(this.getCategory())) {
             r.set("category", this.getCategory());
@@ -272,6 +282,121 @@ public class ResearchEntry {
         research.setPages(pages.toArray(new ResearchPage[0]));
     }
 
+    private void doUpdate(ResearchItem research) {
+        R r = new R(research);
+        if (this.category != null && !this.category.isEmpty() && !this.category.equals(research.category)) {
+            ResearchCategories.researchCategories.get(research.category).research.remove(research.key);
+            ResearchCategories.researchCategories.get(this.category).research.put(research.key, research);
+            r.set("category", this.category);
+        }
+        if (this.name != null && !this.name.isEmpty() && !this.name.equals(research.getName())) {
+            String key = AssetHelper.lookupLangEntryByValue(research.getName());
+            if (key == null) {
+                key = research.getName();
+            }
+            AssetHelper.addLangEntry(key, this.getName());
+        }
+        if (this.tooltip != null && !this.tooltip.isEmpty() && !this.tooltip.equals(research.getText())) {
+            String key = AssetHelper.lookupLangEntryByValue(research.getText());
+            if (key == null) {
+                key = research.getText();
+            }
+            AssetHelper.addLangEntry(key, this.getTooltip());
+        }
+        if (this.aspects != null && this.aspects.length > 0) {
+            r.set("tags", this.getAspects());
+        }
+        if (this.parents != null && this.parents.length > 0) {
+            research.parents = this.parents;
+        }
+        if (this.parentsHidden != null && this.parentsHidden.length > 0) {
+            research.parentsHidden = this.parentsHidden;
+        }
+        if (this.siblings != null && this.siblings.length > 0) {
+            research.siblings = this.siblings;
+        }
+        if (this.displayColumn != research.displayColumn) {
+            r.set("displayColumn", this.displayColumn);
+        }
+        if (this.displayRow != research.displayRow) {
+            r.set("displayRow", this.displayRow);
+        }
+        if (this.icon_item != null && !this.icon_item.isEmpty()) {
+            r.set("icon_item", this.getIconItem());
+        }
+        if (this.icon_resource != null && !this.icon_resource.isEmpty()) {
+            r.set("icon_resource", this.getIconResource());
+        }
+        if (this.complexity != research.getComplexity()) {
+            research.setComplexity(this.complexity);
+        }
+        if (this.isSpecial != research.isSpecial()) {
+            r.set("isSpecial", this.isSpecial);
+        }
+        if (this.isSecondary != research.isSecondary()) {
+            r.set("isSecondary", this.isSecondary);
+        }
+        if (this.isRound != research.isRound()) {
+            r.set("isRound", this.isRound);
+        }
+        if (this.isStub != research.isStub()) {
+            r.set("isStub", this.isStub);
+        }
+        if (this.isVirtual != research.isVirtual()) {
+            r.set("isVirtual", this.isVirtual);
+        }
+        if (this.isConcealed != research.isConcealed()) {
+            r.set("isConcealed", this.isConcealed);
+        }
+        if (this.isHidden != research.isHidden()) {
+            r.set("isHidden", this.isHidden);
+        }
+        if (this.isLost != research.isLost()) {
+            r.set("isLost", this.isLost);
+        }
+        if (this.isAutoUnlock != research.isAutoUnlock()) {
+            r.set("isAutoUnlock", this.isAutoUnlock);
+        }
+        if (this.itemTriggers != null && !Arrays.equals(this.getItemTriggers(), research.getItemTriggers())) {
+            research.setItemTriggers(this.getItemTriggers());
+        }
+        if (this.entityTriggers != null && !Arrays.equals(this.entityTriggers, research.getEntityTriggers())) {
+            research.setEntityTriggers(this.entityTriggers);
+        }
+        if (this.aspectTriggers != null && !Arrays.equals(this.getAspectTriggers(), research.getAspectTriggers())) {
+            r.set("aspectTriggers", this.getAspectTriggers());
+        }
+        ResearchPage[] originalPages = research.getPages();
+        int max = Math.max(
+            Arrays.stream(this.pages)
+                .mapToInt(ResearchPageEntry::getNumber)
+                .max()
+                .orElse(0),
+            originalPages.length);
+        ResearchPage[] newPages = new ResearchPage[max];
+        System.arraycopy(originalPages, 0, newPages, 0, originalPages.length);
+        for (ResearchPageEntry page : this.pages) {
+
+            if (page.getType()
+                .equals("text")) {
+                AssetHelper.addLangEntry(AssetHelper.lookupLangEntryByValue(page.getText()), page.getText());
+                AssetHelper.addLangEntry("tc_research_page." + this.getKey() + "." + page.getNumber(), page.getText());
+                newPages[page.getNumber()] = new ResearchPage(page.getText());
+            } else if (page.getType()
+                .equals("picture")) {
+                    AssetHelper
+                        .addLangEntry("tc_research_page." + this.getKey() + "." + page.getNumber(), page.getText());
+                    newPages[page.getNumber()] = new ResearchPage(page.getResource(), page.getText());
+                } else {
+                    newPages[page.getNumber()] = page.getPage();
+                }
+        }
+        r.set("pages", newPages);
+    }
+
+    public String getType() {
+        return type;
+    }
 }
 
 class AspectEntry {
