@@ -21,6 +21,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting strictInfusionMatrixInputChecks;
     public final ToggleSetting unOredictGoldCoin;
     public final ToggleSetting staffFocusEffectFix;
+    public final ToggleSetting craftingManagerAspectCalculation;
 
     public BugfixesModule() {
         addSettings(
@@ -75,7 +76,7 @@ public class BugfixesModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "strictInfusionMatrixInputChecks",
                 "Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting."),
-            unOredictGoldCoin = (ToggleSetting) new ToggleSetting(
+            unOredictGoldCoin = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
                 "unOredictGoldCoin",
@@ -84,7 +85,12 @@ public class BugfixesModule extends BaseConfigModule {
                 this,
                 ConfigPhase.LATE,
                 "staffFocusEffectFix",
-                "Fixes a graphical error where focus effects would appear below the tip of a staff."));
+                "Fixes a graphical error where focus effects would appear below the tip of a staff."),
+            craftingManagerAspectCalculation = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "craftingManagerAspectCalculation",
+                "Fixes a bug where the crafting manager would not calculate the correct aspects for recipes with multiple outputs."));
     }
 
     @Nonnull

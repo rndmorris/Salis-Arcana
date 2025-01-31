@@ -181,7 +181,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.staffFocusEffectFix::isEnabled)
         .addMixinClasses("client.fx.beams.MixinFXBeamWand")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
+    CRAFTING_MANAGER_ASPECT_CALCULATION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.craftingManagerAspectCalculation::isEnabled)
+        .addMixinClasses("lib.MixinCraftingManager")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
