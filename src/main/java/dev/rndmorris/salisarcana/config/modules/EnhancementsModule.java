@@ -56,6 +56,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final CustomResearchSetting thaumometerScanContainersResearch;
     public final ToggleSetting levitatorShiftFix;
     public final ToggleSetting pureNodeBiomeChange;
+    public final ToggleSetting rottenFleshRecipe;
 
     public EnhancementsModule() {
         // spotless:off
@@ -226,7 +227,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.EARLY,
                 "eldritchAltarSpawningMethod",
-                "Override how eldritch altars pick where to try spawning crimson knights and eldritch guardians.")
+                "Override how eldritch altars pick where to try spawning crimson knights and eldritch guardians."),
+            rottenFleshRecipe = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "rottenFleshRecipe",
+                "Add a crafting recipe to convert flesh blocks back into rotten flesh.").setCategory("recipes")
         );
 
         // spotless:on
