@@ -212,9 +212,6 @@ Add a rotated crafting recipe for the Thaumometer.
 ## Config option: `rottenFleshRecipe`
 Add a recipe to convert flesh blocks back into rotten flesh.
 
-## Config option: `rottenFleshRecipe`
-Add a recipe to convert flesh blocks back into rotten flesh.
-
 ## Config option: `crystalClusterUncrafting`
 Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.
 
