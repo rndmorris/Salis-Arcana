@@ -182,6 +182,12 @@ public enum Mixins {
         .addMixinClasses("client.fx.beams.MixinFXBeamWand")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    ARCANE_WORKBENCH_GHOST_ITEM_FIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix::isEnabled)
+        .addMixinClasses("items.MixinItemWandCasting_DisableSpendingCheck")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
