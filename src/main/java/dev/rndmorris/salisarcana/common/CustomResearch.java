@@ -83,8 +83,16 @@ public class CustomResearch {
             return;
         }
         for (ResearchEntry research : researches) {
-            ResearchHelper.registerCustomResearch(research);
-            NetworkHandler.instance.sendToAll(new MessageSendResearch(research));
+            try {
+                if (ResearchHelper.registerCustomResearch(research)) {
+                    NetworkHandler.instance.sendToAll(new MessageSendResearch(research));
+                } else {
+                    LOG.error("Could not register research {}.", research.getKey());
+                }
+            } catch (Exception e) {
+                LOG.error("Could not register research {}.", research.getKey());
+                LOG.error(e);
+            }
         }
         if (Loader.isModLoaded("tc4tweak")) {
             NetworkHandler.instance.sendToAll(new MessageInvalidateCache());
