@@ -67,11 +67,9 @@ public class CustomResearch {
                     ResearchEntry research = ResearchHelper.importResearchFromJson(file);
                     researches.add(research);
                 } catch (IOException e) {
-                    LOG.error("Could not read research file {}.", file.getName());
-                    LOG.error(e);
+                    LOG.error("Could not read research file {}.", file.getName(), e);
                 } catch (JsonSyntaxException e) {
-                    LOG.error("Could not parse research file {}.", file.getName());
-                    LOG.error(e);
+                    LOG.error("Could not parse research file {}.", file.getName(), e);
                 }
             }
         } else {
@@ -90,8 +88,7 @@ public class CustomResearch {
                     LOG.error("Could not register research {}.", research.getKey());
                 }
             } catch (Exception e) {
-                LOG.error("Could not register research {}.", research.getKey());
-                LOG.error(e);
+                LOG.error("Could not register research {}.", research.getKey(), e);
             }
         }
         if (Loader.isModLoaded("tc4tweak")) {
