@@ -65,16 +65,11 @@ public class CustomResearch {
                 }
                 try {
                     ResearchEntry research = ResearchHelper.importResearchFromJson(file);
-                    if (research == null || !research.isEnabled()) {
-                        continue;
-                    }
                     researches.add(research);
                 } catch (IOException e) {
-                    LOG.error("Could not read research file {}.", file.getName());
-                    LOG.error(e);
+                    LOG.error("Could not read research file {}.", file.getName(), e);
                 } catch (JsonSyntaxException e) {
-                    LOG.error("Could not parse research file {}.", file.getName());
-                    LOG.error(e);
+                    LOG.error("Could not parse research file {}.", file.getName(), e);
                 }
             }
         } else {
@@ -86,8 +81,15 @@ public class CustomResearch {
             return;
         }
         for (ResearchEntry research : researches) {
-            ResearchHelper.registerCustomResearch(research);
-            NetworkHandler.instance.sendToAll(new MessageSendResearch(research));
+            try {
+                if (ResearchHelper.registerCustomResearch(research)) {
+                    NetworkHandler.instance.sendToAll(new MessageSendResearch(research));
+                } else {
+                    LOG.error("Could not register research {}.", research.getKey());
+                }
+            } catch (Exception e) {
+                LOG.error("Could not register research {}.", research.getKey(), e);
+            }
         }
         if (Loader.isModLoaded("tc4tweak")) {
             NetworkHandler.instance.sendToAll(new MessageInvalidateCache());
