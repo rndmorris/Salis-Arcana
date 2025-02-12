@@ -214,6 +214,14 @@
       "minItems": 1
     }
   },
-  "required": ["key", "category", "pages", "displayColumn", "displayRow", "tooltip"]
+  "required": ["key", "category", "pages", "displayColumn", "displayRow", "tooltip"],
+  "oneOf": [
+    {
+      "required": ["icon_item"]
+    },
+    {
+      "required": ["icon_resource"]
+    }
+  ]
 }
 
