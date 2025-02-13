@@ -45,12 +45,14 @@ public class MixinScanManager {
         Block block = Block.getBlockFromItem(Item.getItemById(scan.id));
         if (block != null && block.hasTileEntity(scan.meta)) {
             TileEntity tile = block.createTileEntity(player.worldObj, scan.meta);
-            tile.invalidate();
-            if (tile instanceof IInventory && !ScanManager.isValidScanTarget(player, scan, "@")) {
-                if (player.isClientWorld()) {
-                    NetworkHandler.instance.sendToServer(new MessageScanIInventory(scan.id, scan.meta));
+            if (tile != null) { // gt machines can return null here
+                tile.invalidate();
+                if (tile instanceof IInventory && !ScanManager.isValidScanTarget(player, scan, "@")) {
+                    if (player.isClientWorld()) {
+                        NetworkHandler.instance.sendToServer(new MessageScanIInventory(scan.id, scan.meta));
+                    }
+                    cir.cancel();
                 }
-                cir.cancel();
             }
         }
     }
