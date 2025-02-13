@@ -16,8 +16,10 @@ public class BiomeColorModule extends BaseConfigModule {
     public final BiomeColorsSettings taint;
 
     public BiomeColorModule() {
+        setEnabled(false); // the module is slated for removal, and should default to disabled
+
         addSettings(
-            acknowledgeDeprecation = (ToggleSetting) new ToggleSetting(
+            acknowledgeDeprecation = new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
                 "acknowledgeDeprecation",
