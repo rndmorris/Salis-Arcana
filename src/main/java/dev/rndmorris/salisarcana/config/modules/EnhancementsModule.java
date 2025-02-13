@@ -218,7 +218,7 @@ public class EnhancementsModule extends BaseConfigModule {
                 thaumometerScanResearchEnabled,
                 ConfigPhase.EARLY,
                 "thaumometerScanContainersResearch",
-                "Research required to unlock the ability to scan the contents of inventories with the Thaumometer.", "CHESTSCAN"),
+                "Research required to unlock the ability to scan the contents of inventories with the Thaumometer.", "salisarcana:CHESTSCAN"),
             levitatorShiftFix = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
