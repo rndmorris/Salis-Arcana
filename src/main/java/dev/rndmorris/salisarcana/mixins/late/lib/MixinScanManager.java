@@ -45,7 +45,7 @@ public class MixinScanManager {
         Block block = Block.getBlockFromItem(Item.getItemById(scan.id));
         if (block != null && block.hasTileEntity(scan.meta)) {
             TileEntity tile = block.createTileEntity(player.worldObj, scan.meta);
-            if (tile != null){ // gt machines can return null here
+            if (tile != null) { // gt machines can return null here
                 tile.invalidate();
                 if (tile instanceof IInventory && !ScanManager.isValidScanTarget(player, scan, "@")) {
                     if (player.isClientWorld()) {
