@@ -28,6 +28,7 @@ public class MixinTileInfusionMatrix_IntegerStabilizers extends TileThaumcraft {
         method = "getSurroundings",
         at = @At(value = "CONSTANT", args = "floatValue=0.0", ordinal = 0),
         cancellable = true)
+    // Inject is used because we want to force an early exit from the entire method.
     private void calculateStabilizers(CallbackInfo ci, @Local ArrayList<ChunkCoordinates> stuff) {
         // inject immediately before the matrix starts calculating infusion stabilizers
         var instabilityModifier = 0;

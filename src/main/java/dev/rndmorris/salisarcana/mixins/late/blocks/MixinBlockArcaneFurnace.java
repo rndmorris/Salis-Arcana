@@ -4,19 +4,21 @@ import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import thaumcraft.common.blocks.BlockArcaneFurnace;
 
 @Mixin(BlockArcaneFurnace.class)
-public class MixinBlockArcaneFurnace {
+public abstract class MixinBlockArcaneFurnace {
 
-    @Inject(method = "onEntityCollidedWithBlock", at = @At(value = "HEAD"), cancellable = true)
-    private void mixinOnEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity, CallbackInfo ci) {
+    @WrapMethod(method = "onEntityCollidedWithBlock")
+    private void mixinOnEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity,
+        Operation<Void> original) {
         if (entity.isDead) {
-            ci.cancel();
+            return;
         }
+        original.call(world, x, y, z, entity);
     }
 }

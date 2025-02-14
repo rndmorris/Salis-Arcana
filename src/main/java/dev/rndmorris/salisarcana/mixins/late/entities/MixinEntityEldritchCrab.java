@@ -5,9 +5,9 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import thaumcraft.common.entities.monster.EntityEldritchCrab;
 
@@ -18,11 +18,11 @@ public abstract class MixinEntityEldritchCrab extends EntityMob {
         super(p_i1738_1_);
     }
 
-    @Inject(method = "attackEntityAsMob", at = @At("HEAD"), cancellable = true)
-    public void onAttackEntityAsMob(Entity entity, CallbackInfoReturnable<Boolean> ci) {
+    @WrapMethod(method = "attackEntityAsMob")
+    private boolean onAttackEntityAsMob(Entity entity, Operation<Boolean> original) {
         if (!this.isEntityAlive()) {
-            ci.setReturnValue(false);
-            ci.cancel();
+            return false;
         }
+        return original.call(entity);
     }
 }
