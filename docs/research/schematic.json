@@ -4,6 +4,15 @@
   "description": "A Thaumcraft research to add or modify.",
   "type": "object",
   "properties": {
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether this research is enabled. If false, the research will not be added or modified."
+    },
+    "action": {
+      "type": "string",
+      "description": "Whether this will create, replace, or update a research.",
+      "enum": ["create", "replace", "update"]
+    },
     "key": {
       "type": "string",
       "description": "The unique key for this research. If this key already exists, the research will be updated."
@@ -205,6 +214,14 @@
       "minItems": 1
     }
   },
-  "required": ["key", "category", "pages", "displayColumn", "displayRow", "tooltip"]
+  "required": ["key", "category", "pages", "displayColumn", "displayRow", "tooltip"],
+  "oneOf": [
+    {
+      "required": ["icon_item"]
+    },
+    {
+      "required": ["icon_resource"]
+    }
+  ]
 }
 
