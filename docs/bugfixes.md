@@ -74,8 +74,16 @@ Reduce the burn time of Thaumcraft's greatwood and silverwood slabs to match tha
 
 Fixes a graphical error where focus effects would appear below the tip of a staff.
 
-## Arcane Workbench Ghost Item Fix
+## Arcane Workbench Fixes
+
+### Fix Ghost Items After Shift-Click Crafting
 
 **Config option:** `arcaneWorkbenchGhostItemFix`
 
 Fixes ghost items being crafted in the arcane workbench after the wand runs out of vis during a shift-click craft.
+
+### Allow Crafting After Wand Runs Out Of Vis & Is Recharged
+
+**Config option:** `arcaneWorkbenchAllowRechargeCrafting`
+
+Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay.
