@@ -63,7 +63,6 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public final ToggleSetting staffterNameTooltip;
 
-
     public EnhancementsModule() {
         // spotless:off
         addSettings(

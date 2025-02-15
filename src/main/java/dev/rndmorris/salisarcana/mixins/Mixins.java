@@ -308,8 +308,7 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.staffterNameTooltip::isEnabled)
         .addMixinClasses("items.MixinItemWandCasting_NamedStaffters")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    ;
+        .addTargetedMod(TargetedMod.THAUMCRAFT));
 
     private final List<String> mixinClasses;
     private final List<TargetedMod> targetedMods;
