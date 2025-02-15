@@ -1,3 +1,5 @@
 salisarcana:tcinventoryscan.scanning=Сканируем
 salisarcana:tcinventoryscan.thaumometerTooltip=Доступно сканирование инвентаря
 salisarcana:tcinventoryscan.thaumometerTooltipMore=Наведите таумометр на предмет,\nчтобы изучить его.
+
+item.Wand.staffter.obj=посохипетр
