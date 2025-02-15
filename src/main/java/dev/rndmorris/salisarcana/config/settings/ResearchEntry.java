@@ -33,6 +33,7 @@ import thaumcraft.api.research.ResearchPage;
 import thaumcraft.common.config.ConfigResearch;
 
 public class ResearchEntry {
+
     private boolean enabled;
     @SerializedName("action")
     private String type;
@@ -143,6 +144,7 @@ public class ResearchEntry {
     public boolean isEnabled() {
         return enabled;
     }
+
     public String getKey() {
         return key;
     }
