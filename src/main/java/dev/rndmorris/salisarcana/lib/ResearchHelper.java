@@ -253,6 +253,17 @@ public class ResearchHelper {
             return true;
         }
 
+        ResearchItem original = ResearchCategories.getResearch(research.getKey());
+        if (original != null) {
+            research.updateResearchItem(original);
+            return true;
+        }
+        LOG.info("Registering custom research: {}", research.getKey());
+        ResearchItem newResearch = new ResearchItem(research.getKey(), research.getCategory());
+        research.updateResearchItem(newResearch);
+        ResearchCategoryList categoryList = ResearchCategories.getResearchList(research.getCategory());
+        categoryList.research.put(research.getKey(), newResearch);
+        newResearch.registerResearchItem();
         return true;
     }
 
