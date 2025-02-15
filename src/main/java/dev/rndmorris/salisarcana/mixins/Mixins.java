@@ -304,7 +304,11 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileEldritchAltar_SpawnMobs")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    ;
+    NAMED_STAFFTERS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.staffterNameTooltip::isEnabled)
+        .addMixinClasses("items.MixinItemWandCasting_NamedStaffters")
+        .addTargetedMod(TargetedMod.THAUMCRAFT));
 
     private final List<String> mixinClasses;
     private final List<TargetedMod> targetedMods;
