@@ -84,4 +84,7 @@ public class CommonProxy {
         }
     }
 
+    public boolean isSingleplayerClient() {
+        return false;
+    }
 }
