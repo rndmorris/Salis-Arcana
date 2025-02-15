@@ -9,7 +9,6 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 public class MixinItemWandCasting_DisableSpendingCheck {
     @ModifyExpressionValue(method = "consumeAllVis", at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z"))
     private boolean isRemoteOverride(boolean isRemote) {
-        System.out.println("Spending vis on " + (isRemote ? "client" : "server"));
         return false;
     }
 }
