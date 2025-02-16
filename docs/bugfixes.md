@@ -73,3 +73,9 @@ Reduce the burn time of Thaumcraft's greatwood and silverwood slabs to match tha
 **Config option:** `staffFocusEffectFix`
 
 Fixes a graphical error where focus effects would appear below the tip of a staff.
+
+## Arcane Workbench Ghost Item Fix
+
+**Config option:** `arcaneWorkbenchGhostItemFix`
+
+Fixes ghost items being crafted in the arcane workbench after the wand runs out of vis during a shift-click craft.

@@ -18,7 +18,7 @@ public abstract class MixinEntityTaintacle extends EntityMob {
         super(p_i1738_1_);
     }
 
-    @Inject(method = "attackEntity", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "attackEntity", at = @At("HEAD"), cancellable = true)
     public void onAttackEntity(Entity entity, float distance, CallbackInfo ci) {
         if (!this.isEntityAlive()) {
             ci.cancel();

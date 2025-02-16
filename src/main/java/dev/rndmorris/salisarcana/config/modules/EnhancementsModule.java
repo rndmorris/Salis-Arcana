@@ -61,6 +61,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting rottenFleshRecipe;
     public final ToggleSetting crystalClusterUncrafting;
 
+    public final ToggleSetting staffterNameTooltip;
+
     public EnhancementsModule() {
         // spotless:off
         addSettings(
@@ -86,6 +88,11 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "enableLookalikePlanks",
                 "Add look-a-like greatwood and silverwood planks that behave as normal planks, instead of the weirdness of TC4's planks."),
+            staffterNameTooltip = new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "staffterNameTooltip",
+                "Causes staffters to use their own translation string rather than being called \"Staff\" in the tooltip."),
             nodeModifierWeights = new IntArraySetting(
                 this,
                 ConfigPhase.EARLY,

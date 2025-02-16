@@ -20,7 +20,7 @@ public class MixinEntityThaumicSlime extends EntityMob {
         super(p_i1738_1_);
     }
 
-    @Inject(method = "onCollideWithPlayer", at = @At("HEAD"), remap = false, cancellable = true)
+    @Inject(method = "onCollideWithPlayer", at = @At("HEAD"), cancellable = true)
     public void onOnCollideWithPlayer(EntityPlayer player, CallbackInfo ci) {
         if (!this.isEntityAlive()) {
             ci.cancel();
