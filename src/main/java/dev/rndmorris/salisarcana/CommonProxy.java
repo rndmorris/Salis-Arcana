@@ -94,6 +94,10 @@ public class CommonProxy {
         }
     }
 
+    public boolean isSingleplayerClient() {
+        return false;
+    }
+
     @SubscribeEvent
     public void onClientConnect(PlayerEvent.PlayerLoggedInEvent event) {
         CustomResearch.registerResearchFromFiles();
