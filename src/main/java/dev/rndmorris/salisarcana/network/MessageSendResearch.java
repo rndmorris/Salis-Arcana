@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import dev.rndmorris.salisarcana.config.settings.ResearchEntry;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
+import dev.rndmorris.salisarcana.lib.customresearch.ResearchEntry;
 import io.netty.buffer.ByteBuf;
 
 public class MessageSendResearch implements IMessage, IMessageHandler<MessageSendResearch, IMessage> {

@@ -1,18 +1,11 @@
-package dev.rndmorris.salisarcana.config.settings;
+package dev.rndmorris.salisarcana.lib.customresearch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -20,17 +13,12 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.lib.AssetHelper;
 import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.lib.StringHelper;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.ResearchPageEntry;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.crafting.CrucibleRecipe;
-import thaumcraft.api.crafting.IArcaneRecipe;
-import thaumcraft.api.crafting.InfusionRecipe;
-import thaumcraft.api.crafting.ShapedArcaneRecipe;
-import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
-import thaumcraft.common.config.ConfigResearch;
 
 public class ResearchEntry {
 
@@ -136,7 +124,7 @@ public class ResearchEntry {
         }
         this.pages = new ResearchPageEntry[research.getPages().length];
         for (int j = 0; j < research.getPages().length; j++) {
-            this.pages[j] = new ResearchPageEntry(research.getPages()[j], j);
+            this.pages[j] = ResearchPageEntry.create(research.getPages()[j], j);
         }
 
     }
@@ -260,20 +248,8 @@ public class ResearchEntry {
         research.setAspectTriggers(this.getAspectTriggers());
         List<ResearchPage> pages = new ArrayList<>();
         for (ResearchPageEntry entry : this.pages) {
-            if (entry.getType()
-                .equals("text")) {
-                AssetHelper.addLangEntry(AssetHelper.lookupLangEntryByValue(entry.getText()), entry.getText());
-                AssetHelper
-                    .addLangEntry("tc_research_page." + this.getKey() + "." + entry.getNumber(), entry.getText());
-                pages.add(new ResearchPage(entry.getText()));
-            } else if (entry.getType()
-                .equals("picture")) {
-                    AssetHelper
-                        .addLangEntry("tc_research_page." + this.getKey() + "." + entry.getNumber(), entry.getText());
-                    pages.add(new ResearchPage(entry.getResource(), entry.getText()));
-                } else {
-                    pages.add(entry.getPage());
-                }
+            entry.createLangEntries(this.getKey());
+            pages.add(entry.getPage());
         }
         research.setPages(pages.toArray(new ResearchPage[0]));
     }
@@ -372,309 +348,13 @@ public class ResearchEntry {
         ResearchPage[] newPages = new ResearchPage[max];
         System.arraycopy(originalPages, 0, newPages, 0, originalPages.length);
         for (ResearchPageEntry page : this.pages) {
-
-            if (page.getType()
-                .equals("text")) {
-                AssetHelper.addLangEntry(AssetHelper.lookupLangEntryByValue(page.getText()), page.getText());
-                AssetHelper.addLangEntry("tc_research_page." + this.getKey() + "." + page.getNumber(), page.getText());
-                newPages[page.getNumber()] = new ResearchPage(page.getText());
-            } else if (page.getType()
-                .equals("picture")) {
-                    AssetHelper
-                        .addLangEntry("tc_research_page." + this.getKey() + "." + page.getNumber(), page.getText());
-                    newPages[page.getNumber()] = new ResearchPage(page.getResource(), page.getText());
-                } else {
-                    newPages[page.getNumber()] = page.getPage();
-                }
+            page.createLangEntries(this.getKey());
+            newPages[page.getNumber()] = page.getPage();
         }
         r.set("pages", newPages);
     }
 
     public String getType() {
         return type;
-    }
-}
-
-class AspectEntry {
-
-    public String aspect;
-    public int amount;
-
-    public String getAspect() {
-        return aspect;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public static AspectList getAspects(AspectEntry[] aspects) {
-        AspectList aspectList = new AspectList();
-        for (AspectEntry entry : aspects) {
-            aspectList.add(Aspect.getAspect(entry.getAspect()), entry.getAmount());
-        }
-        return aspectList;
-    }
-
-    public static AspectEntry[] fromAspectList(AspectList aspects) {
-
-        return aspects.aspects.entrySet()
-            .stream()
-            .map(entry -> {
-                var aspectEntry = new AspectEntry();
-                aspectEntry.aspect = entry.getKey()
-                    .getTag();
-                aspectEntry.amount = entry.getValue();
-                return aspectEntry;
-            })
-            .toArray(AspectEntry[]::new);
-    }
-
-}
-
-class ResearchPageEntry {
-
-    @SerializedName("pageType")
-    public String type;
-    public int number;
-    public String text = "";
-    public ItemEntry item = null;
-    public String resource = "";
-    public AspectEntry[] aspects;
-
-    public ResearchPageEntry() {
-
-    }
-
-    public ResearchPageEntry(ResearchPage page, int index) {
-        switch (page.type) {
-            case TEXT: {
-                type = "text";
-                number = index;
-                text = StatCollector.translateToLocal(page.text);
-                return;
-            }
-            case IMAGE: {
-                type = "picture";
-                number = index;
-                text = StatCollector.translateToLocal(page.text);
-                resource = page.image.toString();
-                return;
-            }
-            case ARCANE_CRAFTING:
-            case CRUCIBLE_CRAFTING:
-            case INFUSION_CRAFTING:
-            case NORMAL_CRAFTING:
-            case SMELTING: {
-
-                type = switch (page.type) {
-                    case ARCANE_CRAFTING -> "arcane";
-                    case CRUCIBLE_CRAFTING -> "crucible";
-                    case INFUSION_CRAFTING -> "infusion";
-                    case SMELTING -> "smelting";
-                    default -> "crafting";
-                };
-                number = index;
-                item = new ItemEntry();
-                GameRegistry.UniqueIdentifier identifier = GameRegistry
-                    .findUniqueIdentifierFor(page.recipeOutput.getItem());
-                if (identifier == null) {
-                    return;
-                }
-                item.item = identifier.toString();
-                item.meta = page.recipeOutput.getItemDamage();
-                item.amount = page.recipeOutput.stackSize;
-                return;
-            }
-            case ASPECTS:
-                type = "aspect";
-                number = index;
-                aspects = page.aspects.aspects.entrySet()
-                    .stream()
-                    .map(entry -> {
-                        var aspectEntry = new AspectEntry();
-                        aspectEntry.aspect = entry.getKey()
-                            .getTag();
-                        aspectEntry.amount = entry.getValue();
-                        return aspectEntry;
-                    })
-                    .toArray(AspectEntry[]::new);
-                return;
-        }
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public ResourceLocation getResource() {
-        return new ResourceLocation(resource);
-    }
-
-    public ResearchPage getPage() {
-        ItemStack stack;
-        switch (type) {
-            case "arcane":
-                stack = StringHelper.parseItemFromString(item.getItem());
-                if (stack == null) {
-                    return null;
-                }
-                stack.stackSize = item.getAmount();
-                stack.setItemDamage(item.getMeta());
-                for (Map.Entry<String, Object> entry : ConfigResearch.recipes.entrySet()) {
-                    if (entry.getValue() instanceof ShapedArcaneRecipe
-                        || entry.getValue() instanceof ShapelessArcaneRecipe) {
-                        IArcaneRecipe recipe = (IArcaneRecipe) entry.getValue();
-                        if (recipe.getRecipeOutput()
-                            .isItemEqual(stack)) {
-                            return new ResearchPage(recipe);
-                        }
-                    } else if (entry.getValue() instanceof ShapedArcaneRecipe[]
-                        || entry.getValue() instanceof ShapelessArcaneRecipe[]) {
-                            IArcaneRecipe[] recipe = (IArcaneRecipe[]) entry.getValue();
-                            for (IArcaneRecipe recipe_ : recipe) {
-                                if (recipe_.getRecipeOutput()
-                                    .isItemEqual(stack)) {
-                                    return new ResearchPage(recipe);
-                                }
-                            }
-                        }
-                }
-                break;
-            case "aspect":
-                return new ResearchPage(this.getAspects());
-            case "crafting":
-                for (Object obj : CraftingManager.getInstance()
-                    .getRecipeList()) {
-                    if (obj instanceof ShapedRecipes || obj instanceof ShapelessRecipes) {
-                        IRecipe recipe = (IRecipe) obj;
-                        if (recipe.getRecipeOutput()
-                            .isItemEqual(StringHelper.parseItemFromString(item.getItem()))) {
-                            return new ResearchPage(recipe);
-                        }
-                    } else if (obj instanceof ShapedRecipes[] || obj instanceof ShapelessRecipes[]) {
-                        IRecipe[] recipe = (IRecipe[]) obj;
-                        for (IRecipe recipe_ : recipe) {
-                            if (recipe_.getRecipeOutput()
-                                .isItemEqual(StringHelper.parseItemFromString(item.getItem()))) {
-                                return new ResearchPage(recipe_);
-                            }
-                        }
-                    }
-                }
-            case "crucible":
-                stack = StringHelper.parseItemFromString(item.getItem());
-                if (stack == null) {
-                    return null;
-                }
-                stack.stackSize = item.getAmount();
-                stack.setItemDamage(item.getMeta());
-                for (Map.Entry<String, Object> entry : ConfigResearch.recipes.entrySet()) {
-                    if (entry.getValue() instanceof CrucibleRecipe recipe) {
-                        if (recipe.getRecipeOutput()
-                            .isItemEqual(stack)) {
-                            return new ResearchPage(entry.getKey());
-                        }
-                    }
-                }
-                break;
-            case "infusion":
-                stack = StringHelper.parseItemFromString(item.getItem());
-                if (stack == null) {
-                    return null;
-                }
-                stack.stackSize = item.getAmount();
-                stack.setItemDamage(item.getMeta());
-                for (Map.Entry<String, Object> entry : ConfigResearch.recipes.entrySet()) {
-                    if (entry.getValue() instanceof InfusionRecipe recipe) {
-                        if (((ItemStack) recipe.getRecipeOutput()).isItemEqual(stack)) {
-                            return new ResearchPage(entry.getKey());
-                        }
-                    }
-                }
-                break;
-            case "smelting":
-                stack = StringHelper.parseItemFromString(item.getItem());
-                if (stack == null) {
-                    return null;
-                }
-                stack.stackSize = item.getAmount();
-                stack.setItemDamage(item.getMeta());
-                for (Map.Entry<ItemStack, ItemStack> entry : FurnaceRecipes.smelting()
-                    .getSmeltingList()
-                    .entrySet()) {
-                    if (entry.getValue()
-                        .isItemEqual(stack)) {
-                        return new ResearchPage(entry.getKey());
-                    }
-                }
-                break;
-        }
-        return null;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public AspectList getAspects() {
-        return AspectEntry.getAspects(aspects);
-    }
-}
-
-class ItemEntry {
-
-    public String item;
-    public int meta;
-    public int amount;
-
-    public String getItem() {
-        return item;
-    }
-
-    public int getMeta() {
-        return meta;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public static ItemStack getItemStack(ItemEntry entry) {
-        ItemStack stack = StringHelper.parseItemFromString(entry.getItem());
-        if (stack == null) {
-            return null;
-        }
-        stack.setItemDamage(entry.getMeta());
-        stack.stackSize = entry.getAmount();
-        return stack;
-    }
-
-    public static ItemStack[] getItemStacks(ItemEntry[] entries) {
-        ItemStack[] stacks = new ItemStack[entries.length];
-        for (int i = 0; i < entries.length; i++) {
-            stacks[i] = getItemStack(entries[i]);
-            if (stacks[i] == null) {
-                return null;
-            }
-        }
-        return stacks;
-    }
-
-    public static ItemEntry fromItemStack(ItemStack stack) {
-        GameRegistry.UniqueIdentifier identifier = GameRegistry.findUniqueIdentifierFor(stack.getItem());
-        if (identifier == null) {
-            return null;
-
-        }
-        ItemEntry item = new ItemEntry();
-        item.item = identifier.toString();
-        item.meta = stack.getItemDamage();
-        item.amount = stack.stackSize;
-        return item;
     }
 }

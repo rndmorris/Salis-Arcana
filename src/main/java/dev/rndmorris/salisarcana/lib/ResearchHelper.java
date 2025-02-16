@@ -31,7 +31,16 @@ import com.mojang.authlib.GameProfile;
 
 import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
-import dev.rndmorris.salisarcana.config.settings.ResearchEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.ResearchEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.ArcaneResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.AspectResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.CraftingResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.CrucibleResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.InfusionResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.PictureResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.ResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.SmeltingResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.TextResearchPageEntry;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
@@ -46,7 +55,18 @@ public class ResearchHelper {
 
     public static synchronized Gson researchGson() {
         if (_researchGson == null) {
-            _researchGson = new GsonBuilder().setPrettyPrinting()
+            RuntimeTypeAdapterFactory<ResearchPageEntry> typeFactory = RuntimeTypeAdapterFactory
+                .of(ResearchPageEntry.class, "pageType")
+                .registerSubtype(ArcaneResearchPageEntry.class, "arcane")
+                .registerSubtype(AspectResearchPageEntry.class, "aspect")
+                .registerSubtype(CraftingResearchPageEntry.class, "crafting")
+                .registerSubtype(CrucibleResearchPageEntry.class, "crucible")
+                .registerSubtype(InfusionResearchPageEntry.class, "infusion")
+                .registerSubtype(PictureResearchPageEntry.class, "picture")
+                .registerSubtype(SmeltingResearchPageEntry.class, "smelting")
+                .registerSubtype(TextResearchPageEntry.class, "text");
+            _researchGson = new GsonBuilder().registerTypeAdapterFactory(typeFactory)
+                .setPrettyPrinting()
                 .create();
         }
         return _researchGson;
