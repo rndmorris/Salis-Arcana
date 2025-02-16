@@ -162,11 +162,7 @@ public class ResearchEntry {
     }
 
     public AspectList getAspects() {
-        AspectList aspectList = new AspectList();
-        for (AspectEntry entry : aspects) {
-            aspectList.add(Aspect.getAspect(entry.getAspect()), entry.getAmount());
-        }
-        return aspectList;
+        return AspectEntry.getAspects(aspects);
     }
 
     public ItemStack getIconItem() {
@@ -411,6 +407,29 @@ class AspectEntry {
     public int getAmount() {
         return amount;
     }
+
+    public static AspectList getAspects(AspectEntry[] aspects) {
+        AspectList aspectList = new AspectList();
+        for (AspectEntry entry : aspects) {
+            aspectList.add(Aspect.getAspect(entry.getAspect()), entry.getAmount());
+        }
+        return aspectList;
+    }
+
+    public static AspectEntry[] fromAspectList(AspectList aspects) {
+
+        return aspects.aspects.entrySet()
+            .stream()
+            .map(entry -> {
+                var aspectEntry = new AspectEntry();
+                aspectEntry.aspect = entry.getKey()
+                    .getTag();
+                aspectEntry.amount = entry.getValue();
+                return aspectEntry;
+            })
+            .toArray(AspectEntry[]::new);
+    }
+
 }
 
 class ResearchPageEntry {
@@ -603,13 +622,8 @@ class ResearchPageEntry {
     }
 
     public AspectList getAspects() {
-        AspectList aspectList = new AspectList();
-        for (AspectEntry entry : aspects) {
-            aspectList.add(Aspect.getAspect(entry.getAspect()), entry.getAmount());
-        }
-        return aspectList;
+        return AspectEntry.getAspects(aspects);
     }
-
 }
 
 class ItemEntry {
@@ -628,5 +642,39 @@ class ItemEntry {
 
     public int getAmount() {
         return amount;
+    }
+
+    public static ItemStack getItemStack(ItemEntry entry) {
+        ItemStack stack = StringHelper.parseItemFromString(entry.getItem());
+        if (stack == null) {
+            return null;
+        }
+        stack.setItemDamage(entry.getMeta());
+        stack.stackSize = entry.getAmount();
+        return stack;
+    }
+
+    public static ItemStack[] getItemStacks(ItemEntry[] entries) {
+        ItemStack[] stacks = new ItemStack[entries.length];
+        for (int i = 0; i < entries.length; i++) {
+            stacks[i] = getItemStack(entries[i]);
+            if (stacks[i] == null) {
+                return null;
+            }
+        }
+        return stacks;
+    }
+
+    public static ItemEntry fromItemStack(ItemStack stack) {
+        GameRegistry.UniqueIdentifier identifier = GameRegistry.findUniqueIdentifierFor(stack.getItem());
+        if (identifier == null) {
+            return null;
+
+        }
+        ItemEntry item = new ItemEntry();
+        item.item = identifier.toString();
+        item.meta = stack.getItemDamage();
+        item.amount = stack.stackSize;
+        return item;
     }
 }
