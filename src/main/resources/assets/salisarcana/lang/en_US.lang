@@ -103,6 +103,10 @@ salisarcana:command.upgrade-focus.noUpgrades=No focus upgrades specified.
 salisarcana:command.upgrade-focus.tooManyUpgrades=%d focus upgrade(s) could not be applied due to the five-upgrade limit. 
 salisarcana:command.upgrade-focus.success=All focus upgrades applied successfully.
 
+salisarcana:commands.export-research.success=§9Success:§r Exported %s research to %s.
+salisarcana:commands.export-research.usage=/salisarcana-export-research --research <research-key> [--overwrite]
+salisarcana:commands.export-research.failed=§cFailure:§r Failed to export %s. Research likely has unsupported properties.
+
 salisarcana:error.invalid_aspect="%s" is not a known aspect.
 salisarcana:error.invalid_focus_upgrade=%s is not a known focus upgrade.
 salisarcana:error.invalid_node_modifier=%s is not a known node modifier.
@@ -136,3 +140,5 @@ tc.research_page.salisarcana:REPLACEWANDCORE.0=With proper technique, a casting 
 tc.research_name.salisarcana:CHESTSCAN=Container Scanning
 tc.research_text.salisarcana:CHESTSCAN=Looking a little closer
 tc.research_page.salisarcana:CHESTSCAN.0=Thanks to your research about deconstructing items, you've learned to look inside other blocks with your Thaumometer by using it to "deconstruct" the block magically. You can scan any block that can hold items, such as a chest or hopper, to scan all contained items automatically.
+
+item.Wand.staffter.obj=Staffter

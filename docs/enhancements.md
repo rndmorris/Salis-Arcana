@@ -21,6 +21,12 @@ Want tainted lands to look like The Crimson? Want the eerie biome that manifests
 Adds decorative Greatwood and Silverwood plank blocks that behave as normal blocks should. Allows using those textures
 while avoiding the weirdness in Thaumcraft's plank blocks implementation.
 
+## Staffter Custom Name
+
+**Config option:** `staffterNameTooltip`
+
+Causes staffters to use their own translation string rather than being called "Staff" in the tooltip.
+
 ## Increased Item Stack Size
 
 Config Option: `eldritchObjectStackSize`
