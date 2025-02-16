@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
-import dev.rndmorris.salisarcana.common.compat.ModCompat;
+import dev.rndmorris.salisarcana.common.compat.MixinModCompat;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 
 public enum Mixins {
@@ -138,7 +138,8 @@ public enum Mixins {
     BLOCKCANDLE_OOB(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(
-            () -> ConfigModuleRoot.bugfixes.candleRendererCrashes.isEnabled() && !ModCompat.disableBlockCandleFixes)
+            () -> ConfigModuleRoot.bugfixes.candleRendererCrashes.isEnabled()
+                && !MixinModCompat.disableBlockCandleFixes)
         .addMixinClasses("blocks.MixinBlockCandleRenderer", "blocks.MixinBlockCandle")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     DEAD_MOBS_DONT_ATTACK(new Builder().setPhase(Phase.LATE)
@@ -242,7 +243,7 @@ public enum Mixins {
 
     WAND_PEDESTAL_CV(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(() -> ConfigModuleRoot.enhancements.wandPedestalUseCV.isEnabled() && !ModCompat.disableWandCV)
+        .setApplyIf(() -> ConfigModuleRoot.enhancements.wandPedestalUseCV.isEnabled() && !MixinModCompat.disableWandCV)
         .addMixinClasses("tiles.MixinTileWandPedestal")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
@@ -316,6 +317,11 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.staffterNameTooltip::isEnabled)
         .addMixinClasses("items.MixinItemWandCasting_NamedStaffters")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    PRIMAL_CRUSHER_OREDICT_COMPAT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
+        .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
         .addTargetedMod(TargetedMod.THAUMCRAFT));
 
     private final List<String> mixinClasses;
