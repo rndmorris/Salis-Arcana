@@ -185,7 +185,9 @@ public enum Mixins {
     ARCANE_WORKBENCH_GHOST_ITEM_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix::isEnabled)
-        .addMixinClasses("items.MixinItemWandCasting_DisableSpendingCheck", "tiles.MixinTileMagicWorkbench_GhostItemFix")
+        .addMixinClasses(
+            "items.MixinItemWandCasting_DisableSpendingCheck",
+            "tiles.MixinTileMagicWorkbench_GhostItemFix")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements

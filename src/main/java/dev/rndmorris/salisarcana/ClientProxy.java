@@ -37,6 +37,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public boolean isSingleplayerClient() {
-        return Minecraft.getMinecraft().isSingleplayer();
+        return Minecraft.getMinecraft()
+            .isSingleplayer();
     }
 }
