@@ -2,9 +2,6 @@ package dev.rndmorris.salisarcana;
 
 import java.util.Map;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiChat;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
