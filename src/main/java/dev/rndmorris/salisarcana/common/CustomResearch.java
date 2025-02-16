@@ -81,6 +81,9 @@ public class CustomResearch {
             return;
         }
         for (ResearchEntry research : researches) {
+            if (!research.isEnabled()) {
+                continue;
+            }
             try {
                 if (ResearchHelper.registerCustomResearch(research)) {
                     NetworkHandler.instance.sendToAll(new MessageSendResearch(research));

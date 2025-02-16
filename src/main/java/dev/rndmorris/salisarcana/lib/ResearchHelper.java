@@ -221,50 +221,40 @@ public class ResearchHelper {
                 LOG.error("Research entry {} category missing or invalid.", research.getKey());
                 return false;
             }
-        if (research.getType()
-            .equals("create")) {
-            LOG.info("Registering custom research: {}", research.getKey());
-            ResearchItem newResearch = new ResearchItem(research.getKey(), research.getCategory());
-            research.updateResearchItem(newResearch);
-            ResearchCategoryList categoryList = ResearchCategories.getResearchList(research.getCategory());
-            categoryList.research.put(research.getKey(), newResearch);
-            newResearch.registerResearchItem();
-            return true;
-        }
-        if (research.getType()
-            .equals("replace")) {
-            LOG.info("Replacing research: {}", research.getKey());
-            ResearchItem original = ResearchCategories.getResearch(research.getKey());
-            String originalCategory = original.category;
-            if (!originalCategory.equals(research.getCategory())) {
-                ResearchCategoryList originalList = ResearchCategories.getResearchList(originalCategory);
-                originalList.research.remove(research.getKey());
-                ResearchCategoryList newList = ResearchCategories.getResearchList(research.getCategory());
-                newList.research.put(research.getKey(), original);
+        switch (research.getType()) {
+            case "create" -> {
+                LOG.info("Registering custom research: {}", research.getKey());
+                ResearchItem newResearch = new ResearchItem(research.getKey(), research.getCategory());
+                research.updateResearchItem(newResearch);
+                ResearchCategoryList categoryList = ResearchCategories.getResearchList(research.getCategory());
+                categoryList.research.put(research.getKey(), newResearch);
+                newResearch.registerResearchItem();
+                return true;
             }
-            research.updateResearchItem(original);
-            return true;
+            case "replace" -> {
+                LOG.info("Replacing research: {}", research.getKey());
+                ResearchItem original = ResearchCategories.getResearch(research.getKey());
+                String originalCategory = original.category;
+                if (!originalCategory.equals(research.getCategory())) {
+                    ResearchCategoryList originalList = ResearchCategories.getResearchList(originalCategory);
+                    originalList.research.remove(research.getKey());
+                    ResearchCategoryList newList = ResearchCategories.getResearchList(research.getCategory());
+                    newList.research.put(research.getKey(), original);
+                }
+                research.updateResearchItem(original);
+                return true;
+            }
+            case "update" -> {
+                LOG.info("Updating research: {}", research.getKey());
+                ResearchItem original = ResearchCategories.getResearch(research.getKey());
+                research.updateResearchItem(original);
+                return true;
+            }
+            default -> {
+                LOG.error("Research entry {} has invalid type: {}", research.getKey(), research.getType());
+                return false;
+            }
         }
-        if (research.getType()
-            .equals("update")) {
-            LOG.info("Updating research: {}", research.getKey());
-            ResearchItem original = ResearchCategories.getResearch(research.getKey());
-            research.updateResearchItem(original);
-            return true;
-        }
-
-        ResearchItem original = ResearchCategories.getResearch(research.getKey());
-        if (original != null) {
-            research.updateResearchItem(original);
-            return true;
-        }
-        LOG.info("Registering custom research: {}", research.getKey());
-        ResearchItem newResearch = new ResearchItem(research.getKey(), research.getCategory());
-        research.updateResearchItem(newResearch);
-        ResearchCategoryList categoryList = ResearchCategories.getResearchList(research.getCategory());
-        categoryList.research.put(research.getKey(), newResearch);
-        newResearch.registerResearchItem();
-        return true;
     }
 
     public static boolean registerCustomResearch(String json) {
