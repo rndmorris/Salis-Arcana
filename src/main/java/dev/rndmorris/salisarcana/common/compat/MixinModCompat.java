@@ -7,7 +7,7 @@ import com.mitchej123.hodgepodge.config.TweaksConfig;
 import cpw.mods.fml.common.Loader;
 import jss.bugtorch.config.BugTorchConfig;
 
-public class ModCompat {
+public class MixinModCompat {
 
     public static boolean disableWandCV = false;
     public static boolean disableBlockCandleFixes = false;
