@@ -66,10 +66,4 @@ public class SalisArcana {
         }
         return true;
     }
-
-    public static boolean breakpoint() {
-        Minecraft.getMinecraft()
-            .displayGuiScreen(new GuiChat());
-        return true;
-    }
 }
