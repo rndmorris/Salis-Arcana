@@ -12,7 +12,7 @@ public class MixinItemWandCasting_DisableSpendingCheck {
 
     @ModifyExpressionValue(
         method = "consumeAllVis",
-        at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z"),
+        at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z", remap = true),
         remap = false)
     private boolean isRemoteOverride(boolean isRemote) {
         return false;
