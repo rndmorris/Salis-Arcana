@@ -1,4 +1,6 @@
 {
+  "enabled": true,
+  "action": "replace",
   "key": "CAP_gold",
   "category": "THAUMATURGY",
   "name": "Gold Wand Caps",
@@ -26,7 +28,6 @@
   "displayColumn": 3,
   "displayRow": 2,
   "icon_item": "Thaumcraft:WandCap:1",
-  "icon_resource": "",
   "complexity": 1,
   "isSpecial": false,
   "isSecondary": false,
