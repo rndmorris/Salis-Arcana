@@ -15,10 +15,10 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 @Mixin(value = ItemWandCasting.class, remap = false)
 public abstract class MixinItemWandCasting_NamedStaffters {
 
-    @Shadow(remap = false)
+    @Shadow
     public abstract boolean isStaff(ItemStack stack);
 
-    @Shadow(remap = false)
+    @Shadow
     public abstract boolean isSceptre(ItemStack stack);
 
     @ModifyVariable(
