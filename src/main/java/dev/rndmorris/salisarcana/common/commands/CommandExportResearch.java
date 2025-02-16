@@ -65,6 +65,7 @@ public class CommandExportResearch extends ArcanaCommandBase<CommandExportResear
             try {
                 ResearchHelper.exportResearchToJson(new ResearchEntry(research), file);
             } catch (Exception e) {
+                LOG.error("Failed to export research: {}", researchKey, e);
                 sender.addChatMessage(
                     new ChatComponentTranslation("salisarcana:commands.export-research.failed", researchKey));
                 continue;
