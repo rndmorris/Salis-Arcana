@@ -191,7 +191,7 @@ public enum Mixins {
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     ARCANE_WORKBENCH_ALLOW_RECHARGE_CRAFTING(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.SERVER)
+        .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchAllowRechargeCrafting::isEnabled)
         .addMixinClasses("tiles.MixinTileMagicWorkbenchCharger")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
