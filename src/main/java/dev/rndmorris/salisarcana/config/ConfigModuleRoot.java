@@ -11,6 +11,7 @@ import dev.rndmorris.salisarcana.config.modules.BiomeColorModule;
 import dev.rndmorris.salisarcana.config.modules.BugfixesModule;
 import dev.rndmorris.salisarcana.config.modules.CommandsModule;
 import dev.rndmorris.salisarcana.config.modules.EnhancementsModule;
+import dev.rndmorris.salisarcana.config.modules.ModCompatModule;
 
 public class ConfigModuleRoot {
 
@@ -18,11 +19,13 @@ public class ConfigModuleRoot {
     public static final BugfixesModule bugfixes;
     public static final CommandsModule commands;
     public static final EnhancementsModule enhancements;
+    public static final ModCompatModule modCompat;
 
     public static boolean enableVersionChecking;
 
     private static final BaseConfigModule[] modules = new BaseConfigModule[] { biomeColors = new BiomeColorModule(),
-        bugfixes = new BugfixesModule(), commands = new CommandsModule(), enhancements = new EnhancementsModule(), };
+        bugfixes = new BugfixesModule(), commands = new CommandsModule(), enhancements = new EnhancementsModule(),
+        modCompat = new ModCompatModule(), };
 
     public static void synchronizeConfiguration(ConfigPhase phase) {
         final var rootConfigFile = Paths.get("config", SalisArcana.MODID + ".cfg")

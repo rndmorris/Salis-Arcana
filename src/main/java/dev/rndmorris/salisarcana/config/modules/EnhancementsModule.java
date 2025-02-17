@@ -62,6 +62,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting crystalClusterUncrafting;
 
     public final ToggleSetting staffterNameTooltip;
+    public final ToggleSetting primalCrusherOredict;
 
     public EnhancementsModule() {
         // spotless:off
@@ -250,7 +251,13 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.LATE,
                 "crystalClusterUncrafting",
-                "Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.").setCategory("recipes")
+                "Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.").setCategory("recipes"),
+            primalCrusherOredict = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "primalCrusherMinesOredictionaryStone",
+                "Allows the primal crusher to 3x3 mine blocks registered as stone, cobblestone, or stoneBricks in the ore dictionary."
+            )
         );
 
         // spotless:on
