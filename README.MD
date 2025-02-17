@@ -34,6 +34,10 @@ Secret salt to enhance and refine Thaumcraft 4
 * jss2a98aj - Metadata safety checks from [BugTorch](https://github.com/jss2a98aj/BugTorch)
 * The GTNH Team - The Mixin framework, several mixins from [Hodgepodge](https://github.com/GTNewHorizons/Hodgepodge)
 * Christopher "BlayTheNinth" Baker - Thaumic Inventory Scanning
+* Google - [Gson RuntimeTypeAdapterFactory](https://github.com/google/gson/blob/main/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java)
+    - Licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+- MrNavaStar - [R](https://github.com/MrNavaStar/R)
+  - Licensed under the CC0-1.0 License
 
 # Art Credits
 ## Salt shaker on white background
