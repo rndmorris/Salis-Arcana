@@ -49,6 +49,12 @@ Config Option: `thaumcraftCommandWarpArgAll`
 
 Adds an ALL parameter to the `/thaumcraft warp` command
 
+## Primal Crusher Ore Dictionary Stone Support
+
+Config Option: `primalCrusherMinesOredictionaryStone`
+
+Allows the primal crusher to 3x3 mine blocks registered as stone, cobblestone, or stoneBricks in the ore dictionary.
+
 ## Enhancements - Creative Mode
 
 **Config option:** `suppressWarpEventsInCreative`
