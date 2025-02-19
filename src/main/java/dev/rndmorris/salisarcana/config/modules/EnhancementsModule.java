@@ -24,6 +24,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ReplaceWandComponentSettings replaceWandCoreSettings;
     public final ToggleSetting enforceWandCoreTypes;
     public final ToggleSetting preserveWandVis;
+    public final ToggleSetting allowSingleWandReplacement;
 
     public final ToggleSetting lookalikePlanks;
     public final IntArraySetting nodeModifierWeights;
@@ -327,6 +328,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.LATE,
                 "preserveWandVis",
                 "If enabled, vis will be preserved when a wand, staff, or stave's components are replaced.")
+                    .setCategory(wandCategory),
+            allowSingleWandReplacement = new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "allowSingleWandReplacement",
+                "If enabled, allows swapping a wand's components using vis from the wand being modified.")
                     .setCategory(wandCategory));
     }
 

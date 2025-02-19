@@ -324,6 +324,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.staffterNameTooltip::isEnabled)
         .addMixinClasses("items.MixinItemWandCasting_NamedStaffters")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    SINGLE_WAND_REPLACEMENT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(() -> (ConfigModuleRoot.enhancements.replaceWandCapsSettings.isEnabled() || ConfigModuleRoot.enhancements.replaceWandCoreSettings.isEnabled()) && ConfigModuleRoot.enhancements.allowSingleWandReplacement.isEnabled())
+        .addMixinClasses("container.MixinContainerArcaneWorkbench_SingleWandReplacement")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     PRIMAL_CRUSHER_OREDICT_COMPAT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)

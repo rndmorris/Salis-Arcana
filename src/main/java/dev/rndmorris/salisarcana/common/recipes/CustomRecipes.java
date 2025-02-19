@@ -26,7 +26,11 @@ import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.config.ConfigResearch;
 
+import javax.annotation.Nullable;
+
 public class CustomRecipes {
+    public static @Nullable ReplaceWandCapsRecipe replaceWandCapsRecipe = null;
+    public static @Nullable ReplaceWandCoreRecipe replaceWandCoreRecipe = null;
 
     public static void registerRecipes() {
 
@@ -53,13 +57,13 @@ public class CustomRecipes {
         if (enhancements.replaceWandCapsSettings.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
-                .add(new ReplaceWandCapsRecipe());
+                .add(replaceWandCapsRecipe = new ReplaceWandCapsRecipe());
         }
 
         if (enhancements.replaceWandCoreSettings.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
-                .add(new ReplaceWandCoreRecipe());
+                .add(replaceWandCoreRecipe = new ReplaceWandCoreRecipe());
         }
 
         if (enhancements.rottenFleshRecipe.isEnabled()) {
