@@ -30,10 +30,13 @@ import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.AssetHelper;
+import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 
 public class CommonProxy {
 
@@ -52,6 +55,25 @@ public class CommonProxy {
 
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
+
+        final var enhancements = ConfigModuleRoot.enhancements;
+        // to-do: relocate elsewhere?
+        if (enhancements.thaumiumHarvestLevel.isEnabled()) {
+            final var toolMatThaumium = new R(ThaumcraftApi.toolMatThaumium);
+            toolMatThaumium.set("harvestLevel", enhancements.thaumiumHarvestLevel.getValue());
+        }
+        if (enhancements.elementalHarvestLevel.isEnabled()) {
+            final var toolMatElemental = new R(ThaumcraftApi.toolMatElemental);
+            toolMatElemental.set("harvestLevel", enhancements.elementalHarvestLevel.getValue());
+        }
+        if (enhancements.voidHarvestLevel.isEnabled()) {
+            final var toolMatVoid = new R(ThaumcraftApi.toolMatVoid);
+            toolMatVoid.set("harvestLevel", enhancements.voidHarvestLevel.getValue());
+        }
+        if (enhancements.crusherHarvestLevel.isEnabled()) {
+            final var toolMatThaumium = new R(ItemPrimalCrusher.material);
+            toolMatThaumium.set("harvestLevel", enhancements.crusherHarvestLevel.getValue());
+        }
 
         FMLCommonHandler.instance()
             .bus()
