@@ -56,8 +56,18 @@ public class CommonProxy {
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
 
+        updateHarvestLevels();
+
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new Updater());
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new StartupNotifications());
+    }
+
+    private void updateHarvestLevels() {
         final var enhancements = ConfigModuleRoot.enhancements;
-        // to-do: relocate elsewhere?
         if (enhancements.thaumiumHarvestLevel.isEnabled()) {
             final var toolMatThaumium = new R(ThaumcraftApi.toolMatThaumium);
             toolMatThaumium.set("harvestLevel", enhancements.thaumiumHarvestLevel.getValue());
@@ -71,16 +81,9 @@ public class CommonProxy {
             toolMatVoid.set("harvestLevel", enhancements.voidHarvestLevel.getValue());
         }
         if (enhancements.crusherHarvestLevel.isEnabled()) {
-            final var toolMatThaumium = new R(ItemPrimalCrusher.material);
-            toolMatThaumium.set("harvestLevel", enhancements.crusherHarvestLevel.getValue());
+            final var material = new R(ItemPrimalCrusher.material);
+            material.set("harvestLevel", enhancements.crusherHarvestLevel.getValue());
         }
-
-        FMLCommonHandler.instance()
-            .bus()
-            .register(new Updater());
-        FMLCommonHandler.instance()
-            .bus()
-            .register(new StartupNotifications());
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
