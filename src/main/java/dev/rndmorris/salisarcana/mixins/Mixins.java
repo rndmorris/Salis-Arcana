@@ -326,8 +326,13 @@ public enum Mixins {
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     SINGLE_WAND_REPLACEMENT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(() -> (ConfigModuleRoot.enhancements.replaceWandCapsSettings.isEnabled() || ConfigModuleRoot.enhancements.replaceWandCoreSettings.isEnabled()) && ConfigModuleRoot.enhancements.allowSingleWandReplacement.isEnabled())
+        .setApplyIf(ConfigModuleRoot.enhancements::singleWandReplacementEnabled)
         .addMixinClasses("container.MixinContainerArcaneWorkbench_SingleWandReplacement")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    SINGLE_WAND_REPLACEMENT_CLIENT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(ConfigModuleRoot.enhancements::singleWandReplacementEnabled)
+        .addMixinClasses("gui.MixinGuiArcaneWorkbench_SingleWandReplacement")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     PRIMAL_CRUSHER_OREDICT_COMPAT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)

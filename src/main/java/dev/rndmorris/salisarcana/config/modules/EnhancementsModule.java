@@ -337,6 +337,10 @@ public class EnhancementsModule extends BaseConfigModule {
                     .setCategory(wandCategory));
     }
 
+    public boolean singleWandReplacementEnabled() {
+        return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled()) && this.allowSingleWandReplacement.isEnabled();
+    }
+
     @Nonnull
     @Override
     public String getModuleId() {
