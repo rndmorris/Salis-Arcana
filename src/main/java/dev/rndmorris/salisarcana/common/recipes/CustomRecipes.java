@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -26,9 +28,8 @@ import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.config.ConfigResearch;
 
-import javax.annotation.Nullable;
-
 public class CustomRecipes {
+
     public static @Nullable ReplaceWandCapsRecipe replaceWandCapsRecipe = null;
     public static @Nullable ReplaceWandCoreRecipe replaceWandCoreRecipe = null;
 
