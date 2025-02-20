@@ -59,8 +59,7 @@ public class MixinGuiArcaneWorkbench_SingleWandReplacement {
         method = "drawGuiContainerBackgroundLayer",
         at = @At(
             value = "INVOKE",
-            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;getStackInSlot(I)Lnet/minecraft/item/ItemStack;",
-            remap = false),
+            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;getStackInSlot(I)Lnet/minecraft/item/ItemStack;"),
         slice = @Slice(
             from = @At(
                 value = "INVOKE",

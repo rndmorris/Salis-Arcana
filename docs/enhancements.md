@@ -257,4 +257,6 @@ If enabled, prevents swapping a wand core with a staff core or a staff core with
 
 Requires `enableReplaceWandCapsRecipe=true` or `enableReplaceWandCoreRecipe=true`.
 
+Requires `arcaneWorkbenchGhostItemFix=true` in the bugfixes module.
+
 If enabled, allows swapping a wand's components using vis from the wand being modified.

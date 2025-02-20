@@ -2,6 +2,7 @@ package dev.rndmorris.salisarcana.config.modules;
 
 import javax.annotation.Nonnull;
 
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
@@ -339,6 +340,7 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
+            && ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
             && this.allowSingleWandReplacement.isEnabled();
     }
 
