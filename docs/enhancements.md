@@ -252,3 +252,11 @@ Used to set the tab of the Thaumonomicon on which the "Wand Core Substitution" r
 Requires `enableReplaceWandCoreRecipe=true`.
 
 If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core. Disable to allow converting a wand to a staff and vice versa.
+
+## Config option: `allowSingleWandReplacement`
+
+Requires `enableReplaceWandCapsRecipe=true` or `enableReplaceWandCoreRecipe=true`.
+
+Requires `arcaneWorkbenchGhostItemFix=true` in the bugfixes module.
+
+If enabled, allows swapping a wand's components using vis from the wand being modified.

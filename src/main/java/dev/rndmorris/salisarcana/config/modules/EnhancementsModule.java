@@ -2,6 +2,7 @@ package dev.rndmorris.salisarcana.config.modules;
 
 import javax.annotation.Nonnull;
 
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
@@ -24,6 +25,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ReplaceWandComponentSettings replaceWandCoreSettings;
     public final ToggleSetting enforceWandCoreTypes;
     public final ToggleSetting preserveWandVis;
+    public final ToggleSetting allowSingleWandReplacement;
 
     public final ToggleSetting lookalikePlanks;
     public final IntArraySetting nodeModifierWeights;
@@ -327,7 +329,19 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.LATE,
                 "preserveWandVis",
                 "If enabled, vis will be preserved when a wand, staff, or stave's components are replaced.")
+                    .setCategory(wandCategory),
+            allowSingleWandReplacement = new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "allowSingleWandReplacement",
+                "If enabled, allows swapping a wand's components using vis from the wand being modified.")
                     .setCategory(wandCategory));
+    }
+
+    public boolean singleWandReplacementEnabled() {
+        return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
+            && ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
+            && this.allowSingleWandReplacement.isEnabled();
     }
 
     @Nonnull
