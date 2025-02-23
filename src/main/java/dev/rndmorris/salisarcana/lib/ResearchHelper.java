@@ -40,7 +40,7 @@ import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
 import thaumcraft.common.lib.research.ResearchManager;
 
-public class ResearchHelper {
+public final class ResearchHelper {
 
     private static Gson _researchGson;
 
@@ -53,6 +53,10 @@ public class ResearchHelper {
     }
 
     private static FakePlayer knowItAll;
+
+    private ResearchHelper() {
+        // Forbid initialization of this class
+    }
 
     /**
      * A fake player whose entire purpose is to know all Thaumcraft research (created to support
@@ -112,13 +116,15 @@ public class ResearchHelper {
                 if (!filter.test(research)) {
                     continue;
                 }
-                anyInCategory = true;
-                final var item = formatResearch(research);
 
-                researchMessage.appendSibling(item);
-                if (research$.hasNext()) {
+                if (anyInCategory) {
                     researchMessage.appendText(", ");
                 }
+
+                anyInCategory = true;
+
+                final var item = formatResearch(research);
+                researchMessage.appendSibling(item);
             }
 
             if (anyInCategory) {
@@ -152,7 +158,7 @@ public class ResearchHelper {
         final var style = new ChatStyle().setColor(formatting)
             .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
         return new ChatComponentText("[").setChatStyle(style)
-            .appendSibling(new ChatComponentTranslation(String.format("tc.research_name.%s", research.key)))
+            .appendSibling(new ChatComponentTranslation(TranslationHelper.getResearchTranslationKey(research)))
             .appendText("]");
     }
 
