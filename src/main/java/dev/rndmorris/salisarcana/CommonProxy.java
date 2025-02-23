@@ -31,6 +31,7 @@ import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.AssetHelper;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
+import dev.rndmorris.salisarcana.lib.ResearchTranslationManager;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
@@ -52,6 +53,7 @@ public class CommonProxy {
 
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
+        ResearchTranslationManager.generateStandardKeys();
 
         FMLCommonHandler.instance()
             .bus()
@@ -98,6 +100,10 @@ public class CommonProxy {
 
     public boolean isSingleplayerClient() {
         return false;
+    }
+
+    public String getLanguageCode() {
+        return "en_US";
     }
 
     @SubscribeEvent

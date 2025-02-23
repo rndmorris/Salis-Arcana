@@ -1,6 +1,9 @@
 package dev.rndmorris.salisarcana;
 
+import dev.rndmorris.salisarcana.lib.ResearchTranslationManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -19,6 +22,14 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+
+        if(Minecraft.getMinecraft().getResourceManager() instanceof IReloadableResourceManager manager) {
+            manager.registerReloadListener((IResourceManager manager2) -> {
+                ResearchTranslationManager.injectCustomLangKeys();
+                ResearchTranslationManager.generateStandardKeys();
+            });
+        }
+
         if (ConfigModuleRoot.commands.exportResearch.isEnabled()) {
             ClientCommandHandler.instance.registerCommand(new CommandExportResearch());
         }
@@ -50,5 +61,10 @@ public class ClientProxy extends CommonProxy {
     public boolean isSingleplayerClient() {
         return Minecraft.getMinecraft()
             .isSingleplayer();
+    }
+
+    @Override
+    public String getLanguageCode() {
+        return Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
     }
 }

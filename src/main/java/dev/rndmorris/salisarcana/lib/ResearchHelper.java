@@ -112,13 +112,15 @@ public class ResearchHelper {
                 if (!filter.test(research)) {
                     continue;
                 }
+
+                if (anyInCategory) {
+                    researchMessage.appendText(", ");
+                }
+
                 anyInCategory = true;
                 final var item = formatResearch(research);
 
                 researchMessage.appendSibling(item);
-                if (research$.hasNext()) {
-                    researchMessage.appendText(", ");
-                }
             }
 
             if (anyInCategory) {
