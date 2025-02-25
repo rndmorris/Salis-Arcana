@@ -323,6 +323,11 @@ public enum Mixins {
         .setApplyIf(() -> true)
         .addMixinClasses("api.ResearchItem_Extended")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RESEARCH_ITEM_EXTENDED_THAUMIC_TINKERER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(() -> true)
+        .addMixinClasses("addons.ThaumicTinkerer.TTResearchItem_Extended")
+        .addTargetedMod(TargetedMod.THAUMIC_TINKERER)),
 
     // spotless:off
     ;
