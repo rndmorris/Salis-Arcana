@@ -93,7 +93,18 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
             }
         }
 
-        if (arguments.aspects != null && !arguments.aspects.isEmpty()) {
+        if (arguments.allAspects) {
+            final var playerAspects = playerKnowledge.aspectsDiscovered
+                .get(arguments.targetPlayer.getCommandSenderName());
+            if (playerAspects != null) {
+                // Subtract here because primals are in this list, but are also automatically re-granted.
+                removedCount += Math.max(
+                    playerAspects.aspects.size() - Aspect.getPrimalAspects()
+                        .size(),
+                    0);
+                playerAspects.aspects.clear();
+            }
+        } else if (arguments.aspects != null && !arguments.aspects.isEmpty()) {
             final var playerAspects = playerKnowledge.aspectsDiscovered
                 .get(arguments.targetPlayer.getCommandSenderName());
             if (playerAspects != null) {
@@ -182,8 +193,15 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         @FlagArg(name = "--all", excludes = { "--objects", "--entities", "--nodes" }, descLangKey = "all")
         public boolean all;
 
-        @NamedArg(name = "--aspects", handler = AspectHandler.class, descLangKey = "aspects")
+        @NamedArg(
+            name = "--aspects",
+            handler = AspectHandler.class,
+            descLangKey = "aspects",
+            excludes = "--all-aspects")
         public ArrayList<Aspect> aspects;
+
+        @FlagArg(name = "--all-aspects", descLangKey = "all-aspects", excludes = "--aspects")
+        public boolean allAspects;
 
         @FlagArg(name = "--hand", excludes = "--all", descLangKey = "hand")
         public boolean hand;
