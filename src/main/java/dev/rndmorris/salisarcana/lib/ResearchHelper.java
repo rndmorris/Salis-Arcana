@@ -30,6 +30,7 @@ import com.google.gson.JsonSyntaxException;
 import com.mojang.authlib.GameProfile;
 
 import dev.rndmorris.salisarcana.SalisArcana;
+import dev.rndmorris.salisarcana.api.IResearchItemExtended;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
 import dev.rndmorris.salisarcana.lib.customresearch.ResearchEntry;
 import dev.rndmorris.salisarcana.lib.customresearch.pages.ArcaneResearchPageEntry;
@@ -169,10 +170,14 @@ public class ResearchHelper {
     }
 
     public static IChatComponent formatResearch(ResearchItem research, EnumChatFormatting formatting) {
+        final var researchNameKey = research instanceof IResearchItemExtended extended
+            ? extended.getNameTranslationKey()
+            : String.format("tc.research_name.%s", research.key);
+
         final var style = new ChatStyle().setColor(formatting)
             .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
         return new ChatComponentText("[").setChatStyle(style)
-            .appendSibling(new ChatComponentTranslation(String.format("tc.research_name.%s", research.key)))
+            .appendSibling(new ChatComponentTranslation(researchNameKey))
             .appendText("]");
     }
 
