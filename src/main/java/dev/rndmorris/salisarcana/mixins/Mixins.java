@@ -316,7 +316,17 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.staffterNameTooltip::isEnabled)
         .addMixinClasses("items.MixinItemWandCasting_NamedStaffters")
-        .addTargetedMod(TargetedMod.THAUMCRAFT));
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    RESEARCH_ITEM_EXTENDED(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(() -> true)
+        .addMixinClasses("api.ResearchItem_Extended")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    // spotless:off
+    ;
+    // spotless:on
 
     private final List<String> mixinClasses;
     private final List<TargetedMod> targetedMods;
