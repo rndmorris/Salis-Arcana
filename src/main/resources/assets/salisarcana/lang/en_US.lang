@@ -37,8 +37,8 @@ salisarcana:command.forget-scanned.args.hand=§7[--hand]§r Reset the item curre
 salisarcana:command.forget-scanned.args.inventory=§7[--inventory]§r Reset all items in your inventory. Mutually exclusive with §7--all§r.
 salisarcana:command.forget-scanned.args.looking=§7[--looking]§r Reset the block you are currently looking at. Mutually exclusive with §7--all§r.
 salisarcana:command.forget-scanned.args.container=§7[--container]§r Reset all items in the container (eg. Chest) you are looking at. Mutually exclusive with §7--all§r.
-salisarcana:command.forget-scanned.all=§7[--all]§r Combines the effects of §7objects§r, §7entities§r, and §7nodes§r
-salisarcana:command.forget-scanned.aspects=§7[--aspects <aspect [<aspect [<aspect...]]]>§r Un-discover one or more aspects.
+salisarcana:command.forget-scanned.args.all=§7[--all]§r Combines the effects of §7objects§r, §7entities§r, and §7nodes§r
+salisarcana:command.forget-scanned.args.aspects=§7[--aspects <aspect [<aspect [<aspect...]]]>§r Reset the discovery of one or more aspects.
 
 salisarcana:command.forget-scanned.success=§9Success:§r %d entries were removed from %s's scan lists.
 salisarcana:command.forget-scanned.failure=§cFailure:§r There was nothing to remove from %s's scan lists.

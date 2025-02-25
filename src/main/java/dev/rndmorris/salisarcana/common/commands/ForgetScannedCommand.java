@@ -182,7 +182,7 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         @FlagArg(name = "--all", excludes = { "--objects", "--entities", "--nodes" }, descLangKey = "all")
         public boolean all;
 
-        @NamedArg(name = "--aspects", handler = AspectHandler.class, descLangKey = "aspect")
+        @NamedArg(name = "--aspects", handler = AspectHandler.class, descLangKey = "aspects")
         public ArrayList<Aspect> aspects;
 
         @FlagArg(name = "--hand", excludes = "--all", descLangKey = "hand")
