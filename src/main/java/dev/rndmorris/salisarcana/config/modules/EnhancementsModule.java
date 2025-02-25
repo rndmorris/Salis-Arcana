@@ -63,6 +63,8 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public final ToggleSetting staffterNameTooltip;
 
+    public final ToggleSetting extendedResearchData;
+
     public EnhancementsModule() {
         // spotless:off
         addSettings(
@@ -321,6 +323,13 @@ public class EnhancementsModule extends BaseConfigModule {
                 "preserveWandVis",
                 "If enabled, vis will be preserved when a wand, staff, or stave's components are replaced.")
                     .setCategory(wandCategory));
+
+        addSettings(
+            extendedResearchData = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "extendedResearchData",
+                "If enabled, extends the internal data structure used to define research in the Thaumonomicon. This allows for better compatibility between other Salis Arcana features (such as the list-research command) and some Thaumcraft addons."));
     }
 
     @Nonnull
