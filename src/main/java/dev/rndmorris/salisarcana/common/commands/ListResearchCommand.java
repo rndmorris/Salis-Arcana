@@ -57,7 +57,7 @@ public class ListResearchCommand extends ArcanaCommandBase<ListResearchCommand.A
 
         var results = ResearchHelper.printResearchToChat(predicate);
         if (results.isEmpty()) {
-            throw new CommandException("salisarcana:command.player-research.no_results");
+            throw new CommandException("salisarcana:command.list-research.no_results");
         }
         results.forEach(sender::addChatMessage);
     }
