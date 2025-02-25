@@ -328,7 +328,15 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
         .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
-        .addTargetedMod(TargetedMod.THAUMCRAFT));
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    EQUAL_TRADE_FOCUS_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel::isEnabled)
+        .addMixinClasses("items.MixinItemFocusTrade_HarvestLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT))
+
+    ;
 
     private final List<String> mixinClasses;
     private final List<TargetedMod> targetedMods;

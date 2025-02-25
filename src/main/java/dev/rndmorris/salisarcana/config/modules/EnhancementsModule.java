@@ -68,6 +68,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting elementalHarvestLevel;
     public final IntSetting voidHarvestLevel;
     public final IntSetting crusherHarvestLevel;
+    public final IntSetting excavationFocusHarvestLevel;
+    public final IntSetting equalTradeFocusHarvestLevel;
 
     public EnhancementsModule() {
         // spotless:off
@@ -263,10 +265,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 "primalCrusherMinesOredictionaryStone",
                 "Allows the primal crusher to 3x3 mine blocks registered as stone, cobblestone, or stoneBricks in the ore dictionary."
             ),
-            thaumiumHarvestLevel = new IntSetting(this, ConfigPhase.EARLY, "thaumiumHarvestLevel", "Override the harvest level of thaumium tools.", 3).setCategory("harvestLevels"),
-            elementalHarvestLevel = new IntSetting(this, ConfigPhase.EARLY, "elementalHarvestLevel", "Override the harvest level of elemental tools", 3).setCategory("harvestLevels"),
-            voidHarvestLevel = new IntSetting(this, ConfigPhase.EARLY, "voidHarvestLevel", "Override the harvest level of void metal tools.", 4).setCategory("harvestLevels"),
-            crusherHarvestLevel = new IntSetting(this, ConfigPhase.EARLY, "crusherHarvestLevel", "Override the harvest level of the primal crusher.", 5).setCategory("harvestLevels")
+            thaumiumHarvestLevel = new IntSetting(this, ConfigPhase.LATE, "thaumiumHarvestLevel", "Override the harvest level of thaumium tools.", 3).setCategory("harvestLevels"),
+            elementalHarvestLevel = new IntSetting(this, ConfigPhase.LATE, "elementalHarvestLevel", "Override the harvest level of elemental tools", 3).setCategory("harvestLevels"),
+            voidHarvestLevel = new IntSetting(this, ConfigPhase.LATE, "voidHarvestLevel", "Override the harvest level of void metal tools.", 4).setCategory("harvestLevels"),
+            crusherHarvestLevel = new IntSetting(this, ConfigPhase.LATE, "crusherHarvestLevel", "Override the harvest level of the primal crusher.", 5).setCategory("harvestLevels"),
+            excavationFocusHarvestLevel = new IntSetting(this, ConfigPhase.EARLY, "excavationFocusHarvestLevel", "Override the harvest level of the excavation focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).", -1).setCategory("harvestLevels"),
+            equalTradeFocusHarvestLevel = new IntSetting(this, ConfigPhase.EARLY, "equalTradeFocusHarvestLevel", "Override the harvest level of the equal trade focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).", -1).setCategory("harvestLevels")
         );
 
         // spotless:on
