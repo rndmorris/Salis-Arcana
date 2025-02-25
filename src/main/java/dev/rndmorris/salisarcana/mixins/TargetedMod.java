@@ -13,6 +13,7 @@ public enum TargetedMod {
     HODGEPODGE("Hodgepodge", null, "hodgepodge"),
 
     THAUMIC_TINKERER("Thaumic Tinkerer", null, "ThaumicTinkerer"),
+    AUTOMAGY("Automagy", null, "Automagy"),
 
     ;
 
