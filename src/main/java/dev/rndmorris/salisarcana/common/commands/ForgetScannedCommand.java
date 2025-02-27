@@ -21,8 +21,10 @@ import dev.rndmorris.salisarcana.common.commands.arguments.annotations.FlagArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler;
+import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.AspectHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.research.ScanManager;
 import thaumcraft.common.lib.utils.BlockUtils;
@@ -38,7 +40,7 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,
-            new IArgumentHandler[] { PlayerHandler.INSTANCE, FlagHandler.INSTANCE, });
+            new IArgumentHandler[] { PlayerHandler.INSTANCE, FlagHandler.INSTANCE, AspectHandler.INSTANCE, });
     }
 
     @Override
@@ -90,6 +92,31 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
                 }
             }
         }
+
+        if (arguments.allAspects) {
+            final var playerAspects = playerKnowledge.aspectsDiscovered
+                .get(arguments.targetPlayer.getCommandSenderName());
+            if (playerAspects != null) {
+                // Subtract here because primals are in this list, but are also automatically re-granted.
+                removedCount += Math.max(
+                    playerAspects.aspects.size() - Aspect.getPrimalAspects()
+                        .size(),
+                    0);
+                playerAspects.aspects.clear();
+            }
+        } else if (arguments.aspects != null && !arguments.aspects.isEmpty()) {
+            final var playerAspects = playerKnowledge.aspectsDiscovered
+                .get(arguments.targetPlayer.getCommandSenderName());
+            if (playerAspects != null) {
+                for (var aspect : arguments.aspects) {
+                    if (playerAspects.aspects.containsKey(aspect)) {
+                        removedCount++;
+                        playerAspects.aspects.remove(aspect);
+                    }
+                }
+            }
+        }
+
         if (arguments.all || arguments.objects) {
             toClear.add(playerKnowledge.objectsScanned);
         }
@@ -165,6 +192,16 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
 
         @FlagArg(name = "--all", excludes = { "--objects", "--entities", "--nodes" }, descLangKey = "all")
         public boolean all;
+
+        @NamedArg(
+            name = "--aspects",
+            handler = AspectHandler.class,
+            descLangKey = "aspects",
+            excludes = "--all-aspects")
+        public ArrayList<Aspect> aspects;
+
+        @FlagArg(name = "--all-aspects", descLangKey = "all-aspects", excludes = "--aspects")
+        public boolean allAspects;
 
         @FlagArg(name = "--hand", excludes = "--all", descLangKey = "hand")
         public boolean hand;
