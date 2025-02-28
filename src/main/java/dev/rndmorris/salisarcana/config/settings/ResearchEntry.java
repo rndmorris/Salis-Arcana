@@ -209,9 +209,16 @@ public class ResearchEntry {
             ResearchCategories.researchCategories.get(research.category).research.remove(research.key);
             ResearchCategories.researchCategories.get(research.category).research.put(research.key, research);
         }
-
-        TranslationManager.setResearchName(research, this.getName(), "en_US");
-        TranslationManager.setResearchText(research, this.getTooltip(), "en_US");
+        String key = TranslationManager.lookupLangEntryByValue(research.getName());
+        if (key == null) {
+            key = research.getName();
+        }
+        TranslationManager.setLangEntry(key, this.getName(), "en_US");
+        key = TranslationManager.lookupLangEntryByValue(research.getText());
+        if (key == null) {
+            key = research.getText();
+        }
+        TranslationManager.setLangEntry(key, this.getTooltip(), "en_US");
 
         research.setParents(parents);
         research.setParentsHidden(parentsHidden);
