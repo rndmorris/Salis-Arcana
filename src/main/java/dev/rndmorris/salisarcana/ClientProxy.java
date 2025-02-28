@@ -1,6 +1,5 @@
 package dev.rndmorris.salisarcana;
 
-import dev.rndmorris.salisarcana.lib.ResearchTranslationManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResourceManager;
@@ -14,6 +13,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dev.rndmorris.salisarcana.client.ThaumicInventoryScanner;
 import dev.rndmorris.salisarcana.common.commands.CommandExportResearch;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.lib.TranslationManager;
 
 public class ClientProxy extends CommonProxy {
 
@@ -23,10 +23,11 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
 
-        if(Minecraft.getMinecraft().getResourceManager() instanceof IReloadableResourceManager manager) {
+        if (Minecraft.getMinecraft()
+            .getResourceManager() instanceof IReloadableResourceManager manager) {
             manager.registerReloadListener((IResourceManager manager2) -> {
-                ResearchTranslationManager.injectCustomLangKeys();
-                ResearchTranslationManager.generateStandardKeys();
+                TranslationManager.injectCustomLangKeys();
+                TranslationManager.generateStandardKeys();
             });
         }
 
@@ -65,6 +66,9 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public String getLanguageCode() {
-        return Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
+        return Minecraft.getMinecraft()
+            .getLanguageManager()
+            .getCurrentLanguage()
+            .getLanguageCode();
     }
 }

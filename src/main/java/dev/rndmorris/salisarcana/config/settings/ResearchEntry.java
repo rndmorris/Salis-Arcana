@@ -16,9 +16,9 @@ import net.minecraft.util.StatCollector;
 import com.google.gson.annotations.SerializedName;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import dev.rndmorris.salisarcana.lib.AssetHelper;
 import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.lib.StringHelper;
+import dev.rndmorris.salisarcana.lib.TranslationManager;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.CrucibleRecipe;
@@ -209,16 +209,9 @@ public class ResearchEntry {
             ResearchCategories.researchCategories.get(research.category).research.remove(research.key);
             ResearchCategories.researchCategories.get(research.category).research.put(research.key, research);
         }
-        String key = AssetHelper.lookupLangEntryByValue(research.getName());
-        if (key == null) {
-            key = research.getName();
-        }
-        AssetHelper.addLangEntry(key, this.getName());
-        key = AssetHelper.lookupLangEntryByValue(research.getText());
-        if (key == null) {
-            key = research.getText();
-        }
-        AssetHelper.addLangEntry(key, this.getTooltip());
+
+        TranslationManager.setResearchName(research, this.getName(), "en_US");
+        TranslationManager.setResearchText(research, this.getTooltip(), "en_US");
 
         research.setParents(parents);
         research.setParentsHidden(parentsHidden);
@@ -251,14 +244,19 @@ public class ResearchEntry {
         for (ResearchPageEntry entry : this.pages) {
             if (entry.getType()
                 .equals("text")) {
-                AssetHelper.addLangEntry(AssetHelper.lookupLangEntryByValue(entry.getText()), entry.getText());
-                AssetHelper
-                    .addLangEntry("tc_research_page." + this.getKey() + "." + entry.getNumber(), entry.getText());
+                TranslationManager
+                    .setLangEntry(TranslationManager.lookupLangEntryByValue(entry.getText()), entry.getText(), "en_US");
+                TranslationManager.setLangEntry(
+                    "tc_research_page." + this.getKey() + "." + entry.getNumber(),
+                    entry.getText(),
+                    "en_US");
                 pages.add(new ResearchPage(entry.getText()));
             } else if (entry.getType()
                 .equals("picture")) {
-                    AssetHelper
-                        .addLangEntry("tc_research_page." + this.getKey() + "." + entry.getNumber(), entry.getText());
+                    TranslationManager.setLangEntry(
+                        "tc_research_page." + this.getKey() + "." + entry.getNumber(),
+                        entry.getText(),
+                        "en_US");
                     pages.add(new ResearchPage(entry.getResource(), entry.getText()));
                 } else {
                     pages.add(entry.getPage());
