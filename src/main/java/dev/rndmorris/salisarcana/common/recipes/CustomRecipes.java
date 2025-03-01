@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -27,6 +29,9 @@ import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.config.ConfigResearch;
 
 public class CustomRecipes {
+
+    public static @Nullable ReplaceWandCapsRecipe replaceWandCapsRecipe = null;
+    public static @Nullable ReplaceWandCoreRecipe replaceWandCoreRecipe = null;
 
     public static void registerRecipes() {
 
@@ -53,13 +58,13 @@ public class CustomRecipes {
         if (enhancements.replaceWandCapsSettings.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
-                .add(new ReplaceWandCapsRecipe());
+                .add(replaceWandCapsRecipe = new ReplaceWandCapsRecipe());
         }
 
         if (enhancements.replaceWandCoreSettings.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
-                .add(new ReplaceWandCoreRecipe());
+                .add(replaceWandCoreRecipe = new ReplaceWandCoreRecipe());
         }
 
         if (enhancements.rottenFleshRecipe.isEnabled()) {

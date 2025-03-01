@@ -2,6 +2,7 @@ package dev.rndmorris.salisarcana.config.modules;
 
 import javax.annotation.Nonnull;
 
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
@@ -24,6 +25,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ReplaceWandComponentSettings replaceWandCoreSettings;
     public final ToggleSetting enforceWandCoreTypes;
     public final ToggleSetting preserveWandVis;
+    public final ToggleSetting allowSingleWandReplacement;
 
     public final ToggleSetting lookalikePlanks;
     public final IntArraySetting nodeModifierWeights;
@@ -62,6 +64,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting crystalClusterUncrafting;
 
     public final ToggleSetting staffterNameTooltip;
+    public final ToggleSetting primalCrusherOredict;
 
     public final ToggleSetting extendedResearchData;
 
@@ -252,7 +255,13 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 ConfigPhase.LATE,
                 "crystalClusterUncrafting",
-                "Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.").setCategory("recipes")
+                "Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.").setCategory("recipes"),
+            primalCrusherOredict = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "primalCrusherMinesOredictionaryStone",
+                "Allows the primal crusher to 3x3 mine blocks registered as stone, cobblestone, or stoneBricks in the ore dictionary."
+            )
         );
 
         // spotless:on
@@ -322,6 +331,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.LATE,
                 "preserveWandVis",
                 "If enabled, vis will be preserved when a wand, staff, or stave's components are replaced.")
+                    .setCategory(wandCategory),
+            allowSingleWandReplacement = new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "allowSingleWandReplacement",
+                "If enabled, allows swapping a wand's components using vis from the wand being modified.")
                     .setCategory(wandCategory));
 
         addSettings(
@@ -330,6 +345,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "extendedResearchData",
                 "If enabled, extends the internal data structure used to define research in the Thaumonomicon. This allows for better compatibility between other Salis Arcana features (such as the list-research command) and some Thaumcraft addons."));
+    }
+
+    public boolean singleWandReplacementEnabled() {
+        return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
+            && ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
+            && this.allowSingleWandReplacement.isEnabled();
     }
 
     @Nonnull

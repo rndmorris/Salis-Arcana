@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
-import dev.rndmorris.salisarcana.common.compat.ModCompat;
+import dev.rndmorris.salisarcana.common.compat.MixinModCompat;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 
 public enum Mixins {
@@ -138,7 +138,8 @@ public enum Mixins {
     BLOCKCANDLE_OOB(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(
-            () -> ConfigModuleRoot.bugfixes.candleRendererCrashes.isEnabled() && !ModCompat.disableBlockCandleFixes)
+            () -> ConfigModuleRoot.bugfixes.candleRendererCrashes.isEnabled()
+                && !MixinModCompat.disableBlockCandleFixes)
         .addMixinClasses("blocks.MixinBlockCandleRenderer", "blocks.MixinBlockCandle")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     DEAD_MOBS_DONT_ATTACK(new Builder().setPhase(Phase.LATE)
@@ -188,6 +189,12 @@ public enum Mixins {
         .addMixinClasses(
             "items.MixinItemWandCasting_DisableSpendingCheck",
             "tiles.MixinTileMagicWorkbench_GhostItemFix")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    ARCANE_WORKBENCH_ALLOW_RECHARGE_CRAFTING(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchAllowRechargeCrafting::isEnabled)
+        .addMixinClasses("tiles.MixinTileMagicWorkbenchCharger")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
@@ -242,7 +249,7 @@ public enum Mixins {
 
     WAND_PEDESTAL_CV(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(() -> ConfigModuleRoot.enhancements.wandPedestalUseCV.isEnabled() && !ModCompat.disableWandCV)
+        .setApplyIf(() -> ConfigModuleRoot.enhancements.wandPedestalUseCV.isEnabled() && !MixinModCompat.disableWandCV)
         .addMixinClasses("tiles.MixinTileWandPedestal")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
@@ -317,6 +324,21 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.staffterNameTooltip::isEnabled)
         .addMixinClasses("items.MixinItemWandCasting_NamedStaffters")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    SINGLE_WAND_REPLACEMENT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements::singleWandReplacementEnabled)
+        .addMixinClasses("container.MixinContainerArcaneWorkbench_SingleWandReplacement")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    SINGLE_WAND_REPLACEMENT_CLIENT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(ConfigModuleRoot.enhancements::singleWandReplacementEnabled)
+        .addMixinClasses("gui.MixinGuiArcaneWorkbench_SingleWandReplacement")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    PRIMAL_CRUSHER_OREDICT_COMPAT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
+        .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     RESEARCH_ITEM_EXTENDED(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
@@ -333,6 +355,7 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.extendedResearchData::isEnabled)
         .addMixinClasses("addons.Automagy.ModResearchItem_Extended")
         .addTargetedMod(TargetedMod.AUTOMAGY)),
+
     // spotless:off
     ;
     // spotless:on
