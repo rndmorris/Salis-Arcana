@@ -11,6 +11,7 @@ import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 
 /**
  * Methods to register Thaumcraft recipes that will appear in NEI but should not be registered as a functional recipe.
+ * No effect if {@code "tcneiplugin=false"} in {@code "mod_integrations.cfg"}.
  */
 public interface INeiOnlyRecipeRegistry {
 

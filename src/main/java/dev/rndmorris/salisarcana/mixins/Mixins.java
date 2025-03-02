@@ -350,7 +350,7 @@ public enum Mixins {
 
     NEI_FAKE_RECIPES(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(() -> true)
+        .setApplyIf(ConfigModuleRoot.modCompat.tcneiplugin::isEnabled)
         .addMixinClasses(
             "addons.thaumcraftneiplugin.MixinArcaneShapedRecipeHandler_FakeRecipes",
             "addons.thaumcraftneiplugin.MixinArcaneShapelessRecipeHandler_FakeRecipes",
