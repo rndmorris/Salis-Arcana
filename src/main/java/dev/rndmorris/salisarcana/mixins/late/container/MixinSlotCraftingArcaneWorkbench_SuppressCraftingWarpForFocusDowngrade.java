@@ -14,7 +14,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import dev.rndmorris.salisarcana.common.interfaces.ISuppressCraftingWarp;
-import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
+import dev.rndmorris.salisarcana.common.recipes.CleanFocusRecipe;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.common.config.Config;
@@ -50,7 +50,7 @@ public abstract class MixinSlotCraftingArcaneWorkbench_SuppressCraftingWarpForFo
                 break;
             }
         }
-        if (matchedRecipe == CustomRecipes.cleanFocusRecipe) {
+        if (matchedRecipe instanceof CleanFocusRecipe) {
             // this recipe shouldn't give warp
             final var extendedEventWorldHandler = ISuppressCraftingWarp.getInstance();
             if (extendedEventWorldHandler != null) {

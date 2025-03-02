@@ -1,8 +1,6 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.function.Predicate;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,19 +18,52 @@ import thaumcraft.common.config.ConfigItems;
 
 public class CleanFocusRecipe implements IArcaneRecipe {
 
+    private static boolean hasCloth(ItemStack i) {
+        final var clothDamage = 7;
+        return i != null && i.getItem() == ConfigItems.itemResource && i.getItemDamage() == clothDamage;
+    }
+
+    private static boolean isSalt(ItemStack i) {
+        final var saltDamage = 14;
+        return i != null && i.getItem() == ConfigItems.itemResource && i.getItemDamage() == saltDamage;
+    }
+
+    private final int strength;
+
     private int focusIndex;
 
-    private final List<SlotPredicate> predicates = Collections.unmodifiableList(new PredicateList() {
+    private final PredicateList predicates;
 
-        {
-            final var balancedShardDamage = 6;
-            final var clothDamage = 7;
-            focusIndex = this.autoCount;
-            add(i -> i != null && i.getItem() instanceof ItemFocusBasic);
-            add(i -> i != null && i.getItem() == ConfigItems.itemShard && i.getItemDamage() == balancedShardDamage);
-            add(i -> i != null && i.getItem() == ConfigItems.itemResource && i.getItemDamage() == clothDamage);
+    public CleanFocusRecipe(int strength) {
+        this.strength = Integer.min(Integer.max(strength, 1), 5);
+        final var balancedShardDamage = 6;
+
+        predicates = new PredicateList(2 + strength) {
+
+            {
+                focusIndex = this.autoCount;
+                add(CleanFocusRecipe.this::hasFocus);
+                add(CleanFocusRecipe::hasCloth);
+
+                for (var index = 0; index < strength; ++index) {
+                    add(CleanFocusRecipe::isSalt);
+                }
+            }
+        };
+    }
+
+    private boolean hasFocus(ItemStack i) {
+        if (i == null || !(i.getItem() instanceof ItemFocusBasic itemFocusBasic)) {
+            return false;
         }
-    });
+        var upgradeCount = 0;
+        for (var upgrade : itemFocusBasic.getAppliedUpgrades(i)) {
+            if (upgrade >= 0) {
+                upgradeCount += 1;
+            }
+        }
+        return strength <= upgradeCount;
+    }
 
     private ItemStack[] getMatchedItems(IInventory inventory) {
         final var outputs = new ItemStack[predicates.size()];
@@ -95,11 +126,18 @@ public class CleanFocusRecipe implements IArcaneRecipe {
         }
 
         final var outputStack = focusStack.copy();
+        final var upgrades = itemFocus.getAppliedUpgrades(outputStack);
+        var removed = 0;
+        for (var index = upgrades.length - 1; index >= 0 && removed < strength; --index) {
+            if (upgrades[index] >= 0) {
+                removed += 1;
+                upgrades[index] = -1;
+            }
+        }
 
         // private method, so reflect to call it
-        CustomRecipes.withItemFocusReflection(
-            itemFocus,
-            (r) -> r.call("setFocusUpgradeTagList", outputStack, new short[] { -1, -1, -1, -1, -1 }));
+        CustomRecipes
+            .withItemFocusReflection(itemFocus, (r) -> r.call("setFocusUpgradeTagList", outputStack, upgrades));
 
         return outputStack;
     }
@@ -121,22 +159,7 @@ public class CleanFocusRecipe implements IArcaneRecipe {
 
     @Override
     public AspectList getAspects(IInventory inventory) {
-        final var invItems = getMatchedItems(inventory);
-        final var focusStack = ArrayHelper.tryGet(invItems, focusIndex)
-            .data();
-        if (focusStack == null || !(focusStack.getItem() instanceof ItemFocusBasic itemFocus)) {
-            return new AspectList();
-        }
-        final var focusUpgrades = itemFocus.getAppliedUpgrades(focusStack);
-        var costMultiplier = 0;
-
-        for (var upgrade : focusUpgrades) {
-            if (upgrade > 0) {
-                costMultiplier += 1;
-            }
-        }
-
-        return AspectHelper.primalList(costMultiplier * 10);
+        return AspectHelper.primalList(strength * 10);
     }
 
     @Override
@@ -146,6 +169,10 @@ public class CleanFocusRecipe implements IArcaneRecipe {
 }
 
 class PredicateList extends ArrayList<SlotPredicate> {
+
+    public PredicateList(int initialCapacity) {
+        super(initialCapacity);
+    }
 
     public int autoCount = 0;
 

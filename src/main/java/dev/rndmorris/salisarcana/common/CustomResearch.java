@@ -365,7 +365,12 @@ public class CustomResearch {
 
         final var pages = new ArrayList<ResearchPage>();
         pages.add(new ResearchPage("tc.research_page." + fullKey + ".0"));
-        pages.add(new ResearchPage(CustomRecipes.cleanFocusExamples.toArray(new ShapelessArcaneRecipe[0])));
+
+        pages.add(new ResearchPage(CustomRecipes.Examples.oneUpgrade.toArray(new ShapelessArcaneRecipe[0])));
+        pages.add(new ResearchPage(CustomRecipes.Examples.twoUpgrade.toArray(new ShapelessArcaneRecipe[0])));
+        pages.add(new ResearchPage(CustomRecipes.Examples.threeUpgrade.toArray(new ShapelessArcaneRecipe[0])));
+        pages.add(new ResearchPage(CustomRecipes.Examples.fourUpgrade.toArray(new ShapelessArcaneRecipe[0])));
+        pages.add(new ResearchPage(CustomRecipes.Examples.fiveUpgrade.toArray(new ShapelessArcaneRecipe[0])));
 
         research.setPages(pages.toArray(new ResearchPage[0]));
 
