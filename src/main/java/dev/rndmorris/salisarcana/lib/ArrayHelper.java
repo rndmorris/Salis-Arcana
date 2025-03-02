@@ -29,6 +29,13 @@ public class ArrayHelper {
         return false;
     }
 
+    public static TryGetShortResult tryGet(short[] arr, int index) {
+        if (arr != null && 0 <= index && index < arr.length) {
+            return TryGetShortResult.success(arr[index]);
+        }
+        return TryGetShortResult.failure();
+    }
+
     public static <E> TryGetResult<E> tryGet(E[] arr, int index) {
         if (arr != null && 0 <= index && index < arr.length) {
             return TryGetResult.success(arr[index]);
@@ -49,6 +56,18 @@ public class ArrayHelper {
             Collections.addAll(result, arr);
         }
         return result;
+    }
+
+    @Desugar
+    public record TryGetShortResult(boolean success, short data) {
+
+        public static TryGetShortResult failure() {
+            return new TryGetShortResult(false, (short) 0);
+        }
+
+        public static TryGetShortResult success(short data) {
+            return new TryGetShortResult(true, data);
+        }
     }
 
     @Desugar
