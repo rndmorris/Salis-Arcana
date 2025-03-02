@@ -30,7 +30,7 @@ public class ArrayHelper {
     }
 
     public static <E> TryGetResult<E> tryGet(E[] arr, int index) {
-        if (0 <= index && index < arr.length) {
+        if (arr != null && 0 <= index && index < arr.length) {
             return TryGetResult.success(arr[index]);
         }
         return TryGetResult.failure();
