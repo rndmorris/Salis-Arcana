@@ -32,7 +32,8 @@ public abstract class MixinSlotCraftingArcaneWorkbench_SuppressCraftingWarpForFo
         method = "onPickupFromSlot",
         at = @At(
             value = "INVOKE",
-            target = "Lcpw/mods/fml/common/FMLCommonHandler;firePlayerCraftingEvent(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/item/ItemStack;Lnet/minecraft/inventory/IInventory;)V"))
+            target = "Lcpw/mods/fml/common/FMLCommonHandler;firePlayerCraftingEvent(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/item/ItemStack;Lnet/minecraft/inventory/IInventory;)V",
+            remap = false))
     private void wrapFirePlayerCraftingEvent(FMLCommonHandler instance, EntityPlayer player, ItemStack itemStack,
         IInventory inventory, Operation<Void> original, @Local(argsOnly = true) ItemStack par1ItemStack) {
         if (Config.wuss || ThaumcraftApi.getWarp(par1ItemStack) <= 0) {
