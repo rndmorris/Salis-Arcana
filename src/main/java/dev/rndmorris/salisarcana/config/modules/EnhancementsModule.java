@@ -65,6 +65,7 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public final ToggleSetting staffterNameTooltip;
     public final ToggleSetting primalCrusherOredict;
+    public final ToggleSetting focusDowngradeRecipe;
 
     public EnhancementsModule() {
         // spotless:off
@@ -80,6 +81,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.LATE,
                 "rotatedFoci",
                 "Add rotated recipes for the fire, shock, frost, equal rade, excavation, and primal wand foci.")
+                    .setCategory("recipes"),
+            focusDowngradeRecipe = new ToggleSetting(
+                this,
+                ConfigPhase.LATE,
+                "focusDowngradeRecipe",
+                "Add an arcane crafting recipe to wipe a wand foci's upgrades.")
                     .setCategory("recipes"),
             rotatedThaumometerRecipe = new ToggleSetting(
                 this,

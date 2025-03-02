@@ -319,6 +319,14 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileEldritchAltar_SpawnMobs")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    CRAFTING_WARP_SUPPRESSION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.focusDowngradeRecipe::isEnabled)
+        .addMixinClasses(
+            "container.MixinSlotCraftingArcaneWorkbench_SuppressCraftingWarpForFocusDowngrade",
+            "events.MixinEventHandlerWorld_SuppressCraftingWarp")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     NAMED_STAFFTERS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.staffterNameTooltip::isEnabled)
