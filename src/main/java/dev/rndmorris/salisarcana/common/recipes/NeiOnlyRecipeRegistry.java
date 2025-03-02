@@ -28,57 +28,59 @@ public class NeiOnlyRecipeRegistry implements INeiOnlyRecipeRegistry {
     public final ArrayList<InfusionRecipe> infusionRecipes = new ArrayList<>();
 
     @Override
-    public void registerFakeShapedArcaneRecipe(ShapedArcaneRecipe recipe) {
-        if (recipe == null) {
-            return;
+    public ShapedArcaneRecipe registerFakeShapedArcaneRecipe(ShapedArcaneRecipe recipe) {
+        if (recipe != null) {
+            shapedRecipes.add(recipe);
         }
-        shapedRecipes.add(recipe);
+        return recipe;
     }
 
     @Override
-    public void registerFakeShapedArcaneRecipe(String research, ItemStack result, AspectList aspects,
+    public ShapedArcaneRecipe registerFakeShapedArcaneRecipe(String research, ItemStack result, AspectList aspects,
         Object... recipe) {
-        registerFakeShapedArcaneRecipe(new ShapedArcaneRecipe(research, result, aspects, recipe));
+        return registerFakeShapedArcaneRecipe(new ShapedArcaneRecipe(research, result, aspects, recipe));
     }
 
     @Override
-    public void registerFakeShapelessArcaneRecipe(ShapelessArcaneRecipe recipe) {
-        if (recipe == null) {
-            return;
+    public ShapelessArcaneRecipe registerFakeShapelessArcaneRecipe(ShapelessArcaneRecipe recipe) {
+        if (recipe != null) {
+            shapelessArcaneRecipes.add(recipe);
         }
-        shapelessArcaneRecipes.add(recipe);
+        return recipe;
     }
 
     @Override
-    public void registerFakeShapelessArcaneRecipe(String research, ItemStack result, AspectList aspects,
-        Object... recipe) {
-        registerFakeShapelessArcaneRecipe(new ShapelessArcaneRecipe(research, result, aspects, recipe));
+    public ShapelessArcaneRecipe registerFakeShapelessArcaneRecipe(String research, ItemStack result,
+        AspectList aspects, Object... recipe) {
+        return registerFakeShapelessArcaneRecipe(new ShapelessArcaneRecipe(research, result, aspects, recipe));
     }
 
     @Override
-    public void registerFakeCrucibleRecipeHandler(CrucibleRecipe recipe) {
-        if (recipe == null) {
-            return;
+    public CrucibleRecipe registerFakeCrucibleRecipeHandler(CrucibleRecipe recipe) {
+        if (recipe != null) {
+            crucibleRecipes.add(recipe);
         }
-        crucibleRecipes.add(recipe);
+        return recipe;
     }
 
     @Override
-    public void registerFakeCrucibleRecipeHandler(String key, ItemStack result, Object catalyst, AspectList tags) {
-        registerFakeCrucibleRecipeHandler(new CrucibleRecipe(key, result, catalyst, tags));
+    public CrucibleRecipe registerFakeCrucibleRecipeHandler(String key, ItemStack result, Object catalyst,
+        AspectList tags) {
+        return registerFakeCrucibleRecipeHandler(new CrucibleRecipe(key, result, catalyst, tags));
     }
 
     @Override
-    public void registerFakeInfusionRecipeHandler(InfusionRecipe recipe) {
-        if (recipe == null) {
-            return;
+    public InfusionRecipe registerFakeInfusionRecipeHandler(InfusionRecipe recipe) {
+        if (recipe != null) {
+            infusionRecipes.add(recipe);
         }
-        infusionRecipes.add(recipe);
+        return recipe;
     }
 
     @Override
-    public void registerFakeInfusionRecipeHandler(String research, Object result, int instability, AspectList aspects,
-        ItemStack input, ItemStack[] recipe) {
-        registerFakeInfusionRecipeHandler(new InfusionRecipe(research, result, instability, aspects, input, recipe));
+    public InfusionRecipe registerFakeInfusionRecipeHandler(String research, Object result, int instability,
+        AspectList aspects, ItemStack input, ItemStack[] recipe) {
+        return registerFakeInfusionRecipeHandler(
+            new InfusionRecipe(research, result, instability, aspects, input, recipe));
     }
 }

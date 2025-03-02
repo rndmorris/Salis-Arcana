@@ -12,6 +12,8 @@ import java.util.List;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.spongepowered.libraries.com.google.gson.JsonSyntaxException;
@@ -19,6 +21,7 @@ import org.spongepowered.libraries.com.google.gson.JsonSyntaxException;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
+import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
 import dev.rndmorris.salisarcana.config.settings.ResearchEntry;
@@ -41,6 +44,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class CustomResearch {
 
+    public static ResearchItem downgradeFocusResearch;
     public static ResearchItem replaceCapsResearch;
     public static ResearchItem replaceCoreResearch;
 
@@ -113,6 +117,8 @@ public class CustomResearch {
             ConfigModuleRoot.enhancements.replaceWandCoreSettings,
             PlaceholderItem.rodPlaceholder,
             exampleRodRecipes());
+
+        downgradeFocusResearch = registerDowngradeResearch(ConfigModuleRoot.enhancements.focusDowngradeRecipe);
     }
 
     private static IArcaneRecipe[][] exampleCapRecipes() {
@@ -323,5 +329,46 @@ public class CustomResearch {
         }
 
         return research;
+    }
+
+    private static ResearchItem registerDowngradeResearch(CustomResearchSetting settings) {
+        if (!settings.isEnabled()) {
+            return null;
+        }
+        final var fullKey = MODID + ":" + settings.researchName;
+        final var category = settings.researchCategory;
+        final var col = settings.researchCol;
+        final var row = settings.researchRow;
+
+        final var iconItem = new ItemStack(ConfigItems.itemResource, 1, 7);
+        final var iconItemTag = new NBTTagCompound();
+        iconItem.setTagCompound(iconItemTag);
+        final var enchantmentsList = new NBTTagList();
+        iconItemTag.setTag("ench", enchantmentsList);
+
+        final var research = new ResearchItem(
+            fullKey,
+            category,
+            settings.researchAspects,
+            col,
+            row,
+            settings.difficulty,
+            iconItem).setParents(settings.parentResearches)
+                .setConcealed();
+        if (settings.autoUnlock) {
+            research.setAutoUnlock();
+        }
+        if (settings.purchasable) {
+            research.setSecondary();
+        }
+        research.setComplexity(settings.difficulty);
+
+        final var pages = new ArrayList<ResearchPage>();
+        pages.add(new ResearchPage("tc.research_page." + fullKey + ".0"));
+        pages.add(new ResearchPage(CustomRecipes.cleanFocusExamples.toArray(new ShapelessArcaneRecipe[0])));
+
+        research.setPages(pages.toArray(new ResearchPage[0]));
+
+        return research.registerResearchItem();
     }
 }

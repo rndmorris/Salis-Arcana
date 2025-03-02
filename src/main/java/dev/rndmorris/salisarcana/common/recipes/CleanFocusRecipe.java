@@ -10,6 +10,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import thaumcraft.api.aspects.AspectList;
@@ -140,7 +141,7 @@ public class CleanFocusRecipe implements IArcaneRecipe {
 
     @Override
     public String getResearch() {
-        return "FOCALMANIPULATION";
+        return ConfigModuleRoot.enhancements.focusDowngradeRecipe.researchName;
     }
 }
 

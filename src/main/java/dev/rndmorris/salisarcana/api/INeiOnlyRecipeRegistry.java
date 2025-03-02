@@ -21,41 +21,43 @@ public interface INeiOnlyRecipeRegistry {
     /**
      * Register a shaped arcane recipe that only appears in NEI and should not be registered as a functional recipe.
      */
-    void registerFakeShapedArcaneRecipe(ShapedArcaneRecipe recipe);
+    ShapedArcaneRecipe registerFakeShapedArcaneRecipe(ShapedArcaneRecipe recipe);
 
     /**
      * Register a shaped arcane recipe that only appears in NEI and should not be registered as a functional recipe.
      */
-    void registerFakeShapedArcaneRecipe(String research, ItemStack result, AspectList aspects, Object... recipe);
+    ShapedArcaneRecipe registerFakeShapedArcaneRecipe(String research, ItemStack result, AspectList aspects,
+        Object... recipe);
 
     /**
      * Register a shapeless arcane recipe that only appears in NEI and should not be registered as a functional recipe.
      */
-    void registerFakeShapelessArcaneRecipe(ShapelessArcaneRecipe recipe);
+    ShapelessArcaneRecipe registerFakeShapelessArcaneRecipe(ShapelessArcaneRecipe recipe);
 
     /**
      * Register a shapeless arcane recipe that only appears in NEI and should not be registered as a functional recipe.
      */
-    void registerFakeShapelessArcaneRecipe(String research, ItemStack result, AspectList aspects, Object... recipe);
+    ShapelessArcaneRecipe registerFakeShapelessArcaneRecipe(String research, ItemStack result, AspectList aspects,
+        Object... recipe);
 
     /**
      * Register a crucible recipe that only appears in NEI and should not be registered as a functional recipe.
      */
-    void registerFakeCrucibleRecipeHandler(CrucibleRecipe recipe);
+    CrucibleRecipe registerFakeCrucibleRecipeHandler(CrucibleRecipe recipe);
 
     /**
      * Register a crucible recipe that only appears in NEI and should not be registered as a functional recipe.
      */
-    void registerFakeCrucibleRecipeHandler(String key, ItemStack result, Object catalyst, AspectList tags);
+    CrucibleRecipe registerFakeCrucibleRecipeHandler(String key, ItemStack result, Object catalyst, AspectList tags);
 
     /**
      * Register an infusion recipe that only appears in NEI and should not be registered as a functional recipe.
      */
-    void registerFakeInfusionRecipeHandler(InfusionRecipe recipe);
+    InfusionRecipe registerFakeInfusionRecipeHandler(InfusionRecipe recipe);
 
     /**
      * Register an infusion recipe that only appears in NEI and should not be registered as a functional recipe.
      */
-    void registerFakeInfusionRecipeHandler(String research, Object result, int instability, AspectList aspects,
-        ItemStack input, ItemStack[] recipe);
+    InfusionRecipe registerFakeInfusionRecipeHandler(String research, Object result, int instability,
+        AspectList aspects, ItemStack input, ItemStack[] recipe);
 }

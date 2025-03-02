@@ -45,6 +45,8 @@ public class CustomRecipes {
     public static @Nullable ReplaceWandCapsRecipe replaceWandCapsRecipe = null;
     public static @Nullable ReplaceWandCoreRecipe replaceWandCoreRecipe = null;
 
+    public static final List<ShapelessArcaneRecipe> cleanFocusExamples = new ArrayList<>();
+
     private static final HashMap<ItemFocusBasic, R> focusReflectors = new HashMap<>();
 
     public static void withItemFocusReflection(ItemFocusBasic itemFocusBasic, Consumer<R> callback) {
@@ -314,13 +316,14 @@ public class CustomRecipes {
                 final var outputStack = prepareFocusOutputFocus(itemFocus, subItemStack);
 
                 for (var index = 0; index < 5; ++index) {
-                    registry.registerFakeShapelessArcaneRecipe(
+                    final var recipe = registry.registerFakeShapelessArcaneRecipe(
                         "FOCALMANIPULATION",
                         outputStack,
                         AspectHelper.primalList((index + 1) * 10),
                         inputStacks.get(index),
                         cloth,
                         shard);
+                    cleanFocusExamples.add(recipe);
                 }
             }
         }

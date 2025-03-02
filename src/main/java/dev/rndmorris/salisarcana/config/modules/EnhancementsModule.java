@@ -21,7 +21,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting rotatedFociRecipes;
     public final ToggleSetting rotatedThaumometerRecipe;
 
-    public final CustomResearchSetting replaceWandCapsSettings;
+    public final ReplaceWandComponentSettings replaceWandCapsSettings;
     public final ReplaceWandComponentSettings replaceWandCoreSettings;
     public final ToggleSetting enforceWandCoreTypes;
     public final ToggleSetting preserveWandVis;
@@ -65,7 +65,7 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public final ToggleSetting staffterNameTooltip;
     public final ToggleSetting primalCrusherOredict;
-    public final ToggleSetting focusDowngradeRecipe;
+    public final CustomResearchSetting focusDowngradeRecipe;
 
     public EnhancementsModule() {
         // spotless:off
@@ -82,12 +82,12 @@ public class EnhancementsModule extends BaseConfigModule {
                 "rotatedFoci",
                 "Add rotated recipes for the fire, shock, frost, equal rade, excavation, and primal wand foci.")
                     .setCategory("recipes"),
-            focusDowngradeRecipe = new ToggleSetting(
+            focusDowngradeRecipe = new CustomResearchSetting(
                 this,
                 ConfigPhase.LATE,
-                "focusDowngradeRecipe",
-                "Add an arcane crafting recipe to wipe a wand foci's upgrades.")
-                    .setCategory("recipes"),
+                "focusDowngradingRecipe",
+                "Add arcane crafting recipes to remove upgrades from wand foci.", new CustomResearchSetting.ResearchInfo("FOCUSCLEANING", "THAUMATURGY", -2, -9).setAspects("instrumentum:5", "pannus:3", "vacuos:3").setPurchasable(true).setDifficulty(1).setParents("FOCALMANIPULATION"))
+                    .setCategory("focus_downgrading"),
             rotatedThaumometerRecipe = new ToggleSetting(
                 this,
                 ConfigPhase.LATE,
