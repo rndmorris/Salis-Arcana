@@ -11,8 +11,7 @@ public enum TargetedMod {
     VANILLA("Minecraft", null),
     THAUMCRAFT("Thaumcraft", null, "Thaumcraft"), // "thaumcraft.codechicken.core.launch.DepLoader"
     HODGEPODGE("Hodgepodge", null, "hodgepodge"),
-
-    ;
+    THAUMCRAFTNEIPLUGIN("Thaumcraft NEI Plugin", null, "thaumcraftneiplugin"),;
 
     /** The "name" in the {@link Mod @Mod} annotation */
     public final String modName;

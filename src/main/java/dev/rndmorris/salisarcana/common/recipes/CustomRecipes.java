@@ -1,10 +1,14 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
+import static dev.rndmorris.salisarcana.SalisArcana.MODID;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
 
@@ -18,20 +22,45 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import dev.rndmorris.salisarcana.api.INeiOnlyRecipeRegistry;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.lib.AspectHelper;
+import dev.rndmorris.salisarcana.lib.R;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
+import thaumcraft.api.wands.FocusUpgradeType;
+import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.config.ConfigResearch;
 
 public class CustomRecipes {
 
+    public static final CleanFocusRecipe[] cleanFocusRecipes = new CleanFocusRecipe[5];
     public static @Nullable ReplaceWandCapsRecipe replaceWandCapsRecipe = null;
     public static @Nullable ReplaceWandCoreRecipe replaceWandCoreRecipe = null;
+
+    public static class Examples {
+
+        public static List<ShapelessArcaneRecipe> oneUpgrade = new ArrayList<>();
+        public static List<ShapelessArcaneRecipe> twoUpgrade = new ArrayList<>();
+        public static List<ShapelessArcaneRecipe> threeUpgrade = new ArrayList<>();
+        public static List<ShapelessArcaneRecipe> fourUpgrade = new ArrayList<>();
+        public static List<ShapelessArcaneRecipe> fiveUpgrade = new ArrayList<>();
+    }
+
+    private static final HashMap<ItemFocusBasic, R> focusReflectors = new HashMap<>();
+
+    public static void withItemFocusReflection(ItemFocusBasic itemFocusBasic, Consumer<R> callback) {
+        final R reflector;
+        synchronized (focusReflectors) {
+            reflector = focusReflectors.computeIfAbsent(itemFocusBasic, (key) -> new R(itemFocusBasic));
+        }
+        callback.accept(reflector);
+    }
 
     public static void registerRecipes() {
 
@@ -88,6 +117,9 @@ public class CustomRecipes {
         }
         if (ConfigModuleRoot.bugfixes.fixEFRRecipes.isEnabled() && Loader.isModLoaded("etfuturum")) {
             registerEFRRecipes();
+        }
+        if (ConfigModuleRoot.enhancements.focusDowngradeRecipe.isEnabled()) {
+            registerFocusDowngradeRecipes();
         }
     }
 
@@ -267,6 +299,72 @@ public class CustomRecipes {
         // noinspection unchecked
         ThaumcraftApi.getCraftingRecipes()
             .addAll(toAdd);
+    }
+
+    private static void registerFocusDowngradeRecipes() {
+        for (var strength = 0; strength < 5; ++strength) {
+            // noinspection unchecked
+            ThaumcraftApi.getCraftingRecipes()
+                .add(cleanFocusRecipes[strength] = new CleanFocusRecipe(strength + 1));
+        }
+
+        final var salt = new ItemStack(ConfigItems.itemResource, 1, 14);
+        final var cloth = new ItemStack(ConfigItems.itemResource, 1, 7);
+
+        final var registry = INeiOnlyRecipeRegistry.getInstance();
+        for (var item : Item.itemRegistry) {
+            if (!(item instanceof ItemFocusBasic itemFocus)) {
+                continue;
+            }
+
+            final var inputStacks = prepareFocusInputStacks(itemFocus, new ItemStack(itemFocus));
+            final var outputStack = prepareFocusOutputFocus(itemFocus, new ItemStack(itemFocus));
+
+            for (var index = 0; index < 5; ++index) {
+                final var inputs = new ArrayList<ItemStack>(3 + index);
+                inputs.add(inputStacks.get(index));
+                inputs.add(cloth);
+                for (var strength = 0; strength <= index; ++strength) {
+                    inputs.add(salt);
+                }
+
+                final var recipe = registry.registerFakeShapelessArcaneRecipe(
+                    MODID + ":" + ConfigModuleRoot.enhancements.focusDowngradeRecipe.researchName,
+                    outputStack,
+                    AspectHelper.primalList((index + 1) * 10),
+                    inputs.toArray(new Object[0]));
+                (switch (index) {
+                    case 0 -> Examples.oneUpgrade;
+                    case 1 -> Examples.twoUpgrade;
+                    case 2 -> Examples.threeUpgrade;
+                    case 3 -> Examples.fourUpgrade;
+                    default -> Examples.fiveUpgrade;
+                }).add(recipe);
+            }
+        }
+    }
+
+    private static List<ItemStack> prepareFocusInputStacks(ItemFocusBasic itemFocus, ItemStack inputStack) {
+        final var outputList = new ArrayList<ItemStack>();
+
+        final var upgrades = new short[] { -1, -1, -1, -1, -1, };
+
+        for (var index = 0; index < upgrades.length; ++index) {
+            upgrades[index] = FocusUpgradeType.frugal.id;
+            final var upgradedStack = inputStack.copy();
+            withItemFocusReflection(itemFocus, (r) -> r.call("setFocusUpgradeTagList", upgradedStack, upgrades));
+            outputList.add(upgradedStack);
+        }
+
+        return outputList;
+    }
+
+    private static ItemStack prepareFocusOutputFocus(ItemFocusBasic itemFocus, ItemStack outputStack) {
+        withItemFocusReflection(
+            itemFocus,
+            (r) -> r.call("setFocusUpgradeTagList", outputStack, new short[] { -1, -1, -1, -1, -1, }));
+
+        return outputStack;
     }
 
     private static ShapedArcaneRecipe createCopy(ShapedArcaneRecipe inputRecipe) {

@@ -39,6 +39,7 @@ public class CustomResearchSetting extends Setting {
         this.researchCategory = researchInfo.getResearchCategory();
         this.researchCol = researchInfo.getResearchCol();
         this.researchRow = researchInfo.getResearchRow();
+        this.purchasable = researchInfo.isPurchasable();
         this.parentResearches = researchInfo.getParents();
         this.difficulty = researchInfo.getDifficulty();
         this.autoUnlock = researchInfo.getAutoUnlock();

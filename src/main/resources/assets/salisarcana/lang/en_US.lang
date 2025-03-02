@@ -143,4 +143,8 @@ tc.research_name.salisarcana:CHESTSCAN=Container Scanning
 tc.research_text.salisarcana:CHESTSCAN=Looking a little closer
 tc.research_page.salisarcana:CHESTSCAN.0=Thanks to your research about deconstructing items, you've learned to look inside other blocks with your Thaumometer by using it to "deconstruct" the block magically. You can scan any block that can hold items, such as a chest or hopper, to scan all contained items automatically.
 
+tc.research_name.salisarcana:FOCUSCLEANING=Focus Upgrade Removal
+tc.research_text.salisarcana:FOCUSCLEANING=Ctrl+A, Delete
+tc.research_page.salisarcana:FOCUSCLEANING.0=A patch of enchanted fabric, when lined with a generous helping of vis-imbued salis mundus, is capable of scrubbing upgrades from a wand focus. Upgrades are removed in last-on-first-off order, but multiple upgrades can be removed simultaneously by increasing the amount of salis mundus used.   
+
 item.Wand.staffter.obj=Staffter

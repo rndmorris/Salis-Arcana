@@ -100,6 +100,13 @@ public class CommonProxy {
         return false;
     }
 
+    public boolean isServerThread() {
+        // there's gotta be a better way that doesn't require passing in a world object
+        return "Server thread".equals(
+            Thread.currentThread()
+                .getName());
+    }
+
     @SubscribeEvent
     public void onClientConnect(PlayerEvent.PlayerLoggedInEvent event) {
         CustomResearch.registerResearchFromFiles();

@@ -35,7 +35,6 @@ import dev.rndmorris.salisarcana.config.settings.ResearchEntry;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
 import thaumcraft.common.lib.research.ResearchManager;
@@ -60,7 +59,7 @@ public class ResearchHelper {
      *
      * @return The fake player.
      */
-    public static FakePlayer knowItAll() {
+    public static synchronized FakePlayer knowItAll() {
         if (knowItAll == null) {
             knowItAll = new FakePlayer(
                 MinecraftServer.getServer()
@@ -71,8 +70,7 @@ public class ResearchHelper {
                     if (ResearchManager.isResearchComplete(knowItAll.getCommandSenderName(), researchItem.key)) {
                         continue;
                     }
-                    Thaumcraft.proxy.getResearchManager()
-                        .completeResearch(knowItAll, researchItem.key);
+                    ResearchManager.completeResearchUnsaved(knowItAll.getCommandSenderName(), researchItem.key);
                 }
             }
         }
