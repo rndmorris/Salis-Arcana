@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana.common.recipes;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -13,7 +12,6 @@ import net.minecraft.world.World;
 
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
-import dev.rndmorris.salisarcana.lib.R;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.wands.ItemFocusBasic;
@@ -22,8 +20,6 @@ import thaumcraft.common.config.ConfigItems;
 public class CleanFocusRecipe implements IArcaneRecipe {
 
     private int focusIndex;
-
-    private final HashMap<ItemFocusBasic, R> focusReflectors = new HashMap<>();
 
     private final List<SlotPredicate> predicates = Collections.unmodifiableList(new PredicateList() {
 
@@ -97,17 +93,12 @@ public class CleanFocusRecipe implements IArcaneRecipe {
             return null;
         }
 
-        final R focusReflector;
-        if (!focusReflectors.containsKey(itemFocus)) {
-            focusReflector = new R(itemFocus);
-            focusReflectors.put(itemFocus, focusReflector);
-        } else {
-            focusReflector = focusReflectors.get(itemFocus);
-        }
         final var outputStack = focusStack.copy();
 
         // private method, so reflect to call it
-        focusReflector.call("setFocusUpgradeTagList", outputStack, new short[] { -1, -1, -1, -1, -1 });
+        CustomRecipes.withItemFocusReflection(
+            itemFocus,
+            (r) -> r.call("setFocusUpgradeTagList", outputStack, new short[] { -1, -1, -1, -1, -1 }));
 
         return outputStack;
     }

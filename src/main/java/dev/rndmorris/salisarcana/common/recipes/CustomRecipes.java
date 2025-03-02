@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
 
@@ -12,18 +14,27 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import dev.rndmorris.salisarcana.api.INeiOnlyRecipeRegistry;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.lib.AspectHelper;
+import dev.rndmorris.salisarcana.lib.R;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
+import thaumcraft.api.wands.FocusUpgradeType;
+import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.config.ConfigResearch;
@@ -33,6 +44,16 @@ public class CustomRecipes {
     public static @Nullable CleanFocusRecipe cleanFocusRecipe = null;
     public static @Nullable ReplaceWandCapsRecipe replaceWandCapsRecipe = null;
     public static @Nullable ReplaceWandCoreRecipe replaceWandCoreRecipe = null;
+
+    private static final HashMap<ItemFocusBasic, R> focusReflectors = new HashMap<>();
+
+    public static void withItemFocusReflection(ItemFocusBasic itemFocusBasic, Consumer<R> callback) {
+        final R reflector;
+        synchronized (focusReflectors) {
+            reflector = focusReflectors.computeIfAbsent(itemFocusBasic, (key) -> new R(itemFocusBasic));
+        }
+        callback.accept(reflector);
+    }
 
     public static void registerRecipes() {
 
@@ -277,6 +298,77 @@ public class CustomRecipes {
         // noinspection unchecked
         ThaumcraftApi.getCraftingRecipes()
             .add(cleanFocusRecipe = new CleanFocusRecipe());
+
+        final var shard = new ItemStack(ConfigItems.itemShard, 1, 6);
+        final var cloth = new ItemStack(ConfigItems.itemResource, 1, 7);
+
+        final var registry = INeiOnlyRecipeRegistry.getInstance();
+        for (var item : Item.itemRegistry) {
+            if (!(item instanceof ItemFocusBasic itemFocus)) {
+                continue;
+            }
+            final var subItemStacks = new ArrayList<ItemStack>();
+            itemFocus.getSubItems(itemFocus, null, subItemStacks);
+            for (var subItemStack : subItemStacks) {
+                final var inputStacks = prepareFocusInputStacks(itemFocus, subItemStack);
+                final var outputStack = prepareFocusOutputFocus(itemFocus, subItemStack);
+
+                for (var index = 0; index < 5; ++index) {
+                    registry.registerFakeShapelessArcaneRecipe(
+                        "FOCALMANIPULATION",
+                        outputStack,
+                        AspectHelper.primalList((index + 1) * 10),
+                        inputStacks.get(index),
+                        cloth,
+                        shard);
+                }
+            }
+        }
+    }
+
+    private static List<ItemStack> prepareFocusInputStacks(ItemFocusBasic itemFocus, ItemStack inputStack) {
+        final var outputList = new ArrayList<ItemStack>();
+
+        final var upgrades = new short[] { -1, -1, -1, -1, -1, };
+
+        for (var index = 0; index < upgrades.length; ++index) {
+            upgrades[index] = FocusUpgradeType.frugal.id;
+            final var upgradedStack = inputStack.copy();
+            withItemFocusReflection(itemFocus, (r) -> r.call("setFocusUpgradeTagList", upgradedStack, upgrades));
+            outputList.add(upgradedStack);
+        }
+
+        return outputList;
+    }
+
+    private static ItemStack prepareFocusOutputFocus(ItemFocusBasic itemFocus, ItemStack outputStack) {
+        final NBTTagCompound itemTag;
+
+        withItemFocusReflection(
+            itemFocus,
+            (r) -> r.call("setFocusUpgradeTagList", outputStack, new short[] { -1, -1, -1, -1, -1, }));
+
+        if (!outputStack.hasTagCompound()) {
+            outputStack.setTagCompound(itemTag = new NBTTagCompound());
+        } else {
+            itemTag = outputStack.getTagCompound();
+        }
+
+        final NBTTagCompound displayTag;
+        if (!itemTag.hasKey("display", NBT.TAG_COMPOUND)) {
+            itemTag.setTag("display", displayTag = new NBTTagCompound());
+        } else {
+            displayTag = itemTag.getCompoundTag("display");
+        }
+
+        final NBTTagList loreList;
+        if (!displayTag.hasKey("Lore", NBT.TAG_LIST)) {
+            displayTag.setTag("Lore", loreList = new NBTTagList());
+        } else {
+            loreList = displayTag.getTagList("Lore", NBT.TAG_STRING);
+        }
+        loreList.appendTag(new NBTTagString("This recipe can remove any combination of focus upgrades!"));
+        return outputStack;
     }
 
     private static ShapedArcaneRecipe createCopy(ShapedArcaneRecipe inputRecipe) {
