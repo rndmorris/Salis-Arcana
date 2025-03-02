@@ -319,6 +319,18 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileEldritchAltar_SpawnMobs")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    TAINTED_ITEM_DECAY_CHANCE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.taintedItemDecayChance::isEnabled)
+        .addMixinClasses("items.MixinItemResource_DecayChance")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    DISABLE_CREATIVE_TAINTED_ITEM_DECAY(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.disableCreativeTaintedItemDecay::isEnabled)
+        .addMixinClasses("items.MixinItemResource_DisableCreativeDecay")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     NAMED_STAFFTERS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.staffterNameTooltip::isEnabled)
