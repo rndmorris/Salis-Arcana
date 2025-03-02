@@ -346,7 +346,17 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
         .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
-        .addTargetedMod(TargetedMod.THAUMCRAFT));
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    NEI_FAKE_RECIPES(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(() -> true)
+        .addMixinClasses(
+            "addons.thaumcraftneiplugin.MixinArcaneShapedRecipeHandler_FakeRecipes",
+            "addons.thaumcraftneiplugin.MixinArcaneShapelessRecipeHandler_FakeRecipes",
+            "addons.thaumcraftneiplugin.MixinCrucibleRecipeHandler_FakeRecipes",
+            "addons.thaumcraftneiplugin.MixinInfusionRecipeHandler_FakeRecipes")
+        .addTargetedMod(TargetedMod.THAUMCRAFTNEIPLUGIN)),;
 
     private final List<String> mixinClasses;
     private final List<TargetedMod> targetedMods;
