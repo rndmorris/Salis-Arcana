@@ -30,6 +30,7 @@ import thaumcraft.common.config.ConfigResearch;
 
 public class CustomRecipes {
 
+    public static @Nullable CleanFocusRecipe cleanFocusRecipe = null;
     public static @Nullable ReplaceWandCapsRecipe replaceWandCapsRecipe = null;
     public static @Nullable ReplaceWandCoreRecipe replaceWandCoreRecipe = null;
 
@@ -88,6 +89,9 @@ public class CustomRecipes {
         }
         if (ConfigModuleRoot.bugfixes.fixEFRRecipes.isEnabled() && Loader.isModLoaded("etfuturum")) {
             registerEFRRecipes();
+        }
+        if (ConfigModuleRoot.enhancements.focusDowngradeRecipe.isEnabled()) {
+            registerFocusDowngradeRecipes();
         }
     }
 
@@ -267,6 +271,12 @@ public class CustomRecipes {
         // noinspection unchecked
         ThaumcraftApi.getCraftingRecipes()
             .addAll(toAdd);
+    }
+
+    private static void registerFocusDowngradeRecipes() {
+        // noinspection unchecked
+        ThaumcraftApi.getCraftingRecipes()
+            .add(cleanFocusRecipe = new CleanFocusRecipe());
     }
 
     private static ShapedArcaneRecipe createCopy(ShapedArcaneRecipe inputRecipe) {
