@@ -317,33 +317,30 @@ public class CustomRecipes {
             if (!(item instanceof ItemFocusBasic itemFocus)) {
                 continue;
             }
-            final var subItemStacks = new ArrayList<ItemStack>();
-            itemFocus.getSubItems(itemFocus, null, subItemStacks);
-            for (var subItemStack : subItemStacks) {
-                final var inputStacks = prepareFocusInputStacks(itemFocus, subItemStack);
-                final var outputStack = prepareFocusOutputFocus(itemFocus, subItemStack);
 
-                for (var index = 0; index < 5; ++index) {
-                    final var inputs = new ArrayList<ItemStack>(3 + index);
-                    inputs.add(inputStacks.get(index));
-                    inputs.add(cloth);
-                    for (var strength = 0; strength <= index; ++strength) {
-                        inputs.add(salt);
-                    }
+            final var inputStacks = prepareFocusInputStacks(itemFocus, new ItemStack(itemFocus));
+            final var outputStack = prepareFocusOutputFocus(itemFocus, new ItemStack(itemFocus));
 
-                    final var recipe = registry.registerFakeShapelessArcaneRecipe(
-                        MODID + ":" + ConfigModuleRoot.enhancements.focusDowngradeRecipe.researchName,
-                        outputStack,
-                        AspectHelper.primalList((index + 1) * 10),
-                        inputs.toArray(new Object[0]));
-                    (switch (index) {
-                        case 0 -> Examples.oneUpgrade;
-                        case 1 -> Examples.twoUpgrade;
-                        case 2 -> Examples.threeUpgrade;
-                        case 3 -> Examples.fourUpgrade;
-                        default -> Examples.fiveUpgrade;
-                    }).add(recipe);
+            for (var index = 0; index < 5; ++index) {
+                final var inputs = new ArrayList<ItemStack>(3 + index);
+                inputs.add(inputStacks.get(index));
+                inputs.add(cloth);
+                for (var strength = 0; strength <= index; ++strength) {
+                    inputs.add(salt);
                 }
+
+                final var recipe = registry.registerFakeShapelessArcaneRecipe(
+                    MODID + ":" + ConfigModuleRoot.enhancements.focusDowngradeRecipe.researchName,
+                    outputStack,
+                    AspectHelper.primalList((index + 1) * 10),
+                    inputs.toArray(new Object[0]));
+                (switch (index) {
+                    case 0 -> Examples.oneUpgrade;
+                    case 1 -> Examples.twoUpgrade;
+                    case 2 -> Examples.threeUpgrade;
+                    case 3 -> Examples.fourUpgrade;
+                    default -> Examples.fiveUpgrade;
+                }).add(recipe);
             }
         }
     }
@@ -364,8 +361,6 @@ public class CustomRecipes {
     }
 
     private static ItemStack prepareFocusOutputFocus(ItemFocusBasic itemFocus, ItemStack outputStack) {
-        final NBTTagCompound itemTag;
-
         withItemFocusReflection(
             itemFocus,
             (r) -> r.call("setFocusUpgradeTagList", outputStack, new short[] { -1, -1, -1, -1, -1, }));
