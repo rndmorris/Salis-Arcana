@@ -73,6 +73,28 @@ Gives creative mode players infinite vis in wands
 
 Ctrl-clicking on a research in the Thaumonomicon while in Creative mode will autocomplete the research.
 
+**Config Option:** `creativeNoXPManipulator`
+
+Allow Creative players to use the Focal Manipulator without the necessary XP.
+
+## Focus Disenchanting
+
+**Config Option:** `enableFocusDisenchanting`
+
+Allow players to use the Focal Manipulator to remove focus enchantments and refund XP.
+
+**Config Option:** `focusDisenchantingRefundPercentage`
+
+Requires `enableFocusDisenchanting=true`.
+
+Value must be between 0 and 100, inclusive. (Default: 75)
+
+Percentage of XP points refunded upon removing an enchantment from a focus, calculated as levels from 0 XP.
+
+**Config Option:** `autoUnlockFocusDisenchanting` (Default: false)
+
+Whether the Focus Disenchanting research should automatically unlock as soon as the Focal Manipulator research is unlocked.
+
 ## Thaumonomicon Controls
 
 **Config option:**: `Enable Scrollwheel`
