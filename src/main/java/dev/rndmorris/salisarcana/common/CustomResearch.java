@@ -113,6 +113,10 @@ public class CustomResearch {
             ConfigModuleRoot.enhancements.replaceWandCoreSettings,
             PlaceholderItem.rodPlaceholder,
             exampleRodRecipes());
+
+        if (ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled()) {
+            DisenchantFocusUpgrade.registerResearch();
+        }
     }
 
     private static IArcaneRecipe[][] exampleCapRecipes() {

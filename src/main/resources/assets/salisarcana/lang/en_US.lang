@@ -144,3 +144,12 @@ tc.research_text.salisarcana:CHESTSCAN=Looking a little closer
 tc.research_page.salisarcana:CHESTSCAN.0=Thanks to your research about deconstructing items, you've learned to look inside other blocks with your Thaumometer by using it to "deconstruct" the block magically. You can scan any block that can hold items, such as a chest or hopper, to scan all contained items automatically.
 
 item.Wand.staffter.obj=Staffter
+
+focus.upgrade.salisarcana:disenchant.name=Disenchant Focus
+focus.upgrade.salisarcana:disenchant.text=Remove the last upgrade applied to the focus and refund some of the XP spent.
+focus.upgrade.salisarcana:disenchant.text.generic=Remove the last upgrade applied to the focus and refund %d%% of the XP spent.
+focus.upgrade.salisarcana:disenchant.text.specific=Remove §5%s§r from this focus and refund §a%d XP§r.
+
+tc.research_name.salisarcana:FOCUS_DISENCHANTING=Focal Disenchanting
+tc.research_text.salisarcana:FOCUS_DISENCHANTING=Regretting your past decisions
+tc.research_page.salisarcana:FOCUS_DISENCHANTING.0=After some experimentation with the Focal Manipulator, you have discovered that the enchantments on focuses are nowhere near as permanent as they seem.<BR>By applying Perditio CV to any enchanted focus in the Focal Manipulator, you can remove the last enchantment applied to the focus and recover up to %d%% of the XP spent on that upgrade.<BR>(Since levels store more XP as you gain more levels, disenchanting a focus enchanted at a level higher than the minimum will lose more XP due to the larger XP bars.)

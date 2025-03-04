@@ -300,6 +300,19 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.creativeOpThaumonomicon::isEnabled)
         .addMixinClasses("gui.MixinGuiResearchBrowser")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    CREATIVE_NO_XP_MANIPULATOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.creativeNoXPManipulator::isEnabled)
+        .addMixinClasses("tiles.MixinTileFocalManipulator_NoXP", "gui.MixinGuiFocalManipulator_CreativeNoXP")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCUS_DISENCHANTING(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.enableFocusDisenchanting::isEnabled)
+        .addMixinClasses(
+            "tiles.MixinTileFocalManipulator",
+            "gui.MixinGuiFocalManipulator",
+            "container.MixinContainerFocalManipulator")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     LEVITATOR_SHIFT_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
