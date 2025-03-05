@@ -1,10 +1,9 @@
 package dev.rndmorris.salisarcana.lib.customresearch.pages;
 
-import dev.rndmorris.salisarcana.lib.TranslationManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-import dev.rndmorris.salisarcana.lib.AssetHelper;
+import dev.rndmorris.salisarcana.lib.TranslationManager;
 import thaumcraft.api.research.ResearchPage;
 
 public class PictureResearchPageEntry extends ResearchPageEntry {

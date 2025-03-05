@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import dev.rndmorris.salisarcana.lib.TranslationManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import com.google.gson.annotations.SerializedName;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import dev.rndmorris.salisarcana.lib.AssetHelper;
 import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.lib.StringHelper;
+import dev.rndmorris.salisarcana.lib.TranslationManager;
 import dev.rndmorris.salisarcana.lib.customresearch.pages.ResearchPageEntry;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;

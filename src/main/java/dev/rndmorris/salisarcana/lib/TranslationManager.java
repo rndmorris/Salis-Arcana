@@ -69,13 +69,12 @@ public final class TranslationManager {
         }
     }
 
-
     /***
      * Sets a language key and value pair for en_US.
      * Automatically updates the language table when appropriate.
      *
-     * @param key      The translation key to create or update.
-     * @param value    The translated text to set the key to.
+     * @param key   The translation key to create or update.
+     * @param value The translated text to set the key to.
      */
     public static void setLangEntry(final String key, final String value) {
         setLangEntry(key, value, "en_US");
@@ -98,7 +97,9 @@ public final class TranslationManager {
             .put(key, value);
 
         if (SalisArcana.proxy.getLanguageCode()
-            .equals(language) || (isDefault && !StringTranslate.getInstance().containsTranslateKey(key))) {
+            .equals(language)
+            || (isDefault && !StringTranslate.getInstance()
+                .containsTranslateKey(key))) {
             // noinspection unchecked
             StringTranslate.getInstance().languageList.put(key, value);
             updateTranslator();
