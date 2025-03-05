@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.lib.customresearch.pages;
 
+import dev.rndmorris.salisarcana.lib.TranslationManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -35,6 +36,6 @@ public class PictureResearchPageEntry extends ResearchPageEntry {
 
     @Override
     public void createLangEntries(String key) {
-        AssetHelper.addLangEntry("tc_research_page." + key + "." + this.getNumber(), this.getText());
+        TranslationManager.setLangEntry("tc_research_page." + key + "." + this.getNumber(), this.getText());
     }
 }

@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.lib.customresearch.pages;
 
+import dev.rndmorris.salisarcana.lib.TranslationManager;
 import net.minecraft.util.StatCollector;
 
 import dev.rndmorris.salisarcana.lib.AssetHelper;
@@ -28,7 +29,7 @@ public class TextResearchPageEntry extends ResearchPageEntry {
 
     @Override
     public void createLangEntries(String key) {
-        AssetHelper.addLangEntry(AssetHelper.lookupLangEntryByValue(this.getText()), this.getText());
-        AssetHelper.addLangEntry("tc_research_page." + key + "." + this.getNumber(), this.getText());
+        TranslationManager.setLangEntry(TranslationManager.lookupLangEntryByValue(this.getText()), this.getText());
+        TranslationManager.setLangEntry("tc_research_page." + key + "." + this.getNumber(), this.getText());
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import dev.rndmorris.salisarcana.lib.TranslationManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -208,16 +209,16 @@ public class ResearchEntry {
             ResearchCategories.researchCategories.get(research.category).research.remove(research.key);
             ResearchCategories.researchCategories.get(research.category).research.put(research.key, research);
         }
-        String key = AssetHelper.lookupLangEntryByValue(research.getName());
+        String key = TranslationManager.lookupLangEntryByValue(research.getName());
         if (key == null) {
             key = research.getName();
         }
-        AssetHelper.addLangEntry(key, this.getName());
-        key = AssetHelper.lookupLangEntryByValue(research.getText());
+        TranslationManager.setLangEntry(key, this.getName());
+        key = TranslationManager.lookupLangEntryByValue(research.getText());
         if (key == null) {
             key = research.getText();
         }
-        AssetHelper.addLangEntry(key, this.getTooltip());
+        TranslationManager.setLangEntry(key, this.getTooltip());
 
         research.setParents(parents);
         research.setParentsHidden(parentsHidden);
@@ -262,18 +263,18 @@ public class ResearchEntry {
             r.set("category", this.category);
         }
         if (this.name != null && !this.name.isEmpty() && !this.name.equals(research.getName())) {
-            String key = AssetHelper.lookupLangEntryByValue(research.getName());
+            String key = TranslationManager.lookupLangEntryByValue(research.getName());
             if (key == null) {
                 key = research.getName();
             }
-            AssetHelper.addLangEntry(key, this.getName());
+            TranslationManager.setLangEntry(key, this.getName());
         }
         if (this.tooltip != null && !this.tooltip.isEmpty() && !this.tooltip.equals(research.getText())) {
-            String key = AssetHelper.lookupLangEntryByValue(research.getText());
+            String key = TranslationManager.lookupLangEntryByValue(research.getText());
             if (key == null) {
                 key = research.getText();
             }
-            AssetHelper.addLangEntry(key, this.getTooltip());
+            TranslationManager.setLangEntry(key, this.getTooltip());
         }
         if (this.aspects != null && this.aspects.length > 0) {
             r.set("tags", this.getAspects());

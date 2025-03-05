@@ -69,6 +69,10 @@ public final class TranslationManager {
         }
     }
 
+    public static void setLangEntry(final String key, final String value) {
+        setLangEntry(key, value, "en_US");
+    }
+
     /***
      * Sets a language key and value pair for the specified language.
      * Automatically updates the language table when appropriate.
