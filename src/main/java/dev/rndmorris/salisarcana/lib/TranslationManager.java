@@ -69,6 +69,14 @@ public final class TranslationManager {
         }
     }
 
+
+    /***
+     * Sets a language key and value pair for en_US.
+     * Automatically updates the language table when appropriate.
+     *
+     * @param key      The translation key to create or update.
+     * @param value    The translated text to set the key to.
+     */
     public static void setLangEntry(final String key, final String value) {
         setLangEntry(key, value, "en_US");
     }
@@ -82,14 +90,15 @@ public final class TranslationManager {
      * @param language The language code for the translation (use "en_US" by default.)
      */
     public static void setLangEntry(final String key, final String value, final String language) {
+        final var isDefault = language.equals("en_US");
         if (FMLLaunchHandler.side()
-            .isServer() && !language.equals("en_US")) return;
+            .isServer() && !isDefault) return;
 
         customLangKeys.computeIfAbsent(language, k -> new HashMap<>())
             .put(key, value);
 
         if (SalisArcana.proxy.getLanguageCode()
-            .equals(language)) {
+            .equals(language) || (isDefault && !StringTranslate.getInstance().containsTranslateKey(key))) {
             // noinspection unchecked
             StringTranslate.getInstance().languageList.put(key, value);
             updateTranslator();
