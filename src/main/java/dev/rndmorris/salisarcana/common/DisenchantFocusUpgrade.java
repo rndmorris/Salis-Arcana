@@ -11,6 +11,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
+import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.FocusUpgradeType;
 
 public class DisenchantFocusUpgrade extends FocusUpgradeType {
@@ -40,11 +41,10 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
             .add(Aspect.VOID, 8)
             .add(Aspect.MAGIC, 6);
         final var percentXP = ConfigModuleRoot.enhancements.focusDisenchantingRefundPercentage.getValueOrDefault();
-        researchItem = new ResearchItem(RESEARCH_KEY, "THAUMATURGY", researchAspects, -1, -8, 2, ICON_LOCATION);
+        researchItem = new ResearchItem(RESEARCH_KEY, "THAUMATURGY", researchAspects, -2, -8, 2, ICON_LOCATION);
         researchItem.setPages(
-            new FormattedResearchPage(
-                "tc.research_page.salisarcana:FOCUS_DISENCHANTING.0",
-                new Object[] { percentXP }));
+            new FormattedResearchPage("tc.research_page.salisarcana:FOCUS_DISENCHANTING.0", new Object[] { percentXP }),
+            new ResearchPage("tc.research_page.salisarcana:FOCUS_DISENCHANTING.1"));
         researchItem.setConcealed()
             .setSecondary()
             .setParents("FOCALMANIPULATION")
