@@ -11,7 +11,6 @@ import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
 import dev.rndmorris.salisarcana.config.settings.Setting;
-import dev.rndmorris.salisarcana.config.settings.StringSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
@@ -57,7 +56,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting wandPedestalUseCV;
     public final ToggleSetting thaumometerScanContainers;
     public final ToggleSetting thaumometerScanResearchEnabled;
-    public final StringSetting thaumometerScanContainersResearch;
+    public final CustomResearchSetting thaumometerScanContainersResearch;
     public final ToggleSetting levitatorShiftFix;
     public final ToggleSetting pureNodeBiomeChange;
     public final ToggleSetting rottenFleshRecipe;
@@ -224,11 +223,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "thaumometerScanResearchEnabled",
                 "Whether the ability to scan the contents of inventories is locked behind research."),
-            thaumometerScanContainersResearch = new StringSetting(
-                thaumometerScanResearchEnabled,
-                ConfigPhase.EARLY,
-                "thaumometerScanContainersResearch",
-                "Research required to unlock the ability to scan the contents of inventories with the Thaumometer.", "salisarcana:CHESTSCAN"),
             levitatorShiftFix = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
@@ -336,6 +330,17 @@ public class EnhancementsModule extends BaseConfigModule {
                 "allowSingleWandReplacement",
                 "If enabled, allows swapping a wand's components using vis from the wand being modified.")
                     .setCategory(wandCategory));
+
+        addSettings(
+            thaumometerScanContainersResearch = new CustomResearchSetting(
+                thaumometerScanContainers,
+                ConfigPhase.LATE,
+                "thaumometerScanContainers",
+                "Enable the thaumometer to scan the contents of inventories when right-clicking on them.",
+                new CustomResearchSetting.ResearchInfo("CHESTSCAN", "BASICS", 8, 3).setDifficulty(3)
+                    .setParents("DECONSTRUCTOR")
+                    .setAspects("ordo:10", "perditio:10", "permutatio:10")).setCategory("thaumometer_container_scan"));
+
     }
 
     public boolean singleWandReplacementEnabled() {
