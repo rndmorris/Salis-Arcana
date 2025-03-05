@@ -338,7 +338,27 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
         .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
-        .addTargetedMod(TargetedMod.THAUMCRAFT));
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    RESEARCH_ITEM_EXTENDED(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.extendedResearchData::isEnabled)
+        .addMixinClasses("api.ResearchItem_Extended")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RESEARCH_ITEM_EXTENDED_THAUMIC_TINKERER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.extendedResearchData::isEnabled)
+        .addMixinClasses("addons.ThaumicTinkerer.TTResearchItem_Extended")
+        .addTargetedMod(TargetedMod.THAUMIC_TINKERER)),
+    RESEARCH_ITEM_EXTENDED_AUTOMAGY(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.extendedResearchData::isEnabled)
+        .addMixinClasses("addons.Automagy.ModResearchItem_Extended")
+        .addTargetedMod(TargetedMod.AUTOMAGY)),
+
+    // spotless:off
+    ;
+    // spotless:on
 
     private final List<String> mixinClasses;
     private final List<TargetedMod> targetedMods;

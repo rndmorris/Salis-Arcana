@@ -20,8 +20,8 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHan
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.ResearchHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
-import dev.rndmorris.salisarcana.config.settings.ResearchEntry;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
+import dev.rndmorris.salisarcana.lib.customresearch.ResearchEntry;
 import thaumcraft.api.research.ResearchItem;
 
 public class CommandExportResearch extends ArcanaCommandBase<CommandExportResearch.Arguments> {
@@ -65,6 +65,7 @@ public class CommandExportResearch extends ArcanaCommandBase<CommandExportResear
             try {
                 ResearchHelper.exportResearchToJson(new ResearchEntry(research), file);
             } catch (Exception e) {
+                LOG.error("Failed to export research: {}", researchKey, e);
                 sender.addChatMessage(
                     new ChatComponentTranslation("salisarcana:commands.export-research.failed", researchKey));
                 continue;

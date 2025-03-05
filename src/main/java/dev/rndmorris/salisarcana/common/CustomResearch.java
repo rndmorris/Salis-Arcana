@@ -21,12 +21,12 @@ import cpw.mods.fml.common.Loader;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
-import dev.rndmorris.salisarcana.config.settings.ResearchEntry;
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
+import dev.rndmorris.salisarcana.lib.customresearch.ResearchEntry;
 import dev.rndmorris.salisarcana.network.MessageInvalidateCache;
 import dev.rndmorris.salisarcana.network.MessageSendResearch;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
@@ -81,6 +81,9 @@ public class CustomResearch {
             return;
         }
         for (ResearchEntry research : researches) {
+            if (!research.isEnabled()) {
+                continue;
+            }
             try {
                 if (ResearchHelper.registerCustomResearch(research)) {
                     NetworkHandler.instance.sendToAll(new MessageSendResearch(research));

@@ -39,6 +39,12 @@ Config Option: `thaumometerScanContainers`
 
 Allows the Thaumometer to scan the contents of containers (eg. chests, barrels) when scanning the block.
 
+## Extended Research Data
+
+Config Option: `extendedResearchData`
+
+If enabled, extends the internal data structure used to define research in the Thaumonomicon. This allows for better compatibility between other Salis Arcana features (such as the list-research command) and some Thaumcraft addons.
+
 ## Thaumcraft Command
 
 Config Option: `thaumcraftCommandTabCompletion`

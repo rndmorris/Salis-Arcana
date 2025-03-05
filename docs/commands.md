@@ -76,21 +76,24 @@ Reset the list of things a player has scanned, allowing those things to be scann
 
 **Usage:**
 
-`/salisarcana-forget-scanned [--player <username>] [--objects] [--entities] [--nodes] [--hand] [--inventory] [--looking] [--container] [--all]`
+`/salisarcana-forget-scanned [--player <username>] [--objects] [--entities] [--nodes] [--all] [--aspects <...>] [--all-aspects] [--hand] [--inventory] [--looking] [--container] `
 
 **Arguments:**
 
-|       Argument        |   Required    | Details                                                                                                                  |
-|:---------------------:|:-------------:|:-------------------------------------------------------------------------------------------------------------------------|
-| `--player <username>` |      No       | Specify the player whose scanned things will be altered. If not provided, defaults to the player executing this command. |
-|      `--objects`      | Conditionally | Reset scanned items and blocks. Mutually exclusive with `--all`.                                                         |
-|     `--entities`      | Conditionally | Reset scanned entities, including mobs. Mutually exclusive with `--all`.                                                 |
-|       `--nodes`       | Conditionally | Reset scanned nodes. Mutually exclusive with `--all`.                                                                    |
-|       `--hand`        | Conditionally | Reset the item currently held. Mutually exclusive with `--all`.                                                          |
-|     `--inventory`     | Conditionally | Resets all items in your inventory.  Mutually exclusive with `--all`.                                                    |
-|      `--looking`      | Conditionally | Resets the block you are looking at. Mutually exclusive with `--all`.                                                    |
-|     `--container`     | Conditionally | Resets all items inside of the container (eg. chest) you are looking at. Mutually exclusive with `--all`.                |
-|        `--all`        | Conditionally | Combine the effects of `--objects`, `--entities`, and `--nodes`. If not set, one of the others is required.              |
+|                  Argument                  |   Required    | Details                                                                                                                  |
+|:------------------------------------------:|:-------------:|:-------------------------------------------------------------------------------------------------------------------------|
+|           `--player <username>`            |      No       | Specify the player whose scanned things will be altered. If not provided, defaults to the player executing this command. |
+|                `--objects`                 | Conditionally | Reset scanned items and blocks. Mutually exclusive with `--all`.                                                         |
+|                `--entities`                | Conditionally | Reset scanned entities, including mobs. Mutually exclusive with `--all`.                                                 |
+|                 `--nodes`                  | Conditionally | Reset scanned nodes. Mutually exclusive with `--all`.                                                                    |
+|                  `--all`                   | Conditionally | Combine the effects of `--objects`, `--entities`, and `--nodes`. If not set, one of the others is required.              |
+| `--aspects <aspect[ aspect[ aspect...]]]>` |      No       | Reset the discovery of one or more aspects. Mutually exclusive with `--all-aspects`.                                     |
+|              `--all-aspects`               |      No       | Reset the discovery of all non-primal aspects. Mutually exclusive with `--aspects`.                                      |
+|                  `--hand`                  | Conditionally | Reset the item currently held. Mutually exclusive with `--all`.                                                          |
+|               `--inventory`                | Conditionally | Resets all items in your inventory.  Mutually exclusive with `--all`.                                                    |
+|                `--looking`                 | Conditionally | Resets the block you are looking at. Mutually exclusive with `--all`.                                                    |
+|               `--container`                | Conditionally | Resets all items inside of the container (eg. chest) you are looking at. Mutually exclusive with `--all`.                |
+
 
 **Default aliases:**
 * `/forget-scanned`

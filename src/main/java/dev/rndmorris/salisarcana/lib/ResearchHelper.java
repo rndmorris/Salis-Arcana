@@ -30,8 +30,18 @@ import com.google.gson.JsonSyntaxException;
 import com.mojang.authlib.GameProfile;
 
 import dev.rndmorris.salisarcana.SalisArcana;
+import dev.rndmorris.salisarcana.api.IResearchItemExtended;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
-import dev.rndmorris.salisarcana.config.settings.ResearchEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.ResearchEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.ArcaneResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.AspectResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.CraftingResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.CrucibleResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.InfusionResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.PictureResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.ResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.SmeltingResearchPageEntry;
+import dev.rndmorris.salisarcana.lib.customresearch.pages.TextResearchPageEntry;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
@@ -46,7 +56,18 @@ public class ResearchHelper {
 
     public static synchronized Gson researchGson() {
         if (_researchGson == null) {
-            _researchGson = new GsonBuilder().setPrettyPrinting()
+            RuntimeTypeAdapterFactory<ResearchPageEntry> typeFactory = RuntimeTypeAdapterFactory
+                .of(ResearchPageEntry.class, "pageType")
+                .registerSubtype(ArcaneResearchPageEntry.class, "arcane")
+                .registerSubtype(AspectResearchPageEntry.class, "aspect")
+                .registerSubtype(CraftingResearchPageEntry.class, "crafting")
+                .registerSubtype(CrucibleResearchPageEntry.class, "crucible")
+                .registerSubtype(InfusionResearchPageEntry.class, "infusion")
+                .registerSubtype(PictureResearchPageEntry.class, "picture")
+                .registerSubtype(SmeltingResearchPageEntry.class, "smelting")
+                .registerSubtype(TextResearchPageEntry.class, "text");
+            _researchGson = new GsonBuilder().registerTypeAdapterFactory(typeFactory)
+                .setPrettyPrinting()
                 .create();
         }
         return _researchGson;
@@ -151,10 +172,14 @@ public class ResearchHelper {
     }
 
     public static IChatComponent formatResearch(ResearchItem research, EnumChatFormatting formatting) {
+        final var researchNameKey = research instanceof IResearchItemExtended extended
+            ? extended.getNameTranslationKey()
+            : String.format("tc.research_name.%s", research.key);
+
         final var style = new ChatStyle().setColor(formatting)
             .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
         return new ChatComponentText("[").setChatStyle(style)
-            .appendSibling(new ChatComponentTranslation(String.format("tc.research_name.%s", research.key)))
+            .appendSibling(new ChatComponentTranslation(researchNameKey))
             .appendText("]");
     }
 
@@ -223,18 +248,40 @@ public class ResearchHelper {
                 LOG.error("Research entry {} category missing or invalid.", research.getKey());
                 return false;
             }
-        ResearchItem original = ResearchCategories.getResearch(research.getKey());
-        if (original != null) {
-            research.updateResearchItem(original);
-            return true;
+        switch (research.getType()) {
+            case "create" -> {
+                LOG.info("Registering custom research: {}", research.getKey());
+                ResearchItem newResearch = new ResearchItem(research.getKey(), research.getCategory());
+                research.updateResearchItem(newResearch);
+                ResearchCategoryList categoryList = ResearchCategories.getResearchList(research.getCategory());
+                categoryList.research.put(research.getKey(), newResearch);
+                newResearch.registerResearchItem();
+                return true;
+            }
+            case "replace" -> {
+                LOG.info("Replacing research: {}", research.getKey());
+                ResearchItem original = ResearchCategories.getResearch(research.getKey());
+                String originalCategory = original.category;
+                if (!originalCategory.equals(research.getCategory())) {
+                    ResearchCategoryList originalList = ResearchCategories.getResearchList(originalCategory);
+                    originalList.research.remove(research.getKey());
+                    ResearchCategoryList newList = ResearchCategories.getResearchList(research.getCategory());
+                    newList.research.put(research.getKey(), original);
+                }
+                research.updateResearchItem(original);
+                return true;
+            }
+            case "update" -> {
+                LOG.info("Updating research: {}", research.getKey());
+                ResearchItem original = ResearchCategories.getResearch(research.getKey());
+                research.updateResearchItem(original);
+                return true;
+            }
+            default -> {
+                LOG.error("Research entry {} has invalid type: {}", research.getKey(), research.getType());
+                return false;
+            }
         }
-        LOG.info("Registering custom research: {}", research.getKey());
-        ResearchItem newResearch = new ResearchItem(research.getKey(), research.getCategory());
-        research.updateResearchItem(newResearch);
-        ResearchCategoryList categoryList = ResearchCategories.getResearchList(research.getCategory());
-        categoryList.research.put(research.getKey(), newResearch);
-        newResearch.registerResearchItem();
-        return true;
     }
 
     public static boolean registerCustomResearch(String json) {
