@@ -51,6 +51,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting stabilizerStrength;
 
     public final IntSetting itemEldritchObjectStackSize;
+    public final ToggleSetting disableCreativeTaintedItemDecay;
+    public final IntSetting taintedItemDecayChance;
 
     public final EldritchAltarMobSpawnSetting eldritchAltarSpawningMethod;
 
@@ -176,6 +178,19 @@ public class EnhancementsModule extends BaseConfigModule {
                 "The maximum stack size for Eldritch Objects (Primordial Pearl, Eldritch Eye, Crimson Rites, Eldritch Obelisk Placer, Runed Tablet).",
                 16).setMinValue(1)
                     .setMaxValue(64),
+            disableCreativeTaintedItemDecay = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "disableCreativeTaintedItemDecay",
+                "Prevent tainted goo and taint tendrils from decaying for players in creative mode."
+            ),
+            taintedItemDecayChance = new IntSetting(
+                this,
+                ConfigPhase.EARLY,
+                "taintedItemDecayChance",
+                "The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.",
+                4321
+            ).setMinValue(-1),
             stopCreativeModeItemConsumption = new ToggleSetting(
                 this,
                 ConfigPhase.EARLY,
