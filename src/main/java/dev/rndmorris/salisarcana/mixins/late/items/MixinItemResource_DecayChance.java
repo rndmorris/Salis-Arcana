@@ -14,7 +14,9 @@ import thaumcraft.common.items.ItemResource;
 @Mixin(ItemResource.class)
 public abstract class MixinItemResource_DecayChance {
 
-    @WrapOperation(method = "onUpdate", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I"))
+    @WrapOperation(
+        method = "onUpdate",
+        at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", remap = false))
     private int disableCreativeDecay(Random instance, int i, Operation<Integer> original) {
         final var bound = ConfigModuleRoot.enhancements.taintedItemDecayChance.getValue();
         if (bound < 0) {

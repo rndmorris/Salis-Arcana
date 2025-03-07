@@ -14,10 +14,12 @@ import com.llamalad7.mixinextras.sugar.Local;
 
 import thaumcraft.common.items.ItemResource;
 
-@Mixin(value = ItemResource.class)
+@Mixin(ItemResource.class)
 public abstract class MixinItemResource_DisableCreativeDecay {
 
-    @WrapOperation(method = "onUpdate", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I"))
+    @WrapOperation(
+        method = "onUpdate",
+        at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", remap = false))
     private int disableCreativeDecay(Random instance, int i, Operation<Integer> original,
         @Local(argsOnly = true) Entity entity) {
         if (entity instanceof EntityPlayer player && player.capabilities.isCreativeMode) {
