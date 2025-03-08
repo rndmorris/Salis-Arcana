@@ -34,6 +34,12 @@ sometimes makes an infusion altar slightly less stable than it should be.
 
 Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting.
 
+## Nonnegative Boss Spawn Count
+
+**Config option:** `negativeBossSpawnCount`
+
+Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn.
+
 ## Metadata Safety Checks
 
 **Config option:** `candleMetadataCrash`
