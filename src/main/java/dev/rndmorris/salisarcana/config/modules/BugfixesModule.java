@@ -23,6 +23,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting staffFocusEffectFix;
     public final ToggleSetting arcaneWorkbenchGhostItemFix;
     public final ToggleSetting arcaneWorkbenchAllowRechargeCrafting;
+    public final ToggleSetting negativeBossSpawnCount;
 
     public BugfixesModule() {
         addSettings(
@@ -96,7 +97,12 @@ public class BugfixesModule extends BaseConfigModule {
                 this,
                 ConfigPhase.LATE,
                 "arcaneWorkbenchAllowRechargeCrafting",
-                "Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay."));
+                "Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay."),
+            negativeBossSpawnCount = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "negativeBossSpawnCount",
+                "Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn."));
     }
 
     @Nonnull
