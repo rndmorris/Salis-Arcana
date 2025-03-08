@@ -182,7 +182,6 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.staffFocusEffectFix::isEnabled)
         .addMixinClasses("client.fx.beams.MixinFXBeamWand")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
     ARCANE_WORKBENCH_GHOST_ITEM_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix::isEnabled)
@@ -190,11 +189,15 @@ public enum Mixins {
             "items.MixinItemWandCasting_DisableSpendingCheck",
             "tiles.MixinTileMagicWorkbench_GhostItemFix")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
     ARCANE_WORKBENCH_ALLOW_RECHARGE_CRAFTING(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchAllowRechargeCrafting::isEnabled)
         .addMixinClasses("tiles.MixinTileMagicWorkbenchCharger")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    NEGATIVE_BOSS_SPAWN_COUNT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.negativeBossSpawnCount::isEnabled)
+        .addMixinClasses("tiles.MixinTileEldritchLock")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
