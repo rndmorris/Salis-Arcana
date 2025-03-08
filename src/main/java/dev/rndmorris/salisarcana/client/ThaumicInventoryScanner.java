@@ -31,6 +31,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.SalisArcana;
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.network.MessageScanSelf;
 import dev.rndmorris.salisarcana.network.MessageScanSlot;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
@@ -44,7 +45,11 @@ import thaumcraft.common.lib.research.ScanManager;
 
 public class ThaumicInventoryScanner {
 
-    private static final int SCAN_TICKS = 50;
+    // SCAN_TICKS is seemingly double the "vanilla" scan duration, I'm not sure if onClientTick is called twice as often
+    // or what, but it seems to work if I do this
+    // +5 is added to the duration to account for the fact that in the config, we set the duration to be the total usage
+    // duration - 5 since thaumcraft completes the scan when the remaining duration is <= 5
+    private static final int SCAN_TICKS = (ConfigModuleRoot.enhancements.thaumometerDuration.getValue() + 5) * 2;
     private static final int SOUND_TICKS = 5;
     private static final int INVENTORY_PLAYER_X = 26;
     private static final int INVENTORY_PLAYER_Y = 8;

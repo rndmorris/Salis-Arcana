@@ -51,6 +51,12 @@ Config Option: `thaumometerScanContainers`
 
 Allows the Thaumometer to scan the contents of containers (eg. chests, barrels) when scanning the block.
 
+## Custom Scan Duration
+
+Config Option: `thaumometerDuration`
+
+Changes the duration of the Thaumometer's scanning effect. Default is 20 ticks.
+
 ## Thaumcraft Command
 
 Config Option: `thaumcraftCommandTabCompletion`
