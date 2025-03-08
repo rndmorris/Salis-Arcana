@@ -68,6 +68,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting staffterNameTooltip;
     public final ToggleSetting primalCrusherOredict;
 
+    public final IntSetting thaumometerDuration;
+
     public EnhancementsModule() {
         // spotless:off
         addSettings(
@@ -274,7 +276,14 @@ public class EnhancementsModule extends BaseConfigModule {
                 ConfigPhase.EARLY,
                 "primalCrusherMinesOredictionaryStone",
                 "Allows the primal crusher to 3x3 mine blocks registered as stone, cobblestone, or stoneBricks in the ore dictionary."
-            )
+            ),
+            thaumometerDuration = new IntSetting(
+                this,
+                ConfigPhase.LATE,
+                "thaumometerDuration",
+                "The duration in ticks that the thaumometer takes to scan an object.",
+                20
+            ).setMinValue(1)
         );
 
         // spotless:on

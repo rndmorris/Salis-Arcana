@@ -19,6 +19,8 @@ import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 
 public enum Mixins {
 
+    // spotless:off
+
     // Morpheus
     BIOME_COLOR_EERIE_BASE_COLOR(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
@@ -353,7 +355,15 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
         .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
-        .addTargetedMod(TargetedMod.THAUMCRAFT));
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    THAUMOMETER_CUSTOM_DURATION(new Builder().setApplyIf(ConfigModuleRoot.enhancements.thaumometerDuration::isEnabled)
+        .addMixinClasses("items.MixinItemThaumometer_CustomDuration")
+        .setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    ;
+    // spotless:on
 
     private final List<String> mixinClasses;
     private final List<TargetedMod> targetedMods;

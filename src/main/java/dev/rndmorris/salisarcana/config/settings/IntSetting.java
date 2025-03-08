@@ -56,4 +56,9 @@ public class IntSetting extends Setting {
         return this;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return value != defaultValue && super.isEnabled();
+    }
+
 }
