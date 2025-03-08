@@ -353,7 +353,7 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
         .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    THAUMOMETER_CUSTOM_DURATION(new Builder().setApplyIf(() -> ConfigModuleRoot.enhancements.thaumometerDuration.getValue() != ConfigModuleRoot.enhancements.thaumometerDuration.getDefaultValue())
+    THAUMOMETER_CUSTOM_DURATION(new Builder().setApplyIf(ConfigModuleRoot.enhancements.thaumometerDuration::isEnabled)
         .addMixinClasses("items.MixinItemThaumometer_CustomDuration")
         .setPhase(Phase.LATE)
         .setSide(Side.BOTH)
