@@ -49,7 +49,7 @@ public class MessageScanContainer implements IMessage, IMessageHandler<MessageSc
         if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
                 entityPlayer.getCommandSenderName(),
-                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.getValue())) {
+                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
                 return null;
             }
         }

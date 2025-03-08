@@ -39,7 +39,7 @@ public class MixinScanManager {
         if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()
             && !ResearchManager.isResearchComplete(
                 player.getCommandSenderName(),
-                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.getValue())) {
+                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
             return;
         }
         Block block = Block.getBlockFromItem(Item.getItemById(scan.id));
