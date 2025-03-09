@@ -279,7 +279,7 @@ public class EnhancementsModule extends BaseConfigModule {
             ),
             thaumometerDuration = new IntSetting(
                 this,
-                ConfigPhase.LATE,
+                ConfigPhase.EARLY,
                 "thaumometerDuration",
                 "The duration in ticks that the thaumometer takes to scan an object.",
                 20
@@ -290,7 +290,7 @@ public class EnhancementsModule extends BaseConfigModule {
         addSettings(
             stabilizerAdditions = new BlockItemListSetting<Integer>(
                 stabilizerRewrite,
-                ConfigPhase.LATE,
+                ConfigPhase.EARLY,
                 "stabilizerAdditions",
                 String.join(
                     "\n",
@@ -314,7 +314,7 @@ public class EnhancementsModule extends BaseConfigModule {
         addSettings(
             stabilizerExclusions = new BlockItemListSetting<>(
                 stabilizerRewrite,
-                ConfigPhase.LATE,
+                ConfigPhase.EARLY,
                 "stabilizerExclusions",
                 String.join(
                     "\n",
