@@ -27,6 +27,7 @@ import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
 import dev.rndmorris.salisarcana.common.compat.ModCompat;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.AssetHelper;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;

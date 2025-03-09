@@ -213,23 +213,19 @@ public class EnhancementsModule extends BaseConfigModule {
                 "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
             creativeNoXPManipulator = new ToggleSetting(
                 this,
-                ConfigPhase.LATE,
                 "creativeNoXPManipulator",
                 "Allow Creative players to use the Focal Manipulator without the necessary XP."),
             enableFocusDisenchanting = new ToggleSetting(
                 this,
-                ConfigPhase.LATE,
                 "enableFocusDisenchanting",
                 "Allow players to use the Focal Manipulator to remove focus enchantments and refund XP."),
             focusDisenchantingRefundPercentage = new IntSetting(
                 this,
-                ConfigPhase.LATE,
                 "focusDisenchantingRefundPercentage",
                 "Percentage of XP points refunded upon removing an enchantment from a focus, calculated as levels from 0 XP.",
                 75).setMinValue(0).setMaxValue(100),
             autoUnlockFocusDisenchanting = new ToggleSetting(
                 this,
-                ConfigPhase.LATE,
                 "autoUnlockFocusDisenchanting",
                 "Whether the Focus Disenchanting research should automatically unlock as soon as the Focal Manipulator research is unlocked.").setEnabled(false),
             thaumometerScanResearchEnabled = new ToggleSetting(
