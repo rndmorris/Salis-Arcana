@@ -74,29 +74,29 @@ public class EnhancementsModule extends BaseConfigModule {
         addSettings(
             lessPickyPrimalCharmRecipe = new ToggleSetting(
                 this,
-                                "friendlyPrimalCharm",
+                "friendlyPrimalCharm",
                 "Make the primal charm's crafting recipe less picky about the order in which primal shards are placed in the top and bottom rows.")
                     .setCategory("recipes"),
             rotatedFociRecipes = new ToggleSetting(
                 this,
-                                "rotatedFoci",
+                "rotatedFoci",
                 "Add rotated recipes for the fire, shock, frost, equal rade, excavation, and primal wand foci.")
                     .setCategory("recipes"),
             rotatedThaumometerRecipe = new ToggleSetting(
                 this,
-                                "rotatedThaumometer",
+                "rotatedThaumometer",
                 "Add a rotated crafting recipe for the Thaumometer.").setCategory("recipes"),
             lookalikePlanks = new ToggleSetting(
                 this,
-                                "enableLookalikePlanks",
+                "enableLookalikePlanks",
                 "Add look-a-like greatwood and silverwood planks that behave as normal planks, instead of the weirdness of TC4's planks."),
             staffterNameTooltip = new ToggleSetting(
                 this,
-                                "staffterNameTooltip",
+                "staffterNameTooltip",
                 "Causes staffters to use their own translation string rather than being called \"Staff\" in the tooltip."),
             nodeModifierWeights = new IntArraySetting(
                 this,
-                                "nodeModifierWeights",
+                "nodeModifierWeights",
                 "Node Modifier Worldgen Weights (normal, bright, pale, fading)",
                 // calculated based on TC4's default `specialNodeRarity` value
                 new int[] { 972222, 9259, 9259, 9259, },
@@ -104,7 +104,7 @@ public class EnhancementsModule extends BaseConfigModule {
                 1000000).setEnabled(false),
             nodeTypeWeights = new IntArraySetting(
                 this,
-                                "nodeTypeWeights",
+                "nodeTypeWeights",
                 "Node Type Worldgen Weights (normal, unstable, dark, pure, hungry)",
                 // calculated based on TC4's default `specialNodeRarity` value
                 new int[] { 944444, 16666, 16666, 16666, 5555, },
@@ -112,41 +112,41 @@ public class EnhancementsModule extends BaseConfigModule {
                 1000000).setEnabled(false),
             suppressWarpEventsInCreative = new ToggleSetting(
                 this,
-                                "suppressWarpEventsInCreative",
+                "suppressWarpEventsInCreative",
                 "Prevent random warp events from firing for players in creative mode."),
             useAllBaublesSlots = new ToggleSetting(
                 this,
-                                "useAllBaublesSlots",
+                "useAllBaublesSlots",
                 "Enables support for mods that increase the number of baubles slots."),
             nomiconInvertedScrolling = new ToggleSetting(
                 this,
-                                "Inverse Scrolling",
+                "Inverse Scrolling",
                 "While viewing the Thaumonomicon, inverts the scrolling for tab switching").setEnabled(false),
             nomiconRightClickClose = new ToggleSetting(
                 this,
-                                "Right-Click Navigation",
+                "Right-Click Navigation",
                 "While viewing the Thaumonomicon, right clicking in a research will take you back to the previous research, or back to the Thaumonomicon."),
             nomiconScrollwheelEnabled = new ToggleSetting(
                 this,
-                                "Enable Scrollwheel",
+                "Enable Scrollwheel",
                 "While viewing the Thaumonomicon, enables ctrl + scroll to quick switch tabs"),
             nomiconShowResearchId = new ToggleSetting(
                 this,
-                                "Show Research Key",
+                "Show Research Key",
                 "While viewing the Thaumonomicon, allows you to view the internal name of a research while hovering over it and holding control"),
             wandPedestalUseCV = new ToggleSetting(
                 this,
-                                "Wand Pedestal CV Support",
+                "Wand Pedestal CV Support",
                 "Allows wand pedestals to draw from centivis instead of just regular nodes"),
             stabilizerRewrite = new ToggleSetting(
                 this,
-                                "useStabilizerRewrite",
+                "useStabilizerRewrite",
                 "Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers.")
                     .setCategory("infusion")
                     .setEnabled(false),
             stabilizerStrength = new IntSetting(
                 stabilizerRewrite,
-                                "stabilizerStrength",
+                "stabilizerStrength",
                 String.join(
                     "\n",
                     "Requires useStabilizerRewrite=true.",
@@ -158,98 +158,97 @@ public class EnhancementsModule extends BaseConfigModule {
                     .setCategory("infusion"),
             itemEldritchObjectStackSize = new IntSetting(
                 this,
-                                "eldritchObjectStackSize",
+                "eldritchObjectStackSize",
                 "The maximum stack size for Eldritch Objects (Primordial Pearl, Eldritch Eye, Crimson Rites, Eldritch Obelisk Placer, Runed Tablet).",
                 16).setMinValue(1)
                     .setMaxValue(64),
             disableCreativeTaintedItemDecay = new ToggleSetting(
                 this,
-                                "disableCreativeTaintedItemDecay",
-                "Prevent tainted goo and taint tendrils from decaying for players in creative mode."
-            ),
+                "disableCreativeTaintedItemDecay",
+                "Prevent tainted goo and taint tendrils from decaying for players in creative mode."),
             taintedItemDecayChance = new IntSetting(
                 this,
-                                "taintedItemDecayChance",
+                "taintedItemDecayChance",
                 "The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.",
-                4321
-            ).setMinValue(-1),
+                4321).setMinValue(-1),
             stopCreativeModeItemConsumption = new ToggleSetting(
                 this,
-                                "stopCreativeModeItemConsumption",
+                "stopCreativeModeItemConsumption",
                 "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode."),
             infiniteCreativeVis = new ToggleSetting(
                 this,
-                                "infiniteCreativeVis",
+                "infiniteCreativeVis",
                 "Allow wands to have infinite vis in creative mode."),
             manaPodGrowthRate = new IntSetting(
                 this,
-                                "manaBeanGrowthChance",
+                "manaBeanGrowthChance",
                 "The chance for a mana bean to grow when a mana pod is updated. Lower values are more likely to grow, with 0 growing every random tick.",
                 30).setMinValue(0)
                     .setMaxValue(100),
             thaumicInventoryScanning = new ToggleSetting(
                 this,
-                                "thaumicInventoryScanning",
+                "thaumicInventoryScanning",
                 "Enable the ability to scan items in inventories using the Thaumometer. Replaces the Thaumic Inventory Scanning mod."),
             thaumometerScanContainers = new ToggleSetting(
                 this,
-                                "thaumometerScanContainers",
-                "Allow the thaumometer to scan the contents of inventories when right-clicking on them.").setCategory("thaumometer_container_scan"),
+                "thaumometerScanContainers",
+                "Allow the thaumometer to scan the contents of inventories when right-clicking on them.")
+                    .setCategory("thaumometer_container_scan"),
             thaumcraftCommandTabCompletion = new ToggleSetting(
                 this,
-                                "thaumcraftCommandTabCompletion",
+                "thaumcraftCommandTabCompletion",
                 "Enable tab completion for Thaumcraft commands."),
             thaumcraftCommandWarpArgAll = new ToggleSetting(
                 this,
-                                "thaumcraftCommandWarpArgAll",
+                "thaumcraftCommandWarpArgAll",
                 "Allow the use of `ALL` as an argument for the warp command."),
             creativeOpThaumonomicon = new ToggleSetting(
                 this,
-                                "creativeOpThaumonomicon",
+                "creativeOpThaumonomicon",
 
                 "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
             thaumometerScanResearchEnabled = new ToggleSetting(
                 this,
-                                "thaumometerScanResearchEnabled",
+                "thaumometerScanResearchEnabled",
                 "Whether the ability to scan the contents of inventories is locked behind research."),
             thaumometerScanContainersResearch = new StringSetting(
                 thaumometerScanResearchEnabled,
-                                "thaumometerScanContainersResearch",
-                "Research required to unlock the ability to scan the contents of inventories with the Thaumometer.", "salisarcana:CHESTSCAN"),
+                "thaumometerScanContainersResearch",
+                "Research required to unlock the ability to scan the contents of inventories with the Thaumometer.",
+                "salisarcana:CHESTSCAN"),
             levitatorShiftFix = new ToggleSetting(
                 this,
-                                "levitatorShiftFix",
+                "levitatorShiftFix",
                 "Fixes some general jankiness with levitators, however, non-player entities will no longer be able to be lowered."),
             pureNodeBiomeChange = new ToggleSetting(
                 this,
-                                "pureNodeAlwaysMagicalForest",
+                "pureNodeAlwaysMagicalForest",
                 "By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location."),
             eldritchAltarSpawningMethod = new EldritchAltarMobSpawnSetting(
                 this,
-                                "eldritchAltarSpawningMethod",
+                "eldritchAltarSpawningMethod",
                 "Override how eldritch altars pick where to try spawning crimson knights and eldritch guardians."),
             rottenFleshRecipe = new ToggleSetting(
                 this,
-                                "rottenFleshRecipe",
+                "rottenFleshRecipe",
                 "Add a crafting recipe to convert flesh blocks back into rotten flesh.").setCategory("recipes"),
             crystalClusterUncrafting = new ToggleSetting(
                 this,
-                                "crystalClusterUncrafting",
-                "Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.").setCategory("recipes"),
+                "crystalClusterUncrafting",
+                "Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.")
+                    .setCategory("recipes"),
             primalCrusherOredict = new ToggleSetting(
                 this,
-                                "primalCrusherMinesOredictionaryStone",
-                "Allows the primal crusher to 3x3 mine blocks registered as stone, cobblestone, or stoneBricks in the ore dictionary."
-            ),
+                "primalCrusherMinesOredictionaryStone",
+                "Allows the primal crusher to 3x3 mine blocks registered as stone, cobblestone, or stoneBricks in the ore dictionary."),
             thaumometerDuration = new IntSetting(
                 this,
-                                "thaumometerDuration",
+                "thaumometerDuration",
                 "The duration in ticks that the thaumometer takes to scan an object.",
-                20
-            ).setMinValue(1)
+                20).setMinValue(1)
         );
-
         // spotless:on
+
         addSettings(
             stabilizerAdditions = new BlockItemListSetting<Integer>(
                 stabilizerRewrite,
