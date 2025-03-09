@@ -53,10 +53,7 @@ public class BugfixesModule extends BaseConfigModule {
                 this,
                 "itemMetadataFix",
                 "Add a safety check to several Thaumcraft items to prevent crashes when creating those items with invalid metadata."),
-            itemShardColor = new ToggleSetting(
-                this,
-                "shardMetadataCrash",
-                "Fixes a crash with invalid shard metadata"),
+            itemShardColor = new ToggleSetting(this, "shardMetadataCrash", "Fixes a crash with invalid shard metadata"),
             warpFakePlayerCheck = new ToggleSetting(
                 this,
                 "warpFakePlayerCheck",
