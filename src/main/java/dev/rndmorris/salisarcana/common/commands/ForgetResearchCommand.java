@@ -21,11 +21,15 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.ResearchKeyH
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.network.MessageForgetResearch;
+import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.Config;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.playerdata.PacketSyncWarp;
 
 public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchCommand.Arguments> {
 
@@ -74,6 +78,7 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
         var stickyWarp = 0;
         var removedCount = 0;
 
+        final ArrayList<String> removed = new ArrayList<>();
         while (!toForget.isEmpty()) {
             final var key = toForget.poll();
             final var data = researchMap.get(key);
@@ -88,6 +93,7 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
                 final var removeIndex = playerResearch.indexOf(key);
                 if (removeIndex >= 0) {
                     playerResearch.remove(removeIndex);
+                    removed.add(key);
                 }
 
                 final var warp = ThaumcraftApi.getWarp(key);
@@ -135,6 +141,22 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
                     visited.add(r.key);
                 });
         }
+
+        final var target = arguments.targetPlayer;
+        final var knowledge = Thaumcraft.proxy.getPlayerKnowledge();
+        if (permWarp > 0) {
+            knowledge.addWarpPerm(target.getCommandSenderName(), -permWarp);
+            PacketHandler.INSTANCE.sendTo(new PacketSyncWarp(target, (byte) 0), target);
+        }
+        if (stickyWarp > 0) {
+            knowledge.addWarpSticky(target.getCommandSenderName(), -stickyWarp);
+            PacketHandler.INSTANCE.sendTo(new PacketSyncWarp(target, (byte) 1), target);
+        }
+        if (permWarp > 0 || stickyWarp > 0) {
+            knowledge
+                .setWarpCounter(target.getCommandSenderName(), knowledge.getWarpTotal(target.getCommandSenderName()));
+        }
+        NetworkHandler.instance.sendTo(new MessageForgetResearch(removed), arguments.targetPlayer);
         sender.addChatMessage(
             new ChatComponentTranslation(
                 "salisarcana:command.forget-research.success",
