@@ -5,19 +5,19 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.util.FakePlayer;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import thaumcraft.common.Thaumcraft;
 
 @Mixin(Thaumcraft.class)
 public class MixinThaumcraft_FakePlayerWarp {
 
-    @Inject(method = "addWarpToPlayer", at = @At("HEAD"), remap = false, cancellable = true)
-    private static void cancelFakePlayers(EntityPlayer player, int amount, boolean temporary, CallbackInfo ci) {
+    @WrapMethod(method = "addWarpToPlayer", remap = false)
+    private static void cancelFakePlayers(EntityPlayer player, int amount, boolean temporary,
+        Operation<Void> original) {
         if (!(player instanceof EntityPlayerMP) || player instanceof FakePlayer) {
-            ci.cancel();
             final var knowledge = Thaumcraft.proxy.getPlayerKnowledge();
             final String name = player.getCommandSenderName();
             if (name != null && knowledge != null) {
@@ -27,18 +27,21 @@ public class MixinThaumcraft_FakePlayerWarp {
                     knowledge.addWarpPerm(name, amount);
                 }
             }
+        } else {
+            original.call(player, amount, temporary);
         }
     }
 
-    @Inject(method = "addStickyWarpToPlayer", at = @At("HEAD"), remap = false, cancellable = true)
-    private static void cancelFakePlayersSticky(EntityPlayer player, int amount, CallbackInfo ci) {
+    @WrapMethod(method = "addStickyWarpToPlayer", remap = false)
+    private static void cancelFakePlayersSticky(EntityPlayer player, int amount, Operation<Void> original) {
         if (!(player instanceof EntityPlayerMP) || player instanceof FakePlayer) {
-            ci.cancel();
             final var knowledge = Thaumcraft.proxy.getPlayerKnowledge();
             final String name = player.getCommandSenderName();
             if (name != null && knowledge != null) {
                 knowledge.addWarpSticky(name, amount);
             }
+        } else {
+            original.call(player, amount);
         }
     }
 }
