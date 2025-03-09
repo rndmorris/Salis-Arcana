@@ -38,6 +38,11 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting thaumcraftCommandTabCompletion;
     public final ToggleSetting thaumcraftCommandWarpArgAll;
     public final ToggleSetting creativeOpThaumonomicon;
+    public final ToggleSetting creativeNoXPManipulator;
+
+    public final ToggleSetting enableFocusDisenchanting;
+    public final IntSetting focusDisenchantingRefundPercentage;
+    public final ToggleSetting autoUnlockFocusDisenchanting;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -205,8 +210,24 @@ public class EnhancementsModule extends BaseConfigModule {
             creativeOpThaumonomicon = new ToggleSetting(
                 this,
                 "creativeOpThaumonomicon",
-
                 "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
+            creativeNoXPManipulator = new ToggleSetting(
+                this,
+                "creativeNoXPManipulator",
+                "Allow Creative players to use the Focal Manipulator without the necessary XP."),
+            enableFocusDisenchanting = new ToggleSetting(
+                this,
+                "enableFocusDisenchanting",
+                "Allow players to use the Focal Manipulator to remove focus enchantments and refund XP."),
+            focusDisenchantingRefundPercentage = new IntSetting(
+                this,
+                "focusDisenchantingRefundPercentage",
+                "Percentage of XP points refunded upon removing an enchantment from a focus, calculated as levels from 0 XP.",
+                75).setMinValue(0).setMaxValue(100),
+            autoUnlockFocusDisenchanting = new ToggleSetting(
+                this,
+                "autoUnlockFocusDisenchanting",
+                "Whether the Focus Disenchanting research should automatically unlock as soon as the Focal Manipulator research is unlocked.").setEnabled(false),
             thaumometerScanResearchEnabled = new ToggleSetting(
                 this,
                 "thaumometerScanResearchEnabled",
