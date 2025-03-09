@@ -15,5 +15,6 @@ public class NetworkHandler {
         instance.registerMessage(MessageScanIInventory.class, MessageScanIInventory.class, 3, Side.SERVER);
         instance.registerMessage(MessageSendResearch.class, MessageSendResearch.class, 4, Side.CLIENT);
         instance.registerMessage(MessageInvalidateCache.class, MessageInvalidateCache.class, 5, Side.CLIENT);
+        instance.registerMessage(MessageForgetResearch.class, MessageForgetResearch.class, 6, Side.CLIENT);
     }
 }
