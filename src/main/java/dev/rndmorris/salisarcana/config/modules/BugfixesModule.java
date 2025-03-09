@@ -15,6 +15,8 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting integerInfusionMatrixMath;
     public final ToggleSetting itemMetadataSafetyCheck;
     public final ToggleSetting itemShardColor;
+    public final ToggleSetting warpFakePlayerCheck;
+    public final ToggleSetting crimsonRitesFakePlayerCheck;
     public final ToggleSetting renderRedstoneFix;
     public final ToggleSetting slabBurnTimeFix;
     public final ToggleSetting strictInfusionMatrixInputChecks;
@@ -51,7 +53,18 @@ public class BugfixesModule extends BaseConfigModule {
                 this,
                 "itemMetadataFix",
                 "Add a safety check to several Thaumcraft items to prevent crashes when creating those items with invalid metadata."),
-            itemShardColor = new ToggleSetting(this, "shardMetadataCrash", "Fixes a crash with invalid shard metadata"),
+            itemShardColor = new ToggleSetting(
+                this,
+                "shardMetadataCrash",
+                "Fixes a crash with invalid shard metadata"),
+            warpFakePlayerCheck = new ToggleSetting(
+                this,
+                "warpFakePlayerCheck",
+                "Adds a safety check to prevent warp effects from trying to send packets to fake players."),
+            crimsonRitesFakePlayerCheck = new ToggleSetting(
+                this,
+                "crimsonRitesFakePlayerCheck",
+                "Adds a safety check in case of a fake player not being castable to EntityPlayerMP."),
             renderRedstoneFix = new ToggleSetting(
                 this,
                 "renderRedstoneFix",
