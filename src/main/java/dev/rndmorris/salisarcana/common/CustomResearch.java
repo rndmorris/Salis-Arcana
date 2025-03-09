@@ -287,7 +287,7 @@ public class CustomResearch {
         final var research = new ResearchItem(
             fullKey,
             category,
-            settings.researchAspects,
+            settings.getAspects(),
             col,
             row,
             settings.difficulty,

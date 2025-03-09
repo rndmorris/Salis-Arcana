@@ -7,7 +7,6 @@ import java.util.List;
 import net.minecraftforge.common.config.Configuration;
 
 import cpw.mods.fml.common.Loader;
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 import dev.rndmorris.salisarcana.config.settings.Setting;
 
@@ -17,8 +16,8 @@ public class BaseCompatSetting extends Setting {
 
     protected final List<Setting> settings = new ArrayList<>();
 
-    public BaseCompatSetting(IEnabler dependency, ConfigPhase phase, String modId) {
-        super(dependency, phase);
+    public BaseCompatSetting(IEnabler dependency, String modId) {
+        super(dependency);
         this.modId = modId;
         setCategory(modId);
     }

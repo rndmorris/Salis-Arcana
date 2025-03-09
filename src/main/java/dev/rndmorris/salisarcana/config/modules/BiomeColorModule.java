@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana.config.modules;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.BiomeColorsSettings;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
@@ -21,23 +20,13 @@ public class BiomeColorModule extends BaseConfigModule {
         addSettings(
             acknowledgeDeprecation = new ToggleSetting(
                 this,
-                ConfigPhase.LATE,
                 "acknowledgeDeprecation",
                 "Set to true to acknowledge that the biome color module is being deprecated, and silence the warning message.")
                     .setEnabled(false)
                     .setCategory("_notices"),
-            eerie = new BiomeColorsSettings(
-                this,
-                ConfigPhase.EARLY,
-                "Eerie",
-                "0x404840",
-                "0x405340",
-                "0x404840",
-                "0x222299",
-                "0x2e535f"),
+            eerie = new BiomeColorsSettings(this, "Eerie", "0x404840", "0x405340", "0x404840", "0x222299", "0x2e535f"),
             eldritch = new BiomeColorsSettings(
                 this,
-                ConfigPhase.EARLY,
                 "Eldritch",
                 "0x000000",
                 "0x000000",
@@ -46,7 +35,6 @@ public class BiomeColorModule extends BaseConfigModule {
                 "0xffffff"),
             magicalForest = new BiomeColorsSettings(
                 this,
-                ConfigPhase.EARLY,
                 "Magical Forest",
                 "0x66f4ab",
                 "0x66ffc5",
@@ -55,7 +43,6 @@ public class BiomeColorModule extends BaseConfigModule {
                 "0x0077ee"),
             taint = new BiomeColorsSettings(
                 this,
-                ConfigPhase.EARLY,
                 "Tainted Land",
                 "0x6d4189",
                 "0x7c6d87",
