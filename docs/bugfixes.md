@@ -62,6 +62,16 @@ Affected items include:
 
 Add a safety check to prevent the creation of Thaumcraft shards with invalid metadata.
 
+## Fake Player Safety Checks
+
+**Config option:** `warpFakePlayerCheck`
+
+Adds a safety check to prevent warp effects from trying to send packets to fake players.
+
+**Config option:** `crimsonRitesFakePlayerCheck`
+
+Adds a safety check in case of a fake player not being castable to `EntityPlayerMP`. (For example, putting Crimson Rites into a Dynamism Tablet from Thaumic Tinkerer.)
+
 ## TC4 Ores Redstone Fix
 
 **Config option:** `renderRedstoneFix`
