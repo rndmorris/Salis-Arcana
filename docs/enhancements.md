@@ -33,11 +33,29 @@ Config Option: `eldritchObjectStackSize`
 
 Increases the stack size of Primordial Pearls, Eldritch Eyes, Crimson Rites, Eldritch Obelisk Placers, and Runed Tablets. Default of 16.
 
+## Disable Creative Tainted Item Decay
+
+ConfigOption: `disableCreativeTaintedItemDecay`
+
+Prevent tainted goo and taint tendrils from decaying for players in creative mode.
+
+## Tainted Item Decay Chance
+
+Config Option: `taintedItemDecayChance`
+
+The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.
+
 ## Container Scanning
 
 Config Option: `thaumometerScanContainers`
 
 Allows the Thaumometer to scan the contents of containers (eg. chests, barrels) when scanning the block.
+
+## Custom Scan Duration
+
+Config Option: `thaumometerDuration`
+
+Changes the duration of the Thaumometer's scanning effect. Default is 20 ticks.
 
 ## Thaumcraft Command
 

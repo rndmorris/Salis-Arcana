@@ -21,7 +21,6 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
@@ -39,8 +38,8 @@ public class BlockItemListSetting<DATA> extends Setting {
     private final HashMap<Item, Map<Integer, DATA>> itemMap = new HashMap<>();
     private boolean resolved = false;
 
-    public BlockItemListSetting(IEnabler dependency, ConfigPhase phase, String name, String comment) {
-        super(dependency, phase);
+    public BlockItemListSetting(IEnabler dependency, String name, String comment) {
+        super(dependency);
         this.name = name;
         this.comment = comment;
     }

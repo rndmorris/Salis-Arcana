@@ -27,8 +27,6 @@ import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
 import dev.rndmorris.salisarcana.common.compat.ModCompat;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.AssetHelper;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
@@ -49,7 +47,6 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         AssetHelper.copyResearchFiles();
-        ConfigModuleRoot.synchronizeConfiguration(ConfigPhase.LATE);
 
         if (ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.initialize();

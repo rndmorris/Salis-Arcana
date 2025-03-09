@@ -4,7 +4,6 @@ import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -26,14 +25,13 @@ public class CustomResearchSetting extends Setting {
     public int difficulty;
     public String[] parentResearches;
     public boolean purchasable;
-    public AspectList researchAspects;
     public boolean autoUnlock;
 
     public String[] aspectStrings; // formatted aspect:amount
 
-    public CustomResearchSetting(IEnabler dependency, ConfigPhase phase, String configName, String configComment,
+    public CustomResearchSetting(IEnabler dependency, String configName, String configComment,
         ResearchInfo researchInfo) {
-        super(dependency, phase);
+        super(dependency);
 
         this.researchName = researchInfo.getResearchName();
         this.researchCategory = researchInfo.getResearchCategory();
@@ -96,7 +94,10 @@ public class CustomResearchSetting extends Setting {
             this.aspectStrings,
             "The aspects required for the research entry");
 
-        this.researchAspects = new AspectList();
+    }
+
+    public AspectList getAspects() {
+        AspectList researchAspects = new AspectList();
         for (String aspect : aspectStrings) {
             String[] aspectParts = aspect.split(":");
             if (aspectParts.length == 2) {
@@ -110,6 +111,7 @@ public class CustomResearchSetting extends Setting {
                 researchAspects.add(Aspect.getAspect(aspectParts[0]), Integer.parseInt(aspectParts[1]));
             }
         }
+        return researchAspects;
     }
 
     // Helper class for research info to be used in the constructor, avoids ugly constructor calls

@@ -27,7 +27,7 @@ public class ConfigModuleRoot {
         bugfixes = new BugfixesModule(), commands = new CommandsModule(), enhancements = new EnhancementsModule(),
         modCompat = new ModCompatModule(), };
 
-    public static void synchronizeConfiguration(ConfigPhase phase) {
+    public static void synchronizeConfiguration() {
         final var rootConfigFile = Paths.get("config", SalisArcana.MODID + ".cfg")
             .toString();
         final var rootConfig = new Configuration(new File(rootConfigFile));
@@ -47,7 +47,7 @@ public class ConfigModuleRoot {
             }
 
             final var moduleConfig = getModuleConfig(module);
-            module.loadModuleFromConfig(moduleConfig, phase);
+            module.loadModuleFromConfig(moduleConfig);
 
             if (moduleConfig.hasChanged()) {
                 moduleConfig.save();

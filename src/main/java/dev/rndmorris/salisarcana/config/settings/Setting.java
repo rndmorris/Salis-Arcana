@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public abstract class Setting implements IEnabler {
@@ -14,13 +13,11 @@ public abstract class Setting implements IEnabler {
     public static final String defaultCategory = "general";
     protected final @Nullable WeakReference<IEnabler> dependencyRef;
     protected boolean enabled = true;
-    public ConfigPhase phase;
 
     private @Nullable String category;
 
-    public Setting(IEnabler dependency, ConfigPhase phase) {
+    public Setting(IEnabler dependency) {
         this.dependencyRef = new WeakReference<>(dependency);
-        this.phase = phase;
     }
 
     public <T extends Setting> T setCategory(String category) {

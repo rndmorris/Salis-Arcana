@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana.config.settings;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class IntSetting extends Setting {
@@ -14,8 +13,8 @@ public class IntSetting extends Setting {
     private int maxValue = Integer.MAX_VALUE;
     private int minValue = Integer.MIN_VALUE;
 
-    public IntSetting(IEnabler dependency, ConfigPhase phase, String name, String comment, int defaultValue) {
-        super(dependency, phase);
+    public IntSetting(IEnabler dependency, String name, String comment, int defaultValue) {
+        super(dependency);
         this.name = name;
         this.comment = comment;
         this.defaultValue = defaultValue;
@@ -54,6 +53,11 @@ public class IntSetting extends Setting {
     public IntSetting setMinValue(int minValue) {
         this.minValue = minValue;
         return this;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return value != defaultValue && super.isEnabled();
     }
 
 }

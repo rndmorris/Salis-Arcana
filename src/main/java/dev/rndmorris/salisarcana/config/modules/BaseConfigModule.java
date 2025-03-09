@@ -8,7 +8,6 @@ import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 import dev.rndmorris.salisarcana.config.settings.Setting;
 
@@ -28,13 +27,11 @@ public abstract class BaseConfigModule implements IEnabler {
      * Load the module's config settings. Only called if the module is enabled.
      *
      * @param configuration The configuration from which to load the module's settings.
-     * @param phase         The current configuration load phase
      */
-    public void loadModuleFromConfig(@Nonnull Configuration configuration, ConfigPhase phase) {
+    public void loadModuleFromConfig(@Nonnull Configuration configuration) {
         for (var setting : settings) {
-            if (setting.phase == phase) {
-                setting.loadFromConfiguration(configuration);
-            }
+            setting.loadFromConfiguration(configuration);
+
         }
     }
 
