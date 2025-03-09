@@ -1,14 +1,15 @@
 package dev.rndmorris.salisarcana.mixins.late.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.rndmorris.salisarcana.lib.IFocalManipulatorWithXP;
 import thaumcraft.common.container.ContainerFocalManipulator;
@@ -20,17 +21,9 @@ public abstract class MixinContainerFocalManipulator extends Container {
     @Shadow(remap = false)
     private TileFocalManipulator table;
 
-    @ModifyExpressionValue(
-        method = "enchantItem",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/tiles/TileFocalManipulator;startCraft(ILnet/minecraft/entity/player/EntityPlayer;)Z",
-            remap = false))
-    public boolean attachPlayer(boolean craftStarted, EntityPlayer player) {
-        if (craftStarted) {
-            ((IFocalManipulatorWithXP) this.table).salisArcana$setCraftingOriginator(player);
-        }
-        return craftStarted;
+    @Inject(method = "<init>", at = @At("TAIL"), remap = false)
+    public void attachPlayer(InventoryPlayer par1InventoryPlayer, TileFocalManipulator tileEntity, CallbackInfo ci) {
+        ((IFocalManipulatorWithXP) tileEntity).salisArcana$connectPlayer(par1InventoryPlayer.player);
     }
 
     @Override

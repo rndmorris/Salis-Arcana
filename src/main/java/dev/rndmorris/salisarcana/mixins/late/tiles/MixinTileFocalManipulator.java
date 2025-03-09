@@ -1,8 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.tiles;
 
-import java.util.Objects;
-
-import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -15,8 +13,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
@@ -41,7 +39,7 @@ public abstract class MixinTileFocalManipulator extends TileThaumcraftInventory 
     @Unique
     private int salisArcana$storedXP = 0;
     @Unique
-    private @Nullable EntityPlayer salisArcana$craftingOriginator = null;
+    private final ArrayList<EntityPlayer> salisArcana$playersConnected = new ArrayList<>(3);
 
     @WrapOperation(
         method = "updateEntity",
@@ -79,21 +77,19 @@ public abstract class MixinTileFocalManipulator extends TileThaumcraftInventory 
             }
 
             salisArcana$storedXP += specific.getXpPoints();
-            if (this.salisArcana$craftingOriginator != null) {
-                this.salisArcana$transferXpToPlayer(this.salisArcana$craftingOriginator);
-                this.salisArcana$craftingOriginator = null;
+            if (!this.salisArcana$playersConnected.isEmpty()) {
+                this.salisArcana$transferXpToPlayer(this.salisArcana$playersConnected.get(0));
             }
             return true;
         }
         return original.call(focus, focusStack, type, rank);
     }
 
-    @Inject(method = "startCraft", at = @At("HEAD"), cancellable = true, remap = false)
-    public void startDisenchantment(int id, EntityPlayer p, CallbackInfoReturnable<Boolean> cir) {
+    @WrapMethod(method = "startCraft", remap = false)
+    public boolean startDisenchantment(int id, EntityPlayer p, Operation<Boolean> original) {
         if (id == DisenchantFocusUpgrade.upgradeID) {
             if (!ResearchManager.isResearchComplete(p.getCommandSenderName(), DisenchantFocusUpgrade.RESEARCH_KEY)) {
-                cir.setReturnValue(false);
-                return;
+                return false;
             }
             // this.size determines whether the table is currently enchanting
             ItemStack focusStack = this.getStackInSlot(0);
@@ -109,12 +105,16 @@ public abstract class MixinTileFocalManipulator extends TileThaumcraftInventory 
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                     this.worldObj
                         .playSoundEffect(this.xCoord, this.yCoord, this.zCoord, "thaumcraft:craftstart", 0.25F, 1.0F);
-                    cir.setReturnValue(true);
-                    return;
+
+                    // Move person to front of the priority queue.
+                    this.salisArcana$playersConnected.remove(p);
+                    this.salisArcana$playersConnected.add(0, p);
+                    return true;
                 }
             }
-            cir.setReturnValue(false);
+            return false;
         }
+        return original.call(id, p);
     }
 
     @Inject(method = "writeCustomNBT", at = @At("TAIL"), remap = false)
@@ -139,14 +139,14 @@ public abstract class MixinTileFocalManipulator extends TileThaumcraftInventory 
     }
 
     @Override
-    public void salisArcana$setCraftingOriginator(EntityPlayer player) {
-        if (!this.worldObj.isRemote) this.salisArcana$craftingOriginator = player;
+    public void salisArcana$connectPlayer(EntityPlayer player) {
+        if (!this.salisArcana$playersConnected.contains(player)) {
+            this.salisArcana$playersConnected.add(player);
+        }
     }
 
     @Override
     public void salisArcana$disconnectPlayer(EntityPlayer player) {
-        if (Objects.equals(player, this.salisArcana$craftingOriginator)) {
-            this.salisArcana$craftingOriginator = null;
-        }
+        this.salisArcana$playersConnected.remove(player);
     }
 }

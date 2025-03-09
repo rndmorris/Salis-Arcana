@@ -6,7 +6,7 @@ public interface IFocalManipulatorWithXP {
 
     void salisArcana$transferXpToPlayer(EntityPlayer player);
 
-    void salisArcana$setCraftingOriginator(EntityPlayer player);
+    void salisArcana$connectPlayer(EntityPlayer player);
 
     void salisArcana$disconnectPlayer(EntityPlayer player);
 }
