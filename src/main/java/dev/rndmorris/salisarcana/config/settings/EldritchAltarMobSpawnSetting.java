@@ -4,13 +4,12 @@ import java.util.Random;
 
 import net.minecraft.util.MathHelper;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class EldritchAltarMobSpawnSetting extends EnumSetting<EldritchAltarMobSpawnSetting.Options> {
 
-    public EldritchAltarMobSpawnSetting(IEnabler dependency, ConfigPhase phase, String name, String comment) {
-        super(dependency, phase, name, comment, Options.DEFAULT);
+    public EldritchAltarMobSpawnSetting(IEnabler dependency, String name, String comment) {
+        super(dependency, name, comment, Options.DEFAULT);
     }
 
     public int randomHorizontal(Random random) {

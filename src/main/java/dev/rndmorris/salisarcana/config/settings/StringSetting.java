@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana.config.settings;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class StringSetting extends Setting {
@@ -12,8 +11,8 @@ public class StringSetting extends Setting {
     private final String defaultValue;
     private String value;
 
-    public StringSetting(IEnabler dependency, ConfigPhase phase, String name, String comment, String defaultValue) {
-        super(dependency, phase);
+    public StringSetting(IEnabler dependency, String name, String comment, String defaultValue) {
+        super(dependency);
         this.name = name;
         this.comment = comment;
         this.defaultValue = defaultValue;

@@ -6,7 +6,6 @@ import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class EnumSetting<E extends Enum<E>> extends Setting {
@@ -16,8 +15,8 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
     protected final String comment;
     protected E value;
 
-    public EnumSetting(IEnabler dependency, ConfigPhase phase, String name, String comment, @Nonnull E defaultValue) {
-        super(dependency, phase);
+    public EnumSetting(IEnabler dependency, String name, String comment, @Nonnull E defaultValue) {
+        super(dependency);
         this.name = name;
         enumClass = defaultValue.getDeclaringClass();
         value = defaultValue;

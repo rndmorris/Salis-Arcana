@@ -14,7 +14,6 @@ import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.common.commands.ArcanaCommandBase;
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class CommandSettings extends Setting {
@@ -28,8 +27,8 @@ public class CommandSettings extends Setting {
     private @Nonnull String description = "";
     private byte permissionLevel = 4;
 
-    public CommandSettings(@Nonnull String name, IEnabler dependency, ConfigPhase phase) {
-        super(dependency, phase);
+    public CommandSettings(@Nonnull String name, IEnabler dependency) {
+        super(dependency);
         this.name = name;
         setCategory(name.replace('-', '_'));
     }
