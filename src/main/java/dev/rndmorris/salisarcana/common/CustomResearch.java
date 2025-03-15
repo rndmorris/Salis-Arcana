@@ -5,6 +5,7 @@ import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
 import java.util.ArrayList;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
@@ -30,6 +31,7 @@ public class CustomResearch {
 
     public static ResearchItem replaceCapsResearch;
     public static ResearchItem replaceCoreResearch;
+    public static ResearchItem containerScanResearch;
 
     public static void init() {
         final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
@@ -48,6 +50,10 @@ public class CustomResearch {
             ConfigModuleRoot.enhancements.replaceWandCoreSettings,
             PlaceholderItem.rodPlaceholder,
             exampleRodRecipes());
+
+        containerScanResearch = maybeRegister(
+            ConfigModuleRoot.enhancements.thaumometerScanContainersResearch,
+            Item.getItemFromBlock(Blocks.chest));
     }
 
     private static IArcaneRecipe[][] exampleCapRecipes() {
@@ -231,6 +237,14 @@ public class CustomResearch {
                 .setSpecial();
         if (settings.autoUnlock) {
             research.setStub();
+            for (String parentResearch : settings.parentResearches) {
+                final var sibling = ResearchCategories.getResearch(parentResearch);
+                if (sibling == null) {
+                    LOG.error("Could not locate research {} for {}.", parentResearch, fullKey);
+                    continue;
+                }
+                sibling.siblings = ArrayHelper.appendToArray(sibling.siblings, fullKey);
+            }
         }
         final var pages = new ArrayList<ResearchPage>();
         pages.add(new ResearchPage("tc.research_page." + fullKey + ".0"));
@@ -247,15 +261,6 @@ public class CustomResearch {
             research.setSecondary();
         }
         research.registerResearchItem();
-
-        for (String parentResearch : settings.parentResearches) {
-            final var sibling = ResearchCategories.getResearch(parentResearch);
-            if (sibling == null) {
-                LOG.error("Could not locate research {} for {}.", parentResearch, fullKey);
-                continue;
-            }
-            sibling.siblings = ArrayHelper.appendToArray(sibling.siblings, fullKey);
-        }
 
         return research;
     }
