@@ -61,6 +61,7 @@ Remove research from a player's knowledge.
 | `--research-key <key>` | Conditionally | Specify the id of the research to remove. Required if `--all` is not provided. Can be provided multiple times to specify additional research to remove. Mutually exclusive with `--all`. |
 | `--player <username>`  |      No       | Specify the player whose completed research will be altered. If not provided, defaults to the research of the user executing this command.                                               |
 |      `--scalpel`       |      No       | If set, remove *only* the specified research. None of its siblings or descendants will be affected. This may have unexpected side effects. Mutually exclusive with `--all`.              |
+|    `--retain-warp`     |      No       | If set, any permanent and/or sticky warp associated with the removed research will be **kept**, rather than removed.                                                                     |
 
 **Default aliases:**
 * `/forget-research`

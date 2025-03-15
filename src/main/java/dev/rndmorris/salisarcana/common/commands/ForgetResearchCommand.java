@@ -143,23 +143,27 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
         }
 
         final var target = arguments.targetPlayer;
-        final var knowledge = Thaumcraft.proxy.getPlayerKnowledge();
-        if (permWarp > 0) {
-            knowledge.addWarpPerm(target.getCommandSenderName(), -permWarp);
-            PacketHandler.INSTANCE.sendTo(new PacketSyncWarp(target, (byte) 0), target);
-        }
-        if (stickyWarp > 0) {
-            knowledge.addWarpSticky(target.getCommandSenderName(), -stickyWarp);
-            PacketHandler.INSTANCE.sendTo(new PacketSyncWarp(target, (byte) 1), target);
-        }
-        if (permWarp > 0 || stickyWarp > 0) {
-            knowledge
-                .setWarpCounter(target.getCommandSenderName(), knowledge.getWarpTotal(target.getCommandSenderName()));
+        if (!arguments.retainWarp) {
+            final var knowledge = Thaumcraft.proxy.getPlayerKnowledge();
+            if (permWarp > 0) {
+                knowledge.addWarpPerm(target.getCommandSenderName(), -permWarp);
+                PacketHandler.INSTANCE.sendTo(new PacketSyncWarp(target, (byte) 0), target);
+            }
+            if (stickyWarp > 0) {
+                knowledge.addWarpSticky(target.getCommandSenderName(), -stickyWarp);
+                PacketHandler.INSTANCE.sendTo(new PacketSyncWarp(target, (byte) 1), target);
+            }
+            if (permWarp > 0 || stickyWarp > 0) {
+                knowledge.setWarpCounter(
+                    target.getCommandSenderName(),
+                    knowledge.getWarpTotal(target.getCommandSenderName()));
+            }
         }
         NetworkHandler.instance.sendTo(new MessageForgetResearch(removed), arguments.targetPlayer);
         sender.addChatMessage(
             new ChatComponentTranslation(
-                "salisarcana:command.forget-research.success",
+                arguments.retainWarp ? "salisarcana:command.forget-research.retain"
+                    : "salisarcana:command.forget-research.remove",
                 removedCount,
                 permWarp,
                 stickyWarp));
@@ -187,5 +191,8 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
 
         @FlagArg(name = "--scalpel", excludes = { "--all" }, descLangKey = "scalpel")
         public boolean scalpel;
+
+        @FlagArg(name = "--retain-warp", descLangKey = "retain-warp")
+        public boolean retainWarp;
     }
 }
