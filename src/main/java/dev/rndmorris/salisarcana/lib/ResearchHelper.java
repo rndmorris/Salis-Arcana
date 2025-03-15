@@ -23,7 +23,6 @@ import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
 import thaumcraft.common.lib.research.ResearchManager;
@@ -44,13 +43,11 @@ public class ResearchHelper {
                 MinecraftServer.getServer()
                     .worldServerForDimension(0),
                 new GameProfile(null, SalisArcana.MODID + ":KnowItAll"));
+
+            final String commandSenderName = knowItAll.getCommandSenderName();
             for (var category : ResearchCategories.researchCategories.values()) {
                 for (var researchItem : category.research.values()) {
-                    if (ResearchManager.isResearchComplete(knowItAll.getCommandSenderName(), researchItem.key)) {
-                        continue;
-                    }
-                    Thaumcraft.proxy.getResearchManager()
-                        .completeResearch(knowItAll, researchItem.key);
+                    ResearchManager.completeResearchUnsaved(commandSenderName, researchItem.key);
                 }
             }
         }
