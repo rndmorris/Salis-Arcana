@@ -1,8 +1,14 @@
 package dev.rndmorris.salisarcana;
 
+import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.function.Supplier;
+
+import net.minecraftforge.common.FishingHooks;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -26,12 +32,15 @@ import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
 import dev.rndmorris.salisarcana.common.compat.ModCompat;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.AssetHelper;
+import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
+import thaumcraft.common.entities.ai.interact.AIFish;
 
 public class CommonProxy {
 
@@ -49,6 +58,10 @@ public class CommonProxy {
 
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
+
+        if (ConfigModuleRoot.bugfixes.useForgeFishingLists.isEnabled()) {
+            fixGolemFishingLists();
+        }
 
         FMLCommonHandler.instance()
             .bus()
@@ -100,5 +113,31 @@ public class CommonProxy {
     @SubscribeEvent
     public void onClientConnect(PlayerEvent.PlayerLoggedInEvent event) {
         CustomResearch.registerResearchFromFiles();
+    }
+
+    private void fixGolemFishingLists() {
+        try {
+            final var fishingHooks = new R(FishingHooks.class);
+            final var lootCrap = AIFish.class.getDeclaredField("LOOTCRAP");
+            final var lootRare = AIFish.class.getDeclaredField("LOOTRARE");
+            final var lootFish = AIFish.class.getDeclaredField("LOOTFISH");
+
+            removeFieldProtections(lootCrap, lootRare, lootFish);
+
+            lootCrap.set(null, fishingHooks.get("junk", ArrayList.class));
+            lootRare.set(null, fishingHooks.get("treasure", ArrayList.class));
+            lootFish.set(null, fishingHooks.get("fish", ArrayList.class));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            LOG.error("An error occurred updating golem fishing lists.", e);
+        }
+    }
+
+    private void removeFieldProtections(Field... fields) throws NoSuchFieldException, IllegalAccessException {
+        final var modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        for (var field : fields) {
+            field.setAccessible(true);
+            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        }
     }
 }
