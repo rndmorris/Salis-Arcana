@@ -4,16 +4,13 @@ import javax.annotation.Nonnull;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class ReplaceWandComponentSettings extends CustomResearchSetting {
 
-    public ReplaceWandComponentSettings(IEnabler dependency, ConfigPhase phase, @Nonnull Component component,
-        ResearchInfo info) {
+    public ReplaceWandComponentSettings(IEnabler dependency, @Nonnull Component component, ResearchInfo info) {
         super(
             dependency,
-            phase,
             "replaceWand" + component.nameProper(),
             "Enable a recipe to swap an existing existing wand, scepter, or staff's " + component.nameLower() + ".",
             info);

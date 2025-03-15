@@ -19,6 +19,8 @@ import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 
 public enum Mixins {
 
+    // spotless:off
+
     // Morpheus
     BIOME_COLOR_EERIE_BASE_COLOR(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
@@ -182,7 +184,6 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.staffFocusEffectFix::isEnabled)
         .addMixinClasses("client.fx.beams.MixinFXBeamWand")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
     ARCANE_WORKBENCH_GHOST_ITEM_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix::isEnabled)
@@ -190,11 +191,15 @@ public enum Mixins {
             "items.MixinItemWandCasting_DisableSpendingCheck",
             "tiles.MixinTileMagicWorkbench_GhostItemFix")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
     ARCANE_WORKBENCH_ALLOW_RECHARGE_CRAFTING(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchAllowRechargeCrafting::isEnabled)
         .addMixinClasses("tiles.MixinTileMagicWorkbenchCharger")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    NEGATIVE_BOSS_SPAWN_COUNT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.negativeBossSpawnCount::isEnabled)
+        .addMixinClasses("tiles.MixinTileEldritchLock")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
@@ -319,6 +324,18 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileEldritchAltar_SpawnMobs")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    TAINTED_ITEM_DECAY_CHANCE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.taintedItemDecayChance::isEnabled)
+        .addMixinClasses("items.MixinItemResource_DecayChance")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    DISABLE_CREATIVE_TAINTED_ITEM_DECAY(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.disableCreativeTaintedItemDecay::isEnabled)
+        .addMixinClasses("items.MixinItemResource_DisableCreativeDecay")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     NAMED_STAFFTERS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.staffterNameTooltip::isEnabled)
@@ -338,7 +355,15 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
         .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
-        .addTargetedMod(TargetedMod.THAUMCRAFT));
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    THAUMOMETER_CUSTOM_DURATION(new Builder().setApplyIf(ConfigModuleRoot.enhancements.thaumometerDuration::isEnabled)
+        .addMixinClasses("items.MixinItemThaumometer_CustomDuration")
+        .setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    ;
+    // spotless:on
 
     private final List<String> mixinClasses;
     private final List<TargetedMod> targetedMods;

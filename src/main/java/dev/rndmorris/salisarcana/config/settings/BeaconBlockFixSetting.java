@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana.config.settings;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class BeaconBlockFixSetting extends IntArraySetting {
@@ -12,8 +11,8 @@ public class BeaconBlockFixSetting extends IntArraySetting {
 
     private final boolean[] isBeaconMetadata = new boolean[16];
 
-    public BeaconBlockFixSetting(IEnabler dependency, ConfigPhase phase) {
-        super(dependency, phase, configName, comment, new int[] { 4 }, 0, 15);
+    public BeaconBlockFixSetting(IEnabler dependency) {
+        super(dependency, configName, comment, new int[] { 4 }, 0, 15);
     }
 
     public boolean isBeaconMetadata(int metadata) {
