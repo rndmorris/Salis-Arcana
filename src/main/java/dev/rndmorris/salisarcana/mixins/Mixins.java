@@ -211,6 +211,21 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.crimsonRitesFakePlayerCheck::isEnabled)
         .addMixinClasses("items.MixinItemEldritchObject_FakePlayerFix")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BANNER_DROPS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.bannerCreativeModeDropFix::isEnabled)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_BannerNoCreativeDrops")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BANNER_PICK_BLOCK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.bannerPickBlockFix::isEnabled)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_BannerPickBlock")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BANNER_PHIAL_CONSUMPTION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.bannerPhialConsumption::applyMixin)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
