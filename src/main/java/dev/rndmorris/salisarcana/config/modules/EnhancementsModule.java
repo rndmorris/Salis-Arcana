@@ -56,7 +56,6 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public final ToggleSetting wandPedestalUseCV;
     public final ToggleSetting thaumometerScanContainers;
-    public final ToggleSetting thaumometerScanResearchEnabled;
     public final CustomResearchSetting thaumometerScanContainersResearch;
     public final ToggleSetting levitatorShiftFix;
     public final ToggleSetting pureNodeBiomeChange;
@@ -196,10 +195,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 "creativeOpThaumonomicon",
 
                 "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
-            thaumometerScanResearchEnabled = new ToggleSetting(
-                this,
-                "thaumometerScanResearchEnabled",
-                "Whether the ability to scan the contents of inventories is locked behind research."),
             levitatorShiftFix = new ToggleSetting(
                 this,
                 "levitatorShiftFix",

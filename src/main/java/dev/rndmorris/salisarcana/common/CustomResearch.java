@@ -1,7 +1,6 @@
 package dev.rndmorris.salisarcana.common;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
-import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
 import java.util.ArrayList;
 
@@ -220,7 +219,7 @@ public class CustomResearch {
         if (!settings.isEnabled()) {
             return null;
         }
-        final var fullKey = MODID + ":" + settings.researchName;
+        final var fullKey = settings.researchName;
         final var category = settings.researchCategory;
         final var col = settings.researchCol;
         final var row = settings.researchRow;
