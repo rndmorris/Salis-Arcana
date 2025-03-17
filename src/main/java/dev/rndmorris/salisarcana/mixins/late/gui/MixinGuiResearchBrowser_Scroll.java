@@ -36,6 +36,14 @@ public abstract class MixinGuiResearchBrowser_Scroll extends GuiScreen {
     @Unique
     private int sa$lastDir = 0;
 
+    // We have to override this here as well in case
+    // MixinGuiResearchBrowser_OpHandleInput is not applied
+    // If it isn't applied, this method won't exist at runtime.
+    @Override
+    public void handleInput() {
+        super.handleInput();
+    }
+
     // The method doesn't exist at compile time. In MixinGuiResearchBrowser_OpHandleInput, we @Override handleInput,
     // and it has a higher priority than this mixin, so it will exist here so we ignore the warnings.
     @SuppressWarnings({ "MixinAnnotationTarget", "UnresolvedMixinReference" })
@@ -44,7 +52,11 @@ public abstract class MixinGuiResearchBrowser_Scroll extends GuiScreen {
     // unintuitive.
     @Inject(method = "handleInput", at = @At(value = "TAIL"))
     public void handleInput(CallbackInfo ci) {
+        sa$handleScrollInput();
+    }
 
+    @Unique
+    private void sa$handleScrollInput() {
         // We need to run this every time to avoid buffering a scroll
         int dir = (int) Math.signum(Mouse.getDWheel()); // We want DWheel since last call, not last mouse event, as
         // it's possible no new mouse events will have been sent
@@ -69,6 +81,5 @@ public abstract class MixinGuiResearchBrowser_Scroll extends GuiScreen {
                 this.updateResearch();
             }
         }
-
     }
 }

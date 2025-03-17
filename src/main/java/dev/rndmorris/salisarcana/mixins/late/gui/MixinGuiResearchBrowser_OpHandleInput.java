@@ -8,6 +8,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -77,6 +78,13 @@ public abstract class MixinGuiResearchBrowser_OpHandleInput extends GuiScreen {
     @Override
     public void handleInput() {
         super.handleInput();
+        // for some reason if we just copy the code here,
+        // the inject at tail in MixinGuiResearchBrowser_Scroll is injected into the if statement
+        sa$handleCreativeInput();
+    }
+
+    @Unique
+    private void sa$handleCreativeInput() {
         if (currentHighlight == null) {
             return;
         }
