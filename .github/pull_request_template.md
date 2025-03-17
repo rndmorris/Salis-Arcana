@@ -1,12 +1,3 @@
----
-name: Pull Request
-about: Submit a pull request
-title: ''
-labels: ''
-assignees: ''
-# source https://axolo.co/blog/p/part-3-github-pull-request-template
----
-
 **What kind of change does this PR introduce?** (Bug fix, feature, docs update, ...)
 
 
