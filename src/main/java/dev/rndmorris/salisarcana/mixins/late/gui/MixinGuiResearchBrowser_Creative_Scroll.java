@@ -15,16 +15,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
-import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
-import thaumcraft.common.lib.research.PlayerKnowledge;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(value = GuiResearchBrowser.class)
@@ -55,7 +50,9 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
     private static final boolean sa$scrollEnabled = ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled.isEnabled();
 
     @Unique
-    private static final int sa$direction = ConfigModuleRoot.enhancements.nomiconInvertedScrolling.isEnabled() ? -1 : 1;
+    private static final int sa$invertScrolling = ConfigModuleRoot.enhancements.nomiconInvertedScrolling.isEnabled()
+        ? -1
+        : 1;
 
     @Override
     public void handleInput() {
@@ -85,7 +82,7 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
                     categories.add(category);
                 }
 
-                dir *= sa$direction;
+                dir *= sa$invertScrolling;
 
                 int new_index = (categories.indexOf(selectedCategory) + dir) % categories.size();
                 if (new_index < 0) {
@@ -114,33 +111,6 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
                 }
             }
         }
-    }
-
-    @WrapOperation(
-        method = { "mouseClicked", "genResearchBackground" },
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/research/PlayerKnowledge;getAspectPoolFor(Ljava/lang/String;Lthaumcraft/api/aspects/Aspect;)S"),
-        remap = false)
-    private short creativeAspectPurchaseCheck(PlayerKnowledge instance, String username, Aspect aspect,
-        Operation<Short> original) {
-        if (this.mc.thePlayer.capabilities.isCreativeMode && sa$opEnabled) {
-            return Short.MAX_VALUE;
-        }
-
-        return original.call(instance, username, aspect);
-    }
-
-    @WrapOperation(
-        method = "genResearchBackground",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/research/PlayerKnowledge;hasDiscoveredAspect(Ljava/lang/String;Lthaumcraft/api/aspects/Aspect;)Z"),
-        remap = false)
-    private boolean creativeAspectDiscoveredCheck(PlayerKnowledge instance, String username, Aspect aspect,
-        Operation<Boolean> original) {
-        return (this.mc.thePlayer.capabilities.isCreativeMode && sa$opEnabled)
-            || original.call(instance, username, aspect);
     }
 
     @Inject(
