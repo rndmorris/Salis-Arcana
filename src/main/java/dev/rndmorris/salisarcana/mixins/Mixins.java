@@ -201,6 +201,16 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.negativeBossSpawnCount::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchLock")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    WARP_FAKE_PLAYER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.warpFakePlayerCheck::isEnabled)
+        .addMixinClasses("common.MixinThaumcraft_FakePlayerWarp")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    CRIMSON_RITES_FAKE_PLAYER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.crimsonRitesFakePlayerCheck::isEnabled)
+        .addMixinClasses("items.MixinItemEldritchObject_FakePlayerFix")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)

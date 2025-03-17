@@ -1,6 +1,7 @@
 package dev.rndmorris.salisarcana.config.settings;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
+import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -129,14 +130,14 @@ public class CustomResearchSetting extends Setting {
         private boolean autoUnlock = false;
 
         public ResearchInfo(String researchName, String researchCategory, int researchCol, int researchRow) {
-            this.researchName = researchName;
+            this.researchName = MODID + ":" + researchName;
             this.researchCategory = researchCategory;
             this.researchCol = researchCol;
             this.researchRow = researchRow;
         }
 
         public ResearchInfo setResearchName(String researchName) {
-            this.researchName = researchName;
+            this.researchName = MODID + ":" + researchName;
             return this;
         }
 
