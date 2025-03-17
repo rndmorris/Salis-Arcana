@@ -103,3 +103,33 @@ Fixes ghost items being crafted in the arcane workbench after the wand runs out 
 **Config option:** `arcaneWorkbenchAllowRechargeCrafting`
 
 Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay.
+
+## Banner Fixes
+
+### Correct Collision Hitbox Placement
+
+**Config option:** `bannerHitboxFix`
+
+Fixes the placement of collision hitboxes for Thaumcraft's Banners.
+
+### Prevent Consumption of Phials
+
+**Config option:** `bannerPhialConsumption`
+
+Changes the behavior of banners when having a pattern added.
+
+- `FREE` (default) - adding a pattern to a banner does not consume the phial or the essentia.
+- `ESSENTIA` - adding a pattern to a banner will consume the phial and return an empty phial.
+- `PHIAL` - the entire phial is consumed (the vanilla behavior of Thaumcraft's banners)
+
+### Improve Banner Pick-Block Item
+
+**Config option:** `bannerPickBlockFix`
+
+Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.
+
+### Stop Banners from Dropping Items in Creative Mode
+
+**Config option:** `bannerCreativeModeDropFix`
+
+Stops banners from dropping as an item when broken in Creative Mode.

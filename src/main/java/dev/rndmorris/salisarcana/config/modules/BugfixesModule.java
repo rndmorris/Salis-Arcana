@@ -3,6 +3,7 @@ package dev.rndmorris.salisarcana.config.modules;
 import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.settings.BeaconBlockFixSetting;
+import dev.rndmorris.salisarcana.config.settings.ConsumePhialSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
 public class BugfixesModule extends BaseConfigModule {
@@ -25,6 +26,10 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting arcaneWorkbenchGhostItemFix;
     public final ToggleSetting arcaneWorkbenchAllowRechargeCrafting;
     public final ToggleSetting negativeBossSpawnCount;
+    public final ToggleSetting bannerHitboxFix;
+    public final ConsumePhialSetting bannerPhialConsumption;
+    public final ToggleSetting bannerPickBlockFix;
+    public final ToggleSetting bannerCreativeModeDropFix;
 
     public BugfixesModule() {
         addSettings(
@@ -93,7 +98,24 @@ public class BugfixesModule extends BaseConfigModule {
             negativeBossSpawnCount = new ToggleSetting(
                 this,
                 "negativeBossSpawnCount",
-                "Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn."));
+                "Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn."),
+            bannerHitboxFix = new ToggleSetting(
+                this,
+                "bannerHitboxFix",
+                "Fixes the placement of collision hitboxes for Thaumcraft's Banners."),
+            bannerPhialConsumption = new ConsumePhialSetting(
+                this,
+                "bannerPhialConsumption",
+                "Changes the behavior of banners when having a pattern added.",
+                ConsumePhialSetting.Option.FREE),
+            bannerPickBlockFix = new ToggleSetting(
+                this,
+                "bannerPickBlockFix",
+                "Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner."),
+            bannerCreativeModeDropFix = new ToggleSetting(
+                this,
+                "bannerCreativeModeDropFix",
+                "Stops banners from dropping as an item when broken in Creative Mode."));
     }
 
     @Nonnull
@@ -107,5 +129,4 @@ public class BugfixesModule extends BaseConfigModule {
     public String getModuleComment() {
         return "Fixes for bugs in TC4";
     }
-
 }
