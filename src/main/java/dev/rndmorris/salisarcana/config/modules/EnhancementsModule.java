@@ -10,7 +10,6 @@ import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
 import dev.rndmorris.salisarcana.config.settings.Setting;
-import dev.rndmorris.salisarcana.config.settings.StringSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
@@ -57,8 +56,7 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public final ToggleSetting wandPedestalUseCV;
     public final ToggleSetting thaumometerScanContainers;
-    public final ToggleSetting thaumometerScanResearchEnabled;
-    public final StringSetting thaumometerScanContainersResearch;
+    public final CustomResearchSetting thaumometerScanContainersResearch;
     public final ToggleSetting levitatorShiftFix;
     public final ToggleSetting pureNodeBiomeChange;
     public final ToggleSetting rottenFleshRecipe;
@@ -162,15 +160,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 "The maximum stack size for Eldritch Objects (Primordial Pearl, Eldritch Eye, Crimson Rites, Eldritch Obelisk Placer, Runed Tablet).",
                 16).setMinValue(1)
                     .setMaxValue(64),
-            disableCreativeTaintedItemDecay = new ToggleSetting(
-                this,
-                "disableCreativeTaintedItemDecay",
-                "Prevent tainted goo and taint tendrils from decaying for players in creative mode."),
-            taintedItemDecayChance = new IntSetting(
-                this,
-                "taintedItemDecayChance",
-                "The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.",
-                4321).setMinValue(-1),
             stopCreativeModeItemConsumption = new ToggleSetting(
                 this,
                 "stopCreativeModeItemConsumption",
@@ -192,8 +181,7 @@ public class EnhancementsModule extends BaseConfigModule {
             thaumometerScanContainers = new ToggleSetting(
                 this,
                 "thaumometerScanContainers",
-                "Allow the thaumometer to scan the contents of inventories when right-clicking on them.")
-                    .setCategory("thaumometer_container_scan"),
+                "Allow the thaumometer to scan the contents of inventories when right-clicking on them.").setCategory("thaumometer_container_scan"),
             thaumcraftCommandTabCompletion = new ToggleSetting(
                 this,
                 "thaumcraftCommandTabCompletion",
@@ -207,15 +195,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 "creativeOpThaumonomicon",
 
                 "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
-            thaumometerScanResearchEnabled = new ToggleSetting(
-                this,
-                "thaumometerScanResearchEnabled",
-                "Whether the ability to scan the contents of inventories is locked behind research."),
-            thaumometerScanContainersResearch = new StringSetting(
-                thaumometerScanResearchEnabled,
-                "thaumometerScanContainersResearch",
-                "Research required to unlock the ability to scan the contents of inventories with the Thaumometer.",
-                "salisarcana:CHESTSCAN"),
             levitatorShiftFix = new ToggleSetting(
                 this,
                 "levitatorShiftFix",
@@ -235,8 +214,7 @@ public class EnhancementsModule extends BaseConfigModule {
             crystalClusterUncrafting = new ToggleSetting(
                 this,
                 "crystalClusterUncrafting",
-                "Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.")
-                    .setCategory("recipes"),
+                "Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.").setCategory("recipes"),
             primalCrusherOredict = new ToggleSetting(
                 this,
                 "primalCrusherMinesOredictionaryStone",
@@ -247,8 +225,8 @@ public class EnhancementsModule extends BaseConfigModule {
                 "The duration in ticks that the thaumometer takes to scan an object.",
                 20).setMinValue(1)
         );
-        // spotless:on
 
+        // spotless:on
         addSettings(
             stabilizerAdditions = new BlockItemListSetting<Integer>(
                 stabilizerRewrite,
@@ -314,7 +292,26 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 "allowSingleWandReplacement",
                 "If enabled, allows swapping a wand's components using vis from the wand being modified.")
-                    .setCategory(wandCategory));
+                    .setCategory(wandCategory),
+            disableCreativeTaintedItemDecay = new ToggleSetting(
+                this,
+                "disableCreativeTaintedItemDecay",
+                "Prevent tainted goo and taint tendrils from decaying for players in creative mode."),
+            taintedItemDecayChance = new IntSetting(
+                this,
+                "taintedItemDecayChance",
+                "The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.",
+                4321).setMinValue(-1));
+
+        addSettings(
+            thaumometerScanContainersResearch = new CustomResearchSetting(
+                thaumometerScanContainers,
+                "thaumometerScanContainers",
+                "Enable the thaumometer to scan the contents of inventories when right-clicking on them.",
+                new CustomResearchSetting.ResearchInfo("CHESTSCAN", "BASICS", 8, 3).setDifficulty(3)
+                    .setParents("DECONSTRUCTOR")
+                    .setAspects("ordo:10", "perditio:10", "permutatio:10")).setCategory("thaumometer_container_scan"));
+
     }
 
     public boolean singleWandReplacementEnabled() {
