@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -48,7 +49,7 @@ public class MixinItemThaumometer extends Item {
             ordinal = 2),
         remap = false)
     private boolean rescanInventory(EntityPlayer player, ScanResult item, String t, Operation<Boolean> original,
-        @Local(name = "bi") Block block) {
+        @Local(name = "bi") Block block, @Local(argsOnly = true) World world, @Local MovingObjectPosition mop) {
         if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
                 player.getCommandSenderName(),
@@ -57,9 +58,8 @@ public class MixinItemThaumometer extends Item {
             }
         }
         if (block != null && block.hasTileEntity(item.meta)) {
-            TileEntity tile = block.createTileEntity(player.worldObj, item.meta);
-            if (tile != null) { // gt machines can return null here
-                tile.invalidate();
+            TileEntity tile = world.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
+            if (tile != null) { // just in case
                 if (tile instanceof IInventory) {
                     return true;
                 }
