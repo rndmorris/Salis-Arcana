@@ -48,6 +48,10 @@ public class CustomResearchSetting extends Setting {
 
     }
 
+    public String getInternalName() {
+        return MODID + ":" + researchName;
+    }
+
     @Override
     public void loadFromConfiguration(Configuration configuration) {
         this.enabled = configuration
@@ -130,14 +134,14 @@ public class CustomResearchSetting extends Setting {
         private boolean autoUnlock = false;
 
         public ResearchInfo(String researchName, String researchCategory, int researchCol, int researchRow) {
-            this.researchName = MODID + ":" + researchName;
+            this.researchName = researchName;
             this.researchCategory = researchCategory;
             this.researchCol = researchCol;
             this.researchRow = researchRow;
         }
 
         public ResearchInfo setResearchName(String researchName) {
-            this.researchName = MODID + ":" + researchName;
+            this.researchName = researchName;
             return this;
         }
 
