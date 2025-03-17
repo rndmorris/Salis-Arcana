@@ -89,7 +89,7 @@ Gives creative mode players infinite vis in wands
 
 **Config Option:** `creativeOpThaumonomicon`
 
-Ctrl-clicking on a research in the Thaumonomicon while in Creative mode will autocomplete the research.
+Ctrl-clicking on a research in the Thaumonomicon while in Creative mode will autocomplete the research, and you do not need to have paper and scribing tools in your inventory to get research notes.
 
 ## Thaumonomicon Controls
 

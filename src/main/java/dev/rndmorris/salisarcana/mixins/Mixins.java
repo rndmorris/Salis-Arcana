@@ -222,17 +222,17 @@ public enum Mixins {
     CTRL_SCROLL_NAVIGATION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled::isEnabled)
-        .addMixinClasses("gui.MixinGuiResearchBrowser")
+        .addMixinClasses("gui.MixinGuiResearchBrowser_Scroll")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     RESEARCH_ID_POPUP(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.enhancements.nomiconShowResearchId::isEnabled)
-        .addMixinClasses("gui.MixinGuiResearchBrowser")
+        .addMixinClasses("gui.MixinGuiResearchBrowser_ShowResearchID")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     RIGHT_CLICK_NAVIAGTION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.enhancements.nomiconRightClickClose::isEnabled)
-        .addMixinClasses("gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe")
+        .addMixinClasses("gui.MixinGuiResearchBrowser_RightClickClose", "gui.MixinGuiResearchRecipe")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     NODE_GENERATION_MODIFIER_WEIGHTS(new Builder().setPhase(Phase.LATE)
@@ -303,7 +303,7 @@ public enum Mixins {
     CREATIVE_OP_THAUMONOMICON(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.creativeOpThaumonomicon::isEnabled)
-        .addMixinClasses("gui.MixinGuiResearchBrowser")
+        .addMixinClasses("lib.MixinResearchManager", "gui.MixinGuiResearchBrowser_OpHandleInput")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     LEVITATOR_SHIFT_FIX(new Builder().setPhase(Phase.LATE)
