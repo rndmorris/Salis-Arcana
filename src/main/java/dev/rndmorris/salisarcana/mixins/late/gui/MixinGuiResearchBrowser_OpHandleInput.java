@@ -8,7 +8,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -16,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.research.ResearchItem;
@@ -43,27 +41,10 @@ public abstract class MixinGuiResearchBrowser_OpHandleInput extends GuiScreen {
         remap = false)
     private short creativeAspectPurchaseCheck(PlayerKnowledge instance, String username, Aspect aspect,
         Operation<Short> original) {
-        if (ConfigModuleRoot.enhancements.creativeOpThaumonomicon.isEnabled()) {
-            if (this.mc.thePlayer.capabilities.isCreativeMode) {
-                return Short.MAX_VALUE;
-            }
+        if (this.mc.thePlayer.capabilities.isCreativeMode) {
+            return Short.MAX_VALUE;
         }
-        return original.call(instance, username, aspect);
-    }
 
-    @WrapOperation(
-        method = "genResearchBackground",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/research/PlayerKnowledge;getAspectPoolFor(Ljava/lang/String;Lthaumcraft/api/aspects/Aspect;)S"),
-        remap = false)
-    private short creativeAspectPurchaseStringCheck(PlayerKnowledge instance, String username, Aspect aspect,
-        Operation<Short> original) {
-        if (ConfigModuleRoot.enhancements.creativeOpThaumonomicon.isEnabled()) {
-            if (this.mc.thePlayer.capabilities.isCreativeMode) {
-                return Short.MAX_VALUE;
-            }
-        }
         return original.call(instance, username, aspect);
     }
 
@@ -75,11 +56,10 @@ public abstract class MixinGuiResearchBrowser_OpHandleInput extends GuiScreen {
         remap = false)
     private boolean creativeAspectDiscoveredCheck(PlayerKnowledge instance, String username, Aspect aspect,
         Operation<Boolean> original) {
-        if (ConfigModuleRoot.enhancements.creativeOpThaumonomicon.isEnabled()) {
-            if (this.mc.thePlayer.capabilities.isCreativeMode) {
-                return true;
-            }
+        if (this.mc.thePlayer.capabilities.isCreativeMode) {
+            return true;
         }
+
         return original.call(instance, username, aspect);
     }
 
@@ -91,19 +71,12 @@ public abstract class MixinGuiResearchBrowser_OpHandleInput extends GuiScreen {
             ordinal = 0),
         remap = false)
     private void creativePaperCheck(CallbackInfo ci) {
-        if (ConfigModuleRoot.enhancements.creativeOpThaumonomicon.isEnabled()) {
-            this.hasScribestuff = this.mc.thePlayer.capabilities.isCreativeMode;
-        }
+        this.hasScribestuff = this.mc.thePlayer.capabilities.isCreativeMode;
     }
 
     @Override
     public void handleInput() {
         super.handleInput();
-        sa$opThaumonomiconHandleInput();
-    }
-
-    @Unique
-    private void sa$opThaumonomiconHandleInput() {
         if (currentHighlight == null) {
             return;
         }

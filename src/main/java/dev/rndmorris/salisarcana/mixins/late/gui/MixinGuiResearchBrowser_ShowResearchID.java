@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
@@ -27,27 +26,13 @@ public class MixinGuiResearchBrowser_ShowResearchID extends GuiScreen {
     @Override
     public void handleKeyboardInput() {
         super.handleKeyboardInput();
-        if (ConfigModuleRoot.enhancements.nomiconShowResearchId.isEnabled()) {
-            sa$ShowResearchId_handleKeyboardInput();
-        }
-    }
-
-    @Unique
-    private void sa$ShowResearchId_handleKeyboardInput() {
         this.sa$isControlHeld = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
-    }
-
-    @Unique
-    private void sa$ShowResearchId_drawScreen(int mouseX, int mouseY) {
-        if (this.sa$isControlHeld && this.currentHighlight != null) {
-            sa$drawPopup(mouseX, mouseY, this.currentHighlight.key);
-        }
     }
 
     @Inject(method = "drawScreen", at = @At(value = "TAIL"))
     private void mixinDrawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
-        if (ConfigModuleRoot.enhancements.nomiconShowResearchId.isEnabled()) {
-            sa$ShowResearchId_drawScreen(mouseX, mouseY);
+        if (this.sa$isControlHeld && this.currentHighlight != null) {
+            sa$drawPopup(mouseX, mouseY, this.currentHighlight.key);
         }
     }
 

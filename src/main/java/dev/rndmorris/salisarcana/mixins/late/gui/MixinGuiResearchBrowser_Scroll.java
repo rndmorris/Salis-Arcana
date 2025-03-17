@@ -21,6 +21,9 @@ import thaumcraft.common.lib.research.ResearchManager;
 @Mixin(value = GuiResearchBrowser.class)
 public abstract class MixinGuiResearchBrowser_Scroll extends GuiScreen {
 
+    @Unique
+    private final int sa$invertScroll = ConfigModuleRoot.enhancements.nomiconInvertedScrolling.isEnabled() ? -1 : 1;
+
     @Shadow(remap = false)
     public abstract void updateResearch();
 
@@ -41,11 +44,7 @@ public abstract class MixinGuiResearchBrowser_Scroll extends GuiScreen {
     // unintuitive.
     @Inject(method = "handleInput", at = @At(value = "TAIL"))
     public void handleInput(CallbackInfo ci) {
-        sa$CtrlScroll_handleInput();
-    }
 
-    @Unique
-    private void sa$CtrlScroll_handleInput() {
         // We need to run this every time to avoid buffering a scroll
         int dir = (int) Math.signum(Mouse.getDWheel()); // We want DWheel since last call, not last mouse event, as
         // it's possible no new mouse events will have been sent
@@ -60,10 +59,7 @@ public abstract class MixinGuiResearchBrowser_Scroll extends GuiScreen {
                     }
                     categories.add(category);
                 }
-
-                if (ConfigModuleRoot.enhancements.nomiconInvertedScrolling.isEnabled()) {
-                    dir *= -1;
-                }
+                dir *= sa$invertScroll;
 
                 int new_index = (categories.indexOf(selectedCategory) + dir) % categories.size();
                 if (new_index < 0) {
