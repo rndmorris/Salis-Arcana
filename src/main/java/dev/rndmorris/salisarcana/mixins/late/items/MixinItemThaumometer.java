@@ -1,6 +1,5 @@
 package dev.rndmorris.salisarcana.mixins.late.items;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -48,7 +47,7 @@ public class MixinItemThaumometer extends Item {
             ordinal = 2),
         remap = false)
     private boolean rescanInventory(EntityPlayer player, ScanResult item, String t, Operation<Boolean> original,
-        @Local(name = "bi") Block block) {
+        @Local TileEntity tile) {
         if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
                 player.getCommandSenderName(),
@@ -56,15 +55,12 @@ public class MixinItemThaumometer extends Item {
                 return original.call(player, item, t);
             }
         }
-        if (block != null && block.hasTileEntity(item.meta)) {
-            TileEntity tile = block.createTileEntity(player.worldObj, item.meta);
-            if (tile != null) { // gt machines can return null here
-                tile.invalidate();
-                if (tile instanceof IInventory) {
-                    return true;
-                }
-            }
+        // all other checks have already been handled
+        // returns false if tile is null as well
+        if (tile instanceof IInventory) {
+            return true;
         }
+
         return original.call(player, item, t);
     }
 }

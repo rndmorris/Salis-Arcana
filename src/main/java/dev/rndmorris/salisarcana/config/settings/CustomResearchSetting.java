@@ -52,8 +52,8 @@ public class CustomResearchSetting extends Setting {
     public void loadFromConfiguration(Configuration configuration) {
         this.enabled = configuration
             .getBoolean("_enabled" + this.configName, this.getCategory(), this.enabled, this.configComment);
-        researchName = MODID + ":"
-            + configuration.getString(configName + "Name", this.getCategory(), researchName, "The research entry ID");
+        researchName = configuration
+            .getString(configName + "Name", this.getCategory(), researchName, "The research entry ID");
 
         researchCategory = configuration.getString(
             configName + "Category",
