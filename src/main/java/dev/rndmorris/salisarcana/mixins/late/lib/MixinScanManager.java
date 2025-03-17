@@ -1,10 +1,10 @@
 package dev.rndmorris.salisarcana.mixins.late.lib;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MovingObjectPosition;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,18 +42,16 @@ public class MixinScanManager {
                 ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
             return;
         }
-        Block block = Block.getBlockFromItem(Item.getItemById(scan.id));
-        if (block != null && block.hasTileEntity(scan.meta)) {
-            TileEntity tile = block.createTileEntity(player.worldObj, scan.meta);
-            if (tile != null) { // gt machines can return null here
-                tile.invalidate();
-                if (tile instanceof IInventory && !ScanManager.isValidScanTarget(player, scan, "@")) {
-                    if (player.isClientWorld()) {
-                        NetworkHandler.instance.sendToServer(new MessageScanIInventory(scan.id, scan.meta));
-                    }
-                    cir.cancel();
-                }
+
+        // Items.feather is just a simple way to get access to getMovingObjectPositionFromPlayer
+        MovingObjectPosition mop = Items.feather.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
+        TileEntity tile = player.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
+        // null check is handled by instanceof
+        if (tile instanceof IInventory && !ScanManager.isValidScanTarget(player, scan, "@")) {
+            if (player.isClientWorld()) {
+                NetworkHandler.instance.sendToServer(new MessageScanIInventory(scan.id, scan.meta));
             }
+            cir.cancel();
         }
     }
 }
