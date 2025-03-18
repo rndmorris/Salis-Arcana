@@ -27,6 +27,20 @@ while avoiding the weirdness in Thaumcraft's plank blocks implementation.
 
 Causes staffters to use their own translation string rather than being called "Staff" in the tooltip.
 
+## "Missing Research" Messages
+
+**Config option:** `notifyMissingResearchWorkbench`
+
+Displays a "missing research" message in the Arcane Workbench GUI when recipe fails for lack of research.
+
+**Config option:** `notifyMissingResearchInfusion`
+
+Displays a "missing research" message to the player when an infusion recipe fails for lack of research.
+
+**Config option:** `notifyMissingResearchCrucible`
+
+Displays a "missing research" message to the player when a crucible recipe fails for lack of research.
+
 ## Increased Item Stack Size
 
 Config Option: `eldritchObjectStackSize`
