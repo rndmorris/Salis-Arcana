@@ -3,8 +3,6 @@ package dev.rndmorris.salisarcana;
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
@@ -108,26 +106,14 @@ public class CommonProxy {
     private void fixGolemFishingLists() {
         try {
             final var fishingHooks = new R(FishingHooks.class);
-            final var lootCrap = AIFish.class.getDeclaredField("LOOTCRAP");
-            final var lootRare = AIFish.class.getDeclaredField("LOOTRARE");
-            final var lootFish = AIFish.class.getDeclaredField("LOOTFISH");
+            final var aiFish = new R(AIFish.class);
 
-            removeFieldProtections(lootCrap, lootRare, lootFish);
+            aiFish.set("LOOTCRAP", fishingHooks.get("junk", ArrayList.class));
+            aiFish.set("LOOTRARE", fishingHooks.get("treasure", ArrayList.class));
+            aiFish.set("LOOTFISH", fishingHooks.get("fish", ArrayList.class));
 
-            lootCrap.set(null, fishingHooks.get("junk", ArrayList.class));
-            lootRare.set(null, fishingHooks.get("treasure", ArrayList.class));
-            lootFish.set(null, fishingHooks.get("fish", ArrayList.class));
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (RuntimeException e) {
             LOG.error("An error occurred updating golem fishing lists.", e);
-        }
-    }
-
-    private void removeFieldProtections(Field... fields) throws NoSuchFieldException, IllegalAccessException {
-        final var modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        for (var field : fields) {
-            field.setAccessible(true);
-            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
         }
     }
 }
