@@ -73,6 +73,14 @@ Config Option: `primalCrusherMinesOredictionaryStone`
 
 Allows the primal crusher to 3x3 mine blocks registered as stone, cobblestone, or stoneBricks in the ore dictionary.
 
+## Research Item Extensions
+
+Config Option: `researchItemExtensions`
+
+Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer).
+
+Mod authors: this controls whether Thaumcraft's `ResearchItem` class implements `IResearchItemExtended` from Salis Arcana's API package.
+
 ## Enhancements - Creative Mode
 
 **Config option:** `suppressWarpEventsInCreative`
@@ -278,3 +286,4 @@ Requires `enableReplaceWandCapsRecipe=true` or `enableReplaceWandCoreRecipe=true
 Requires `arcaneWorkbenchGhostItemFix=true` in the bugfixes module.
 
 If enabled, allows swapping a wand's components using vis from the wand being modified.
+

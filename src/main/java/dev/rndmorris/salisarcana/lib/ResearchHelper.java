@@ -20,6 +20,7 @@ import net.minecraftforge.common.util.FakePlayer;
 import com.mojang.authlib.GameProfile;
 
 import dev.rndmorris.salisarcana.SalisArcana;
+import dev.rndmorris.salisarcana.api.IResearchItemExtended;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -124,10 +125,14 @@ public class ResearchHelper {
     }
 
     public static IChatComponent formatResearch(ResearchItem research, EnumChatFormatting formatting) {
+        final var researchKeyName = research instanceof IResearchItemExtended extended
+            ? extended.getNameTranslationKey()
+            : String.format("tc.research_name.%s", research.key);
+
         final var style = new ChatStyle().setColor(formatting)
             .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
         return new ChatComponentText("[").setChatStyle(style)
-            .appendSibling(new ChatComponentTranslation(String.format("tc.research_name.%s", research.key)))
+            .appendSibling(new ChatComponentTranslation(researchKeyName))
             .appendText("]");
     }
 
