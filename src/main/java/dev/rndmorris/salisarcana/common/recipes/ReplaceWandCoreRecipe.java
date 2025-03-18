@@ -3,6 +3,7 @@ package dev.rndmorris.salisarcana.common.recipes;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import dev.rndmorris.salisarcana.api.IMultipleResearchArcaneRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -22,7 +23,9 @@ import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
-public class ReplaceWandCoreRecipe implements IArcaneRecipe {
+import java.util.List;
+
+public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchArcaneRecipe {
 
     @Override
     public boolean matches(IInventory tableInv, World world, EntityPlayer player) {
@@ -142,6 +145,17 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe {
         }
 
         return new InvScanResult(wandItem, newRod);
+    }
+
+    @Override
+    public List<String> getResearches(IInventory inv, World world, EntityPlayer player) {
+        final var scan = scanTable(inv);
+
+        if(scan == null || scan.invalidInputs()) {
+            return List.of(getResearch());
+        }
+        
+        return List.of(getResearch(), scan.newRod.getResearch());
     }
 
     @Desugar
