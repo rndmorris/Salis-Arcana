@@ -81,6 +81,20 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
                     categories.addAll(
                         BrowserPaging.getTabsOnCurrentPage(this.player)
                             .keySet());
+
+                    // tc4tweaks page can be empty because of eldritch tab
+                    if (categories.isEmpty()) return;
+
+                    // reset to first if current category is not found
+                    if (!categories.contains(selectedCategory)) {
+                        selectedCategory = categories.get(0);
+                        this.updateResearch();
+                        return;
+                    }
+                    // where does a list of size 1 scroll to?
+                    if (categories.size() == 1) {
+                        return;
+                    }
                 } else {
                     for (String category : ResearchCategories.researchCategories.keySet()) {
                         if (category.equals("ELDRITCH")
@@ -89,20 +103,6 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
                         }
                         categories.add(category);
                     }
-                }
-
-                // tc4tweaks page can be empty because of eldritch tab
-                if (categories.isEmpty()) return;
-
-                // reset to first if current category is not found
-                if (!categories.contains(selectedCategory)) {
-                    selectedCategory = categories.get(0);
-                    this.updateResearch();
-                    return;
-                }
-                // where does a list of size 1 scroll to?
-                if (categories.size() == 1) {
-                    return;
                 }
 
                 dir *= sa$invertScrolling;
