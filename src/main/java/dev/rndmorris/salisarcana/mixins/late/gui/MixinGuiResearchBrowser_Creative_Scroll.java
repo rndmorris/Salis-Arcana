@@ -1,9 +1,14 @@
 package dev.rndmorris.salisarcana.mixins.late.gui;
 
+import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$CurrentPageIndex;
+import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$MaxPageIndex;
+import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$NextPage;
+import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$SetPage;
+import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$getTabsOnCurrentPage;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import net.glease.tc4tweak.modules.researchBrowser.BrowserPaging;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -76,45 +81,85 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
         if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
             if (dir != sa$lastDir) {
                 sa$lastDir = dir;
-                List<String> categories = new ArrayList<>();
-                if (Mods.TC4Tweak.isLoaded()) {
-                    categories.addAll(
-                        BrowserPaging.getTabsOnCurrentPage(this.player)
-                            .keySet());
-
-                    // tc4tweaks page can be empty because of eldritch tab
-                    if (categories.isEmpty()) return;
-
-                    // reset to first if current category is not found
-                    if (!categories.contains(selectedCategory)) {
-                        selectedCategory = categories.get(0);
-                        this.updateResearch();
-                        return;
-                    }
-                    // where does a list of size 1 scroll to?
-                    if (categories.size() == 1) {
-                        return;
-                    }
-                } else {
-                    for (String category : ResearchCategories.researchCategories.keySet()) {
-                        if (category.equals("ELDRITCH")
-                            && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR")) {
-                            continue;
-                        }
-                        categories.add(category);
-                    }
-                }
-
                 dir *= sa$invertScrolling;
-                int new_index = (categories.indexOf(selectedCategory) + dir) % categories.size();
-                if (new_index < 0) {
-                    new_index += categories.size();
+                if (Mods.TC4Tweak.isLoaded()) {
+                    sa$handleTc4TweakScroll(dir);
+                    return;
                 }
-                selectedCategory = categories.get(new_index);
+                List<String> categories = sa$allCategories();
+                selectedCategory = sa$GetNextCategory(dir, categories);
                 this.updateResearch();
             }
         }
+    }
 
+    @Unique
+    private void sa$handleTc4TweakScroll(int dir) {
+        List<String> categories = new ArrayList<>(BrowserPaging$getTabsOnCurrentPage(this.player).keySet());
+        String next = sa$GetNextCategory(dir, sa$allCategories());
+        if (!ConfigModuleRoot.modCompat.tc4tweakScrollPages.isEnabled()) {
+            if (categories.isEmpty()) return;
+
+            // reset to first if current category is not found
+            if (!categories.contains(next)) {
+                if (dir == -1) {
+                    selectedCategory = categories.get(BrowserPaging$getTabsOnCurrentPage(this.player).size() - 1);
+                    this.updateResearch();
+                    return;
+                }
+                selectedCategory = categories.get(0);
+                this.updateResearch();
+                return;
+            }
+            // where does a list of size 1 scroll to?
+            if (categories.size() == 1) {
+                return;
+            }
+            selectedCategory = next;
+            this.updateResearch();
+            return;
+        }
+
+        while (!categories.contains(next)) {
+            int currentPageIndex = BrowserPaging$CurrentPageIndex();
+            int maxPageIndex = BrowserPaging$MaxPageIndex();
+
+            if (currentPageIndex == maxPageIndex) {
+                BrowserPaging$SetPage(0);
+            } else {
+                BrowserPaging$NextPage();
+            }
+            categories.clear();
+            categories.addAll(BrowserPaging$getTabsOnCurrentPage(this.player).keySet());
+        }
+        selectedCategory = next;
+        this.updateResearch();
+        return;
+    }
+
+    @Unique
+    private String sa$GetNextCategory(int dir, List<String> categories) {
+        if (categories.size() <= 1) {
+            return categories.get(0);
+        }
+
+        int new_index = (categories.indexOf(selectedCategory) + dir) % categories.size();
+        if (new_index < 0) {
+            new_index += categories.size();
+        }
+        return categories.get(new_index);
+    }
+
+    @Unique
+    private ArrayList<String> sa$allCategories() {
+        ArrayList<String> categories = new ArrayList<>();
+        for (String category : ResearchCategories.researchCategories.keySet()) {
+            if (category.equals("ELDRITCH") && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR")) {
+                continue;
+            }
+            categories.add(category);
+        }
+        return categories;
     }
 
     @Unique

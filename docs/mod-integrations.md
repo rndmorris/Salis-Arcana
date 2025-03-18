@@ -2,6 +2,14 @@
 
 Config file: `config/salisarcana/mod_integrations.cfg`
 
+# TC4Tweaks
+
+Section : `tc4tweaks`
+
+## Option: `tc4tweakScrollPages`
+
+Whether or not scrolling should scroll to next page or loop, in the event that there are too many tabs.
+
 # Underground Biomes Construct
 
 Section : `undergroundbiomes`
