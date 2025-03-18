@@ -103,3 +103,9 @@ Fixes ghost items being crafted in the arcane workbench after the wand runs out 
 **Config option:** `arcaneWorkbenchAllowRechargeCrafting`
 
 Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay.
+
+### Use Forge fishing lists for fishing golem loot
+
+**Config option:** `useForgeFishingLists`
+
+Use Forge's fishing lists to determine what fish, junk, and treasure a fishing golem catches.

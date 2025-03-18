@@ -1,8 +1,12 @@
 package dev.rndmorris.salisarcana;
 
+import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
 
+import java.util.ArrayList;
 import java.util.function.Supplier;
+
+import net.minecraftforge.common.FishingHooks;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -24,11 +28,14 @@ import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
 import dev.rndmorris.salisarcana.common.compat.ModCompat;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
+import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
+import thaumcraft.common.entities.ai.interact.AIFish;
 
 public class CommonProxy {
 
@@ -44,6 +51,10 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
+
+        if (ConfigModuleRoot.bugfixes.useForgeFishingLists.isEnabled()) {
+            fixGolemFishingLists();
+        }
 
         FMLCommonHandler.instance()
             .bus()
@@ -90,5 +101,19 @@ public class CommonProxy {
 
     public boolean isSingleplayerClient() {
         return false;
+    }
+
+    private void fixGolemFishingLists() {
+        try {
+            final var fishingHooks = new R(FishingHooks.class);
+            final var aiFish = new R(AIFish.class);
+
+            aiFish.set("LOOTCRAP", fishingHooks.get("junk", ArrayList.class));
+            aiFish.set("LOOTRARE", fishingHooks.get("treasure", ArrayList.class));
+            aiFish.set("LOOTFISH", fishingHooks.get("fish", ArrayList.class));
+
+        } catch (RuntimeException e) {
+            LOG.error("An error occurred updating golem fishing lists.", e);
+        }
     }
 }

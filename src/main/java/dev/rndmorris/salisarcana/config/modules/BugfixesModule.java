@@ -25,6 +25,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting arcaneWorkbenchGhostItemFix;
     public final ToggleSetting arcaneWorkbenchAllowRechargeCrafting;
     public final ToggleSetting negativeBossSpawnCount;
+    public final ToggleSetting useForgeFishingLists;
 
     public BugfixesModule() {
         addSettings(
@@ -93,7 +94,11 @@ public class BugfixesModule extends BaseConfigModule {
             negativeBossSpawnCount = new ToggleSetting(
                 this,
                 "negativeBossSpawnCount",
-                "Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn."));
+                "Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn."),
+            useForgeFishingLists = new ToggleSetting(
+                this,
+                "useForgeFishingLists",
+                "Use Forge's fishing lists to determine what a fishing golem catches."));
     }
 
     @Nonnull
