@@ -219,7 +219,7 @@ public class CustomResearch {
         if (!settings.isEnabled()) {
             return null;
         }
-        final var fullKey = settings.researchName;
+        final var fullKey = settings.getInternalName();
         final var category = settings.researchCategory;
         final var col = settings.researchCol;
         final var row = settings.researchRow;
