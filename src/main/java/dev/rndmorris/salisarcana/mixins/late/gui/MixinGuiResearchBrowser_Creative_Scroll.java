@@ -1,7 +1,9 @@
 package dev.rndmorris.salisarcana.mixins.late.gui;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import net.glease.tc4tweak.modules.researchBrowser.BrowserPaging;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import dev.rndmorris.salisarcana.common.compat.Mods;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import thaumcraft.api.research.ResearchCategories;
@@ -73,17 +76,36 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
         if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
             if (dir != sa$lastDir) {
                 sa$lastDir = dir;
-                ArrayList<String> categories = new ArrayList<>();
-                for (String category : ResearchCategories.researchCategories.keySet()) {
-                    if (category.equals("ELDRITCH")
-                        && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR")) {
-                        continue;
+                List<String> categories = new ArrayList<>();
+                if (Mods.TC4Tweak.isLoaded()) {
+                    categories.addAll(
+                        BrowserPaging.getTabsOnCurrentPage(this.player)
+                            .keySet());
+                } else {
+                    for (String category : ResearchCategories.researchCategories.keySet()) {
+                        if (category.equals("ELDRITCH")
+                            && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR")) {
+                            continue;
+                        }
+                        categories.add(category);
                     }
-                    categories.add(category);
+                }
+
+                // tc4tweaks page can be empty because of eldritch tab
+                if (categories.isEmpty()) return;
+
+                // reset to first if current category is not found
+                if (!categories.contains(selectedCategory)) {
+                    selectedCategory = categories.get(0);
+                    this.updateResearch();
+                    return;
+                }
+                // where does a list of size 1 scroll to?
+                if (categories.size() == 1) {
+                    return;
                 }
 
                 dir *= sa$invertScrolling;
-
                 int new_index = (categories.indexOf(selectedCategory) + dir) % categories.size();
                 if (new_index < 0) {
                     new_index += categories.size();
