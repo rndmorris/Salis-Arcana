@@ -17,7 +17,7 @@ public class ModCompatModule extends BaseConfigModule {
             tc4tweakScrollPages = new ToggleSetting(
                 ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled,
                 "tc4tweakScrollPages",
-                "Whether or not scrolling should scroll to next page or reset to top of page, in the event that there are too many tabs.")
+                "Whether or not scrolling should scroll to next page of tabs or loop to first tab of the page, in the event that there are too many tabs.")
                     .setCategory("tc4tweaks"));
     }
 

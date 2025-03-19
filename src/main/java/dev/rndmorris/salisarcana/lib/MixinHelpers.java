@@ -7,8 +7,6 @@ import thaumcraft.client.gui.GuiResearchBrowser;
 
 public class MixinHelpers {
 
-    // all the BrowserPaging reflection is temporary until I get a PR to tc4tweaks
-
     private static final BrowserPagingAPI browserPaging = TC4TweaksAPI.getBrowserPagingAPI();
 
     public static java.util.Map<String, thaumcraft.api.research.ResearchCategoryList> BrowserPaging$GetTabsOnCurrentPage(

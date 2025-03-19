@@ -8,7 +8,7 @@ Section : `tc4tweaks`
 
 ## Option: `tc4tweakScrollPages`
 
-Whether or not scrolling should scroll to next page or loop, in the event that there are too many tabs.
+Whether or not scrolling should scroll to next page of tabs or loop back to the first tab, in the event that there are too many tabs.
 
 # Underground Biomes Construct
 

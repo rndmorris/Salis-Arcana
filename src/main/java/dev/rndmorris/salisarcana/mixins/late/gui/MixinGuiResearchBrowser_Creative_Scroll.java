@@ -176,7 +176,8 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
                 EntityPlayer player = Minecraft.getMinecraft().thePlayer;
                 if (player.capabilities.isCreativeMode) {
                     String username = player.getCommandSenderName();
-                    if (!ResearchManager.isResearchComplete(username, currentHighlight.key)) {
+                    if (ResearchManager.doesPlayerHaveRequisites(username, currentHighlight.key)
+                        && !ResearchManager.isResearchComplete(username, currentHighlight.key)) {
                         ResearchHelper.completeResearchClient(player, currentHighlight.key);
                     }
                 }
