@@ -1,10 +1,11 @@
 package dev.rndmorris.salisarcana.mixins.late.gui;
 
 import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$CurrentPageIndex;
+import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$GetTabsOnCurrentPage;
+import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$GetTabsPerPage;
 import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$MaxPageIndex;
 import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$NextPage;
 import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$SetPage;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$getTabsOnCurrentPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,9 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
         ? -1
         : 1;
 
+    @Unique
+    private final GuiResearchBrowser sa$this = (GuiResearchBrowser) (Object) this;
+
     @Override
     public void handleInput() {
         super.handleInput();
@@ -95,7 +99,7 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
 
     @Unique
     private void sa$handleTc4TweakScroll(int dir) {
-        List<String> categories = new ArrayList<>(BrowserPaging$getTabsOnCurrentPage(this.player).keySet());
+        List<String> categories = new ArrayList<>(BrowserPaging$GetTabsOnCurrentPage(sa$this, this.player).keySet());
         String next = sa$GetNextCategory(dir, sa$allCategories());
         if (!ConfigModuleRoot.modCompat.tc4tweakScrollPages.isEnabled()) {
             if (categories.isEmpty()) return;
@@ -103,7 +107,7 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
             // reset to first if current category is not found
             if (!categories.contains(next)) {
                 if (dir == -1) {
-                    selectedCategory = categories.get(BrowserPaging$getTabsOnCurrentPage(this.player).size() - 1);
+                    selectedCategory = categories.get(BrowserPaging$GetTabsPerPage(sa$this) - 1);
                     this.updateResearch();
                     return;
                 }
@@ -121,16 +125,16 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
         }
 
         while (!categories.contains(next)) {
-            int currentPageIndex = BrowserPaging$CurrentPageIndex();
-            int maxPageIndex = BrowserPaging$MaxPageIndex();
+            int currentPageIndex = BrowserPaging$CurrentPageIndex(sa$this);
+            int maxPageIndex = BrowserPaging$MaxPageIndex(sa$this);
 
             if (currentPageIndex == maxPageIndex) {
-                BrowserPaging$SetPage(0);
+                BrowserPaging$SetPage(sa$this, 0);
             } else {
-                BrowserPaging$NextPage();
+                BrowserPaging$NextPage(sa$this);
             }
             categories.clear();
-            categories.addAll(BrowserPaging$getTabsOnCurrentPage(this.player).keySet());
+            categories.addAll(BrowserPaging$GetTabsOnCurrentPage(sa$this, this.player).keySet());
         }
         selectedCategory = next;
         this.updateResearch();

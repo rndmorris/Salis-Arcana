@@ -1,31 +1,38 @@
 package dev.rndmorris.salisarcana.lib;
 
-import net.glease.tc4tweak.modules.researchBrowser.BrowserPaging;
+import net.glease.tc4tweak.api.BrowserPagingAPI;
+import net.glease.tc4tweak.api.TC4TweaksAPI;
+
+import thaumcraft.client.gui.GuiResearchBrowser;
 
 public class MixinHelpers {
 
     // all the BrowserPaging reflection is temporary until I get a PR to tc4tweaks
-    private static final R browserPaging = new R(BrowserPaging.class);
 
-    public static java.util.LinkedHashMap<String, thaumcraft.api.research.ResearchCategoryList> BrowserPaging$getTabsOnCurrentPage(
-        String player) {
-        return BrowserPaging.getTabsOnCurrentPage(player);
+    private static final BrowserPagingAPI browserPaging = TC4TweaksAPI.getBrowserPagingAPI();
+
+    public static java.util.Map<String, thaumcraft.api.research.ResearchCategoryList> BrowserPaging$GetTabsOnCurrentPage(
+        GuiResearchBrowser browser, String player) {
+        return browserPaging.getTabsOnCurrentPage(browser, player);
     }
 
-    public static void BrowserPaging$SetPage(int page) {
-        browserPaging.set("currentPageIndex", page);
-        browserPaging.set("currentPageTabs", null);
+    public static int BrowserPaging$GetTabsPerPage(GuiResearchBrowser browser) {
+        return browserPaging.getTabsPerPage(browser);
     }
 
-    public static void BrowserPaging$NextPage() {
-        browserPaging.call("nextPage");
+    public static void BrowserPaging$SetPage(GuiResearchBrowser browser, int page) {
+        browserPaging.setPage(browser, page);
     }
 
-    public static int BrowserPaging$CurrentPageIndex() {
-        return browserPaging.get("currentPageIndex", Integer.class);
+    public static void BrowserPaging$NextPage(GuiResearchBrowser browser) {
+        browserPaging.moveNextPage(browser);
     }
 
-    public static int BrowserPaging$MaxPageIndex() {
-        return (int) browserPaging.get("maxPageIndex", Integer.class);
+    public static int BrowserPaging$CurrentPageIndex(GuiResearchBrowser browser) {
+        return browserPaging.getCurrentPage(browser);
+    }
+
+    public static int BrowserPaging$MaxPageIndex(GuiResearchBrowser browser) {
+        return browserPaging.getTotalPages(browser);
     }
 }
