@@ -39,7 +39,7 @@ public class MixinScanManager {
         if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()
             && !ResearchManager.isResearchComplete(
                 player.getCommandSenderName(),
-                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
+                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.getInternalName())) {
             return;
         }
 
@@ -51,7 +51,7 @@ public class MixinScanManager {
             if (player.isClientWorld()) {
                 NetworkHandler.instance.sendToServer(new MessageScanIInventory(scan.id, scan.meta));
             }
-            cir.cancel();
+            cir.setReturnValue(false);
         }
     }
 }

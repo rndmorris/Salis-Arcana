@@ -51,7 +51,7 @@ public class MixinItemThaumometer extends Item {
         if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
                 player.getCommandSenderName(),
-                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.researchName)) {
+                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.getInternalName())) {
                 return original.call(player, item, t);
             }
         }
