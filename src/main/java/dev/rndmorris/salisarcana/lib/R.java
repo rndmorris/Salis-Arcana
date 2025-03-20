@@ -94,6 +94,9 @@ public class R {
      */
     public R set(String name, Object value) {
         try {
+            Field toSet = findField(name, clazz);
+            Field modifiersField = findField("modifiers", Field.class);
+            modifiersField.setInt(toSet, toSet.getModifiers() & ~java.lang.reflect.Modifier.FINAL);
             findField(name, clazz).set(instance, value);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);

@@ -62,6 +62,16 @@ Affected items include:
 
 Add a safety check to prevent the creation of Thaumcraft shards with invalid metadata.
 
+## Fake Player Safety Checks
+
+**Config option:** `warpFakePlayerCheck`
+
+Adds a safety check to prevent warp effects from trying to send packets to fake players.
+
+**Config option:** `crimsonRitesFakePlayerCheck`
+
+Adds a safety check in case of a fake player not being castable to `EntityPlayerMP`. (For example, putting Crimson Rites into a Dynamism Tablet from Thaumic Tinkerer.)
+
 ## TC4 Ores Redstone Fix
 
 **Config option:** `renderRedstoneFix`
@@ -93,3 +103,9 @@ Fixes ghost items being crafted in the arcane workbench after the wand runs out 
 **Config option:** `arcaneWorkbenchAllowRechargeCrafting`
 
 Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay.
+
+### Use Forge fishing lists for fishing golem loot
+
+**Config option:** `useForgeFishingLists`
+
+Use Forge's fishing lists to determine what fish, junk, and treasure a fishing golem catches.

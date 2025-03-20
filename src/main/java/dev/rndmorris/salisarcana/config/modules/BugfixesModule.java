@@ -15,6 +15,8 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting integerInfusionMatrixMath;
     public final ToggleSetting itemMetadataSafetyCheck;
     public final ToggleSetting itemShardColor;
+    public final ToggleSetting warpFakePlayerCheck;
+    public final ToggleSetting crimsonRitesFakePlayerCheck;
     public final ToggleSetting renderRedstoneFix;
     public final ToggleSetting slabBurnTimeFix;
     public final ToggleSetting strictInfusionMatrixInputChecks;
@@ -23,6 +25,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting arcaneWorkbenchGhostItemFix;
     public final ToggleSetting arcaneWorkbenchAllowRechargeCrafting;
     public final ToggleSetting negativeBossSpawnCount;
+    public final ToggleSetting useForgeFishingLists;
 
     public BugfixesModule() {
         addSettings(
@@ -52,6 +55,14 @@ public class BugfixesModule extends BaseConfigModule {
                 "itemMetadataFix",
                 "Add a safety check to several Thaumcraft items to prevent crashes when creating those items with invalid metadata."),
             itemShardColor = new ToggleSetting(this, "shardMetadataCrash", "Fixes a crash with invalid shard metadata"),
+            warpFakePlayerCheck = new ToggleSetting(
+                this,
+                "warpFakePlayerCheck",
+                "Adds a safety check to prevent warp effects from trying to send packets to fake players."),
+            crimsonRitesFakePlayerCheck = new ToggleSetting(
+                this,
+                "crimsonRitesFakePlayerCheck",
+                "Adds a safety check in case of a fake player not being castable to EntityPlayerMP."),
             renderRedstoneFix = new ToggleSetting(
                 this,
                 "renderRedstoneFix",
@@ -83,7 +94,11 @@ public class BugfixesModule extends BaseConfigModule {
             negativeBossSpawnCount = new ToggleSetting(
                 this,
                 "negativeBossSpawnCount",
-                "Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn."));
+                "Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn."),
+            useForgeFishingLists = new ToggleSetting(
+                this,
+                "useForgeFishingLists",
+                "Use Forge's fishing lists to determine what a fishing golem catches."));
     }
 
     @Nonnull

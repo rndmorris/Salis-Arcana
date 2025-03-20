@@ -201,6 +201,16 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.negativeBossSpawnCount::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchLock")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    WARP_FAKE_PLAYER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.warpFakePlayerCheck::isEnabled)
+        .addMixinClasses("common.MixinThaumcraft_FakePlayerWarp")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    CRIMSON_RITES_FAKE_PLAYER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.crimsonRitesFakePlayerCheck::isEnabled)
+        .addMixinClasses("items.MixinItemEldritchObject_FakePlayerFix")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
@@ -374,6 +384,22 @@ public enum Mixins {
         .setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    RESEARCH_ITEM_EXTENDED(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .addMixinClasses("api.ResearchItem_Extended")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RESEARCH_ITEM_EXTENDED_THAUMIC_TINKERER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .addMixinClasses("addons.ThaumicTinkerer.TTResearchItem_Extended")
+        .addTargetedMod(TargetedMod.THAUMIC_TINKERER)),
+    RESEARCH_ITEM_EXTENDED_AUTOMAGY(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .addMixinClasses("addons.Automagy.ModResearchItem_Extended")
+        .addTargetedMod(TargetedMod.AUTOMAGY)),
 
     ;
     // spotless:on

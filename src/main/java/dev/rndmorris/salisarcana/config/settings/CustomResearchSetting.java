@@ -1,6 +1,7 @@
 package dev.rndmorris.salisarcana.config.settings;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
+import static dev.rndmorris.salisarcana.SalisArcana.MODID;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -47,49 +48,51 @@ public class CustomResearchSetting extends Setting {
 
     }
 
+    public String getInternalName() {
+        return MODID + ":" + this.researchName;
+    }
+
     @Override
     public void loadFromConfiguration(Configuration configuration) {
         this.enabled = configuration
             .getBoolean("_enabled" + this.configName, this.getCategory(), this.enabled, this.configComment);
-        researchName = configuration
-            .getString(configName + "Name", this.getCategory(), researchName, "The research entry ID");
 
-        researchCategory = configuration.getString(
-            configName + "Category",
+        this.researchCategory = configuration.getString(
+            this.configName + "Category",
             this.getCategory(),
-            researchCategory,
+            this.researchCategory,
             "The tab in the Thaumonomicon in which the research should appear");
 
-        researchCol = configuration.getInt(
-            configName + "Col",
+        this.researchCol = configuration.getInt(
+            this.configName + "Col",
             this.getCategory(),
-            researchCol,
+            this.researchCol,
             Integer.MIN_VALUE,
             Integer.MAX_VALUE,
             "The column in the given category at which the research should appear");
 
-        researchRow = configuration.getInt(
-            configName + "Row",
+        this.researchRow = configuration.getInt(
+            this.configName + "Row",
             this.getCategory(),
-            researchRow,
+            this.researchRow,
             Integer.MIN_VALUE,
             Integer.MAX_VALUE,
             "The row in the given category at which the research should appear");
 
-        parentResearches = configuration.getStringList(
-            configName + "Parents",
+        this.parentResearches = configuration.getStringList(
+            this.configName + "Parents",
             this.getCategory(),
-            parentResearches,
+            this.parentResearches,
             "The research entry IDs of the parent research entries");
 
-        purchasable = configuration.getBoolean(
-            configName + "Purchasable",
+        this.purchasable = configuration.getBoolean(
+            this.configName + "Purchasable",
             this.getCategory(),
-            purchasable,
+            this.purchasable,
             "Whether the research should be purchasable with aspects instead of the normal minigame");
 
         this.aspectStrings = configuration.getStringList(
-            configName + "Aspects",
+            this.configName + "Aspects",
             this.getCategory(),
             this.aspectStrings,
             "The aspects required for the research entry");
@@ -98,7 +101,7 @@ public class CustomResearchSetting extends Setting {
 
     public AspectList getAspects() {
         AspectList researchAspects = new AspectList();
-        for (String aspect : aspectStrings) {
+        for (String aspect : this.aspectStrings) {
             String[] aspectParts = aspect.split(":");
             if (aspectParts.length == 2) {
                 if (Aspect.aspects.get(aspectParts[0]) == null) {
@@ -181,39 +184,39 @@ public class CustomResearchSetting extends Setting {
         }
 
         public String getResearchName() {
-            return researchName;
+            return this.researchName;
         }
 
         public String getResearchCategory() {
-            return researchCategory;
+            return this.researchCategory;
         }
 
         public int getResearchCol() {
-            return researchCol;
+            return this.researchCol;
         }
 
         public int getResearchRow() {
-            return researchRow;
+            return this.researchRow;
         }
 
         public String[] getParents() {
-            return researchParents;
+            return this.researchParents;
         }
 
         public boolean isPurchasable() {
-            return purchasable;
+            return this.purchasable;
         }
 
         public String[] getResearchAspects() {
-            return researchAspects;
+            return this.researchAspects;
         }
 
         public int getDifficulty() {
-            return difficulty;
+            return this.difficulty;
         }
 
         public boolean getAutoUnlock() {
-            return autoUnlock;
+            return this.autoUnlock;
         }
 
     }
