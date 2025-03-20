@@ -2,6 +2,8 @@ package dev.rndmorris.salisarcana.mixins.late.gui;
 
 import java.util.ArrayList;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 
@@ -58,17 +60,17 @@ public class MixinGuiFocalManipulator {
         }
     }
 
-    @ModifyExpressionValue(
+    @WrapOperation(
         method = "mouseClicked",
         at = @At(
             value = "INVOKE",
             target = "Lthaumcraft/common/lib/research/ResearchManager;reduceToPrimals(Lthaumcraft/api/aspects/AspectList;)Lthaumcraft/api/aspects/AspectList;",
             remap = false))
-    public AspectList replaceDisenchantCalculation(AspectList original, @Local FocusUpgradeType type) {
+    public AspectList replaceDisenchantCalculation(AspectList al, Operation<AspectList> original, @Local FocusUpgradeType type) {
         if (this.selected == DisenchantFocusUpgrade.upgradeID && type instanceof DisenchantFocusUpgrade upgrade) {
             return upgrade.getVisPoints();
         } else {
-            return original;
+            return original.call(al);
         }
     }
 
