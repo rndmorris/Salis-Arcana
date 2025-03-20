@@ -44,4 +44,9 @@ dependencies {
     compileOnly("maven.modrinth:bugtorch:1.2.13")
     compileOnly(rfg.deobf("maven.modrinth:etfuturum:2.6.2"))
     compileOnly(rfg.deobf("curse.maven:undergroundbiomesconstructs-72744:2304497"))
+    runtimeOnlyNonPublishable(rfg.deobf("curse.maven:tc4tweaks-431297:6278191"))
+
+    /* Patched TC4 addons */
+    compileOnly("com.github.GTNewHorizons:ThaumicTinkerer:2.6.2:dev")
+    compileOnly(rfg.deobf("curse.maven:automagy-222153:2285272"))
 }

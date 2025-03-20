@@ -12,7 +12,8 @@ public enum TargetedMod {
     THAUMCRAFT("Thaumcraft", null, "Thaumcraft"), // "thaumcraft.codechicken.core.launch.DepLoader"
     HODGEPODGE("Hodgepodge", null, "hodgepodge"),
 
-    ;
+    THAUMIC_TINKERER("Thaumic Tinkerer", null, "ThaumicTinkerer"),
+    AUTOMAGY("Automagy", null, "Automagy"),;
 
     /** The "name" in the {@link Mod @Mod} annotation */
     public final String modName;

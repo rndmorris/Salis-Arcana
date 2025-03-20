@@ -66,6 +66,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting primalCrusherOredict;
 
     public final IntSetting thaumometerDuration;
+    public final ToggleSetting researchItemExtensions;
 
     public EnhancementsModule() {
         // spotless:off
@@ -223,7 +224,11 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 "thaumometerDuration",
                 "The duration in ticks that the thaumometer takes to scan an object.",
-                20).setMinValue(1)
+                20).setMinValue(1),
+            researchItemExtensions = new ToggleSetting(
+                this,
+                "researchItemExtensions",
+                "Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer).")
         );
 
         // spotless:on

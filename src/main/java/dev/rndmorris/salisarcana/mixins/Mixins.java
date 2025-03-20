@@ -372,6 +372,22 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    RESEARCH_ITEM_EXTENDED(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .addMixinClasses("api.ResearchItem_Extended")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RESEARCH_ITEM_EXTENDED_THAUMIC_TINKERER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .addMixinClasses("addons.ThaumicTinkerer.TTResearchItem_Extended")
+        .addTargetedMod(TargetedMod.THAUMIC_TINKERER)),
+    RESEARCH_ITEM_EXTENDED_AUTOMAGY(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .addMixinClasses("addons.Automagy.ModResearchItem_Extended")
+        .addTargetedMod(TargetedMod.AUTOMAGY)),
+
     ;
     // spotless:on
 
