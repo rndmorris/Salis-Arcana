@@ -12,6 +12,14 @@ import java.util.Objects;
 
 public class R {
 
+    private static boolean oldJavaCompat = false;
+    static {
+        try {
+            Field.class.getDeclaredField("modifiers");
+            oldJavaCompat = true;
+        } catch (NoSuchFieldException ignore) {}
+    }
+
     private final Object instance;
     private final Class<?> clazz;
 
@@ -95,8 +103,10 @@ public class R {
     public R set(String name, Object value) {
         try {
             Field toSet = findField(name, clazz);
-            Field modifiersField = findField("modifiers", toSet.getClass());
-            modifiersField.setInt(toSet, toSet.getModifiers() & ~java.lang.reflect.Modifier.FINAL);
+            if (oldJavaCompat) {
+                Field modifiersField = findField("modifiers", toSet.getClass());
+                modifiersField.setInt(toSet, toSet.getModifiers() & ~java.lang.reflect.Modifier.FINAL);
+            }
             toSet.set(instance, value);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
