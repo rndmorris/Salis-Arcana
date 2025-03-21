@@ -29,53 +29,47 @@ Causes staffters to use their own translation string rather than being called "S
 
 ## Increased Item Stack Size
 
-Config Option: `eldritchObjectStackSize`
+**Config option:** `eldritchObjectStackSize`
 
 Increases the stack size of Primordial Pearls, Eldritch Eyes, Crimson Rites, Eldritch Obelisk Placers, and Runed Tablets. Default of 16.
 
-## Disable Creative Tainted Item Decay
-
-ConfigOption: `disableCreativeTaintedItemDecay`
-
-Prevent tainted goo and taint tendrils from decaying for players in creative mode.
-
 ## Tainted Item Decay Chance
 
-Config Option: `taintedItemDecayChance`
+**Config option:** `taintedItemDecayChance`
 
 The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.
 
 ## Container Scanning
 
-Config Option: `thaumometerScanContainers`
+**Config option:** `thaumometerScanContainers`
 
 Allows the Thaumometer to scan the contents of containers (eg. chests, barrels) when scanning the block.
 
 ## Custom Scan Duration
 
-Config Option: `thaumometerDuration`
+**Config option:** `thaumometerDuration`
 
 Changes the duration of the Thaumometer's scanning effect. Default is 20 ticks.
 
 ## Thaumcraft Command
 
-Config Option: `thaumcraftCommandTabCompletion`
+**Config option:** `thaumcraftCommandTabCompletion`
 
 Adds tab completion to the `/thaumcraft command`
 
-Config Option: `thaumcraftCommandWarpArgAll`
+**Config option:** `thaumcraftCommandWarpArgAll`
 
 Adds an ALL parameter to the `/thaumcraft warp` command
 
 ## Primal Crusher Ore Dictionary Stone Support
 
-Config Option: `primalCrusherMinesOredictionaryStone`
+**Config option:** `primalCrusherMinesOredictionaryStone`
 
 Allows the primal crusher to 3x3 mine blocks registered as stone, cobblestone, or stoneBricks in the ore dictionary.
 
 ## Research Item Extensions
 
-Config Option: `researchItemExtensions`
+**Config option:** `researchItemExtensions`
 
 Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer).
 
@@ -91,17 +85,21 @@ Prevent random warp events from occurring for players in creative mode.
 
 Prevents Eldritch eyes and essentia phials from being consumed in Creative mode.
 
-**Config Option:** `infiniteCreativeVis`
+**Config option:** `infiniteCreativeVis`
 
 Gives creative mode players infinite vis in wands
 
-**Config Option:** `creativeOpThaumonomicon`
+**Config option:** `creativeOpThaumonomicon`
 
 Ctrl-clicking on a research in the Thaumonomicon while in Creative mode will autocomplete the research.
 
+**Config option:** `disableCreativeTaintedItemDecay`
+
+Prevent tainted goo and taint tendrils from decaying for players in creative mode.
+
 ## Thaumonomicon Controls
 
-**Config option:**: `Enable Scrollwheel`
+**Config option:** `Enable Scrollwheel`
 
 Ctrl + scroll the quick switch tabs in the Thaumonomicon.
 
@@ -138,26 +136,26 @@ The weights used to pick the type of nodes when randomly generated.
 
 ## Mana Bean Growth Rate
 
-**Config Option:** `manaBeanGrowthChance`
+**Config option:** `manaBeanGrowthChance`
 
 The random chance for mana beans to grow every block tick. Valid values are 0, 100 inclusive. Lower values are more likely to happen, with 0 being guaranteed.
 
 ## Arcane Levitator Behavior
 
-**Config Option:** `levitatorShiftFix`
+**Config option:** `levitatorShiftFix`
 Modifies the Arcane Levitator behavior where only the shifting entity will be lowered, instead of all entities (including other players) on top of any given levitator, as well as no longer triggering when you press shift while a menu is open, like your inventory or chat.
 
 Has the side effect of making non-shifting entities, like passive mobs, unable to be lowered.
 
 ## Pure Nodes Always Create Magical Forest
 
-**Config Option:** `pureNodeAlwaysMagicalForest`
+**Config option:** `pureNodeAlwaysMagicalForest`
 
 By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location.
 
 ## Alternate Eldritch Altar Mob Spawning
 
-**Config Option:** `eldritchAltarSpawningMethod`
+**Config option:** `eldritchAltarSpawningMethod`
 
 Override how eldritch altars pick where to try spawning crimson knights and eldritch guardians. [The default approach is... unusual](https://github.com/rndmorris/Salis-Arcana/issues/99).
 
@@ -166,13 +164,13 @@ Override how eldritch altars pick where to try spawning crimson knights and eldr
 
 # Enhancements - Infusion
 
-## Config option: `useStabilizerRewrite`
+**Config option:** `useStabilizerRewrite`
 
 Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers.
 This is a significant change, and will conflict with any other mod that also modifies the matrix's
 surroundings-checking logic.
 
-## Config option: `stabilizerStrength`
+**Config option:** `stabilizerStrength`
 
 Requires `useStabilizerRewrite=true`.
 
@@ -182,7 +180,7 @@ Negative strengths will invert a stabilizer's behavior by stabilizing an infusio
 
 The default value of `10` is equivalent to vanilla Thaumcraft's stabilizer strength.
 
-## Config option: `stabilizerAdditions`
+**Config option:** `stabilizerAdditions`
 
 Requires `useStabilizerRewrite=true`.
 
@@ -206,7 +204,7 @@ be on its own line, and be in the format `modId:blockId` or `modId:blockId:metad
 * `minecraft:skull:*:5` will make all vanilla Minecraft skulls contribute half as much stability as normal stabilizers.
 * `Thaumcraft:blockCandle:*:0` will make all Thaumcraft candles count as stabilizers for their symmetrical twin, but not contribute any stability themselves.
 
-## Config option: `stabilizerExclusions`
+**Config option:** `stabilizerExclusions`
 
 Requires `useStabilizerRewrite=true`.
 
@@ -236,54 +234,59 @@ will not.
 
 # Enhancements - Recipes
 
-## Config option: `friendlyPrimalCharm`
+**Config option:** `friendlyPrimalCharm`
+
 Make the primal charm's crafting recipe less picky about the order in which primal shards are placed in the top and bottom rows.
 
 <ins>Note:</ins> this recipe's changes will not appear in NEI.
 
-## Config option: `rotatedFoci`
+**Config option:** `rotatedFoci`
+
 Add rotated recipes for the fire, shock, frost, equal trade, excavation, and primal wand foci.
 
-## Config option: `rotatedThaumometer`
+**Config option:** `rotatedThaumometer`
+
 Add a rotated crafting recipe for the Thaumometer.
 
-## Config option: `rottenFleshRecipe`
+**Config option:** `rottenFleshRecipe`
+
 Add a recipe to convert flesh blocks back into rotten flesh.
 
-## Config option: `crystalClusterUncrafting`
+**Config option:** `crystalClusterUncrafting`
+
 Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.
 
 # Enhancements - Wand Component Replacement
 
-## Config option: `enableReplaceWandCapsRecipe`
+**Config option:** `enableReplaceWandCapsRecipe`
+
 If `true`, enables an Arcane Worktable recipe to replace a wand, scepter, or staff's caps.
 
-## Config option: `replaceCapsResearchCategory`, `replaceCapsResearchColumn` and `replaceCapsResearchRow`
+**Config option:** `replaceCapsResearchCategory`, `replaceCapsResearchColumn`, & `replaceCapsResearchRow`
 
 Requires `enableReplaceWandCapsRecipe=true`.
 
 Used to set the tab of the Thaumonomicon on which the "Wand Cap Substitution" research appears, and its position on that tab.
 
-## Config option: `enableReplaceWandCoreRecipe`
+**Config option:** `enableReplaceWandCoreRecipe`
+
 If `true`, enables an Arcane Worktable recipe to replace a wand, scepter, or staff's core.
 
-## Config option: `replaceCoreResearchCategory`, `replaceCoreResearchColumn` and `replaceCoreResearchRow`
+**Config option:** `replaceCoreResearchCategory`, `replaceCoreResearchColumn` and `replaceCoreResearchRow`
 
 Requires `enableReplaceWandCoreRecipe=true`.
 
 Used to set the tab of the Thaumonomicon on which the "Wand Core Substitution" research appears, and its position on that tab.
 
-## Config option: `enforceWandCoreTypes`
+**Config option:** `enforceWandCoreTypes`
 
 Requires `enableReplaceWandCoreRecipe=true`.
 
 If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core. Disable to allow converting a wand to a staff and vice versa.
 
-## Config option: `allowSingleWandReplacement`
+**Config option:** `allowSingleWandReplacement`
 
-Requires `enableReplaceWandCapsRecipe=true` or `enableReplaceWandCoreRecipe=true`.
-
-Requires `arcaneWorkbenchGhostItemFix=true` in the bugfixes module.
+Requires `enableReplaceWandCapsRecipe=true` or `enableReplaceWandCoreRecipe=true`, as well as `arcaneWorkbenchGhostItemFix=true` in the bugfixes module.
 
 If enabled, allows swapping a wand's components using vis from the wand being modified.
 
