@@ -1,7 +1,7 @@
 package dev.rndmorris.salisarcana.config;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -13,7 +13,7 @@ import dev.rndmorris.salisarcana.config.settings.Setting;
 /**
  * A group of related settings that can be collectively enabled or disabled.
  */
-public abstract class ModuleBase implements IEnabler {
+public abstract class ModuleBase implements IEnabler, IHaveSettings {
 
     private boolean enabled = true;
     protected final List<Setting> settings = new ArrayList<>();
@@ -23,7 +23,7 @@ public abstract class ModuleBase implements IEnabler {
     }
 
     protected void addSettings(Setting... settings) {
-        Collections.addAll(this.settings, settings);
+        // Collections.addAll(this.settings, settings);
     }
 
     /**
@@ -62,4 +62,9 @@ public abstract class ModuleBase implements IEnabler {
      */
     @Nonnull
     public abstract String getModuleComment();
+
+    @Override
+    public Collection<Setting> getSettings() {
+        return settings;
+    }
 }

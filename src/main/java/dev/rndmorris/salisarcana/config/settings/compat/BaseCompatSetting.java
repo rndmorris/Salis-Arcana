@@ -1,16 +1,16 @@
 package dev.rndmorris.salisarcana.config.settings.compat;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import net.minecraftforge.common.config.Configuration;
 
 import cpw.mods.fml.common.Loader;
 import dev.rndmorris.salisarcana.config.IEnabler;
+import dev.rndmorris.salisarcana.config.IHaveSettings;
 import dev.rndmorris.salisarcana.config.settings.Setting;
 
-public class BaseCompatSetting extends Setting {
+public class BaseCompatSetting extends Setting implements IHaveSettings {
 
     public final String modId;
 
@@ -23,7 +23,7 @@ public class BaseCompatSetting extends Setting {
     }
 
     protected void addSettings(Setting... settings) {
-        Collections.addAll(this.settings, settings);
+        // Collections.addAll(this.settings, settings);
         for (var setting : settings) {
             if (defaultCategory.equals(setting.getCategory())) {
                 setting.setCategory(modId);
@@ -41,7 +41,13 @@ public class BaseCompatSetting extends Setting {
         enabled = configuration
             .getBoolean(modId, defaultCategory, enabled, String.format("Enable compatibility with %s.", modId));
         for (var setting : settings) {
-            setting.loadFromConfiguration(configuration);
+            setting.setCategory(modId)
+                .loadFromConfiguration(configuration);
         }
+    }
+
+    @Override
+    public List<Setting> getSettings() {
+        return settings;
     }
 }

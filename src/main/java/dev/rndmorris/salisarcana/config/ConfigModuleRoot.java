@@ -17,15 +17,15 @@ import dev.rndmorris.salisarcana.config.modules.ModCompatModule;
 // class
 public class ConfigModuleRoot {
 
+    // no modifier, so it's visible within the same package (i.e. to ModuleBase)
+    static final List<ModuleBase> modules = new ArrayList<>();
+
     public static final BugfixesModule bugfixes = new BugfixesModule();
     public static final CommandsModule commands = new CommandsModule();
     public static final EnhancementsModule enhancements = new EnhancementsModule();
     public static final ModCompatModule modCompat = new ModCompatModule();
 
     public static boolean enableVersionChecking;
-
-    // no modifier, so it's visible within the same package (i.e. to ModuleBase)
-    static final List<ModuleBase> modules = new ArrayList<>();
 
     public static void synchronizeConfiguration() {
         final var rootConfigFile = Paths.get("config", SalisArcana.MODID + ".cfg")
