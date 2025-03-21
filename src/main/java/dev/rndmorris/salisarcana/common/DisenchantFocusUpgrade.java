@@ -42,7 +42,7 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
 
         researchItem = new ResearchItem(
             RESEARCH_KEY,
-            data.getCategory(),
+            data.researchCategory,
             data.getAspects(),
             data.researchCol,
             data.researchRow,
@@ -73,7 +73,7 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
      * Creates a new instance of {@link DisenchantFocusUpgrade} using the upgrade data of a focus.
      * This new instance has special tooltip text detailing the effects of the disenchantment and provides useful data
      * for executing the disenchantment.
-     * 
+     *
      * @param upgrades The upgrade data of the focus being disenchanted
      * @return A new instance, customized to the focus data.
      */

@@ -340,7 +340,7 @@ public class EnhancementsModule extends BaseConfigModule {
                 new CustomResearchSetting.ResearchInfo("FOCUS_DISENCHANTING", "THAUMATURGY", -2, -8).setDifficulty(2)
                     .setParents("FOCALMANIPULATION")
                     .setPurchasable(true)
-                    .setAspects("auram:4", "praecantio:6", "vacuos:8", "perditio:4"))
+                    .setAspects("auram:4", "praecantatio:6", "vacuos:8", "perditio:4"))
                         .setCategory(focusDisenchantingCategory));
 
         addSettings(
