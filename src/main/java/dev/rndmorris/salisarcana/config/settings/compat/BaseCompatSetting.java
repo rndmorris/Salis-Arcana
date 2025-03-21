@@ -22,13 +22,10 @@ public class BaseCompatSetting extends Setting implements IHaveSettings {
         setCategory(modId);
     }
 
-    protected void addSettings(Setting... settings) {
-        // Collections.addAll(this.settings, settings);
-        for (var setting : settings) {
-            if (defaultCategory.equals(setting.getCategory())) {
-                setting.setCategory(modId);
-            }
-        }
+    @Override
+    public void registerSetting(Setting setting) {
+        setting.setCategory(modId);
+        IHaveSettings.super.registerSetting(setting);
     }
 
     @Override
