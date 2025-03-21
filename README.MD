@@ -54,7 +54,7 @@ Secret salt to enhance and refine Thaumcraft 4
 
 ## "Disenchant Focus" Icon
 
-**By:** Outline: Lorc; Coloration: Salis Arcana team;
+**By:** Outline: Lorc; Coloration: Nikolay S.;
 
 **Source:** https://game-icons.net/1x1/lorc/double-ringed-orb.html
 

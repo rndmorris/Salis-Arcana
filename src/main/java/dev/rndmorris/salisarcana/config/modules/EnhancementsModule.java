@@ -41,7 +41,7 @@ public class EnhancementsModule extends BaseConfigModule {
 
     public final ToggleSetting enableFocusDisenchanting;
     public final IntSetting focusDisenchantingRefundPercentage;
-    public final ToggleSetting autoUnlockFocusDisenchanting;
+    public final CustomResearchSetting focusDisenchantingResearch;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -292,36 +292,32 @@ public class EnhancementsModule extends BaseConfigModule {
                 "If enabled, allows swapping a wand's components using vis from the wand being modified.")
                     .setCategory(wandCategory));
 
-        final var creativeCategory = "creative_mode";
+        // final var creativeCategory = "creative_mode";
         addSettings(
             stopCreativeModeItemConsumption = new ToggleSetting(
                 this,
                 "stopCreativeModeItemConsumption",
-                "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode.")
-                    .setCategory(creativeCategory),
+                "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode."),
             disableCreativeTaintedItemDecay = new ToggleSetting(
                 this,
                 "disableCreativeTaintedItemDecay",
-                "Prevent tainted goo and taint tendrils from decaying for players in creative mode.")
-                    .setCategory(creativeCategory),
+                "Prevent tainted goo and taint tendrils from decaying for players in creative mode."),
             infiniteCreativeVis = new ToggleSetting(
                 this,
                 "infiniteCreativeVis",
-                "Allow wands to have infinite vis in creative mode.").setCategory(creativeCategory),
+                "Allow wands to have infinite vis in creative mode."),
             creativeOpThaumonomicon = new ToggleSetting(
                 this,
                 "creativeOpThaumonomicon",
-                "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it.")
-                    .setCategory(creativeCategory),
+                "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
             creativeNoXPManipulator = new ToggleSetting(
                 this,
                 "creativeNoXPManipulator",
-                "Allow Creative players to use the Focal Manipulator without the necessary XP.")
-                    .setCategory(creativeCategory),
+                "Allow Creative players to use the Focal Manipulator without the necessary XP."),
             suppressWarpEventsInCreative = new ToggleSetting(
                 this,
                 "suppressWarpEventsInCreative",
-                "Prevent random warp events from firing for players in creative mode.").setCategory(creativeCategory));
+                "Prevent random warp events from firing for players in creative mode."));
 
         final var focusDisenchantingCategory = "focus_disenchanting";
         addSettings(
@@ -337,12 +333,15 @@ public class EnhancementsModule extends BaseConfigModule {
                 75).setMinValue(0)
                     .setMaxValue(100)
                     .setCategory(focusDisenchantingCategory),
-            autoUnlockFocusDisenchanting = new ToggleSetting(
+            focusDisenchantingResearch = new CustomResearchSetting(
                 enableFocusDisenchanting,
-                "autoUnlockFocusDisenchanting",
-                "Whether the Focus Disenchanting research should automatically unlock as soon as the Focal Manipulator research is unlocked.")
-                    .setEnabled(false)
-                    .setCategory(focusDisenchantingCategory));
+                "focusDisenchanting",
+                "Research to unlock Focus Disenchanting in the Focal Manipulator.",
+                new CustomResearchSetting.ResearchInfo("FOCUS_DISENCHANTING", "THAUMATURGY", -2, -8).setDifficulty(2)
+                    .setParents("FOCALMANIPULATION")
+                    .setPurchasable(true)
+                    .setAspects("auram:4", "praecantio:6", "vacuos:8", "perditio:4"))
+                        .setCategory(focusDisenchantingCategory));
 
         addSettings(
             thaumometerScanContainersResearch = new CustomResearchSetting(

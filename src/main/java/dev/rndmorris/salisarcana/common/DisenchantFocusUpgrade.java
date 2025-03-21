@@ -7,6 +7,7 @@ import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.FormattedResearchPage;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
@@ -36,26 +37,46 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
     }
 
     public static void registerResearch() {
-        final var researchAspects = (new AspectList()).add(Aspect.ENTROPY, 4)
-            .add(Aspect.AURA, 4)
-            .add(Aspect.VOID, 8)
-            .add(Aspect.MAGIC, 6);
         final var percentXP = ConfigModuleRoot.enhancements.focusDisenchantingRefundPercentage.getValueOrDefault();
-        researchItem = new ResearchItem(RESEARCH_KEY, "THAUMATURGY", researchAspects, -2, -8, 2, ICON_LOCATION);
+        final var data = ConfigModuleRoot.enhancements.focusDisenchantingResearch;
+
+        researchItem = new ResearchItem(
+            RESEARCH_KEY,
+            data.getCategory(),
+            data.getAspects(),
+            data.researchCol,
+            data.researchRow,
+            data.difficulty,
+            ICON_LOCATION);
         researchItem.setPages(
             new FormattedResearchPage("tc.research_page.salisarcana:FOCUS_DISENCHANTING.0", new Object[] { percentXP }),
             new ResearchPage("tc.research_page.salisarcana:FOCUS_DISENCHANTING.1"));
         researchItem.setConcealed()
             .setSecondary()
-            .setParents("FOCALMANIPULATION")
+            .setParents(data.parentResearches)
             .registerResearchItem();
 
-        if (ConfigModuleRoot.enhancements.autoUnlockFocusDisenchanting.isEnabled()) {
-            final var parent = ResearchCategories.getResearch("FOCALMANIPULATION");
-            parent.siblings = ArrayHelper.appendToArray(parent.siblings, RESEARCH_KEY);
+        if (data.warp > 0) {
+            ThaumcraftApi.addWarpToResearch(RESEARCH_KEY, data.warp);
+        }
+
+        if (data.autoUnlock) {
+            researchItem.setStub();
+            for (final var parentID : data.parentResearches) {
+                final var parent = ResearchCategories.getResearch(parentID);
+                parent.siblings = ArrayHelper.appendToArray(parent.siblings, RESEARCH_KEY);
+            }
         }
     }
 
+    /***
+     * Creates a new instance of {@link DisenchantFocusUpgrade} using the upgrade data of a focus.
+     * This new instance has special tooltip text detailing the effects of the disenchantment and provides useful data
+     * for executing the disenchantment.
+     * 
+     * @param upgrades The upgrade data of the focus being disenchanted
+     * @return A new instance, customized to the focus data.
+     */
     public static DisenchantFocusUpgrade createSpecific(final short[] upgrades) {
         // This is stupid, but the only other solution is ASM.
         FocusUpgradeType.types[upgradeID] = null;

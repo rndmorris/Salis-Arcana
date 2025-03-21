@@ -69,7 +69,7 @@ public abstract class MixinTileFocalManipulator extends TileThaumcraftInventory 
                     upgradeListNBT.appendTag(upgradeNBT);
                 }
 
-                assert tag != null; // If it was null, there wouldn't be a lastRank.
+                // noinspection DataFlowIssue
                 tag.setTag("upgrade", upgradeListNBT);
             } else {
                 // In case a Focal Manipulator is somehow tricked into running an invalid recipe, don't give XP.

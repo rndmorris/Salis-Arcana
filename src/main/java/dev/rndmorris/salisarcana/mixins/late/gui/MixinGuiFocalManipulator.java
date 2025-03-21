@@ -2,8 +2,6 @@ package dev.rndmorris.salisarcana.mixins.late.gui;
 
 import java.util.ArrayList;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 
@@ -12,12 +10,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 
 import dev.rndmorris.salisarcana.common.DisenchantFocusUpgrade;
@@ -46,8 +45,10 @@ public class MixinGuiFocalManipulator {
     @Shadow(remap = false)
     int selected;
 
-    @Inject(method = "gatherInfo", at = @At("TAIL"), remap = false)
-    public void addDisenchantOption(CallbackInfo ci) {
+    @WrapMethod(method = "gatherInfo", remap = false)
+    public void addDisenchantOption(Operation<Void> original) {
+        original.call();
+
         if (!this.upgrades.isEmpty()
             && (this.selected == DisenchantFocusUpgrade.upgradeID || this.salisArcana$disenchantResearchComplete())) {
             ItemStack focusStack = this.table.getStackInSlot(0);
@@ -66,7 +67,8 @@ public class MixinGuiFocalManipulator {
             value = "INVOKE",
             target = "Lthaumcraft/common/lib/research/ResearchManager;reduceToPrimals(Lthaumcraft/api/aspects/AspectList;)Lthaumcraft/api/aspects/AspectList;",
             remap = false))
-    public AspectList replaceDisenchantCalculation(AspectList al, Operation<AspectList> original, @Local FocusUpgradeType type) {
+    public AspectList replaceDisenchantCalculation(AspectList al, Operation<AspectList> original,
+        @Local FocusUpgradeType type) {
         if (this.selected == DisenchantFocusUpgrade.upgradeID && type instanceof DisenchantFocusUpgrade upgrade) {
             return upgrade.getVisPoints();
         } else {
