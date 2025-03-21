@@ -22,10 +22,6 @@ public abstract class ModuleBase implements IEnabler, IHaveSettings {
         ConfigModuleRoot.modules.add(this);
     }
 
-    protected void addSettings(Setting... settings) {
-        // Collections.addAll(this.settings, settings);
-    }
-
     /**
      * Load the module's config settings. Only called if the module is enabled.
      *
