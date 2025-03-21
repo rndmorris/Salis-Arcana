@@ -4,9 +4,10 @@ import static dev.rndmorris.salisarcana.common.commands.ListResearchCommand.list
 
 import javax.annotation.Nonnull;
 
+import dev.rndmorris.salisarcana.config.ModuleBase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 
-public class CommandsModule extends BaseConfigModule {
+public class CommandsModule extends ModuleBase {
 
     public final @Nonnull CommandSettings createNode;
     public final @Nonnull CommandSettings forgetResearch;

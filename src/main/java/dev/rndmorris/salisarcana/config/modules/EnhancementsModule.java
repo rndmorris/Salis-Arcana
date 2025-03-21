@@ -3,6 +3,7 @@ package dev.rndmorris.salisarcana.config.modules;
 import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.ModuleBase;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
 import dev.rndmorris.salisarcana.config.settings.EldritchAltarMobSpawnSetting;
@@ -13,7 +14,7 @@ import dev.rndmorris.salisarcana.config.settings.Setting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
-public class EnhancementsModule extends BaseConfigModule {
+public class EnhancementsModule extends ModuleBase {
 
     public final ToggleSetting lessPickyPrimalCharmRecipe;
     public final ToggleSetting rotatedFociRecipes;

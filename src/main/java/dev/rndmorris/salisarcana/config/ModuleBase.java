@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.config.modules;
+package dev.rndmorris.salisarcana.config;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,16 +8,19 @@ import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.salisarcana.config.IEnabler;
 import dev.rndmorris.salisarcana.config.settings.Setting;
 
 /**
  * A group of related settings that can be collectively enabled or disabled.
  */
-public abstract class BaseConfigModule implements IEnabler {
+public abstract class ModuleBase implements IEnabler {
 
     private boolean enabled = true;
     protected final List<Setting> settings = new ArrayList<>();
+
+    public ModuleBase() {
+        ConfigModuleRoot.modules.add(this);
+    }
 
     protected void addSettings(Setting... settings) {
         Collections.addAll(this.settings, settings);
