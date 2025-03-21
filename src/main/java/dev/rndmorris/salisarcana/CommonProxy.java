@@ -17,6 +17,7 @@ import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.common.commands.ArcanaCommandBase;
 import dev.rndmorris.salisarcana.common.commands.CreateNodeCommand;
+import dev.rndmorris.salisarcana.common.commands.ForgetAspectCommand;
 import dev.rndmorris.salisarcana.common.commands.ForgetResearchCommand;
 import dev.rndmorris.salisarcana.common.commands.ForgetScannedCommand;
 import dev.rndmorris.salisarcana.common.commands.HelpCommand;
@@ -84,6 +85,7 @@ public class CommonProxy {
         maybeRegister(event, commands.createNode, CreateNodeCommand::new);
         maybeRegister(event, commands.forgetResearch, ForgetResearchCommand::new);
         maybeRegister(event, commands.forgetScanned, ForgetScannedCommand::new);
+        maybeRegister(event, commands.forgetAspects, ForgetAspectCommand::new);
         maybeRegister(event, commands.help, HelpCommand::new);
         maybeRegister(event, commands.infusionSymmetry, InfusionSymmetryCommand::new);
         maybeRegister(event, commands.prerequisites, PrerequisitesCommand::new);
