@@ -14,6 +14,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.common.commands.ArcanaCommandBase;
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class CommandSettings extends Setting {
@@ -31,6 +32,7 @@ public class CommandSettings extends Setting {
         super(dependency);
         this.name = name;
         setCategory(name.replace('-', '_'));
+        ConfigModuleRoot.commands.commandsSettings.add(this);
     }
 
     public CommandSettings addAlias(String alias) {

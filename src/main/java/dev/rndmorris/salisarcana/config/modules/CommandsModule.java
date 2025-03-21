@@ -2,12 +2,17 @@ package dev.rndmorris.salisarcana.config.modules;
 
 import static dev.rndmorris.salisarcana.common.commands.ListResearchCommand.listOthersReserach;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.ModuleBase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 
 public class CommandsModule extends ModuleBase {
+
+    public final List<CommandSettings> commandsSettings = new ArrayList<>();
 
     public final CommandSettings createNode = new CommandSettings("create-node", this).addDefaultAlias()
         .setDescription(
@@ -57,9 +62,6 @@ public class CommandsModule extends ModuleBase {
 
     public final CommandSettings exportResearch = new CommandSettings("export-research", this).addDefaultAlias()
         .setPermissionLevel(0);
-
-    public final CommandSettings[] commandsSettings = new CommandSettings[] { createNode, forgetResearch, forgetScanned,
-        help, infusionSymmetry, playerResearch, prerequisites, updateNode, upgradeFocus, exportResearch };
 
     @Nonnull
     @Override
