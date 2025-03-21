@@ -38,7 +38,8 @@ public abstract class MixinContainerArcaneWorkbench_SingleWandReplacement extend
     public void useGridWandForReplacement(CallbackInfo ci) {
         // Exclusive with the normal arcane recipe check, since this requires no wand present
         // TODO Double-check modification to code.
-        if (this.getSlot(0).getStack() == null && this.tileEntity.getStackInSlot(10) == null) {
+        if (this.getSlot(0)
+            .getStack() == null && this.tileEntity.getStackInSlot(10) == null) {
             // If a replacement recipe matches
             ItemStack outputWand;
             AspectList visPrice;
@@ -82,8 +83,9 @@ public abstract class MixinContainerArcaneWorkbench_SingleWandReplacement extend
                     itemWand.storeAllVis(outputWand, AspectHelper.primalList(0));
                 }
 
-                if(ConfigModuleRoot.bugfixes.arcaneWorkbenchMultiContainer.isEnabled()) {
-                    this.getSlot(0).putStack(outputWand);
+                if (ConfigModuleRoot.bugfixes.arcaneWorkbenchMultiContainer.isEnabled()) {
+                    this.getSlot(0)
+                        .putStack(outputWand);
                 } else {
                     this.tileEntity.setInventorySlotContentsSoftly(9, outputWand);
                 }

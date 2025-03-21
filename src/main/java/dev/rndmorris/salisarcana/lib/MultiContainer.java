@@ -1,12 +1,13 @@
 package dev.rndmorris.salisarcana.lib;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 
-import java.util.ArrayList;
-
 public class MultiContainer extends Container {
+
     private final ArrayList<Container> multiContainer = new ArrayList<>(4);
 
     private MultiContainer(Container a, Container b) {
@@ -15,7 +16,7 @@ public class MultiContainer extends Container {
     }
 
     public static Container mergeContainers(final Container initial, final Container addition) {
-        if(initial == null) {
+        if (initial == null) {
             return addition;
         } else if (initial instanceof MultiContainer multi) {
             multi.multiContainer.add(addition);
@@ -26,7 +27,7 @@ public class MultiContainer extends Container {
     }
 
     public static Container removeContainer(final Container initial, final Container removal) {
-        if(initial == removal) {
+        if (initial == removal) {
             return null;
         } else if (initial instanceof MultiContainer multi) {
             multi.multiContainer.remove(removal);
