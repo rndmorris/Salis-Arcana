@@ -9,11 +9,6 @@ Config file: `config/salisarcana/enhancements.cfg`
 All bauble slots, including those added by mods that extend Baubles' API, will be checked when
 calculating vis discounts, runic armor, and focus pouches containing wand foci.
 
-## Configurable Biome Colors
-Want tainted lands to look like The Crimson? Want the eerie biome that manifests around sinster nodes to bleach the world of color?
-
-[Give the biome color module a try](./biome-colors.md)
-
 ## Look-a-like Plank Blocks
 
 **Config option:** `enableLookalikePlanks`

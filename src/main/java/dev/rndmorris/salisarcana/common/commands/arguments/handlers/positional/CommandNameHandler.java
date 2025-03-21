@@ -36,7 +36,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
         args.next();
         final var settingsArr = ConfigModuleRoot.commands.commandsSettings;
         if (!args.hasNext()) {
-            final var results = new ArrayList<String>(settingsArr.length * 2);
+            final var results = new ArrayList<String>(settingsArr.size() * 2);
             for (var settings : settingsArr) {
                 if (!settings.isEnabled()) {
                     continue;
