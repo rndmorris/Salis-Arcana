@@ -90,6 +90,12 @@ Reduce the burn time of Thaumcraft's greatwood and silverwood slabs to match tha
 
 Fixes a graphical error where focus effects would appear below the tip of a staff.
 
+## Cancel Focal Manipulator Upon Stack Swap
+
+**Config option:** `focalManipulatorForbidSwaps`
+
+Prevents players from putting on conflicting or out-of-order upgrades onto a focus by swapping the focus being modified during the upgrade process.
+
 ## Arcane Workbench Fixes
 
 ### Fix Ghost Items After Shift-Click Crafting

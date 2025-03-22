@@ -184,6 +184,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.staffFocusEffectFix::isEnabled)
         .addMixinClasses("client.fx.beams.MixinFXBeamWand")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCAL_MANIPULATOR_FORBID_SWAP(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.focalManipulatorForbidSwaps::isEnabled)
+        .addMixinClasses("tiles.MixinTileFocalManipulator_ForbidSwap")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ARCANE_WORKBENCH_GHOST_ITEM_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix::isEnabled)

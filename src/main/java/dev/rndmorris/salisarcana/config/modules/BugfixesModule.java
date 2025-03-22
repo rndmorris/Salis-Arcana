@@ -26,6 +26,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting arcaneWorkbenchAllowRechargeCrafting;
     public final ToggleSetting negativeBossSpawnCount;
     public final ToggleSetting useForgeFishingLists;
+    public final ToggleSetting focalManipulatorForbidSwaps;
 
     public BugfixesModule() {
         addSettings(
@@ -98,7 +99,11 @@ public class BugfixesModule extends BaseConfigModule {
             useForgeFishingLists = new ToggleSetting(
                 this,
                 "useForgeFishingLists",
-                "Use Forge's fishing lists to determine what a fishing golem catches."));
+                "Use Forge's fishing lists to determine what a fishing golem catches."),
+            focalManipulatorForbidSwaps = new ToggleSetting(
+                this,
+                "focalManipulatorForbidSwaps",
+                "Prevents players from putting on conflicting or out-of-order upgrades onto a focus by swapping the focus being modified during the upgrade process."));
     }
 
     @Nonnull
