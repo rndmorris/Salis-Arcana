@@ -104,7 +104,13 @@ Fixes ghost items being crafted in the arcane workbench after the wand runs out 
 
 Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay.
 
-### Use Forge fishing lists for fishing golem loot
+### Multiplayer Duplication Bugfix & Per-Player Output Slots
+
+**Config option:** `arcaneWorkbenchMultiContainer`
+
+Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time, including a duplication bug, research verification bug, and some others.
+
+## Use Forge fishing lists for fishing golem loot
 
 **Config option:** `useForgeFishingLists`
 
