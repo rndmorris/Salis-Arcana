@@ -145,7 +145,7 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
     }
 
     @Override
-    public List<String> getResearches(IInventory inv, World world, EntityPlayer player) {
+    public List<String> salisArcana$getResearches(IInventory inv, World world, EntityPlayer player) {
         final var scanResult = scanTable(inv);
 
         if(scanResult == null || scanResult.invalidInputs()) {

@@ -148,13 +148,13 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
     }
 
     @Override
-    public List<String> getResearches(IInventory inv, World world, EntityPlayer player) {
+    public List<String> salisArcana$getResearches(IInventory inv, World world, EntityPlayer player) {
         final var scan = scanTable(inv);
 
         if(scan == null || scan.invalidInputs()) {
             return List.of(getResearch());
         }
-        
+
         return List.of(getResearch(), scan.newRod.getResearch());
     }
 
