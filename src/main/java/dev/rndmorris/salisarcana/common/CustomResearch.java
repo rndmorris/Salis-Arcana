@@ -17,6 +17,7 @@ import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 import thaumcraft.api.research.ResearchCategories;
@@ -49,6 +50,10 @@ public class CustomResearch {
             ConfigModuleRoot.enhancements.replaceWandCoreSettings,
             PlaceholderItem.rodPlaceholder,
             exampleRodRecipes());
+
+        if (ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled()) {
+            DisenchantFocusUpgrade.registerResearch();
+        }
 
         containerScanResearch = maybeRegister(
             ConfigModuleRoot.enhancements.thaumometerScanContainersResearch,
@@ -244,6 +249,9 @@ public class CustomResearch {
                 }
                 sibling.siblings = ArrayHelper.appendToArray(sibling.siblings, fullKey);
             }
+        }
+        if (settings.warp > 0) {
+            ThaumcraftApi.addWarpToResearch(fullKey, settings.warp);
         }
         final var pages = new ArrayList<ResearchPage>();
         pages.add(new ResearchPage("tc.research_page." + fullKey + ".0"));
