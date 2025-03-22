@@ -28,7 +28,8 @@ public abstract class MixinContainerArcaneWorkbench_MultiContainer extends Conta
         method = "<init>",
         at = @At(
             value = "FIELD",
-            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;eventHandler:Lnet/minecraft/inventory/Container;"),
+            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;eventHandler:Lnet/minecraft/inventory/Container;",
+            remap = false),
         remap = false)
     public void setEventHandler(TileArcaneWorkbench instance, Container value, Operation<Void> original) {
         original.call(instance, MultiContainer.mergeContainers(instance.eventHandler, value));
@@ -38,7 +39,8 @@ public abstract class MixinContainerArcaneWorkbench_MultiContainer extends Conta
         method = "onContainerClosed",
         at = @At(
             value = "FIELD",
-            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;eventHandler:Lnet/minecraft/inventory/Container;"))
+            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;eventHandler:Lnet/minecraft/inventory/Container;",
+            remap = false))
     public void removeEventHandler(TileArcaneWorkbench instance, Container value, Operation<Void> original) {
         original.call(instance, MultiContainer.removeContainer(instance.eventHandler, this));
     }
