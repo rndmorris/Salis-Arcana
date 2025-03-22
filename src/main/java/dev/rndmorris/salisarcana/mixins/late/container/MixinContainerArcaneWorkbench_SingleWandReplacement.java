@@ -37,7 +37,6 @@ public abstract class MixinContainerArcaneWorkbench_SingleWandReplacement extend
             remap = false))
     public void useGridWandForReplacement(CallbackInfo ci) {
         // Exclusive with the normal arcane recipe check, since this requires no wand present
-        // TODO Double-check modification to code.
         if (this.getSlot(0)
             .getStack() == null && this.tileEntity.getStackInSlot(10) == null) {
             // If a replacement recipe matches
