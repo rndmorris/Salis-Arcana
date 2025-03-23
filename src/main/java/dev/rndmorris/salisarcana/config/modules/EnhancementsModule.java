@@ -38,6 +38,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting thaumcraftCommandWarpArgAll;
     public final ToggleSetting creativeOpThaumonomicon;
     public final ToggleSetting creativeNoXPManipulator;
+    public final ToggleSetting focalDisenchanterReturnXP;
 
     public final ToggleSetting enableFocusDisenchanting;
     public final IntSetting focusDisenchantingRefundPercentage;
@@ -221,7 +222,11 @@ public class EnhancementsModule extends BaseConfigModule {
             researchItemExtensions = new ToggleSetting(
                 this,
                 "researchItemExtensions",
-                "Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer).")
+                "Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer)."),
+            focalDisenchanterReturnXP = new ToggleSetting(
+                this,
+                "focalDisenchanterReturnXP",
+                "If an upgrade fails to complete or is cancelled, the XP spent will get returned to the player.")
         );
 
         // spotless:on

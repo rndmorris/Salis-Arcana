@@ -9,4 +9,8 @@ public interface IFocalManipulatorWithXP {
     void salisArcana$connectPlayer(EntityPlayer player);
 
     void salisArcana$disconnectPlayer(EntityPlayer player);
+
+    void salisArcana$addXP(int xp);
+
+    void salisArcana$prioritizePlayer(EntityPlayer player);
 }

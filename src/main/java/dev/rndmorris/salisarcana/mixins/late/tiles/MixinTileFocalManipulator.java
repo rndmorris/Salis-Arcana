@@ -1,7 +1,5 @@
 package dev.rndmorris.salisarcana.mixins.late.tiles;
 
-import java.util.ArrayList;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,10 +7,7 @@ import net.minecraft.nbt.NBTTagList;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -36,10 +31,6 @@ public abstract class MixinTileFocalManipulator extends TileThaumcraftInventory 
     public AspectList aspects;
     @Shadow(remap = false)
     public int upgrade;
-    @Unique
-    private int salisArcana$storedXP = 0;
-    @Unique
-    private final ArrayList<EntityPlayer> salisArcana$playersConnected = new ArrayList<>(3);
 
     @WrapOperation(
         method = "updateEntity",
@@ -76,10 +67,7 @@ public abstract class MixinTileFocalManipulator extends TileThaumcraftInventory 
                 return false;
             }
 
-            salisArcana$storedXP += specific.getXpPoints();
-            if (!this.salisArcana$playersConnected.isEmpty()) {
-                this.salisArcana$transferXpToPlayer(this.salisArcana$playersConnected.get(0));
-            }
+            this.salisArcana$addXP(specific.getXpPoints());
             return true;
         }
         return original.call(focus, focusStack, type, rank);
@@ -106,47 +94,12 @@ public abstract class MixinTileFocalManipulator extends TileThaumcraftInventory 
                     this.worldObj
                         .playSoundEffect(this.xCoord, this.yCoord, this.zCoord, "thaumcraft:craftstart", 0.25F, 1.0F);
 
-                    // Move person to front of the priority queue.
-                    this.salisArcana$playersConnected.remove(p);
-                    this.salisArcana$playersConnected.add(0, p);
+                    this.salisArcana$prioritizePlayer(p);
                     return true;
                 }
             }
             return false;
         }
         return original.call(id, p);
-    }
-
-    @Inject(method = "writeCustomNBT", at = @At("TAIL"), remap = false)
-    public void writeStoredXp(NBTTagCompound nbt, CallbackInfo ci) {
-        nbt.setInteger("salisArcana$storedXp", salisArcana$storedXP);
-    }
-
-    @Inject(method = "readCustomNBT", at = @At("TAIL"), remap = false)
-    public void readStoredXp(NBTTagCompound nbt, CallbackInfo ci) {
-        salisArcana$storedXP = nbt.getInteger("salisArcana$storedXp");
-    }
-
-    @Override
-    public void salisArcana$transferXpToPlayer(EntityPlayer player) {
-        if (salisArcana$storedXP > 0) {
-            player.addExperience(salisArcana$storedXP);
-            salisArcana$storedXP = 0;
-
-            this.markDirty();
-            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-        }
-    }
-
-    @Override
-    public void salisArcana$connectPlayer(EntityPlayer player) {
-        if (!this.salisArcana$playersConnected.contains(player)) {
-            this.salisArcana$playersConnected.add(player);
-        }
-    }
-
-    @Override
-    public void salisArcana$disconnectPlayer(EntityPlayer player) {
-        this.salisArcana$playersConnected.remove(player);
     }
 }

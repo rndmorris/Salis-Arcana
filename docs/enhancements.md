@@ -120,6 +120,13 @@ Percentage of XP points refunded upon removing an enchantment from a focus, calc
 **Config option:** `focusDisenchantingResearch`
 
 Configurations for the "Focus Disenchanting" research.
+
+## Focal Manipulator Returns XP When Upgrade Cancelled
+
+**Config option:** `focalDisenchanterReturnXP`
+
+If an upgrade fails to complete or is cancelled, the XP spent will get returned to the player or the next person to interact with the table.
+
 ## Thaumonomicon Controls
 
 **Config option:**: `Enable Scrollwheel`
