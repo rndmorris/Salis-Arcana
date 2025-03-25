@@ -3,7 +3,6 @@ package dev.rndmorris.salisarcana.common.recipes;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import dev.rndmorris.salisarcana.api.IMultipleResearchArcaneRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -11,6 +10,7 @@ import net.minecraft.world.World;
 
 import com.github.bsideup.jabel.Desugar;
 
+import dev.rndmorris.salisarcana.api.IMultipleResearchArcaneRecipe;
 import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
@@ -22,8 +22,6 @@ import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.items.wands.ItemWandCasting;
-
-import java.util.List;
 
 public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchArcaneRecipe {
 
@@ -148,14 +146,14 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
     }
 
     @Override
-    public List<String> salisArcana$getResearches(IInventory inv, World world, EntityPlayer player) {
+    public String[] salisArcana$getResearches(IInventory inv, World world, EntityPlayer player) {
         final var scan = scanTable(inv);
 
-        if(scan == null || scan.invalidInputs()) {
-            return List.of(getResearch());
+        if (scan == null || scan.invalidInputs()) {
+            return new String[] { getResearch() };
         }
 
-        return List.of(getResearch(), scan.newRod.getResearch());
+        return new String[] { getResearch(), scan.newRod.getResearch() };
     }
 
     @Desugar

@@ -145,4 +145,6 @@ tc.research_page.salisarcana:CHESTSCAN.0=Thanks to your research about deconstru
 
 item.Wand.staffter.obj=Staffter
 
-salisarcana:error_missing_research.chat=You lack the research to start this infusion! You must research "%s" in %s before you can craft this item!
+salisarcana:error_missing_research.infusion=You lack the research to start this infusion! You must research "%s" in %s before you can craft this item!
+salisarcana:error_missing_research.crucible=You lack the research to craft this recipe in the Crucible! You must research "%s" in %s before you can craft this item!
+salisarcana:error_missing_research.gui=Missing Research

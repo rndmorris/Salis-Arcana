@@ -371,6 +371,21 @@ public enum Mixins {
         .setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    MISSING_RESEARCH_INFUSION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.notifyMissingResearchInfusion::isEnabled)
+        .addMixinClasses("tiles.MixinTileInfusionMatrix_MissingResearch")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    MISSING_RESEARCH_CRUCIBLE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.notifyMissingResearchCrucible::isEnabled)
+        .addMixinClasses("tiles.MixinTileCrucible_MissingRecipe")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    MISSING_RESEARCH_WORKBENCH(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.notifyMissingResearchWorkbench::isEnabled)
+        .addMixinClasses("gui.MixinGuiArcaneWorkbench_MissingResearch", "lib.MixinArcaneSceptreRecipe", "lib.MixinArcaneWandRecipe")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     ;
     // spotless:on

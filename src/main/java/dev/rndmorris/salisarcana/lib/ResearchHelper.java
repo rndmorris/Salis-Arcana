@@ -9,7 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
@@ -143,10 +142,13 @@ public class ResearchHelper {
         return headerMessage;
     }
 
-    public static void sendResearchError(EntityPlayer player, String researchKey) {
-        if(player instanceof EntityPlayerMP playerMP && !(player instanceof FakePlayer)) {
+    public static void sendResearchError(EntityPlayer player, String researchKey, String translationKey) {
+        if (player instanceof EntityPlayerMP playerMP && !(player instanceof FakePlayer)) {
             final var research = ResearchCategories.getResearch(researchKey);
-            final var message = new ChatComponentTranslation("salisarcana:error_missing_research.chat", research.getName(), ResearchCategories.getCategoryName(research.category));
+            final var message = new ChatComponentTranslation(
+                translationKey,
+                research.getName(),
+                ResearchCategories.getCategoryName(research.category));
             message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED));
             playerMP.addChatMessage(message);
         }
