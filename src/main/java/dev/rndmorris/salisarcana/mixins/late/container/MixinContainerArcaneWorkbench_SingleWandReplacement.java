@@ -1,6 +1,7 @@
 package dev.rndmorris.salisarcana.mixins.late.container;
 
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +19,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 @Mixin(ContainerArcaneWorkbench.class)
-public class MixinContainerArcaneWorkbench_SingleWandReplacement {
+public abstract class MixinContainerArcaneWorkbench_SingleWandReplacement extends Container {
 
     @Shadow(remap = false)
     private TileArcaneWorkbench tileEntity;
@@ -36,7 +37,8 @@ public class MixinContainerArcaneWorkbench_SingleWandReplacement {
             remap = false))
     public void useGridWandForReplacement(CallbackInfo ci) {
         // Exclusive with the normal arcane recipe check, since this requires no wand present
-        if (this.tileEntity.getStackInSlot(9) == null && this.tileEntity.getStackInSlot(10) == null) {
+        if (this.getSlot(0)
+            .getStack() == null && this.tileEntity.getStackInSlot(10) == null) {
             // If a replacement recipe matches
             ItemStack outputWand;
             AspectList visPrice;
@@ -79,7 +81,13 @@ public class MixinContainerArcaneWorkbench_SingleWandReplacement {
                 } else {
                     itemWand.storeAllVis(outputWand, AspectHelper.primalList(0));
                 }
-                this.tileEntity.setInventorySlotContentsSoftly(9, outputWand);
+
+                if (ConfigModuleRoot.bugfixes.arcaneWorkbenchMultiContainer.isEnabled()) {
+                    this.getSlot(0)
+                        .putStack(outputWand);
+                } else {
+                    this.tileEntity.setInventorySlotContentsSoftly(9, outputWand);
+                }
             }
         }
     }

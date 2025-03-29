@@ -196,6 +196,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchAllowRechargeCrafting::isEnabled)
         .addMixinClasses("tiles.MixinTileMagicWorkbenchCharger")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ARCANE_WORKBENCH_MULTI_CONTAINER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchMultiContainer::isEnabled)
+        .addMixinClasses("container.MixinContainerArcaneWorkbench_MultiContainer")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     NEGATIVE_BOSS_SPAWN_COUNT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.bugfixes.negativeBossSpawnCount::isEnabled)
