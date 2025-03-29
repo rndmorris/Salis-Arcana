@@ -334,7 +334,12 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel::isEnabled)
         .addMixinClasses("items.MixinItemFocusTrade_HarvestLevel")
-        .addTargetedMod(TargetedMod.THAUMCRAFT))
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    EXCAVATION_FOCUS_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.excavationFocusHarvestLevel::isEnabled)
+        .addMixinClasses("items.MixinItemFocusExcavation_HarvestLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     ;
 
