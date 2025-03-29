@@ -70,6 +70,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting crusherHarvestLevel;
     public final IntSetting excavationFocusHarvestLevel;
     public final IntSetting equalTradeFocusHarvestLevel;
+    public final ToggleSetting potencyModifiesHarvestLevel;
 
     public EnhancementsModule() {
         // spotless:off
@@ -270,7 +271,12 @@ public class EnhancementsModule extends BaseConfigModule {
             voidHarvestLevel = new IntSetting(this, ConfigPhase.LATE, "voidHarvestLevel", "Override the harvest level of void metal tools.", 4).setCategory("harvestLevels"),
             crusherHarvestLevel = new IntSetting(this, ConfigPhase.LATE, "crusherHarvestLevel", "Override the harvest level of the primal crusher.", 5).setCategory("harvestLevels"),
             excavationFocusHarvestLevel = new IntSetting(this, ConfigPhase.EARLY, "excavationFocusHarvestLevel", "Override the harvest level of the excavation focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).", -1).setCategory("harvestLevels"),
-            equalTradeFocusHarvestLevel = new IntSetting(this, ConfigPhase.EARLY, "equalTradeFocusHarvestLevel", "Override the harvest level of the equal trade focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).", -1).setCategory("harvestLevels")
+            equalTradeFocusHarvestLevel = new IntSetting(this, ConfigPhase.EARLY, "equalTradeFocusHarvestLevel", "Override the harvest level of the equal trade focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).", -1).setCategory("harvestLevels"),
+            potencyModifiesHarvestLevel = new ToggleSetting(
+                this,
+                ConfigPhase.EARLY,
+                "potencyModifiesHarvestLevel",
+                "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level.").setCategory("harvestLevels")
         );
 
         // spotless:on

@@ -15,6 +15,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.IArchitect;
+import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.foci.ItemFocusTrade;
 
@@ -36,7 +37,11 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
         final int x = mop.blockX, y = mop.blockY, z = mop.blockZ;
         final var block = world.getBlock(x, y, z);
         final var metadata = world.getBlockMetadata(x, y, z);
-        if (block.getHarvestLevel(metadata) <= ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.getValue()) {
+        int harvestLevel = ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.getValue();
+        if (ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled()) {
+            harvestLevel += this.getUpgradeLevel(stack, FocusUpgradeType.potency);
+        }
+        if (block.getHarvestLevel(metadata) <= harvestLevel) {
             return original.call(instance, stack);
         }
         return null;

@@ -12,10 +12,12 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import thaumcraft.api.wands.FocusUpgradeType;
+import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.foci.ItemFocusExcavation;
 
 @Mixin(ItemFocusExcavation.class)
-public class MixinItemFocusExcavation_HarvestLevel {
+public class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
 
     @WrapMethod(method = "onFocusRightClick", remap = false)
     public ItemStack wrapOnFocusRightClick(ItemStack itemstack, World world, EntityPlayer p, MovingObjectPosition mop,
@@ -25,6 +27,9 @@ public class MixinItemFocusExcavation_HarvestLevel {
             int metadata = p.worldObj.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ);
             int requiredLevel = block.getHarvestLevel(metadata);
             int harvestLevel = ConfigModuleRoot.enhancements.excavationFocusHarvestLevel.getValue();
+            if (ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled()) {
+                harvestLevel += this.getUpgradeLevel(itemstack, FocusUpgradeType.potency);
+            }
             if (harvestLevel < 0 || harvestLevel >= requiredLevel) {
                 return original.call(itemstack, world, p, mop);
             }
