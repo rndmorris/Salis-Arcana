@@ -45,6 +45,10 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
         if (arguments.targetPlayer == null) {
             arguments.targetPlayer = getCommandSenderAsPlayer(sender);
         }
+        if (!(arguments.reset || arguments.forget)) {
+            sender.addChatMessage(new ChatComponentTranslation("salisarcana:command.forget-aspect.no-action"));
+            return;
+        }
         final var playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
         int removedCount = 0;
         final var playerAspects = playerKnowledge.aspectsDiscovered.get(arguments.targetPlayer.getCommandSenderName());
