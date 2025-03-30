@@ -40,12 +40,6 @@ import thaumcraft.common.entities.ai.interact.AIFish;
 
 public class CommonProxy {
 
-    private int _crucibleHeatSourceId = -1;
-
-    public int crucibleHeatSourceId() {
-        return _crucibleHeatSourceId;
-    }
-
     public CommonProxy() {
         FMLCommonHandler.instance()
             .bus()
