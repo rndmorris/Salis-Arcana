@@ -31,7 +31,7 @@ public class MixinTileMagicWorkbenchCharger {
     public void updateGUI(CallbackInfo ci, @Share("workbench") LocalRef<TileMagicWorkbench> workbenchRef) {
         TileMagicWorkbench workbench = workbenchRef.get();
 
-        if (workbench != null && workbench.eventHandler != null && workbench.getStackInSlot(9) == null) {
+        if (workbench != null && workbench.eventHandler != null) {
             workbench.eventHandler.onCraftMatrixChanged(workbench);
         }
     }

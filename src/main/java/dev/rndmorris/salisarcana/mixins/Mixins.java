@@ -196,6 +196,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchAllowRechargeCrafting::isEnabled)
         .addMixinClasses("tiles.MixinTileMagicWorkbenchCharger")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ARCANE_WORKBENCH_MULTI_CONTAINER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchMultiContainer::isEnabled)
+        .addMixinClasses("container.MixinContainerArcaneWorkbench_MultiContainer")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     NEGATIVE_BOSS_SPAWN_COUNT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.bugfixes.negativeBossSpawnCount::isEnabled)
@@ -247,17 +252,17 @@ public enum Mixins {
     CTRL_SCROLL_NAVIGATION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled::isEnabled)
-        .addMixinClasses("gui.MixinGuiResearchBrowser")
+        .addMixinClasses("gui.MixinGuiResearchBrowser_Creative_Scroll")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     RESEARCH_ID_POPUP(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.enhancements.nomiconShowResearchId::isEnabled)
-        .addMixinClasses("gui.MixinGuiResearchBrowser")
+        .addMixinClasses("gui.MixinGuiResearchBrowser_ShowResearchID")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     RIGHT_CLICK_NAVIAGTION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.enhancements.nomiconRightClickClose::isEnabled)
-        .addMixinClasses("gui.MixinGuiResearchBrowser", "gui.MixinGuiResearchRecipe")
+        .addMixinClasses("gui.MixinGuiResearchBrowser_RightClickClose", "gui.MixinGuiResearchRecipe")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     NODE_GENERATION_MODIFIER_WEIGHTS(new Builder().setPhase(Phase.LATE)
@@ -328,7 +333,7 @@ public enum Mixins {
     CREATIVE_OP_THAUMONOMICON(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.creativeOpThaumonomicon::isEnabled)
-        .addMixinClasses("gui.MixinGuiResearchBrowser")
+        .addMixinClasses("lib.MixinResearchManager", "gui.MixinGuiResearchBrowser_Creative_Scroll")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     LEVITATOR_SHIFT_FIX(new Builder().setPhase(Phase.LATE)
@@ -386,6 +391,22 @@ public enum Mixins {
         .setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    RESEARCH_ITEM_EXTENDED(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .addMixinClasses("api.ResearchItem_Extended")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RESEARCH_ITEM_EXTENDED_THAUMIC_TINKERER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .addMixinClasses("addons.ThaumicTinkerer.TTResearchItem_Extended")
+        .addTargetedMod(TargetedMod.THAUMIC_TINKERER)),
+    RESEARCH_ITEM_EXTENDED_AUTOMAGY(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .addMixinClasses("addons.Automagy.ModResearchItem_Extended")
+        .addTargetedMod(TargetedMod.AUTOMAGY)),
 
     ;
     // spotless:on
