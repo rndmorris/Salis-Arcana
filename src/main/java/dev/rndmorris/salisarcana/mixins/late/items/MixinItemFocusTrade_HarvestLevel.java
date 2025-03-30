@@ -44,6 +44,7 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
         if (block.getHarvestLevel(metadata) <= harvestLevel) {
             return original.call(instance, stack);
         }
+        player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "thaumcraft:craftfail", 1.0F, 1.0F);
         return null;
     }
 }
