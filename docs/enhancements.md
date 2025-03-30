@@ -40,6 +40,13 @@ Config Option: `taintedItemDecayChance`
 
 The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.
 
+## Crucible+Thaumatorium Heat Source Ore Dict
+Config Option: `heatSourceOreDict`
+
+If enabled, blocks with the ore dictionary tag `salisarcana:heatSource` will be treated as crucible heat sources.
+
+Mod devs: for added convenience, this string constant is available through Salis Arcan's API.
+
 ## Container Scanning
 
 Config Option: `thaumometerScanContainers`

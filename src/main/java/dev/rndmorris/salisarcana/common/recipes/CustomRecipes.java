@@ -18,6 +18,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import dev.rndmorris.salisarcana.api.OreDict;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.ThaumcraftApi;
@@ -155,13 +156,12 @@ public class CustomRecipes {
         // Greatwood Slabs
         final var greatwoodSlabs = new ItemStack(ConfigBlocks.blockSlabWood, 6, 0);
         registerSlabRecipes(greatwoodSlabs, thaumGreatwoodPlanks, arcanaGreatwoodPlanks);
-        GameRegistry.addRecipe(new ShapedOreRecipe(greatwoodSlabs, "PPP", 'P', CustomBlocks.ORE_DICT_GREATWOOD_PLANKS));
+        GameRegistry.addRecipe(new ShapedOreRecipe(greatwoodSlabs, "PPP", 'P', OreDict.GREATWOOD_PLANKS));
 
         // Silverwood Slabs
         final var silverwoodSlabs = new ItemStack(ConfigBlocks.blockSlabWood, 6, 1);
         registerSlabRecipes(silverwoodSlabs, thaumSilverwoodPlanks, arcanaSilverwoodPlanks);
-        GameRegistry
-            .addRecipe(new ShapedOreRecipe(silverwoodSlabs, "PPP", 'P', CustomBlocks.ORE_DICT_SILVERWOOD_PLANKS));
+        GameRegistry.addRecipe(new ShapedOreRecipe(silverwoodSlabs, "PPP", 'P', OreDict.SILVERWOOD_PLANKS));
 
         // Greatwood Stairs
         GameRegistry.addRecipe(
@@ -171,7 +171,7 @@ public class CustomRecipes {
                 "PP ",
                 "PPP",
                 'P',
-                CustomBlocks.ORE_DICT_GREATWOOD_PLANKS));
+                OreDict.GREATWOOD_PLANKS));
 
         // Silverwood Stairs
         GameRegistry.addRecipe(
@@ -181,7 +181,7 @@ public class CustomRecipes {
                 "PP ",
                 "PPP",
                 'P',
-                CustomBlocks.ORE_DICT_SILVERWOOD_PLANKS));
+                OreDict.SILVERWOOD_PLANKS));
     }
 
     private static void registerSlabRecipes(ItemStack output, ItemStack tcPlanks, ItemStack tfPlanks) {

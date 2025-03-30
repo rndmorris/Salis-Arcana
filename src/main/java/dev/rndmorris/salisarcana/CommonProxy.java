@@ -30,6 +30,7 @@ import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
+import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
@@ -54,6 +55,10 @@ public class CommonProxy {
 
         if (ConfigModuleRoot.bugfixes.useForgeFishingLists.isEnabled()) {
             fixGolemFishingLists();
+        }
+
+        if (ConfigModuleRoot.enhancements.heatSourceOreDict.isEnabled()) {
+            CrucibleHeatLogic.registerOreDictName();
         }
 
         FMLCommonHandler.instance()
