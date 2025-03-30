@@ -262,7 +262,7 @@ public class EnhancementsModule extends BaseConfigModule {
             potencyModifiesHarvestLevel = new ToggleSetting(
                 this,
                 "potencyModifiesHarvestLevel",
-                "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level.").setCategory("harvestLevels")
+                "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level by one level per level of potency.").setCategory("harvestLevels")
         );
 
         // spotless:on

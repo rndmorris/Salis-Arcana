@@ -11,6 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.foci.ItemFocusExcavation;
 
@@ -22,6 +23,9 @@ public class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
         int z, Operation<Boolean> original) {
         int requiredLevel = block.getHarvestLevel(md);
         int harvestLevel = ConfigModuleRoot.enhancements.excavationFocusHarvestLevel.getValue();
+        if (ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled()) {
+            harvestLevel += this.getUpgradeLevel(stack, FocusUpgradeType.potency);
+        }
         if (harvestLevel < 0 || harvestLevel >= requiredLevel) {
             return original.call(world, stack, player, block, md, x, y, z);
         }
