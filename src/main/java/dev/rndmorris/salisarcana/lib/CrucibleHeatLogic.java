@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana.lib;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -13,8 +12,6 @@ public class CrucibleHeatLogic {
 
     public static void registerOreDictName() {
         heatSourceId = OreDictionary.getOreID(OreDict.HEAT_SOURCE);
-        // todo: remove before merging
-        OreDictionary.registerOre(OreDict.HEAT_SOURCE, Blocks.command_block);
     }
 
     private static int heatSourceId = -1;

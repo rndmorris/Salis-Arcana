@@ -63,8 +63,9 @@ public class CommonProxy {
             fixGolemFishingLists();
         }
 
-        // todo: wrap in config check?
-        CrucibleHeatLogic.registerOreDictName();
+        if (ConfigModuleRoot.enhancements.heatSourceOreDict.isEnabled()) {
+            CrucibleHeatLogic.registerOreDictName();
+        }
 
         FMLCommonHandler.instance()
             .bus()
