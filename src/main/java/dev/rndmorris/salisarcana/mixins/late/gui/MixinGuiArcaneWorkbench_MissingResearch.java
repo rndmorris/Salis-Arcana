@@ -25,8 +25,6 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
 
-import java.util.List;
-
 @Mixin(GuiArcaneWorkbench.class)
 public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContainer {
 
@@ -64,8 +62,9 @@ public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContain
                 final var research = ResearchCategories.getResearch(key);
                 if (research != null && !ResearchManager.isResearchComplete(player.getCommandSenderName(), key)) {
                     final var lines = this.fontRendererObj.listFormattedStringToWidth(research.getName(), 120);
-                    for(final var line : lines) {
-                        this.fontRendererObj.drawString(line, this.fontRendererObj.getStringWidth(line) / -2, y, 0xEE6E6E);
+                    for (final var line : lines) {
+                        this.fontRendererObj
+                            .drawString(line, this.fontRendererObj.getStringWidth(line) / -2, y, 0xEE6E6E);
                         y += this.fontRendererObj.FONT_HEIGHT + 2;
                     }
                     y += 3;
