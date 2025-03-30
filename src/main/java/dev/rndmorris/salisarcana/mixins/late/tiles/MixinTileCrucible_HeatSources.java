@@ -31,7 +31,7 @@ public abstract class MixinTileCrucible_HeatSources extends TileThaumcraft {
             target = "Lnet/minecraft/block/material/Material;lava:Lnet/minecraft/block/material/Material;"))
     private Material checkHeatSource(Operation<Material> original, @Local(name = "bi") Block block,
         @Local(name = "md") int md, @Local(name = "mat") Material blockMaterial) {
-        return CrucibleHeatLogic.isCrucibleHeatSource(block, md, blockMaterial) ? blockMaterial : null;
+        return CrucibleHeatLogic.isCrucibleHeatSource(block, md, blockMaterial) ? blockMaterial : original.call();
     }
 
 }
