@@ -13,6 +13,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
+import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.items.wands.foci.ItemFocusExcavation;
 
 @Mixin(ItemFocusExcavation.class)
@@ -25,7 +26,10 @@ public class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
         int harvestLevel = ConfigModuleRoot.enhancements.excavationFocusHarvestLevel.getValue();
         int modifiedHarvestLevel = harvestLevel;
         if (ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled()) {
-            modifiedHarvestLevel += this.getUpgradeLevel(stack, FocusUpgradeType.potency);
+            ItemWandCasting wandCasting = (ItemWandCasting) stack.getItem();
+            @SuppressWarnings("DataFlowIssue") // idea doesn't know that wandCasting.getFocusItem(stack) can't be null
+            ItemStack focus = wandCasting.getFocusItem(stack);
+            modifiedHarvestLevel += this.getUpgradeLevel(focus, FocusUpgradeType.potency);
         }
         if (harvestLevel < 0 || modifiedHarvestLevel >= requiredLevel) {
             return original.call(world, stack, player, block, md, x, y, z);
