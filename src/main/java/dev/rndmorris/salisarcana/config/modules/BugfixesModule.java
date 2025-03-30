@@ -24,7 +24,9 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting staffFocusEffectFix;
     public final ToggleSetting arcaneWorkbenchGhostItemFix;
     public final ToggleSetting arcaneWorkbenchAllowRechargeCrafting;
+    public final ToggleSetting arcaneWorkbenchMultiContainer;
     public final ToggleSetting negativeBossSpawnCount;
+    public final ToggleSetting useForgeFishingLists;
 
     public BugfixesModule() {
         addSettings(
@@ -90,10 +92,18 @@ public class BugfixesModule extends BaseConfigModule {
                 this,
                 "arcaneWorkbenchAllowRechargeCrafting",
                 "Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay."),
+            arcaneWorkbenchMultiContainer = new ToggleSetting(
+                this,
+                "arcaneWorkbenchMultiContainer",
+                "Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time."),
             negativeBossSpawnCount = new ToggleSetting(
                 this,
                 "negativeBossSpawnCount",
-                "Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn."));
+                "Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn."),
+            useForgeFishingLists = new ToggleSetting(
+                this,
+                "useForgeFishingLists",
+                "Use Forge's fishing lists to determine what a fishing golem catches."));
     }
 
     @Nonnull

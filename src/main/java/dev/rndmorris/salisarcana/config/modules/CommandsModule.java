@@ -11,6 +11,7 @@ public class CommandsModule extends BaseConfigModule {
     public final @Nonnull CommandSettings createNode;
     public final @Nonnull CommandSettings forgetResearch;
     public final @Nonnull CommandSettings forgetScanned;
+    public final @Nonnull CommandSettings forgetAspects;
     public final @Nonnull CommandSettings help;
     public final @Nonnull CommandSettings infusionSymmetry;
     public final @Nonnull CommandSettings playerResearch;
@@ -33,6 +34,10 @@ public class CommandsModule extends BaseConfigModule {
                 .setPermissionLevel(2),
             forgetScanned = new CommandSettings("forget-scanned", this)
                 .setDescription("Remove entries from a player's list of scanned things")
+                .addDefaultAlias()
+                .setPermissionLevel(2),
+            forgetAspects = new CommandSettings("forget-aspect", this)
+                .setDescription("Forget one or more aspects from a player's knowledge.")
                 .addDefaultAlias()
                 .setPermissionLevel(2),
             help = new CommandSettings("help", this).addAlias("arcana-help")
