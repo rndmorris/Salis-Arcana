@@ -254,7 +254,7 @@ public class EnhancementsModule extends BaseConfigModule {
                 "researchItemExtensions",
                 "Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer)."),
             thaumiumHarvestLevel = new IntSetting(this, "thaumiumHarvestLevel", "Override the harvest level of thaumium tools.", 3).setCategory("harvestLevels"),
-            elementalHarvestLevel = new IntSetting(this, "elementalHarvestLevel", "Override the harvest level of elemental tools", 3).setCategory("harvestLevels"),
+            elementalHarvestLevel = new IntSetting(this, "elementalHarvestLevel", "Override the harvest level of elemental tools.", 3).setCategory("harvestLevels"),
             voidHarvestLevel = new IntSetting(this, "voidHarvestLevel", "Override the harvest level of void metal tools.", 4).setCategory("harvestLevels"),
             crusherHarvestLevel = new IntSetting(this, "crusherHarvestLevel", "Override the harvest level of the primal crusher.", 5).setCategory("harvestLevels"),
             excavationFocusHarvestLevel = new IntSetting(this, "excavationFocusHarvestLevel", "Override the harvest level of the excavation focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).", -1).setCategory("harvestLevels"),
