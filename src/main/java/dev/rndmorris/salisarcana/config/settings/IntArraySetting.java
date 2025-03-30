@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana.config.settings;
 
 import net.minecraftforge.common.config.Configuration;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class IntArraySetting extends Setting {
@@ -16,11 +15,9 @@ public class IntArraySetting extends Setting {
 
     Setting pairedSetting;
 
-    public IntArraySetting(IEnabler dependency, ConfigPhase phase, String name, String comment, int[] defaultValue,
-        int min, int max) {
-        super(dependency, phase);
+    public IntArraySetting(IEnabler dependency, String name, String comment, int[] defaultValue, int min, int max) {
+        super(dependency);
         this.name = name;
-        this.phase = phase;
         this.comment = comment;
         this.defaultValue = defaultValue;
         this.minValue = min;
@@ -28,7 +25,6 @@ public class IntArraySetting extends Setting {
 
         pairedSetting = new ToggleSetting(
             dependency,
-            phase,
             "enable" + name.substring(0, 1)
                 .toUpperCase() + name.substring(1),
             "Enable " + name + "?");

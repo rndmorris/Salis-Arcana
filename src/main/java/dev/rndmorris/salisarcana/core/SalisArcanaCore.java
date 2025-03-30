@@ -5,7 +5,6 @@ import java.util.Map;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
 import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 
@@ -13,7 +12,7 @@ import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 public class SalisArcanaCore implements IFMLLoadingPlugin {
 
     public SalisArcanaCore() {
-        ConfigModuleRoot.synchronizeConfiguration(ConfigPhase.EARLY);
+        ConfigModuleRoot.synchronizeConfiguration();
     }
 
     public static ArrayList<IAsmEditor> editors = new ArrayList<>();

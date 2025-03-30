@@ -34,6 +34,12 @@ sometimes makes an infusion altar slightly less stable than it should be.
 
 Check the infusion matrix's center item more strictly. Prevents an exploit with infusion enchanting.
 
+## Nonnegative Boss Spawn Count
+
+**Config option:** `negativeBossSpawnCount`
+
+Fixes a theoretical bug where, if billions of bosses were spawned, only the golem boss would be able to spawn.
+
 ## Metadata Safety Checks
 
 **Config option:** `candleMetadataCrash`
@@ -55,6 +61,16 @@ Affected items include:
 **Config option:** `shardMetadataCrash`,
 
 Add a safety check to prevent the creation of Thaumcraft shards with invalid metadata.
+
+## Fake Player Safety Checks
+
+**Config option:** `warpFakePlayerCheck`
+
+Adds a safety check to prevent warp effects from trying to send packets to fake players.
+
+**Config option:** `crimsonRitesFakePlayerCheck`
+
+Adds a safety check in case of a fake player not being castable to `EntityPlayerMP`. (For example, putting Crimson Rites into a Dynamism Tablet from Thaumic Tinkerer.)
 
 ## TC4 Ores Redstone Fix
 
@@ -87,3 +103,15 @@ Fixes ghost items being crafted in the arcane workbench after the wand runs out 
 **Config option:** `arcaneWorkbenchAllowRechargeCrafting`
 
 Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay.
+
+### Multiplayer Duplication Bugfix & Per-Player Output Slots
+
+**Config option:** `arcaneWorkbenchMultiContainer`
+
+Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time, including a duplication bug, research verification bug, and some others.
+
+## Use Forge fishing lists for fishing golem loot
+
+**Config option:** `useForgeFishingLists`
+
+Use Forge's fishing lists to determine what fish, junk, and treasure a fishing golem catches.

@@ -27,17 +27,49 @@ while avoiding the weirdness in Thaumcraft's plank blocks implementation.
 
 Causes staffters to use their own translation string rather than being called "Staff" in the tooltip.
 
+## "Missing Research" Messages
+
+**Config option:** `notifyMissingResearchWorkbench`
+
+Displays a "missing research" message in the Arcane Workbench GUI when recipe fails for lack of research.
+
+**Config option:** `notifyMissingResearchInfusion`
+
+Displays a "missing research" message to the player when an infusion recipe fails for lack of research.
+
+**Config option:** `notifyMissingResearchCrucible`
+
+Displays a "missing research" message to the player when a crucible recipe fails for lack of research.
+
 ## Increased Item Stack Size
 
 Config Option: `eldritchObjectStackSize`
 
 Increases the stack size of Primordial Pearls, Eldritch Eyes, Crimson Rites, Eldritch Obelisk Placers, and Runed Tablets. Default of 16.
 
+## Disable Creative Tainted Item Decay
+
+ConfigOption: `disableCreativeTaintedItemDecay`
+
+Prevent tainted goo and taint tendrils from decaying for players in creative mode.
+
+## Tainted Item Decay Chance
+
+Config Option: `taintedItemDecayChance`
+
+The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.
+
 ## Container Scanning
 
 Config Option: `thaumometerScanContainers`
 
 Allows the Thaumometer to scan the contents of containers (eg. chests, barrels) when scanning the block.
+
+## Custom Scan Duration
+
+Config Option: `thaumometerDuration`
+
+Changes the duration of the Thaumometer's scanning effect. Default is 20 ticks.
 
 ## Thaumcraft Command
 
@@ -55,6 +87,14 @@ Config Option: `primalCrusherMinesOredictionaryStone`
 
 Allows the primal crusher to 3x3 mine blocks registered as stone, cobblestone, or stoneBricks in the ore dictionary.
 
+## Research Item Extensions
+
+Config Option: `researchItemExtensions`
+
+Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer).
+
+Mod authors: this controls whether Thaumcraft's `ResearchItem` class implements `IResearchItemExtended` from Salis Arcana's API package.
+
 ## Enhancements - Creative Mode
 
 **Config option:** `suppressWarpEventsInCreative`
@@ -71,7 +111,9 @@ Gives creative mode players infinite vis in wands
 
 **Config Option:** `creativeOpThaumonomicon`
 
-Ctrl-clicking on a research in the Thaumonomicon while in Creative mode will autocomplete the research.
+While in creative mode, the Thaumonomicon will have the following additional functionality:
+- Ctrl-clicking on a research in the Thaumonomicon will autocomplete that research.
+- You do not need to have paper and scribing tools in your inventory to get research notes.
 
 ## Thaumonomicon Controls
 
@@ -252,3 +294,12 @@ Used to set the tab of the Thaumonomicon on which the "Wand Core Substitution" r
 Requires `enableReplaceWandCoreRecipe=true`.
 
 If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core. Disable to allow converting a wand to a staff and vice versa.
+
+## Config option: `allowSingleWandReplacement`
+
+Requires `enableReplaceWandCapsRecipe=true` or `enableReplaceWandCoreRecipe=true`.
+
+Requires `arcaneWorkbenchGhostItemFix=true` in the bugfixes module.
+
+If enabled, allows swapping a wand's components using vis from the wand being modified.
+

@@ -1,0 +1,19 @@
+package dev.rndmorris.salisarcana.mixins.late.items;
+
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import thaumcraft.common.items.relics.ItemThaumometer;
+
+@Mixin(ItemThaumometer.class)
+public class MixinItemThaumometer_CustomDuration {
+
+    @ModifyConstant(method = "getMaxItemUseDuration", constant = @Constant(intValue = 25))
+    private int customDuration(int original) {
+        // Original duration is 20 + 5
+        // It finishes the scan when remaining duration <= 5, so we want the custom duration to be duration + 5
+        return ConfigModuleRoot.enhancements.thaumometerDuration.getValue() + 5;
+    }
+}

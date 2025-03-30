@@ -6,7 +6,6 @@ import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-import dev.rndmorris.salisarcana.config.ConfigPhase;
 import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class HexColorSetting extends Setting {
@@ -18,8 +17,8 @@ public class HexColorSetting extends Setting {
 
     private int colorValue = -1;
 
-    public HexColorSetting(IEnabler module, ConfigPhase phase, String name, String comment, String defaultHexString) {
-        super(module, phase);
+    public HexColorSetting(IEnabler module, String name, String comment, String defaultHexString) {
+        super(module);
 
         this.name = name;
         this.comment = comment;

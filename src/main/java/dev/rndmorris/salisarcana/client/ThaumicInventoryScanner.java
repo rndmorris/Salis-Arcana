@@ -31,6 +31,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.SalisArcana;
+import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.network.MessageScanSelf;
 import dev.rndmorris.salisarcana.network.MessageScanSlot;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
@@ -44,7 +45,19 @@ import thaumcraft.common.lib.research.ScanManager;
 
 public class ThaumicInventoryScanner {
 
-    private static final int SCAN_TICKS = 50;
+    // SCAN_TICKS is seemingly double the "vanilla" scan duration, I'm not sure if onClientTick is called twice as often
+    // or what, but it seems to work if I do this
+    // +5 is added to the duration to account for the fact that in the config, we set the duration to be the total usage
+    // duration - 5 since thaumcraft completes the scan when the remaining duration is <= 5
+    private static int SCAN_TICKS = -1;
+
+    static int getScanTicks() {
+        if (SCAN_TICKS < 0) {
+            SCAN_TICKS = (ConfigModuleRoot.enhancements.thaumometerDuration.getValue() + 5) * 2;
+        }
+        return SCAN_TICKS;
+    }
+
     private static final int SOUND_TICKS = 5;
     private static final int INVENTORY_PLAYER_X = 26;
     private static final int INVENTORY_PLAYER_Y = 8;
@@ -140,7 +153,7 @@ public class ThaumicInventoryScanner {
                 // Scan Slot
                 ticksHovered++;
                 playScanningSoundTick(player);
-                if (ticksHovered >= SCAN_TICKS) tryCompleteScan(player);
+                if (ticksHovered >= getScanTicks()) tryCompleteScan(player);
             } else {
                 // Check if there was a sudden jump to player sprite, otherwise do nothing
                 if (isHoveringOverPlayer) {
@@ -164,7 +177,7 @@ public class ThaumicInventoryScanner {
 
             if (ScanManager.isValidScanTarget(player, currentScan, "@")) {
                 NetworkHandler.instance.sendToServer(
-                    isHoveringOverPlayer ? new MessageScanSelf() : new MessageScanSlot(hoveringSlot.getSlotIndex()));
+                    isHoveringOverPlayer ? new MessageScanSelf() : new MessageScanSlot(hoveringSlot.slotNumber));
             }
         } catch (StackOverflowError e) {
             // Can't do anything about Thaumcraft freaking out except for calming it down if it
@@ -219,7 +232,7 @@ public class ThaumicInventoryScanner {
             if (!isHoveringOverPlayer && !stackExists) return;
             // If there's something being scanned
             if (currentScan != null && stackExists) {
-                renderScanningProgress(event.gui, event.mouseX, event.mouseY, ticksHovered / (float) SCAN_TICKS);
+                renderScanningProgress(event.gui, event.mouseX, event.mouseY, ticksHovered / (float) getScanTicks());
             } else {
                 // Display Tooltips and aspects
                 if (!isHoveringOverPlayer) {

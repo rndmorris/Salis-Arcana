@@ -21,6 +21,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.annotations.FlagArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler;
+import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.AspectHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.common.Thaumcraft;
@@ -38,7 +39,7 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         return new ArgumentProcessor<>(
             Arguments.class,
             Arguments::new,
-            new IArgumentHandler[] { PlayerHandler.INSTANCE, FlagHandler.INSTANCE, });
+            new IArgumentHandler[] { PlayerHandler.INSTANCE, FlagHandler.INSTANCE, AspectHandler.INSTANCE, });
     }
 
     @Override
@@ -90,6 +91,7 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
                 }
             }
         }
+
         if (arguments.all || arguments.objects) {
             toClear.add(playerKnowledge.objectsScanned);
         }
@@ -135,6 +137,7 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         }
         final var playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
         final var playerName = sender.getCommandSenderName();
+
         final var objectsScanned = playerKnowledge.objectsScanned.get(playerName);
         String key = "@" + ScanManager.generateItemHash(item.getItem(), item.getItemDamage());
         return objectsScanned != null && objectsScanned.remove(key);

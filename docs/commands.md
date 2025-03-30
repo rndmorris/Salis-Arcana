@@ -61,6 +61,7 @@ Remove research from a player's knowledge.
 | `--research-key <key>` | Conditionally | Specify the id of the research to remove. Required if `--all` is not provided. Can be provided multiple times to specify additional research to remove. Mutually exclusive with `--all`. |
 | `--player <username>`  |      No       | Specify the player whose completed research will be altered. If not provided, defaults to the research of the user executing this command.                                               |
 |      `--scalpel`       |      No       | If set, remove *only* the specified research. None of its siblings or descendants will be affected. This may have unexpected side effects. Mutually exclusive with `--all`.              |
+|    `--retain-warp`     |      No       | If set, any permanent and/or sticky warp associated with the removed research will be **kept**, rather than removed.                                                                     |
 
 **Default aliases:**
 * `/forget-research`
@@ -76,24 +77,52 @@ Reset the list of things a player has scanned, allowing those things to be scann
 
 **Usage:**
 
-`/salisarcana-forget-scanned [--player <username>] [--objects] [--entities] [--nodes] [--hand] [--inventory] [--looking] [--container] [--all]`
+`/salisarcana-forget-scanned [--player <username>] [--objects] [--entities] [--nodes] [--all] [--aspects <...>] [--all-aspects] [--hand] [--inventory] [--looking] [--container] `
 
 **Arguments:**
 
-|       Argument        |   Required    | Details                                                                                                                  |
-|:---------------------:|:-------------:|:-------------------------------------------------------------------------------------------------------------------------|
-| `--player <username>` |      No       | Specify the player whose scanned things will be altered. If not provided, defaults to the player executing this command. |
-|      `--objects`      | Conditionally | Reset scanned items and blocks. Mutually exclusive with `--all`.                                                         |
-|     `--entities`      | Conditionally | Reset scanned entities, including mobs. Mutually exclusive with `--all`.                                                 |
-|       `--nodes`       | Conditionally | Reset scanned nodes. Mutually exclusive with `--all`.                                                                    |
-|       `--hand`        | Conditionally | Reset the item currently held. Mutually exclusive with `--all`.                                                          |
-|     `--inventory`     | Conditionally | Resets all items in your inventory.  Mutually exclusive with `--all`.                                                    |
-|      `--looking`      | Conditionally | Resets the block you are looking at. Mutually exclusive with `--all`.                                                    |
-|     `--container`     | Conditionally | Resets all items inside of the container (eg. chest) you are looking at. Mutually exclusive with `--all`.                |
-|        `--all`        | Conditionally | Combine the effects of `--objects`, `--entities`, and `--nodes`. If not set, one of the others is required.              |
+|                  Argument                  |   Required    | Details                                                                                                                  |
+|:------------------------------------------:|:-------------:|:-------------------------------------------------------------------------------------------------------------------------|
+|           `--player <username>`            |      No       | Specify the player whose scanned things will be altered. If not provided, defaults to the player executing this command. |
+|                `--objects`                 | Conditionally | Reset scanned items and blocks. Mutually exclusive with `--all`.                                                         |
+|                `--entities`                | Conditionally | Reset scanned entities, including mobs. Mutually exclusive with `--all`.                                                 |
+|                 `--nodes`                  | Conditionally | Reset scanned nodes. Mutually exclusive with `--all`.                                                                    |
+|                  `--all`                   | Conditionally | Combine the effects of `--objects`, `--entities`, and `--nodes`. If not set, one of the others is required.              |
+|                  `--hand`                  | Conditionally | Reset the item currently held. Mutually exclusive with `--all`.                                                          |
+|               `--inventory`                | Conditionally | Resets all items in your inventory.  Mutually exclusive with `--all`.                                                    |
+|                `--looking`                 | Conditionally | Resets the block you are looking at. Mutually exclusive with `--all`.                                                    |
+|               `--container`                | Conditionally | Resets all items inside of the container (eg. chest) you are looking at. Mutually exclusive with `--all`.                |
+
 
 **Default aliases:**
 * `/forget-scanned`
+
+</details>
+
+## /salisarcana-forget-aspect
+
+<details>
+
+**Description:**
+Forget or reset the amount of a specific aspect a player has scanned.
+
+**Usage:**
+
+`/salisarcana-forget-aspect [--player <username>] [--reset] [--forget] [--aspect <...>] [--all]`
+
+**Arguments:**
+
+|       Argument        |   Required    | Details                                                                                                           |
+|:---------------------:|:-------------:|:------------------------------------------------------------------------------------------------------------------|
+| `--player <username>` |      No       | Specify the player whose aspects will be altered. If not provided, defaults to the player executing this command. |
+|       `--reset`       | Conditionally | Resets the current research point count to 1. Mutually exclusive with `--forget`.                                 |
+|      `--forget`       | Conditionally | Forgets the aspect entirely, requiring it to be relearned. Mutually exclusive with `--reset`.                     |
+|        `--all`        | Conditionally | Modify all aspects. Mutually exclusive with `--aspect`                                                            |
+|   `--aspect <...>`    | Conditionally | Modify a subset of aspects. Mutually exclusive with `--all`.                                                      |
+
+
+**Default aliases:**
+* `/forget-aspect`
 
 </details>
 
