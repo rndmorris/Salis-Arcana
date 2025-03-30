@@ -37,6 +37,7 @@ import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
 import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.ai.interact.AIFish;
 import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 
@@ -86,6 +87,8 @@ public class CommonProxy {
         if (enhancements.crusherHarvestLevel.isEnabled()) {
             final var material = new R(ItemPrimalCrusher.material);
             material.set("harvestLevel", enhancements.crusherHarvestLevel.getValue());
+            ConfigItems.itemPrimalCrusher.setHarvestLevel("pickaxe", enhancements.crusherHarvestLevel.getValue());
+            ConfigItems.itemPrimalCrusher.setHarvestLevel("shovel", enhancements.crusherHarvestLevel.getValue());
         }
     }
 
