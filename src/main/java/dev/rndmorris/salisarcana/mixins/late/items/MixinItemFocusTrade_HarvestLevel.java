@@ -38,10 +38,11 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
         final var block = world.getBlock(x, y, z);
         final var metadata = world.getBlockMetadata(x, y, z);
         int harvestLevel = ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.getValue();
+        int modifiedHarvestLevel = harvestLevel;
         if (ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled()) {
-            harvestLevel += this.getUpgradeLevel(stack, FocusUpgradeType.potency);
+            modifiedHarvestLevel += this.getUpgradeLevel(stack, FocusUpgradeType.potency);
         }
-        if (block.getHarvestLevel(metadata) <= harvestLevel) {
+        if (harvestLevel < 0 || block.getHarvestLevel(metadata) <= modifiedHarvestLevel) {
             return original.call(instance, stack);
         }
         player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "thaumcraft:craftfail", 1.0F, 1.0F);

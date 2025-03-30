@@ -23,10 +23,11 @@ public class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
         int z, Operation<Boolean> original) {
         int requiredLevel = block.getHarvestLevel(md);
         int harvestLevel = ConfigModuleRoot.enhancements.excavationFocusHarvestLevel.getValue();
+        int modifiedHarvestLevel = harvestLevel;
         if (ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled()) {
-            harvestLevel += this.getUpgradeLevel(stack, FocusUpgradeType.potency);
+            modifiedHarvestLevel += this.getUpgradeLevel(stack, FocusUpgradeType.potency);
         }
-        if (harvestLevel < 0 || harvestLevel >= requiredLevel) {
+        if (harvestLevel < 0 || modifiedHarvestLevel >= requiredLevel) {
             return original.call(world, stack, player, block, md, x, y, z);
         }
         player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "thaumcraft:craftfail", 1.0F, 1.0F);
