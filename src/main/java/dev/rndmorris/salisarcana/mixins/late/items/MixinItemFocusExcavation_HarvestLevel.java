@@ -24,14 +24,13 @@ public class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
         int z, Operation<Boolean> original) {
         int requiredLevel = block.getHarvestLevel(md);
         int harvestLevel = ConfigModuleRoot.enhancements.excavationFocusHarvestLevel.getValue();
-        int modifiedHarvestLevel = harvestLevel;
         if (ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled()) {
             ItemWandCasting wandCasting = (ItemWandCasting) stack.getItem();
             @SuppressWarnings("DataFlowIssue") // idea doesn't know that wandCasting.getFocusItem(stack) can't be null
             ItemStack focus = wandCasting.getFocusItem(stack);
-            modifiedHarvestLevel += this.getUpgradeLevel(focus, FocusUpgradeType.potency);
+            harvestLevel += this.getUpgradeLevel(focus, FocusUpgradeType.potency);
         }
-        if (harvestLevel < 0 || modifiedHarvestLevel >= requiredLevel) {
+        if (harvestLevel >= requiredLevel) {
             return original.call(world, stack, player, block, md, x, y, z);
         }
         player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "thaumcraft:craftfail", 1.0F, 1.0F);

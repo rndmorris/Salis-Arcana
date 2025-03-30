@@ -65,13 +65,12 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
         final var block = world.getBlock(x, y, z);
         final var metadata = world.getBlockMetadata(x, y, z);
         int harvestLevel = ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.getValue();
-        int modifiedHarvestLevel = harvestLevel;
         if (ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled()) {
             ItemWandCasting wandCasting = (ItemWandCasting) stack.getItem();
             @SuppressWarnings("DataFlowIssue") // idea doesn't know that wandCasting.getFocusItem(stack) can't be null
             ItemStack focus = wandCasting.getFocusItem(stack);
-            modifiedHarvestLevel += this.getUpgradeLevel(focus, FocusUpgradeType.potency);
+            harvestLevel += this.getUpgradeLevel(focus, FocusUpgradeType.potency);
         }
-        return (harvestLevel < 0 || block.getHarvestLevel(metadata) <= modifiedHarvestLevel);
+        return (block.getHarvestLevel(metadata) <= harvestLevel);
     }
 }

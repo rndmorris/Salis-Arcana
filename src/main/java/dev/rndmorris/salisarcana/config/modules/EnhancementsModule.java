@@ -253,16 +253,47 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 "researchItemExtensions",
                 "Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer)."),
-            thaumiumHarvestLevel = new IntSetting(this, "thaumiumHarvestLevel", "Override the harvest level of thaumium tools.", 3).setCategory("harvestLevels"),
-            elementalHarvestLevel = new IntSetting(this, "elementalHarvestLevel", "Override the harvest level of elemental tools.", 3).setCategory("harvestLevels"),
-            voidHarvestLevel = new IntSetting(this, "voidHarvestLevel", "Override the harvest level of void metal tools.", 4).setCategory("harvestLevels"),
-            crusherHarvestLevel = new IntSetting(this, "crusherHarvestLevel", "Override the harvest level of the primal crusher.", 5).setCategory("harvestLevels"),
-            excavationFocusHarvestLevel = new IntSetting(this, "excavationFocusHarvestLevel", "Override the harvest level of the excavation focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).", -1).setCategory("harvestLevels"),
-            equalTradeFocusHarvestLevel = new IntSetting(this, "equalTradeFocusHarvestLevel", "Override the harvest level of the equal trade focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).", -1).setCategory("harvestLevels"),
+            thaumiumHarvestLevel = new IntSetting(
+                this,
+                "thaumiumHarvestLevel",
+                "Override the harvest level of thaumium tools.",
+                3)
+                .setMinValue(0).setCategory("harvestLevels"),
+            elementalHarvestLevel = new IntSetting(
+                this,
+                "elementalHarvestLevel",
+                "Override the harvest level of elemental tools.",
+                3)
+                .setMinValue(0).setCategory("harvestLevels"),
+            voidHarvestLevel = new IntSetting(
+                this,
+                "voidHarvestLevel",
+                "Override the harvest level of void metal tools.",
+                4)
+                .setMinValue(0).setCategory("harvestLevels"),
+            crusherHarvestLevel = new IntSetting(
+                this,
+                "crusherHarvestLevel",
+                "Override the harvest level of the primal crusher.",
+                5)
+                .setMinValue(0).setCategory("harvestLevels"),
+            excavationFocusHarvestLevel = new IntSetting(
+                this,
+                "excavationFocusHarvestLevel",
+                "Override the harvest level of the excavation focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).",
+                -1)
+                .setMaxValue(-1).setCategory("harvestLevels"),
+            equalTradeFocusHarvestLevel = new IntSetting(
+                this,
+                "equalTradeFocusHarvestLevel",
+                "Override the harvest level of the equal trade focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).",
+                -1).
+                setMinValue(-1).setCategory("harvestLevels"),
             potencyModifiesHarvestLevel = new ToggleSetting(
                 this,
                 "potencyModifiesHarvestLevel",
-                "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level by one level per level of potency.").setCategory("harvestLevels")
+                "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level by one level per level of potency.")
+                .setCategory("harvestLevels")
         );
 
         // spotless:on
