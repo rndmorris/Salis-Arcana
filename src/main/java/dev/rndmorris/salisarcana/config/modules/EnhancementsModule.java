@@ -68,6 +68,8 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting thaumometerDuration;
     public final ToggleSetting researchItemExtensions;
 
+    public final ToggleSetting heatSourceOreDict;
+
     public EnhancementsModule() {
         // spotless:off
         addSettings(
@@ -317,6 +319,12 @@ public class EnhancementsModule extends BaseConfigModule {
                     .setParents("DECONSTRUCTOR")
                     .setAspects("ordo:10", "perditio:10", "permutatio:10")).setCategory("thaumometer_container_scan"));
 
+        // temporary placement, will be moved during the config rework
+        addSettings(
+            heatSourceOreDict = new ToggleSetting(
+                this,
+                "heatSourceOreDict",
+                "Enable ore dictionary support for crucible and thaumatorium heat sources."));
     }
 
     public boolean singleWandReplacementEnabled() {

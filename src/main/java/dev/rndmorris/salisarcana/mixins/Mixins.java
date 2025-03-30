@@ -388,6 +388,11 @@ public enum Mixins {
         .addMixinClasses("addons.Automagy.ModResearchItem_Extended")
         .addTargetedMod(TargetedMod.AUTOMAGY)),
 
+    CRUCIBLE_HEAT_SOURCES(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.heatSourceOreDict::isEnabled)
+        .addMixinClasses("tiles.MixinTileCrucible_HeatSources", "tiles.MixinTileThaumatorium_HeatSources")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ;
     // spotless:on
 

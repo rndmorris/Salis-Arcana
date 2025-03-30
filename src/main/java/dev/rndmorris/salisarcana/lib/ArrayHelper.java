@@ -21,6 +21,15 @@ public class ArrayHelper {
         return list.toArray(new String[0]);
     }
 
+    public static int indexOf(int[] array, int key) {
+        for (var index = 0; index < array.length; ++index) {
+            if (array[index] == key) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
     public static boolean tryAssign(boolean[] arr, int index, boolean value) {
         if (0 <= index && index < arr.length) {
             arr[index] = value;

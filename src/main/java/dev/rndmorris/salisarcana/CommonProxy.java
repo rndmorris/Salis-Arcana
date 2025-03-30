@@ -30,6 +30,7 @@ import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
+import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
@@ -38,6 +39,12 @@ import dev.rndmorris.salisarcana.notifications.Updater;
 import thaumcraft.common.entities.ai.interact.AIFish;
 
 public class CommonProxy {
+
+    private int _crucibleHeatSourceId = -1;
+
+    public int crucibleHeatSourceId() {
+        return _crucibleHeatSourceId;
+    }
 
     public CommonProxy() {
         FMLCommonHandler.instance()
@@ -55,6 +62,9 @@ public class CommonProxy {
         if (ConfigModuleRoot.bugfixes.useForgeFishingLists.isEnabled()) {
             fixGolemFishingLists();
         }
+
+        // todo: wrap in config check?
+        CrucibleHeatLogic.registerOreDictName();
 
         FMLCommonHandler.instance()
             .bus()
