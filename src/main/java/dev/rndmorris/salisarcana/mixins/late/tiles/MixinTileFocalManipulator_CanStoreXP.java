@@ -7,9 +7,9 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import dev.rndmorris.salisarcana.lib.IFocalManipulatorWithXP;
 import thaumcraft.common.tiles.TileFocalManipulator;
@@ -23,13 +23,15 @@ public class MixinTileFocalManipulator_CanStoreXP extends TileThaumcraftInventor
     @Unique
     private final ArrayList<EntityPlayer> salisArcana$playersConnected = new ArrayList<>(3);
 
-    @Inject(method = "writeCustomNBT", at = @At("TAIL"), remap = false)
-    public void writeStoredXp(NBTTagCompound nbt, CallbackInfo ci) {
+    @WrapMethod(method = "writeCustomNBT", remap = false)
+    public void writeStoredXp(NBTTagCompound nbt, Operation<Void> original) {
+        original.call(nbt);
         nbt.setInteger("salisArcana$storedXp", salisArcana$storedXP);
     }
 
-    @Inject(method = "readCustomNBT", at = @At("TAIL"), remap = false)
-    public void readStoredXp(NBTTagCompound nbt, CallbackInfo ci) {
+    @WrapMethod(method = "readCustomNBT", remap = false)
+    public void readStoredXp(NBTTagCompound nbt, Operation<Void> original) {
+        original.call(nbt);
         salisArcana$storedXP = nbt.getInteger("salisArcana$storedXp");
     }
 

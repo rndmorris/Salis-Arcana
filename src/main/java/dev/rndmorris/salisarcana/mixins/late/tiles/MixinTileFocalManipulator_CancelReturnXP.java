@@ -25,15 +25,17 @@ public abstract class MixinTileFocalManipulator_CancelReturnXP implements IFocal
     @Unique
     private int salisArcana$craftingXP = 0;
 
-    @Inject(method = "writeCustomNBT", at = @At("TAIL"), remap = false)
-    public void writeCraftingXp(NBTTagCompound nbt, CallbackInfo ci) {
+    @WrapMethod(method = "writeCustomNBT", remap = false)
+    public void writeCraftingXp(NBTTagCompound nbt, Operation<Void> original) {
+        original.call(nbt);
         if (this.size > 0) {
             nbt.setInteger("salisArcana$craftingXP", salisArcana$craftingXP);
         }
     }
 
-    @Inject(method = "readCustomNBT", at = @At("TAIL"), remap = false)
-    public void readCraftingXp(NBTTagCompound nbt, CallbackInfo ci) {
+    @WrapMethod(method = "readCustomNBT", remap = false)
+    public void readCraftingXp(NBTTagCompound nbt, Operation<Void> original) {
+        original.call(nbt);
         salisArcana$craftingXP = this.size > 0 ? nbt.getInteger("salisArcana$craftingXP") : 0;
     }
 
