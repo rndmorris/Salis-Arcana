@@ -184,6 +184,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.staffFocusEffectFix::isEnabled)
         .addMixinClasses("client.fx.beams.MixinFXBeamWand")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCAL_MANIPULATOR_FORBID_SWAP(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.focalManipulatorForbidSwaps::isEnabled)
+        .addMixinClasses("tiles.MixinTileFocalManipulator_ForbidSwap")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ARCANE_WORKBENCH_GHOST_ITEM_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix::isEnabled)
@@ -319,6 +324,28 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.creativeOpThaumonomicon::isEnabled)
         .addMixinClasses("lib.MixinResearchManager", "gui.MixinGuiResearchBrowser_Creative_Scroll")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    CREATIVE_NO_XP_MANIPULATOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.creativeNoXPManipulator::isEnabled)
+        .addMixinClasses("tiles.MixinTileFocalManipulator_NoXP", "gui.MixinGuiFocalManipulator_CreativeNoXP")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCAL_MANIPULATOR_STORE_XP(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(() -> ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled() || ConfigModuleRoot.enhancements.focalDisenchanterReturnXP.isEnabled())
+        .addMixinClasses("tiles.MixinTileFocalManipulator_CanStoreXP", "container.MixinContainerFocalManipulator")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCAL_MANIPULATOR_RETURN_XP(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.focalDisenchanterReturnXP::isEnabled)
+        .addMixinClasses("tiles.MixinTileFocalManipulator_CancelReturnXP")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCUS_DISENCHANTING(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.enableFocusDisenchanting::isEnabled)
+        .addMixinClasses(
+            "tiles.MixinTileFocalManipulator",
+            "gui.MixinGuiFocalManipulator")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     LEVITATOR_SHIFT_FIX(new Builder().setPhase(Phase.LATE)

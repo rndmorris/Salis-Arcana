@@ -24,6 +24,7 @@ public class CustomResearchSetting extends Setting {
     public int researchCol;
     public int researchRow;
     public int difficulty;
+    public int warp;
     public String[] parentResearches;
     public boolean purchasable;
     public boolean autoUnlock;
@@ -42,6 +43,7 @@ public class CustomResearchSetting extends Setting {
         this.difficulty = researchInfo.getDifficulty();
         this.autoUnlock = researchInfo.getAutoUnlock();
         this.aspectStrings = researchInfo.getResearchAspects();
+        this.warp = researchInfo.getWarp();
 
         this.configName = configName + "Research";
         this.configComment = configComment;
@@ -91,6 +93,20 @@ public class CustomResearchSetting extends Setting {
             this.purchasable,
             "Whether the research should be purchasable with aspects instead of the normal minigame");
 
+        this.autoUnlock = configuration.getBoolean(
+            this.configName + "AutoUnlock",
+            this.getCategory(),
+            this.autoUnlock,
+            "Whether the research should automatically unlock as soon as its parents are researched.");
+
+        this.warp = configuration.getInt(
+            this.configName + "Warp",
+            this.getCategory(),
+            this.warp,
+            0,
+            100,
+            "How much warp is applied upon researching this research.");
+
         this.aspectStrings = configuration.getStringList(
             this.configName + "Aspects",
             this.getCategory(),
@@ -130,6 +146,7 @@ public class CustomResearchSetting extends Setting {
         private boolean purchasable = false;
         private String[] researchAspects = new String[0];
         private boolean autoUnlock = false;
+        private int warp = 0;
 
         public ResearchInfo(String researchName, String researchCategory, int researchCol, int researchRow) {
             this.researchName = researchName;
@@ -183,6 +200,11 @@ public class CustomResearchSetting extends Setting {
             return this;
         }
 
+        public ResearchInfo setWarp(int warp) {
+            this.warp = warp;
+            return this;
+        }
+
         public String getResearchName() {
             return this.researchName;
         }
@@ -219,5 +241,8 @@ public class CustomResearchSetting extends Setting {
             return this.autoUnlock;
         }
 
+        public int getWarp() {
+            return this.warp;
+        }
     }
 }
