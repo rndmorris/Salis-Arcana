@@ -61,9 +61,6 @@ public class MixinTileFocalManipulator_CanStoreXP extends TileThaumcraftInventor
     @Override
     public void salisArcana$addXP(int xp) {
         salisArcana$storedXP += xp;
-        if (!this.salisArcana$playersConnected.isEmpty()) {
-            this.salisArcana$transferXpToPlayer(this.salisArcana$playersConnected.get(0));
-        }
     }
 
     @Override
