@@ -282,7 +282,7 @@ public class EnhancementsModule extends BaseConfigModule {
                 "excavationFocusHarvestLevel",
                 "Override the harvest level of the excavation focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).",
                 -1)
-                .setMaxValue(-1).setCategory("harvestLevels"),
+                .setMinValue(-1).setCategory("harvestLevels"),
             equalTradeFocusHarvestLevel = new IntSetting(
                 this,
                 "equalTradeFocusHarvestLevel",

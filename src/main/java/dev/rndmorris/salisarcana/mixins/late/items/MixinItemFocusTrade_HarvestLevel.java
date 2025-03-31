@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -24,6 +25,12 @@ import thaumcraft.common.items.wands.foci.ItemFocusTrade;
 
 @Mixin(value = ItemFocusTrade.class, remap = false)
 public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic implements IArchitect {
+
+    @Unique
+    private final int sa$harvestLevel = ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.getValue();
+
+    @Unique
+    private final boolean sa$potencyEnabled = ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled();
 
     @Shadow
     abstract protected MovingObjectPosition getMovingObjectPositionFromPlayer(World par1World,
@@ -64,13 +71,31 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
         final int x = mop.blockX, y = mop.blockY, z = mop.blockZ;
         final var block = world.getBlock(x, y, z);
         final var metadata = world.getBlockMetadata(x, y, z);
-        int harvestLevel = ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.getValue();
-        if (ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled()) {
-            ItemWandCasting wandCasting = (ItemWandCasting) stack.getItem();
-            @SuppressWarnings("DataFlowIssue") // idea doesn't know that wandCasting.getFocusItem(stack) can't be null
-            ItemStack focus = wandCasting.getFocusItem(stack);
-            harvestLevel += this.getUpgradeLevel(focus, FocusUpgradeType.potency);
+        if (block.hasTileEntity(metadata)) {
+            return false;
+        }
+        int harvestLevel = this.sa$harvestLevel;
+        if (this.sa$potencyEnabled) {
+            if (stack.getItem() instanceof ItemWandCasting wand) {
+                ItemStack focus = wand.getFocusItem(stack);
+                harvestLevel += this.getUpgradeLevel(focus, FocusUpgradeType.potency);
+            } else {
+                return false;
+            }
         }
         return (block.getHarvestLevel(metadata) <= harvestLevel);
+    }
+
+    @WrapMethod(method = "getPossibleUpgradesByRank")
+    public FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack itemstack, int rank,
+        Operation<FocusUpgradeType[]> original) {
+        FocusUpgradeType[] original_return = original.call(itemstack, rank);
+        if (!this.sa$potencyEnabled) {
+            return original_return;
+        }
+        FocusUpgradeType[] copy = new FocusUpgradeType[original_return.length + 1];
+        System.arraycopy(original_return, 0, copy, 0, original_return.length);
+        copy[original_return.length] = FocusUpgradeType.potency;
+        return copy;
     }
 }

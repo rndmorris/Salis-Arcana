@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -19,12 +20,18 @@ import thaumcraft.common.items.wands.foci.ItemFocusExcavation;
 @Mixin(ItemFocusExcavation.class)
 public class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
 
+    @Unique
+    private final int sa$harvestLevel = ConfigModuleRoot.enhancements.excavationFocusHarvestLevel.getValue();
+
+    @Unique
+    private final boolean sa$potencyEnabled = ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled();
+
     @WrapMethod(method = "excavate", remap = false)
     private boolean wrapExcavate(World world, ItemStack stack, EntityPlayer player, Block block, int md, int x, int y,
         int z, Operation<Boolean> original) {
         int requiredLevel = block.getHarvestLevel(md);
-        int harvestLevel = ConfigModuleRoot.enhancements.excavationFocusHarvestLevel.getValue();
-        if (ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled()) {
+        int harvestLevel = sa$harvestLevel;
+        if (sa$potencyEnabled) {
             ItemWandCasting wandCasting = (ItemWandCasting) stack.getItem();
             @SuppressWarnings("DataFlowIssue") // idea doesn't know that wandCasting.getFocusItem(stack) can't be null
             ItemStack focus = wandCasting.getFocusItem(stack);
