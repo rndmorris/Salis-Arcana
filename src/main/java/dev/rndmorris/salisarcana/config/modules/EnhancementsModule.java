@@ -74,6 +74,10 @@ public class EnhancementsModule extends BaseConfigModule {
     public final IntSetting thaumometerDuration;
     public final ToggleSetting researchItemExtensions;
 
+    public final ToggleSetting notifyMissingResearchWorkbench;
+    public final ToggleSetting notifyMissingResearchInfusion;
+    public final ToggleSetting notifyMissingResearchCrucible;
+
     public EnhancementsModule() {
         // spotless:off
         addSettings(
@@ -214,6 +218,18 @@ public class EnhancementsModule extends BaseConfigModule {
                 "thaumometerDuration",
                 "The duration in ticks that the thaumometer takes to scan an object.",
                 20).setMinValue(1),
+            notifyMissingResearchWorkbench = new ToggleSetting(
+                this,
+                "notifyMissingResearchWorkbench",
+                "Displays a \"missing research\" message in the Arcane Workbench GUI when recipe fails for lack of research."),
+            notifyMissingResearchInfusion = new ToggleSetting(
+                this,
+                "notifyMissingResearchInfusion",
+                "Displays a \"missing research\" message to the player when an infusion recipe fails for lack of research."),
+            notifyMissingResearchCrucible = new ToggleSetting(
+                this,
+                "notifyMissingResearchCrucible",
+                "Displays a \"missing research\" message to the player when a crucible recipe fails for lack of research."),
             taintedItemDecayChance = new IntSetting(
                 this,
                 "taintedItemDecayChance",

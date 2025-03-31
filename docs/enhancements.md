@@ -27,6 +27,20 @@ while avoiding the weirdness in Thaumcraft's plank blocks implementation.
 
 Causes staffters to use their own translation string rather than being called "Staff" in the tooltip.
 
+## "Missing Research" Messages
+
+**Config option:** `notifyMissingResearchWorkbench`
+
+Displays a "missing research" message in the Arcane Workbench GUI when recipe fails for lack of research.
+
+**Config option:** `notifyMissingResearchInfusion`
+
+Displays a "missing research" message to the player when an infusion recipe fails for lack of research.
+
+**Config option:** `notifyMissingResearchCrucible`
+
+Displays a "missing research" message to the player when a crucible recipe fails for lack of research.
+
 ## Increased Item Stack Size
 
 Config Option: `eldritchObjectStackSize`
@@ -97,7 +111,9 @@ Gives creative mode players infinite vis in wands
 
 **Config Option:** `creativeOpThaumonomicon`
 
-Ctrl-clicking on a research in the Thaumonomicon while in Creative mode will autocomplete the research.
+While in creative mode, the Thaumonomicon will have the following additional functionality:
+- Ctrl-clicking on a research in the Thaumonomicon will autocomplete that research.
+- You do not need to have paper and scribing tools in your inventory to get research notes.
 
 **Config option:** `creativeNoXPManipulator`
 
