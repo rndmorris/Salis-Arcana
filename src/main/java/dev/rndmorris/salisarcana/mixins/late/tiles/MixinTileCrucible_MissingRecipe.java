@@ -16,8 +16,6 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import thaumcraft.api.aspects.AspectList;
@@ -43,7 +41,7 @@ public class MixinTileCrucible_MissingRecipe extends TileEntity {
             remap = false),
         remap = false)
     public CrucibleRecipe captureCrucibleRecipe(String username, AspectList aspects, ItemStack lastItem,
-        Operation<CrucibleRecipe> original, @Share("sentMessage") LocalBooleanRef sentMessage) {
+        Operation<CrucibleRecipe> original) {
         final var recipe = original.call(
             ResearchHelper.knowItAll()
                 .getCommandSenderName(),
