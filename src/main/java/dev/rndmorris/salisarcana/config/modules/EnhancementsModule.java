@@ -37,6 +37,12 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting thaumcraftCommandTabCompletion;
     public final ToggleSetting thaumcraftCommandWarpArgAll;
     public final ToggleSetting creativeOpThaumonomicon;
+    public final ToggleSetting creativeNoXPManipulator;
+    public final ToggleSetting focalDisenchanterReturnXP;
+
+    public final ToggleSetting enableFocusDisenchanting;
+    public final IntSetting focusDisenchantingRefundPercentage;
+    public final CustomResearchSetting focusDisenchantingResearch;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
@@ -113,10 +119,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 new int[] { 944444, 16666, 16666, 16666, 5555, },
                 0,
                 1000000).setEnabled(false),
-            suppressWarpEventsInCreative = new ToggleSetting(
-                this,
-                "suppressWarpEventsInCreative",
-                "Prevent random warp events from firing for players in creative mode."),
             useAllBaublesSlots = new ToggleSetting(
                 this,
                 "useAllBaublesSlots",
@@ -165,14 +167,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 "The maximum stack size for Eldritch Objects (Primordial Pearl, Eldritch Eye, Crimson Rites, Eldritch Obelisk Placer, Runed Tablet).",
                 16).setMinValue(1)
                     .setMaxValue(64),
-            stopCreativeModeItemConsumption = new ToggleSetting(
-                this,
-                "stopCreativeModeItemConsumption",
-                "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode."),
-            infiniteCreativeVis = new ToggleSetting(
-                this,
-                "infiniteCreativeVis",
-                "Allow wands to have infinite vis in creative mode."),
             manaPodGrowthRate = new IntSetting(
                 this,
                 "manaBeanGrowthChance",
@@ -195,11 +189,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 "thaumcraftCommandWarpArgAll",
                 "Allow the use of `ALL` as an argument for the warp command."),
-            creativeOpThaumonomicon = new ToggleSetting(
-                this,
-                "creativeOpThaumonomicon",
-
-                "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
             levitatorShiftFix = new ToggleSetting(
                 this,
                 "levitatorShiftFix",
@@ -241,10 +230,19 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 "notifyMissingResearchCrucible",
                 "Displays a \"missing research\" message to the player when a crucible recipe fails for lack of research."),
+            taintedItemDecayChance = new IntSetting(
+                this,
+                "taintedItemDecayChance",
+                "The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.",
+                4321).setMinValue(-1),
             researchItemExtensions = new ToggleSetting(
                 this,
                 "researchItemExtensions",
-                "Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer).")
+                "Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer)."),
+            focalDisenchanterReturnXP = new ToggleSetting(
+                this,
+                "focalDisenchanterReturnXP",
+                "If an upgrade fails to complete or is cancelled, the XP spent will get returned to the player.")
         );
 
         // spotless:on
@@ -313,16 +311,58 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 "allowSingleWandReplacement",
                 "If enabled, allows swapping a wand's components using vis from the wand being modified.")
-                    .setCategory(wandCategory),
+                    .setCategory(wandCategory));
+
+        // final var creativeCategory = "creative_mode";
+        addSettings(
+            stopCreativeModeItemConsumption = new ToggleSetting(
+                this,
+                "stopCreativeModeItemConsumption",
+                "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode."),
             disableCreativeTaintedItemDecay = new ToggleSetting(
                 this,
                 "disableCreativeTaintedItemDecay",
                 "Prevent tainted goo and taint tendrils from decaying for players in creative mode."),
-            taintedItemDecayChance = new IntSetting(
+            infiniteCreativeVis = new ToggleSetting(
                 this,
-                "taintedItemDecayChance",
-                "The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.",
-                4321).setMinValue(-1));
+                "infiniteCreativeVis",
+                "Allow wands to have infinite vis in creative mode."),
+            creativeOpThaumonomicon = new ToggleSetting(
+                this,
+                "creativeOpThaumonomicon",
+                "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
+            creativeNoXPManipulator = new ToggleSetting(
+                this,
+                "creativeNoXPManipulator",
+                "Allow Creative players to use the Focal Manipulator without the necessary XP."),
+            suppressWarpEventsInCreative = new ToggleSetting(
+                this,
+                "suppressWarpEventsInCreative",
+                "Prevent random warp events from firing for players in creative mode."));
+
+        final var focusDisenchantingCategory = "focus_disenchanting";
+        addSettings(
+            enableFocusDisenchanting = new ToggleSetting(
+                this,
+                "enableFocusDisenchanting",
+                "Allow players to use the Focal Manipulator to remove focus enchantments and refund XP.")
+                    .setCategory(focusDisenchantingCategory),
+            focusDisenchantingRefundPercentage = new IntSetting(
+                enableFocusDisenchanting,
+                "focusDisenchantingRefundPercentage",
+                "Percentage of XP points refunded upon removing an enchantment from a focus, calculated as levels from 0 XP.",
+                75).setMinValue(0)
+                    .setMaxValue(100)
+                    .setCategory(focusDisenchantingCategory),
+            focusDisenchantingResearch = new CustomResearchSetting(
+                enableFocusDisenchanting,
+                "focusDisenchanting",
+                "Research to unlock Focus Disenchanting in the Focal Manipulator.",
+                new CustomResearchSetting.ResearchInfo("FOCUS_DISENCHANTING", "THAUMATURGY", -2, -8).setDifficulty(2)
+                    .setParents("FOCALMANIPULATION")
+                    .setPurchasable(true)
+                    .setAspects("auram:4", "praecantatio:6", "vacuos:8", "perditio:4"))
+                        .setCategory(focusDisenchantingCategory));
 
         addSettings(
             thaumometerScanContainersResearch = new CustomResearchSetting(

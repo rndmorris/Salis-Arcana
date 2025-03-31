@@ -14,6 +14,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import dev.rndmorris.salisarcana.common.CustomResearch;
+import dev.rndmorris.salisarcana.common.DisenchantFocusUpgrade;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.common.commands.ArcanaCommandBase;
 import dev.rndmorris.salisarcana.common.commands.CreateNodeCommand;
@@ -50,6 +51,10 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
+        if (ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled()) {
+            DisenchantFocusUpgrade.initialize();
+        }
+
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
 
