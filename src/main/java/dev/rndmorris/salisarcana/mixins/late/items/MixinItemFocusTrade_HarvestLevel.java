@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -68,8 +67,14 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
     public boolean sa$shouldBreak(ItemStack stack, EntityPlayer player) {
         World world = player.worldObj;
         MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(world, player);
+        if (mop == null) {
+            return false;
+        }
         final int x = mop.blockX, y = mop.blockY, z = mop.blockZ;
         final var block = world.getBlock(x, y, z);
+        if (block == null) {
+            return false;
+        }
         final var metadata = world.getBlockMetadata(x, y, z);
         if (block.hasTileEntity(metadata)) {
             return false;
@@ -86,16 +91,4 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
         return (block.getHarvestLevel(metadata) <= harvestLevel);
     }
 
-    @WrapMethod(method = "getPossibleUpgradesByRank")
-    public FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack itemstack, int rank,
-        Operation<FocusUpgradeType[]> original) {
-        FocusUpgradeType[] original_return = original.call(itemstack, rank);
-        if (!this.sa$potencyEnabled) {
-            return original_return;
-        }
-        FocusUpgradeType[] copy = new FocusUpgradeType[original_return.length + 1];
-        System.arraycopy(original_return, 0, copy, 0, original_return.length);
-        copy[original_return.length] = FocusUpgradeType.potency;
-        return copy;
-    }
 }
