@@ -28,6 +28,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting negativeBossSpawnCount;
     public final ToggleSetting useForgeFishingLists;
     public final ToggleSetting focalManipulatorForbidSwaps;
+    public final ToggleSetting nodesRechargeInGameTime;
 
     public BugfixesModule() {
         addSettings(
@@ -108,7 +109,11 @@ public class BugfixesModule extends BaseConfigModule {
             focalManipulatorForbidSwaps = new ToggleSetting(
                 this,
                 "focalManipulatorForbidSwaps",
-                "Prevents players from putting on conflicting or out-of-order upgrades onto a focus by swapping the focus being modified during the upgrade process."));
+                "Prevents players from putting on conflicting or out-of-order upgrades onto a focus by swapping the focus being modified during the upgrade process."),
+            nodesRechargeInGameTime = new ToggleSetting(
+                this,
+                "nodesRechargeInGameTime",
+                "Unloaded nodes will regenerate based on game time, not real life time."));
     }
 
     @Nonnull
