@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.common.tiles.TileVisRelay;
 
-@Mixin(TileVisRelay.class)
+@Mixin(value = TileVisRelay.class, remap = false)
 public class MixinTileVisRelay_ExpandBoundingBox extends TileEntity {
 
     @Unique

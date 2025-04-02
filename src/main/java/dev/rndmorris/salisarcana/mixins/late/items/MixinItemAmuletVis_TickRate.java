@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import thaumcraft.common.items.baubles.ItemAmuletVis;
 
-@Mixin(ItemAmuletVis.class)
+@Mixin(value = ItemAmuletVis.class, remap = false)
 public abstract class MixinItemAmuletVis_TickRate {
 
     @Unique

@@ -424,18 +424,21 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.visRelayBoxExpansion::isEnabled)
         .addMixinClasses("tile.MixinTileVisRelay_ExpandBoundingBox")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    VIS_AMULET_TICK_RATE(new Builder()
+    VIS_AMULET_TICK_RATE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.visAmuletTickRate::isEnabled)
-        .addMixinClasses("items.MixinItemVisAmulet_TickRate")
+        .addMixinClasses("items.MixinItemAmuletVis_TickRate")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    VIS_AMULET_TRANSFER_RATE(new Builder()
+    VIS_AMULET_TRANSFER_RATE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.visAmuletTransferRate::isEnabled)
-        .addMixinClasses("items.MixinItemVisAmulet_TransferRate")),
+        .addMixinClasses("items.MixinItemAmuletVis_TransferRate")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     VIS_AMULET_FULL_INVENTORY(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.visAmuletCheckInventory::isEnabled)),
+        .setApplyIf(ConfigModuleRoot.enhancements.visAmuletCheckInventory::isEnabled)
+        .addMixinClasses("items.MixinItemAmuletVis_InventoryCheck")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     RESEARCH_ITEM_EXTENDED(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)

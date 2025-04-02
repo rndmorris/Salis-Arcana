@@ -19,7 +19,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.items.baubles.ItemAmuletVis;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
-@Mixin(ItemAmuletVis.class)
+@Mixin(value = ItemAmuletVis.class, remap = false)
 public abstract class MixinItemAmuletVis_InventoryCheck {
 
     @Shadow
