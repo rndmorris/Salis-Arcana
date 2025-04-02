@@ -6,6 +6,7 @@ import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
 import dev.rndmorris.salisarcana.config.settings.EldritchAltarMobSpawnSetting;
+import dev.rndmorris.salisarcana.config.settings.FloatSetting;
 import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
@@ -77,6 +78,11 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting notifyMissingResearchWorkbench;
     public final ToggleSetting notifyMissingResearchInfusion;
     public final ToggleSetting notifyMissingResearchCrucible;
+
+    public final FloatSetting visRelayBoxExpansion;
+    public final IntSetting visAmuletTickRate;
+    public final IntSetting visAmuletTransferRate;
+    public final ToggleSetting visAmuletCheckInventory;
 
     public EnhancementsModule() {
         // spotless:off
@@ -242,7 +248,28 @@ public class EnhancementsModule extends BaseConfigModule {
             focalDisenchanterReturnXP = new ToggleSetting(
                 this,
                 "focalDisenchanterReturnXP",
-                "If an upgrade fails to complete or is cancelled, the XP spent will get returned to the player.")
+                "If an upgrade fails to complete or is cancelled, the XP spent will get returned to the player."),
+
+            visRelayBoxExpansion = new FloatSetting(
+                this,
+                "visRelayBoxExpansion",
+                "The amount to expand the bounding box of vis relays. This is used to increase the range at which amulets are charged.",
+                5.0F).setMinValue(0.0F),
+            visAmuletTickRate = new IntSetting(
+                this,
+                "visAmuletRechargeSpeed",
+                "The rate in ticks at which vis amulets recharge.",
+                5).setMinValue(1),
+            visAmuletTransferRate = new IntSetting(
+                this,
+                "visAmuletTransferRate",
+                "The amount of vis an amulet can move at once.",
+                5).setMinValue(1),
+            visAmuletCheckInventory = new ToggleSetting(
+                this,
+                "visAmuletCheckInventory",
+                "If enabled, amulets will check and recharge wands in the entire inventory instead of just the player's hand."
+            )
         );
 
         // spotless:on
