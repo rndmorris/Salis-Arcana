@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
-import dev.rndmorris.salisarcana.lib.IFocalManipulatorWithXP;
 import dev.rndmorris.salisarcana.lib.PlayerHelper;
+import dev.rndmorris.salisarcana.lib.ifaces.IFocalManipulatorWithXP;
 import thaumcraft.common.tiles.TileFocalManipulator;
 
 @Mixin(TileFocalManipulator.class)

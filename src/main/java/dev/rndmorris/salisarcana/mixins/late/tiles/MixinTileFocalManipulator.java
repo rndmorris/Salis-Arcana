@@ -14,7 +14,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import dev.rndmorris.salisarcana.common.DisenchantFocusUpgrade;
-import dev.rndmorris.salisarcana.lib.IFocalManipulatorWithXP;
+import dev.rndmorris.salisarcana.lib.ifaces.IFocalManipulatorWithXP;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
