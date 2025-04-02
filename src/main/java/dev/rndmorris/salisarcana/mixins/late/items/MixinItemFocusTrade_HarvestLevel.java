@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -31,9 +32,25 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
     @Unique
     private final boolean sa$potencyEnabled = ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled();
 
+    @Unique
+    private long sa$lastPlayedSound;
+
+    @Unique
+    private boolean sa$rightClick = false;
+
     @Shadow
     abstract protected MovingObjectPosition getMovingObjectPositionFromPlayer(World par1World,
         EntityPlayer par2EntityPlayer);
+
+    @Shadow
+    public abstract boolean onEntitySwing(EntityLivingBase player, ItemStack stack);
+
+    @WrapMethod(method = "onFocusRightClick")
+    public ItemStack wrapOnFocusRightClick(ItemStack itemstack, World world, EntityPlayer player,
+        MovingObjectPosition mop, Operation<ItemStack> original) {
+        sa$rightClick = true;
+        return original.call(itemstack, world, player, mop);
+    }
 
     @WrapOperation(
         method = "onFocusRightClick",
@@ -45,7 +62,7 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
         if (this.sa$shouldBreak(stack, player)) {
             return original.call(instance, stack);
         }
-        player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "thaumcraft:craftfail", 1.0F, 1.0F);
+        this.onEntitySwing(player, stack);
         return null;
     }
 
@@ -56,10 +73,18 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
             target = "Lthaumcraft/common/items/wands/foci/ItemFocusTrade;getPickedBlock(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     public ItemStack wrapOnEntitySwing(ItemFocusTrade instance, ItemStack stack, Operation<ItemStack> original,
         @Local(name = "player") EntityLivingBase player) {
-        if (this.sa$shouldBreak(stack, (EntityPlayer) player)) {
+        if (this.sa$shouldBreak(stack, (EntityPlayer) player) || (sa$rightClick && player.isSneaking())) {
+            sa$rightClick = false;
             return original.call(instance, stack);
         }
-        player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "thaumcraft:craftfail", 1.0F, 1.0F);
+        if (player.isClientWorld()) {
+            if (System.currentTimeMillis() - this.sa$lastPlayedSound > 500) {
+                this.sa$lastPlayedSound = System.currentTimeMillis();
+                player.worldObj
+                    .playSoundEffect(player.posX, player.posY, player.posZ, "thaumcraft:craftfail", 1.0F, 1.0F);
+            }
+        }
+        sa$rightClick = false;
         return null;
     }
 
