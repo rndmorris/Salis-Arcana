@@ -14,7 +14,7 @@ import thaumcraft.common.tiles.TileNode;
 @Mixin(value = TileNode.class)
 public abstract class MixinTileNode_RememberUpdates extends TileThaumcraft {
 
-    @Shadow
+    @Shadow(remap = false)
     long lastActive;
 
     /**

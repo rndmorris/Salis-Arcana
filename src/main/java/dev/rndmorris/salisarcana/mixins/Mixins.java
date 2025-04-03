@@ -227,6 +227,12 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileNode_RechargeTime")
         .addTargetedMod(TargetedMod.THAUMCRAFT)
     ),
+    NODE_REMEMBER_DRAINED(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.nodesRememberBeingDrained::isEnabled)
+        .addMixinClasses("tiles.MixinTileNode_RememberUpdates")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)
+    ),
 
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
