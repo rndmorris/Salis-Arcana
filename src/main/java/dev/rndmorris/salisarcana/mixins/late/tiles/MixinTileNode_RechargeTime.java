@@ -14,18 +14,19 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import dev.rndmorris.salisarcana.lib.TimeHelper;
+import dev.rndmorris.salisarcana.lib.ifaces.IGameTimeNode;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(value = TileNode.class)
-public abstract class MixinTileNode_RechargeTime extends TileThaumcraft {
+public abstract class MixinTileNode_RechargeTime extends TileThaumcraft implements IGameTimeNode {
 
     @Shadow(remap = false)
     public abstract NodeModifier getNodeModifier();
 
     @Unique
-    long sa$lastActiveTicks = -1;
+    long sa$lastTickActive = -1;
 
     /**
      * Persist our custom field to NBT.
@@ -33,8 +34,8 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft {
     @WrapMethod(method = "writeToNBT")
     private void writeToNBT(NBTTagCompound nbttagcompound, Operation<Void> original) {
         original.call(nbttagcompound);
-        if (sa$lastActiveTicks >= 0) {
-            nbttagcompound.setLong("salisarcana:lastActiveTicks", sa$lastActiveTicks);
+        if (sa$lastTickActive >= 0) {
+            nbttagcompound.setLong("salisarcana:lastTickActive", sa$lastTickActive);
         }
     }
 
@@ -44,8 +45,8 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft {
     @WrapMethod(method = "readFromNBT")
     private void readFromNBT(NBTTagCompound nbttagcompound, Operation<Void> original) {
         original.call(nbttagcompound);
-        if (nbttagcompound.hasKey("salisarcana:lastActiveTicks", Constants.NBT.TAG_LONG)) {
-            sa$lastActiveTicks = nbttagcompound.getLong("salisarcana:lastActiveTicks");
+        if (nbttagcompound.hasKey("salisarcana:lastTickActive", Constants.NBT.TAG_LONG)) {
+            sa$lastTickActive = nbttagcompound.getLong("salisarcana:lastTickActive");
         }
     }
 
@@ -59,7 +60,7 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft {
         at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;catchUp:Z", opcode = Opcodes.GETFIELD))
     private boolean shouldCatchUp(TileNode instance, Operation<Boolean> original) {
         boolean catchUp = original.call(instance);
-        if (sa$lastActiveTicks < 0) {
+        if (sa$lastTickActive < 0) {
             // we don't have a recorded last active world time, so just let TC do its thing
             return catchUp;
         }
@@ -71,7 +72,7 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft {
         long regenRate = sa$regenRate();
         long regenInterval = regenRate * 75L;
         long worldTime = worldObj.getTotalWorldTime();
-        return regenRate > 0 && TimeHelper.ticksToMs(worldTime) > sa$lastActiveTicks + regenInterval;
+        return regenRate > 0 && TimeHelper.ticksToMs(worldTime) > sa$lastTickActive + regenInterval;
     }
 
     /**
@@ -83,7 +84,7 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft {
         remap = false,
         at = @At(value = "INVOKE", target = "Ljava/lang/System;currentTimeMillis()J", ordinal = 0))
     private long captureCurrentTimeForRegen(Operation<Long> original) {
-        return sa$lastActiveTicks >= 0 ? TimeHelper.ticksToMs(worldObj.getTotalWorldTime()) : original.call();
+        return sa$lastTickActive >= 0 ? TimeHelper.ticksToMs(worldObj.getTotalWorldTime()) : original.call();
     }
 
     /**
@@ -95,7 +96,7 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft {
         remap = false,
         at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;lastActive:J", opcode = Opcodes.GETFIELD))
     private long captureLastActiveForRegen(TileNode instance, Operation<Long> original) {
-        return sa$lastActiveTicks >= 0 ? TimeHelper.ticksToMs(sa$lastActiveTicks) : original.call(instance);
+        return sa$lastTickActive >= 0 ? TimeHelper.ticksToMs(sa$lastTickActive) : original.call(instance);
     }
 
     /**
@@ -108,7 +109,7 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft {
         at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;lastActive:J", opcode = Opcodes.PUTFIELD))
     private void captureCurrentTimeForStorage(TileNode instance, long value, Operation<Void> original) {
         original.call(instance, value);
-        sa$lastActiveTicks = worldObj.getTotalWorldTime();
+        sa$updateLastTickActive();
     }
 
     /**
@@ -126,5 +127,10 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft {
             case FADING -> 0;
             default -> 600;
         };
+    }
+
+    @Override
+    public void sa$updateLastTickActive() {
+        sa$lastTickActive = worldObj.getTotalWorldTime();
     }
 }

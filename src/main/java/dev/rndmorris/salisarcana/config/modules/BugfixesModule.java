@@ -29,6 +29,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting useForgeFishingLists;
     public final ToggleSetting focalManipulatorForbidSwaps;
     public final ToggleSetting nodesRechargeInGameTime;
+    public final ToggleSetting nodesRememberBeingDrained;
 
     public BugfixesModule() {
         addSettings(
@@ -113,7 +114,11 @@ public class BugfixesModule extends BaseConfigModule {
             nodesRechargeInGameTime = new ToggleSetting(
                 this,
                 "nodesRechargeInGameTime",
-                "Unloaded nodes will regenerate based on game time, not real life time."));
+                "Unloaded nodes will regenerate based on game time, not real life time."),
+            nodesRememberBeingDrained = new ToggleSetting(
+                this,
+                "nodesRememberBeingDrained",
+                "Nodes will remember being drained, preventing rapidly loading, draining, then unloading nodes exploiting nodes' catch-up recharging."));
     }
 
     @Nonnull
