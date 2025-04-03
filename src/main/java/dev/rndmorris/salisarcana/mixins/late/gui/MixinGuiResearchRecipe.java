@@ -84,6 +84,8 @@ public class MixinGuiResearchRecipe extends GuiScreen {
             target = "Lnet/minecraft/client/Minecraft;displayGuiScreen(Lnet/minecraft/client/gui/GuiScreen;)V"))
     private void onKeyTyped(Minecraft instance, GuiScreen i, Operation<Void> original) {
         if (ConfigModuleRoot.enhancements.nomiconSavePage.isEnabled()) {
+            RightClickClose$ScreenStack.pop(); // current screen at first page
+            RightClickClose$ScreenStack.push(new Tuple(research, page)); // push the current page on the stack
             // just close the window entirely
             original.call(instance, null);
             return;
