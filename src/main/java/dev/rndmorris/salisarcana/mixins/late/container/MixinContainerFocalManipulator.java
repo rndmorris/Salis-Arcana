@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.rndmorris.salisarcana.lib.IFocalManipulatorWithXP;
+import dev.rndmorris.salisarcana.lib.ifaces.IFocalManipulatorWithXP;
 import thaumcraft.common.container.ContainerFocalManipulator;
 import thaumcraft.common.tiles.TileFocalManipulator;
 
