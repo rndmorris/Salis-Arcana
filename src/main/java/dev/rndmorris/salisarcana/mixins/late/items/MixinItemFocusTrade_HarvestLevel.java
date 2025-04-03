@@ -93,17 +93,23 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
         return null;
     }
 
+    /**
+     * @param stack  the itemstack
+     * @param player the player
+     * @return true if the block should be broken (handled by the parent class), false if it should be handled by the
+     *         mixin
+     */
     @Unique
     public boolean sa$shouldBreak(ItemStack stack, EntityPlayer player) {
         World world = player.worldObj;
         MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(world, player);
         if (mop == null) {
-            return false;
+            return true;
         }
         final int x = mop.blockX, y = mop.blockY, z = mop.blockZ;
         final var block = world.getBlock(x, y, z);
         if (block == null) {
-            return false;
+            return true;
         }
         final var metadata = world.getBlockMetadata(x, y, z);
         if (block.hasTileEntity(metadata)) {
@@ -118,7 +124,7 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
                 return false;
             }
         }
-        return (block.getHarvestLevel(metadata) <= harvestLevel);
+        return block.getHarvestLevel(metadata) <= harvestLevel;
     }
 
 }
