@@ -9,7 +9,6 @@ import net.minecraft.util.Tuple;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
@@ -36,15 +35,9 @@ public class MixinGuiResearchRecipe extends GuiScreen {
     @Shadow(remap = false)
     private ResearchItem research;
 
-    // Switching pages doesn't init a new GuiResearchRecipe, so that's not automatically added to the stack in initGui.
-    // We have to track whenever a page changes manually
-    @Unique
-    private int sa$currentPage = 0;
-
     @WrapMethod(method = "initGui")
     private void onInit(Operation<Void> original) {
         RightClickClose$ScreenStack.push(new Tuple(research, page));
-        this.sa$currentPage = page;
         original.call();
     }
 
@@ -72,13 +65,6 @@ public class MixinGuiResearchRecipe extends GuiScreen {
         }
 
         original.call(mouseX, mouseY, button);
-
-        // mouseClicked is the only place where the page can change (someone clicked the arrows)
-        // so we check against the current page and push it to the stack if necessary.
-        if (this.sa$currentPage != this.page) {
-            this.sa$currentPage = this.page;
-            RightClickClose$ScreenStack.push(new Tuple(this.research, this.page));
-        }
     }
 
     @WrapOperation(
