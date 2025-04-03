@@ -44,16 +44,26 @@ public class MixinGuiResearchRecipe extends GuiScreen {
     @WrapMethod(method = "mouseClicked")
     private void wrapMouseClicked(int mouseX, int mouseY, int button, Operation<Void> original) {
         if (button == 1) {
+            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             if ((RightClickClose$ScreenStack.size() <= 1)) {
+                player.worldObj.playSound(player.posX, player.posY, player.posZ, "thaumcraft:page", 0.66F, 1.0F, false);
                 // it can be zero in the case of opening directly to a page, where the page was originally the only
                 // thing in the stack
                 RightClickClose$ScreenStack.clear();
+                if (this.page != 0) {
+                    this.mc.displayGuiScreen(new GuiResearchRecipe(this.research, 0, this.guiMapX, this.guiMapY));
+                    return;
+                }
                 this.mc.displayGuiScreen(new GuiResearchBrowser());
             } else {
-                EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-                RightClickClose$ScreenStack.pop(); // current screen
-                Tuple item = RightClickClose$ScreenStack.pop(); // next screen
                 player.worldObj.playSound(player.posX, player.posY, player.posZ, "thaumcraft:page", 0.66F, 1.0F, false);
+                Tuple item = RightClickClose$ScreenStack.pop(); // current screen
+                if (this.page != 0) {
+                    this.mc.displayGuiScreen(
+                        new GuiResearchRecipe((ResearchItem) item.getFirst(), 0, this.guiMapX, this.guiMapY));
+                    return;
+                }
+                item = RightClickClose$ScreenStack.pop(); // next screen
                 this.mc.displayGuiScreen(
                     new GuiResearchRecipe(
                         (ResearchItem) item.getFirst(),
