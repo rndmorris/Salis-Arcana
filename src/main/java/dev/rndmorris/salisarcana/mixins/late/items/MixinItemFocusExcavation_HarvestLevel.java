@@ -20,8 +20,10 @@ import thaumcraft.common.items.wands.foci.ItemFocusExcavation;
 @Mixin(ItemFocusExcavation.class)
 public class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
 
+    // i dunno why this has to be static, but it does
+    // the definition just wouldn't be embedded into the class otherwise
     @Unique
-    private final int sa$harvestLevel = ConfigModuleRoot.enhancements.excavationFocusHarvestLevel.getValue();
+    private static final int sa$harvestLevel = ConfigModuleRoot.enhancements.excavationFocusHarvestLevel.getValue();
 
     @Unique
     private final boolean sa$potencyEnabled = ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled();
