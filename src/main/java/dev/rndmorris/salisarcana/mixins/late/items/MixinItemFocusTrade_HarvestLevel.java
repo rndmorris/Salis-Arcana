@@ -73,10 +73,15 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
             target = "Lthaumcraft/common/items/wands/foci/ItemFocusTrade;getPickedBlock(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     public ItemStack wrapOnEntitySwing(ItemFocusTrade instance, ItemStack stack, Operation<ItemStack> original,
         @Local(name = "player") EntityLivingBase player) {
-        if (this.sa$shouldBreak(stack, (EntityPlayer) player) || (sa$rightClick && player.isSneaking())) {
+        if (this.sa$shouldBreak(stack, (EntityPlayer) player) || (sa$rightClick && player.isSneaking())
+        // The itemstack here can be the ItemFocusBasic itself for some unholy reason. Believe it or not, we don't
+        // want that.
+            || !(stack.getItem() instanceof ItemWandCasting)) {
             sa$rightClick = false;
             return original.call(instance, stack);
         }
+        // The sound would get played every tick the button is being held, so instead
+        // we play it two times/second
         if (player.isClientWorld()) {
             if (System.currentTimeMillis() - this.sa$lastPlayedSound > 500) {
                 this.sa$lastPlayedSound = System.currentTimeMillis();
