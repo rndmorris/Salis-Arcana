@@ -10,6 +10,7 @@ import dev.rndmorris.salisarcana.config.settings.compat.UBCCompatSettings;
 public class ModCompatModule extends ModuleBase {
 
     public final UBCCompatSettings undergroundBiomes = new UBCCompatSettings(this);
+
     public final ToggleSetting tc4tweakScrollPages = new ToggleSetting(
         ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled,
         "tc4tweakScrollPages",

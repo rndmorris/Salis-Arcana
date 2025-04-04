@@ -9,6 +9,7 @@ import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 public class BugfixesModule extends ModuleBase {
 
     public final BeaconBlockFixSetting beaconBlockFixSetting = new BeaconBlockFixSetting(this);
+
     public final ToggleSetting candleRendererCrashes = new ToggleSetting(
         this,
         "candleMetadataCrash",
