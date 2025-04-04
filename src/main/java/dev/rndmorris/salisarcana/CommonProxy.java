@@ -37,7 +37,10 @@ import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.ai.interact.AIFish;
+import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 
 public class CommonProxy {
 
@@ -61,12 +64,36 @@ public class CommonProxy {
             fixGolemFishingLists();
         }
 
+        updateHarvestLevels();
+
         FMLCommonHandler.instance()
             .bus()
             .register(new Updater());
         FMLCommonHandler.instance()
             .bus()
             .register(new StartupNotifications());
+    }
+
+    private void updateHarvestLevels() {
+        final var enhancements = ConfigModuleRoot.enhancements;
+        if (enhancements.thaumiumHarvestLevel.isEnabled()) {
+            final var toolMatThaumium = new R(ThaumcraftApi.toolMatThaumium);
+            toolMatThaumium.set("harvestLevel", enhancements.thaumiumHarvestLevel.getValue());
+        }
+        if (enhancements.elementalHarvestLevel.isEnabled()) {
+            final var toolMatElemental = new R(ThaumcraftApi.toolMatElemental);
+            toolMatElemental.set("harvestLevel", enhancements.elementalHarvestLevel.getValue());
+        }
+        if (enhancements.voidHarvestLevel.isEnabled()) {
+            final var toolMatVoid = new R(ThaumcraftApi.toolMatVoid);
+            toolMatVoid.set("harvestLevel", enhancements.voidHarvestLevel.getValue());
+        }
+        if (enhancements.crusherHarvestLevel.isEnabled()) {
+            final var material = new R(ItemPrimalCrusher.material);
+            material.set("harvestLevel", enhancements.crusherHarvestLevel.getValue());
+            ConfigItems.itemPrimalCrusher.setHarvestLevel("pickaxe", enhancements.crusherHarvestLevel.getValue());
+            ConfigItems.itemPrimalCrusher.setHarvestLevel("shovel", enhancements.crusherHarvestLevel.getValue());
+        }
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)

@@ -221,18 +221,21 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.crimsonRitesFakePlayerCheck::isEnabled)
         .addMixinClasses("items.MixinItemEldritchObject_FakePlayerFix")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCUS_TRADE_BREAK_BLOCKS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.equalTradeBreaksBlocks::isEnabled)
+        .addMixinClasses("items.MixinItemFocusTrade_BreakBlocks")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     NODE_RECHARGE_TIME(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.bugfixes.nodesRechargeInGameTime::isEnabled)
         .addMixinClasses("tiles.MixinTileNode_RechargeTime")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)
-    ),
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     NODE_REMEMBER_DRAINED(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.bugfixes.nodesRememberBeingDrained::isEnabled)
         .addMixinClasses("tiles.MixinTileNode_RememberUpdates")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)
-    ),
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
@@ -383,7 +386,6 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.taintedItemDecayChance::isEnabled)
         .addMixinClasses("items.MixinItemResource_DecayChance")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
     DISABLE_CREATIVE_TAINTED_ITEM_DECAY(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.disableCreativeTaintedItemDecay::isEnabled)
@@ -405,16 +407,39 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements::singleWandReplacementEnabled)
         .addMixinClasses("gui.MixinGuiArcaneWorkbench_SingleWandReplacement")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     PRIMAL_CRUSHER_OREDICT_COMPAT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
         .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    EQUAL_TRADE_FOCUS_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel::isEnabled)
+        .addMixinClasses("items.MixinItemFocusTrade_HarvestLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    EXCAVATION_FOCUS_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.excavationFocusHarvestLevel::isEnabled)
+        .addMixinClasses("items.MixinItemFocusExcavation_HarvestLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    EQUAL_TRADE_POTENCY_UPGRADE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(() -> ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled() && ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.isEnabled())
+        .addMixinClasses("items.MixinItemFocusTrade_AddPotency")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    PRIMAL_CRUSHER_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.crusherHarvestLevel::isEnabled)
+        .addMixinClasses("items.MixinItemPrimalCrusher_HarvestLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     THAUMOMETER_CUSTOM_DURATION(new Builder().setApplyIf(ConfigModuleRoot.enhancements.thaumometerDuration::isEnabled)
         .addMixinClasses("items.MixinItemThaumometer_CustomDuration")
         .setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     MISSING_RESEARCH_INFUSION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.notifyMissingResearchInfusion::isEnabled)

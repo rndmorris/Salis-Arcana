@@ -28,6 +28,7 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting negativeBossSpawnCount;
     public final ToggleSetting useForgeFishingLists;
     public final ToggleSetting focalManipulatorForbidSwaps;
+    public final ToggleSetting equalTradeBreaksBlocks;
     public final ToggleSetting nodesRechargeInGameTime;
     public final ToggleSetting nodesRememberBeingDrained;
 
@@ -111,6 +112,10 @@ public class BugfixesModule extends BaseConfigModule {
                 this,
                 "focalManipulatorForbidSwaps",
                 "Prevents players from putting on conflicting or out-of-order upgrades onto a focus by swapping the focus being modified during the upgrade process."),
+            equalTradeBreaksBlocks = new ToggleSetting(
+                this,
+                "equalTradeBreaksBlocks",
+                "Fixes a bug where you couldn't break blocks if you were holding the equal trade focus item."),
             nodesRechargeInGameTime = new ToggleSetting(
                 this,
                 "nodesRechargeInGameTime",
