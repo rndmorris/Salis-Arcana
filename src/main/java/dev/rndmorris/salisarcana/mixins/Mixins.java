@@ -428,6 +428,11 @@ public enum Mixins {
         .setApplyIf(() -> ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled() && ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.isEnabled())
         .addMixinClasses("items.MixinItemFocusTrade_AddPotency")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    PRIMAL_CRUSHER_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.crusherHarvestLevel::isEnabled)
+        .addMixinClasses("items.MixinItemPrimalCrusher_HarvestLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     THAUMOMETER_CUSTOM_DURATION(new Builder().setApplyIf(ConfigModuleRoot.enhancements.thaumometerDuration::isEnabled)
         .addMixinClasses("items.MixinItemThaumometer_CustomDuration")
