@@ -79,6 +79,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.staffFocusEffectFix::isEnabled)
         .addMixinClasses("client.fx.beams.MixinFXBeamWand")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCAL_MANIPULATOR_FORBID_SWAP(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.focalManipulatorForbidSwaps::isEnabled)
+        .addMixinClasses("tiles.MixinTileFocalManipulator_ForbidSwap")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ARCANE_WORKBENCH_GHOST_ITEM_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix::isEnabled)
@@ -90,6 +95,11 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchAllowRechargeCrafting::isEnabled)
         .addMixinClasses("tiles.MixinTileMagicWorkbenchCharger")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ARCANE_WORKBENCH_MULTI_CONTAINER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchMultiContainer::isEnabled)
+        .addMixinClasses("container.MixinContainerArcaneWorkbench_MultiContainer")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     NEGATIVE_BOSS_SPAWN_COUNT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
@@ -105,6 +115,21 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.bugfixes.crimsonRitesFakePlayerCheck::isEnabled)
         .addMixinClasses("items.MixinItemEldritchObject_FakePlayerFix")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCUS_TRADE_BREAK_BLOCKS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.equalTradeBreaksBlocks::isEnabled)
+        .addMixinClasses("items.MixinItemFocusTrade_BreakBlocks")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    NODE_RECHARGE_TIME(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.nodesRechargeInGameTime::isEnabled)
+        .addMixinClasses("tiles.MixinTileNode_RechargeTime")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    NODE_REMEMBER_DRAINED(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.nodesRememberBeingDrained::isEnabled)
+        .addMixinClasses("tiles.MixinTileNode_RememberUpdates")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
@@ -134,7 +159,7 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.nomiconShowResearchId::isEnabled)
         .addMixinClasses("gui.MixinGuiResearchBrowser_ShowResearchID")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    RIGHT_CLICK_NAVIAGTION(new Builder().setPhase(Phase.LATE)
+    RIGHT_CLICK_NAVIGATION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.enhancements.nomiconRightClickClose::isEnabled)
         .addMixinClasses("gui.MixinGuiResearchBrowser_RightClickClose", "gui.MixinGuiResearchRecipe")
@@ -210,6 +235,28 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.creativeOpThaumonomicon::isEnabled)
         .addMixinClasses("lib.MixinResearchManager", "gui.MixinGuiResearchBrowser_Creative_Scroll")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    CREATIVE_NO_XP_MANIPULATOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.creativeNoXPManipulator::isEnabled)
+        .addMixinClasses("tiles.MixinTileFocalManipulator_NoXP", "gui.MixinGuiFocalManipulator_CreativeNoXP")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCAL_MANIPULATOR_STORE_XP(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(() -> ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled() || ConfigModuleRoot.enhancements.focalDisenchanterReturnXP.isEnabled())
+        .addMixinClasses("tiles.MixinTileFocalManipulator_CanStoreXP", "container.MixinContainerFocalManipulator")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCAL_MANIPULATOR_RETURN_XP(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.focalDisenchanterReturnXP::isEnabled)
+        .addMixinClasses("tiles.MixinTileFocalManipulator_CancelReturnXP")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCUS_DISENCHANTING(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.enableFocusDisenchanting::isEnabled)
+        .addMixinClasses(
+            "tiles.MixinTileFocalManipulator",
+            "gui.MixinGuiFocalManipulator")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     LEVITATOR_SHIFT_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
@@ -234,7 +281,6 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.taintedItemDecayChance::isEnabled)
         .addMixinClasses("items.MixinItemResource_DecayChance")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
     DISABLE_CREATIVE_TAINTED_ITEM_DECAY(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.disableCreativeTaintedItemDecay::isEnabled)
@@ -256,15 +302,53 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements::singleWandReplacementEnabled)
         .addMixinClasses("gui.MixinGuiArcaneWorkbench_SingleWandReplacement")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     PRIMAL_CRUSHER_OREDICT_COMPAT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
         .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    EQUAL_TRADE_FOCUS_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel::isEnabled)
+        .addMixinClasses("items.MixinItemFocusTrade_HarvestLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    EXCAVATION_FOCUS_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.excavationFocusHarvestLevel::isEnabled)
+        .addMixinClasses("items.MixinItemFocusExcavation_HarvestLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    EQUAL_TRADE_POTENCY_UPGRADE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(() -> ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled() && ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.isEnabled())
+        .addMixinClasses("items.MixinItemFocusTrade_AddPotency")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    PRIMAL_CRUSHER_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.crusherHarvestLevel::isEnabled)
+        .addMixinClasses("items.MixinItemPrimalCrusher_HarvestLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     THAUMOMETER_CUSTOM_DURATION(new Builder().setApplyIf(ConfigModuleRoot.enhancements.thaumometerDuration::isEnabled)
         .addMixinClasses("items.MixinItemThaumometer_CustomDuration")
         .setPhase(Phase.LATE)
         .setSide(Side.BOTH)
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    MISSING_RESEARCH_INFUSION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.notifyMissingResearchInfusion::isEnabled)
+        .addMixinClasses("tiles.MixinTileInfusionMatrix_MissingResearch")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    MISSING_RESEARCH_CRUCIBLE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.notifyMissingResearchCrucible::isEnabled)
+        .addMixinClasses("tiles.MixinTileCrucible_MissingRecipe")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    MISSING_RESEARCH_WORKBENCH(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.notifyMissingResearchWorkbench::isEnabled)
+        .addMixinClasses("gui.MixinGuiArcaneWorkbench_MissingResearch", "lib.MixinArcaneSceptreRecipe", "lib.MixinArcaneWandRecipe")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     RESEARCH_ITEM_EXTENDED(new Builder().setPhase(Phase.LATE)
@@ -283,6 +367,11 @@ public enum Mixins {
         .addMixinClasses("addons.Automagy.ModResearchItem_Extended")
         .addTargetedMod(TargetedMod.AUTOMAGY)),
 
+    CRUCIBLE_HEAT_SOURCES(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.enhancements.heatSourceOreDict::isEnabled)
+        .addMixinClasses("tiles.MixinTileCrucible_HeatSources", "tiles.MixinTileThaumatorium_HeatSources")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ;
     // spotless:on
 

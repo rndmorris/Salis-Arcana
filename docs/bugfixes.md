@@ -90,6 +90,12 @@ Reduce the burn time of Thaumcraft's greatwood and silverwood slabs to match tha
 
 Fixes a graphical error where focus effects would appear below the tip of a staff.
 
+## Cancel Focal Manipulator Upon Stack Swap
+
+**Config option:** `focalManipulatorForbidSwaps`
+
+Prevents players from putting on conflicting or out-of-order upgrades onto a focus by swapping the focus being modified during the upgrade process.
+
 ## Arcane Workbench Fixes
 
 ### Fix Ghost Items After Shift-Click Crafting
@@ -104,7 +110,13 @@ Fixes ghost items being crafted in the arcane workbench after the wand runs out 
 
 Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay.
 
-### Use Forge fishing lists for fishing golem loot
+### Multiplayer Duplication Bugfix & Per-Player Output Slots
+
+**Config option:** `arcaneWorkbenchMultiContainer`
+
+Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time, including a duplication bug, research verification bug, and some others.
+
+## Use Forge fishing lists for fishing golem loot
 
 **Config option:** `useForgeFishingLists`
 

@@ -22,6 +22,20 @@ while avoiding the weirdness in Thaumcraft's plank blocks implementation.
 
 Causes staffters to use their own translation string rather than being called "Staff" in the tooltip.
 
+## "Missing Research" Messages
+
+**Config option:** `notifyMissingResearchWorkbench`
+
+Displays a "missing research" message in the Arcane Workbench GUI when recipe fails for lack of research.
+
+**Config option:** `notifyMissingResearchInfusion`
+
+Displays a "missing research" message to the player when an infusion recipe fails for lack of research.
+
+**Config option:** `notifyMissingResearchCrucible`
+
+Displays a "missing research" message to the player when a crucible recipe fails for lack of research.
+
 ## Increased Item Stack Size
 
 Config Option: `eldritchObjectStackSize`
@@ -39,6 +53,13 @@ Prevent tainted goo and taint tendrils from decaying for players in creative mod
 Config Option: `taintedItemDecayChance`
 
 The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.
+
+## Crucible+Thaumatorium Heat Source Ore Dict
+Config Option: `heatSourceOreDict`
+
+If enabled, blocks with the ore dictionary tag `salisarcana:heatSource` will be treated as crucible heat sources.
+
+Mod devs: for added convenience, this string constant is available through Salis Arcan's API.
 
 ## Container Scanning
 
@@ -95,6 +116,34 @@ Gives creative mode players infinite vis in wands
 While in creative mode, the Thaumonomicon will have the following additional functionality:
 - Ctrl-clicking on a research in the Thaumonomicon will autocomplete that research.
 - You do not need to have paper and scribing tools in your inventory to get research notes.
+
+**Config option:** `creativeNoXPManipulator`
+
+Allow Creative players to use the Focal Manipulator without the necessary XP.
+
+## Focus Disenchanting
+
+**Config option:** `enableFocusDisenchanting`
+
+Allow players to use the Focal Manipulator to remove focus enchantments and refund XP.
+
+**Config option:** `focusDisenchantingRefundPercentage`
+
+Requires `enableFocusDisenchanting=true`.
+
+Value must be between 0 and 100, inclusive. (Default: 75)
+
+Percentage of XP points refunded upon removing an enchantment from a focus, calculated as levels from 0 XP.
+
+**Config option:** `focusDisenchantingResearch`
+
+Configurations for the "Focus Disenchanting" research.
+
+## Focal Manipulator Returns XP When Upgrade Cancelled
+
+**Config option:** `focalDisenchanterReturnXP`
+
+If an upgrade fails to complete or is cancelled, the XP spent will get returned to the player or the next person to interact with the table.
 
 ## Thaumonomicon Controls
 
@@ -283,4 +332,3 @@ Requires `enableReplaceWandCapsRecipe=true` or `enableReplaceWandCoreRecipe=true
 Requires `arcaneWorkbenchGhostItemFix=true` in the bugfixes module.
 
 If enabled, allows swapping a wand's components using vis from the wand being modified.
-
