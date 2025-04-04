@@ -21,11 +21,13 @@ public class EnhancementsModule extends ModuleBase {
         "friendlyPrimalCharm",
         "Make the primal charm's crafting recipe less picky about the order in which primal shards are placed in the top and bottom rows.")
             .setCategory("recipes");
+
     public final ToggleSetting rotatedFociRecipes = new ToggleSetting(
         this,
         "rotatedFoci",
         "Add rotated recipes for the fire, shock, frost, equal rade, excavation, and primal wand foci.")
             .setCategory("recipes");
+
     public final ToggleSetting rotatedThaumometerRecipe = new ToggleSetting(
         this,
         "rotatedThaumometer",
@@ -36,21 +38,25 @@ public class EnhancementsModule extends ModuleBase {
         ReplaceWandComponentSettings.Component.CAPS,
         new CustomResearchSetting.ResearchInfo("REPLACEWANDCAPS", "THAUMATURGY", 4, 2).setParents("CAP_gold")
             .setAutoUnlock()).setCategory("wand_component_swapping");
+
     public final ReplaceWandComponentSettings replaceWandCoreSettings = new ReplaceWandComponentSettings(
         this,
         ReplaceWandComponentSettings.Component.CORE,
         new CustomResearchSetting.ResearchInfo("REPLACEWANDCORE", "THAUMATURGY", -6, 2).setParents("ROD_greatwood")
             .setAutoUnlock()).setCategory("wand_component_swapping");
+
     public final ToggleSetting enforceWandCoreTypes = new ToggleSetting(
         this,
         "enforceWandCoreTypes",
         "If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core.\nDisable to allow upgrading a wand to a staff and vice versa.")
             .setCategory("wand_component_swapping");
+
     public final ToggleSetting preserveWandVis = new ToggleSetting(
         this,
         "preserveWandVis",
         "If enabled, vis will be preserved when a wand, staff, or stave's components are replaced.")
             .setCategory("wand_component_swapping");
+
     public final ToggleSetting allowSingleWandReplacement = new ToggleSetting(
         this,
         "allowSingleWandReplacement",
@@ -61,6 +67,7 @@ public class EnhancementsModule extends ModuleBase {
         this,
         "enableLookalikePlanks",
         "Add look-a-like greatwood and silverwood planks that behave as normal planks, instead of the weirdness of TC4's planks.");
+
     public final IntArraySetting nodeModifierWeights = new IntArraySetting(
         this,
         "nodeModifierWeights",
@@ -69,6 +76,7 @@ public class EnhancementsModule extends ModuleBase {
         new int[] { 972222, 9259, 9259, 9259, },
         0,
         1000000).setEnabled(false);
+
     public final IntArraySetting nodeTypeWeights = new IntArraySetting(
         this,
         "nodeTypeWeights",
@@ -77,48 +85,59 @@ public class EnhancementsModule extends ModuleBase {
         new int[] { 944444, 16666, 16666, 16666, 5555, },
         0,
         1000000).setEnabled(false);
+
     public final ToggleSetting suppressWarpEventsInCreative = new ToggleSetting(
         this,
         "suppressWarpEventsInCreative",
         "Prevent random warp events from firing for players in creative mode.");
+
     public final ToggleSetting useAllBaublesSlots = new ToggleSetting(
         this,
         "useAllBaublesSlots",
         "Enables support for mods that increase the number of baubles slots.");
+
     public final ToggleSetting stopCreativeModeItemConsumption = new ToggleSetting(
         this,
         "stopCreativeModeItemConsumption",
         "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode.");
+
     public final IntSetting manaPodGrowthRate = new IntSetting(
         this,
         "manaBeanGrowthChance",
         "The chance for a mana bean to grow when a mana pod is updated. Lower values are more likely to grow, with 0 growing every random tick.",
         30).setMinValue(0)
             .setMaxValue(100);
+
     public final ToggleSetting infiniteCreativeVis = new ToggleSetting(
         this,
         "infiniteCreativeVis",
         "Allow wands to have infinite vis in creative mode.");
+
     public final ToggleSetting thaumicInventoryScanning = new ToggleSetting(
         this,
         "thaumicInventoryScanning",
         "Enable the ability to scan items in inventories using the Thaumometer. Replaces the Thaumic Inventory Scanning mod.");
+
     public final ToggleSetting thaumcraftCommandTabCompletion = new ToggleSetting(
         this,
         "thaumcraftCommandTabCompletion",
         "Enable tab completion for Thaumcraft commands.");
+
     public final ToggleSetting thaumcraftCommandWarpArgAll = new ToggleSetting(
         this,
         "thaumcraftCommandWarpArgAll",
         "Allow the use of `ALL` as an argument for the warp command.");
+
     public final ToggleSetting creativeOpThaumonomicon = new ToggleSetting(
         this,
         "creativeOpThaumonomicon",
         "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it.");
+
     public final ToggleSetting creativeNoXPManipulator = new ToggleSetting(
         this,
         "creativeNoXPManipulator",
         "Allow Creative players to use the Focal Manipulator without the necessary XP.");
+
     public final ToggleSetting focalDisenchanterReturnXP = new ToggleSetting(
         this,
         "focalDisenchanterReturnXP",
@@ -129,6 +148,7 @@ public class EnhancementsModule extends ModuleBase {
         "enableFocusDisenchanting",
         "Allow players to use the Focal Manipulator to remove focus enchantments and refund XP.")
             .setCategory("focus_disenchanting");
+
     public final IntSetting focusDisenchantingRefundPercentage = new IntSetting(
         enableFocusDisenchanting,
         "focusDisenchantingRefundPercentage",
@@ -136,6 +156,7 @@ public class EnhancementsModule extends ModuleBase {
         75).setMinValue(0)
             .setMaxValue(100)
             .setCategory("focus_disenchanting");
+
     public final CustomResearchSetting focusDisenchantingResearch = new CustomResearchSetting(
         enableFocusDisenchanting,
         "focusDisenchanting",
@@ -149,18 +170,22 @@ public class EnhancementsModule extends ModuleBase {
         this,
         "Enable Scrollwheel",
         "While viewing the Thaumonomicon, enables ctrl + scroll to quick switch tabs");
+
     public final Setting nomiconInvertedScrolling = new ToggleSetting(
         this,
         "Inverse Scrolling",
         "While viewing the Thaumonomicon, inverts the scrolling for tab switching").setEnabled(false);
+
     public final Setting nomiconRightClickClose = new ToggleSetting(
         this,
         "Right-Click Navigation",
         "While viewing the Thaumonomicon, right clicking in a research will take you back to the previous research, or back to the Thaumonomicon.");
+
     public final ToggleSetting nomiconSavePage = new ToggleSetting(
         nomiconRightClickClose,
         "Save Thaumonomicon Page",
         "When closing the Thaumonomicon, it will remember the page you are on when it is reopened. Requires Right-Click Navigation to be enabled.");
+
     public final Setting nomiconShowResearchId = new ToggleSetting(
         this,
         "Show Research Key",
@@ -172,6 +197,7 @@ public class EnhancementsModule extends ModuleBase {
         "Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers.")
             .setCategory("infusion")
             .setEnabled(false);
+
     public final IntSetting stabilizerStrength = new IntSetting(
         stabilizerRewrite,
         "stabilizerStrength",
@@ -184,6 +210,7 @@ public class EnhancementsModule extends ModuleBase {
         10).setMinValue(-10000)
             .setMaxValue(10000)
             .setCategory("infusion");
+
     public final BlockItemListSetting<Integer> stabilizerAdditions = new BlockItemListSetting<Integer>(
         stabilizerRewrite,
         "stabilizerAdditions",
@@ -206,6 +233,7 @@ public class EnhancementsModule extends ModuleBase {
                     return IntegerHelper.tryParse(strSlice[3]);
                 })
                 .setCategory("infusion");
+
     public final BlockItemListSetting<Object> stabilizerExclusions = new BlockItemListSetting<>(
         stabilizerRewrite,
         "stabilizerExclusions",
@@ -226,10 +254,12 @@ public class EnhancementsModule extends ModuleBase {
         "The maximum stack size for Eldritch Objects (Primordial Pearl, Eldritch Eye, Crimson Rites, Eldritch Obelisk Placer, Runed Tablet).",
         16).setMinValue(1)
             .setMaxValue(64);
+
     public final ToggleSetting disableCreativeTaintedItemDecay = new ToggleSetting(
         this,
         "disableCreativeTaintedItemDecay",
         "Prevent tainted goo and taint tendrils from decaying for players in creative mode.");
+
     public final IntSetting taintedItemDecayChance = new IntSetting(
         this,
         "taintedItemDecayChance",
@@ -245,11 +275,13 @@ public class EnhancementsModule extends ModuleBase {
         this,
         "Wand Pedestal CV Support",
         "Allows wand pedestals to draw from centivis instead of just regular nodes");
+
     public final ToggleSetting thaumometerScanContainers = new ToggleSetting(
         this,
         "thaumometerScanContainers",
         "Allow the thaumometer to scan the contents of inventories when right-clicking on them.")
             .setCategory("thaumometer_container_scan");
+
     public final CustomResearchSetting thaumometerScanContainersResearch = new CustomResearchSetting(
         thaumometerScanContainers,
         "thaumometerScanContainers",
@@ -257,18 +289,22 @@ public class EnhancementsModule extends ModuleBase {
         new CustomResearchSetting.ResearchInfo("CHESTSCAN", "BASICS", 8, 3).setDifficulty(3)
             .setParents("DECONSTRUCTOR")
             .setAspects("ordo:10", "perditio:10", "permutatio:10")).setCategory("thaumometer_container_scan");
+
     public final ToggleSetting levitatorShiftFix = new ToggleSetting(
         this,
         "levitatorShiftFix",
         "Fixes some general jankiness with levitators, however, non-player entities will no longer be able to be lowered.");
+
     public final ToggleSetting pureNodeBiomeChange = new ToggleSetting(
         this,
         "pureNodeAlwaysMagicalForest",
         "By default, pure nodes only change the biome around them if they are either in tainted lands or inside of a silverwood tree. This setting allows pure nodes to change the biome around them regardless of their location.");
+
     public final ToggleSetting rottenFleshRecipe = new ToggleSetting(
         this,
         "rottenFleshRecipe",
         "Add a crafting recipe to convert flesh blocks back into rotten flesh.").setCategory("recipes");
+
     public final ToggleSetting crystalClusterUncrafting = new ToggleSetting(
         this,
         "crystalClusterUncrafting",
@@ -279,6 +315,7 @@ public class EnhancementsModule extends ModuleBase {
         this,
         "staffterNameTooltip",
         "Causes staffters to use their own translation string rather than being called \"Staff\" in the tooltip.");
+
     public final ToggleSetting primalCrusherOredict = new ToggleSetting(
         this,
         "primalCrusherMinesOredictionaryStone",
@@ -289,6 +326,7 @@ public class EnhancementsModule extends ModuleBase {
         "thaumometerDuration",
         "The duration in ticks that the thaumometer takes to scan an object.",
         20).setMinValue(1);
+
     public final ToggleSetting researchItemExtensions = new ToggleSetting(
         this,
         "researchItemExtensions",
@@ -298,14 +336,17 @@ public class EnhancementsModule extends ModuleBase {
         this,
         "heatSourceOreDict",
         "Enable ore dictionary support for crucible and thaumatorium heat sources.");
+
     public final ToggleSetting notifyMissingResearchWorkbench = new ToggleSetting(
         this,
         "notifyMissingResearchWorkbench",
         "Displays a \"missing research\" message in the Arcane Workbench GUI when recipe fails for lack of research.");
+
     public final ToggleSetting notifyMissingResearchInfusion = new ToggleSetting(
         this,
         "notifyMissingResearchInfusion",
         "Displays a \"missing research\" message to the player when an infusion recipe fails for lack of research.");
+
     public final ToggleSetting notifyMissingResearchCrucible = new ToggleSetting(
         this,
         "notifyMissingResearchCrucible",
@@ -317,36 +358,42 @@ public class EnhancementsModule extends ModuleBase {
         "Override the harvest level of thaumium tools.",
         3).setMinValue(0)
             .setCategory("harvestLevels");
+
     public final IntSetting elementalHarvestLevel = new IntSetting(
         this,
         "elementalHarvestLevel",
         "Override the harvest level of elemental tools.",
         3).setMinValue(0)
             .setCategory("harvestLevels");
+
     public final IntSetting voidHarvestLevel = new IntSetting(
         this,
         "voidHarvestLevel",
         "Override the harvest level of void metal tools.",
         4).setMinValue(0)
             .setCategory("harvestLevels");
+
     public final IntSetting crusherHarvestLevel = new IntSetting(
         this,
         "crusherHarvestLevel",
         "Override the harvest level of the primal crusher.",
         5).setMinValue(0)
             .setCategory("harvestLevels");
+
     public final IntSetting excavationFocusHarvestLevel = new IntSetting(
         this,
         "excavationFocusHarvestLevel",
         "Override the harvest level of the excavation focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).",
         -1).setMinValue(-1)
             .setCategory("harvestLevels");
+
     public final IntSetting equalTradeFocusHarvestLevel = new IntSetting(
         this,
         "equalTradeFocusHarvestLevel",
         "Override the harvest level of the equal trade focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).",
         -1).setMinValue(-1)
             .setCategory("harvestLevels");
+
     public final ToggleSetting potencyModifiesHarvestLevel = new ToggleSetting(
         this,
         "potencyModifiesHarvestLevel",
