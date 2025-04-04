@@ -2,10 +2,11 @@ package dev.rndmorris.salisarcana.config.modules;
 
 import javax.annotation.Nonnull;
 
+import dev.rndmorris.salisarcana.config.ModuleBase;
 import dev.rndmorris.salisarcana.config.settings.BeaconBlockFixSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
-public class BugfixesModule extends BaseConfigModule {
+public class BugfixesModule extends ModuleBase {
 
     public final BeaconBlockFixSetting beaconBlockFixSetting = new BeaconBlockFixSetting(this);
     public final ToggleSetting candleRendererCrashes = new ToggleSetting(

@@ -3,10 +3,11 @@ package dev.rndmorris.salisarcana.config.modules;
 import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.ModuleBase;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.config.settings.compat.UBCCompatSettings;
 
-public class ModCompatModule extends BaseConfigModule {
+public class ModCompatModule extends ModuleBase {
 
     public final UBCCompatSettings undergroundBiomes;
     public final ToggleSetting tc4tweakScrollPages;
