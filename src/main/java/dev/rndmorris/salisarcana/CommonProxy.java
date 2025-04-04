@@ -57,7 +57,6 @@ public class CommonProxy {
         if (ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.initialize();
         }
-
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
 

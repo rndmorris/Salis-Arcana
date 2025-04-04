@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.lib;
+package dev.rndmorris.salisarcana.lib.ifaces;
 
 import net.minecraft.entity.player.EntityPlayer;
 

@@ -29,6 +29,8 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting useForgeFishingLists;
     public final ToggleSetting focalManipulatorForbidSwaps;
     public final ToggleSetting equalTradeBreaksBlocks;
+    public final ToggleSetting nodesRechargeInGameTime;
+    public final ToggleSetting nodesRememberBeingDrained;
 
     public BugfixesModule() {
         addSettings(
@@ -113,7 +115,15 @@ public class BugfixesModule extends BaseConfigModule {
             equalTradeBreaksBlocks = new ToggleSetting(
                 this,
                 "equalTradeBreaksBlocks",
-                "Fixes a bug where you couldn't break blocks if you were holding the equal trade focus item."));
+                "Fixes a bug where you couldn't break blocks if you were holding the equal trade focus item."),
+            nodesRechargeInGameTime = new ToggleSetting(
+                this,
+                "nodesRechargeInGameTime",
+                "Unloaded nodes will regenerate based on game time, not real life time."),
+            nodesRememberBeingDrained = new ToggleSetting(
+                this,
+                "nodesRememberBeingDrained",
+                "Nodes will remember being drained, preventing rapidly loading, draining, then unloading nodes exploiting nodes' catch-up recharging."));
     }
 
     @Nonnull
