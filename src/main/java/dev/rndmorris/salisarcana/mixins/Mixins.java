@@ -264,7 +264,7 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.enhancements.nomiconShowResearchId::isEnabled)
         .addMixinClasses("gui.MixinGuiResearchBrowser_ShowResearchID")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    RIGHT_CLICK_NAVIAGTION(new Builder().setPhase(Phase.LATE)
+    RIGHT_CLICK_NAVIGATION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.enhancements.nomiconRightClickClose::isEnabled)
         .addMixinClasses("gui.MixinGuiResearchBrowser_RightClickClose", "gui.MixinGuiResearchRecipe")

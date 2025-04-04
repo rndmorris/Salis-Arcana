@@ -47,6 +47,7 @@ public class EnhancementsModule extends BaseConfigModule {
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
     public final Setting nomiconRightClickClose;
+    public final ToggleSetting nomiconSavePage;
     public final Setting nomiconShowResearchId;
 
     public final ToggleSetting stabilizerRewrite;
@@ -139,6 +140,10 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 "Right-Click Navigation",
                 "While viewing the Thaumonomicon, right clicking in a research will take you back to the previous research, or back to the Thaumonomicon."),
+            nomiconSavePage = new ToggleSetting(
+                nomiconRightClickClose,
+                "Save Thaumonomicon Page",
+                "When closing the Thaumonomicon, it will remember the page you are on when it is reopened. Requires Right-Click Navigation to be enabled."),
             nomiconScrollwheelEnabled = new ToggleSetting(
                 this,
                 "Enable Scrollwheel",
