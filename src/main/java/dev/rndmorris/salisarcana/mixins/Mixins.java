@@ -134,7 +134,7 @@ public enum Mixins {
     ITEM_ICON_METADATA_PROTECTIONS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(ConfigModuleRoot.bugfixes.itemMetadataSafetyCheck::isEnabled)
-        .addMixinClasses("items.Mixin_ItemIconFix")
+        .addMixinClasses("items.Mixin_ItemIconFix", "items.MixinItemWandRod")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
