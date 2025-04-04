@@ -14,9 +14,11 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import dev.rndmorris.salisarcana.common.CustomResearch;
+import dev.rndmorris.salisarcana.common.DisenchantFocusUpgrade;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.common.commands.ArcanaCommandBase;
 import dev.rndmorris.salisarcana.common.commands.CreateNodeCommand;
+import dev.rndmorris.salisarcana.common.commands.ForgetAspectCommand;
 import dev.rndmorris.salisarcana.common.commands.ForgetResearchCommand;
 import dev.rndmorris.salisarcana.common.commands.ForgetScannedCommand;
 import dev.rndmorris.salisarcana.common.commands.HelpCommand;
@@ -36,7 +38,10 @@ import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.ai.interact.AIFish;
+import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 
 public class CommonProxy {
 
@@ -50,6 +55,9 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
+        if (ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled()) {
+            DisenchantFocusUpgrade.initialize();
+        }
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
 
@@ -60,6 +68,7 @@ public class CommonProxy {
         if (ConfigModuleRoot.enhancements.heatSourceOreDict.isEnabled()) {
             CrucibleHeatLogic.registerOreDictName();
         }
+        updateHarvestLevels();
 
         FMLCommonHandler.instance()
             .bus()
@@ -67,6 +76,28 @@ public class CommonProxy {
         FMLCommonHandler.instance()
             .bus()
             .register(new StartupNotifications());
+    }
+
+    private void updateHarvestLevels() {
+        final var enhancements = ConfigModuleRoot.enhancements;
+        if (enhancements.thaumiumHarvestLevel.isEnabled()) {
+            final var toolMatThaumium = new R(ThaumcraftApi.toolMatThaumium);
+            toolMatThaumium.set("harvestLevel", enhancements.thaumiumHarvestLevel.getValue());
+        }
+        if (enhancements.elementalHarvestLevel.isEnabled()) {
+            final var toolMatElemental = new R(ThaumcraftApi.toolMatElemental);
+            toolMatElemental.set("harvestLevel", enhancements.elementalHarvestLevel.getValue());
+        }
+        if (enhancements.voidHarvestLevel.isEnabled()) {
+            final var toolMatVoid = new R(ThaumcraftApi.toolMatVoid);
+            toolMatVoid.set("harvestLevel", enhancements.voidHarvestLevel.getValue());
+        }
+        if (enhancements.crusherHarvestLevel.isEnabled()) {
+            final var material = new R(ItemPrimalCrusher.material);
+            material.set("harvestLevel", enhancements.crusherHarvestLevel.getValue());
+            ConfigItems.itemPrimalCrusher.setHarvestLevel("pickaxe", enhancements.crusherHarvestLevel.getValue());
+            ConfigItems.itemPrimalCrusher.setHarvestLevel("shovel", enhancements.crusherHarvestLevel.getValue());
+        }
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
@@ -89,6 +120,7 @@ public class CommonProxy {
         maybeRegister(event, commands.createNode, CreateNodeCommand::new);
         maybeRegister(event, commands.forgetResearch, ForgetResearchCommand::new);
         maybeRegister(event, commands.forgetScanned, ForgetScannedCommand::new);
+        maybeRegister(event, commands.forgetAspects, ForgetAspectCommand::new);
         maybeRegister(event, commands.help, HelpCommand::new);
         maybeRegister(event, commands.infusionSymmetry, InfusionSymmetryCommand::new);
         maybeRegister(event, commands.prerequisites, PrerequisitesCommand::new);

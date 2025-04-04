@@ -37,10 +37,17 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting thaumcraftCommandTabCompletion;
     public final ToggleSetting thaumcraftCommandWarpArgAll;
     public final ToggleSetting creativeOpThaumonomicon;
+    public final ToggleSetting creativeNoXPManipulator;
+    public final ToggleSetting focalDisenchanterReturnXP;
+
+    public final ToggleSetting enableFocusDisenchanting;
+    public final IntSetting focusDisenchantingRefundPercentage;
+    public final CustomResearchSetting focusDisenchantingResearch;
 
     public final Setting nomiconScrollwheelEnabled;
     public final Setting nomiconInvertedScrolling;
     public final Setting nomiconRightClickClose;
+    public final ToggleSetting nomiconSavePage;
     public final Setting nomiconShowResearchId;
 
     public final ToggleSetting stabilizerRewrite;
@@ -69,6 +76,17 @@ public class EnhancementsModule extends BaseConfigModule {
     public final ToggleSetting researchItemExtensions;
 
     public final ToggleSetting heatSourceOreDict;
+    public final ToggleSetting notifyMissingResearchWorkbench;
+    public final ToggleSetting notifyMissingResearchInfusion;
+    public final ToggleSetting notifyMissingResearchCrucible;
+
+    public final IntSetting thaumiumHarvestLevel;
+    public final IntSetting elementalHarvestLevel;
+    public final IntSetting voidHarvestLevel;
+    public final IntSetting crusherHarvestLevel;
+    public final IntSetting excavationFocusHarvestLevel;
+    public final IntSetting equalTradeFocusHarvestLevel;
+    public final ToggleSetting potencyModifiesHarvestLevel;
 
     public EnhancementsModule() {
         // spotless:off
@@ -111,10 +129,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 new int[] { 944444, 16666, 16666, 16666, 5555, },
                 0,
                 1000000).setEnabled(false),
-            suppressWarpEventsInCreative = new ToggleSetting(
-                this,
-                "suppressWarpEventsInCreative",
-                "Prevent random warp events from firing for players in creative mode."),
             useAllBaublesSlots = new ToggleSetting(
                 this,
                 "useAllBaublesSlots",
@@ -127,6 +141,10 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 "Right-Click Navigation",
                 "While viewing the Thaumonomicon, right clicking in a research will take you back to the previous research, or back to the Thaumonomicon."),
+            nomiconSavePage = new ToggleSetting(
+                nomiconRightClickClose,
+                "Save Thaumonomicon Page",
+                "When closing the Thaumonomicon, it will remember the page you are on when it is reopened. Requires Right-Click Navigation to be enabled."),
             nomiconScrollwheelEnabled = new ToggleSetting(
                 this,
                 "Enable Scrollwheel",
@@ -163,14 +181,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 "The maximum stack size for Eldritch Objects (Primordial Pearl, Eldritch Eye, Crimson Rites, Eldritch Obelisk Placer, Runed Tablet).",
                 16).setMinValue(1)
                     .setMaxValue(64),
-            stopCreativeModeItemConsumption = new ToggleSetting(
-                this,
-                "stopCreativeModeItemConsumption",
-                "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode."),
-            infiniteCreativeVis = new ToggleSetting(
-                this,
-                "infiniteCreativeVis",
-                "Allow wands to have infinite vis in creative mode."),
             manaPodGrowthRate = new IntSetting(
                 this,
                 "manaBeanGrowthChance",
@@ -193,11 +203,6 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 "thaumcraftCommandWarpArgAll",
                 "Allow the use of `ALL` as an argument for the warp command."),
-            creativeOpThaumonomicon = new ToggleSetting(
-                this,
-                "creativeOpThaumonomicon",
-
-                "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
             levitatorShiftFix = new ToggleSetting(
                 this,
                 "levitatorShiftFix",
@@ -227,10 +232,74 @@ public class EnhancementsModule extends BaseConfigModule {
                 "thaumometerDuration",
                 "The duration in ticks that the thaumometer takes to scan an object.",
                 20).setMinValue(1),
+            notifyMissingResearchWorkbench = new ToggleSetting(
+                this,
+                "notifyMissingResearchWorkbench",
+                "Displays a \"missing research\" message in the Arcane Workbench GUI when recipe fails for lack of research."),
+            notifyMissingResearchInfusion = new ToggleSetting(
+                this,
+                "notifyMissingResearchInfusion",
+                "Displays a \"missing research\" message to the player when an infusion recipe fails for lack of research."),
+            notifyMissingResearchCrucible = new ToggleSetting(
+                this,
+                "notifyMissingResearchCrucible",
+                "Displays a \"missing research\" message to the player when a crucible recipe fails for lack of research."),
+            taintedItemDecayChance = new IntSetting(
+                this,
+                "taintedItemDecayChance",
+                "The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.",
+                4321).setMinValue(-1),
             researchItemExtensions = new ToggleSetting(
                 this,
                 "researchItemExtensions",
-                "Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer).")
+                "Adds additional functionality to internal research data. Used for compatibility with other mods (e.g. Automagy, Thaumic Tinkerer)."),
+            
+          thaumiumHarvestLevel = new IntSetting(
+                this,
+                "thaumiumHarvestLevel",
+                "Override the harvest level of thaumium tools.",
+                3)
+                .setMinValue(0).setCategory("harvestLevels"),
+            elementalHarvestLevel = new IntSetting(
+                this,
+                "elementalHarvestLevel",
+                "Override the harvest level of elemental tools.",
+                3)
+                .setMinValue(0).setCategory("harvestLevels"),
+            voidHarvestLevel = new IntSetting(
+                this,
+                "voidHarvestLevel",
+                "Override the harvest level of void metal tools.",
+                4)
+                .setMinValue(0).setCategory("harvestLevels"),
+            crusherHarvestLevel = new IntSetting(
+                this,
+                "crusherHarvestLevel",
+                "Override the harvest level of the primal crusher.",
+                5)
+                .setMinValue(0).setCategory("harvestLevels"),
+            excavationFocusHarvestLevel = new IntSetting(
+                this,
+                "excavationFocusHarvestLevel",
+                "Override the harvest level of the excavation focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).",
+                -1)
+                .setMinValue(-1).setCategory("harvestLevels"),
+            equalTradeFocusHarvestLevel = new IntSetting(
+                this,
+                "equalTradeFocusHarvestLevel",
+                "Override the harvest level of the equal trade focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).",
+                -1).
+                setMinValue(-1).setCategory("harvestLevels"),
+            potencyModifiesHarvestLevel = new ToggleSetting(
+                this,
+                "potencyModifiesHarvestLevel",
+                "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level by one level per level of potency.")
+                .setCategory("harvestLevels"),
+          
+            focalDisenchanterReturnXP = new ToggleSetting(
+                this,
+                "focalDisenchanterReturnXP",
+                "If an upgrade fails to complete or is cancelled, the XP spent will get returned to the player.")
         );
 
         // spotless:on
@@ -299,16 +368,58 @@ public class EnhancementsModule extends BaseConfigModule {
                 this,
                 "allowSingleWandReplacement",
                 "If enabled, allows swapping a wand's components using vis from the wand being modified.")
-                    .setCategory(wandCategory),
+                    .setCategory(wandCategory));
+
+        // final var creativeCategory = "creative_mode";
+        addSettings(
+            stopCreativeModeItemConsumption = new ToggleSetting(
+                this,
+                "stopCreativeModeItemConsumption",
+                "Prevent eldritch eyes and phials of essentia from being consumed when used in creative mode."),
             disableCreativeTaintedItemDecay = new ToggleSetting(
                 this,
                 "disableCreativeTaintedItemDecay",
                 "Prevent tainted goo and taint tendrils from decaying for players in creative mode."),
-            taintedItemDecayChance = new IntSetting(
+            infiniteCreativeVis = new ToggleSetting(
                 this,
-                "taintedItemDecayChance",
-                "The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.",
-                4321).setMinValue(-1));
+                "infiniteCreativeVis",
+                "Allow wands to have infinite vis in creative mode."),
+            creativeOpThaumonomicon = new ToggleSetting(
+                this,
+                "creativeOpThaumonomicon",
+                "While in creative mode, ctrl + left click on a research in the Thaumonomicon to complete it."),
+            creativeNoXPManipulator = new ToggleSetting(
+                this,
+                "creativeNoXPManipulator",
+                "Allow Creative players to use the Focal Manipulator without the necessary XP."),
+            suppressWarpEventsInCreative = new ToggleSetting(
+                this,
+                "suppressWarpEventsInCreative",
+                "Prevent random warp events from firing for players in creative mode."));
+
+        final var focusDisenchantingCategory = "focus_disenchanting";
+        addSettings(
+            enableFocusDisenchanting = new ToggleSetting(
+                this,
+                "enableFocusDisenchanting",
+                "Allow players to use the Focal Manipulator to remove focus enchantments and refund XP.")
+                    .setCategory(focusDisenchantingCategory),
+            focusDisenchantingRefundPercentage = new IntSetting(
+                enableFocusDisenchanting,
+                "focusDisenchantingRefundPercentage",
+                "Percentage of XP points refunded upon removing an enchantment from a focus, calculated as levels from 0 XP.",
+                75).setMinValue(0)
+                    .setMaxValue(100)
+                    .setCategory(focusDisenchantingCategory),
+            focusDisenchantingResearch = new CustomResearchSetting(
+                enableFocusDisenchanting,
+                "focusDisenchanting",
+                "Research to unlock Focus Disenchanting in the Focal Manipulator.",
+                new CustomResearchSetting.ResearchInfo("FOCUS_DISENCHANTING", "THAUMATURGY", -2, -8).setDifficulty(2)
+                    .setParents("FOCALMANIPULATION")
+                    .setPurchasable(true)
+                    .setAspects("auram:4", "praecantatio:6", "vacuos:8", "perditio:4"))
+                        .setCategory(focusDisenchantingCategory));
 
         addSettings(
             thaumometerScanContainersResearch = new CustomResearchSetting(

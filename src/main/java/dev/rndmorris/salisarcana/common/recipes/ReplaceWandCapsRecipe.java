@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 
 import com.github.bsideup.jabel.Desugar;
 
+import dev.rndmorris.salisarcana.api.IMultipleResearchArcaneRecipe;
 import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
@@ -22,7 +23,7 @@ import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
-public class ReplaceWandCapsRecipe implements IArcaneRecipe {
+public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchArcaneRecipe {
 
     @Override
     public boolean matches(IInventory tableInv, World world, EntityPlayer player) {
@@ -139,6 +140,17 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe {
         }
 
         return new InvScanResult(wandItem, newCaps, newCapsFound);
+    }
+
+    @Override
+    public String[] salisArcana$getResearches(IInventory inv, World world, EntityPlayer player) {
+        final var scanResult = scanTable(inv);
+
+        if (scanResult == null || scanResult.invalidInputs()) {
+            return new String[] { getResearch() };
+        }
+
+        return new String[] { getResearch(), scanResult.newCaps.getResearch() };
     }
 
     @Desugar

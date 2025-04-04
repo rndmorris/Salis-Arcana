@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.function.Predicate;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.server.MinecraftServer;
@@ -118,6 +119,18 @@ public class ResearchHelper {
         headerMessage.setChatStyle(style);
 
         return headerMessage;
+    }
+
+    public static void sendResearchError(EntityPlayer player, String researchKey, String translationKey) {
+        if (player instanceof EntityPlayerMP playerMP && !(player instanceof FakePlayer)) {
+            final var research = ResearchCategories.getResearch(researchKey);
+            final var message = new ChatComponentTranslation(
+                translationKey,
+                research.getName(),
+                ResearchCategories.getCategoryName(research.category));
+            message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED));
+            playerMP.addChatMessage(message);
+        }
     }
 
     public static IChatComponent formatResearch(ResearchItem research) {

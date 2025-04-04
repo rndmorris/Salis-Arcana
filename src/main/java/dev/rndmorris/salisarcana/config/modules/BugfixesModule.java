@@ -24,8 +24,13 @@ public class BugfixesModule extends BaseConfigModule {
     public final ToggleSetting staffFocusEffectFix;
     public final ToggleSetting arcaneWorkbenchGhostItemFix;
     public final ToggleSetting arcaneWorkbenchAllowRechargeCrafting;
+    public final ToggleSetting arcaneWorkbenchMultiContainer;
     public final ToggleSetting negativeBossSpawnCount;
     public final ToggleSetting useForgeFishingLists;
+    public final ToggleSetting focalManipulatorForbidSwaps;
+    public final ToggleSetting equalTradeBreaksBlocks;
+    public final ToggleSetting nodesRechargeInGameTime;
+    public final ToggleSetting nodesRememberBeingDrained;
 
     public BugfixesModule() {
         addSettings(
@@ -91,6 +96,10 @@ public class BugfixesModule extends BaseConfigModule {
                 this,
                 "arcaneWorkbenchAllowRechargeCrafting",
                 "Allows players to craft after the wand in the GUI runs out of vis and is recharged by a Vis Charge Relay."),
+            arcaneWorkbenchMultiContainer = new ToggleSetting(
+                this,
+                "arcaneWorkbenchMultiContainer",
+                "Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time."),
             negativeBossSpawnCount = new ToggleSetting(
                 this,
                 "negativeBossSpawnCount",
@@ -98,7 +107,23 @@ public class BugfixesModule extends BaseConfigModule {
             useForgeFishingLists = new ToggleSetting(
                 this,
                 "useForgeFishingLists",
-                "Use Forge's fishing lists to determine what a fishing golem catches."));
+                "Use Forge's fishing lists to determine what a fishing golem catches."),
+            focalManipulatorForbidSwaps = new ToggleSetting(
+                this,
+                "focalManipulatorForbidSwaps",
+                "Prevents players from putting on conflicting or out-of-order upgrades onto a focus by swapping the focus being modified during the upgrade process."),
+            equalTradeBreaksBlocks = new ToggleSetting(
+                this,
+                "equalTradeBreaksBlocks",
+                "Fixes a bug where you couldn't break blocks if you were holding the equal trade focus item."),
+            nodesRechargeInGameTime = new ToggleSetting(
+                this,
+                "nodesRechargeInGameTime",
+                "Unloaded nodes will regenerate based on game time, not real life time."),
+            nodesRememberBeingDrained = new ToggleSetting(
+                this,
+                "nodesRememberBeingDrained",
+                "Nodes will remember being drained, preventing rapidly loading, draining, then unloading nodes exploiting nodes' catch-up recharging."));
     }
 
     @Nonnull
