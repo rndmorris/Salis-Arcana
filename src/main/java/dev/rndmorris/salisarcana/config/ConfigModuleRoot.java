@@ -13,7 +13,7 @@ import dev.rndmorris.salisarcana.config.modules.CommandsModule;
 import dev.rndmorris.salisarcana.config.modules.EnhancementsModule;
 import dev.rndmorris.salisarcana.config.modules.ModCompatModule;
 
-// to-do: rename to something less wordy (like "Config"; this will be its own PR because almost everything touches this
+// to-do: rename to something less wordy (like "Config"); this will be its own PR because almost everything touches this
 // class
 public class ConfigModuleRoot {
 
