@@ -64,6 +64,9 @@ public abstract class Setting implements IDependant {
         return enabledDependency != null ? enabledDependency.get() : null;
     }
 
+    /**
+     * Climb the dependency tree, looking for an {@link IHaveSettings} instance with which to register.
+     */
     private void autoRegisterOwner() {
         IEnabler dependency = getDependency();
         var visited = new HashSet<>();
@@ -84,15 +87,16 @@ public abstract class Setting implements IDependant {
         }
     }
 
-    private void unregisterOwner() {
+    private void unregisterFromOwner() {
         IHaveSettings owner;
         if (settingOwner != null && (owner = settingOwner.get()) != null) {
             owner.unregisterSetting(this);
+            settingOwner = null;
         }
     }
 
     public <T extends Setting> T registerTo(IHaveSettings newOwner) {
-        unregisterOwner();
+        unregisterFromOwner();
         settingOwner = new WeakReference<>(newOwner);
         newOwner.registerSetting(this);
         return (T) this;
