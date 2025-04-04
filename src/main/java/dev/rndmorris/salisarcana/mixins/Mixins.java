@@ -221,6 +221,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.crimsonRitesFakePlayerCheck::isEnabled)
         .addMixinClasses("items.MixinItemEldritchObject_FakePlayerFix")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FOCUS_TRADE_BREAK_BLOCKS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(ConfigModuleRoot.bugfixes.equalTradeBreaksBlocks::isEnabled)
+        .addMixinClasses("items.MixinItemFocusTrade_BreakBlocks")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
