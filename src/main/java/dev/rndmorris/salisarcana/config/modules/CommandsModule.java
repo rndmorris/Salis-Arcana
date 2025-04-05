@@ -2,18 +2,23 @@ package dev.rndmorris.salisarcana.config.modules;
 
 import static dev.rndmorris.salisarcana.common.commands.ListResearchCommand.listOthersReserach;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.ModuleBase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
-import dev.rndmorris.salisarcana.config.settings.Setting;
 
 public class CommandsModule extends ModuleBase {
 
-    public final List<CommandSettings> commandsSettings = new ArrayList<>();
+    public List<CommandSettings> getCommandsSettings() {
+        return this.settings.stream()
+            .map(s -> s instanceof CommandSettings c ? c : null)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
+    }
 
     public final CommandSettings createNode = new CommandSettings("create-node", this).addDefaultAlias()
         .setDescription(
@@ -65,22 +70,6 @@ public class CommandsModule extends ModuleBase {
 
     public final CommandSettings upgradeFocus = new CommandSettings("upgrade-focus", this).addDefaultAlias()
         .setPermissionLevel(2);
-
-    @Override
-    public void registerSetting(Setting setting) {
-        super.registerSetting(setting);
-        if (setting instanceof CommandSettings cmdSetting && !commandsSettings.contains(cmdSetting)) {
-            commandsSettings.add(cmdSetting);
-        }
-    }
-
-    @Override
-    public void unregisterSetting(Setting setting) {
-        super.unregisterSetting(setting);
-        if (setting instanceof CommandSettings cmdSetting) {
-            commandsSettings.remove(cmdSetting);
-        }
-    }
 
     @Nonnull
     @Override

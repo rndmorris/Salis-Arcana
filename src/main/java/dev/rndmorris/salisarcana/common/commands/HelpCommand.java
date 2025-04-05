@@ -59,7 +59,7 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
         final var listMessage = new ChatComponentText("");
         var any = false;
 
-        final var settings$ = ConfigModuleRoot.commands.commandsSettings.stream()
+        final var settings$ = ConfigModuleRoot.commands.getCommandsSettings()
             .iterator();
 
         while (settings$.hasNext()) {
