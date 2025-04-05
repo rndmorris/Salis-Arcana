@@ -2,9 +2,8 @@ package dev.rndmorris.salisarcana.config.modules;
 
 import static dev.rndmorris.salisarcana.common.commands.ListResearchCommand.listOthersReserach;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -13,11 +12,10 @@ import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 
 public class CommandsModule extends ModuleBase {
 
-    public List<CommandSettings> getCommandsSettings() {
+    public Stream<CommandSettings> getCommandsSettings() {
         return this.settings.stream()
             .map(s -> s instanceof CommandSettings c ? c : null)
-            .filter(Objects::nonNull)
-            .collect(Collectors.toList());
+            .filter(Objects::nonNull);
     }
 
     public final CommandSettings createNode = new CommandSettings("create-node", this).addDefaultAlias()
