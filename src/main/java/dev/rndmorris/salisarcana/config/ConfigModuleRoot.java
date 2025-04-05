@@ -2,27 +2,30 @@ package dev.rndmorris.salisarcana.config;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.SalisArcana;
-import dev.rndmorris.salisarcana.config.modules.BaseConfigModule;
 import dev.rndmorris.salisarcana.config.modules.BugfixesModule;
 import dev.rndmorris.salisarcana.config.modules.CommandsModule;
 import dev.rndmorris.salisarcana.config.modules.EnhancementsModule;
 import dev.rndmorris.salisarcana.config.modules.ModCompatModule;
 
+// to-do: rename to something less wordy (like "Config"); this will be its own PR because almost everything touches this
+// class
 public class ConfigModuleRoot {
 
-    public static final BugfixesModule bugfixes;
-    public static final CommandsModule commands;
-    public static final EnhancementsModule enhancements;
-    public static final ModCompatModule modCompat;
+    // no modifier, so it's visible within the same package (i.e. to ModuleBase)
+    static final List<ModuleBase> modules = new ArrayList<>();
+
+    public static final BugfixesModule bugfixes = new BugfixesModule();
+    public static final CommandsModule commands = new CommandsModule();
+    public static final EnhancementsModule enhancements = new EnhancementsModule();
+    public static final ModCompatModule modCompat = new ModCompatModule();
 
     public static boolean enableVersionChecking;
-
-    private static final BaseConfigModule[] modules = new BaseConfigModule[] { bugfixes = new BugfixesModule(),
-        commands = new CommandsModule(), enhancements = new EnhancementsModule(), modCompat = new ModCompatModule(), };
 
     public static void synchronizeConfiguration() {
         final var rootConfigFile = Paths.get("config", SalisArcana.MODID + ".cfg")
@@ -56,7 +59,7 @@ public class ConfigModuleRoot {
         }
     }
 
-    private static Configuration getModuleConfig(BaseConfigModule module) {
+    private static Configuration getModuleConfig(ModuleBase module) {
         final var path = Paths.get("config", SalisArcana.MODID, module.getModuleId() + ".cfg")
             .toString();
         return new Configuration(new File(path));

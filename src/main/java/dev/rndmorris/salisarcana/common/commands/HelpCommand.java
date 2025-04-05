@@ -2,8 +2,6 @@ package dev.rndmorris.salisarcana.common.commands;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
-import java.util.Arrays;
-
 import javax.annotation.Nonnull;
 
 import net.minecraft.command.ICommandSender;
@@ -61,7 +59,7 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
         final var listMessage = new ChatComponentText("");
         var any = false;
 
-        final var settings$ = Arrays.stream(ConfigModuleRoot.commands.commandsSettings)
+        final var settings$ = ConfigModuleRoot.commands.getCommandsSettings()
             .iterator();
 
         while (settings$.hasNext()) {

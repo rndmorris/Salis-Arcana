@@ -131,6 +131,11 @@ public enum Mixins {
         .setApplyIf(ConfigModuleRoot.bugfixes.nodesRememberBeingDrained::isEnabled)
         .addMixinClasses("tiles.MixinTileNode_RememberUpdates")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ITEM_ICON_METADATA_PROTECTIONS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(ConfigModuleRoot.bugfixes.itemMetadataSafetyCheck::isEnabled)
+        .addMixinClasses("items.Mixin_ItemIconFix", "items.MixinItemWandRod")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Enhancements
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
