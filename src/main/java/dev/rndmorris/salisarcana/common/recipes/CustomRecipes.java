@@ -36,19 +36,19 @@ public class CustomRecipes {
 
     public static void registerRecipes() {
 
-        final var enhancements = Config.features;
+        final var features = Config.features;
 
-        if (enhancements.lookalikePlanks.isEnabled()) {
+        if (features.lookalikePlanks.isEnabled()) {
             registerPlankRecipes();
         }
 
-        if (enhancements.lessPickyPrimalCharmRecipe.isEnabled()) {
+        if (features.lessPickyPrimalCharmRecipe.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
                 .add(new RecipeForgivingPrimalCharm());
         }
 
-        if (enhancements.rotatedThaumometerRecipe.isEnabled()) {
+        if (features.rotatedThaumometerRecipe.isEnabled()) {
             registerRotatedThaumometer();
         }
 
@@ -56,24 +56,24 @@ public class CustomRecipes {
             MinecraftForge.EVENT_BUS.register(new FuelBurnTimeEventHandler());
         }
 
-        if (enhancements.replaceWandCapsSettings.isEnabled()) {
+        if (features.replaceWandCapsSettings.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
                 .add(replaceWandCapsRecipe = new ReplaceWandCapsRecipe());
         }
 
-        if (enhancements.replaceWandCoreSettings.isEnabled()) {
+        if (features.replaceWandCoreSettings.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
                 .add(replaceWandCoreRecipe = new ReplaceWandCoreRecipe());
         }
 
-        if (enhancements.rottenFleshRecipe.isEnabled()) {
+        if (features.rottenFleshRecipe.isEnabled()) {
             GameRegistry
                 .addShapelessRecipe(new ItemStack(Items.rotten_flesh, 9), new ItemStack(ConfigBlocks.blockTaint, 1, 2));
         }
 
-        if (enhancements.crystalClusterUncrafting.isEnabled()) {
+        if (features.crystalClusterUncrafting.isEnabled()) {
             for (var metadata = 0; metadata <= 5; ++metadata) {
                 GameRegistry.addShapelessRecipe(
                     new ItemStack(ConfigItems.itemShard, 6, metadata),

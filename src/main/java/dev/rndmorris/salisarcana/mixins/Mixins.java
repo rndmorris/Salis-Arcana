@@ -137,7 +137,7 @@ public enum Mixins {
         .addMixinClasses("items.Mixin_ItemIconFix", "items.MixinItemWandRod")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    // Enhancements
+    // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(Config.features.useAllBaublesSlots::isEnabled)
