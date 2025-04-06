@@ -8,8 +8,8 @@ import javax.annotation.Nullable;
 public interface IDependant extends IEnabler {
 
     /**
-     * Get this element's parent dependency, if it has one. Modules should never. Settings always should.
-     * 
+     * Get this element's parent dependency, if it has one. Groups should never. Settings always should.
+     *
      * @return The element's dependency.
      */
     @Nullable
