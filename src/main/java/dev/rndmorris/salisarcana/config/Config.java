@@ -8,15 +8,15 @@ import java.util.List;
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.SalisArcana;
-import dev.rndmorris.salisarcana.config.modules.ConfigBugfixes;
-import dev.rndmorris.salisarcana.config.modules.ConfigCommands;
-import dev.rndmorris.salisarcana.config.modules.ConfigEnhancements;
-import dev.rndmorris.salisarcana.config.modules.ConfigModCompat;
+import dev.rndmorris.salisarcana.config.group.ConfigBugfixes;
+import dev.rndmorris.salisarcana.config.group.ConfigCommands;
+import dev.rndmorris.salisarcana.config.group.ConfigEnhancements;
+import dev.rndmorris.salisarcana.config.group.ConfigModCompat;
 
 public class Config {
 
-    // no modifier, so it's visible within the same package (i.e. to ModuleBase)
-    static final List<ConfigBase> modules = new ArrayList<>();
+    // no modifier, so it's visible within the same package (i.e. to ConfigGroup)
+    static final List<ConfigGroup> groups = new ArrayList<>();
 
     public static final ConfigBugfixes bugfixes = new ConfigBugfixes();
     public static final ConfigCommands commands = new ConfigCommands();
@@ -33,22 +33,22 @@ public class Config {
         enableVersionChecking = rootConfig
             .getBoolean("enableversionChecking", "general", true, "Check for new versions of Salis Arcana on startup");
 
-        for (var module : modules) {
+        for (var group : groups) {
 
-            final var toggleName = String.format("Enable %s module", module.getFileName());
+            final var toggleName = String.format("Enable %s group", group.getGroupName());
             final var enabled = rootConfig
-                .getBoolean(toggleName, "modules", module.isEnabled(), module.getFileComment());
-            module.setEnabled(enabled);
+                .getBoolean(toggleName, "modules", group.isEnabled(), group.getGroupComment());
+            group.setEnabled(enabled);
 
             if (!enabled) {
                 continue;
             }
 
-            final var moduleConfig = getModuleConfig(module);
-            module.loadFromConfig(moduleConfig);
+            final var groupConfig = getGroupConfig(group);
+            group.loadFromConfig(groupConfig);
 
-            if (moduleConfig.hasChanged()) {
-                moduleConfig.save();
+            if (groupConfig.hasChanged()) {
+                groupConfig.save();
             }
         }
 
@@ -57,8 +57,8 @@ public class Config {
         }
     }
 
-    private static Configuration getModuleConfig(ConfigBase module) {
-        final var path = Paths.get("config", SalisArcana.MODID, module.getFileName() + ".cfg")
+    private static Configuration getGroupConfig(ConfigGroup group) {
+        final var path = Paths.get("config", SalisArcana.MODID, group.getGroupName() + ".cfg")
             .toString();
         return new Configuration(new File(path));
     }

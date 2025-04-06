@@ -1,13 +1,13 @@
-package dev.rndmorris.salisarcana.config.modules;
+package dev.rndmorris.salisarcana.config.group;
 
 import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.Config;
-import dev.rndmorris.salisarcana.config.ConfigBase;
+import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.config.settings.compat.UBCCompatSettings;
 
-public class ConfigModCompat extends ConfigBase {
+public class ConfigModCompat extends ConfigGroup {
 
     public final UBCCompatSettings undergroundBiomes = new UBCCompatSettings(this);
 
@@ -19,13 +19,13 @@ public class ConfigModCompat extends ConfigBase {
 
     @Nonnull
     @Override
-    public String getFileName() {
+    public String getGroupName() {
         return "mod_integrations";
     }
 
     @Nonnull
     @Override
-    public String getFileComment() {
+    public String getGroupComment() {
         return "Integrations and compatibility with other mods.";
     }
 }

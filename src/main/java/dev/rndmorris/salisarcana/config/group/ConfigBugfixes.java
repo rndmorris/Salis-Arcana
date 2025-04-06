@@ -1,12 +1,12 @@
-package dev.rndmorris.salisarcana.config.modules;
+package dev.rndmorris.salisarcana.config.group;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.salisarcana.config.ConfigBase;
+import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.settings.BeaconBlockFixSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
-public class ConfigBugfixes extends ConfigBase {
+public class ConfigBugfixes extends ConfigGroup {
 
     public final BeaconBlockFixSetting beaconBlockFixSetting = new BeaconBlockFixSetting(this);
 
@@ -127,13 +127,13 @@ public class ConfigBugfixes extends ConfigBase {
 
     @Nonnull
     @Override
-    public String getFileName() {
+    public String getGroupName() {
         return "bugfixes";
     }
 
     @Nonnull
     @Override
-    public String getFileComment() {
+    public String getGroupComment() {
         return "Fixes for bugs in TC4";
     }
 

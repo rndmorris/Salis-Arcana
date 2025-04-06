@@ -53,7 +53,7 @@ public abstract class Setting implements IDependant {
     }
 
     /**
-     * Enable or disable the individual setting. Enabling will have no effect if the parent module is disabled.
+     * Enable or disable the individual setting. Enabling will have no effect if the parent group is disabled.
      */
     public <T extends Setting> T setEnabled(boolean enabled) {
         this.enabled = enabled;

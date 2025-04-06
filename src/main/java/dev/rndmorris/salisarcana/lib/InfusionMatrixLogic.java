@@ -137,21 +137,21 @@ public class InfusionMatrixLogic {
      * Get the stabilizer strength of a block
      */
     private static int strengthForBlock(World world, int x, int y, int z) {
-        final var module = Config.enhancements;
+        final var enhancements = Config.enhancements;
 
         // If we're not using the rewrite, use the default stabilizer strength
         // Should only be called by the symmetry-check command
-        if (!module.stabilizerStrength.isEnabled()) {
-            return module.stabilizerStrength.getDefaultValue();
+        if (!enhancements.stabilizerStrength.isEnabled()) {
+            return enhancements.stabilizerStrength.getDefaultValue();
         }
 
         final var block = world.getBlock(x, y, z);
         final var metadata = world.getBlockMetadata(x, y, z);
 
         // If we have an override, use the override's value (or default if no value specified)
-        final var additionData = module.stabilizerAdditions.getData(block, metadata);
+        final var additionData = enhancements.stabilizerAdditions.getData(block, metadata);
         if (additionData.containedKeys) {
-            return additionData.data != null ? additionData.data : module.stabilizerStrength.getValueOrDefault();
+            return additionData.data != null ? additionData.data : enhancements.stabilizerStrength.getValueOrDefault();
         }
 
         // If an addon has tapped into Salis Arcana's API
@@ -160,7 +160,7 @@ public class InfusionMatrixLogic {
         }
 
         // Or just the default strength
-        return module.stabilizerStrength.getValueOrDefault();
+        return enhancements.stabilizerStrength.getValueOrDefault();
     }
 
     private static int[] getTwinnedCoord(MatrixOrigin matrix, int x, int z) {
