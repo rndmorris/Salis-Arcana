@@ -36,7 +36,7 @@ public class CustomRecipes {
 
     public static void registerRecipes() {
 
-        final var enhancements = Config.enhancements;
+        final var enhancements = Config.features;
 
         if (enhancements.lookalikePlanks.isEnabled()) {
             registerPlankRecipes();
@@ -83,7 +83,7 @@ public class CustomRecipes {
     }
 
     public static void registerRecipesPostInit() {
-        if (Config.enhancements.rotatedFociRecipes.isEnabled()) {
+        if (Config.features.rotatedFociRecipes.isEnabled()) {
             // registered here because TC4 doesn't register its recipes until post init
             registerRotatedFoci();
         }

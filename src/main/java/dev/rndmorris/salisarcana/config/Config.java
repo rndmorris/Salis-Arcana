@@ -10,7 +10,7 @@ import net.minecraftforge.common.config.Configuration;
 import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.config.group.ConfigBugfixes;
 import dev.rndmorris.salisarcana.config.group.ConfigCommands;
-import dev.rndmorris.salisarcana.config.group.ConfigEnhancements;
+import dev.rndmorris.salisarcana.config.group.ConfigFeatures;
 import dev.rndmorris.salisarcana.config.group.ConfigModCompat;
 
 public class Config {
@@ -20,7 +20,7 @@ public class Config {
 
     public static final ConfigBugfixes bugfixes = new ConfigBugfixes();
     public static final ConfigCommands commands = new ConfigCommands();
-    public static final ConfigEnhancements enhancements = new ConfigEnhancements();
+    public static final ConfigFeatures features = new ConfigFeatures();
     public static final ConfigModCompat modCompat = new ConfigModCompat();
 
     public static boolean enableVersionChecking;

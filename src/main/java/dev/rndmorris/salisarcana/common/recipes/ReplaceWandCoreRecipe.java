@@ -56,7 +56,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             .copy();
         wandInstance.setRod(outputItem, scanResult.newRod());
 
-        if (Config.enhancements.preserveWandVis.isEnabled()) {
+        if (Config.features.preserveWandVis.isEnabled()) {
             final var maxVis = wandInstance.getMaxVis(outputItem);
             final var newVis = new AspectList();
             final var originalVis = wandInstance.getAllVis(outputItem);
@@ -164,7 +164,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
                 return true;
             }
 
-            if (Config.enhancements.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
+            if (Config.features.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
                 return true;
             }
 

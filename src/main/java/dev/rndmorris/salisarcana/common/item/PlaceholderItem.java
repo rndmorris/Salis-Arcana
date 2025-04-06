@@ -27,10 +27,10 @@ public abstract class PlaceholderItem extends Item {
     public static PlaceholderItem rodPlaceholder;
 
     public static void registerPlaceholders() {
-        if (Config.enhancements.replaceWandCapsSettings.isEnabled()) {
+        if (Config.features.replaceWandCapsSettings.isEnabled()) {
             GameRegistry.registerItem(capPlaceholder = new WandCapPlaceholderItem(), "capPlaceholder");
         }
-        if (Config.enhancements.replaceWandCoreSettings.isEnabled()) {
+        if (Config.features.replaceWandCoreSettings.isEnabled()) {
             GameRegistry.registerItem(rodPlaceholder = new WandRodPlaceholderItem(), "rodPlaceholder");
         }
     }

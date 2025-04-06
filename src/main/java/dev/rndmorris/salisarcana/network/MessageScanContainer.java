@@ -46,10 +46,10 @@ public class MessageScanContainer implements IMessage, IMessageHandler<MessageSc
     public IMessage onMessage(MessageScanContainer message, MessageContext ctx) {
         EntityPlayerMP entityPlayer = ctx.getServerHandler().playerEntity;
         // we do this check serverside since the client can lie
-        if (Config.enhancements.thaumometerScanContainersResearch.isEnabled()) {
+        if (Config.features.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
                 entityPlayer.getCommandSenderName(),
-                Config.enhancements.thaumometerScanContainersResearch.getInternalName())) {
+                Config.features.thaumometerScanContainersResearch.getInternalName())) {
                 return null;
             }
         }

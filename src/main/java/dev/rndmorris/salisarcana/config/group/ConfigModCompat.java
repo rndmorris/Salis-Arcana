@@ -12,7 +12,7 @@ public class ConfigModCompat extends ConfigGroup {
     public final UBCCompatSettings undergroundBiomes = new UBCCompatSettings(this);
 
     public final ToggleSetting tc4tweakScrollPages = new ToggleSetting(
-        Config.enhancements.nomiconScrollwheelEnabled,
+        Config.features.nomiconScrollwheelEnabled,
         "tc4tweakScrollPages",
         "Whether or not scrolling should scroll to next page of tabs or loop to first tab of the page, in the event that there are too many tabs.")
             .setCategory("tc4tweaks");

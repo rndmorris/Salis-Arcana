@@ -48,10 +48,10 @@ public class MixinItemThaumometer extends Item {
         remap = false)
     private boolean rescanInventory(EntityPlayer player, ScanResult item, String t, Operation<Boolean> original,
         @Local TileEntity tile) {
-        if (Config.enhancements.thaumometerScanContainersResearch.isEnabled()) {
+        if (Config.features.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
                 player.getCommandSenderName(),
-                Config.enhancements.thaumometerScanContainersResearch.getInternalName())) {
+                Config.features.thaumometerScanContainersResearch.getInternalName())) {
                 return original.call(player, item, t);
             }
         }

@@ -54,7 +54,7 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
             .copy();
         wandInstance.setCap(outputItem, scanResult.newCaps());
 
-        if (!Config.enhancements.preserveWandVis.isEnabled()) {
+        if (!Config.features.preserveWandVis.isEnabled()) {
             wandInstance.storeAllVis(outputItem, AspectHelper.primalList(0));
         }
 

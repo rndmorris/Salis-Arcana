@@ -53,13 +53,13 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
     private int sa$lastDir = 0;
 
     @Unique
-    private static final boolean sa$opEnabled = Config.enhancements.creativeOpThaumonomicon.isEnabled();
+    private static final boolean sa$opEnabled = Config.features.creativeOpThaumonomicon.isEnabled();
 
     @Unique
-    private static final boolean sa$scrollEnabled = Config.enhancements.nomiconScrollwheelEnabled.isEnabled();
+    private static final boolean sa$scrollEnabled = Config.features.nomiconScrollwheelEnabled.isEnabled();
 
     @Unique
-    private static final int sa$invertScrolling = Config.enhancements.nomiconInvertedScrolling.isEnabled() ? -1 : 1;
+    private static final int sa$invertScrolling = Config.features.nomiconInvertedScrolling.isEnabled() ? -1 : 1;
 
     @Unique
     private final GuiResearchBrowser sa$this = (GuiResearchBrowser) (Object) this;

@@ -44,9 +44,9 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
                     .addConflict("MixinBlockCandleRenderer", Config.bugfixes.candleRendererCrashes)
                     .addConflict("MixinBlockCandle", Config.bugfixes.candleRendererCrashes)
                     .addConflict("MixinItemShard", Config.bugfixes.itemShardColor)
-                    .addConflict("MixinWandManager", Config.enhancements.useAllBaublesSlots)
-                    .addConflict("MixinEventHandlerRunic", Config.enhancements.useAllBaublesSlots)
-                    .addConflict("MixinWarpEvents", Config.enhancements.useAllBaublesSlots));
+                    .addConflict("MixinWandManager", Config.features.useAllBaublesSlots)
+                    .addConflict("MixinEventHandlerRunic", Config.features.useAllBaublesSlots)
+                    .addConflict("MixinWarpEvents", Config.features.useAllBaublesSlots));
     }
 
     @Override

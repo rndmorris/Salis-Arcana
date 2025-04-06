@@ -53,7 +53,7 @@ public class ThaumicInventoryScanner {
 
     static int getScanTicks() {
         if (SCAN_TICKS < 0) {
-            SCAN_TICKS = (Config.enhancements.thaumometerDuration.getValue() + 5) * 2;
+            SCAN_TICKS = (Config.features.thaumometerDuration.getValue() + 5) * 2;
         }
         return SCAN_TICKS;
     }

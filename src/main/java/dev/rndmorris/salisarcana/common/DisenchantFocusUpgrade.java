@@ -37,8 +37,8 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
     }
 
     public static void registerResearch() {
-        final var percentXP = Config.enhancements.focusDisenchantingRefundPercentage.getValueOrDefault();
-        final var data = Config.enhancements.focusDisenchantingResearch;
+        final var percentXP = Config.features.focusDisenchantingRefundPercentage.getValueOrDefault();
+        final var data = Config.features.focusDisenchantingResearch;
 
         researchItem = new ResearchItem(
             RESEARCH_KEY,
@@ -132,13 +132,13 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
         } else {
             return StatCollector.translateToLocalFormatted(
                 GENERIC_TOOLTIP_KEY,
-                Config.enhancements.focusDisenchantingRefundPercentage.getValueOrDefault());
+                Config.features.focusDisenchantingRefundPercentage.getValueOrDefault());
         }
     }
 
     public int getXpPoints() {
         return (RANK_TO_XP_POINTS[Math.min(this.lastRank, 5) - 1]
-            * Config.enhancements.focusDisenchantingRefundPercentage.getValueOrDefault()) / 100;
+            * Config.features.focusDisenchantingRefundPercentage.getValueOrDefault()) / 100;
     }
 
     public AspectList getVisPoints() {

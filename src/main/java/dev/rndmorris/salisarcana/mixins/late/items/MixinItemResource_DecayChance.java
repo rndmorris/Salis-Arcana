@@ -18,7 +18,7 @@ public abstract class MixinItemResource_DecayChance {
         method = "onUpdate",
         at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", remap = false))
     private int disableCreativeDecay(Random instance, int i, Operation<Integer> original) {
-        final var bound = Config.enhancements.taintedItemDecayChance.getValue();
+        final var bound = Config.features.taintedItemDecayChance.getValue();
         if (bound < 0) {
             return Integer.MAX_VALUE;
         }

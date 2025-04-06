@@ -64,7 +64,7 @@ public abstract class MixinContainerArcaneWorkbench_SingleWandReplacement extend
 
             // Vis is spent using the original wand, which is why that loop above is necessary.
             if (itemWand.consumeAllVisCrafting(originalWand, this.ip.player, visPrice, true)) {
-                if (Config.enhancements.preserveWandVis.isEnabled()) {
+                if (Config.features.preserveWandVis.isEnabled()) {
                     // Copied from ReplaceWandCoreRecipe. Thank you, Morris.
                     final var maxVis = itemWand.getMaxVis(outputWand);
                     final var newVis = new AspectList();

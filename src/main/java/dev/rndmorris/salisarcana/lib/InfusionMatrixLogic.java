@@ -62,7 +62,7 @@ public class InfusionMatrixLogic {
         final var block = world.getBlock(x, y, z);
         final var metadata = world.getBlockMetadata(x, y, z);
 
-        final var additions = Config.enhancements.stabilizerAdditions;
+        final var additions = Config.features.stabilizerAdditions;
         if (additions.isEnabled() && additions.hasEntry(block, metadata)) {
             return true;
         }
@@ -74,7 +74,7 @@ public class InfusionMatrixLogic {
             return false;
         }
 
-        final var exclusions = Config.enhancements.stabilizerExclusions;
+        final var exclusions = Config.features.stabilizerExclusions;
         return !(exclusions.isEnabled() && exclusions.hasEntry(block, metadata));
     }
 
@@ -137,7 +137,7 @@ public class InfusionMatrixLogic {
      * Get the stabilizer strength of a block
      */
     private static int strengthForBlock(World world, int x, int y, int z) {
-        final var enhancements = Config.enhancements;
+        final var enhancements = Config.features;
 
         // If we're not using the rewrite, use the default stabilizer strength
         // Should only be called by the symmetry-check command

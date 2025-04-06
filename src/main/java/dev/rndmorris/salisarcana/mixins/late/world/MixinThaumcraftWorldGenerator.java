@@ -40,17 +40,17 @@ public class MixinThaumcraftWorldGenerator {
         @Local LocalRef<NodeModifier> modifier) {
         int index;
 
-        if (Config.enhancements.nodeModifierWeights.isEnabled()) {
-            index = RandomHelper.weightedRandom(random, Config.enhancements.nodeModifierWeights.getValue());
+        if (Config.features.nodeModifierWeights.isEnabled()) {
+            index = RandomHelper.weightedRandom(random, Config.features.nodeModifierWeights.getValue());
             if (index == -1) {
                 modifier.set(null);
             } else {
                 modifier.set(sa$modifiers[index]);
             }
         }
-        if (Config.enhancements.nodeTypeWeights.isEnabled()) {
+        if (Config.features.nodeTypeWeights.isEnabled()) {
             if (!silverwood && !eerie) {
-                index = RandomHelper.weightedRandom(random, Config.enhancements.nodeTypeWeights.getValue());
+                index = RandomHelper.weightedRandom(random, Config.features.nodeTypeWeights.getValue());
                 if (index == -1) {
                     type.set(NodeType.NORMAL);
                 } else {

@@ -14,7 +14,7 @@ import dev.rndmorris.salisarcana.config.settings.Setting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
-public class ConfigEnhancements extends ConfigGroup {
+public class ConfigFeatures extends ConfigGroup {
 
     public final ToggleSetting lessPickyPrimalCharmRecipe = new ToggleSetting(
         this,

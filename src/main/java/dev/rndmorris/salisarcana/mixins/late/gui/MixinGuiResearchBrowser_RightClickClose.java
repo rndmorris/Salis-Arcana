@@ -28,7 +28,7 @@ public class MixinGuiResearchBrowser_RightClickClose extends GuiScreen {
     @WrapMethod(method = "initGui")
     public void wrapInitGui(Operation<Void> original) {
         original.call();
-        if (!RightClickClose$ScreenStack.isEmpty() && Config.enhancements.nomiconSavePage.isEnabled()) {
+        if (!RightClickClose$ScreenStack.isEmpty() && Config.features.nomiconSavePage.isEnabled()) {
             Tuple currentPage = RightClickClose$ScreenStack.pop();
             this.mc.displayGuiScreen(
                 new GuiResearchRecipe(

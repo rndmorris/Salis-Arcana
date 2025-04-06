@@ -26,8 +26,7 @@ public class GuiHandler {
     // Used to clear the stack when going back to the research browser, mitigates #209
     @SubscribeEvent
     public void onGuiOpen(GuiOpenEvent event) {
-        if (Config.enhancements.nomiconRightClickClose.isEnabled()
-            && !Config.enhancements.nomiconSavePage.isEnabled()) {
+        if (Config.features.nomiconRightClickClose.isEnabled() && !Config.features.nomiconSavePage.isEnabled()) {
             if (event.gui instanceof GuiResearchBrowser
                 && Minecraft.getMinecraft().currentScreen instanceof GuiResearchRecipe) {
                 RightClickClose$ScreenStack.clear();
@@ -39,8 +38,7 @@ public class GuiHandler {
     // Without this, the tc4tweaks search bar gets drawn to the top of the research page instead of thaumonomicon.
     @SubscribeEvent
     public void onGuiPostInit(GuiScreenEvent.InitGuiEvent.Post event) {
-        if (!tc4tweaksLoaded || !Config.enhancements.nomiconSavePage.isEnabled()
-            || RightClickClose$ScreenStack.isEmpty()) {
+        if (!tc4tweaksLoaded || !Config.features.nomiconSavePage.isEnabled() || RightClickClose$ScreenStack.isEmpty()) {
             return;
         }
 

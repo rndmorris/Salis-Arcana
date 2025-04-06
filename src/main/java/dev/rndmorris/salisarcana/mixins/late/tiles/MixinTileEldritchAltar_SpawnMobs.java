@@ -38,7 +38,7 @@ public abstract class MixinTileEldritchAltar_SpawnMobs extends TileThaumcraft {
         @Local(name = "i1") LocalIntRef xRef, @Local(name = "j1") LocalIntRef yRef,
         @Local(name = "k1") LocalIntRef zRef) {
 
-        final var spawnSettings = Config.enhancements.eldritchAltarSpawningMethod;
+        final var spawnSettings = Config.features.eldritchAltarSpawningMethod;
 
         xRef.set(x = xCoord + spawnSettings.randomHorizontal(worldObj.rand));
         yRef.set(y = yCoord + spawnSettings.randomVertical(worldObj.rand));

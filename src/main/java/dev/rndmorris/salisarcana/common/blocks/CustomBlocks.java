@@ -16,7 +16,7 @@ public class CustomBlocks {
 
     public static void registerBlocks() {
 
-        if (Config.enhancements.lookalikePlanks.isEnabled()) {
+        if (Config.features.lookalikePlanks.isEnabled()) {
             registerLookaLikePlanks();
         }
 

@@ -99,7 +99,7 @@ public abstract class MixinCommandThaumcraft_TabCompletion extends CommandBase {
             }
             // case 4 is an integer, so no tab completion needed
             case 5 -> {
-                if (Config.enhancements.thaumcraftCommandWarpArgAll.isEnabled()) {
+                if (Config.features.thaumcraftCommandWarpArgAll.isEnabled()) {
                     return getListOfStringsMatchingLastWord(commandArgs, "PERM", "TEMP", "ALL");
                 }
                 return getListOfStringsMatchingLastWord(commandArgs, "PERM", "TEMP");

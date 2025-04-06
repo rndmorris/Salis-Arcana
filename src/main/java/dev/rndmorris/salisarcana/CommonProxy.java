@@ -55,7 +55,7 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
-        if (Config.enhancements.enableFocusDisenchanting.isEnabled()) {
+        if (Config.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.initialize();
         }
         CustomBlocks.registerBlocks();
@@ -65,7 +65,7 @@ public class CommonProxy {
             fixGolemFishingLists();
         }
 
-        if (Config.enhancements.heatSourceOreDict.isEnabled()) {
+        if (Config.features.heatSourceOreDict.isEnabled()) {
             CrucibleHeatLogic.registerOreDictName();
         }
         updateHarvestLevels();
@@ -79,7 +79,7 @@ public class CommonProxy {
     }
 
     private void updateHarvestLevels() {
-        final var enhancements = Config.enhancements;
+        final var enhancements = Config.features;
         if (enhancements.thaumiumHarvestLevel.isEnabled()) {
             final var toolMatThaumium = new R(ThaumcraftApi.toolMatThaumium);
             toolMatThaumium.set("harvestLevel", enhancements.thaumiumHarvestLevel.getValue());

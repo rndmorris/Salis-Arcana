@@ -17,7 +17,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
-        if (Config.enhancements.thaumicInventoryScanning.isEnabled()) {
+        if (Config.features.thaumicInventoryScanning.isEnabled()) {
             scanner = new ThaumicInventoryScanner();
             MinecraftForge.EVENT_BUS.register(scanner);
             FMLCommonHandler.instance()
@@ -32,7 +32,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
-        if (Config.enhancements.thaumicInventoryScanning.isEnabled()) {
+        if (Config.features.thaumicInventoryScanning.isEnabled()) {
             scanner.postInit(event);
         }
     }

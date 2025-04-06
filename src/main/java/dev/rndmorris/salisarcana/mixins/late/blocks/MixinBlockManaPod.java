@@ -12,6 +12,6 @@ public class MixinBlockManaPod {
 
     @ModifyConstant(method = "updateTick", constant = @Constant(intValue = 30))
     private int growthChance(int original) {
-        return Config.enhancements.manaPodGrowthRate.getValue();
+        return Config.features.manaPodGrowthRate.getValue();
     }
 }

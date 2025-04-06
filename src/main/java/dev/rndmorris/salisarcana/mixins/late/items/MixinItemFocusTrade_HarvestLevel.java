@@ -27,10 +27,10 @@ import thaumcraft.common.items.wands.foci.ItemFocusTrade;
 public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic implements IArchitect {
 
     @Unique
-    private final int sa$harvestLevel = Config.enhancements.equalTradeFocusHarvestLevel.getValue();
+    private final int sa$harvestLevel = Config.features.equalTradeFocusHarvestLevel.getValue();
 
     @Unique
-    private final boolean sa$potencyEnabled = Config.enhancements.potencyModifiesHarvestLevel.isEnabled();
+    private final boolean sa$potencyEnabled = Config.features.potencyModifiesHarvestLevel.isEnabled();
 
     @Unique
     private long sa$lastPlayedSound;

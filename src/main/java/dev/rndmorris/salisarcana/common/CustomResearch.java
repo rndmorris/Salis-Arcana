@@ -40,28 +40,28 @@ public class CustomResearch {
         wandItem.setRod(wand, ConfigItems.WAND_ROD_WOOD);
         wandItem.setCap(wand, ConfigItems.WAND_CAP_GOLD);
         replaceCapsResearch = maybeRegister(
-            Config.enhancements.replaceWandCapsSettings,
+            Config.features.replaceWandCapsSettings,
             PlaceholderItem.capPlaceholder,
             exampleCapRecipes());
 
         wandItem.setRod(wand, ConfigItems.WAND_ROD_GREATWOOD);
         wandItem.setCap(wand, ConfigItems.WAND_CAP_IRON);
         replaceCoreResearch = maybeRegister(
-            Config.enhancements.replaceWandCoreSettings,
+            Config.features.replaceWandCoreSettings,
             PlaceholderItem.rodPlaceholder,
             exampleRodRecipes());
 
-        if (Config.enhancements.enableFocusDisenchanting.isEnabled()) {
+        if (Config.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.registerResearch();
         }
 
         containerScanResearch = maybeRegister(
-            Config.enhancements.thaumometerScanContainersResearch,
+            Config.features.thaumometerScanContainersResearch,
             Item.getItemFromBlock(Blocks.chest));
     }
 
     private static IArcaneRecipe[][] exampleCapRecipes() {
-        if (!Config.enhancements.replaceWandCapsSettings.isEnabled()) {
+        if (!Config.features.replaceWandCapsSettings.isEnabled()) {
             return new ShapelessArcaneRecipe[][] {};
         }
         final var wand = (ItemWandCasting) ConfigItems.itemWandCasting;
@@ -140,7 +140,7 @@ public class CustomResearch {
     }
 
     private static IArcaneRecipe[][] exampleRodRecipes() {
-        if (!Config.enhancements.replaceWandCoreSettings.isEnabled()) {
+        if (!Config.features.replaceWandCoreSettings.isEnabled()) {
             return new ShapelessArcaneRecipe[][] {};
         }
         final var wand = (ItemWandCasting) ConfigItems.itemWandCasting;

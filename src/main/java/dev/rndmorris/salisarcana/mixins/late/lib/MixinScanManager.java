@@ -36,9 +36,9 @@ public class MixinScanManager {
         if (!player.worldObj.isRemote) {
             return;
         }
-        if (Config.enhancements.thaumometerScanContainersResearch.isEnabled() && !ResearchManager.isResearchComplete(
+        if (Config.features.thaumometerScanContainersResearch.isEnabled() && !ResearchManager.isResearchComplete(
             player.getCommandSenderName(),
-            Config.enhancements.thaumometerScanContainersResearch.getInternalName())) {
+            Config.features.thaumometerScanContainersResearch.getInternalName())) {
             return;
         }
 

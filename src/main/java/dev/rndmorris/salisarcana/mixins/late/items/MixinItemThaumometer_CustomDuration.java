@@ -14,6 +14,6 @@ public class MixinItemThaumometer_CustomDuration {
     private int customDuration(int original) {
         // Original duration is 20 + 5
         // It finishes the scan when remaining duration <= 5, so we want the custom duration to be duration + 5
-        return Config.enhancements.thaumometerDuration.getValue() + 5;
+        return Config.features.thaumometerDuration.getValue() + 5;
     }
 }

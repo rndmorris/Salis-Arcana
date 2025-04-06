@@ -12,7 +12,7 @@ public class MixinItemEldritchObject {
 
     @ModifyConstant(method = "<init>", constant = { @Constant(intValue = 1, ordinal = 0) })
     private int modifyEldritchObject(int original) {
-        return Config.enhancements.itemEldritchObjectStackSize.getValue();
+        return Config.features.itemEldritchObjectStackSize.getValue();
     }
 
 }
