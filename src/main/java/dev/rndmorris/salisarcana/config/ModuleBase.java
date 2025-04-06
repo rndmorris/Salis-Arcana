@@ -19,7 +19,7 @@ public abstract class ModuleBase implements IEnabler, IHaveSettings {
     protected final List<Setting> settings = new ArrayList<>();
 
     public ModuleBase() {
-        ConfigModuleRoot.modules.add(this);
+        Config.modules.add(this);
     }
 
     /**

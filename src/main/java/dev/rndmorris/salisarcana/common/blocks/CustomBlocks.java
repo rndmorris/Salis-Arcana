@@ -7,7 +7,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.api.OreDict;
 import dev.rndmorris.salisarcana.common.item.BlockPlankItem;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.Config;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class CustomBlocks {
@@ -16,7 +16,7 @@ public class CustomBlocks {
 
     public static void registerBlocks() {
 
-        if (ConfigModuleRoot.enhancements.lookalikePlanks.isEnabled()) {
+        if (Config.enhancements.lookalikePlanks.isEnabled()) {
             registerLookaLikePlanks();
         }
 

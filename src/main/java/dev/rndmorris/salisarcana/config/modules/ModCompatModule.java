@@ -2,7 +2,7 @@ package dev.rndmorris.salisarcana.config.modules;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.Config;
 import dev.rndmorris.salisarcana.config.ModuleBase;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.config.settings.compat.UBCCompatSettings;
@@ -12,7 +12,7 @@ public class ModCompatModule extends ModuleBase {
     public final UBCCompatSettings undergroundBiomes = new UBCCompatSettings(this);
 
     public final ToggleSetting tc4tweakScrollPages = new ToggleSetting(
-        ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled,
+        Config.enhancements.nomiconScrollwheelEnabled,
         "tc4tweakScrollPages",
         "Whether or not scrolling should scroll to next page of tabs or loop to first tab of the page, in the event that there are too many tabs.")
             .setCategory("tc4tweaks");

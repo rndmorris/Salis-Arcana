@@ -16,7 +16,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.Config;
 import thaumcraft.api.IArchitect;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
@@ -27,10 +27,10 @@ import thaumcraft.common.items.wands.foci.ItemFocusTrade;
 public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic implements IArchitect {
 
     @Unique
-    private final int sa$harvestLevel = ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.getValue();
+    private final int sa$harvestLevel = Config.enhancements.equalTradeFocusHarvestLevel.getValue();
 
     @Unique
-    private final boolean sa$potencyEnabled = ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled();
+    private final boolean sa$potencyEnabled = Config.enhancements.potencyModifiesHarvestLevel.isEnabled();
 
     @Unique
     private long sa$lastPlayedSound;

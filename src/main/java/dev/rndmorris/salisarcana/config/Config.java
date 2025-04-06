@@ -13,9 +13,7 @@ import dev.rndmorris.salisarcana.config.modules.CommandsModule;
 import dev.rndmorris.salisarcana.config.modules.EnhancementsModule;
 import dev.rndmorris.salisarcana.config.modules.ModCompatModule;
 
-// to-do: rename to something less wordy (like "Config"); this will be its own PR because almost everything touches this
-// class
-public class ConfigModuleRoot {
+public class Config {
 
     // no modifier, so it's visible within the same package (i.e. to ModuleBase)
     static final List<ModuleBase> modules = new ArrayList<>();

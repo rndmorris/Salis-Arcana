@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.Config;
 import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
 import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 
@@ -12,7 +12,7 @@ import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 public class SalisArcanaCore implements IFMLLoadingPlugin {
 
     public SalisArcanaCore() {
-        ConfigModuleRoot.synchronizeConfiguration();
+        Config.synchronizeConfiguration();
     }
 
     public static ArrayList<IAsmEditor> editors = new ArrayList<>();
@@ -40,13 +40,13 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
                 "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins",
                 "getMixins",
                 "(Ljava/util/Set;)Ljava/util/List;")
-                    .addConflict("MixinBlockCosmeticSolid", ConfigModuleRoot.bugfixes.beaconBlockFixSetting)
-                    .addConflict("MixinBlockCandleRenderer", ConfigModuleRoot.bugfixes.candleRendererCrashes)
-                    .addConflict("MixinBlockCandle", ConfigModuleRoot.bugfixes.candleRendererCrashes)
-                    .addConflict("MixinItemShard", ConfigModuleRoot.bugfixes.itemShardColor)
-                    .addConflict("MixinWandManager", ConfigModuleRoot.enhancements.useAllBaublesSlots)
-                    .addConflict("MixinEventHandlerRunic", ConfigModuleRoot.enhancements.useAllBaublesSlots)
-                    .addConflict("MixinWarpEvents", ConfigModuleRoot.enhancements.useAllBaublesSlots));
+                    .addConflict("MixinBlockCosmeticSolid", Config.bugfixes.beaconBlockFixSetting)
+                    .addConflict("MixinBlockCandleRenderer", Config.bugfixes.candleRendererCrashes)
+                    .addConflict("MixinBlockCandle", Config.bugfixes.candleRendererCrashes)
+                    .addConflict("MixinItemShard", Config.bugfixes.itemShardColor)
+                    .addConflict("MixinWandManager", Config.enhancements.useAllBaublesSlots)
+                    .addConflict("MixinEventHandlerRunic", Config.enhancements.useAllBaublesSlots)
+                    .addConflict("MixinWarpEvents", Config.enhancements.useAllBaublesSlots));
     }
 
     @Override

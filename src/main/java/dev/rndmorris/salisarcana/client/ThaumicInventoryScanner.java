@@ -31,7 +31,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.SalisArcana;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.Config;
 import dev.rndmorris.salisarcana.network.MessageScanSelf;
 import dev.rndmorris.salisarcana.network.MessageScanSlot;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
@@ -53,7 +53,7 @@ public class ThaumicInventoryScanner {
 
     static int getScanTicks() {
         if (SCAN_TICKS < 0) {
-            SCAN_TICKS = (ConfigModuleRoot.enhancements.thaumometerDuration.getValue() + 5) * 2;
+            SCAN_TICKS = (Config.enhancements.thaumometerDuration.getValue() + 5) * 2;
         }
         return SCAN_TICKS;
     }

@@ -14,7 +14,7 @@ import com.google.common.collect.PeekingIterator;
 
 import dev.rndmorris.salisarcana.common.commands.CommandErrors;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.Config;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 
 public class CommandNameHandler implements IPositionalArgumentHandler {
@@ -36,7 +36,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
         args.next();
-        final var settingsList = ConfigModuleRoot.commands.getCommandsSettings()
+        final var settingsList = Config.commands.getCommandsSettings()
             .collect(Collectors.toList());
 
         if (!args.hasNext()) {
@@ -62,7 +62,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
     }
 
     private CommandSettings findCommand(final String current) {
-        var maybeFoundCommand = ConfigModuleRoot.commands.getCommandsSettings()
+        var maybeFoundCommand = Config.commands.getCommandsSettings()
             .filter(CommandSettings::isEnabled)
             .filter(
                 s -> s.getFullName()
