@@ -12,7 +12,7 @@ import com.github.bsideup.jabel.Desugar;
 
 import dev.rndmorris.salisarcana.api.IMultipleResearchArcaneRecipe;
 import dev.rndmorris.salisarcana.common.CustomResearch;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
@@ -56,7 +56,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             .copy();
         wandInstance.setRod(outputItem, scanResult.newRod());
 
-        if (ConfigModuleRoot.enhancements.preserveWandVis.isEnabled()) {
+        if (SalisConfig.features.preserveWandVis.isEnabled()) {
             final var maxVis = wandInstance.getMaxVis(outputItem);
             final var newVis = new AspectList();
             final var originalVis = wandInstance.getAllVis(outputItem);
@@ -164,7 +164,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
                 return true;
             }
 
-            if (ConfigModuleRoot.enhancements.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
+            if (SalisConfig.features.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
                 return true;
             }
 

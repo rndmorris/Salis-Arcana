@@ -12,13 +12,13 @@ import dev.rndmorris.salisarcana.common.commands.arguments.ArgumentProcessor;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.PositionalArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional.CommandNameHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 
 public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
 
     public HelpCommand() {
-        super(ConfigModuleRoot.commands.help);
+        super(SalisConfig.commands.help);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
         final var listMessage = new ChatComponentText("");
         var any = false;
 
-        final var settings$ = ConfigModuleRoot.commands.getCommandsSettings()
+        final var settings$ = SalisConfig.commands.getCommandsSettings()
             .iterator();
 
         while (settings$.hasNext()) {

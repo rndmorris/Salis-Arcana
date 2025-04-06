@@ -21,7 +21,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.NodeMo
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.NodeTypeHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.QuantitativeAspectHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional.CoordinateHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 import thaumcraft.common.tiles.TileNode;
@@ -29,7 +29,7 @@ import thaumcraft.common.tiles.TileNode;
 public class CreateNodeCommand extends ArcanaCommandBase<CreateNodeCommand.Arguments> {
 
     public CreateNodeCommand() {
-        super(ConfigModuleRoot.commands.createNode);
+        super(SalisConfig.commands.createNode);
     }
 
     protected void process(ICommandSender sender, Arguments arguments, String[] args) {

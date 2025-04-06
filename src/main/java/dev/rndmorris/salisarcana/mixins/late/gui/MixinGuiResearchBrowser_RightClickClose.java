@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.client.gui.GuiResearchRecipe;
@@ -28,7 +28,7 @@ public class MixinGuiResearchBrowser_RightClickClose extends GuiScreen {
     @WrapMethod(method = "initGui")
     public void wrapInitGui(Operation<Void> original) {
         original.call();
-        if (!RightClickClose$ScreenStack.isEmpty() && ConfigModuleRoot.enhancements.nomiconSavePage.isEnabled()) {
+        if (!RightClickClose$ScreenStack.isEmpty() && SalisConfig.features.nomiconSavePage.isEnabled()) {
             Tuple currentPage = RightClickClose$ScreenStack.pop();
             this.mc.displayGuiScreen(
                 new GuiResearchRecipe(

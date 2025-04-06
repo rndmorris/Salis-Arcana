@@ -1,9 +1,9 @@
-package dev.rndmorris.salisarcana.config.modules;
+package dev.rndmorris.salisarcana.config.group;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
-import dev.rndmorris.salisarcana.config.ModuleBase;
+import dev.rndmorris.salisarcana.config.ConfigGroup;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
 import dev.rndmorris.salisarcana.config.settings.EldritchAltarMobSpawnSetting;
@@ -14,7 +14,7 @@ import dev.rndmorris.salisarcana.config.settings.Setting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
-public class EnhancementsModule extends ModuleBase {
+public class ConfigFeatures extends ConfigGroup {
 
     public final ToggleSetting lessPickyPrimalCharmRecipe = new ToggleSetting(
         this,
@@ -402,19 +402,19 @@ public class EnhancementsModule extends ModuleBase {
 
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
-            && ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
+            && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
             && this.allowSingleWandReplacement.isEnabled();
     }
 
     @Nonnull
     @Override
-    public String getModuleId() {
+    public String getGroupName() {
         return "enhancements";
     }
 
     @Nonnull
     @Override
-    public String getModuleComment() {
+    public String getGroupComment() {
         return "Tweaks and adjustments to enhance Thaumcraft";
     }
 }

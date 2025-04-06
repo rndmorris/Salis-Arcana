@@ -15,7 +15,7 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.client.gui.GuiResearchRecipe;
@@ -83,7 +83,7 @@ public class MixinGuiResearchRecipe extends GuiScreen {
             value = "INVOKE",
             target = "Lnet/minecraft/client/Minecraft;displayGuiScreen(Lnet/minecraft/client/gui/GuiScreen;)V"))
     private void onKeyTyped(Minecraft instance, GuiScreen i, Operation<Void> original) {
-        if (ConfigModuleRoot.enhancements.nomiconSavePage.isEnabled()) {
+        if (SalisConfig.features.nomiconSavePage.isEnabled()) {
             RightClickClose$ScreenStack.pop(); // current screen at first page
             RightClickClose$ScreenStack.push(new Tuple(research, page)); // push the current page on the stack
             // just close the window entirely

@@ -15,7 +15,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHan
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.AspectHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.Thaumcraft;
@@ -23,7 +23,7 @@ import thaumcraft.common.Thaumcraft;
 public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.Arguments> {
 
     public ForgetAspectCommand() {
-        super(ConfigModuleRoot.commands.forgetAspects);
+        super(SalisConfig.commands.forgetAspects);
     }
 
     @Nonnull

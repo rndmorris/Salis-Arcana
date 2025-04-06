@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import com.github.bsideup.jabel.Desugar;
 
 import dev.rndmorris.salisarcana.api.IVariableInfusionStabilizer;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import thaumcraft.common.tiles.TilePedestal;
 
@@ -62,7 +62,7 @@ public class InfusionMatrixLogic {
         final var block = world.getBlock(x, y, z);
         final var metadata = world.getBlockMetadata(x, y, z);
 
-        final var additions = ConfigModuleRoot.enhancements.stabilizerAdditions;
+        final var additions = SalisConfig.features.stabilizerAdditions;
         if (additions.isEnabled() && additions.hasEntry(block, metadata)) {
             return true;
         }
@@ -74,7 +74,7 @@ public class InfusionMatrixLogic {
             return false;
         }
 
-        final var exclusions = ConfigModuleRoot.enhancements.stabilizerExclusions;
+        final var exclusions = SalisConfig.features.stabilizerExclusions;
         return !(exclusions.isEnabled() && exclusions.hasEntry(block, metadata));
     }
 
@@ -137,21 +137,21 @@ public class InfusionMatrixLogic {
      * Get the stabilizer strength of a block
      */
     private static int strengthForBlock(World world, int x, int y, int z) {
-        final var module = ConfigModuleRoot.enhancements;
+        final var features = SalisConfig.features;
 
         // If we're not using the rewrite, use the default stabilizer strength
         // Should only be called by the symmetry-check command
-        if (!module.stabilizerStrength.isEnabled()) {
-            return module.stabilizerStrength.getDefaultValue();
+        if (!features.stabilizerStrength.isEnabled()) {
+            return features.stabilizerStrength.getDefaultValue();
         }
 
         final var block = world.getBlock(x, y, z);
         final var metadata = world.getBlockMetadata(x, y, z);
 
         // If we have an override, use the override's value (or default if no value specified)
-        final var additionData = module.stabilizerAdditions.getData(block, metadata);
+        final var additionData = features.stabilizerAdditions.getData(block, metadata);
         if (additionData.containedKeys) {
-            return additionData.data != null ? additionData.data : module.stabilizerStrength.getValueOrDefault();
+            return additionData.data != null ? additionData.data : features.stabilizerStrength.getValueOrDefault();
         }
 
         // If an addon has tapped into Salis Arcana's API
@@ -160,7 +160,7 @@ public class InfusionMatrixLogic {
         }
 
         // Or just the default strength
-        return module.stabilizerStrength.getValueOrDefault();
+        return features.stabilizerStrength.getValueOrDefault();
     }
 
     private static int[] getTwinnedCoord(MatrixOrigin matrix, int x, int z) {

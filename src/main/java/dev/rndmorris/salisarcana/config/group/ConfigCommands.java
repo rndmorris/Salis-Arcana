@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.config.modules;
+package dev.rndmorris.salisarcana.config.group;
 
 import static dev.rndmorris.salisarcana.common.commands.ListResearchCommand.listOthersReserach;
 
@@ -7,10 +7,10 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.salisarcana.config.ModuleBase;
+import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 
-public class CommandsModule extends ModuleBase {
+public class ConfigCommands extends ConfigGroup {
 
     public Stream<CommandSettings> getCommandsSettings() {
         return this.settings.stream()
@@ -71,13 +71,13 @@ public class CommandsModule extends ModuleBase {
 
     @Nonnull
     @Override
-    public String getModuleId() {
+    public String getGroupName() {
         return "commands";
     }
 
     @Nonnull
     @Override
-    public String getModuleComment() {
+    public String getGroupComment() {
         return "Helper and admin commands.";
     }
 }

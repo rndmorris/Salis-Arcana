@@ -13,7 +13,7 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
@@ -27,10 +27,10 @@ public abstract class PlaceholderItem extends Item {
     public static PlaceholderItem rodPlaceholder;
 
     public static void registerPlaceholders() {
-        if (ConfigModuleRoot.enhancements.replaceWandCapsSettings.isEnabled()) {
+        if (SalisConfig.features.replaceWandCapsSettings.isEnabled()) {
             GameRegistry.registerItem(capPlaceholder = new WandCapPlaceholderItem(), "capPlaceholder");
         }
-        if (ConfigModuleRoot.enhancements.replaceWandCoreSettings.isEnabled()) {
+        if (SalisConfig.features.replaceWandCoreSettings.isEnabled()) {
             GameRegistry.registerItem(rodPlaceholder = new WandRodPlaceholderItem(), "rodPlaceholder");
         }
     }

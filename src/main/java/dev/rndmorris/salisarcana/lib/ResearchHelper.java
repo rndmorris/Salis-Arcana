@@ -1,6 +1,6 @@
 package dev.rndmorris.salisarcana.lib;
 
-import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
+import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 
 import java.util.ArrayList;
 import java.util.Collection;

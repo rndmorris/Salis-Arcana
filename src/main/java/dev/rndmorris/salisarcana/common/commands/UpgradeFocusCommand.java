@@ -16,14 +16,14 @@ import dev.rndmorris.salisarcana.common.commands.arguments.annotations.Positiona
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.FocusUpgradesHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.WandFocusHelper;
 import thaumcraft.api.wands.FocusUpgradeType;
 
 public class UpgradeFocusCommand extends ArcanaCommandBase<UpgradeFocusCommand.Arguments> {
 
     public UpgradeFocusCommand() {
-        super(ConfigModuleRoot.commands.upgradeFocus);
+        super(SalisConfig.commands.upgradeFocus);
     }
 
     @Nonnull

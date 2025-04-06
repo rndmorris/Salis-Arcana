@@ -12,7 +12,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.tiles.TileEldritchAltar;
 
@@ -38,7 +38,7 @@ public abstract class MixinTileEldritchAltar_SpawnMobs extends TileThaumcraft {
         @Local(name = "i1") LocalIntRef xRef, @Local(name = "j1") LocalIntRef yRef,
         @Local(name = "k1") LocalIntRef zRef) {
 
-        final var spawnSettings = ConfigModuleRoot.enhancements.eldritchAltarSpawningMethod;
+        final var spawnSettings = SalisConfig.features.eldritchAltarSpawningMethod;
 
         xRef.set(x = xCoord + spawnSettings.randomHorizontal(worldObj.rand));
         yRef.set(y = yCoord + spawnSettings.randomVertical(worldObj.rand));

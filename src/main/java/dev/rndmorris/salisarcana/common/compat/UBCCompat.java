@@ -5,7 +5,7 @@ import java.util.Set;
 
 import net.minecraft.block.Block;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.R;
 import exterminatorJeff.undergroundBiomes.common.UndergroundBiomes;
 import exterminatorJeff.undergroundBiomes.common.block.StoneSlabPair;
@@ -14,7 +14,7 @@ import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 public class UBCCompat {
 
     public static void init() {
-        final var undergroundBiomes = ConfigModuleRoot.modCompat.undergroundBiomes;
+        final var undergroundBiomes = SalisConfig.modCompat.undergroundBiomes;
         if (!undergroundBiomes.isEnabled()) {
             return;
         }

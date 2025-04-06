@@ -1,6 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.blocks;
 
-import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.bugfixes;
+import static dev.rndmorris.salisarcana.config.SalisConfig.bugfixes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

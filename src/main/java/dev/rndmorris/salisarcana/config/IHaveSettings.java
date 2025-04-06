@@ -5,7 +5,7 @@ import java.util.Collection;
 import dev.rndmorris.salisarcana.config.settings.Setting;
 
 /**
- * Provides methods for getting, adding, and removing settings from an object. This is primarily for modules, but some
+ * Provides methods for getting, adding, and removing settings from an object. This is primarily for groups, but some
  * {@link Setting} derivatives might want to implement it too.
  */
 public interface IHaveSettings {
@@ -17,7 +17,7 @@ public interface IHaveSettings {
 
     /**
      * Register an individual setting, if it is not already registered.
-     * 
+     *
      * @param setting The setting to register.
      */
     default void registerSetting(Setting setting) {
@@ -29,7 +29,7 @@ public interface IHaveSettings {
 
     /**
      * Unregister an individual setting, if it is registered.
-     * 
+     *
      * @param setting The setting to unregister.
      */
     default void unregisterSetting(Setting setting) {

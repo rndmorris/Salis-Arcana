@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.RandomHelper;
 import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.api.nodes.NodeType;
@@ -40,17 +40,17 @@ public class MixinThaumcraftWorldGenerator {
         @Local LocalRef<NodeModifier> modifier) {
         int index;
 
-        if (ConfigModuleRoot.enhancements.nodeModifierWeights.isEnabled()) {
-            index = RandomHelper.weightedRandom(random, ConfigModuleRoot.enhancements.nodeModifierWeights.getValue());
+        if (SalisConfig.features.nodeModifierWeights.isEnabled()) {
+            index = RandomHelper.weightedRandom(random, SalisConfig.features.nodeModifierWeights.getValue());
             if (index == -1) {
                 modifier.set(null);
             } else {
                 modifier.set(sa$modifiers[index]);
             }
         }
-        if (ConfigModuleRoot.enhancements.nodeTypeWeights.isEnabled()) {
+        if (SalisConfig.features.nodeTypeWeights.isEnabled()) {
             if (!silverwood && !eerie) {
-                index = RandomHelper.weightedRandom(random, ConfigModuleRoot.enhancements.nodeTypeWeights.getValue());
+                index = RandomHelper.weightedRandom(random, SalisConfig.features.nodeTypeWeights.getValue());
                 if (index == -1) {
                     type.set(NodeType.NORMAL);
                 } else {

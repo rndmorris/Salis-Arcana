@@ -4,7 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.items.ItemEldritchObject;
 
 @Mixin(value = ItemEldritchObject.class, remap = false)
@@ -12,7 +12,7 @@ public class MixinItemEldritchObject {
 
     @ModifyConstant(method = "<init>", constant = { @Constant(intValue = 1, ordinal = 0) })
     private int modifyEldritchObject(int original) {
-        return ConfigModuleRoot.enhancements.itemEldritchObjectStackSize.getValue();
+        return SalisConfig.features.itemEldritchObjectStackSize.getValue();
     }
 
 }

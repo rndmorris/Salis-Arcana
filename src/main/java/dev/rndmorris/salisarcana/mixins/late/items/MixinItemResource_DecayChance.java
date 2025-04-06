@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.items.ItemResource;
 
 @Mixin(ItemResource.class)
@@ -18,7 +18,7 @@ public abstract class MixinItemResource_DecayChance {
         method = "onUpdate",
         at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", remap = false))
     private int disableCreativeDecay(Random instance, int i, Operation<Integer> original) {
-        final var bound = ConfigModuleRoot.enhancements.taintedItemDecayChance.getValue();
+        final var bound = SalisConfig.features.taintedItemDecayChance.getValue();
         if (bound < 0) {
             return Integer.MAX_VALUE;
         }

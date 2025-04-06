@@ -21,11 +21,11 @@ import com.google.gson.reflect.TypeToken;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import dev.rndmorris.salisarcana.Tags;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 
 public class Updater {
 
-    public boolean hasCheckedVersion = !ConfigModuleRoot.enableVersionChecking;
+    public boolean hasCheckedVersion = !SalisConfig.enableVersionChecking;
 
     private static final String versionURL = "https://api.modrinth.com/v2/project/y1bqIjK6/version";
 

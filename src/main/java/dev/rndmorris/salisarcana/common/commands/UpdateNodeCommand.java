@@ -20,14 +20,14 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.NodeMo
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.NodeTypeHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.QuantitativeAspectHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional.CoordinateHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.tiles.TileNode;
 
 public class UpdateNodeCommand extends ArcanaCommandBase<UpdateNodeCommand.Arguments> {
 
     public UpdateNodeCommand() {
-        super(ConfigModuleRoot.commands.updateNode);
+        super(SalisConfig.commands.updateNode);
     }
 
     protected void process(ICommandSender sender, Arguments arguments, String[] args) {

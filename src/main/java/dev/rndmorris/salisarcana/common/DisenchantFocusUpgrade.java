@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import dev.rndmorris.salisarcana.SalisArcana;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.FormattedResearchPage;
 import thaumcraft.api.ThaumcraftApi;
@@ -37,8 +37,8 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
     }
 
     public static void registerResearch() {
-        final var percentXP = ConfigModuleRoot.enhancements.focusDisenchantingRefundPercentage.getValueOrDefault();
-        final var data = ConfigModuleRoot.enhancements.focusDisenchantingResearch;
+        final var percentXP = SalisConfig.features.focusDisenchantingRefundPercentage.getValueOrDefault();
+        final var data = SalisConfig.features.focusDisenchantingResearch;
 
         researchItem = new ResearchItem(
             RESEARCH_KEY,
@@ -132,13 +132,13 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
         } else {
             return StatCollector.translateToLocalFormatted(
                 GENERIC_TOOLTIP_KEY,
-                ConfigModuleRoot.enhancements.focusDisenchantingRefundPercentage.getValueOrDefault());
+                SalisConfig.features.focusDisenchantingRefundPercentage.getValueOrDefault());
         }
     }
 
     public int getXpPoints() {
         return (RANK_TO_XP_POINTS[Math.min(this.lastRank, 5) - 1]
-            * ConfigModuleRoot.enhancements.focusDisenchantingRefundPercentage.getValueOrDefault()) / 100;
+            * SalisConfig.features.focusDisenchantingRefundPercentage.getValueOrDefault()) / 100;
     }
 
     public AspectList getVisPoints() {

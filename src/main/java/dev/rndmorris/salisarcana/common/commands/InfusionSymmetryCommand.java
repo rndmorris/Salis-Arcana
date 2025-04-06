@@ -14,14 +14,14 @@ import dev.rndmorris.salisarcana.common.commands.arguments.CoordinateArgument;
 import dev.rndmorris.salisarcana.common.commands.arguments.annotations.PositionalArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional.CoordinateHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.InfusionMatrixLogic;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 public class InfusionSymmetryCommand extends ArcanaCommandBase<InfusionSymmetryCommand.Arguments> {
 
     public InfusionSymmetryCommand() {
-        super(ConfigModuleRoot.commands.infusionSymmetry);
+        super(SalisConfig.commands.infusionSymmetry);
     }
 
     @Nonnull

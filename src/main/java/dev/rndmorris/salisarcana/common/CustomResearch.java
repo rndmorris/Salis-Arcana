@@ -11,7 +11,7 @@ import net.minecraft.nbt.NBTTagByte;
 import net.minecraftforge.oredict.OreDictionary;
 
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
@@ -40,28 +40,28 @@ public class CustomResearch {
         wandItem.setRod(wand, ConfigItems.WAND_ROD_WOOD);
         wandItem.setCap(wand, ConfigItems.WAND_CAP_GOLD);
         replaceCapsResearch = maybeRegister(
-            ConfigModuleRoot.enhancements.replaceWandCapsSettings,
+            SalisConfig.features.replaceWandCapsSettings,
             PlaceholderItem.capPlaceholder,
             exampleCapRecipes());
 
         wandItem.setRod(wand, ConfigItems.WAND_ROD_GREATWOOD);
         wandItem.setCap(wand, ConfigItems.WAND_CAP_IRON);
         replaceCoreResearch = maybeRegister(
-            ConfigModuleRoot.enhancements.replaceWandCoreSettings,
+            SalisConfig.features.replaceWandCoreSettings,
             PlaceholderItem.rodPlaceholder,
             exampleRodRecipes());
 
-        if (ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled()) {
+        if (SalisConfig.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.registerResearch();
         }
 
         containerScanResearch = maybeRegister(
-            ConfigModuleRoot.enhancements.thaumometerScanContainersResearch,
+            SalisConfig.features.thaumometerScanContainersResearch,
             Item.getItemFromBlock(Blocks.chest));
     }
 
     private static IArcaneRecipe[][] exampleCapRecipes() {
-        if (!ConfigModuleRoot.enhancements.replaceWandCapsSettings.isEnabled()) {
+        if (!SalisConfig.features.replaceWandCapsSettings.isEnabled()) {
             return new ShapelessArcaneRecipe[][] {};
         }
         final var wand = (ItemWandCasting) ConfigItems.itemWandCasting;
@@ -140,7 +140,7 @@ public class CustomResearch {
     }
 
     private static IArcaneRecipe[][] exampleRodRecipes() {
-        if (!ConfigModuleRoot.enhancements.replaceWandCoreSettings.isEnabled()) {
+        if (!SalisConfig.features.replaceWandCoreSettings.isEnabled()) {
             return new ShapelessArcaneRecipe[][] {};
         }
         final var wand = (ItemWandCasting) ConfigItems.itemWandCasting;
