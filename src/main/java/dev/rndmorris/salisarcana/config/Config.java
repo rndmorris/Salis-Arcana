@@ -8,20 +8,20 @@ import java.util.List;
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.SalisArcana;
-import dev.rndmorris.salisarcana.config.modules.BugfixesModule;
-import dev.rndmorris.salisarcana.config.modules.CommandsModule;
-import dev.rndmorris.salisarcana.config.modules.EnhancementsModule;
-import dev.rndmorris.salisarcana.config.modules.ModCompatModule;
+import dev.rndmorris.salisarcana.config.modules.ConfigBugfixes;
+import dev.rndmorris.salisarcana.config.modules.ConfigCommands;
+import dev.rndmorris.salisarcana.config.modules.ConfigEnhancements;
+import dev.rndmorris.salisarcana.config.modules.ConfigModCompat;
 
 public class Config {
 
     // no modifier, so it's visible within the same package (i.e. to ModuleBase)
-    static final List<ModuleBase> modules = new ArrayList<>();
+    static final List<ConfigBase> modules = new ArrayList<>();
 
-    public static final BugfixesModule bugfixes = new BugfixesModule();
-    public static final CommandsModule commands = new CommandsModule();
-    public static final EnhancementsModule enhancements = new EnhancementsModule();
-    public static final ModCompatModule modCompat = new ModCompatModule();
+    public static final ConfigBugfixes bugfixes = new ConfigBugfixes();
+    public static final ConfigCommands commands = new ConfigCommands();
+    public static final ConfigEnhancements enhancements = new ConfigEnhancements();
+    public static final ConfigModCompat modCompat = new ConfigModCompat();
 
     public static boolean enableVersionChecking;
 
@@ -35,9 +35,9 @@ public class Config {
 
         for (var module : modules) {
 
-            final var toggleName = String.format("Enable %s module", module.getModuleId());
+            final var toggleName = String.format("Enable %s module", module.getFileName());
             final var enabled = rootConfig
-                .getBoolean(toggleName, "modules", module.isEnabled(), module.getModuleComment());
+                .getBoolean(toggleName, "modules", module.isEnabled(), module.getFileComment());
             module.setEnabled(enabled);
 
             if (!enabled) {
@@ -45,7 +45,7 @@ public class Config {
             }
 
             final var moduleConfig = getModuleConfig(module);
-            module.loadModuleFromConfig(moduleConfig);
+            module.loadFromConfig(moduleConfig);
 
             if (moduleConfig.hasChanged()) {
                 moduleConfig.save();
@@ -57,8 +57,8 @@ public class Config {
         }
     }
 
-    private static Configuration getModuleConfig(ModuleBase module) {
-        final var path = Paths.get("config", SalisArcana.MODID, module.getModuleId() + ".cfg")
+    private static Configuration getModuleConfig(ConfigBase module) {
+        final var path = Paths.get("config", SalisArcana.MODID, module.getFileName() + ".cfg")
             .toString();
         return new Configuration(new File(path));
     }

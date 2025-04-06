@@ -7,10 +7,10 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.salisarcana.config.ModuleBase;
+import dev.rndmorris.salisarcana.config.ConfigBase;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 
-public class CommandsModule extends ModuleBase {
+public class ConfigCommands extends ConfigBase {
 
     public Stream<CommandSettings> getCommandsSettings() {
         return this.settings.stream()
@@ -71,13 +71,13 @@ public class CommandsModule extends ModuleBase {
 
     @Nonnull
     @Override
-    public String getModuleId() {
+    public String getFileName() {
         return "commands";
     }
 
     @Nonnull
     @Override
-    public String getModuleComment() {
+    public String getFileComment() {
         return "Helper and admin commands.";
     }
 }
