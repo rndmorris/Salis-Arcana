@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import dev.rndmorris.salisarcana.config.Config;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
 import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 
@@ -12,7 +12,7 @@ import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 public class SalisArcanaCore implements IFMLLoadingPlugin {
 
     public SalisArcanaCore() {
-        Config.synchronizeConfiguration();
+        SalisConfig.synchronizeConfiguration();
     }
 
     public static ArrayList<IAsmEditor> editors = new ArrayList<>();
@@ -40,13 +40,13 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
                 "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins",
                 "getMixins",
                 "(Ljava/util/Set;)Ljava/util/List;")
-                    .addConflict("MixinBlockCosmeticSolid", Config.bugfixes.beaconBlockFixSetting)
-                    .addConflict("MixinBlockCandleRenderer", Config.bugfixes.candleRendererCrashes)
-                    .addConflict("MixinBlockCandle", Config.bugfixes.candleRendererCrashes)
-                    .addConflict("MixinItemShard", Config.bugfixes.itemShardColor)
-                    .addConflict("MixinWandManager", Config.features.useAllBaublesSlots)
-                    .addConflict("MixinEventHandlerRunic", Config.features.useAllBaublesSlots)
-                    .addConflict("MixinWarpEvents", Config.features.useAllBaublesSlots));
+                    .addConflict("MixinBlockCosmeticSolid", SalisConfig.bugfixes.beaconBlockFixSetting)
+                    .addConflict("MixinBlockCandleRenderer", SalisConfig.bugfixes.candleRendererCrashes)
+                    .addConflict("MixinBlockCandle", SalisConfig.bugfixes.candleRendererCrashes)
+                    .addConflict("MixinItemShard", SalisConfig.bugfixes.itemShardColor)
+                    .addConflict("MixinWandManager", SalisConfig.features.useAllBaublesSlots)
+                    .addConflict("MixinEventHandlerRunic", SalisConfig.features.useAllBaublesSlots)
+                    .addConflict("MixinWarpEvents", SalisConfig.features.useAllBaublesSlots));
     }
 
     @Override

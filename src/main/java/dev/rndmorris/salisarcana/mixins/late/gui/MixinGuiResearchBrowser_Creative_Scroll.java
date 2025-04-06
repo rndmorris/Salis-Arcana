@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.rndmorris.salisarcana.common.compat.Mods;
-import dev.rndmorris.salisarcana.config.Config;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -53,13 +53,13 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
     private int sa$lastDir = 0;
 
     @Unique
-    private static final boolean sa$opEnabled = Config.features.creativeOpThaumonomicon.isEnabled();
+    private static final boolean sa$opEnabled = SalisConfig.features.creativeOpThaumonomicon.isEnabled();
 
     @Unique
-    private static final boolean sa$scrollEnabled = Config.features.nomiconScrollwheelEnabled.isEnabled();
+    private static final boolean sa$scrollEnabled = SalisConfig.features.nomiconScrollwheelEnabled.isEnabled();
 
     @Unique
-    private static final int sa$invertScrolling = Config.features.nomiconInvertedScrolling.isEnabled() ? -1 : 1;
+    private static final int sa$invertScrolling = SalisConfig.features.nomiconInvertedScrolling.isEnabled() ? -1 : 1;
 
     @Unique
     private final GuiResearchBrowser sa$this = (GuiResearchBrowser) (Object) this;
@@ -99,7 +99,7 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
     private void sa$handleTc4TweakScroll(int dir) {
         List<String> categories = new ArrayList<>(BrowserPaging$GetTabsOnCurrentPage(sa$this, this.player).keySet());
         String next = sa$GetNextCategory(dir, sa$allCategories());
-        if (!Config.modCompat.tc4tweakScrollPages.isEnabled()) {
+        if (!SalisConfig.modCompat.tc4tweakScrollPages.isEnabled()) {
             if (categories.isEmpty()) return;
 
             // reset to first if current category is not found

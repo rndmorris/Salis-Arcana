@@ -19,7 +19,7 @@ public abstract class ConfigGroup implements IEnabler, IHaveSettings {
     protected final List<Setting> settings = new ArrayList<>();
 
     public ConfigGroup() {
-        Config.groups.add(this);
+        SalisConfig.groups.add(this);
     }
 
     /**

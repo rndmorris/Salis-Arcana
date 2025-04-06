@@ -20,7 +20,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.api.OreDict;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
-import dev.rndmorris.salisarcana.config.Config;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
@@ -36,7 +36,7 @@ public class CustomRecipes {
 
     public static void registerRecipes() {
 
-        final var features = Config.features;
+        final var features = SalisConfig.features;
 
         if (features.lookalikePlanks.isEnabled()) {
             registerPlankRecipes();
@@ -52,7 +52,7 @@ public class CustomRecipes {
             registerRotatedThaumometer();
         }
 
-        if (Config.bugfixes.slabBurnTimeFix.isEnabled()) {
+        if (SalisConfig.bugfixes.slabBurnTimeFix.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new FuelBurnTimeEventHandler());
         }
 
@@ -83,11 +83,11 @@ public class CustomRecipes {
     }
 
     public static void registerRecipesPostInit() {
-        if (Config.features.rotatedFociRecipes.isEnabled()) {
+        if (SalisConfig.features.rotatedFociRecipes.isEnabled()) {
             // registered here because TC4 doesn't register its recipes until post init
             registerRotatedFoci();
         }
-        if (Config.bugfixes.fixEFRRecipes.isEnabled() && Loader.isModLoaded("etfuturum")) {
+        if (SalisConfig.bugfixes.fixEFRRecipes.isEnabled() && Loader.isModLoaded("etfuturum")) {
             registerEFRRecipes();
         }
     }

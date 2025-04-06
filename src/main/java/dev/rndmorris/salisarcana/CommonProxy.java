@@ -1,7 +1,7 @@
 package dev.rndmorris.salisarcana;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
-import static dev.rndmorris.salisarcana.config.Config.commands;
+import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -30,7 +30,7 @@ import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
 import dev.rndmorris.salisarcana.common.compat.ModCompat;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
-import dev.rndmorris.salisarcana.config.Config;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.R;
@@ -55,17 +55,17 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
-        if (Config.features.enableFocusDisenchanting.isEnabled()) {
+        if (SalisConfig.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.initialize();
         }
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
 
-        if (Config.bugfixes.useForgeFishingLists.isEnabled()) {
+        if (SalisConfig.bugfixes.useForgeFishingLists.isEnabled()) {
             fixGolemFishingLists();
         }
 
-        if (Config.features.heatSourceOreDict.isEnabled()) {
+        if (SalisConfig.features.heatSourceOreDict.isEnabled()) {
             CrucibleHeatLogic.registerOreDictName();
         }
         updateHarvestLevels();
@@ -79,7 +79,7 @@ public class CommonProxy {
     }
 
     private void updateHarvestLevels() {
-        final var features = Config.features;
+        final var features = SalisConfig.features;
         if (features.thaumiumHarvestLevel.isEnabled()) {
             final var toolMatThaumium = new R(ThaumcraftApi.toolMatThaumium);
             toolMatThaumium.set("harvestLevel", features.thaumiumHarvestLevel.getValue());

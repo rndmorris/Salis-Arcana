@@ -2,8 +2,8 @@ package dev.rndmorris.salisarcana.config.group;
 
 import javax.annotation.Nonnull;
 
-import dev.rndmorris.salisarcana.config.Config;
 import dev.rndmorris.salisarcana.config.ConfigGroup;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
 import dev.rndmorris.salisarcana.config.settings.EldritchAltarMobSpawnSetting;
@@ -402,7 +402,7 @@ public class ConfigFeatures extends ConfigGroup {
 
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
-            && Config.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
+            && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
             && this.allowSingleWandReplacement.isEnabled();
     }
 
