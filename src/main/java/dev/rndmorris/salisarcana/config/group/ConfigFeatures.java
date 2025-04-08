@@ -184,7 +184,8 @@ public class ConfigFeatures extends ConfigGroup {
     public final ToggleSetting nomiconSavePage = new ToggleSetting(
         nomiconRightClickClose,
         "Save Thaumonomicon Page",
-        "When closing the Thaumonomicon, it will remember the page you are on when it is reopened. Requires Right-Click Navigation to be enabled.");
+        "When closing the Thaumonomicon, it will remember the page you are on when it is reopened. Requires Right-Click Navigation to be enabled.")
+            .setEnabled(false);
 
     public final Setting nomiconShowResearchId = new ToggleSetting(
         this,
