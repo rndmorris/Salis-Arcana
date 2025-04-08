@@ -16,6 +16,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.inventory.SlotMerchantResult;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -112,6 +113,7 @@ public class ThaumicInventoryScanner {
                 null,
                 "");
             if (hoveringSlot.canTakeStack(player) && !(hoveringSlot instanceof SlotCrafting)
+                && !(hoveringSlot instanceof SlotMerchantResult)
                 && ScanManager.isValidScanTarget(player, result, "@")
                 && !ScanManager.getScanAspects(result, Minecraft.getMinecraft().theWorld.provider.worldObj).aspects
                     .isEmpty()) {
