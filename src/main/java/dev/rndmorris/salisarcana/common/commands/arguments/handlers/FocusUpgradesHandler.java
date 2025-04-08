@@ -24,7 +24,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.INamed
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional.IPositionalArgumentHandler;
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
-import dev.rndmorris.salisarcana.lib.ResearchHelper;
+import dev.rndmorris.salisarcana.lib.KnowItAll;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 
@@ -92,8 +92,7 @@ public class FocusUpgradesHandler implements INamedArgumentHandler, IPositionalA
 
         final var result = new ArrayList<String>(possibleUpgrades.length);
         for (var upgrade : possibleUpgrades) {
-            if (heldFocus
-                .canApplyUpgrade(workingItem, ResearchHelper.knowItAll(), upgrade, appliedUpgrades.size() + 1)) {
+            if (heldFocus.canApplyUpgrade(workingItem, KnowItAll.getInstance(), upgrade, appliedUpgrades.size() + 1)) {
                 result.add(formatUpgradeKey(upgrade));
             }
         }

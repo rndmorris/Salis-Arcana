@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
+import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import thaumcraft.api.crafting.InfusionEnchantmentRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
@@ -28,7 +29,7 @@ public class MixinTileInfusionMatrix_MissingResearch {
         remap = false)
     public InfusionRecipe captureInfusionRecipe(ArrayList<ItemStack> components, ItemStack centerItem,
         EntityPlayer player, Operation<InfusionRecipe> original) {
-        final var recipe = original.call(components, centerItem, ResearchHelper.knowItAll());
+        final var recipe = original.call(components, centerItem, KnowItAll.getInstance());
 
         if (recipe != null && !recipe.matches(components, centerItem, player.worldObj, player)) {
             ResearchHelper
@@ -48,7 +49,7 @@ public class MixinTileInfusionMatrix_MissingResearch {
         remap = false)
     public InfusionEnchantmentRecipe captureInfusionEnchantmentRecipe(ArrayList<ItemStack> components,
         ItemStack centerItem, EntityPlayer player, Operation<InfusionEnchantmentRecipe> original) {
-        final var recipe = original.call(components, centerItem, ResearchHelper.knowItAll());
+        final var recipe = original.call(components, centerItem, KnowItAll.getInstance());
 
         if (recipe != null && !recipe.matches(components, centerItem, player.worldObj, player)) {
             ResearchHelper
