@@ -1,6 +1,8 @@
 package dev.rndmorris.salisarcana;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -41,5 +43,15 @@ public class ClientProxy extends CommonProxy {
     public boolean isSingleplayerClient() {
         return Minecraft.getMinecraft()
             .isSingleplayer();
+    }
+
+    @Override
+    public World getFakePlayerWorld() {
+        if (MinecraftServer.getServer() != null) {
+            return MinecraftServer.getServer()
+                .worldServerForDimension(0);
+        } else {
+            return Minecraft.getMinecraft().theWorld;
+        }
     }
 }

@@ -6,7 +6,10 @@ import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
+import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -32,8 +35,8 @@ import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
+import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.R;
-import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
@@ -72,6 +75,7 @@ public class CommonProxy {
         FMLCommonHandler.instance()
             .bus()
             .register(new StartupNotifications());
+        MinecraftForge.EVENT_BUS.register(KnowItAll.EVENT_COLLECTOR);
     }
 
     private void updateHarvestLevels() {
@@ -111,8 +115,6 @@ public class CommonProxy {
 
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {
-        ResearchHelper.resetKnowItAll();
-
         maybeRegister(event, commands.createNode, CreateNodeCommand::new);
         maybeRegister(event, commands.forgetResearch, ForgetResearchCommand::new);
         maybeRegister(event, commands.forgetScanned, ForgetScannedCommand::new);
@@ -134,6 +136,11 @@ public class CommonProxy {
 
     public boolean isSingleplayerClient() {
         return false;
+    }
+
+    public World getFakePlayerWorld() {
+        return MinecraftServer.getServer()
+            .worldServerForDimension(0);
     }
 
     private void fixGolemFishingLists() {
