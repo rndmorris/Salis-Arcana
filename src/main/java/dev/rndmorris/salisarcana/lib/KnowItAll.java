@@ -34,7 +34,6 @@ public class KnowItAll extends EntityPlayer {
         public void onWorldUnload(WorldEvent.Unload event) {
             if (knowItAll != null && knowItAll.worldObj == event.world) {
                 knowItAll = null;
-                System.out.println("Unloaded KnowItAll");
             }
         }
     }
