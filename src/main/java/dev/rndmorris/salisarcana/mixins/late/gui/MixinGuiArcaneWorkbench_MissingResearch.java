@@ -18,7 +18,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 
 import dev.rndmorris.salisarcana.api.IMultipleResearchArcaneRecipe;
 import dev.rndmorris.salisarcana.lib.CraftingHelper;
-import dev.rndmorris.salisarcana.lib.ResearchHelper;
+import dev.rndmorris.salisarcana.lib.KnowItAll;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.client.gui.GuiArcaneWorkbench;
 import thaumcraft.common.items.wands.ItemWandCasting;
@@ -46,7 +46,7 @@ public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContain
         final var wand = this.tileEntity.getStackInSlot(10);
         if (wand == null || wand.getItem() == null && !(wand.getItem() instanceof ItemWandCasting)) return null;
 
-        final var recipe = CraftingHelper.INSTANCE.findArcaneRecipe(awb, ResearchHelper.knowItAll());
+        final var recipe = CraftingHelper.INSTANCE.findArcaneRecipe(awb, KnowItAll.getInstance());
 
         if (recipe != null && !recipe.matches(awb, player.worldObj, player)) {
             final var researchArray = (recipe instanceof IMultipleResearchArcaneRecipe multi)
