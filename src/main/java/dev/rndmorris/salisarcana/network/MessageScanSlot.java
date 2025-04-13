@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.inventory.SlotMerchantResult;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -52,7 +53,9 @@ public class MessageScanSlot implements IMessage, IMessageHandler<MessageScanSlo
         if (container != null && message.getSlotNumber() >= 0
             && message.getSlotNumber() < container.inventorySlots.size()) {
             Slot slot = container.inventorySlots.get(message.getSlotNumber());
-            if (slot.getStack() != null && slot.canTakeStack(entityPlayer) && !(slot instanceof SlotCrafting)) {
+            if (slot.getStack() != null && slot.canTakeStack(entityPlayer)
+                && !(slot instanceof SlotCrafting)
+                && !(slot instanceof SlotMerchantResult)) {
                 ItemStack itemStack = slot.getStack();
                 ScanResult result = new ScanResult(
                     (byte) 1,
