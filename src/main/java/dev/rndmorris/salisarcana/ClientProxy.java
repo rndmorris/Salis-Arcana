@@ -47,7 +47,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public World getFakePlayerWorld() {
-        if (MinecraftServer.getServer() != null) {
+        if (Minecraft.getMinecraft()
+            .isSingleplayer()) {
             return MinecraftServer.getServer()
                 .worldServerForDimension(0);
         } else {
