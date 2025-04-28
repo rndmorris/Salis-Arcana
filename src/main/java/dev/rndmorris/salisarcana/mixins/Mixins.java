@@ -55,7 +55,7 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileInfusionMatrix_IntegerStabilizers")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ITEMSHARD_OOB(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
+        .setSide(Side.CLIENT)
         .setApplyIf(SalisConfig.bugfixes.itemShardColor::isEnabled)
         .addMixinClasses("items.MixinItemShard")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
@@ -75,7 +75,7 @@ public enum Mixins {
         .addMixinClasses("config.MixinConfigItems_UnOredictGoldCoin")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     FOCI_STAFF_VISUAL_FIX(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
+        .setSide(Side.CLIENT)
         .setApplyIf(SalisConfig.bugfixes.staffFocusEffectFix::isEnabled)
         .addMixinClasses("client.fx.beams.MixinFXBeamWand")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
