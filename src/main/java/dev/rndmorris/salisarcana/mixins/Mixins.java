@@ -136,6 +136,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.itemMetadataSafetyCheck::isEnabled)
         .addMixinClasses("items.Mixin_ItemIconFix", "items.MixinItemWandRod")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    SILVERWOOD_LOG_NAME_FIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.silverwoodLogCorrectName::isEnabled)
+        .addMixinClasses("blocks.MixinBlockMagicalLogItem")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
