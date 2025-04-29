@@ -43,7 +43,7 @@ public class MixinTileCrucible_MissingRecipe extends TileEntity {
         remap = false)
     public CrucibleRecipe captureCrucibleRecipe(String username, AspectList aspects, ItemStack lastItem,
         Operation<CrucibleRecipe> original) {
-        final var recipe = original.call(KnowItAll.USERNAME, aspects, lastItem);
+        final var recipe = original.call(KnowItAll.getUsername(), aspects, lastItem);
 
         if (recipe != null && !ResearchManager.isResearchComplete(username, recipe.key)) {
             final var player = this.worldObj.getPlayerEntityByName(username);

@@ -17,8 +17,13 @@ import thaumcraft.common.lib.research.ResearchManager;
 public class KnowItAll extends EntityPlayer {
 
     private static KnowItAll knowItAll = null;
-    public static final String USERNAME = SalisArcana.MODID + ":KnowItAll";
+    private static final String USERNAME = SalisArcana.MODID + ":KnowItAll";
     public static final EventCollector EVENT_COLLECTOR = new EventCollector();
+
+    public static String getUsername() {
+        teachKnowItAll();
+        return USERNAME;
+    }
 
     public static KnowItAll getInstance() {
         if (knowItAll == null) {
