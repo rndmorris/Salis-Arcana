@@ -125,6 +125,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "nodesRememberBeingDrained",
         "Nodes will remember being drained, preventing rapidly loading, draining, then unloading nodes exploiting nodes' catch-up recharging.");
 
+    public final ToggleSetting silverwoodLogCorrectName = new ToggleSetting(
+        this,
+        "silverwoodLogCorrectName",
+        "Non-vertical silverwood logs will be correctly named \"Silverwood Log\" in WAILA.");
+
     @Nonnull
     @Override
     public String getGroupName() {
