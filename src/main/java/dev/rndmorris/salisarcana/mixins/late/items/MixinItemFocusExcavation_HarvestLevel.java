@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Unique;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.ItemWandCasting;
@@ -23,10 +23,10 @@ public class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
     // i dunno why this has to be static, but it does
     // the definition just wouldn't be embedded into the class otherwise
     @Unique
-    private static final int sa$harvestLevel = ConfigModuleRoot.enhancements.excavationFocusHarvestLevel.getValue();
+    private static final int sa$harvestLevel = SalisConfig.features.excavationFocusHarvestLevel.getValue();
 
     @Unique
-    private final boolean sa$potencyEnabled = ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled();
+    private final boolean sa$potencyEnabled = SalisConfig.features.potencyModifiesHarvestLevel.isEnabled();
 
     @WrapMethod(method = "excavate", remap = false)
     private boolean wrapExcavate(World world, ItemStack stack, EntityPlayer player, Block block, int md, int x, int y,

@@ -16,6 +16,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.inventory.SlotMerchantResult;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -31,7 +32,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.SalisArcana;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.network.MessageScanSelf;
 import dev.rndmorris.salisarcana.network.MessageScanSlot;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
@@ -53,7 +54,7 @@ public class ThaumicInventoryScanner {
 
     static int getScanTicks() {
         if (SCAN_TICKS < 0) {
-            SCAN_TICKS = (ConfigModuleRoot.enhancements.thaumometerDuration.getValue() + 5) * 2;
+            SCAN_TICKS = (SalisConfig.features.thaumometerDuration.getValue() + 5) * 2;
         }
         return SCAN_TICKS;
     }
@@ -112,6 +113,7 @@ public class ThaumicInventoryScanner {
                 null,
                 "");
             if (hoveringSlot.canTakeStack(player) && !(hoveringSlot instanceof SlotCrafting)
+                && !(hoveringSlot instanceof SlotMerchantResult)
                 && ScanManager.isValidScanTarget(player, result, "@")
                 && !ScanManager.getScanAspects(result, Minecraft.getMinecraft().theWorld.provider.worldObj).aspects
                     .isEmpty()) {

@@ -3,6 +3,8 @@ package dev.rndmorris.salisarcana.common.commands.arguments.handlers.positional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
@@ -12,7 +14,7 @@ import com.google.common.collect.PeekingIterator;
 
 import dev.rndmorris.salisarcana.common.commands.CommandErrors;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 
 public class CommandNameHandler implements IPositionalArgumentHandler {
@@ -34,18 +36,20 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
         args.next();
-        final var settingsArr = ConfigModuleRoot.commands.commandsSettings;
+        final var settingsList = SalisConfig.commands.getCommandsSettings()
+            .collect(Collectors.toList());
+
         if (!args.hasNext()) {
-            final var results = new ArrayList<String>(settingsArr.length * 2);
-            for (var settings : settingsArr) {
+            // automatically sort our output alphanumerically
+            final var results = new TreeSet<>(String::compareToIgnoreCase);
+            for (var settings : settingsList) {
                 if (!settings.isEnabled()) {
                     continue;
                 }
-                Collections.addAll(results, settings.getFullName(), settings.name);
+                Collections.addAll(results, settings.getFullName());
                 results.addAll(settings.aliases);
             }
-
-            return results;
+            return new ArrayList<>(results);
         }
 
         return null;
@@ -57,24 +61,16 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
         return CommandSettings.class;
     }
 
-    private CommandSettings findCommand(String current) {
-        CommandSettings foundCommand = null;
-        for (var settings : ConfigModuleRoot.commands.commandsSettings) {
-            if (!settings.isEnabled()) {
-                continue;
-            }
-            if (settings.name.equalsIgnoreCase(current) || settings.getFullName()
-                .equalsIgnoreCase(current)) {
-                foundCommand = settings;
-                break;
-            }
-            for (var alias : settings.aliases) {
-                if (alias.equalsIgnoreCase(current)) {
-                    foundCommand = settings;
-                    break;
-                }
-            }
-        }
-        return foundCommand;
+    private CommandSettings findCommand(final String current) {
+        var maybeFoundCommand = SalisConfig.commands.getCommandsSettings()
+            .filter(CommandSettings::isEnabled)
+            .filter(
+                s -> s.getFullName()
+                    .equalsIgnoreCase(current)
+                    || s.aliases.stream()
+                        .anyMatch(a -> a.equalsIgnoreCase(current)))
+            .limit(1)
+            .collect(Collectors.toList());
+        return !maybeFoundCommand.isEmpty() ? maybeFoundCommand.get(0) : null;
     }
 }

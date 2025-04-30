@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.llamalad7.mixinextras.sugar.Local;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.network.MessageScanIInventory;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.api.aspects.AspectList;
@@ -36,10 +36,9 @@ public class MixinScanManager {
         if (!player.worldObj.isRemote) {
             return;
         }
-        if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()
-            && !ResearchManager.isResearchComplete(
-                player.getCommandSenderName(),
-                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.getInternalName())) {
+        if (SalisConfig.features.thaumometerScanContainersResearch.isEnabled() && !ResearchManager.isResearchComplete(
+            player.getCommandSenderName(),
+            SalisConfig.features.thaumometerScanContainersResearch.getInternalName())) {
             return;
         }
 

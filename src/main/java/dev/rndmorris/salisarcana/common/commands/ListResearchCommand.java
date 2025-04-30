@@ -14,7 +14,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.annotations.NamedArg;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.SearchHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
@@ -24,7 +24,7 @@ public class ListResearchCommand extends ArcanaCommandBase<ListResearchCommand.A
     public static final String listOthersReserach = "permissionLevel_ListOthersResearch";
 
     public ListResearchCommand() {
-        super(ConfigModuleRoot.commands.playerResearch);
+        super(SalisConfig.commands.playerResearch);
     }
 
     @Override

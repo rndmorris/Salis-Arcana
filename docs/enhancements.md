@@ -9,11 +9,6 @@ Config file: `config/salisarcana/enhancements.cfg`
 All bauble slots, including those added by mods that extend Baubles' API, will be checked when
 calculating vis discounts, runic armor, and focus pouches containing wand foci.
 
-## Configurable Biome Colors
-Want tainted lands to look like The Crimson? Want the eerie biome that manifests around sinster nodes to bleach the world of color?
-
-[Give the biome color module a try](./biome-colors.md)
-
 ## Look-a-like Plank Blocks
 
 **Config option:** `enableLookalikePlanks`
@@ -58,6 +53,13 @@ Prevent tainted goo and taint tendrils from decaying for players in creative mod
 Config Option: `taintedItemDecayChance`
 
 The probability each tick that tainted goo and taint tendrils will decay. Lower numbers are more probable, higher numbers are less probable. Set to -1 to disable decay entirely.
+
+## Crucible+Thaumatorium Heat Source Ore Dict
+Config Option: `heatSourceOreDict`
+
+If enabled, blocks with the ore dictionary tag `salisarcana:heatSource` will be treated as crucible heat sources.
+
+Mod devs: for added convenience, this string constant is available through Salis Arcan's API.
 
 ## Container Scanning
 

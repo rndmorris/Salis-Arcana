@@ -23,7 +23,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHan
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.AspectHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.research.ScanManager;
 import thaumcraft.common.lib.utils.BlockUtils;
@@ -31,7 +31,7 @@ import thaumcraft.common.lib.utils.BlockUtils;
 public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand.Arguments> {
 
     public ForgetScannedCommand() {
-        super(ConfigModuleRoot.commands.forgetScanned);
+        super(SalisConfig.commands.forgetScanned);
     }
 
     @Override

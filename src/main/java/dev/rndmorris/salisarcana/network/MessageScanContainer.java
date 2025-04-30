@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import io.netty.buffer.ByteBuf;
 import thaumcraft.api.research.ScanResult;
 import thaumcraft.common.lib.research.ResearchManager;
@@ -46,10 +46,10 @@ public class MessageScanContainer implements IMessage, IMessageHandler<MessageSc
     public IMessage onMessage(MessageScanContainer message, MessageContext ctx) {
         EntityPlayerMP entityPlayer = ctx.getServerHandler().playerEntity;
         // we do this check serverside since the client can lie
-        if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()) {
+        if (SalisConfig.features.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
                 entityPlayer.getCommandSenderName(),
-                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.getInternalName())) {
+                SalisConfig.features.thaumometerScanContainersResearch.getInternalName())) {
                 return null;
             }
         }

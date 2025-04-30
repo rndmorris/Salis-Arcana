@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
@@ -99,7 +99,7 @@ public abstract class MixinCommandThaumcraft_TabCompletion extends CommandBase {
             }
             // case 4 is an integer, so no tab completion needed
             case 5 -> {
-                if (ConfigModuleRoot.enhancements.thaumcraftCommandWarpArgAll.isEnabled()) {
+                if (SalisConfig.features.thaumcraftCommandWarpArgAll.isEnabled()) {
                     return getListOfStringsMatchingLastWord(commandArgs, "PERM", "TEMP", "ALL");
                 }
                 return getListOfStringsMatchingLastWord(commandArgs, "PERM", "TEMP");

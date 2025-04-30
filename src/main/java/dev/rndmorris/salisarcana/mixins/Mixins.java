@@ -15,138 +15,33 @@ import java.util.function.Supplier;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import dev.rndmorris.salisarcana.common.compat.MixinModCompat;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 
 public enum Mixins {
 
     // spotless:off
 
-    // Morpheus
-    BIOME_COLOR_EERIE_BASE_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.eerie.baseColor::isEnabled)
-        .addMixinClasses("world.biomes.eerie.MixinBaseColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_EERIE_FOLIAGE_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.eerie.foliageColor::isEnabled)
-        .addMixinClasses("world.biomes.eerie.MixinFoliageColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_EERIE_GRASS_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.eerie.grassColor::isEnabled)
-        .addMixinClasses("world.biomes.eerie.MixinGrassColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_EERIE_SKY_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.eerie.skyColor::isEnabled)
-        .addMixinClasses("world.biomes.eerie.MixinSkyColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_EERIE_WATER_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.eerie.waterColorMultiplier::isEnabled)
-        .addMixinClasses("world.biomes.eerie.MixinWaterColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
-    BIOME_COLOR_ELDRITCH_BASE_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.eldritch.baseColor::isEnabled)
-        .addMixinClasses("world.biomes.eldritch.MixinBaseColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_ELDRITCH_FOLIAGE_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.eldritch.foliageColor::isEnabled)
-        .addMixinClasses("world.biomes.eldritch.MixinFoliageColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_ELDRITCH_GRASS_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.eldritch.grassColor::isEnabled)
-        .addMixinClasses("world.biomes.eldritch.MixinGrassColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_ELDRITCH_SKY_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.eldritch.skyColor::isEnabled)
-        .addMixinClasses("world.biomes.eldritch.MixinSkyColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_ELDRITCH_WATER_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.eldritch.waterColorMultiplier::isEnabled)
-        .addMixinClasses("world.biomes.eldritch.MixinWaterColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
-    BIOME_COLOR_MAGICAL_FOREST_BASE_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.magicalForest.baseColor::isEnabled)
-        .addMixinClasses("world.biomes.magicalforest.MixinBaseColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_MAGICAL_FOREST_FOLIAGE_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.magicalForest.foliageColor::isEnabled)
-        .addMixinClasses("world.biomes.magicalforest.MixinFoliageColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_MAGICAL_FOREST_GRASS_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.magicalForest.grassColor::isEnabled)
-        .addMixinClasses("world.biomes.magicalforest.MixinGrassColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_MAGICAL_FOREST_SKY_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.magicalForest.skyColor::isEnabled)
-        .addMixinClasses("world.biomes.magicalforest.MixinSkyColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_MAGICAL_FOREST_WATER_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.magicalForest.waterColorMultiplier::isEnabled)
-        .addMixinClasses("world.biomes.magicalforest.MixinWaterColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
-    BIOME_COLOR_TAINT_BASE_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.taint.baseColor::isEnabled)
-        .addMixinClasses("world.biomes.taint.MixinBaseColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_TAINT_FOLIAGE_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.taint.foliageColor::isEnabled)
-        .addMixinClasses("world.biomes.taint.MixinFoliageColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_TAINT_GRASS_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.taint.grassColor::isEnabled)
-        .addMixinClasses("world.biomes.taint.MixinGrassColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_TAINT_SKY_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.taint.skyColor::isEnabled)
-        .addMixinClasses("world.biomes.taint.MixinSkyColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    BIOME_COLOR_TAINT_WATER_COLOR(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.biomeColors.taint.waterColorMultiplier::isEnabled)
-        .addMixinClasses("world.biomes.taint.MixinWaterColor")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-
     // Bugfixes
     ARCANE_FURNACE_DUPE_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.infernalFurnaceDupeFix::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.infernalFurnaceDupeFix::isEnabled)
         .addMixinClasses("blocks.MixinBlockArcaneFurnace")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     BEACON_BLOCKS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.beaconBlockFixSetting::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.beaconBlockFixSetting::isEnabled)
         .addMixinClasses("blocks.MixinBlockCosmeticSolid")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     BLOCKCANDLE_OOB(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(
-            () -> ConfigModuleRoot.bugfixes.candleRendererCrashes.isEnabled()
+            () -> SalisConfig.bugfixes.candleRendererCrashes.isEnabled()
                 && !MixinModCompat.disableBlockCandleFixes)
         .addMixinClasses("blocks.MixinBlockCandleRenderer", "blocks.MixinBlockCandle")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     DEAD_MOBS_DONT_ATTACK(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.deadMobsDontAttack::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.deadMobsDontAttack::isEnabled)
         .addMixinClasses(
             "entities.MixinEntityTaintacle",
             "entities.MixinEntityEldritchCrab",
@@ -155,209 +50,219 @@ public enum Mixins {
     INTEGER_INFUSION_MATRIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(
-            () -> ConfigModuleRoot.bugfixes.integerInfusionMatrixMath.isEnabled()
-                && !ConfigModuleRoot.enhancements.stabilizerRewrite.isEnabled())
+            () -> SalisConfig.bugfixes.integerInfusionMatrixMath.isEnabled()
+                && !SalisConfig.features.stabilizerRewrite.isEnabled())
         .addMixinClasses("tiles.MixinTileInfusionMatrix_IntegerStabilizers")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ITEMSHARD_OOB(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.itemShardColor::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.itemShardColor::isEnabled)
         .addMixinClasses("items.MixinItemShard")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     RENDER_REDSTONE_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.renderRedstoneFix::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.renderRedstoneFix::isEnabled)
         .addMixinClasses("blocks.MixinBlockCustomOre")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     STRICT_INFUSION_INPUTS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.strictInfusionMatrixInputChecks::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.strictInfusionMatrixInputChecks::isEnabled)
         .addMixinClasses("tiles.MixinTileInfusionMatrix_InputEnforcement")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     UN_OREDICT_GOLD_COIN(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.unOredictGoldCoin::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.unOredictGoldCoin::isEnabled)
         .addMixinClasses("config.MixinConfigItems_UnOredictGoldCoin")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     FOCI_STAFF_VISUAL_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.staffFocusEffectFix::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.staffFocusEffectFix::isEnabled)
         .addMixinClasses("client.fx.beams.MixinFXBeamWand")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_FORBID_SWAP(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.focalManipulatorForbidSwaps::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.focalManipulatorForbidSwaps::isEnabled)
         .addMixinClasses("tiles.MixinTileFocalManipulator_ForbidSwap")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ARCANE_WORKBENCH_GHOST_ITEM_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
-        .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchGhostItemFix::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix::isEnabled)
         .addMixinClasses(
             "items.MixinItemWandCasting_DisableSpendingCheck",
             "tiles.MixinTileMagicWorkbench_GhostItemFix")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ARCANE_WORKBENCH_ALLOW_RECHARGE_CRAFTING(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchAllowRechargeCrafting::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.arcaneWorkbenchAllowRechargeCrafting::isEnabled)
         .addMixinClasses("tiles.MixinTileMagicWorkbenchCharger")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ARCANE_WORKBENCH_MULTI_CONTAINER(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.arcaneWorkbenchMultiContainer::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.arcaneWorkbenchMultiContainer::isEnabled)
         .addMixinClasses("container.MixinContainerArcaneWorkbench_MultiContainer")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     NEGATIVE_BOSS_SPAWN_COUNT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.negativeBossSpawnCount::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.negativeBossSpawnCount::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchLock")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     WARP_FAKE_PLAYER(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.warpFakePlayerCheck::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.warpFakePlayerCheck::isEnabled)
         .addMixinClasses("common.MixinThaumcraft_FakePlayerWarp")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     CRIMSON_RITES_FAKE_PLAYER(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.crimsonRitesFakePlayerCheck::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.crimsonRitesFakePlayerCheck::isEnabled)
         .addMixinClasses("items.MixinItemEldritchObject_FakePlayerFix")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     FOCUS_TRADE_BREAK_BLOCKS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.equalTradeBreaksBlocks::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.equalTradeBreaksBlocks::isEnabled)
         .addMixinClasses("items.MixinItemFocusTrade_BreakBlocks")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     NODE_RECHARGE_TIME(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.nodesRechargeInGameTime::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.nodesRechargeInGameTime::isEnabled)
         .addMixinClasses("tiles.MixinTileNode_RechargeTime")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     NODE_REMEMBER_DRAINED(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.bugfixes.nodesRememberBeingDrained::isEnabled)
+        .setApplyIf(SalisConfig.bugfixes.nodesRememberBeingDrained::isEnabled)
         .addMixinClasses("tiles.MixinTileNode_RememberUpdates")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ITEM_ICON_METADATA_PROTECTIONS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(SalisConfig.bugfixes.itemMetadataSafetyCheck::isEnabled)
+        .addMixinClasses("items.Mixin_ItemIconFix", "items.MixinItemWandRod")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    SILVERWOOD_LOG_NAME_FIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.silverwoodLogCorrectName::isEnabled)
+        .addMixinClasses("blocks.MixinBlockMagicalLogItem")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    // Enhancements
+    // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.useAllBaublesSlots::isEnabled)
+        .setApplyIf(SalisConfig.features.useAllBaublesSlots::isEnabled)
         .addMixinClasses("events.MixinEventHandlerRunic", "items.MixinWandManager", "lib.MixinWarpEvents")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     EXTENDED_BAUBLES_SUPPORT_CLIENT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
-        .setApplyIf(ConfigModuleRoot.enhancements.useAllBaublesSlots::isEnabled)
+        .setApplyIf(SalisConfig.features.useAllBaublesSlots::isEnabled)
         .addMixinClasses("gui.MixinREHWandHandler")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     SUPPRESS_CREATIVE_WARP(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.suppressWarpEventsInCreative::isEnabled)
+        .setApplyIf(SalisConfig.features.suppressWarpEventsInCreative::isEnabled)
         .addMixinClasses("events.MixinEventHandlerEntity")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     CTRL_SCROLL_NAVIGATION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
-        .setApplyIf(ConfigModuleRoot.enhancements.nomiconScrollwheelEnabled::isEnabled)
+        .setApplyIf(SalisConfig.features.nomiconScrollwheelEnabled::isEnabled)
         .addMixinClasses("gui.MixinGuiResearchBrowser_Creative_Scroll")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     RESEARCH_ID_POPUP(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
-        .setApplyIf(ConfigModuleRoot.enhancements.nomiconShowResearchId::isEnabled)
+        .setApplyIf(SalisConfig.features.nomiconShowResearchId::isEnabled)
         .addMixinClasses("gui.MixinGuiResearchBrowser_ShowResearchID")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     RIGHT_CLICK_NAVIGATION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
-        .setApplyIf(ConfigModuleRoot.enhancements.nomiconRightClickClose::isEnabled)
+        .setApplyIf(SalisConfig.features.nomiconRightClickClose::isEnabled)
         .addMixinClasses("gui.MixinGuiResearchBrowser_RightClickClose", "gui.MixinGuiResearchRecipe")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     NODE_GENERATION_MODIFIER_WEIGHTS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.nodeModifierWeights::isEnabled)
+        .setApplyIf(SalisConfig.features.nodeModifierWeights::isEnabled)
         .addMixinClasses("world.MixinThaumcraftWorldGenerator")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     NODE_GENERATION_TYPE_WEIGHTS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.nodeTypeWeights::isEnabled)
+        .setApplyIf(SalisConfig.features.nodeTypeWeights::isEnabled)
         .addMixinClasses("world.MixinThaumcraftWorldGenerator")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     STABILIZER_REWRITE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.stabilizerRewrite::isEnabled)
+        .setApplyIf(SalisConfig.features.stabilizerRewrite::isEnabled)
         .addMixinClasses("tiles.MixinTileInfusionMatrix_StabilizerRewrite")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     WAND_PEDESTAL_CV(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(() -> ConfigModuleRoot.enhancements.wandPedestalUseCV.isEnabled() && !MixinModCompat.disableWandCV)
+        .setApplyIf(() -> SalisConfig.features.wandPedestalUseCV.isEnabled() && !MixinModCompat.disableWandCV)
         .addMixinClasses("tiles.MixinTileWandPedestal")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     ITEM_ELDRITCH_OBJECT_STACK_SIZE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.itemEldritchObjectStackSize::isEnabled)
+        .setApplyIf(SalisConfig.features.itemEldritchObjectStackSize::isEnabled)
         .addMixinClasses("items.MixinItemEldritchObject")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     CREATIVE_MODE_ITEM_CONSUMPTION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.stopCreativeModeItemConsumption::isEnabled)
+        .setApplyIf(SalisConfig.features.stopCreativeModeItemConsumption::isEnabled)
         .addMixinClasses("blocks.MixinBlockEldritch", "items.MixinItemEssence")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     CREATIVE_MODE_VIS_CONSUMPTION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.infiniteCreativeVis::isEnabled)
+        .setApplyIf(SalisConfig.features.infiniteCreativeVis::isEnabled)
         .addMixinClasses("items.MixinItemWandCasting")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     MANA_POD_GROWTH_RATE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.manaPodGrowthRate::isEnabled)
+        .setApplyIf(SalisConfig.features.manaPodGrowthRate::isEnabled)
         .addMixinClasses("blocks.MixinBlockManaPod")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     THAUMCRAFT_COMMAND_TAB_COMPLETION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.thaumcraftCommandTabCompletion::isEnabled)
+        .setApplyIf(SalisConfig.features.thaumcraftCommandTabCompletion::isEnabled)
         .addMixinClasses("events.MixinCommandThaumcraft_TabCompletion")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     THAUMCRAFT_COMMAND_WARP_ARG_ALL(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.thaumcraftCommandWarpArgAll::isEnabled)
+        .setApplyIf(SalisConfig.features.thaumcraftCommandWarpArgAll::isEnabled)
         .addMixinClasses("events.MixinCommandThaumcraft_WarpArg")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     THAUMOMETER_SCAN_CONTAINERS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.thaumometerScanContainers::isEnabled)
+        .setApplyIf(SalisConfig.features.thaumometerScanContainers::isEnabled)
         .addMixinClasses("items.MixinItemThaumometer", "lib.MixinScanManager")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     CREATIVE_OP_THAUMONOMICON(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.creativeOpThaumonomicon::isEnabled)
+        .setApplyIf(SalisConfig.features.creativeOpThaumonomicon::isEnabled)
         .addMixinClasses("lib.MixinResearchManager", "gui.MixinGuiResearchBrowser_Creative_Scroll")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     CREATIVE_NO_XP_MANIPULATOR(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.creativeNoXPManipulator::isEnabled)
+        .setApplyIf(SalisConfig.features.creativeNoXPManipulator::isEnabled)
         .addMixinClasses("tiles.MixinTileFocalManipulator_NoXP", "gui.MixinGuiFocalManipulator_CreativeNoXP")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_STORE_XP(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(() -> ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled() || ConfigModuleRoot.enhancements.focalDisenchanterReturnXP.isEnabled())
+        .setApplyIf(() -> SalisConfig.features.enableFocusDisenchanting.isEnabled() || SalisConfig.features.focalDisenchanterReturnXP.isEnabled())
         .addMixinClasses("tiles.MixinTileFocalManipulator_CanStoreXP", "container.MixinContainerFocalManipulator")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_RETURN_XP(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.focalDisenchanterReturnXP::isEnabled)
+        .setApplyIf(SalisConfig.features.focalDisenchanterReturnXP::isEnabled)
         .addMixinClasses("tiles.MixinTileFocalManipulator_CancelReturnXP")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     FOCUS_DISENCHANTING(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.enableFocusDisenchanting::isEnabled)
+        .setApplyIf(SalisConfig.features.enableFocusDisenchanting::isEnabled)
         .addMixinClasses(
             "tiles.MixinTileFocalManipulator",
             "gui.MixinGuiFocalManipulator")
@@ -365,76 +270,76 @@ public enum Mixins {
 
     LEVITATOR_SHIFT_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.levitatorShiftFix::isEnabled)
+        .setApplyIf(SalisConfig.features.levitatorShiftFix::isEnabled)
         .addMixinClasses("tiles.MixinTileLifter")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     PURE_NODE_BIOMECHANGE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.pureNodeBiomeChange::isEnabled)
+        .setApplyIf(SalisConfig.features.pureNodeBiomeChange::isEnabled)
         .addMixinClasses("tiles.MixinTileNode")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     ELDRITCH_ALTAR_EVEN_SPREAD_MOBS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.eldritchAltarSpawningMethod::isEnabled)
+        .setApplyIf(SalisConfig.features.eldritchAltarSpawningMethod::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchAltar_SpawnMobs")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     TAINTED_ITEM_DECAY_CHANCE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.taintedItemDecayChance::isEnabled)
+        .setApplyIf(SalisConfig.features.taintedItemDecayChance::isEnabled)
         .addMixinClasses("items.MixinItemResource_DecayChance")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     DISABLE_CREATIVE_TAINTED_ITEM_DECAY(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.disableCreativeTaintedItemDecay::isEnabled)
+        .setApplyIf(SalisConfig.features.disableCreativeTaintedItemDecay::isEnabled)
         .addMixinClasses("items.MixinItemResource_DisableCreativeDecay")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     NAMED_STAFFTERS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.staffterNameTooltip::isEnabled)
+        .setApplyIf(SalisConfig.features.staffterNameTooltip::isEnabled)
         .addMixinClasses("items.MixinItemWandCasting_NamedStaffters")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     SINGLE_WAND_REPLACEMENT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements::singleWandReplacementEnabled)
+        .setApplyIf(SalisConfig.features::singleWandReplacementEnabled)
         .addMixinClasses("container.MixinContainerArcaneWorkbench_SingleWandReplacement")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     SINGLE_WAND_REPLACEMENT_CLIENT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
-        .setApplyIf(ConfigModuleRoot.enhancements::singleWandReplacementEnabled)
+        .setApplyIf(SalisConfig.features::singleWandReplacementEnabled)
         .addMixinClasses("gui.MixinGuiArcaneWorkbench_SingleWandReplacement")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     PRIMAL_CRUSHER_OREDICT_COMPAT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.primalCrusherOredict::isEnabled)
+        .setApplyIf(SalisConfig.features.primalCrusherOredict::isEnabled)
         .addMixinClasses("items.PrimalCrusher_StoneOredictCompat")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     EQUAL_TRADE_FOCUS_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel::isEnabled)
+        .setApplyIf(SalisConfig.features.equalTradeFocusHarvestLevel::isEnabled)
         .addMixinClasses("items.MixinItemFocusTrade_HarvestLevel")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     EXCAVATION_FOCUS_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.excavationFocusHarvestLevel::isEnabled)
+        .setApplyIf(SalisConfig.features.excavationFocusHarvestLevel::isEnabled)
         .addMixinClasses("items.MixinItemFocusExcavation_HarvestLevel")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     EQUAL_TRADE_POTENCY_UPGRADE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(() -> ConfigModuleRoot.enhancements.potencyModifiesHarvestLevel.isEnabled() && ConfigModuleRoot.enhancements.equalTradeFocusHarvestLevel.isEnabled())
+        .setApplyIf(() -> SalisConfig.features.potencyModifiesHarvestLevel.isEnabled() && SalisConfig.features.equalTradeFocusHarvestLevel.isEnabled())
         .addMixinClasses("items.MixinItemFocusTrade_AddPotency")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     PRIMAL_CRUSHER_HARVEST_LEVEL(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.crusherHarvestLevel::isEnabled)
+        .setApplyIf(SalisConfig.features.crusherHarvestLevel::isEnabled)
         .addMixinClasses("items.MixinItemPrimalCrusher_HarvestLevel")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
-    THAUMOMETER_CUSTOM_DURATION(new Builder().setApplyIf(ConfigModuleRoot.enhancements.thaumometerDuration::isEnabled)
+    THAUMOMETER_CUSTOM_DURATION(new Builder().setApplyIf(SalisConfig.features.thaumometerDuration::isEnabled)
         .addMixinClasses("items.MixinItemThaumometer_CustomDuration")
         .setPhase(Phase.LATE)
         .setSide(Side.BOTH)
@@ -442,36 +347,41 @@ public enum Mixins {
 
     MISSING_RESEARCH_INFUSION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.notifyMissingResearchInfusion::isEnabled)
+        .setApplyIf(SalisConfig.features.notifyMissingResearchInfusion::isEnabled)
         .addMixinClasses("tiles.MixinTileInfusionMatrix_MissingResearch")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     MISSING_RESEARCH_CRUCIBLE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.notifyMissingResearchCrucible::isEnabled)
+        .setApplyIf(SalisConfig.features.notifyMissingResearchCrucible::isEnabled)
         .addMixinClasses("tiles.MixinTileCrucible_MissingRecipe")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     MISSING_RESEARCH_WORKBENCH(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.notifyMissingResearchWorkbench::isEnabled)
+        .setApplyIf(SalisConfig.features.notifyMissingResearchWorkbench::isEnabled)
         .addMixinClasses("gui.MixinGuiArcaneWorkbench_MissingResearch", "lib.MixinArcaneSceptreRecipe", "lib.MixinArcaneWandRecipe")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     RESEARCH_ITEM_EXTENDED(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .setApplyIf(SalisConfig.features.researchItemExtensions::isEnabled)
         .addMixinClasses("api.ResearchItem_Extended")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     RESEARCH_ITEM_EXTENDED_THAUMIC_TINKERER(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .setApplyIf(SalisConfig.features.researchItemExtensions::isEnabled)
         .addMixinClasses("addons.ThaumicTinkerer.TTResearchItem_Extended")
         .addTargetedMod(TargetedMod.THAUMIC_TINKERER)),
     RESEARCH_ITEM_EXTENDED_AUTOMAGY(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(ConfigModuleRoot.enhancements.researchItemExtensions::isEnabled)
+        .setApplyIf(SalisConfig.features.researchItemExtensions::isEnabled)
         .addMixinClasses("addons.Automagy.ModResearchItem_Extended")
         .addTargetedMod(TargetedMod.AUTOMAGY)),
 
+    CRUCIBLE_HEAT_SOURCES(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.features.heatSourceOreDict::isEnabled)
+        .addMixinClasses("tiles.MixinTileCrucible_HeatSources", "tiles.MixinTileThaumatorium_HeatSources")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ;
     // spotless:on
 

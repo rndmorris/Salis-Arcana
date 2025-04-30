@@ -10,7 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import dev.rndmorris.salisarcana.common.compat.Mods;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.R;
 import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.client.gui.GuiResearchRecipe;
@@ -26,8 +26,8 @@ public class GuiHandler {
     // Used to clear the stack when going back to the research browser, mitigates #209
     @SubscribeEvent
     public void onGuiOpen(GuiOpenEvent event) {
-        if (ConfigModuleRoot.enhancements.nomiconRightClickClose.isEnabled()
-            && !ConfigModuleRoot.enhancements.nomiconSavePage.isEnabled()) {
+        if (SalisConfig.features.nomiconRightClickClose.isEnabled()
+            && !SalisConfig.features.nomiconSavePage.isEnabled()) {
             if (event.gui instanceof GuiResearchBrowser
                 && Minecraft.getMinecraft().currentScreen instanceof GuiResearchRecipe) {
                 RightClickClose$ScreenStack.clear();
@@ -39,7 +39,7 @@ public class GuiHandler {
     // Without this, the tc4tweaks search bar gets drawn to the top of the research page instead of thaumonomicon.
     @SubscribeEvent
     public void onGuiPostInit(GuiScreenEvent.InitGuiEvent.Post event) {
-        if (!tc4tweaksLoaded || !ConfigModuleRoot.enhancements.nomiconSavePage.isEnabled()
+        if (!tc4tweaksLoaded || !SalisConfig.features.nomiconSavePage.isEnabled()
             || RightClickClose$ScreenStack.isEmpty()) {
             return;
         }

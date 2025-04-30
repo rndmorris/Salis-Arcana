@@ -16,7 +16,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.network.MessageScanContainer;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.api.research.ScanResult;
@@ -48,10 +48,10 @@ public class MixinItemThaumometer extends Item {
         remap = false)
     private boolean rescanInventory(EntityPlayer player, ScanResult item, String t, Operation<Boolean> original,
         @Local TileEntity tile) {
-        if (ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.isEnabled()) {
+        if (SalisConfig.features.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
                 player.getCommandSenderName(),
-                ConfigModuleRoot.enhancements.thaumometerScanContainersResearch.getInternalName())) {
+                SalisConfig.features.thaumometerScanContainersResearch.getInternalName())) {
                 return original.call(player, item, t);
             }
         }

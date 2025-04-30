@@ -20,7 +20,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.IArgumentHan
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.ResearchKeyHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.network.MessageForgetResearch;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.api.ThaumcraftApi;
@@ -34,7 +34,7 @@ import thaumcraft.common.lib.network.playerdata.PacketSyncWarp;
 public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchCommand.Arguments> {
 
     public ForgetResearchCommand() {
-        super(ConfigModuleRoot.commands.forgetResearch);
+        super(SalisConfig.commands.forgetResearch);
     }
 
     @Override

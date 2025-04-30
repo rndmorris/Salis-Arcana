@@ -12,7 +12,7 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.container.ContainerArcaneWorkbench;
@@ -64,7 +64,7 @@ public abstract class MixinContainerArcaneWorkbench_SingleWandReplacement extend
 
             // Vis is spent using the original wand, which is why that loop above is necessary.
             if (itemWand.consumeAllVisCrafting(originalWand, this.ip.player, visPrice, true)) {
-                if (ConfigModuleRoot.enhancements.preserveWandVis.isEnabled()) {
+                if (SalisConfig.features.preserveWandVis.isEnabled()) {
                     // Copied from ReplaceWandCoreRecipe. Thank you, Morris.
                     final var maxVis = itemWand.getMaxVis(outputWand);
                     final var newVis = new AspectList();
@@ -77,7 +77,7 @@ public abstract class MixinContainerArcaneWorkbench_SingleWandReplacement extend
                     itemWand.storeAllVis(outputWand, AspectHelper.primalList(0));
                 }
 
-                if (ConfigModuleRoot.bugfixes.arcaneWorkbenchMultiContainer.isEnabled()) {
+                if (SalisConfig.bugfixes.arcaneWorkbenchMultiContainer.isEnabled()) {
                     this.getSlot(0)
                         .putStack(outputWand);
                 } else {

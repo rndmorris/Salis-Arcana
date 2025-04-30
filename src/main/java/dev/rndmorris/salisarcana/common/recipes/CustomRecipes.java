@@ -18,8 +18,9 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import dev.rndmorris.salisarcana.api.OreDict;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
@@ -35,44 +36,44 @@ public class CustomRecipes {
 
     public static void registerRecipes() {
 
-        final var enhancements = ConfigModuleRoot.enhancements;
+        final var features = SalisConfig.features;
 
-        if (enhancements.lookalikePlanks.isEnabled()) {
+        if (features.lookalikePlanks.isEnabled()) {
             registerPlankRecipes();
         }
 
-        if (enhancements.lessPickyPrimalCharmRecipe.isEnabled()) {
+        if (features.lessPickyPrimalCharmRecipe.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
                 .add(new RecipeForgivingPrimalCharm());
         }
 
-        if (enhancements.rotatedThaumometerRecipe.isEnabled()) {
+        if (features.rotatedThaumometerRecipe.isEnabled()) {
             registerRotatedThaumometer();
         }
 
-        if (ConfigModuleRoot.bugfixes.slabBurnTimeFix.isEnabled()) {
+        if (SalisConfig.bugfixes.slabBurnTimeFix.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new FuelBurnTimeEventHandler());
         }
 
-        if (enhancements.replaceWandCapsSettings.isEnabled()) {
+        if (features.replaceWandCapsSettings.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
                 .add(replaceWandCapsRecipe = new ReplaceWandCapsRecipe());
         }
 
-        if (enhancements.replaceWandCoreSettings.isEnabled()) {
+        if (features.replaceWandCoreSettings.isEnabled()) {
             // noinspection unchecked
             ThaumcraftApi.getCraftingRecipes()
                 .add(replaceWandCoreRecipe = new ReplaceWandCoreRecipe());
         }
 
-        if (enhancements.rottenFleshRecipe.isEnabled()) {
+        if (features.rottenFleshRecipe.isEnabled()) {
             GameRegistry
                 .addShapelessRecipe(new ItemStack(Items.rotten_flesh, 9), new ItemStack(ConfigBlocks.blockTaint, 1, 2));
         }
 
-        if (enhancements.crystalClusterUncrafting.isEnabled()) {
+        if (features.crystalClusterUncrafting.isEnabled()) {
             for (var metadata = 0; metadata <= 5; ++metadata) {
                 GameRegistry.addShapelessRecipe(
                     new ItemStack(ConfigItems.itemShard, 6, metadata),
@@ -82,11 +83,11 @@ public class CustomRecipes {
     }
 
     public static void registerRecipesPostInit() {
-        if (ConfigModuleRoot.enhancements.rotatedFociRecipes.isEnabled()) {
+        if (SalisConfig.features.rotatedFociRecipes.isEnabled()) {
             // registered here because TC4 doesn't register its recipes until post init
             registerRotatedFoci();
         }
-        if (ConfigModuleRoot.bugfixes.fixEFRRecipes.isEnabled() && Loader.isModLoaded("etfuturum")) {
+        if (SalisConfig.bugfixes.fixEFRRecipes.isEnabled() && Loader.isModLoaded("etfuturum")) {
             registerEFRRecipes();
         }
     }
@@ -155,13 +156,12 @@ public class CustomRecipes {
         // Greatwood Slabs
         final var greatwoodSlabs = new ItemStack(ConfigBlocks.blockSlabWood, 6, 0);
         registerSlabRecipes(greatwoodSlabs, thaumGreatwoodPlanks, arcanaGreatwoodPlanks);
-        GameRegistry.addRecipe(new ShapedOreRecipe(greatwoodSlabs, "PPP", 'P', CustomBlocks.ORE_DICT_GREATWOOD_PLANKS));
+        GameRegistry.addRecipe(new ShapedOreRecipe(greatwoodSlabs, "PPP", 'P', OreDict.GREATWOOD_PLANKS));
 
         // Silverwood Slabs
         final var silverwoodSlabs = new ItemStack(ConfigBlocks.blockSlabWood, 6, 1);
         registerSlabRecipes(silverwoodSlabs, thaumSilverwoodPlanks, arcanaSilverwoodPlanks);
-        GameRegistry
-            .addRecipe(new ShapedOreRecipe(silverwoodSlabs, "PPP", 'P', CustomBlocks.ORE_DICT_SILVERWOOD_PLANKS));
+        GameRegistry.addRecipe(new ShapedOreRecipe(silverwoodSlabs, "PPP", 'P', OreDict.SILVERWOOD_PLANKS));
 
         // Greatwood Stairs
         GameRegistry.addRecipe(
@@ -171,7 +171,7 @@ public class CustomRecipes {
                 "PP ",
                 "PPP",
                 'P',
-                CustomBlocks.ORE_DICT_GREATWOOD_PLANKS));
+                OreDict.GREATWOOD_PLANKS));
 
         // Silverwood Stairs
         GameRegistry.addRecipe(
@@ -181,7 +181,7 @@ public class CustomRecipes {
                 "PP ",
                 "PPP",
                 'P',
-                CustomBlocks.ORE_DICT_SILVERWOOD_PLANKS));
+                OreDict.SILVERWOOD_PLANKS));
     }
 
     private static void registerSlabRecipes(ItemStack output, ItemStack tcPlanks, ItemStack tfPlanks) {

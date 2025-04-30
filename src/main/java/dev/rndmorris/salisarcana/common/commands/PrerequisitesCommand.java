@@ -1,7 +1,7 @@
 package dev.rndmorris.salisarcana.common.commands;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
-import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
+import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 import static dev.rndmorris.salisarcana.lib.ArrayHelper.toList;
 import static dev.rndmorris.salisarcana.lib.ResearchHelper.formatResearch;
 import static dev.rndmorris.salisarcana.lib.ResearchHelper.formatResearchClickCommand;

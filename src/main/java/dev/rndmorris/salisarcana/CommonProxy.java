@@ -1,7 +1,7 @@
 package dev.rndmorris.salisarcana;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
-import static dev.rndmorris.salisarcana.config.ConfigModuleRoot.commands;
+import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -33,8 +33,9 @@ import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
 import dev.rndmorris.salisarcana.common.compat.ModCompat;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
+import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
@@ -57,16 +58,19 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
-        if (ConfigModuleRoot.enhancements.enableFocusDisenchanting.isEnabled()) {
+        if (SalisConfig.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.initialize();
         }
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
 
-        if (ConfigModuleRoot.bugfixes.useForgeFishingLists.isEnabled()) {
+        if (SalisConfig.bugfixes.useForgeFishingLists.isEnabled()) {
             fixGolemFishingLists();
         }
 
+        if (SalisConfig.features.heatSourceOreDict.isEnabled()) {
+            CrucibleHeatLogic.registerOreDictName();
+        }
         updateHarvestLevels();
 
         FMLCommonHandler.instance()
@@ -79,24 +83,24 @@ public class CommonProxy {
     }
 
     private void updateHarvestLevels() {
-        final var enhancements = ConfigModuleRoot.enhancements;
-        if (enhancements.thaumiumHarvestLevel.isEnabled()) {
+        final var features = SalisConfig.features;
+        if (features.thaumiumHarvestLevel.isEnabled()) {
             final var toolMatThaumium = new R(ThaumcraftApi.toolMatThaumium);
-            toolMatThaumium.set("harvestLevel", enhancements.thaumiumHarvestLevel.getValue());
+            toolMatThaumium.set("harvestLevel", features.thaumiumHarvestLevel.getValue());
         }
-        if (enhancements.elementalHarvestLevel.isEnabled()) {
+        if (features.elementalHarvestLevel.isEnabled()) {
             final var toolMatElemental = new R(ThaumcraftApi.toolMatElemental);
-            toolMatElemental.set("harvestLevel", enhancements.elementalHarvestLevel.getValue());
+            toolMatElemental.set("harvestLevel", features.elementalHarvestLevel.getValue());
         }
-        if (enhancements.voidHarvestLevel.isEnabled()) {
+        if (features.voidHarvestLevel.isEnabled()) {
             final var toolMatVoid = new R(ThaumcraftApi.toolMatVoid);
-            toolMatVoid.set("harvestLevel", enhancements.voidHarvestLevel.getValue());
+            toolMatVoid.set("harvestLevel", features.voidHarvestLevel.getValue());
         }
-        if (enhancements.crusherHarvestLevel.isEnabled()) {
+        if (features.crusherHarvestLevel.isEnabled()) {
             final var material = new R(ItemPrimalCrusher.material);
-            material.set("harvestLevel", enhancements.crusherHarvestLevel.getValue());
-            ConfigItems.itemPrimalCrusher.setHarvestLevel("pickaxe", enhancements.crusherHarvestLevel.getValue());
-            ConfigItems.itemPrimalCrusher.setHarvestLevel("shovel", enhancements.crusherHarvestLevel.getValue());
+            material.set("harvestLevel", features.crusherHarvestLevel.getValue());
+            ConfigItems.itemPrimalCrusher.setHarvestLevel("pickaxe", features.crusherHarvestLevel.getValue());
+            ConfigItems.itemPrimalCrusher.setHarvestLevel("shovel", features.crusherHarvestLevel.getValue());
         }
     }
 

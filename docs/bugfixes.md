@@ -121,3 +121,9 @@ Prevents bugs related to multiple players opening an Arcane Workbench's GUI at t
 **Config option:** `useForgeFishingLists`
 
 Use Forge's fishing lists to determine what fish, junk, and treasure a fishing golem catches.
+
+## Rotated Silverwood Logs Display Correct Name in WAILA
+
+**Config option:** `silverwoodLogCorrectName`
+
+Non-vertical silverwood logs will be correctly named "Silverwood Log" in WAILA.

@@ -10,7 +10,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import dev.rndmorris.salisarcana.client.ThaumicInventoryScanner;
 import dev.rndmorris.salisarcana.client.handlers.GuiHandler;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 
 public class ClientProxy extends CommonProxy {
 
@@ -19,7 +19,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
-        if (ConfigModuleRoot.enhancements.thaumicInventoryScanning.isEnabled()) {
+        if (SalisConfig.features.thaumicInventoryScanning.isEnabled()) {
             scanner = new ThaumicInventoryScanner();
             MinecraftForge.EVENT_BUS.register(scanner);
             FMLCommonHandler.instance()
@@ -34,7 +34,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
-        if (ConfigModuleRoot.enhancements.thaumicInventoryScanning.isEnabled()) {
+        if (SalisConfig.features.thaumicInventoryScanning.isEnabled()) {
             scanner.postInit(event);
         }
     }

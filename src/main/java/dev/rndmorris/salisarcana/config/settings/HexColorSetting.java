@@ -17,8 +17,8 @@ public class HexColorSetting extends Setting {
 
     private int colorValue = -1;
 
-    public HexColorSetting(IEnabler module, String name, String comment, String defaultHexString) {
-        super(module);
+    public HexColorSetting(IEnabler dependency, String name, String comment, String defaultHexString) {
+        super(dependency);
 
         this.name = name;
         this.comment = comment;

@@ -12,7 +12,7 @@ import com.github.bsideup.jabel.Desugar;
 
 import dev.rndmorris.salisarcana.api.IMultipleResearchArcaneRecipe;
 import dev.rndmorris.salisarcana.common.CustomResearch;
-import dev.rndmorris.salisarcana.config.ConfigModuleRoot;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
@@ -54,7 +54,7 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
             .copy();
         wandInstance.setCap(outputItem, scanResult.newCaps());
 
-        if (!ConfigModuleRoot.enhancements.preserveWandVis.isEnabled()) {
+        if (!SalisConfig.features.preserveWandVis.isEnabled()) {
             wandInstance.storeAllVis(outputItem, AspectHelper.primalList(0));
         }
 
