@@ -341,7 +341,7 @@ Increases the range of the vis relay at which items like amulets will be charged
 
 ## Config Option: `visAmuletRechargeSpeed`
 
-The rate, in ticks, at which the vis amulet will recharge.
+The rate, in ticks, at which the vis amulet will recharge itself.
 
 ## Config Option: `visAmuletTransferRate`
 
