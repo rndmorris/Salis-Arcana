@@ -14,7 +14,7 @@ import thaumcraft.common.items.baubles.ItemAmuletVis;
 public abstract class MixinItemAmuletVis_TransferRate {
 
     @Unique
-    private final int sa$transferRate = SalisConfig.features.visAmuletTransferRate.getValueOrDefault();
+    private final int sa$transferRate = SalisConfig.features.visAmuletTransferRate.getValue();
 
     @ModifyConstant(
         method = "onWornTick",

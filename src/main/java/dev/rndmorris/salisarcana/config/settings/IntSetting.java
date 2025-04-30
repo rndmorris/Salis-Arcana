@@ -41,10 +41,6 @@ public class IntSetting extends Setting {
         return value;
     }
 
-    public int getValueOrDefault() {
-        return enabled ? value : defaultValue;
-    }
-
     public IntSetting setMaxValue(int maxValue) {
         this.maxValue = maxValue;
         return this;

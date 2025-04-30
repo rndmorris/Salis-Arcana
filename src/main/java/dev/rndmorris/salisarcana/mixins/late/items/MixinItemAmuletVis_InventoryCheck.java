@@ -29,7 +29,7 @@ public abstract class MixinItemAmuletVis_InventoryCheck {
     public abstract void storeVis(ItemStack is, Aspect aspect, int amount);
 
     @Unique
-    private final int sa$transferRate = SalisConfig.features.visAmuletTransferRate.getValueOrDefault();
+    private final int sa$transferRate = SalisConfig.features.visAmuletTransferRate.getValue();
 
     @WrapMethod(method = "onWornTick")
     private void wrapOnWornTick(ItemStack itemstack, EntityLivingBase entity, Operation<Void> original) {

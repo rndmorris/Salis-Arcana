@@ -41,10 +41,6 @@ public class FloatSetting extends Setting {
         return value;
     }
 
-    public float getValueOrDefault() {
-        return enabled ? value : defaultValue;
-    }
-
     public FloatSetting setMaxValue(float maxValue) {
         this.maxValue = maxValue;
         return this;
