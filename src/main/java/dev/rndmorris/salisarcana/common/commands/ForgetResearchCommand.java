@@ -27,6 +27,7 @@ import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.config.Config;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketSyncWarp;
 
@@ -96,7 +97,7 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
                 }
 
                 final var warp = ThaumcraftApi.getWarp(key);
-                if (warp > 0 && !thaumcraft.common.config.Config.wuss && !arguments.targetPlayer.worldObj.isRemote) {
+                if (warp > 0 && !Config.wuss && !arguments.targetPlayer.worldObj.isRemote) {
                     final var sticky = warp / 2;
                     permWarp += warp - sticky;
                     stickyWarp += sticky;
