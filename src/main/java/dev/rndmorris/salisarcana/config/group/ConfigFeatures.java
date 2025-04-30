@@ -11,6 +11,7 @@ import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
 import dev.rndmorris.salisarcana.config.settings.Setting;
+import dev.rndmorris.salisarcana.config.settings.StringArraySetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
@@ -400,6 +401,17 @@ public class ConfigFeatures extends ConfigGroup {
         "potencyModifiesHarvestLevel",
         "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level by one level per level of potency.")
             .setCategory("harvestLevels");
+
+    public final StringArraySetting mobVisWhitelist = new StringArraySetting(
+        this,
+        "mobVisWhitelist",
+        "Whitelist of entities that can generate vis orbs when killed. If empty, all entities will generate vis orbs.",
+        new String[0]);
+
+    public final ToggleSetting mobVisBlacklist = new ToggleSetting(
+        this,
+        "mobVisBlacklist",
+        "If enabled, the mob vis whitelist will be treated as a blacklist instead.").setEnabled(false);
 
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())

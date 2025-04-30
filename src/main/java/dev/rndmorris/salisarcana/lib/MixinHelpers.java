@@ -1,9 +1,12 @@
 package dev.rndmorris.salisarcana.lib;
 
+import java.util.HashSet;
 import java.util.Stack;
 
 import net.glease.tc4tweak.api.BrowserPagingAPI;
 import net.glease.tc4tweak.api.TC4TweaksAPI;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.util.Tuple;
 
 import dev.rndmorris.salisarcana.common.compat.Mods;
@@ -48,4 +51,15 @@ public class MixinHelpers {
 
     // used client side only in MixinGuiResearchRecipe, MixinGuiResearchBrowser_RightClickClose
     public static final Stack<Tuple> RightClickClose$ScreenStack = new Stack<>();
+
+    public static HashSet<Class<? extends Entity>> getEntitiesFromStringArr(String[] value) {
+        HashSet<Class<? extends Entity>> entities = new HashSet<>();
+        for (String entityName : value) {
+            Class<? extends Entity> entity = EntityList.stringToClassMapping.get(entityName);
+            if (entity != null) {
+                entities.add(entity);
+            }
+        }
+        return entities;
+    }
 }
