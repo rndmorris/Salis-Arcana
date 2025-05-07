@@ -32,4 +32,9 @@ public class StringArraySetting extends Setting {
     public String[] getValue() {
         return value;
     }
+
+    @Override
+    public boolean isEnabled() {
+        return super.isEnabled() && value != defaultValue;
+    }
 }
