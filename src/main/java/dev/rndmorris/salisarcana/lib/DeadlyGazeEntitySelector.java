@@ -20,11 +20,11 @@ public class DeadlyGazeEntitySelector implements IEntitySelector {
     @Override
     public boolean isEntityApplicable(Entity entity) {
         if (entity instanceof EntityLivingBase living) {
-            return living.isEntityInvulnerable()
-                || living.isPotionApplicable(new PotionEffect(Potion.wither.getId(), 1))
+            return !(living.isEntityInvulnerable()
+                || !living.isPotionApplicable(new PotionEffect(Potion.wither.getId(), 1))
                 || (living instanceof EntitySkeleton skeleton && skeleton.getSkeletonType() != 0)
                 || living instanceof EntityWither
-                || living instanceof EntityDragon;
+                || living instanceof EntityDragon);
         }
         return false;
     }
