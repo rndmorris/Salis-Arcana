@@ -6,7 +6,13 @@ import cpw.mods.fml.common.Loader;
 
 public enum Mods {
 
-    TC4Tweak("tc4tweak"),;
+    // spotless:off
+
+    TC4Tweak("tc4tweak"),
+
+    ;
+
+    // spotless:on
 
     public final String modid;
     private final Supplier<Boolean> supplier;

@@ -401,6 +401,11 @@ public class ConfigFeatures extends ConfigGroup {
         "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level by one level per level of potency.")
             .setCategory("harvestLevels");
 
+    public final ToggleSetting deadlyGazeMobCheck = new ToggleSetting(
+        this,
+        "deadlyGazeMobCheck",
+        "If enabled, the Deadly Gaze effect will only affect mobs that are not invulnerable or immune to wither");
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()

@@ -49,4 +49,5 @@ dependencies {
     /* Patched TC4 addons */
     compileOnly("com.github.GTNewHorizons:ThaumicTinkerer:2.6.2:dev")
     compileOnly(rfg.deobf("curse.maven:automagy-222153:2285272"))
+
 }
