@@ -411,13 +411,13 @@ public class ConfigFeatures extends ConfigGroup {
     public final IntSetting visAmuletTickRate = new IntSetting(
         this,
         "visAmuletRechargeSpeed",
-        "The rate in ticks at which vis amulets recharge itself.",
+        "The rate in ticks at which vis amulets recharge themselves and other items.",
         5).setMinValue(1);
 
     public final IntSetting visAmuletTransferRate = new IntSetting(
         this,
         "visAmuletTransferRate",
-        "The amount of vis an amulet can move at once.",
+        "The amount of cv which an amulet can receive or move to other items in one transfer.",
         5).setMinValue(1);
 
     public final ToggleSetting visAmuletCheckInventory = new ToggleSetting(
