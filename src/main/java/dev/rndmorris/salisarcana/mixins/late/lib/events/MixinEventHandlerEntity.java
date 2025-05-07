@@ -23,8 +23,7 @@ public class MixinEventHandlerEntity {
     private final boolean sa$isBlacklist = SalisConfig.features.mobVisBlacklist.isEnabled();
 
     @Unique
-    private final HashSet<Class<? extends Entity>> sa$entities = MixinHelpers
-        .getEntitiesFromStringArr(SalisConfig.features.mobVisWhitelist.getValue());
+    private HashSet<Class<? extends Entity>> sa$entities = null;
 
     // we need this for both nonstatic fields to be initialized in the real constructor
     public MixinEventHandlerEntity() {
@@ -38,14 +37,20 @@ public class MixinEventHandlerEntity {
             target = "Lthaumcraft/common/lib/utils/EntityUtils;getRecentlyHit(Lnet/minecraft/entity/EntityLivingBase;)I"))
     private int sa$shouldGenerateVisOrbs(EntityLivingBase e, Operation<Integer> original) {
         if (sa$isBlacklist) {
-            if (!sa$entities.contains(e.getClass())) {
+            if (!sa$getEntities().contains(e.getClass())) {
                 return original.call(e);
             }
         } else {
-            if (sa$entities.contains(e.getClass())) {
+            if (sa$getEntities().contains(e.getClass())) {
                 return original.call(e);
             }
         }
         return 0;
+    }
+
+    @Unique
+    private HashSet<Class<? extends Entity>> sa$getEntities() {
+        return sa$entities != null ? sa$entities
+            : (sa$entities = MixinHelpers.getEntitiesFromStringArr(SalisConfig.features.mobVisWhitelist.getValue()));
     }
 }
