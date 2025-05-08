@@ -413,6 +413,11 @@ public class ConfigFeatures extends ConfigGroup {
         "mobVisBlacklist",
         "If enabled, the mob vis whitelist will be treated as a blacklist instead.").setEnabled(false);
 
+    public final ToggleSetting deadlyGazeMobCheck = new ToggleSetting(
+        this,
+        "deadlyGazeMobCheck",
+        "If enabled, the Deadly Gaze effect will only affect mobs that are not invulnerable or immune to wither");
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
