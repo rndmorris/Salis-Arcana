@@ -1,6 +1,6 @@
 package dev.rndmorris.salisarcana.client.handlers;
 
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.RightClickClose$ScreenStack;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.RightClickClose$ScreenStack;
 
 import net.glease.tc4tweak.modules.researchBrowser.ThaumonomiconIndexSearcher;
 import net.minecraft.client.Minecraft;
