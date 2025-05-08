@@ -25,6 +25,6 @@ public class MixinWarpEvents_DeadlyGaze {
             target = "Lnet/minecraft/world/World;getEntitiesWithinAABBExcludingEntity(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/AxisAlignedBB;)Ljava/util/List;"))
     private static List wrapGetEntities(World instance, Entity entity, AxisAlignedBB box,
         Operation<List<Entity>> original) {
-        return instance.getEntitiesWithinAABBExcludingEntity(entity, box, new DeadlyGazeEntitySelector());
+        return instance.getEntitiesWithinAABBExcludingEntity(entity, box, DeadlyGazeEntitySelector.INSTANCE);
     }
 }

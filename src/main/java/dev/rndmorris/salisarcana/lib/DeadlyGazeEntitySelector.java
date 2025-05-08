@@ -17,6 +17,8 @@ import net.minecraft.potion.PotionEffect;
  */
 public class DeadlyGazeEntitySelector implements IEntitySelector {
 
+    public static DeadlyGazeEntitySelector INSTANCE = new DeadlyGazeEntitySelector();
+
     @Override
     public boolean isEntityApplicable(Entity entity) {
         if (entity instanceof EntityLivingBase living) {
