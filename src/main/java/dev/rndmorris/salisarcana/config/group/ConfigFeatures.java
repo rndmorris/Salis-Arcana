@@ -424,6 +424,11 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "visAmuletCheckInventory",
         "If enabled, amulets will check and recharge wands in the entire inventory instead of just the player's hand.");
+  
+    public final ToggleSetting deadlyGazeMobCheck = new ToggleSetting(
+        this,
+        "deadlyGazeMobCheck",
+        "If enabled, the Deadly Gaze effect will only affect mobs that are not invulnerable or immune to wither");
 
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
