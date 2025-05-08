@@ -4,16 +4,16 @@ import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.config.IEnabler;
 
-public class IntSetting extends Setting {
+public class FloatSetting extends Setting {
 
     private final String name;
     private final String comment;
-    private final int defaultValue;
-    private int value;
-    private int maxValue = Integer.MAX_VALUE;
-    private int minValue = Integer.MIN_VALUE;
+    private final float defaultValue;
+    private float value;
+    private float maxValue = Float.MAX_VALUE;
+    private float minValue = -Float.MAX_VALUE; // Float.MIN_VALUE is the smallest positive value, not the most negative
 
-    public IntSetting(IEnabler dependency, String name, String comment, int defaultValue) {
+    public FloatSetting(IEnabler dependency, String name, String comment, float defaultValue) {
         super(dependency);
         this.name = name;
         this.comment = comment;
@@ -22,31 +22,31 @@ public class IntSetting extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        value = configuration.getInt(name, getCategory(), defaultValue, minValue, maxValue, comment);
+        value = configuration.getFloat(name, getCategory(), defaultValue, minValue, maxValue, comment);
     }
 
-    public int getDefaultValue() {
+    public float getDefaultValue() {
         return defaultValue;
     }
 
-    public int getMaxValue() {
+    public float getMaxValue() {
         return maxValue;
     }
 
-    public int getMinValue() {
+    public float getMinValue() {
         return minValue;
     }
 
-    public int getValue() {
+    public float getValue() {
         return value;
     }
 
-    public IntSetting setMaxValue(int maxValue) {
+    public FloatSetting setMaxValue(float maxValue) {
         this.maxValue = maxValue;
         return this;
     }
 
-    public IntSetting setMinValue(int minValue) {
+    public FloatSetting setMinValue(float minValue) {
         this.minValue = minValue;
         return this;
     }

@@ -1,6 +1,8 @@
 package dev.rndmorris.salisarcana.lib;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 
 public final class PlayerHelper {
 
@@ -24,5 +26,14 @@ public final class PlayerHelper {
 
     public static int getExperienceTotal(EntityPlayer player) {
         return getExperienceForLevel(player.experienceLevel) + (int) (player.experience * player.xpBarCap());
+    }
+
+    public static Slot[] getItemsInInventory(EntityPlayer player, Class<? extends Item> itemClass) {
+        return player.inventoryContainer.inventorySlots.stream()
+            .filter(
+                slot -> slot.getHasStack() && itemClass.isInstance(
+                    slot.getStack()
+                        .getItem()))
+            .toArray(Slot[]::new);
     }
 }
