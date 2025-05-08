@@ -13,7 +13,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import dev.rndmorris.salisarcana.config.SalisConfig;
-import dev.rndmorris.salisarcana.lib.MixinHelpers;
+import dev.rndmorris.salisarcana.lib.EntityHelper;
 import thaumcraft.common.lib.events.EventHandlerEntity;
 
 @Mixin(value = EventHandlerEntity.class, remap = false)
@@ -51,6 +51,6 @@ public class MixinEventHandlerEntity {
     @Unique
     private HashSet<Class<? extends Entity>> sa$getEntities() {
         return sa$entities != null ? sa$entities
-            : (sa$entities = MixinHelpers.getEntitiesFromStringArr(SalisConfig.features.mobVisWhitelist.getValue()));
+            : (sa$entities = EntityHelper.getEntitiesFromStringArr(SalisConfig.features.mobVisWhitelist.getValue()));
     }
 }
