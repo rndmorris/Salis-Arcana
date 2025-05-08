@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.config.settings;
 
+import java.util.Arrays;
+
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.config.IEnabler;
@@ -30,6 +32,6 @@ public class StringArraySetting extends Setting {
 
     @Override
     public boolean isEnabled() {
-        return super.isEnabled() && value != defaultValue;
+        return super.isEnabled() && !Arrays.equals(value, defaultValue);
     }
 }
