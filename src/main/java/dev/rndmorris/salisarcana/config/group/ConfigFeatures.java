@@ -424,7 +424,7 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "visAmuletCheckInventory",
         "If enabled, amulets will check and recharge wands in the entire inventory instead of just the player's hand.");
-  
+
     public final ToggleSetting deadlyGazeMobCheck = new ToggleSetting(
         this,
         "deadlyGazeMobCheck",
