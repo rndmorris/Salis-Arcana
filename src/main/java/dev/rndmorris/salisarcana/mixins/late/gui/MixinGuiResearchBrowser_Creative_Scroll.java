@@ -191,7 +191,8 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
             ordinal = 0),
         remap = false)
     private void creativePaperCheck(CallbackInfo ci) {
-        this.hasScribestuff = this.mc.thePlayer.capabilities.isCreativeMode && sa$opEnabled;
+        this.hasScribestuff = this.mc.thePlayer.capabilities.isCreativeMode && sa$opEnabled
+            && !Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
     }
 
 }
