@@ -146,7 +146,7 @@ public enum Mixins {
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.features.useAllBaublesSlots::isEnabled)
-        .addMixinClasses("events.MixinEventHandlerRunic", "items.MixinWandManager", "lib.MixinWarpEvents")
+        .addMixinClasses("events.MixinEventHandlerRunic", "items.MixinWandManager", "lib.MixinWarpEvents_BaubleSlots")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     EXTENDED_BAUBLES_SUPPORT_CLIENT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
@@ -381,6 +381,12 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.features.heatSourceOreDict::isEnabled)
         .addMixinClasses("tiles.MixinTileCrucible_HeatSources", "tiles.MixinTileThaumatorium_HeatSources")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    DEADLY_GAZE_MOB_CHECK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.features.deadlyGazeMobCheck::isEnabled)
+        .addMixinClasses("lib.MixinWarpEvents_DeadlyGaze")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ;
     // spotless:on
