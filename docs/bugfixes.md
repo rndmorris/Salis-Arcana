@@ -127,3 +127,9 @@ Use Forge's fishing lists to determine what fish, junk, and treasure a fishing g
 **Config option:** `silverwoodLogCorrectName`
 
 Non-vertical silverwood logs will be correctly named "Silverwood Log" in WAILA.
+
+## Visually Update Biome Colors
+
+**Config option:** `updateBiomeColorRendering`
+
+Biome changes will correctly update the color of grass in chunks without needing a block to change.
