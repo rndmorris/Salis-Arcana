@@ -141,6 +141,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.silverwoodLogCorrectName::isEnabled)
         .addMixinClasses("blocks.MixinBlockMagicalLogItem")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    UPDATE_BIOME_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(SalisConfig.bugfixes.updateBiomeColorRendering::isEnabled)
+        .addMixinClasses("lib.MixinUtils_UpdateBiomeColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
