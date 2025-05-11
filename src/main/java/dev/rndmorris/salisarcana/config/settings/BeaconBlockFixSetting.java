@@ -13,6 +13,7 @@ public class BeaconBlockFixSetting extends IntArraySetting {
 
     public BeaconBlockFixSetting(IEnabler dependency) {
         super(dependency, configName, comment, new int[] { 4 }, 0, 15);
+        this.setMaxLength(16);
     }
 
     public boolean isBeaconMetadata(int metadata) {

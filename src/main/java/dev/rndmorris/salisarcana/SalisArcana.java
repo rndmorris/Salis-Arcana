@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana;
 
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.common.Mod;
@@ -13,6 +12,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.relauncher.Side;
+import dev.rndmorris.salisarcana.core.SalisArcanaCore;
 
 @Mod(
     modid = SalisArcana.MODID,
@@ -22,8 +22,8 @@ import cpw.mods.fml.relauncher.Side;
     dependencies = "required-after:Thaumcraft;after:tc4tweak@[1.5.32,)")
 public class SalisArcana {
 
-    public static final String MODID = "salisarcana";
-    public static final Logger LOG = LogManager.getLogger(MODID);
+    public static final String MODID = SalisArcanaCore.MODID;
+    public static final Logger LOG = SalisArcanaCore.LOG;
 
     @SidedProxy(
         clientSide = "dev.rndmorris.salisarcana.ClientProxy",
