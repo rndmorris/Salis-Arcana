@@ -1,11 +1,6 @@
 # Salis Arcana
 Secret salt to enhance and refine Thaumcraft 4
 
-## Research Editor
-
-* JSON-based research creator and editor for creating and modifying researches
-* See the [editor documentation](./docs/research/research.md) for more information
-
 ## Bugfixes
 * Prevent the Infernal Furnace from duplicating items
 * Eliminate floating-point math errors in the Infusion Altar's stabilizer calculations

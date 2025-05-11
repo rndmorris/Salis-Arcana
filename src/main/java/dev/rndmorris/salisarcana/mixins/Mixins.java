@@ -136,12 +136,17 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.itemMetadataSafetyCheck::isEnabled)
         .addMixinClasses("items.Mixin_ItemIconFix", "items.MixinItemWandRod")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    SILVERWOOD_LOG_NAME_FIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.silverwoodLogCorrectName::isEnabled)
+        .addMixinClasses("blocks.MixinBlockMagicalLogItem")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.features.useAllBaublesSlots::isEnabled)
-        .addMixinClasses("events.MixinEventHandlerRunic", "items.MixinWandManager", "lib.MixinWarpEvents")
+        .addMixinClasses("events.MixinEventHandlerRunic", "items.MixinWandManager", "lib.MixinWarpEvents_BaubleSlots")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     EXTENDED_BAUBLES_SUPPORT_CLIENT(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
@@ -376,6 +381,12 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.features.heatSourceOreDict::isEnabled)
         .addMixinClasses("tiles.MixinTileCrucible_HeatSources", "tiles.MixinTileThaumatorium_HeatSources")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    DEADLY_GAZE_MOB_CHECK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.features.deadlyGazeMobCheck::isEnabled)
+        .addMixinClasses("lib.MixinWarpEvents_DeadlyGaze")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ;
     // spotless:on
