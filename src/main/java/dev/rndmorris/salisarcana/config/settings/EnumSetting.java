@@ -42,6 +42,11 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
             .map(Enum::toString)
             .toArray(String[]::new);
         final var valueString = configuration.getString(name, getCategory(), value.toString(), comment, validValues);
-        value = Enum.valueOf(enumClass, valueString);
+
+        try {
+            value = Enum.valueOf(enumClass, valueString);
+        } catch (IllegalArgumentException e) {
+            // Don't do anything, just use the default value
+        }
     }
 }
