@@ -20,7 +20,7 @@ import thaumcraft.common.lib.events.EventHandlerEntity;
 public class MixinEventHandlerEntity {
 
     @Unique
-    private final boolean sa$isBlacklist = SalisConfig.features.mobVisBlacklist.isEnabled();
+    private final boolean sa$isWhitelist = SalisConfig.features.mobVisWhitelist.isEnabled();
 
     @Unique
     private HashSet<Class<? extends Entity>> sa$entities = null;
@@ -36,12 +36,12 @@ public class MixinEventHandlerEntity {
             value = "INVOKE",
             target = "Lthaumcraft/common/lib/utils/EntityUtils;getRecentlyHit(Lnet/minecraft/entity/EntityLivingBase;)I"))
     private int sa$shouldGenerateVisOrbs(EntityLivingBase e, Operation<Integer> original) {
-        if (sa$isBlacklist) {
-            if (!sa$getEntities().contains(e.getClass())) {
+        if (sa$isWhitelist) {
+            if (sa$getEntities().contains(e.getClass())) {
                 return original.call(e);
             }
         } else {
-            if (sa$getEntities().contains(e.getClass())) {
+            if (!sa$getEntities().contains(e.getClass())) {
                 return original.call(e);
             }
         }
@@ -51,6 +51,6 @@ public class MixinEventHandlerEntity {
     @Unique
     private HashSet<Class<? extends Entity>> sa$getEntities() {
         return sa$entities != null ? sa$entities
-            : (sa$entities = EntityHelper.getEntitiesFromStringArr(SalisConfig.features.mobVisWhitelist.getValue()));
+            : (sa$entities = EntityHelper.getEntitiesFromStringArr(SalisConfig.features.mobVisDropList.getValue()));
     }
 }

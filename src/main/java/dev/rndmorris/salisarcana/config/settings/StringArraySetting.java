@@ -30,6 +30,12 @@ public class StringArraySetting extends Setting {
         return value;
     }
 
+    public String[] getNonEmpty() {
+        return Arrays.stream(value)
+            .filter(s -> !s.isBlank())
+            .toArray(String[]::new);
+    }
+
     @Override
     public boolean isEnabled() {
         return super.isEnabled() && !Arrays.equals(value, defaultValue);

@@ -402,16 +402,16 @@ public class ConfigFeatures extends ConfigGroup {
         "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level by one level per level of potency.")
             .setCategory("harvestLevels");
 
-    public final StringArraySetting mobVisWhitelist = new StringArraySetting(
+    public final StringArraySetting mobVisDropList = new StringArraySetting(
         this,
-        "mobVisWhitelist",
-        "Whitelist of entities that can generate vis orbs when killed. If empty, all entities will generate vis orbs.",
+        "mobVisDropBlacklist",
+        "List of entities that can not generate vis orbs when killed.",
         new String[0]);
 
-    public final ToggleSetting mobVisBlacklist = new ToggleSetting(
+    public final ToggleSetting mobVisWhitelist = new ToggleSetting(
         this,
-        "mobVisBlacklist",
-        "If enabled, the mob vis whitelist will be treated as a blacklist instead.").setEnabled(false);
+        "mobVisDropWhitelist",
+        "If enabled, the blacklist will be treated as a whitelist instead instead.").setEnabled(false);
 
     public final ToggleSetting deadlyGazeMobCheck = new ToggleSetting(
         this,
