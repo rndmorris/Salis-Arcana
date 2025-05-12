@@ -32,7 +32,9 @@ public class StringArraySetting extends Setting {
 
     public String[] getNonEmpty() {
         return Arrays.stream(value)
-            .filter(s -> !s.isBlank())
+            .filter(
+                s -> !s.trim()
+                    .isEmpty())
             .toArray(String[]::new);
     }
 
