@@ -382,11 +382,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.features.heatSourceOreDict::isEnabled)
         .addMixinClasses("tiles.MixinTileCrucible_HeatSources", "tiles.MixinTileThaumatorium_HeatSources")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-  
+
     VIS_RELAY_BOX_EXPANSION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.features.visRelayBoxExpansion::isEnabled)
-        .addMixinClasses("tile.MixinTileVisRelay_ExpandBoundingBox")
+        .addMixinClasses("tiles.MixinTileVisRelay_ExpandBoundingBox")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     VIS_AMULET_TICK_RATE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
@@ -403,7 +403,7 @@ public enum Mixins {
         .setApplyIf(SalisConfig.features.visAmuletCheckInventory::isEnabled)
         .addMixinClasses("items.MixinItemAmuletVis_InventoryCheck")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-  
+
     DEADLY_GAZE_MOB_CHECK(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.features.deadlyGazeMobCheck::isEnabled)
