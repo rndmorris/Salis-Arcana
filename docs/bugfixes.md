@@ -133,3 +133,9 @@ Non-vertical silverwood logs will be correctly named "Silverwood Log" in WAILA.
 **Config option:** `updateBiomeColorRendering`
 
 Biome changes will correctly update the color of grass in chunks without needing a block to change.
+
+## Render Eldritch Altar Parts in the Inventory
+
+**Config option:** `renderEldritchBlockItems`
+
+Renders eldritch blocks with tile entity renderers (Eldritch Altar, Eldritch Capstone, Eldritch Obelisk) in the player's hand & inventory.

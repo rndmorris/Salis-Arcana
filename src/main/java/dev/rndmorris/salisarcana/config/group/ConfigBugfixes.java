@@ -135,6 +135,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "updateBiomeColorRendering",
         "Biome changes will correctly update the color of grass in chunks without needing a block to change.");
 
+    public final ToggleSetting renderEldritchBlockItems = new ToggleSetting(
+        this,
+        "renderEldritchBlockItems",
+        "Renders eldritch blocks with tile entity renderers (Eldritch Altar, Eldritch Capstone, Eldritch Obelisk) in the player's hand & inventory.");
+
     @Nonnull
     @Override
     public String getGroupName() {
