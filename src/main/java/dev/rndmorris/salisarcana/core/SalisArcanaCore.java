@@ -15,7 +15,7 @@ import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 public class SalisArcanaCore implements IFMLLoadingPlugin {
 
     public static final String MODID = "salisarcana";
-    public static final Logger LOG = LogManager.getLogger(MODID);
+    public static final Logger LOG = LogManager.getLogger("salisarcana-core");
 
     public SalisArcanaCore() {
         SalisConfig.synchronizeConfiguration();

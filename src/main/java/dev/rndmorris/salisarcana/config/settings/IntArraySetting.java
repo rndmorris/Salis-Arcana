@@ -52,18 +52,11 @@ public class IntArraySetting extends Setting {
 
     public IntArraySetting setLengthFixed(boolean isFixed) {
         this.fixedLength = isFixed;
-
-        if (isFixed) {
-            this.maxLength = this.defaultValue.length;
-        }
-
         return this;
     }
 
     public IntArraySetting setMaxLength(int maxLength) {
-        if (!this.fixedLength) {
-            this.maxLength = maxLength;
-        }
+        this.maxLength = maxLength;
         return this;
     }
 
@@ -79,7 +72,7 @@ public class IntArraySetting extends Setting {
                 this.minValue,
                 this.maxValue,
                 this.fixedLength,
-                this.maxLength)
+                this.fixedLength ? this.defaultValue.length : this.maxLength)
             .getIntList();
 
         boolean wrong = false;
