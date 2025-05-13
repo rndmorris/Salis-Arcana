@@ -35,7 +35,7 @@ public class ClientProxy extends CommonProxy {
         }
 
         if (SalisConfig.bugfixes.renderEldritchBlockItems.isEnabled()) {
-            // MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ConfigBlocks.blockEldritch), new EldritchBlockItemRenderer());
+            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ConfigBlocks.blockEldritch), new EldritchBlockItemRenderer());
         }
 
         new GuiHandler();

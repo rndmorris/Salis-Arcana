@@ -146,6 +146,26 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.updateBiomeColorRendering::isEnabled)
         .addMixinClasses("lib.MixinUtils_UpdateBiomeColor")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ELDRITCH_BLOCK_PICK_BLOCK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.pickBlockEldritchObelisk::isEnabled)
+        .addMixinClasses("blocks.MixinBlockEldritch_PickBlockObelisk")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ELDRITCH_BLOCK_DIRECTIONALITY(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.eldritchBlocksPlaceDirection::isEnabled)
+        .addMixinClasses("blocks.MixinBlockEldritch_PlaceDirectionally")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RUNED_STONE_CREATIVE_IMMUNITY(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.runedStoneIgnoreCreative::isEnabled)
+        .addMixinClasses("tiles.MixinTileEldritchTrap_CreativeImmunity")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RENDER_SOLID_ELDRITCH_BLOCKS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(SalisConfig.bugfixes.renderEldritchBlockItems::isEnabled)
+        .addMixinClasses("client.renderers.MixinBlockEldritchRenderer")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)

@@ -140,6 +140,21 @@ public class ConfigBugfixes extends ConfigGroup {
         "renderEldritchBlockItems",
         "Renders eldritch blocks with tile entity renderers (Eldritch Altar, Eldritch Capstone, Eldritch Obelisk) in the player's hand & inventory.");
 
+    public final ToggleSetting pickBlockEldritchObelisk = new ToggleSetting(
+        this,
+        "pickBlockEldritchObelisk",
+        "Pick-blocking the top sections of the Eldritch Obelisk will return the lower, visible section.");
+
+    public final ToggleSetting eldritchBlocksPlaceDirection = new ToggleSetting(
+        this,
+        "eldritchBlocksPlaceDirection",
+        "Placing directional eldritch blocks (Crusted Opening & Ancient Locking Mechanism) will rotate the blocks to face the player.");
+
+    public final ToggleSetting runedStoneIgnoreCreative = new ToggleSetting(
+        this,
+        "runedStoneIgnoreCreative",
+        "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
+
     @Nonnull
     @Override
     public String getGroupName() {
