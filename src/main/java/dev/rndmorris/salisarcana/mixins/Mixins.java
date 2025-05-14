@@ -146,11 +146,6 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.updateBiomeColorRendering::isEnabled)
         .addMixinClasses("lib.MixinUtils_UpdateBiomeColor")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    ELDRITCH_BLOCK_PICK_BLOCK(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(SalisConfig.bugfixes.pickBlockEldritchObelisk::isEnabled)
-        .addMixinClasses("blocks.MixinBlockEldritch_PickBlockObelisk")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ELDRITCH_BLOCK_DIRECTIONALITY(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.bugfixes.eldritchBlocksPlaceDirection::isEnabled)
@@ -161,10 +156,20 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.runedStoneIgnoreCreative::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchTrap_CreativeImmunity")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    RENDER_SOLID_ELDRITCH_BLOCKS(new Builder().setPhase(Phase.LATE)
+    RENDER_ELDRITCH_BLOCKS_INVENTORY(new Builder().setPhase(Phase.LATE)
         .setSide(Side.CLIENT)
         .setApplyIf(SalisConfig.bugfixes.renderEldritchBlockItems::isEnabled)
-        .addMixinClasses("client.renderers.MixinBlockEldritchRenderer")
+        .addMixinClasses("client.renderers.MixinBlockEldritchRenderer", "client.renderers.MixinTileEldritchObeliskRenderer_FixFog")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    PLACE_FULL_OBELISK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.placeFullObelisks::isEnabled)
+        .addMixinClasses("blocks.MixinBlockEldritch_PlaceFullObelisk")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ELDRITCH_ADD_SUB_BLOCKS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(SalisConfig.bugfixes.eldritchBlocksInCreativeMenu::isEnabled)
+        .addMixinClasses("blocks.MixinBlockEldritch_AddSubBlocks")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features

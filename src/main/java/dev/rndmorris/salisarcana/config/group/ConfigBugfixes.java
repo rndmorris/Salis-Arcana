@@ -140,11 +140,6 @@ public class ConfigBugfixes extends ConfigGroup {
         "renderEldritchBlockItems",
         "Renders eldritch blocks with tile entity renderers (Eldritch Altar, Eldritch Capstone, Eldritch Obelisk) in the player's hand & inventory.");
 
-    public final ToggleSetting pickBlockEldritchObelisk = new ToggleSetting(
-        this,
-        "pickBlockEldritchObelisk",
-        "Pick-blocking the top sections of the Eldritch Obelisk will return the lower, visible section.");
-
     public final ToggleSetting eldritchBlocksPlaceDirection = new ToggleSetting(
         this,
         "eldritchBlocksPlaceDirection",
@@ -154,6 +149,16 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
+
+    public final ToggleSetting placeFullObelisks = new ToggleSetting(
+        this,
+        "placeFullObelisks",
+        "Placing an Obelisk with the Eldritch Obelisk item will place all 5 blocks making up the Obelisk.");
+
+    public final ToggleSetting eldritchBlocksInCreativeMenu = new ToggleSetting(
+        this,
+        "eldritchBlocksInCreativeMenu",
+        "Adds most of the Eldritch Blocks to the Creative Menu (and NEI too.)");
 
     @Nonnull
     @Override

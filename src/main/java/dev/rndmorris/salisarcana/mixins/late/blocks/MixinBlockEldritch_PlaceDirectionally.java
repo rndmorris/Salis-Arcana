@@ -13,12 +13,9 @@ import thaumcraft.common.tiles.TileEldritchCrabSpawner;
 import thaumcraft.common.tiles.TileEldritchLock;
 
 @Mixin(BlockEldritch.class)
-public abstract class MixinBlockEldritch_PlaceDirectionally extends BlockContainer {
-    protected MixinBlockEldritch_PlaceDirectionally(Material p_i45386_1_) {
-        super(p_i45386_1_);
-    }
+public abstract class MixinBlockEldritch_PlaceDirectionally {
 
-    @Override
+    // @Override
     public void onBlockPlacedBy(World worldIn, int x, int y, int z, EntityLivingBase placer, ItemStack itemIn) {
         int meta = worldIn.getBlockMetadata(x, y, z);
 
