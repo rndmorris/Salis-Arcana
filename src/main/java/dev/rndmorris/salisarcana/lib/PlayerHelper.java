@@ -3,6 +3,7 @@ package dev.rndmorris.salisarcana.lib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public final class PlayerHelper {
 
@@ -28,12 +29,15 @@ public final class PlayerHelper {
         return getExperienceForLevel(player.experienceLevel) + (int) (player.experience * player.xpBarCap());
     }
 
-    public static Slot[] getItemsInInventory(EntityPlayer player, Class<? extends Item> itemClass) {
+    public static ItemStack[] getItemsInInventory(EntityPlayer player, Class<? extends Item> itemClass) {
+        // We don't just use player.inventory.mainInventory here because we want to include anything
+        // that's not part of the main inventory, like armor slots
         return player.inventoryContainer.inventorySlots.stream()
             .filter(
                 slot -> slot.getHasStack() && itemClass.isInstance(
                     slot.getStack()
                         .getItem()))
-            .toArray(Slot[]::new);
+            .map(Slot::getStack)
+            .toArray(ItemStack[]::new);
     }
 }
