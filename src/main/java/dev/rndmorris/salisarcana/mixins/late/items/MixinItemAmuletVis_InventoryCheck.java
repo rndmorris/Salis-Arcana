@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana.mixins.late.items;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,21 +30,23 @@ public abstract class MixinItemAmuletVis_InventoryCheck {
     @Unique
     private final int sa$transferRate = SalisConfig.features.visAmuletTransferRate.getValue();
 
+    @Unique
+    private final int sa$tickRate = SalisConfig.features.visAmuletTickRate.getValue();
+
+    public MixinItemAmuletVis_InventoryCheck() {}
+
     @WrapMethod(method = "onWornTick")
     private void wrapOnWornTick(ItemStack itemstack, EntityLivingBase entity, Operation<Void> original) {
-        if (entity instanceof EntityPlayer player) {
-            Slot[] slots = PlayerHelper.getItemsInInventory(player, ItemWandCasting.class);
-            // only time this will be null is if the player has no wands in their inventory, so we don't need to do a
-            // null check below
-            ItemWandCasting wand = slots.length > 0 ? (ItemWandCasting) slots[0].getStack()
-                .getItem() : null;
-            for (Slot slot : slots) {
+        if (!entity.worldObj.isRemote && entity.ticksExisted % sa$tickRate == 0
+            && entity instanceof EntityPlayer player) {
+            ItemStack[] wands = PlayerHelper.getItemsInInventory(player, ItemWandCasting.class);
+            for (ItemStack wandStack : wands) {
                 // if it's the held item, it'll be taken care of when we call the original
-                if (player.inventoryContainer.getSlot(player.inventory.currentItem)
-                    .equals(slot)) {
+                // we want true equivalence here, so we can't use .equals()
+                if (wandStack == player.getHeldItem()) {
                     continue;
                 }
-                ItemStack wandStack = slot.getStack();
+                ItemWandCasting wand = (ItemWandCasting) wandStack.getItem();
                 // noinspection DataFlowIssue (wand can't actually be null here)
                 AspectList al = wand.getAspectsWithRoom(wandStack);
                 for (Aspect aspect : al.getAspects()) {
