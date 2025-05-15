@@ -386,7 +386,7 @@ public enum Mixins {
     VIS_RELAY_BOX_EXPANSION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.features.visRelayBoxExpansion::isEnabled)
-        .addMixinClasses("tiles.MixinTileVisRelay_ExpandBoundingBox")
+        .addMixinClasses("tiles.MixinTileVisRelay_ExpandBoundingBox", "items.MixinItemAmuletVis_ExpandBoundingBox")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     VIS_AMULET_TICK_RATE(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
