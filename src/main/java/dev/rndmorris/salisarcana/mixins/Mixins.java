@@ -388,6 +388,27 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileCrucible_HeatSources", "tiles.MixinTileThaumatorium_HeatSources")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    VIS_RELAY_BOX_EXPANSION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.features.visRelayBoxExpansion::isEnabled)
+        .addMixinClasses("tiles.MixinTileVisRelay_ExpandBoundingBox", "items.MixinItemAmuletVis_ExpandBoundingBox")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    VIS_AMULET_TICK_RATE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.features.visAmuletTickRate::isEnabled)
+        .addMixinClasses("items.MixinItemAmuletVis_TickRate")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    VIS_AMULET_TRANSFER_RATE(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.features.visAmuletTransferRate::isEnabled)
+        .addMixinClasses("items.MixinItemAmuletVis_TransferRate")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    VIS_AMULET_FULL_INVENTORY(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.features.visAmuletCheckInventory::isEnabled)
+        .addMixinClasses("items.MixinItemAmuletVis_InventoryCheck")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     MOB_VIS_WHITELIST(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(() -> !SalisConfig.features.mobVisWhitelist.isEnabled() || SalisConfig.features.mobVisDropList.getNonEmpty().length != 0)

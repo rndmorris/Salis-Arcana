@@ -342,3 +342,21 @@ Requires `enableReplaceWandCapsRecipe=true` or `enableReplaceWandCoreRecipe=true
 Requires `arcaneWorkbenchGhostItemFix=true` in the bugfixes module.
 
 If enabled, allows swapping a wand's components using vis from the wand being modified.
+
+# Enhancements - Vis Relay/Amulet Improvements:
+
+## Config Option: `visRelayBoxExpansion`
+
+Increases the range of the vis relay at which items like amulets will be charged. Default is 5, which means players will have to be within 5 blocks of the relay.
+
+## Config Option: `visAmuletRechargeSpeed`
+
+The rate, in ticks, at which the vis amulet will recharge itself.
+
+## Config Option: `visAmuletTransferRate`
+
+Used to control how much vis can be transferred to and from the vis amulet.
+
+## Config Option: `visAmuletCheckInventory`
+
+If enabled, the vis amulet will check the player's inventory for wands, instead of just the player's hand.

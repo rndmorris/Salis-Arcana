@@ -7,6 +7,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
 import dev.rndmorris.salisarcana.config.settings.EldritchAltarMobSpawnSetting;
+import dev.rndmorris.salisarcana.config.settings.FloatSetting;
 import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
@@ -401,6 +402,29 @@ public class ConfigFeatures extends ConfigGroup {
         "potencyModifiesHarvestLevel",
         "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level by one level per level of potency.")
             .setCategory("harvestLevels");
+
+    public final FloatSetting visRelayBoxExpansion = new FloatSetting(
+        this,
+        "visRelayBoxExpansion",
+        "The amount to expand the bounding box of vis relays. This is used to increase the range at which amulets are charged.",
+        5.0F).setMinValue(0.0F);
+
+    public final IntSetting visAmuletTickRate = new IntSetting(
+        this,
+        "visAmuletRechargeSpeed",
+        "The rate in ticks at which vis amulets recharge themselves and other items.",
+        5).setMinValue(1);
+
+    public final IntSetting visAmuletTransferRate = new IntSetting(
+        this,
+        "visAmuletTransferRate",
+        "The amount of cv which an amulet can receive or move to other items in one transfer.",
+        5).setMinValue(1);
+
+    public final ToggleSetting visAmuletCheckInventory = new ToggleSetting(
+        this,
+        "visAmuletCheckInventory",
+        "If enabled, amulets will check and recharge wands in the entire inventory instead of just the player's hand.");
 
     public final StringArraySetting mobVisDropList = new StringArraySetting(
         this,
