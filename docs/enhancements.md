@@ -22,6 +22,16 @@ while avoiding the weirdness in Thaumcraft's plank blocks implementation.
 
 Causes staffters to use their own translation string rather than being called "Staff" in the tooltip.
 
+## Mob Vis Drop Whitelist
+
+**Config option:** `mobVisWhitelist`
+
+Whitelist of entities that can generate vis orbs when killed. If empty, all entities will generate vis orbs.
+
+**Config option:** `mobVisBlacklist`
+
+If enabled, the whitelist will instead function as a blacklist.
+
 ## "Missing Research" Messages
 
 **Config option:** `notifyMissingResearchWorkbench`

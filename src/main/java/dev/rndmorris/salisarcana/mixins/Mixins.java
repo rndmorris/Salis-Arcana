@@ -141,6 +141,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.silverwoodLogCorrectName::isEnabled)
         .addMixinClasses("blocks.MixinBlockMagicalLogItem")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    UPDATE_BIOME_COLOR(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(SalisConfig.bugfixes.updateBiomeColorRendering::isEnabled)
+        .addMixinClasses("lib.MixinUtils_UpdateBiomeColor")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
@@ -402,6 +407,12 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.features.visAmuletCheckInventory::isEnabled)
         .addMixinClasses("items.MixinItemAmuletVis_InventoryCheck")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
+    MOB_VIS_WHITELIST(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(() -> !SalisConfig.features.mobVisWhitelist.isEnabled() || SalisConfig.features.mobVisDropList.getNonEmpty().length != 0)
+        .addMixinClasses("lib.events.MixinEventHandlerEntity")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     DEADLY_GAZE_MOB_CHECK(new Builder().setPhase(Phase.LATE)

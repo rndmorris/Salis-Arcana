@@ -12,6 +12,7 @@ import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
 import dev.rndmorris.salisarcana.config.settings.Setting;
+import dev.rndmorris.salisarcana.config.settings.StringArraySetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
@@ -424,6 +425,17 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "visAmuletCheckInventory",
         "If enabled, amulets will check and recharge wands in the entire inventory instead of just the player's hand.");
+ 
+    public final StringArraySetting mobVisDropList = new StringArraySetting(
+        this,
+        "mobVisDropBlacklist",
+        "List of entities that can not generate vis orbs when killed.",
+        new String[0]);
+
+    public final ToggleSetting mobVisWhitelist = new ToggleSetting(
+        this,
+        "mobVisDropWhitelist",
+        "If enabled, the blacklist will be treated as a whitelist instead instead.").setEnabled(false);
 
     public final ToggleSetting deadlyGazeMobCheck = new ToggleSetting(
         this,

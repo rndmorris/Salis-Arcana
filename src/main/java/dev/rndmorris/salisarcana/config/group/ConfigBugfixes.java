@@ -130,6 +130,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "silverwoodLogCorrectName",
         "Non-vertical silverwood logs will be correctly named \"Silverwood Log\" in WAILA.");
 
+    public final ToggleSetting updateBiomeColorRendering = new ToggleSetting(
+        this,
+        "updateBiomeColorRendering",
+        "Biome changes will correctly update the color of grass in chunks without needing a block to change.");
+
     @Nonnull
     @Override
     public String getGroupName() {

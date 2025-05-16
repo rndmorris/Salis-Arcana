@@ -1,6 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.gui;
 
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.RightClickClose$ScreenStack;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.RightClickClose$ScreenStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
