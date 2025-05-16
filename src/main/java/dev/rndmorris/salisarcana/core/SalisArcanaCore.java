@@ -3,6 +3,9 @@ package dev.rndmorris.salisarcana.core;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
@@ -10,6 +13,9 @@ import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 
 @IFMLLoadingPlugin.MCVersion("1.7.10")
 public class SalisArcanaCore implements IFMLLoadingPlugin {
+
+    public static final String MODID = "salisarcana";
+    public static final Logger LOG = LogManager.getLogger("salisarcana-core");
 
     public SalisArcanaCore() {
         SalisConfig.synchronizeConfiguration();

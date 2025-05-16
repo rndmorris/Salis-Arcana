@@ -77,7 +77,8 @@ public class ConfigFeatures extends ConfigGroup {
         // calculated based on TC4's default `specialNodeRarity` value
         new int[] { 972222, 9259, 9259, 9259, },
         0,
-        1000000).setEnabled(false);
+        1000000).setEnabled(false)
+            .setLengthFixed(true);
 
     public final IntArraySetting nodeTypeWeights = new IntArraySetting(
         this,
@@ -86,7 +87,8 @@ public class ConfigFeatures extends ConfigGroup {
         // calculated based on TC4's default `specialNodeRarity` value
         new int[] { 944444, 16666, 16666, 16666, 5555, },
         0,
-        1000000).setEnabled(false);
+        1000000).setEnabled(false)
+            .setLengthFixed(true);
 
     public final ToggleSetting suppressWarpEventsInCreative = new ToggleSetting(
         this,
