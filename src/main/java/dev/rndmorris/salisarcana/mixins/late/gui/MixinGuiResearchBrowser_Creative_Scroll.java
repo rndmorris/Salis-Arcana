@@ -1,11 +1,11 @@
 package dev.rndmorris.salisarcana.mixins.late.gui;
 
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$CurrentPageIndex;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$GetTabsOnCurrentPage;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$GetTabsPerPage;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$MaxPageIndex;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$NextPage;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$SetPage;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$CurrentPageIndex;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$GetTabsOnCurrentPage;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$GetTabsPerPage;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$MaxPageIndex;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$NextPage;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$SetPage;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -388,6 +388,12 @@ public enum Mixins {
         .addMixinClasses("tiles.MixinTileCrucible_HeatSources", "tiles.MixinTileThaumatorium_HeatSources")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
+    MOB_VIS_WHITELIST(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(() -> !SalisConfig.features.mobVisWhitelist.isEnabled() || SalisConfig.features.mobVisDropList.getNonEmpty().length != 0)
+        .addMixinClasses("lib.events.MixinEventHandlerEntity")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+
     DEADLY_GAZE_MOB_CHECK(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.features.deadlyGazeMobCheck::isEnabled)
