@@ -171,6 +171,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.eldritchBlocksInCreativeMenu::isEnabled)
         .addMixinClasses("blocks.MixinBlockEldritch_AddSubBlocks")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    PORTAL_NOTHING_UPDATE_META(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.updatePortalNothingMeta::isEnabled)
+        .addMixinClasses("blocks.MixinBlockEldritchNothing")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)

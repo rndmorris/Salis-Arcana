@@ -155,6 +155,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "placeFullObelisks",
         "Placing an Obelisk with the Eldritch Obelisk item will place all 5 blocks making up the Obelisk.");
 
+    public final ToggleSetting updatePortalNothingMeta = new ToggleSetting(
+        this,
+        "updatePortalNothingMeta",
+        "When placing a Portal to Nothing by hand, will update the metadata to properly render the block.");
+
     public final ToggleSetting eldritchBlocksInCreativeMenu = new ToggleSetting(
         this,
         "eldritchBlocksInCreativeMenu",

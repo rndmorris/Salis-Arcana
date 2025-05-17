@@ -1,13 +1,16 @@
 package dev.rndmorris.salisarcana.client;
 
+import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.lib.R;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.MinecraftForgeClient;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
 import thaumcraft.client.renderers.block.BlockRenderer;
@@ -20,6 +23,17 @@ import thaumcraft.common.tiles.TileEldritchCrabSpawner;
 import thaumcraft.common.tiles.TileEldritchObelisk;
 
 public class EldritchBlockItemRenderer implements IItemRenderer {
+    public static void register() {
+        final var item = Item.getItemFromBlock(ConfigBlocks.blockEldritch);
+        if(item != null) {
+            try {
+                MinecraftForgeClient.registerItemRenderer(item, new EldritchBlockItemRenderer());
+            } catch (Exception e) {
+                SalisArcana.LOG.error("Unable to register item renderer for BlockEldritch", e);
+            }
+        }
+    }
+
     private final TileEldritchAltar altarTile = new TileEldritchAltar();
     private final TileEldritchCap capstoneTile = new TileEldritchCap();
     private final TileEldritchCrabSpawner crustedOpeningTile = new TileEldritchCrabSpawner();

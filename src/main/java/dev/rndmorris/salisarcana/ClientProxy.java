@@ -1,11 +1,10 @@
 package dev.rndmorris.salisarcana;
 
 import dev.rndmorris.salisarcana.client.EldritchBlockItemRenderer;
+import dev.rndmorris.salisarcana.client.EldritchNothingItemRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -14,7 +13,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import dev.rndmorris.salisarcana.client.ThaumicInventoryScanner;
 import dev.rndmorris.salisarcana.client.handlers.GuiHandler;
 import dev.rndmorris.salisarcana.config.SalisConfig;
-import thaumcraft.common.config.ConfigBlocks;
 
 public class ClientProxy extends CommonProxy {
 
@@ -35,7 +33,8 @@ public class ClientProxy extends CommonProxy {
         }
 
         if (SalisConfig.bugfixes.renderEldritchBlockItems.isEnabled()) {
-            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ConfigBlocks.blockEldritch), new EldritchBlockItemRenderer());
+            EldritchBlockItemRenderer.register();
+            EldritchNothingItemRenderer.register();
         }
 
         new GuiHandler();
