@@ -2,6 +2,7 @@ package dev.rndmorris.salisarcana.client;
 
 import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.lib.R;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -48,13 +49,13 @@ public class EldritchNothingItemRenderer implements IItemRenderer {
             GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
         }
 
-        final double playerX = TileEntityRendererDispatcher.staticPlayerX;
-        final double playerY = TileEntityRendererDispatcher.staticPlayerY;
-        final double playerZ = TileEntityRendererDispatcher.staticPlayerZ;
+        final float activeX = ActiveRenderInfo.objectX;
+        final float activeY = ActiveRenderInfo.objectY;
+        final float activeZ = ActiveRenderInfo.objectZ;
 
-        TileEntityRendererDispatcher.staticPlayerX /= 10d;
-        TileEntityRendererDispatcher.staticPlayerY /= 10d;
-        TileEntityRendererDispatcher.staticPlayerZ /= 10d;
+        ActiveRenderInfo.objectX = (float) TileEntityRendererDispatcher.staticPlayerX;
+        ActiveRenderInfo.objectY = (float) TileEntityRendererDispatcher.staticPlayerY;
+        ActiveRenderInfo.objectZ = (float) TileEntityRendererDispatcher.staticPlayerZ;
 
         this.renderer.drawPlaneXNeg(0,0,0,0f);
         this.renderer.drawPlaneXPos(0,0,0,0f);
@@ -63,9 +64,9 @@ public class EldritchNothingItemRenderer implements IItemRenderer {
         this.renderer.drawPlaneZNeg(0,0,0,0f);
         this.renderer.drawPlaneZPos(0,0,0,0f);
 
-        TileEntityRendererDispatcher.staticPlayerX = playerX;
-        TileEntityRendererDispatcher.staticPlayerY = playerY;
-        TileEntityRendererDispatcher.staticPlayerZ = playerZ;
+        ActiveRenderInfo.objectX = activeX;
+        ActiveRenderInfo.objectY = activeY;
+        ActiveRenderInfo.objectZ = activeZ;
 
         GL11.glPopMatrix();
     }

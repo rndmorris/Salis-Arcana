@@ -140,20 +140,31 @@ public class ConfigBugfixes extends ConfigGroup {
         "renderEldritchBlockItems",
         "Renders eldritch blocks with tile entity renderers (Eldritch Altar, Eldritch Capstone, Eldritch Obelisk) in the player's hand & inventory.");
 
-    public final ToggleSetting eldritchBlocksPlaceDirection = new ToggleSetting(
-        this,
-        "eldritchBlocksPlaceDirection",
-        "Placing directional eldritch blocks (Crusted Opening & Ancient Locking Mechanism) will rotate the blocks to face the player.");
-
     public final ToggleSetting runedStoneIgnoreCreative = new ToggleSetting(
         this,
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
 
+    public final ToggleSetting eldritchBossDoorCheckDimension = new ToggleSetting(
+        this,
+        "eldritchBossDoorCheckDimension",
+        "Eldritch Locking Mechanisms won't spawn the Outer Lands bosses outside of the Outer Lands dimension.");
+
+    public final ToggleSetting eldritchBlocksPlaceDirection = new ToggleSetting(
+        this,
+        "eldritchBlocksPlaceDirection",
+        "Placing directional eldritch blocks (Crusted Opening & Ancient Locking Mechanism) will rotate the blocks to face the player.");
+
     public final ToggleSetting placeFullObelisks = new ToggleSetting(
         this,
         "placeFullObelisks",
         "Placing an Obelisk with the Eldritch Obelisk item will place all 5 blocks making up the Obelisk.");
+
+    // Depends on eldritchBlocksPlaceDirection, TODO This thing
+    public final ToggleSetting placeFullEldritchBossDoors = new ToggleSetting(
+        this,
+        "placeFullEldritchBossDoors",
+        "Placing an Eldritch Locking Mechanism will also place the rest of the door structure.");
 
     public final ToggleSetting updatePortalNothingMeta = new ToggleSetting(
         this,

@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.blocks;
 
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -9,6 +10,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -40,7 +42,8 @@ public abstract class MixinBlockEldritch_PlaceDirectionally extends BlockContain
         } else if (meta == 8) {
             if (worldIn.getTileEntity(x, y, z) instanceof TileEldritchLock lock) {
                 int facing = MathHelper.floor_double((double)(placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-                lock.setFacing((byte) (facing == 0 ? 2 : (facing == 1 ? 5 : (facing == 2 ? 3 : 4))));
+                int directionID = facing == 0 ? 2 : (facing == 1 ? 5 : (facing == 2 ? 3 : 4));
+                lock.setFacing((byte) directionID);
             }
         }
     }
