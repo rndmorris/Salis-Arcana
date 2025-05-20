@@ -1,19 +1,24 @@
 package dev.rndmorris.salisarcana.mixins.late.blocks;
 
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import org.spongepowered.asm.mixin.Mixin;
-import thaumcraft.common.blocks.BlockEldritch;
 
-import java.util.List;
+import org.spongepowered.asm.mixin.Mixin;
+
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+
+import thaumcraft.common.blocks.BlockEldritch;
 
 @Mixin(BlockEldritch.class)
 public class MixinBlockEldritch_AddSubBlocks {
+
     @WrapMethod(method = "getSubBlocks")
-    public void addSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List, Operation<Void> original) {
+    public void addSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List,
+        Operation<Void> original) {
         original.call(par1, par2CreativeTabs, par3List);
         par3List.add(new ItemStack(par1, 1, 0)); // Eldritch Altar
         par3List.add(new ItemStack(par1, 1, 1)); // Eldritch Obelisk

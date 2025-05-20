@@ -1,21 +1,24 @@
 package dev.rndmorris.salisarcana.client;
 
-import dev.rndmorris.salisarcana.SalisArcana;
-import dev.rndmorris.salisarcana.lib.R;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+
 import org.lwjgl.opengl.GL11;
+
+import dev.rndmorris.salisarcana.SalisArcana;
+import dev.rndmorris.salisarcana.lib.R;
 import thaumcraft.client.renderers.tile.TileEldritchNothingRenderer;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class EldritchNothingItemRenderer implements IItemRenderer {
+
     public static void register() {
         final var item = Item.getItemFromBlock(ConfigBlocks.blockEldritchNothing);
-        if(item != null) {
+        if (item != null) {
             try {
                 MinecraftForgeClient.registerItemRenderer(item, new EldritchNothingItemRenderer());
             } catch (RuntimeException e) {
@@ -27,7 +30,8 @@ public class EldritchNothingItemRenderer implements IItemRenderer {
     private final TileEldritchNothingRenderer renderer = new TileEldritchNothingRenderer();
 
     public EldritchNothingItemRenderer() {
-        R.of(renderer).set("inrange", true);
+        R.of(renderer)
+            .set("inrange", true);
     }
 
     @Override
@@ -43,7 +47,7 @@ public class EldritchNothingItemRenderer implements IItemRenderer {
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         GL11.glPushMatrix();
-        if(type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
+        if (type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
             GL11.glTranslatef(0f, 0.1f, 0f);
         } else {
             GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
@@ -64,12 +68,12 @@ public class EldritchNothingItemRenderer implements IItemRenderer {
         TileEntityRendererDispatcher.staticPlayerY /= 10;
         TileEntityRendererDispatcher.staticPlayerZ /= 10;
 
-        this.renderer.drawPlaneXNeg(0,0,0,0f);
-        this.renderer.drawPlaneXPos(0,0,0,0f);
-        this.renderer.drawPlaneYNeg(0,0,0,0f);
-        this.renderer.drawPlaneYPos(0,0,0,0f);
-        this.renderer.drawPlaneZNeg(0,0,0,0f);
-        this.renderer.drawPlaneZPos(0,0,0,0f);
+        this.renderer.drawPlaneXNeg(0, 0, 0, 0f);
+        this.renderer.drawPlaneXPos(0, 0, 0, 0f);
+        this.renderer.drawPlaneYNeg(0, 0, 0, 0f);
+        this.renderer.drawPlaneYPos(0, 0, 0, 0f);
+        this.renderer.drawPlaneZNeg(0, 0, 0, 0f);
+        this.renderer.drawPlaneZPos(0, 0, 0, 0f);
 
         TileEntityRendererDispatcher.staticPlayerX = playerX;
         TileEntityRendererDispatcher.staticPlayerY = playerY;
