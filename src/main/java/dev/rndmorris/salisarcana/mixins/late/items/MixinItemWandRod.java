@@ -25,7 +25,7 @@ public abstract class MixinItemWandRod {
     @Shadow
     public IIcon iconPrimalStaff;
 
-    @Inject(method = "getIconFromDamage", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getIconFromDamage", at = @At("HEAD"), cancellable = true, remap = true)
     private void mixinGetIconFromDamage(int meta, CallbackInfoReturnable<IIcon> cir) {
         if (meta < 50) {
             final var icon = sa$tryGet(iconWand, meta);

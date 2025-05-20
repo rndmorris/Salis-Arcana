@@ -53,9 +53,16 @@ public class EldritchNothingItemRenderer implements IItemRenderer {
         final float activeY = ActiveRenderInfo.objectY;
         final float activeZ = ActiveRenderInfo.objectZ;
 
-        ActiveRenderInfo.objectX = (float) TileEntityRendererDispatcher.staticPlayerX;
-        ActiveRenderInfo.objectY = (float) TileEntityRendererDispatcher.staticPlayerY;
-        ActiveRenderInfo.objectZ = (float) TileEntityRendererDispatcher.staticPlayerZ;
+        final double playerX = TileEntityRendererDispatcher.staticPlayerX;
+        final double playerY = TileEntityRendererDispatcher.staticPlayerY;
+        final double playerZ = TileEntityRendererDispatcher.staticPlayerZ;
+
+        ActiveRenderInfo.objectX = 0;
+        ActiveRenderInfo.objectY = 0;
+        ActiveRenderInfo.objectZ = 0;
+        TileEntityRendererDispatcher.staticPlayerX /= 10;
+        TileEntityRendererDispatcher.staticPlayerY /= 10;
+        TileEntityRendererDispatcher.staticPlayerZ /= 10;
 
         this.renderer.drawPlaneXNeg(0,0,0,0f);
         this.renderer.drawPlaneXPos(0,0,0,0f);
@@ -63,6 +70,10 @@ public class EldritchNothingItemRenderer implements IItemRenderer {
         this.renderer.drawPlaneYPos(0,0,0,0f);
         this.renderer.drawPlaneZNeg(0,0,0,0f);
         this.renderer.drawPlaneZPos(0,0,0,0f);
+
+        TileEntityRendererDispatcher.staticPlayerX = playerX;
+        TileEntityRendererDispatcher.staticPlayerY = playerY;
+        TileEntityRendererDispatcher.staticPlayerZ = playerZ;
 
         ActiveRenderInfo.objectX = activeX;
         ActiveRenderInfo.objectY = activeY;
