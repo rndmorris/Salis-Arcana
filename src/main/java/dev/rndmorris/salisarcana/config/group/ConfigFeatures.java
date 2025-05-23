@@ -196,6 +196,11 @@ public class ConfigFeatures extends ConfigGroup {
         "Show Research Key",
         "While viewing the Thaumonomicon, allows you to view the internal name of a research while hovering over it and holding control");
 
+    public final ToggleSetting nomiconDuplicateResearch = new ToggleSetting(
+        this,
+        "nomiconDuplicateResearch",
+        "Allow players with \"Research Duplication\" researched to create duplicates out of the Thaumonomicon.");
+
     public final ToggleSetting stabilizerRewrite = new ToggleSetting(
         this,
         "useStabilizerRewrite",

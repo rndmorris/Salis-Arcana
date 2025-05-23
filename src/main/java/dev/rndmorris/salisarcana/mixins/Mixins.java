@@ -179,6 +179,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.features.nomiconRightClickClose::isEnabled)
         .addMixinClasses("gui.MixinGuiResearchBrowser_RightClickClose", "gui.MixinGuiResearchRecipe")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    DUPLICATION_BUTTON(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(SalisConfig.features.nomiconDuplicateResearch::isEnabled)
+        .addMixinClasses("gui.MixinGuiResearchBrowser_DuplicateButton")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     NODE_GENERATION_MODIFIER_WEIGHTS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
