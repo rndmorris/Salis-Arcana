@@ -22,8 +22,7 @@ import thaumcraft.common.items.wands.ItemWandCap;
 
 @Mixin(
     value = { ItemLootBag.class, ItemNugget.class, ItemResource.class, ItemAmuletRunic.class, ItemGirdleRunic.class,
-        ItemRingRunic.class, ItemPrimalArrow.class, ItemWandCap.class },
-    remap = false)
+        ItemRingRunic.class, ItemPrimalArrow.class, ItemWandCap.class })
 public abstract class Mixin_ItemIconFix extends Item {
 
     // explicitly remap = false otherwise we get a runtime InvalidMixinException
