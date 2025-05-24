@@ -184,6 +184,16 @@ public enum Mixins {
         .setApplyIf(SalisConfig.features.nomiconDuplicateResearch::isEnabled)
         .addMixinClasses("gui.MixinGuiResearchBrowser_DuplicateButton")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FREE_DUPLICATES(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.features.researchDuplicationFree::isEnabled)
+        .addMixinClasses("tiles.MixinTileResearchTable_FreeDuplicates")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FREE_DUPLICATES_CLIENT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.CLIENT)
+        .setApplyIf(SalisConfig.features.researchDuplicationFree::isEnabled)
+        .addMixinClasses("gui.MixinGuiResearchTable_FreeDuplicates")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     NODE_GENERATION_MODIFIER_WEIGHTS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)

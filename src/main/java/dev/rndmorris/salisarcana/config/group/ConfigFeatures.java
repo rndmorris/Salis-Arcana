@@ -201,6 +201,11 @@ public class ConfigFeatures extends ConfigGroup {
         "nomiconDuplicateResearch",
         "Allow players with \"Research Duplication\" researched to create duplicates out of the Thaumonomicon.");
 
+    public final ToggleSetting researchDuplicationFree = new ToggleSetting(
+        this,
+        "researchDuplicationFree",
+        "Research duplication (in the Research Table and the Thaumonomicon if nomiconDuplicateResearch is enabled) does not cost any research aspects.").setEnabled(false);
+
     public final ToggleSetting stabilizerRewrite = new ToggleSetting(
         this,
         "useStabilizerRewrite",
