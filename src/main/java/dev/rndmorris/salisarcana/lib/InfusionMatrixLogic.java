@@ -151,7 +151,7 @@ public class InfusionMatrixLogic {
         // If we have an override, use the override's value (or default if no value specified)
         final var additionData = features.stabilizerAdditions.getData(block, metadata);
         if (additionData.containedKeys) {
-            return additionData.data != null ? additionData.data : features.stabilizerStrength.getValueOrDefault();
+            return additionData.data != null ? additionData.data : features.stabilizerStrength.getValue();
         }
 
         // If an addon has tapped into Salis Arcana's API
@@ -160,7 +160,7 @@ public class InfusionMatrixLogic {
         }
 
         // Or just the default strength
-        return features.stabilizerStrength.getValueOrDefault();
+        return features.stabilizerStrength.getValue();
     }
 
     private static int[] getTwinnedCoord(MatrixOrigin matrix, int x, int z) {

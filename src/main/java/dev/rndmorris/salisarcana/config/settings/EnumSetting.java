@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.config.IEnabler;
+import dev.rndmorris.salisarcana.core.SalisArcanaCore;
 
 public class EnumSetting<E extends Enum<E>> extends Setting {
 
@@ -47,6 +48,11 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
             value = Enum.valueOf(enumClass, valueString);
         } catch (IllegalArgumentException e) {
             // Don't do anything, just use the default value
+            SalisArcanaCore.LOG.error(
+                "Invalid enum value for config \"{}\": {}. Value must be one of: {}",
+                this.name,
+                valueString,
+                String.join(", ", validValues));
         }
     }
 }

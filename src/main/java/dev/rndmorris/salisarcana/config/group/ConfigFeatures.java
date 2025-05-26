@@ -7,10 +7,12 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.BlockItemListSetting;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
 import dev.rndmorris.salisarcana.config.settings.EldritchAltarMobSpawnSetting;
+import dev.rndmorris.salisarcana.config.settings.FloatSetting;
 import dev.rndmorris.salisarcana.config.settings.IntArraySetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ReplaceWandComponentSettings;
 import dev.rndmorris.salisarcana.config.settings.Setting;
+import dev.rndmorris.salisarcana.config.settings.StringArraySetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
@@ -75,7 +77,8 @@ public class ConfigFeatures extends ConfigGroup {
         // calculated based on TC4's default `specialNodeRarity` value
         new int[] { 972222, 9259, 9259, 9259, },
         0,
-        1000000).setEnabled(false);
+        1000000).setEnabled(false)
+            .setLengthFixed(true);
 
     public final IntArraySetting nodeTypeWeights = new IntArraySetting(
         this,
@@ -84,7 +87,8 @@ public class ConfigFeatures extends ConfigGroup {
         // calculated based on TC4's default `specialNodeRarity` value
         new int[] { 944444, 16666, 16666, 16666, 5555, },
         0,
-        1000000).setEnabled(false);
+        1000000).setEnabled(false)
+            .setLengthFixed(true);
 
     public final ToggleSetting suppressWarpEventsInCreative = new ToggleSetting(
         this,
@@ -400,6 +404,40 @@ public class ConfigFeatures extends ConfigGroup {
         "potencyModifiesHarvestLevel",
         "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level by one level per level of potency.")
             .setCategory("harvestLevels");
+
+    public final FloatSetting visRelayBoxExpansion = new FloatSetting(
+        this,
+        "visRelayBoxExpansion",
+        "The amount to expand the bounding box of vis relays. This is used to increase the range at which amulets are charged.",
+        5.0F).setMinValue(0.0F);
+
+    public final IntSetting visAmuletTickRate = new IntSetting(
+        this,
+        "visAmuletRechargeSpeed",
+        "The rate in ticks at which vis amulets recharge themselves and other items.",
+        5).setMinValue(1);
+
+    public final IntSetting visAmuletTransferRate = new IntSetting(
+        this,
+        "visAmuletTransferRate",
+        "The amount of cv which an amulet can receive or move to other items in one transfer.",
+        5).setMinValue(1);
+
+    public final ToggleSetting visAmuletCheckInventory = new ToggleSetting(
+        this,
+        "visAmuletCheckInventory",
+        "If enabled, amulets will check and recharge wands in the entire inventory instead of just the player's hand.");
+
+    public final StringArraySetting mobVisDropList = new StringArraySetting(
+        this,
+        "mobVisDropBlacklist",
+        "List of entities that can not generate vis orbs when killed.",
+        new String[0]);
+
+    public final ToggleSetting mobVisWhitelist = new ToggleSetting(
+        this,
+        "mobVisDropWhitelist",
+        "If enabled, the blacklist will be treated as a whitelist instead instead.").setEnabled(false);
 
     public final ToggleSetting deadlyGazeMobCheck = new ToggleSetting(
         this,
