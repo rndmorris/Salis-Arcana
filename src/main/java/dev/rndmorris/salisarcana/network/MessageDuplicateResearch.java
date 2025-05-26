@@ -1,18 +1,23 @@
 package dev.rndmorris.salisarcana.network;
 
+import java.nio.charset.StandardCharsets;
+
+import net.minecraft.item.ItemStack;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.item.ItemStack;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.lib.research.ResearchManager;
 
-import java.nio.charset.StandardCharsets;
-
 public class MessageDuplicateResearch implements IMessage, IMessageHandler<MessageDuplicateResearch, IMessage> {
+
     private String key;
 
     public MessageDuplicateResearch() {}
@@ -38,22 +43,42 @@ public class MessageDuplicateResearch implements IMessage, IMessageHandler<Messa
 
     @Override
     public IMessage onMessage(MessageDuplicateResearch message, MessageContext ctx) {
+        if (!SalisConfig.features.nomiconDuplicateResearch.isEnabled()) return null;
+
         final var player = ctx.getServerHandler().playerEntity;
-        if(SalisConfig.features.nomiconDuplicateResearch.isEnabled()
-            && ResearchManager.isResearchComplete(player.getCommandSenderName(), message.key)
-            && ResearchManager.isResearchComplete(player.getCommandSenderName(), "RESEARCHDUPE")
-            && ResearchHelper.consumeScribestuff(player)) {
+        final String username = player.getCommandSenderName();
+        final boolean opFree = SalisConfig.features.creativeOpThaumonomicon.isEnabled()
+            && player.capabilities.isCreativeMode;
+        final boolean aspectFree = opFree || SalisConfig.features.researchDuplicationFree.isEnabled();
 
-            final var note = ResearchManager.createNote(new ItemStack(ConfigItems.itemResearchNotes, 1, 64), message.key, player.worldObj);
-            if(note != null) {
-                note.getTagCompound().setBoolean("complete", true);
-                if (!player.inventory.addItemStackToInventory(note)) {
-                    player.dropPlayerItemWithRandomChoice(note, false);
+        if (ResearchManager.isResearchComplete(username, message.key)
+            && ResearchManager.isResearchComplete(username, "RESEARCHDUPE")) {
+
+            final AspectList aspects = ResearchCategories.getResearch(message.key).tags;
+
+            if ((aspectFree || ResearchHelper.hasResearchAspects(username, aspects))
+                && ResearchHelper.consumeScribestuff(player)) {
+
+                if (!aspectFree) {
+                    final var playerAspects = Thaumcraft.proxy.playerKnowledge.getAspectsDiscovered(username);
+                    for (final var aspect : aspects.aspects.entrySet()) {
+                        playerAspects.reduce(aspect.getKey(), aspect.getValue());
+                    }
                 }
-                player.worldObj.playSoundAtEntity(player, "thaumcraft:learn", 0.75F, 1.0F);
-            }
 
-            player.inventoryContainer.detectAndSendChanges();
+                final var note = ResearchManager
+                    .createNote(new ItemStack(ConfigItems.itemResearchNotes, 1, 64), message.key, player.worldObj);
+                if (note != null) {
+                    note.getTagCompound()
+                        .setBoolean("complete", true);
+                    if (!player.inventory.addItemStackToInventory(note)) {
+                        player.dropPlayerItemWithRandomChoice(note, false);
+                    }
+                    player.worldObj.playSoundAtEntity(player, "thaumcraft:learn", 0.75F, 1.0F);
+                }
+
+                player.inventoryContainer.detectAndSendChanges();
+            }
         }
         return null;
     }

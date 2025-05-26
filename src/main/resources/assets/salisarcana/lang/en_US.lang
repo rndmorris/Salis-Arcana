@@ -169,4 +169,7 @@ salisarcana:error_missing_research.infusion=You lack the research to start this 
 salisarcana:error_missing_research.crucible=You lack the research to craft this recipe in the Crucible! You must research "%s" in %s before you can craft this item!
 salisarcana:error_missing_research.gui=Missing Research
 
-salisarcana:duplicate_research_text=Create duplicate of "%s"
+salisarcana:duplicate_research.extra_page=[Salis Arcana]<BR>Additionally, while hovering over any completed research in the Thaumonomicon, a new button will become visible.<BR>Shift-clicking this button will create a completed research paper of that research at the cost of paper, some ink from your Scribing Tools, and some research aspects.
+salisarcana:duplicate_research.text=Duplicate "%s"
+salisarcana:duplicate_research.prompt=Shift-click to purchase a duplicate of this research
+salisarcana:duplicate_research.success=Duplicated research paper added to inventory

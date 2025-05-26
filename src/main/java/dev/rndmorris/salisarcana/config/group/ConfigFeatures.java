@@ -204,7 +204,8 @@ public class ConfigFeatures extends ConfigGroup {
     public final ToggleSetting researchDuplicationFree = new ToggleSetting(
         this,
         "researchDuplicationFree",
-        "Research duplication (in the Research Table and the Thaumonomicon if nomiconDuplicateResearch is enabled) does not cost any research aspects.").setEnabled(false);
+        "Research duplication (in the Research Table and the Thaumonomicon if nomiconDuplicateResearch is enabled) does not cost any research aspects.")
+            .setEnabled(false);
 
     public final ToggleSetting stabilizerRewrite = new ToggleSetting(
         this,
