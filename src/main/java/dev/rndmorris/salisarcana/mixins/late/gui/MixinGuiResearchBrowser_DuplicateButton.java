@@ -156,9 +156,9 @@ public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
 
     @Inject(
         method = "genResearchBackground",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiScreen;drawScreen(IIF)V"),
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiScreen;drawScreen(IIF)V", remap = true),
         remap = false)
-    private void sa$drawHoverTextbox(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
+    private void drawHoverTextbox(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         if (this.currentHighlight != null || this.sa$selectedResearch == null) return;
 
         final var playerEntity = Minecraft.getMinecraft().thePlayer;
