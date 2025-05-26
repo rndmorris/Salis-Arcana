@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-import dev.rndmorris.salisarcana.config.SalisConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.event.ClickEvent;
@@ -20,6 +19,7 @@ import net.minecraftforge.common.util.FakePlayer;
 
 import dev.rndmorris.salisarcana.api.IResearchItemExtended;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.lib.network.PacketHandler;
@@ -90,7 +90,7 @@ public class ResearchHelper {
             final var research = ResearchCategories.getResearch(researchKey);
 
             Object researchName;
-            if(SalisConfig.features.researchItemExtensions.isEnabled()) {
+            if (SalisConfig.features.researchItemExtensions.isEnabled()) {
                 researchName = new ChatComponentTranslation(((IResearchItemExtended) research).getNameTranslationKey());
             } else {
                 researchName = research.getName();
