@@ -5,7 +5,7 @@ import dev.rndmorris.salisarcana.core.SalisArcanaCore;
 public enum ObfuscationInfo {
     // spotless:off
 
-    HARVEST_LEVEL("field_78001_f", "harvestLevel")
+    HARVEST_LEVEL("field_78001_f", "harvestLevel"),
 
     ;
 
