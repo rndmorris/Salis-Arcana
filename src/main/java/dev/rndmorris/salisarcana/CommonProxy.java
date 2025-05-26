@@ -37,6 +37,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.KnowItAll;
+import dev.rndmorris.salisarcana.lib.ObfuscationInfo;
 import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
@@ -84,21 +85,22 @@ public class CommonProxy {
 
     private void updateHarvestLevels() {
         final var features = SalisConfig.features;
+        String harvestLevelName = ObfuscationInfo.HARVEST_LEVEL.getName();
         if (features.thaumiumHarvestLevel.isEnabled()) {
             final var toolMatThaumium = new R(ThaumcraftApi.toolMatThaumium);
-            toolMatThaumium.set("harvestLevel", features.thaumiumHarvestLevel.getValue());
+            toolMatThaumium.set(harvestLevelName, features.thaumiumHarvestLevel.getValue());
         }
         if (features.elementalHarvestLevel.isEnabled()) {
             final var toolMatElemental = new R(ThaumcraftApi.toolMatElemental);
-            toolMatElemental.set("harvestLevel", features.elementalHarvestLevel.getValue());
+            toolMatElemental.set(harvestLevelName, features.elementalHarvestLevel.getValue());
         }
         if (features.voidHarvestLevel.isEnabled()) {
             final var toolMatVoid = new R(ThaumcraftApi.toolMatVoid);
-            toolMatVoid.set("harvestLevel", features.voidHarvestLevel.getValue());
+            toolMatVoid.set(harvestLevelName, features.voidHarvestLevel.getValue());
         }
         if (features.crusherHarvestLevel.isEnabled()) {
             final var material = new R(ItemPrimalCrusher.material);
-            material.set("harvestLevel", features.crusherHarvestLevel.getValue());
+            material.set(harvestLevelName, features.crusherHarvestLevel.getValue());
             ConfigItems.itemPrimalCrusher.setHarvestLevel("pickaxe", features.crusherHarvestLevel.getValue());
             ConfigItems.itemPrimalCrusher.setHarvestLevel("shovel", features.crusherHarvestLevel.getValue());
         }
