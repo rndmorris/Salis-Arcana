@@ -133,3 +133,9 @@ Non-vertical silverwood logs will be correctly named "Silverwood Log" in WAILA.
 **Config option:** `updateBiomeColorRendering`
 
 Biome changes will correctly update the color of grass in chunks without needing a block to change.
+
+## Correct Item Insertion Logic
+
+**Config option:** `correctItemInsertion`
+
+Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.
