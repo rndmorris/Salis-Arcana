@@ -6,6 +6,7 @@ import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
+import dev.rndmorris.salisarcana.lib.BlockAiryBucketInterceptor;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
@@ -81,6 +82,10 @@ public class CommonProxy {
             .bus()
             .register(new StartupNotifications());
         MinecraftForge.EVENT_BUS.register(KnowItAll.EVENT_COLLECTOR);
+
+        if(SalisConfig.bugfixes.airyBlocksNoBucketBreak.isEnabled()) {
+            MinecraftForge.EVENT_BUS.register(new BlockAiryBucketInterceptor());
+        }
     }
 
     private void updateHarvestLevels() {
