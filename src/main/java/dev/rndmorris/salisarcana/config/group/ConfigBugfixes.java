@@ -160,12 +160,6 @@ public class ConfigBugfixes extends ConfigGroup {
         "placeFullObelisks",
         "Placing an Obelisk with the Eldritch Obelisk item will place all 5 blocks making up the Obelisk.");
 
-    // Depends on eldritchBlocksPlaceDirection, TODO This thing
-    public final ToggleSetting placeFullEldritchBossDoors = new ToggleSetting(
-        this,
-        "placeFullEldritchBossDoors",
-        "Placing an Eldritch Locking Mechanism will also place the rest of the door structure.");
-
     public final ToggleSetting updatePortalNothingMeta = new ToggleSetting(
         this,
         "updatePortalNothingMeta",
@@ -175,6 +169,16 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "eldritchBlocksInCreativeMenu",
         "Adds most of the Eldritch Blocks to the Creative Menu (and NEI too.)");
+
+    public final ToggleSetting eldritchBossDoorPreciseBreak = new ToggleSetting(
+        this,
+        "eldritchBossDoorPreciseBreak",
+        "Prevent the boss door in the Outer Lands from breaking nodes & arcane lamp lights when it opens.");
+
+    public final ToggleSetting airyBlocksNoBucketBreak = new ToggleSetting(
+        this,
+        "airyBlocksNoBucketBreak",
+        "Prevents useful airy blocks (nodes, energized nodes, and the blocks of the Outer Lands boss room door) from being replaced by buckets with liquid.");
 
     @Nonnull
     @Override

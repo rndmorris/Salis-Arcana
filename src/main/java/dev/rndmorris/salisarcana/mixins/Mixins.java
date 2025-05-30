@@ -181,6 +181,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.eldritchBossDoorCheckDimension::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchLock_LimitDimension")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ELDRITCH_LOCK_PRECISE_REMOVAL(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.eldritchBossDoorPreciseBreak::isEnabled)
+        .addMixinClasses("tiles.MixinTileEldritchLock_PreciseRemoval")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)

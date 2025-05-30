@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.tiles;
 
+import dev.rndmorris.salisarcana.lib.BlockEldritchHelper;
 import org.spongepowered.asm.mixin.Mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
@@ -17,7 +18,7 @@ public class MixinTileEldritchLock_LimitDimension extends TileThaumcraft {
         if (this.worldObj.provider.dimensionId == Config.dimensionOuterId) {
             original.call();
         } else {
-
+            BlockEldritchHelper.destroyDoor((TileEldritchLock) (Object) this);
         }
     }
 }
