@@ -135,6 +135,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "updateBiomeColorRendering",
         "Biome changes will correctly update the color of grass in chunks without needing a block to change.");
 
+    public final ToggleSetting correctItemInsertion = new ToggleSetting(
+        this,
+        "correctItemInsertion",
+        "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+
     @Nonnull
     @Override
     public String getGroupName() {
