@@ -133,3 +133,9 @@ Non-vertical silverwood logs will be correctly named "Silverwood Log" in WAILA.
 **Config option:** `updateBiomeColorRendering`
 
 Biome changes will correctly update the color of grass in chunks without needing a block to change.
+
+## Prevent Nodes & Boss Doors from being broken by filled Buckets
+
+**Config option:** `airyBlocksNoBucketBreak`
+
+Prevents useful airy blocks (nodes, energized nodes, and the blocks of the Outer Lands boss room door) from being replaced by buckets with liquid.
