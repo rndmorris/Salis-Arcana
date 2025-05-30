@@ -6,7 +6,6 @@ import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
-import dev.rndmorris.salisarcana.lib.BlockAiryBucketInterceptor;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
@@ -36,6 +35,7 @@ import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
+import dev.rndmorris.salisarcana.lib.BlockAiryBucketInterceptor;
 import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.ObfuscationInfo;
@@ -83,7 +83,7 @@ public class CommonProxy {
             .register(new StartupNotifications());
         MinecraftForge.EVENT_BUS.register(KnowItAll.EVENT_COLLECTOR);
 
-        if(SalisConfig.bugfixes.airyBlocksNoBucketBreak.isEnabled()) {
+        if (SalisConfig.bugfixes.airyBlocksNoBucketBreak.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new BlockAiryBucketInterceptor());
         }
     }

@@ -1,14 +1,16 @@
 package dev.rndmorris.salisarcana.lib;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class BlockAiryBucketInterceptor {
+
     @SubscribeEvent
     public void onBucketClicked(FillBucketEvent event) {
-        if(event.target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+        if (event.target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             int x = event.target.blockX;
             int y = event.target.blockY;
             int z = event.target.blockZ;
@@ -34,7 +36,8 @@ public class BlockAiryBucketInterceptor {
                     break;
             }
 
-            if(event.world.getBlock(x, y, z) == ConfigBlocks.blockAiry && !ConfigBlocks.blockAiry.isAir(event.world, x, y, z)) {
+            if (event.world.getBlock(x, y, z) == ConfigBlocks.blockAiry
+                && !ConfigBlocks.blockAiry.isAir(event.world, x, y, z)) {
                 event.setCanceled(true);
             }
         }
