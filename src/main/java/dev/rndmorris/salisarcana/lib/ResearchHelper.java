@@ -19,6 +19,7 @@ import net.minecraftforge.common.util.FakePlayer;
 
 import dev.rndmorris.salisarcana.api.IResearchItemExtended;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.lib.network.PacketHandler;
@@ -87,10 +88,18 @@ public class ResearchHelper {
     public static void sendResearchError(EntityPlayer player, String researchKey, String translationKey) {
         if (player instanceof EntityPlayerMP playerMP && !(player instanceof FakePlayer)) {
             final var research = ResearchCategories.getResearch(researchKey);
+
+            Object researchName;
+            if (SalisConfig.features.researchItemExtensions.isEnabled()) {
+                researchName = new ChatComponentTranslation(((IResearchItemExtended) research).getNameTranslationKey());
+            } else {
+                researchName = research.getName();
+            }
+
             final var message = new ChatComponentTranslation(
                 translationKey,
-                research.getName(),
-                ResearchCategories.getCategoryName(research.category));
+                researchName,
+                new ChatComponentTranslation("tc.research_category." + research.category));
             message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED));
             playerMP.addChatMessage(message);
         }
