@@ -146,6 +146,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.updateBiomeColorRendering::isEnabled)
         .addMixinClasses("lib.MixinUtils_UpdateBiomeColor")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    RUNED_STONE_CREATIVE_IMMUNITY(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.runedStoneIgnoreCreative::isEnabled)
+        .addMixinClasses("tiles.MixinTileEldritchTrap_CreativeImmunity")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)

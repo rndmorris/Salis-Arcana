@@ -135,6 +135,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "updateBiomeColorRendering",
         "Biome changes will correctly update the color of grass in chunks without needing a block to change.");
 
+    public final ToggleSetting runedStoneIgnoreCreative = new ToggleSetting(
+        this,
+        "runedStoneIgnoreCreative",
+        "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
+
     @Nonnull
     @Override
     public String getGroupName() {
