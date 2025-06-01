@@ -83,6 +83,18 @@ Config Option: `thaumometerDuration`
 
 Changes the duration of the Thaumometer's scanning effect. Default is 20 ticks.
 
+## Research Duplication in Thaumonomicon
+
+Config Option: `nomiconDuplicateResearch`
+
+Allow players with "Research Duplication" researched to create duplicates out of the Thaumonomicon at the cost of ink, paper, & the purchase price of the research (even if the research originally required a puzzle to be solved.)
+
+## Free Research Duplication
+
+Config Option: `researchDuplicationFree` (default: false)
+
+Research duplication (in the Research Table and, if `nomiconDuplicateResearch` is enabled, in the Thaumonomicon) will not cost any research aspects when this setting is enabled.
+
 ## Thaumcraft Command
 
 Config Option: `thaumcraftCommandTabCompletion`
