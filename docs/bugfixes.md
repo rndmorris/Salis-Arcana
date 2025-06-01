@@ -134,6 +134,12 @@ Non-vertical silverwood logs will be correctly named "Silverwood Log" in WAILA.
 
 Biome changes will correctly update the color of grass in chunks without needing a block to change.
 
+## Prevent Runed Stone from Shocking Creative Players
+
+**Config option:** `runedStoneIgnoreCreative`
+
+Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.
+
 ## Correct Item Insertion Logic
 
 **Config option:** `correctItemInsertion`
