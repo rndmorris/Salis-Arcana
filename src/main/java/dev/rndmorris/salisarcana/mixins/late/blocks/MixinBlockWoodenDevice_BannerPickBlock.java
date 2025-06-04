@@ -20,6 +20,7 @@ public abstract class MixinBlockWoodenDevice_BannerPickBlock extends BlockContai
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
         if (world.getBlockMetadata(x, y, z) == 8 && world.getTileEntity(x, y, z) instanceof TileBanner banner) {
             ItemStack item = new ItemStack(this, 1, 8);
