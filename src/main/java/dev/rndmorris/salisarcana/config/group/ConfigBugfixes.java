@@ -140,6 +140,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
 
+    public final ToggleSetting jarPickBlock = new ToggleSetting(
+        this,
+        "jarPickBlock",
+        "Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used."); // TODO add comment & mixin entry.
+
     @Nonnull
     @Override
     public String getGroupName() {

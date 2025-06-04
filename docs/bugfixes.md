@@ -139,3 +139,9 @@ Biome changes will correctly update the color of grass in chunks without needing
 **Config option:** `runedStoneIgnoreCreative`
 
 Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.
+
+## Pick-Block Warded Jars Accurately
+
+**Config option:** `jarPickBlock`
+
+Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used, rather than an empty jar.
