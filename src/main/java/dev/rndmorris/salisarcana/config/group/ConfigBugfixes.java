@@ -140,6 +140,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
 
+    public final ToggleSetting bannerPickBlock = new ToggleSetting(
+        this,
+        "bannerPickBlock",
+        "Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.");
+
     @Nonnull
     @Override
     public String getGroupName() {
