@@ -139,6 +139,11 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "airyBlocksNoBucketBreak",
         "Prevents useful airy blocks (nodes, energized nodes, and the blocks of the Outer Lands boss room door) from being replaced by buckets with liquid.");
+  
+    public final ToggleSetting runedStoneIgnoreCreative = new ToggleSetting(
+        this,
+        "runedStoneIgnoreCreative",
+        "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
 
     @Nonnull
     @Override

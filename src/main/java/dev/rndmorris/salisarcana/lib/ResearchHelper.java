@@ -87,10 +87,18 @@ public class ResearchHelper {
     public static void sendResearchError(EntityPlayer player, String researchKey, String translationKey) {
         if (player instanceof EntityPlayerMP playerMP && !(player instanceof FakePlayer)) {
             final var research = ResearchCategories.getResearch(researchKey);
+
+            IChatComponent researchName;
+            if (research instanceof IResearchItemExtended extended) {
+                researchName = new ChatComponentTranslation(extended.getNameTranslationKey());
+            } else {
+                researchName = new ChatComponentText(research.getName());
+            }
+
             final var message = new ChatComponentTranslation(
                 translationKey,
-                research.getName(),
-                ResearchCategories.getCategoryName(research.category));
+                researchName,
+                new ChatComponentTranslation("tc.research_category." + research.category));
             message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED));
             playerMP.addChatMessage(message);
         }
