@@ -139,3 +139,9 @@ Biome changes will correctly update the color of grass in chunks without needing
 **Config option:** `runedStoneIgnoreCreative`
 
 Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.
+
+## Prevent Jars From Dropping When Broken In Creative
+
+**Config option:** `jarNoCreativeDrops`
+
+Prevent Warded Jars and Node in a Jar from dropping items when broken in Creative.
