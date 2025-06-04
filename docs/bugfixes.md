@@ -139,3 +139,9 @@ Biome changes will correctly update the color of grass in chunks without needing
 **Config option:** `runedStoneIgnoreCreative`
 
 Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.
+
+## Pick-Block Banners Accurately
+
+**Config option:** `bannerPickBlock`
+
+Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.
