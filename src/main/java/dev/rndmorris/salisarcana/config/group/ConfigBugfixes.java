@@ -143,7 +143,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting jarPickBlock = new ToggleSetting(
         this,
         "jarPickBlock",
-        "Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used.");
+        "Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used. Also fixes the WAILA tooltip for those blocks.");
 
     @Nonnull
     @Override

@@ -144,4 +144,4 @@ Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Cr
 
 **Config option:** `jarPickBlock`
 
-Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used, rather than an empty jar.
+Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used, rather than an empty jar. Also fixes the WAILA tooltip for those blocks.
