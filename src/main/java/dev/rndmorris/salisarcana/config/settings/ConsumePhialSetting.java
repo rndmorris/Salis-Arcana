@@ -10,8 +10,9 @@ public class ConsumePhialSetting extends EnumSetting<ConsumePhialSetting.Option>
         super(dependency, name, comment, defaultValue);
     }
 
-    public boolean applyMixin() {
-        return this.value != Option.PHIAL;
+    @Override
+    public boolean isEnabled() {
+        return this.value != Option.PHIAL && super.isEnabled();
     }
 
     public boolean consumeEssentia() {
