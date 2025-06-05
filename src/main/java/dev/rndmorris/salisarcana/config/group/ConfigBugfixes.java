@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.settings.BeaconBlockFixSetting;
+import dev.rndmorris.salisarcana.config.settings.ConsumePhialSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
 public class ConfigBugfixes extends ConfigGroup {
@@ -139,6 +140,12 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
+
+    public final ConsumePhialSetting bannerPhialConsumption = new ConsumePhialSetting(
+        this,
+        "bannerPhialConsumption",
+        "Changes the behavior of banners when having a pattern added.",
+        ConsumePhialSetting.Option.ESSENTIA);
 
     @Nonnull
     @Override

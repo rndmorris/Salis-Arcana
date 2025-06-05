@@ -139,3 +139,13 @@ Biome changes will correctly update the color of grass in chunks without needing
 **Config option:** `runedStoneIgnoreCreative`
 
 Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.
+
+### Prevent Consumption of Phials
+
+**Config option:** `bannerPhialConsumption`
+
+Changes the behavior of banners when having a pattern added.
+
+- `FREE` - adding a pattern to a banner does not consume the phial or the essentia.
+- `ESSENTIA` (default) - adding a pattern to a banner will consume the phial and return an empty phial.
+- `PHIAL` - the entire phial is consumed (the vanilla behavior of Thaumcraft's banners)
