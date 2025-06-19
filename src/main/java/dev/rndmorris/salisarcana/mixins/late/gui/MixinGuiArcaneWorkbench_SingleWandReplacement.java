@@ -14,6 +14,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
+import dev.rndmorris.salisarcana.lib.KnowItAll;
 import thaumcraft.client.gui.GuiArcaneWorkbench;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
@@ -27,31 +28,32 @@ public class MixinGuiArcaneWorkbench_SingleWandReplacement {
     @Shadow(remap = false)
     private InventoryPlayer ip;
 
-    @ModifyVariable(
-        method = "drawGuiContainerBackgroundLayer",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingArcaneRecipeAspects(Lnet/minecraft/inventory/IInventory;Lnet/minecraft/entity/player/EntityPlayer;)Lthaumcraft/api/aspects/AspectList;",
-            remap = false))
-    public ItemWandCasting captureWandInTable(final ItemWandCasting slot10,
+    @ModifyVariable(method = "drawGuiContainerBackgroundLayer", at = @At(value = "STORE", ordinal = 0))
+    public ItemWandCasting captureWandInTable(final ItemWandCasting initial,
         final @Share("wandStack") LocalRef<ItemStack> wandStack) {
-        if (slot10 == null) { // and Arcane Recipe found
+
+        if (this.tileEntity.getStackInSlot(10) == null) {
+            // No wand in wand slot - check if a wand-swap recipe matches
             for (int i = 0; i < 9; i++) {
                 final ItemStack slot = this.tileEntity.getStackInSlot(i);
                 if (slot != null && slot.getItem() instanceof ItemWandCasting itemWand) {
                     // Found a wand in table
                     if ((CustomRecipes.replaceWandCapsRecipe != null && CustomRecipes.replaceWandCapsRecipe
-                        .matches(this.tileEntity, this.ip.player.worldObj, this.ip.player))
+                        .matches(this.tileEntity, this.ip.player.worldObj, KnowItAll.getInstance()))
                         || (CustomRecipes.replaceWandCoreRecipe != null && CustomRecipes.replaceWandCoreRecipe
-                            .matches(this.tileEntity, this.ip.player.worldObj, this.ip.player))) {
+                            .matches(this.tileEntity, this.ip.player.worldObj, KnowItAll.getInstance()))) {
+                        // Recipe match found
                         wandStack.set(slot);
                         return itemWand;
+                    } else {
+                        // There's a wand, but none of the recipes match
+                        return null;
                     }
                 }
             }
             return null;
         } else {
-            return slot10;
+            return initial;
         }
     }
 
