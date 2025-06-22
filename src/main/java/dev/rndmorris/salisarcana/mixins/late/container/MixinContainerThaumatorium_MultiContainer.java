@@ -43,7 +43,7 @@ public abstract class MixinContainerThaumatorium_MultiContainer extends Containe
     @ModifyExpressionValue(
         method = "onContainerClosed",
         at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z", opcode = Opcodes.GETFIELD))
-    public boolean allowServerContainerUpdates(boolean initial) {
+    public boolean removeClientEventHandlerOnClose(boolean initial) {
         return false;
     }
 }
