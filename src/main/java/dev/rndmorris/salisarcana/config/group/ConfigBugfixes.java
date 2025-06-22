@@ -140,6 +140,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
 
+    public final ToggleSetting thaumatoriumMultiContainer = new ToggleSetting(
+        this,
+        "thaumatoriumMultiContainer",
+        "Fixes some possible bugs caused by multiple players interacting with a Thaumatorium at the same time.");
+
     @Nonnull
     @Override
     public String getGroupName() {
