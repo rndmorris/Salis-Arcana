@@ -139,3 +139,9 @@ Biome changes will correctly update the color of grass in chunks without needing
 **Config option:** `runedStoneIgnoreCreative`
 
 Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.
+
+## Localize the "Missing Prerequisites" Message
+
+**Config option:** `localizeMissingPrereqsMessage`
+
+When right-clicking completed research without the necessary prerequisites to claim the research, the message displayed in chat will be displayed in the client's language rather than always English.

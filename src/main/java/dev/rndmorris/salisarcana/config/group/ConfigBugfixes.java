@@ -140,6 +140,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
 
+    public final ToggleSetting localizeMissingPrereqsMessage = new ToggleSetting(
+        this,
+        "localizeMissingPrereqsMessage",
+        "Make the message displayed when trying to use a completed research without the prerequisites localized on the client.");
+
     @Nonnull
     @Override
     public String getGroupName() {

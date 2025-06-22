@@ -151,6 +151,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.runedStoneIgnoreCreative::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchTrap_CreativeImmunity")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    LOCALIZE_MISSING_PREREQS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.localizeMissingPrereqsMessage::isEnabled)
+        .addMixinClasses("lib.network.MixinPacketPlayerCompleteToServer_ComponentTranslation")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
