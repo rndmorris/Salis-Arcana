@@ -149,6 +149,16 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "correctItemInsertion",
         "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+    
+    public final ToggleSetting jarNoCreativeDrops = new ToggleSetting(
+        this,
+        "jarNoCreativeDrops",
+        "Prevent Warded Jars and Node in a Jar from dropping items when broken in Creative.");
+
+    public final ToggleSetting bannerNoCreativeDrops = new ToggleSetting(
+        this,
+        "bannerNoCreativeDrops",
+        "Prevent Banners from dropping items when broken in Creative.");
 
     @Nonnull
     @Override
