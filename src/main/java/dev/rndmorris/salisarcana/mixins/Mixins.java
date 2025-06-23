@@ -163,7 +163,11 @@ public enum Mixins {
     BANNER_NO_CREATIVE_DROPS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.bugfixes.bannerNoCreativeDrops::isEnabled)
-        .addMixinClasses("blocks.MixinBlockWoodenDevice_NoBannerCreativeDrops")
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_NoBannerCreativeDrops"),
+    JAR_PICK_BLOCK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.jarPickBlock::isEnabled)
+        .addMixinClasses("blocks.MixinBlockJar_PickBlock")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
