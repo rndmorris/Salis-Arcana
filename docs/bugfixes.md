@@ -151,3 +151,12 @@ Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Cr
 **Config option:** `correctItemInsertion`
 
 Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.
+## Prevent Blocks From Dropping When Broken In Creative
+
+**Config option:** `jarNoCreativeDrops`
+
+Prevent Warded Jars and Node in a Jar from dropping items when broken in Creative.
+
+**Config option:** `bannerNoCreativeDrops`
+
+Prevent Banners from dropping items when broken in Creative.
