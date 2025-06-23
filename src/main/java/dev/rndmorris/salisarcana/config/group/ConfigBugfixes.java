@@ -135,6 +135,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "updateBiomeColorRendering",
         "Biome changes will correctly update the color of grass in chunks without needing a block to change.");
 
+    public final ToggleSetting preventBlockAiryFluidReplacement = new ToggleSetting(
+        this,
+        "preventBlockAiryFluidReplacement",
+        "Prevents useful airy blocks (nodes, energized nodes, and the blocks of the Outer Lands boss room door) from being replaced by buckets with liquid.");
+
     public final ToggleSetting runedStoneIgnoreCreative = new ToggleSetting(
         this,
         "runedStoneIgnoreCreative",
@@ -154,6 +159,16 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "bannerNoCreativeDrops",
         "Prevent Banners from dropping items when broken in Creative.");
+
+    public final ToggleSetting bannerPickBlock = new ToggleSetting(
+        this,
+        "bannerPickBlock",
+        "Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.");
+
+    public final ToggleSetting jarPickBlock = new ToggleSetting(
+        this,
+        "jarPickBlock",
+        "Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used. Also fixes the WAILA tooltip for those blocks.");
 
     @Nonnull
     @Override
