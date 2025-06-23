@@ -140,6 +140,16 @@ public class ConfigBugfixes extends ConfigGroup {
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
 
+    public final ToggleSetting jarNoCreativeDrops = new ToggleSetting(
+        this,
+        "jarNoCreativeDrops",
+        "Prevent Warded Jars and Node in a Jar from dropping items when broken in Creative.");
+
+    public final ToggleSetting bannerNoCreativeDrops = new ToggleSetting(
+        this,
+        "bannerNoCreativeDrops",
+        "Prevent Banners from dropping items when broken in Creative.");
+
     @Nonnull
     @Override
     public String getGroupName() {

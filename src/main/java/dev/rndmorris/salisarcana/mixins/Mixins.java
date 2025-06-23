@@ -151,6 +151,16 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.runedStoneIgnoreCreative::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchTrap_CreativeImmunity")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    JAR_NO_CREATIVE_DROPS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.jarNoCreativeDrops::isEnabled)
+        .addMixinClasses("blocks.MixinBlockJar_NoCreativeDrops")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BANNER_NO_CREATIVE_DROPS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.bannerNoCreativeDrops::isEnabled)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_NoBannerCreativeDrops")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
