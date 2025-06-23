@@ -83,7 +83,7 @@ public class CommonProxy {
             .register(new StartupNotifications());
         MinecraftForge.EVENT_BUS.register(KnowItAll.EVENT_COLLECTOR);
 
-        if (SalisConfig.bugfixes.airyBlocksNoBucketBreak.isEnabled()) {
+        if (SalisConfig.bugfixes.preventBlockAiryFluidReplacement.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new BlockAiryBucketInterceptor());
         }
     }

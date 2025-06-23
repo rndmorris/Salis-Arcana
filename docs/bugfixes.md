@@ -136,7 +136,7 @@ Biome changes will correctly update the color of grass in chunks without needing
 
 ## Prevent Nodes & Boss Doors from being broken by filled Buckets
 
-**Config option:** `airyBlocksNoBucketBreak`
+**Config option:** `preventBlockAiryFluidReplacement`
 
 Prevents useful airy blocks (nodes, energized nodes, and the blocks of the Outer Lands boss room door) from being replaced by buckets with liquid.
 
