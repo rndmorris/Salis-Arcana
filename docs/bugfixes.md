@@ -151,6 +151,13 @@ Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Cr
 **Config option:** `correctItemInsertion`
 
 Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.
+
+## Pick-Block Banners Accurately
+
+**Config option:** `bannerPickBlock`
+
+Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.
+
 ## Prevent Blocks From Dropping When Broken In Creative
 
 **Config option:** `jarNoCreativeDrops`

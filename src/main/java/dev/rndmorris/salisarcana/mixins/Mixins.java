@@ -155,6 +155,10 @@ public enum Mixins {
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.bugfixes.correctItemInsertion::isEnabled)
         .addMixinClasses("lib.MixinInventoryUtils_AmountCounting"),
+    BANNER_PICK_BLOCK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.bannerPickBlock::isEnabled)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_BannerPickBlock"),
     JAR_NO_CREATIVE_DROPS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.bugfixes.jarNoCreativeDrops::isEnabled)
