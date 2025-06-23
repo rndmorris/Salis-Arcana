@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.settings.BeaconBlockFixSetting;
+import dev.rndmorris.salisarcana.config.settings.ConsumePhialSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
 public class ConfigBugfixes extends ConfigGroup {
@@ -169,6 +170,12 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "jarPickBlock",
         "Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used. Also fixes the WAILA tooltip for those blocks.");
+    
+    public final ConsumePhialSetting bannerPhialConsumption = new ConsumePhialSetting(
+        this,
+        "bannerPhialConsumption",
+        "Changes the behavior of banners when having a pattern added.",
+        ConsumePhialSetting.Option.ESSENTIA);
 
     @Nonnull
     @Override

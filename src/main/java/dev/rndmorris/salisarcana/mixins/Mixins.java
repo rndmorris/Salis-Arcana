@@ -171,7 +171,11 @@ public enum Mixins {
     JAR_PICK_BLOCK(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.bugfixes.jarPickBlock::isEnabled)
-        .addMixinClasses("blocks.MixinBlockJar_PickBlock")
+        .addMixinClasses("blocks.MixinBlockJar_PickBlock"),
+    BANNER_PHIAL_CONSUMPTION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.bannerPhialConsumption::isEnabled)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
