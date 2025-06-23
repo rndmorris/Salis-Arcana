@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.lib;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
@@ -16,7 +18,7 @@ import thaumcraft.common.lib.research.ResearchManager;
 
 public class KnowItAll extends EntityPlayer {
 
-    private static KnowItAll knowItAll = null;
+    private static @Nullable KnowItAll knowItAll = null;
     private static final String USERNAME = SalisArcana.MODID + ":KnowItAll";
     public static final EventCollector EVENT_COLLECTOR = new EventCollector();
 
