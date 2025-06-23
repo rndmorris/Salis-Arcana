@@ -146,6 +146,12 @@ Prevents useful airy blocks (nodes, energized nodes, and the blocks of the Outer
 
 Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.
 
+## Spend the Correct Vis Cost of Upgraded Foci
+
+**Config option:** `upgradedFocusVisCost`
+
+Makes certain upgraded foci (ex. Wand Focus: Fire with Fireball upgrade) spend the upgraded vis cost rather than the default.
+
 ## Prevent Blocks From Dropping When Broken In Creative
 
 **Config option:** `jarNoCreativeDrops`

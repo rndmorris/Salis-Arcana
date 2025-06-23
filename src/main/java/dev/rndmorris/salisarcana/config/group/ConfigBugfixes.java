@@ -145,6 +145,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
 
+    public final ToggleSetting upgradedFocusVisCost = new ToggleSetting(
+        this,
+        "upgradedFocusVisCost",
+        "Makes certain upgraded foci (ex. Wand Focus: Fire with Fireball upgrade) spend the upgraded vis cost rather than the default.");
+
     public final ToggleSetting jarNoCreativeDrops = new ToggleSetting(
         this,
         "jarNoCreativeDrops",

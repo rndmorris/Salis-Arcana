@@ -151,6 +151,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.runedStoneIgnoreCreative::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchTrap_CreativeImmunity")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    WAND_FOCUS_LEVEL_PATCH(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.upgradedFocusVisCost::isEnabled)
+        .addMixinClasses("api.MixinItemFocusBasic_WandUpgradeLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     JAR_NO_CREATIVE_DROPS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.bugfixes.jarNoCreativeDrops::isEnabled)
