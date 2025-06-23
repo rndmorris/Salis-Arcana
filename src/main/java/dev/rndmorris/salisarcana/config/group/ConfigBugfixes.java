@@ -135,6 +135,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "updateBiomeColorRendering",
         "Biome changes will correctly update the color of grass in chunks without needing a block to change.");
 
+    public final ToggleSetting preventBlockAiryFluidReplacement = new ToggleSetting(
+        this,
+        "preventBlockAiryFluidReplacement",
+        "Prevents useful airy blocks (nodes, energized nodes, and the blocks of the Outer Lands boss room door) from being replaced by buckets with liquid.");
+
     public final ToggleSetting runedStoneIgnoreCreative = new ToggleSetting(
         this,
         "runedStoneIgnoreCreative",
