@@ -154,7 +154,11 @@ public enum Mixins {
     ITEM_COUNTING_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.bugfixes.correctItemInsertion::isEnabled)
-        .addMixinClasses("lib.MixinInventoryUtils_AmountCounting")
+        .addMixinClasses("lib.MixinInventoryUtils_AmountCounting"),
+    BANNER_PICK_BLOCK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.bannerPickBlock::isEnabled)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_BannerPickBlock")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features

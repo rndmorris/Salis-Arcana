@@ -149,6 +149,11 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "correctItemInsertion",
         "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+    
+    public final ToggleSetting bannerPickBlock = new ToggleSetting(
+        this,
+        "bannerPickBlock",
+        "Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.");
 
     @Nonnull
     @Override
