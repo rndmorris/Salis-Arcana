@@ -35,6 +35,7 @@ import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
+import dev.rndmorris.salisarcana.lib.BlockAiryBucketInterceptor;
 import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.ObfuscationInfo;
@@ -81,6 +82,10 @@ public class CommonProxy {
             .bus()
             .register(new StartupNotifications());
         MinecraftForge.EVENT_BUS.register(KnowItAll.EVENT_COLLECTOR);
+
+        if (SalisConfig.bugfixes.preventBlockAiryFluidReplacement.isEnabled()) {
+            MinecraftForge.EVENT_BUS.register(new BlockAiryBucketInterceptor());
+        }
     }
 
     private void updateHarvestLevels() {
