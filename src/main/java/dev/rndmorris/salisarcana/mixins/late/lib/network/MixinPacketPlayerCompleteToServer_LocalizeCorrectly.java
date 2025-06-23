@@ -9,7 +9,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
 
 @Mixin(PacketPlayerCompleteToServer.class)
-public class MixinPacketPlayerCompleteToServer_ComponentTranslation {
+public class MixinPacketPlayerCompleteToServer_LocalizeCorrectly {
 
     @WrapOperation(
         method = "onMessage(Lthaumcraft/common/lib/network/playerdata/PacketPlayerCompleteToServer;Lcpw/mods/fml/common/network/simpleimpl/MessageContext;)Lcpw/mods/fml/common/network/simpleimpl/IMessage;",

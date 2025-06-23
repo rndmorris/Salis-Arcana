@@ -154,7 +154,12 @@ public enum Mixins {
     LOCALIZE_MISSING_PREREQS(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.bugfixes.localizeMissingPrereqsMessage::isEnabled)
-        .addMixinClasses("lib.network.MixinPacketPlayerCompleteToServer_ComponentTranslation")
+        .addMixinClasses("lib.network.MixinPacketPlayerCompleteToServer_LocalizeCorrectly")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    LOCALIZE_WARP_MESSAGES(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.localizeWarpEffects::isEnabled)
+        .addMixinClasses("lib.MixinWarpEvents_LocalizeCorrectly")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features

@@ -145,6 +145,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "localizeMissingPrereqsMessage",
         "Make the message displayed when trying to use a completed research without the prerequisites localized on the client.");
 
+    public final ToggleSetting localizeWarpEffects = new ToggleSetting(
+        this,
+        "localizeWarpEffects",
+        "Make the messages displayed when a warp event triggers get localized on the client.");
+
     @Nonnull
     @Override
     public String getGroupName() {
