@@ -157,3 +157,13 @@ Thaumcraft will correctly insect items into inventories - prevents double-counti
 **Config option:** `bannerPickBlock`
 
 Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.
+
+## Prevent Blocks From Dropping When Broken In Creative
+
+**Config option:** `jarNoCreativeDrops`
+
+Prevent Warded Jars and Node in a Jar from dropping items when broken in Creative.
+
+**Config option:** `bannerNoCreativeDrops`
+
+Prevent Banners from dropping items when broken in Creative.
