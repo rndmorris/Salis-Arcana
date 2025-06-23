@@ -161,6 +161,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.bannerNoCreativeDrops::isEnabled)
         .addMixinClasses("blocks.MixinBlockWoodenDevice_NoBannerCreativeDrops")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BANNER_PICK_BLOCK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.bannerPickBlock::isEnabled)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_BannerPickBlock")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
