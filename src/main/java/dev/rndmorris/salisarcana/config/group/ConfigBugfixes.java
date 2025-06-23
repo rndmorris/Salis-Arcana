@@ -145,6 +145,16 @@ public class ConfigBugfixes extends ConfigGroup {
         "upgradedFocusVisCost",
         "Makes certain upgraded foci (ex. Wand Focus: Fire with Fireball upgrade) spend the upgraded vis cost rather than the default.");
 
+    public final ToggleSetting jarNoCreativeDrops = new ToggleSetting(
+        this,
+        "jarNoCreativeDrops",
+        "Prevent Warded Jars and Node in a Jar from dropping items when broken in Creative.");
+
+    public final ToggleSetting bannerNoCreativeDrops = new ToggleSetting(
+        this,
+        "bannerNoCreativeDrops",
+        "Prevent Banners from dropping items when broken in Creative.");
+
     @Nonnull
     @Override
     public String getGroupName() {

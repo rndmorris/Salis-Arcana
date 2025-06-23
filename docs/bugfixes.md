@@ -145,3 +145,14 @@ Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Cr
 **Config option:** `upgradedFocusVisCost`
 
 Makes certain upgraded foci (ex. Wand Focus: Fire with Fireball upgrade) spend the upgraded vis cost rather than the default.
+
+## Prevent Blocks From Dropping When Broken In Creative
+
+**Config option:** `jarNoCreativeDrops`
+
+Prevent Warded Jars and Node in a Jar from dropping items when broken in Creative.
+
+**Config option:** `bannerNoCreativeDrops`
+
+Prevent Banners from dropping items when broken in Creative.
+
