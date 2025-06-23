@@ -183,16 +183,11 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
         }
     }
 
-    @Inject(
-        method = "updateResearch",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/api/research/ResearchCategories;getResearchList(Ljava/lang/String;)Lthaumcraft/api/research/ResearchCategoryList;",
-            ordinal = 0),
-        remap = false)
+    @Inject(method = "updateResearch", at = @At("TAIL"), remap = false)
     private void creativePaperCheck(CallbackInfo ci) {
-        this.hasScribestuff = this.mc.thePlayer.capabilities.isCreativeMode && sa$opEnabled
-            && !Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
+        if (this.mc.thePlayer.capabilities.isCreativeMode && sa$opEnabled) {
+            this.hasScribestuff = !Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
+        }
     }
 
 }

@@ -134,11 +134,33 @@ Non-vertical silverwood logs will be correctly named "Silverwood Log" in WAILA.
 
 Biome changes will correctly update the color of grass in chunks without needing a block to change.
 
+## Prevent Nodes & Boss Doors from being broken by filled Buckets
+
+**Config option:** `preventBlockAiryFluidReplacement`
+
+Prevents useful airy blocks (nodes, energized nodes, and the blocks of the Outer Lands boss room door) from being replaced by buckets with liquid.
+
 ## Prevent Runed Stone from Shocking Creative Players
 
 **Config option:** `runedStoneIgnoreCreative`
 
 Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.
+
+## Prevent Blocks From Dropping When Broken In Creative
+
+**Config option:** `jarNoCreativeDrops`
+
+Prevent Warded Jars and Node in a Jar from dropping items when broken in Creative.
+
+**Config option:** `bannerNoCreativeDrops`
+
+Prevent Banners from dropping items when broken in Creative.
+
+## Pick-Block Banners Accurately
+
+**Config option:** `bannerPickBlock`
+
+Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.
 
 ## Pick-Block Warded Jars Accurately
 
