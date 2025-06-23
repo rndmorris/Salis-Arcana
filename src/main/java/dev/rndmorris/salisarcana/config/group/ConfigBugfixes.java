@@ -145,6 +145,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
 
+    public final ToggleSetting correctItemInsertion = new ToggleSetting(
+        this,
+        "correctItemInsertion",
+        "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+
     @Nonnull
     @Override
     public String getGroupName() {
