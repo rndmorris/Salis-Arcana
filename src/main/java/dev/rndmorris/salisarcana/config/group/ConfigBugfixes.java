@@ -160,6 +160,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "bannerPickBlock",
         "Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.");
 
+    public final ToggleSetting jarPickBlock = new ToggleSetting(
+        this,
+        "jarPickBlock",
+        "Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used. Also fixes the WAILA tooltip for those blocks.");
+
     @Nonnull
     @Override
     public String getGroupName() {

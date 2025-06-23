@@ -161,3 +161,9 @@ Prevent Banners from dropping items when broken in Creative.
 **Config option:** `bannerPickBlock`
 
 Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.
+
+## Pick-Block Warded Jars Accurately
+
+**Config option:** `jarPickBlock`
+
+Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used, rather than an empty jar. Also fixes the WAILA tooltip for those blocks.
