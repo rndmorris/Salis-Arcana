@@ -168,3 +168,6 @@ tc.research_page.salisarcana:FOCUS_DISENCHANTING.1=(Since each level stores more
 salisarcana:error_missing_research.infusion=You lack the research to start this infusion! You must research "%s" in %s before you can craft this item!
 salisarcana:error_missing_research.crucible=You lack the research to craft this recipe in the Crucible! You must research "%s" in %s before you can craft this item!
 salisarcana:error_missing_research.gui=Missing Research
+
+salisarcana:misc.golem.reject_owner=You are not my Master!
+salisarcana:misc.warded.destroy_ender_pearl=The magic of a nearby warded object destroys the ender pearl.
