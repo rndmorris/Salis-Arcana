@@ -150,6 +150,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "localizeWarpEffects",
         "Make the messages displayed when a warp event triggers get localized on the client.");
 
+    public final ToggleSetting localizeAlembicMessages = new ToggleSetting(
+        this,
+        "localizeAlembicMessages",
+        "Make the messages displayed when clicking an Alembic get localized on the client.");
+
     @Nonnull
     @Override
     public String getGroupName() {

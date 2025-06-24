@@ -161,6 +161,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.localizeWarpEffects::isEnabled)
         .addMixinClasses("lib.MixinWarpEvents_LocalizeCorrectly")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    LOCALIZE_ALEMBIC_MESSAGES(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.localizeAlembicMessages::isEnabled)
+        .addMixinClasses("blocks.MixinBlockMetalDevice_LocalizeCorrectly")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
