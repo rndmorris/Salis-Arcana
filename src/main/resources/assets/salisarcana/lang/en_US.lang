@@ -171,3 +171,7 @@ salisarcana:error_missing_research.gui=Missing Research
 
 salisarcana:misc.golem.reject_owner=You are not my Master!
 salisarcana:misc.warded.destroy_ender_pearl=The magic of a nearby warded object destroys the ender pearl.
+salisarcana:misc.arcane_pressure_plate.everyone=It will now trigger on everything.
+salisarcana:misc.arcane_pressure_plate.not_you=It will now trigger on everything except you.
+salisarcana:misc.arcane_pressure_plate.only_you=It will now trigger on just you.
+salisarcana:misc.mirror.already_linked=That mirror is already linked to a valid destination.
