@@ -144,8 +144,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ConsumePhialSetting bannerPhialConsumption = new ConsumePhialSetting(
         this,
         "bannerPhialConsumption",
-        "Changes the behavior of banners when having a pattern added.",
-        ConsumePhialSetting.Option.ESSENTIA);
+        "Changes the behavior of banners when having a pattern added.");
 
     @Nonnull
     @Override
