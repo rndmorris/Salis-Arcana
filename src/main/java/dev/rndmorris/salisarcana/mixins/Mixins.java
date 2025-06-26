@@ -176,6 +176,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.jarPickBlock::isEnabled)
         .addMixinClasses("blocks.MixinBlockJar_PickBlock")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ITEM_COUNTING_FIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.correctItemInsertion::isEnabled)
+        .addMixinClasses("lib.MixinInventoryUtils_AmountCounting")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)

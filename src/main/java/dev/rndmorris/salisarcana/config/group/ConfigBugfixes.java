@@ -170,6 +170,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "jarPickBlock",
         "Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used. Also fixes the WAILA tooltip for those blocks.");
 
+    public final ToggleSetting correctItemInsertion = new ToggleSetting(
+        this,
+        "correctItemInsertion",
+        "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+
     @Nonnull
     @Override
     public String getGroupName() {

@@ -173,3 +173,9 @@ Causes the banner to give the actual banner item when pick-block is used, instea
 **Config option:** `jarPickBlock`
 
 Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used, rather than an empty jar. Also fixes the WAILA tooltip for those blocks.
+
+## Correct Item Insertion Logic
+
+**Config option:** `correctItemInsertion`
+
+Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.
