@@ -9,7 +9,6 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -23,13 +22,9 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.client.gui.GuiArcaneWorkbench;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 @Mixin(GuiArcaneWorkbench.class)
 public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContainer {
-
-    @Shadow(remap = false)
-    private TileArcaneWorkbench tileEntity;
 
     public MixinGuiArcaneWorkbench_MissingResearch(Container p_i1072_1_) {
         super(p_i1072_1_);
@@ -42,9 +37,9 @@ public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContain
             target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingArcaneRecipe(Lnet/minecraft/inventory/IInventory;Lnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;",
             remap = false))
     public ItemStack captureRecipe(IInventory awb, EntityPlayer player, Operation<ItemStack> original,
-        @Local(name = "var5") int centerX, @Local(name = "var6") int topY) {
-        final var wand = this.tileEntity.getStackInSlot(10);
-        if (wand == null || wand.getItem() == null && !(wand.getItem() instanceof ItemWandCasting)) return null;
+        @Local(name = "var5") int centerX, @Local(name = "var6") int topY, @Local ItemWandCasting wand) {
+
+        if (wand == null) return null;
 
         final var recipe = CraftingHelper.INSTANCE.findArcaneRecipe(awb, KnowItAll.getInstance());
 
