@@ -22,26 +22,15 @@ public class MixinInventoryUtils_AmountCounting {
 
     @WrapOperation(
         method = "insertStack",
-        at = @At(
+        at = { @At(
             value = "INVOKE",
             target = "Lthaumcraft/common/lib/utils/InventoryUtils;attemptInsertion(Lnet/minecraft/inventory/IInventory;Lnet/minecraft/item/ItemStack;IIZ)Lnet/minecraft/item/ItemStack;",
-            ordinal = 1))
+            ordinal = 1),
+            @At(
+                value = "INVOKE",
+                target = "Lthaumcraft/common/lib/utils/InventoryUtils;attemptInsertion(Lnet/minecraft/inventory/IInventory;Lnet/minecraft/item/ItemStack;IIZ)Lnet/minecraft/item/ItemStack;",
+                ordinal = 4) })
     private static ItemStack checkForEmpty(IInventory inventory, ItemStack stack, int slot, int side, boolean doit,
-        Operation<ItemStack> original) {
-        if (inventory.getStackInSlot(slot) == null) {
-            return original.call(inventory, stack, slot, side, doit);
-        } else {
-            return stack;
-        }
-    }
-
-    @WrapOperation(
-        method = "insertStack",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/utils/InventoryUtils;attemptInsertion(Lnet/minecraft/inventory/IInventory;Lnet/minecraft/item/ItemStack;IIZ)Lnet/minecraft/item/ItemStack;",
-            ordinal = 4))
-    private static ItemStack checkForEmpty2(IInventory inventory, ItemStack stack, int slot, int side, boolean doit,
         Operation<ItemStack> original) {
         if (inventory.getStackInSlot(slot) == null) {
             return original.call(inventory, stack, slot, side, doit);
@@ -59,17 +48,6 @@ public class MixinInventoryUtils_AmountCounting {
             remap = true))
     private static ItemStack forceConditional(TileEntityChest instance, int slotIn, Operation<ItemStack> original) {
         return instance.getStackInSlot(slotIn) == null ? sa$nonNullItemStack : null;
-    }
-
-    @WrapOperation(
-        method = "insertStack",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/tileentity/TileEntityChest;getStackInSlot(I)Lnet/minecraft/item/ItemStack;",
-            ordinal = 3,
-            remap = true))
-    private static ItemStack forceNonNull(TileEntityChest instance, int slotIn, Operation<ItemStack> original) {
-        return sa$nonNullItemStack;
     }
 
     @WrapOperation(
