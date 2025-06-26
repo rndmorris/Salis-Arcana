@@ -140,20 +140,10 @@ public class ConfigBugfixes extends ConfigGroup {
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
 
-    public final ToggleSetting localizeMissingPrereqsMessage = new ToggleSetting(
+    public final ToggleSetting fixClientSideLocalization = new ToggleSetting(
         this,
-        "localizeMissingPrereqsMessage",
-        "Make the message displayed when trying to use a completed research without the prerequisites localized on the client.");
-
-    public final ToggleSetting localizeWarpEffects = new ToggleSetting(
-        this,
-        "localizeWarpEffects",
-        "Make the messages displayed when a warp event triggers get localized on the client.");
-
-    public final ToggleSetting localizeAlembicMessages = new ToggleSetting(
-        this,
-        "localizeAlembicMessages",
-        "Make the messages displayed when clicking an Alembic get localized on the client.");
+        "fixClientSideLocalization",
+        "Make all messages displayed get localized on the client.");
 
     @Nonnull
     @Override

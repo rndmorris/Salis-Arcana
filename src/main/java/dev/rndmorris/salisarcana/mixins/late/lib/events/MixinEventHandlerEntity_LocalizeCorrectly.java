@@ -45,7 +45,10 @@ public class MixinEventHandlerEntity_LocalizeCorrectly {
         return new ChatComponentTranslation("tc.break.fly").setChatStyle(salisArcana$disableFlyStyle);
     }
 
-    @ModifyConstant(method = "playerInteract", constant = @Constant(stringValue = "You are not my Master!"))
+    @ModifyConstant(
+        method = "playerInteract",
+        constant = @Constant(stringValue = "You are not my Master!"),
+        remap = false)
     public String golemPlayerRejectionKey(String constant) {
         return "salisarcana:misc.golem.reject_owner";
     }

@@ -151,20 +151,22 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.runedStoneIgnoreCreative::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchTrap_CreativeImmunity")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    LOCALIZE_MISSING_PREREQS(new Builder().setPhase(Phase.LATE)
+    FIX_LOCALIZATION_SIDES(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(SalisConfig.bugfixes.localizeMissingPrereqsMessage::isEnabled)
-        .addMixinClasses("lib.network.MixinPacketPlayerCompleteToServer_LocalizeCorrectly")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    LOCALIZE_WARP_MESSAGES(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(SalisConfig.bugfixes.localizeWarpEffects::isEnabled)
-        .addMixinClasses("lib.MixinWarpEvents_LocalizeCorrectly")
-        .addTargetedMod(TargetedMod.THAUMCRAFT)),
-    LOCALIZE_ALEMBIC_MESSAGES(new Builder().setPhase(Phase.LATE)
-        .setSide(Side.BOTH)
-        .setApplyIf(SalisConfig.bugfixes.localizeAlembicMessages::isEnabled)
-        .addMixinClasses("blocks.MixinBlockMetalDevice_LocalizeCorrectly")
+        .setApplyIf(SalisConfig.bugfixes.fixClientSideLocalization::isEnabled)
+        .addMixinClasses(
+            "blocks.MixinBlockMetalDevice_LocalizeCorrectly",
+            "blocks.MixinBlockMirrorItem_LocalizableText",
+            "blocks.MixinBlockStoneDevice_LocalizeCorrectly",
+            "blocks.MixinBlockWoodenDevice_LocalizableText",
+            "items.MixinItemHandMirror_LocalizeCorrectly",
+            "items.MixinItemKey_LocalizeCorrectly",
+            "items.MixinItemResearchNotes_LocalizeCorrectly",
+            "entities.MixinEntityThaumcraftBosses_LocalizeCorrectly",
+            "lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
+            "lib.network.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
+            "lib.MixinWarpEvents_LocalizeCorrectly",
+            "tiles.MixinTileEldritchLock_LocalizeCorrectly")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
