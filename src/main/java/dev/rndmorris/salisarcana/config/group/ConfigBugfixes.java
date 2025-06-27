@@ -175,6 +175,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "correctItemInsertion",
         "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
 
+    public final ToggleSetting thaumatoriumMultiContainer = new ToggleSetting(
+        this,
+        "thaumatoriumMultiContainer",
+        "Fixes some possible bugs caused by multiple players interacting with a Thaumatorium at the same time.");
+
     @Nonnull
     @Override
     public String getGroupName() {

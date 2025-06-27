@@ -181,6 +181,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.correctItemInsertion::isEnabled)
         .addMixinClasses("lib.MixinInventoryUtils_AmountCounting")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    THAUMATORIUM_MULTI_CONTAINER(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.thaumatoriumMultiContainer::isEnabled)
+        .addMixinClasses("container.MixinContainerThaumatorium_MultiContainer")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
