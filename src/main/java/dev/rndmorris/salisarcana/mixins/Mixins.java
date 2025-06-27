@@ -181,6 +181,11 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.correctItemInsertion::isEnabled)
         .addMixinClasses("lib.MixinInventoryUtils_AmountCounting")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BANNER_PHIAL_CONSUMPTION(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.bannerPhialConsumption::isEnabled)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)

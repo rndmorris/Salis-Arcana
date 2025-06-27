@@ -179,3 +179,13 @@ Causes Warded Jars and Node in a Jar to create an item with the current contents
 **Config option:** `correctItemInsertion`
 
 Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.
+
+### Prevent Consumption of Phials when Applied to Banners
+
+**Config option:** `bannerPhialConsumption`
+
+Changes the behavior of banners when having a pattern added.
+
+- `FREE` - adding a pattern to a banner does not consume the phial or the essentia.
+- `ESSENTIA` (default) - adding a pattern to a banner will consume the phial and return an empty phial.
+- `PHIAL` - the entire phial is consumed (the vanilla behavior of Thaumcraft's banners)
