@@ -179,3 +179,9 @@ Causes Warded Jars and Node in a Jar to create an item with the current contents
 **Config option:** `correctItemInsertion`
 
 Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.
+
+## Localize Chat Messages on the Client
+
+**Config option:** `fixClientSideLocalization`
+
+All messages displayed in chat will be displayed in the client's language rather than the language of the server.
