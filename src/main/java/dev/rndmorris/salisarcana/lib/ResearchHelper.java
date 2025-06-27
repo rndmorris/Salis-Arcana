@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
+import net.minecraft.init.Items;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -19,10 +20,14 @@ import net.minecraftforge.common.util.FakePlayer;
 
 import dev.rndmorris.salisarcana.api.IResearchItemExtended;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
+import dev.rndmorris.salisarcana.config.SalisConfig;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
+import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
+import thaumcraft.common.lib.research.ResearchManager;
 
 public class ResearchHelper {
 
@@ -154,5 +159,26 @@ public class ResearchHelper {
                 player.getCommandSenderName(),
                 player.worldObj.provider.dimensionId,
                 (byte) 0));
+    }
+
+    public static boolean consumeScribestuff(EntityPlayer player) {
+        if (SalisConfig.features.creativeOpThaumonomicon.isEnabled() && player.capabilities.isCreativeMode) return true;
+
+        if (ResearchManager.consumeInkFromPlayer(player, false) && player.inventory.consumeInventoryItem(Items.paper)) {
+            ResearchManager.consumeInkFromPlayer(player, true);
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean hasResearchAspects(String username, AspectList aspects) {
+        final var playerAspects = Thaumcraft.proxy.playerKnowledge.getAspectsDiscovered(username);
+        for (final var aspect : aspects.aspects.entrySet()) {
+            if (playerAspects.getAmount(aspect.getKey()) < aspect.getValue()) {
+                return false;
+            }
+        }
+        return true;
     }
 }
