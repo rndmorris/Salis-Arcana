@@ -151,6 +151,36 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.runedStoneIgnoreCreative::isEnabled)
         .addMixinClasses("tiles.MixinTileEldritchTrap_CreativeImmunity")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    WAND_FOCUS_LEVEL_PATCH(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.upgradedFocusVisCost::isEnabled)
+        .addMixinClasses("api.MixinItemFocusBasic_WandUpgradeLevel")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    JAR_NO_CREATIVE_DROPS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.jarNoCreativeDrops::isEnabled)
+        .addMixinClasses("blocks.MixinBlockJar_NoCreativeDrops")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BANNER_NO_CREATIVE_DROPS(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.bannerNoCreativeDrops::isEnabled)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_NoBannerCreativeDrops")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    BANNER_PICK_BLOCK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.bannerPickBlock::isEnabled)
+        .addMixinClasses("blocks.MixinBlockWoodenDevice_BannerPickBlock")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    JAR_PICK_BLOCK(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.jarPickBlock::isEnabled)
+        .addMixinClasses("blocks.MixinBlockJar_PickBlock")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    ITEM_COUNTING_FIX(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.correctItemInsertion::isEnabled)
+        .addMixinClasses("lib.MixinInventoryUtils_AmountCounting")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     THAUMATORIUM_MULTI_CONTAINER(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.bugfixes.thaumatoriumMultiContainer::isEnabled)

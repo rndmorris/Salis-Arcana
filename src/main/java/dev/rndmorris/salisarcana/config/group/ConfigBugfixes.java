@@ -135,10 +135,45 @@ public class ConfigBugfixes extends ConfigGroup {
         "updateBiomeColorRendering",
         "Biome changes will correctly update the color of grass in chunks without needing a block to change.");
 
+    public final ToggleSetting preventBlockAiryFluidReplacement = new ToggleSetting(
+        this,
+        "preventBlockAiryFluidReplacement",
+        "Prevents useful airy blocks (nodes, energized nodes, and the blocks of the Outer Lands boss room door) from being replaced by buckets with liquid.");
+
     public final ToggleSetting runedStoneIgnoreCreative = new ToggleSetting(
         this,
         "runedStoneIgnoreCreative",
         "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
+
+    public final ToggleSetting upgradedFocusVisCost = new ToggleSetting(
+        this,
+        "upgradedFocusVisCost",
+        "Makes certain upgraded foci (ex. Wand Focus: Fire with Fireball upgrade) spend the upgraded vis cost rather than the default.");
+
+    public final ToggleSetting jarNoCreativeDrops = new ToggleSetting(
+        this,
+        "jarNoCreativeDrops",
+        "Prevent Warded Jars and Node in a Jar from dropping items when broken in Creative.");
+
+    public final ToggleSetting bannerNoCreativeDrops = new ToggleSetting(
+        this,
+        "bannerNoCreativeDrops",
+        "Prevent Banners from dropping items when broken in Creative.");
+
+    public final ToggleSetting bannerPickBlock = new ToggleSetting(
+        this,
+        "bannerPickBlock",
+        "Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.");
+
+    public final ToggleSetting jarPickBlock = new ToggleSetting(
+        this,
+        "jarPickBlock",
+        "Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used. Also fixes the WAILA tooltip for those blocks.");
+
+    public final ToggleSetting correctItemInsertion = new ToggleSetting(
+        this,
+        "correctItemInsertion",
+        "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
 
     public final ToggleSetting thaumatoriumMultiContainer = new ToggleSetting(
         this,
