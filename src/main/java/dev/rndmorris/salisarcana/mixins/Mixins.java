@@ -22,6 +22,11 @@ public enum Mixins {
     // spotless:off
 
     // Bugfixes
+    ADVANCED_ARCANE_FURNACE_SAVE_NBT(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.advAlchemicalFurnaceSaveNbt::isEnabled)
+        .addMixinClasses("tiles.MixinTileAlchemyFurnaceAdvanced_PersistNbt")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
     ARCANE_FURNACE_DUPE_FIX(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
         .setApplyIf(SalisConfig.bugfixes.infernalFurnaceDupeFix::isEnabled)

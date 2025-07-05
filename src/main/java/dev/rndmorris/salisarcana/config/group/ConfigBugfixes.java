@@ -8,6 +8,11 @@ import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
 public class ConfigBugfixes extends ConfigGroup {
 
+    public final ToggleSetting advAlchemicalFurnaceSaveNbt = new ToggleSetting(
+        this,
+        "advAlchemicalFurnaceSaveNbt",
+        "Saves additional NBT data to the advanced alchemical furnace for more consistent behavior.");
+
     public final BeaconBlockFixSetting beaconBlockFixSetting = new BeaconBlockFixSetting(this);
 
     public final ToggleSetting candleRendererCrashes = new ToggleSetting(

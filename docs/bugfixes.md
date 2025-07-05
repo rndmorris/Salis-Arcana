@@ -2,6 +2,13 @@
 
 Config file: `config/salisarcana/bugfixes.cfg`
 
+## Advanced Alchemical Furnace - Save Additional NBT Data
+
+**Config option:** `advAlchemicalFurnaceSaveNbt`
+
+The Advanced Alchemical Furnace will save and load additional NBT data needed to behave more consistently
+between tile entity reloads.
+
 ## Beacon Blocks
 
 **Config option:** `blockCosmeticSolidBeaconIds`
