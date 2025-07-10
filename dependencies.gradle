@@ -45,9 +45,21 @@ dependencies {
     compileOnly("maven.modrinth:bugtorch:1.2.13")
     compileOnly(rfg.deobf("maven.modrinth:etfuturum:2.6.2"))
     compileOnly(rfg.deobf("curse.maven:undergroundbiomesconstructs-72744:2304497"))
+    compileOnly("com.github.GTNewHorizons:GTNH-TC-Wands:1.4.5:dev")
 
     /* Patched TC4 addons */
     compileOnly("com.github.GTNewHorizons:ThaumicTinkerer:2.6.2:dev")
     compileOnly(rfg.deobf("curse.maven:automagy-222153:2285272"))
 
+    project.getConfigurations()
+
+    // Required for testing GTNH-TC-Wands
+    //  .configureEach(c -> {
+    //      final DependencySubstitutions ds = c.getResolutionStrategy()
+    //          .getDependencySubstitution()
+    //      ds.substitute(ds.module("com.github.GTNewHorizons:Baubles"))
+    //          .using(ds.module("com.github.GTNewHorizons:Baubles-Expanded:2.1.8-GTNH"))
+    //          .withClassifier("dev")
+    //          .because("Baubles-Expanded replaces Baubles")
+    //  })
 }
