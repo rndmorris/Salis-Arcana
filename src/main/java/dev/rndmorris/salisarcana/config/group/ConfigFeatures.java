@@ -444,6 +444,12 @@ public class ConfigFeatures extends ConfigGroup {
         "deadlyGazeMobCheck",
         "If enabled, the Deadly Gaze effect will only affect mobs that are not invulnerable or immune to wither");
 
+    public final ToggleSetting bannerFreePatterns = new ToggleSetting(
+        this,
+        "bannerFreePatterns",
+        "Causes Banners to not consume the essentia inside the phial when a pattern is applied. Overrides bannerReturnPhials in the bugfixes module.")
+            .setEnabled(false);
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()

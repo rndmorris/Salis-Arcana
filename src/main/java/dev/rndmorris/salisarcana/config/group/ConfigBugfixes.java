@@ -4,7 +4,6 @@ import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.settings.BeaconBlockFixSetting;
-import dev.rndmorris.salisarcana.config.settings.ConsumePhialSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
 public class ConfigBugfixes extends ConfigGroup {
@@ -176,10 +175,10 @@ public class ConfigBugfixes extends ConfigGroup {
         "correctItemInsertion",
         "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
 
-    public final ConsumePhialSetting bannerPhialConsumption = new ConsumePhialSetting(
+    public final ToggleSetting bannerReturnPhials = new ToggleSetting(
         this,
-        "bannerPhialConsumption",
-        "Changes the behavior of banners when having a pattern added.");
+        "bannerReturnPhials",
+        "Causes Banners to return an empty phial when a filled phial is used to apply a pattern to the Banner.");
 
     @Nonnull
     @Override

@@ -183,7 +183,7 @@ public enum Mixins {
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
     BANNER_PHIAL_CONSUMPTION(new Builder().setPhase(Phase.LATE)
         .setSide(Side.BOTH)
-        .setApplyIf(SalisConfig.bugfixes.bannerPhialConsumption::isEnabled)
+        .setApplyIf(() -> SalisConfig.bugfixes.bannerReturnPhials.isEnabled() || SalisConfig.features.bannerFreePatterns.isEnabled() || SalisConfig.features.stopCreativeModeItemConsumption.isEnabled())
         .addMixinClasses("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
 

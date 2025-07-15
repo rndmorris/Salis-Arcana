@@ -23,9 +23,13 @@ public class MixinBlockWoodenDevice_BannerPhialConsumption {
         at = @At(value = "FIELD", target = "Lnet/minecraft/item/ItemStack;stackSize:I", opcode = Opcodes.PUTFIELD))
     public void removePhial(ItemStack instance, int value, Operation<Void> original,
         @Local(argsOnly = true) EntityPlayer player) {
-        if (SalisConfig.bugfixes.bannerPhialConsumption.consumeEssentia()
-            && !(SalisConfig.features.stopCreativeModeItemConsumption.isEnabled()
-                && player.capabilities.isCreativeMode)) {
+
+        if (SalisConfig.features.bannerFreePatterns.isEnabled()) return;
+
+        if (SalisConfig.features.stopCreativeModeItemConsumption.isEnabled() && player.capabilities.isCreativeMode)
+            return;
+
+        if (SalisConfig.bugfixes.bannerReturnPhials.isEnabled()) {
             original.call(instance, value); // Remove one filled phial
 
             // Add one empty phial to the inventory
