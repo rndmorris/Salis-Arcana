@@ -175,6 +175,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "correctItemInsertion",
         "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
 
+    public final ToggleSetting fixClientSideLocalization = new ToggleSetting(
+        this,
+        "fixClientSideLocalization",
+        "Make all messages displayed get localized on the client.");
+
     @Nonnull
     @Override
     public String getGroupName() {

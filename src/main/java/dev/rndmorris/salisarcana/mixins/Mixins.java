@@ -181,6 +181,23 @@ public enum Mixins {
         .setApplyIf(SalisConfig.bugfixes.correctItemInsertion::isEnabled)
         .addMixinClasses("lib.MixinInventoryUtils_AmountCounting")
         .addTargetedMod(TargetedMod.THAUMCRAFT)),
+    FIX_LOCALIZATION_SIDES(new Builder().setPhase(Phase.LATE)
+        .setSide(Side.BOTH)
+        .setApplyIf(SalisConfig.bugfixes.fixClientSideLocalization::isEnabled)
+        .addMixinClasses(
+            "blocks.MixinBlockMetalDevice_LocalizeCorrectly",
+            "blocks.MixinBlockMirrorItem_LocalizableText",
+            "blocks.MixinBlockStoneDevice_LocalizeCorrectly",
+            "blocks.MixinBlockWoodenDevice_LocalizableText",
+            "items.MixinItemHandMirror_LocalizeCorrectly",
+            "items.MixinItemKey_LocalizeCorrectly",
+            "items.MixinItemResearchNotes_LocalizeCorrectly",
+            "entities.MixinEntityThaumcraftBosses_LocalizeCorrectly",
+            "lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
+            "lib.network.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
+            "lib.MixinWarpEvents_LocalizeCorrectly",
+            "tiles.MixinTileEldritchLock_LocalizeCorrectly")
+        .addTargetedMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new Builder().setPhase(Phase.LATE)
