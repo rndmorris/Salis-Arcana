@@ -51,35 +51,34 @@ public class MessageDuplicateResearch implements IMessage, IMessageHandler<Messa
             && player.capabilities.isCreativeMode;
         final boolean aspectFree = opFree || SalisConfig.features.researchDuplicationFree.isEnabled();
 
-        if (ResearchManager.isResearchComplete(username, message.key)
-            && ResearchManager.isResearchComplete(username, "RESEARCHDUPE")) {
+        if (!ResearchManager.isResearchComplete(username, message.key)
+            || !ResearchManager.isResearchComplete(username, "RESEARCHDUPE")) return null;
 
-            final AspectList aspects = ResearchCategories.getResearch(message.key).tags;
+        final AspectList aspects = ResearchCategories.getResearch(message.key).tags;
+        if ((aspectFree || ResearchHelper.hasResearchAspects(username, aspects))
+            && ResearchHelper.consumeScribestuff(player)) {
 
-            if ((aspectFree || ResearchHelper.hasResearchAspects(username, aspects))
-                && ResearchHelper.consumeScribestuff(player)) {
-
-                if (!aspectFree) {
-                    final var playerAspects = Thaumcraft.proxy.playerKnowledge.getAspectsDiscovered(username);
-                    for (final var aspect : aspects.aspects.entrySet()) {
-                        playerAspects.reduce(aspect.getKey(), aspect.getValue());
-                    }
+            if (!aspectFree) {
+                final var playerAspects = Thaumcraft.proxy.playerKnowledge.getAspectsDiscovered(username);
+                for (final var aspect : aspects.aspects.entrySet()) {
+                    playerAspects.reduce(aspect.getKey(), aspect.getValue());
                 }
-
-                final var note = ResearchManager
-                    .createNote(new ItemStack(ConfigItems.itemResearchNotes, 1, 64), message.key, player.worldObj);
-                if (note != null) {
-                    note.getTagCompound()
-                        .setBoolean("complete", true);
-                    if (!player.inventory.addItemStackToInventory(note)) {
-                        player.dropPlayerItemWithRandomChoice(note, false);
-                    }
-                    player.worldObj.playSoundAtEntity(player, "thaumcraft:learn", 0.75F, 1.0F);
-                }
-
-                player.inventoryContainer.detectAndSendChanges();
             }
+
+            final var note = ResearchManager
+                .createNote(new ItemStack(ConfigItems.itemResearchNotes, 1, 64), message.key, player.worldObj);
+            if (note != null) {
+                note.getTagCompound()
+                    .setBoolean("complete", true);
+                if (!player.inventory.addItemStackToInventory(note)) {
+                    player.dropPlayerItemWithRandomChoice(note, false);
+                }
+                player.worldObj.playSoundAtEntity(player, "thaumcraft:learn", 0.75F, 1.0F);
+            }
+
+            player.inventoryContainer.detectAndSendChanges();
         }
+
         return null;
     }
 }
