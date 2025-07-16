@@ -1,12 +1,13 @@
 package dev.rndmorris.salisarcana.mixins;
 
+import javax.annotation.Nonnull;
+
 import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
+
 import dev.rndmorris.salisarcana.common.compat.MixinModCompat;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.Setting;
-
-import javax.annotation.Nonnull;
 
 public enum Mixins implements IMixins {
 
@@ -404,8 +405,9 @@ public enum Mixins implements IMixins {
     }
 
     static class SalisBuilder extends MixinBuilder {
+
         public MixinBuilder applyIf(Setting config) {
-           return super.setApplyIf(config::isEnabled);
+            return super.setApplyIf(config::isEnabled);
         }
     }
 }
