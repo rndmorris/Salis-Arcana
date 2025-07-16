@@ -175,6 +175,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "correctItemInsertion",
         "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
 
+    public final ToggleSetting silkTouchCrystals = new ToggleSetting(
+        this,
+        "silkTouchCrystals",
+        "Allows Thaumcraft crystals to be harvested with Silk Touch, preventing them from dropping as shards.");
+
     @Nonnull
     @Override
     public String getGroupName() {
