@@ -1,10 +1,7 @@
 package dev.rndmorris.salisarcana.network;
 
-import dev.rndmorris.salisarcana.lib.InventoryHelper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -12,10 +9,9 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import dev.rndmorris.salisarcana.config.SalisConfig;
+import dev.rndmorris.salisarcana.lib.InventoryHelper;
 import io.netty.buffer.ByteBuf;
-import thaumcraft.api.research.ScanResult;
 import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.common.lib.research.ScanManager;
 
 public class MessageScanContainer implements IMessage, IMessageHandler<MessageScanContainer, IMessage> {
 

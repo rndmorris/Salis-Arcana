@@ -1,6 +1,5 @@
 package dev.rndmorris.salisarcana.mixins.late.items;
 
-import dev.rndmorris.salisarcana.lib.InventoryHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -18,6 +17,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 
 import dev.rndmorris.salisarcana.config.SalisConfig;
+import dev.rndmorris.salisarcana.lib.InventoryHelper;
 import dev.rndmorris.salisarcana.network.MessageScanContainer;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.api.research.ScanResult;

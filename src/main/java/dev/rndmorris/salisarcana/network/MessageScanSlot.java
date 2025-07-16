@@ -51,10 +51,13 @@ public class MessageScanSlot implements IMessage, IMessageHandler<MessageScanSlo
         EntityPlayer entityPlayer = ctx.getServerHandler().playerEntity;
         Container container = entityPlayer.openContainer;
 
-        if (container != null && message.getSlotNumber() >= 0 && message.getSlotNumber() < container.inventorySlots.size()) {
+        if (container != null && message.getSlotNumber() >= 0
+            && message.getSlotNumber() < container.inventorySlots.size()) {
             Slot slot = container.inventorySlots.get(message.getSlotNumber());
 
-            if (slot.getStack() != null && slot.canTakeStack(entityPlayer) && !(slot instanceof SlotCrafting) && !(slot instanceof SlotMerchantResult)) {
+            if (slot.getStack() != null && slot.canTakeStack(entityPlayer)
+                && !(slot instanceof SlotCrafting)
+                && !(slot instanceof SlotMerchantResult)) {
                 ItemStack itemStack = slot.getStack();
                 ScanResult result = new ScanResult(
                     (byte) 1,

@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
 import thaumcraft.api.research.ScanResult;
 import thaumcraft.common.lib.research.ScanManager;
 

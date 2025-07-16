@@ -103,7 +103,8 @@ public class ThaumicInventoryScanner {
         }
         // Handle scanning item
         if (hoveringSlot != null && hoveringSlot.getStack() != null) {
-        // spotless: off
+            // spotless:off
+            
             // spotless made this completely unreadable
             result = new ScanResult(
                 (byte) 1,
@@ -112,7 +113,7 @@ public class ThaumicInventoryScanner {
                 null,
                 ""
             );
-        // spotless: on
+            // spotless:on
             if (hoveringSlot.canTakeStack(player) && !(hoveringSlot instanceof SlotCrafting)
                 && !(hoveringSlot instanceof SlotMerchantResult)
                 && ScanManager.isValidScanTarget(player, result, "@")
