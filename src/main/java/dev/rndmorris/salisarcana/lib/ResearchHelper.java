@@ -161,17 +161,6 @@ public class ResearchHelper {
                 (byte) 0));
     }
 
-    public static boolean consumeScribestuff(EntityPlayer player) {
-        if (SalisConfig.features.creativeOpThaumonomicon.isEnabled() && player.capabilities.isCreativeMode) return true;
-
-        if (ResearchManager.consumeInkFromPlayer(player, false) && player.inventory.consumeInventoryItem(Items.paper)) {
-            ResearchManager.consumeInkFromPlayer(player, true);
-            return true;
-        }
-
-        return false;
-    }
-
     public static boolean hasResearchAspects(String username, AspectList aspects) {
         final var playerAspects = Thaumcraft.proxy.playerKnowledge.getAspectsDiscovered(username);
         for (final var aspect : aspects.aspects.entrySet()) {
