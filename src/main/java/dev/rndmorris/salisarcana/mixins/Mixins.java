@@ -23,7 +23,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BLOCKCANDLE_OOB(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.bugfixes.candleRendererCrashes.isEnabled() && !MixinModCompat.disableBlockCandleFixes)
-        .addCommonMixins(
+        .addClientMixins(
             "blocks.MixinBlockCandleRenderer",
             "blocks.MixinBlockCandle")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
@@ -40,7 +40,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ITEMSHARD_OOB(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.itemShardColor)
-        .addCommonMixins("items.MixinItemShard")
+        .addClientMixins("items.MixinItemShard")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RENDER_REDSTONE_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.renderRedstoneFix)
@@ -56,7 +56,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCI_STAFF_VISUAL_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.staffFocusEffectFix)
-        .addCommonMixins("client.fx.beams.MixinFXBeamWand")
+        .addClientMixins("client.fx.beams.MixinFXBeamWand")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_FORBID_SWAP(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.focalManipulatorForbidSwaps)
@@ -150,9 +150,6 @@ public enum Mixins implements IMixins {
             "events.MixinEventHandlerRunic",
             "items.MixinWandManager",
             "lib.MixinWarpEvents_BaubleSlots")
-        .addRequiredMod(TargetedMod.THAUMCRAFT)),
-    EXTENDED_BAUBLES_SUPPORT_CLIENT(new SalisBuilder()
-        .applyIf(SalisConfig.features.useAllBaublesSlots)
         .addClientMixins("gui.MixinREHWandHandler")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SUPPRESS_CREATIVE_WARP(new SalisBuilder()
@@ -235,15 +232,13 @@ public enum Mixins implements IMixins {
 
     CREATIVE_OP_THAUMONOMICON(new SalisBuilder()
         .applyIf(SalisConfig.features.creativeOpThaumonomicon)
-        .addCommonMixins(
-            "lib.MixinResearchManager",
-            "gui.MixinGuiResearchBrowser_Creative_Scroll")
+        .addCommonMixins("lib.MixinResearchManager")
+        .addClientMixins("gui.MixinGuiResearchBrowser_Creative_Scroll")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     CREATIVE_NO_XP_MANIPULATOR(new SalisBuilder()
         .applyIf(SalisConfig.features.creativeNoXPManipulator)
-        .addCommonMixins(
-            "tiles.MixinTileFocalManipulator_NoXP",
-            "gui.MixinGuiFocalManipulator_CreativeNoXP")
+        .addCommonMixins("tiles.MixinTileFocalManipulator_NoXP")
+        .addClientMixins("gui.MixinGuiFocalManipulator_CreativeNoXP")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_STORE_XP(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.features.enableFocusDisenchanting.isEnabled() || SalisConfig.features.focalDisenchanterReturnXP.isEnabled())
@@ -257,9 +252,8 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCUS_DISENCHANTING(new SalisBuilder()
         .applyIf(SalisConfig.features.enableFocusDisenchanting)
-        .addCommonMixins(
-            "tiles.MixinTileFocalManipulator",
-            "gui.MixinGuiFocalManipulator")
+        .addCommonMixins("tiles.MixinTileFocalManipulator")
+        .addClientMixins("gui.MixinGuiFocalManipulator")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     LEVITATOR_SHIFT_FIX(new SalisBuilder()
@@ -293,9 +287,6 @@ public enum Mixins implements IMixins {
     SINGLE_WAND_REPLACEMENT(new SalisBuilder()
         .setApplyIf(SalisConfig.features::singleWandReplacementEnabled)
         .addCommonMixins("container.MixinContainerArcaneWorkbench_SingleWandReplacement")
-        .addRequiredMod(TargetedMod.THAUMCRAFT)),
-    SINGLE_WAND_REPLACEMENT_CLIENT(new SalisBuilder()
-        .setApplyIf(SalisConfig.features::singleWandReplacementEnabled)
         .addClientMixins("gui.MixinGuiArcaneWorkbench_SingleWandReplacement")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
@@ -335,10 +326,8 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     MISSING_RESEARCH_WORKBENCH(new SalisBuilder()
         .applyIf(SalisConfig.features.notifyMissingResearchWorkbench)
-        .addCommonMixins(
-            "gui.MixinGuiArcaneWorkbench_MissingResearch",
-            "lib.MixinArcaneSceptreRecipe",
-            "lib.MixinArcaneWandRecipe")
+        .addCommonMixins("lib.MixinArcaneSceptreRecipe", "lib.MixinArcaneWandRecipe")
+        .addClientMixins("gui.MixinGuiArcaneWorkbench_MissingResearch")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     RESEARCH_ITEM_EXTENDED(new SalisBuilder()
