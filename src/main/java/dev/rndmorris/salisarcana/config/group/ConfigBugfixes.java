@@ -175,6 +175,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "correctItemInsertion",
         "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
 
+    public final ToggleSetting etherealBloomSaveNBT = new ToggleSetting(
+        this,
+        "etherealBloomSaveNBT",
+        "Thaumcraft will correctly save ethereal bloom counters to disk, preventing the regrowth animation and stopping the cleanse timer from restarting.");
+
     @Nonnull
     @Override
     public String getGroupName() {
