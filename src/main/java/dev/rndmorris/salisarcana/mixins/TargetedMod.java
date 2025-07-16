@@ -1,39 +1,25 @@
-// Code here adapted from
-// https://github.com/GTNewHorizons/Hodgepodge/blob/master/src/main/java/com/mitchej123/hodgepodge/mixins/TargetedMod.java
-// and therefore under the LGPL-3.0 license.
-
 package dev.rndmorris.salisarcana.mixins;
 
-import cpw.mods.fml.common.Mod;
+import javax.annotation.Nonnull;
 
-public enum TargetedMod {
+import com.gtnewhorizon.gtnhmixins.builders.ITargetMod;
+import com.gtnewhorizon.gtnhmixins.builders.TargetModBuilder;
 
-    VANILLA("Minecraft", null),
-    THAUMCRAFT("Thaumcraft", null, "Thaumcraft"), // "thaumcraft.codechicken.core.launch.DepLoader"
-    HODGEPODGE("Hodgepodge", null, "hodgepodge"),
+public enum TargetedMod implements ITargetMod {
 
-    THAUMIC_TINKERER("Thaumic Tinkerer", null, "ThaumicTinkerer"),
-    AUTOMAGY("Automagy", null, "Automagy"),;
+    AUTOMAGY("Automagy"),
+    THAUMCRAFT("Thaumcraft"),
+    THAUMIC_TINKERER("ThaumicTinkerer");
 
-    /** The "name" in the {@link Mod @Mod} annotation */
-    public final String modName;
-    /** Class that implements the IFMLLoadingPlugin interface */
-    public final String coreModClass;
-    /** The "modid" in the {@link Mod @Mod} annotation */
-    public final String modId;
+    private final TargetModBuilder builder;
 
-    TargetedMod(String modName, String coreModClass) {
-        this(modName, coreModClass, null);
+    TargetedMod(String modId) {
+        this.builder = new TargetModBuilder().setModId(modId);
     }
 
-    TargetedMod(String modName, String coreModClass, String modId) {
-        this.modName = modName;
-        this.coreModClass = coreModClass;
-        this.modId = modId;
-    }
-
+    @Nonnull
     @Override
-    public String toString() {
-        return "TargetedMod{modName='" + modName + "', coreModClass='" + coreModClass + "', modId='" + modId + "'}";
+    public TargetModBuilder getBuilder() {
+        return builder;
     }
 }
