@@ -35,10 +35,7 @@ public class MessageScanIInventory implements IMessage, IMessageHandler<MessageS
     @Override
     public IMessage onMessage(MessageScanIInventory message, MessageContext ctx) {
         ScanResult sr = new ScanResult((byte) 1, message.id, message.meta, null, "");
-        if (ScanManager.isValidScanTarget(ctx.getServerHandler().playerEntity, sr, "@")
-            && !ScanManager.getScanAspects(sr, ctx.getServerHandler().playerEntity.worldObj).aspects.isEmpty()) {
-            ScanManager.completeScan(ctx.getServerHandler().playerEntity, sr, "@");
-        }
+        ScanManager.completeScan(ctx.getServerHandler().playerEntity, sr, "@");
         PacketHandler.INSTANCE.sendTo(
             new PacketSyncScannedItems(ctx.getServerHandler().playerEntity),
             ctx.getServerHandler().playerEntity);

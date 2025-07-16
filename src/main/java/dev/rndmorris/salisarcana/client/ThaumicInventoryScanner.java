@@ -103,15 +103,16 @@ public class ThaumicInventoryScanner {
         }
         // Handle scanning item
         if (hoveringSlot != null && hoveringSlot.getStack() != null) {
+        // spotless: off
+            // spotless made this completely unreadable
             result = new ScanResult(
                 (byte) 1,
-                Item.getIdFromItem(
-                    hoveringSlot.getStack()
-                        .getItem()),
-                hoveringSlot.getStack()
-                    .getItemDamage(),
+                Item.getIdFromItem(hoveringSlot.getStack().getItem()),
+                hoveringSlot.getStack().getItemDamage(),
                 null,
-                "");
+                ""
+            );
+        // spotless: on
             if (hoveringSlot.canTakeStack(player) && !(hoveringSlot instanceof SlotCrafting)
                 && !(hoveringSlot instanceof SlotMerchantResult)
                 && ScanManager.isValidScanTarget(player, result, "@")
@@ -177,7 +178,7 @@ public class ThaumicInventoryScanner {
     private void tryCompleteScan(EntityPlayer player) {
         try {
 
-            if (ScanManager.isValidScanTarget(player, currentScan, "@")) {
+            if (ScanManager.completeScan(player, currentScan, "@")) {
                 NetworkHandler.instance.sendToServer(
                     isHoveringOverPlayer ? new MessageScanSelf() : new MessageScanSlot(hoveringSlot.slotNumber));
             }

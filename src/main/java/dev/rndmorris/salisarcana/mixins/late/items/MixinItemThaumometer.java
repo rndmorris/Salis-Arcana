@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.items;
 
+import dev.rndmorris.salisarcana.lib.InventoryHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -33,7 +34,8 @@ public class MixinItemThaumometer extends Item {
         MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
         if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             TileEntity tile = player.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
-            if (tile instanceof IInventory) {
+            if (tile instanceof IInventory inventory) {
+                InventoryHelper.scanInventory(inventory, player);
                 NetworkHandler.instance.sendToServer(new MessageScanContainer(mop.blockX, mop.blockY, mop.blockZ));
             }
         }
