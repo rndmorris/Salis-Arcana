@@ -80,6 +80,11 @@ public class CustomRecipes {
                     new ItemStack(ConfigBlocks.blockCrystal, 1, metadata));
             }
         }
+
+        if (features.addEmptyPhialJarRecipes.isEnabled()) {
+            GameRegistry.addShapelessRecipe( new ItemStack(ConfigItems.itemEssence, 1), new ItemStack(ConfigItems.itemEssence, 1, OreDictionary.WILDCARD_VALUE));
+            GameRegistry.addShapelessRecipe(new ItemStack(ConfigBlocks.blockJar, 1), new ItemStack(ConfigItems.itemJarFilled, 1, OreDictionary.WILDCARD_VALUE));
+        }
     }
 
     public static void registerRecipesPostInit() {
