@@ -173,7 +173,12 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting correctItemInsertion = new ToggleSetting(
         this,
         "correctItemInsertion",
-        "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+        "Thaumcraft will correctly insert items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+
+    public final ToggleSetting lootBlockHitbox = new ToggleSetting(
+        this,
+        "lootBlockHitbox",
+        "Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.");
 
     public final ToggleSetting silkTouchCrystals = new ToggleSetting(
         this,
