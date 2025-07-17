@@ -6,7 +6,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import thaumcraft.api.research.ScanResult;
+import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.research.ScanManager;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class InventoryHelper {
 
@@ -22,8 +26,11 @@ public class InventoryHelper {
                 item.getItemDamage(),
                 null,
                 "");
+
+            if (ResearchHelper.isItemScanned(player, item, "@")) {
+                continue;
+            }
             ScanManager.completeScan(player, result, "@");
         }
     }
-
 }

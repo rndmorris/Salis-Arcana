@@ -4,12 +4,15 @@ import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -21,8 +24,10 @@ import dev.rndmorris.salisarcana.api.IResearchItemExtended;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
+import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
+import thaumcraft.common.lib.research.ScanManager;
 
 public class ResearchHelper {
 
@@ -154,5 +159,14 @@ public class ResearchHelper {
                 player.getCommandSenderName(),
                 player.worldObj.provider.dimensionId,
                 (byte) 0));
+    }
+
+    public static boolean isItemScanned(EntityPlayer player, ItemStack stack, String prefix) {
+        Item item = stack.getItem();
+        int meta = stack.getItemDamage();
+        Map<String, ArrayList<String>> scannedObjects = Thaumcraft.proxy.getScannedObjects();
+        ArrayList<String> scanned = scannedObjects.get(player.getCommandSenderName());
+        String hash = prefix + ScanManager.generateItemHash(item, meta);
+        return scanned != null && scanned.contains(hash);
     }
 }

@@ -3,7 +3,10 @@ package dev.rndmorris.salisarcana.network;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import thaumcraft.api.research.ScanResult;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketSyncScannedItems;
@@ -35,6 +38,10 @@ public class MessageScanIInventory implements IMessage, IMessageHandler<MessageS
     @Override
     public IMessage onMessage(MessageScanIInventory message, MessageContext ctx) {
         ScanResult sr = new ScanResult((byte) 1, message.id, message.meta, null, "");
+        ItemStack item = new ItemStack(Item.getItemById(message.id), 1, message.meta);
+        if (ResearchHelper.isItemScanned(ctx.getServerHandler().playerEntity, item, "@")) {
+            return null;
+        }
         ScanManager.completeScan(ctx.getServerHandler().playerEntity, sr, "@");
         PacketHandler.INSTANCE.sendTo(
             new PacketSyncScannedItems(ctx.getServerHandler().playerEntity),
