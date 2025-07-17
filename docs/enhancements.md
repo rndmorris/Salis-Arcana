@@ -309,6 +309,9 @@ Add a recipe to convert flesh blocks back into rotten flesh.
 ## Config option: `crystalClusterUncrafting`
 Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.
 
+## Config Option: `addEmptyPhialJarRecipes`
+Adds crafting recipes to convert jars and phials of essentia into their empty variants.
+
 # Enhancements - Wand Component Replacement
 
 ## Config option: `enableReplaceWandCapsRecipe`
