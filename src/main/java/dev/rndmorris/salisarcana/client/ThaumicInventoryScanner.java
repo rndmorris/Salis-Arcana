@@ -177,7 +177,8 @@ public class ThaumicInventoryScanner {
      **/
     private void tryCompleteScan(EntityPlayer player) {
         if (ScanManager.completeScan(player, currentScan, "@")) {
-            // use have to use thaum's packet handler here since PacketScannedToServer is a thaumcraft packet, not a salis packet
+            // use have to use thaum's packet handler here since PacketScannedToServer is a thaumcraft packet, not a
+            // salis packet
             PacketHandler.INSTANCE.sendToServer(new PacketScannedToServer(this.currentScan, player, "@"));
         }
         cancel();

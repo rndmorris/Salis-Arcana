@@ -1,12 +1,13 @@
 package dev.rndmorris.salisarcana.network;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import thaumcraft.api.research.ScanResult;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketSyncScannedItems;
