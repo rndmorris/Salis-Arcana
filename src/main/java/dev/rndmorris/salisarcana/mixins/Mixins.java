@@ -142,6 +142,11 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.correctItemInsertion)
         .addCommonMixins("lib.MixinInventoryUtils_AmountCounting")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    LOOT_BLOCK_HITBOX(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.lootBlockHitbox)
+        .addCommonMixins("blocks.MixinBlockLoot_SetHitbox")
+        .addClientMixins("client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
