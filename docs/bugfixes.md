@@ -185,3 +185,9 @@ Thaumcraft will correctly insect items into inventories - prevents double-counti
 **Config Option:** `etherealBloomSaveNBT`
 
 Thaumcraft will correctly save ethereal bloom counters to disk, preventing the growth animation from looping on relog and stopping the cleanse timer from restarting.
+
+## Abandoned Crates & Old Urn Hitboxes
+
+**Config option:** `lootBlockHitbox`
+
+Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.

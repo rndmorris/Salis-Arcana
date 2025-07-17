@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
@@ -43,6 +44,13 @@ public abstract class MixinContainerArcaneWorkbench_MultiContainer extends Conta
             remap = false))
     public void removeEventHandler(TileArcaneWorkbench instance, Container value, Operation<Void> original) {
         original.call(instance, MultiContainer.removeContainer(instance.eventHandler, this));
+    }
+
+    @ModifyExpressionValue(
+        method = "onContainerClosed",
+        at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z"))
+    public boolean removeEventHanderOnClientToo(boolean original) {
+        return false;
     }
 
     @WrapOperation(
