@@ -180,7 +180,7 @@ Causes Warded Jars and Node in a Jar to create an item with the current contents
 
 Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.
 
-## Ancient Crate & Old Urn Hitboxes
+## Abandoned Crates & Old Urn Hitboxes
 
 **Config option:** `lootBlockHitbox`
 
