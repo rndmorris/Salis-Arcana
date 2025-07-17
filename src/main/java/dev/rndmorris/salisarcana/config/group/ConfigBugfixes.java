@@ -185,6 +185,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "etherealBloomSaveNBT",
         "Thaumcraft will correctly save ethereal bloom counters to disk, preventing the growth animation from looping on relog and stopping the cleanse timer from restarting.");
 
+    public final ToggleSetting thaumatoriumMultiContainer = new ToggleSetting(
+        this,
+        "thaumatoriumMultiContainer",
+        "Fixes some possible bugs caused by multiple players interacting with a Thaumatorium at the same time.");
+
     @Nonnull
     @Override
     public String getGroupName() {

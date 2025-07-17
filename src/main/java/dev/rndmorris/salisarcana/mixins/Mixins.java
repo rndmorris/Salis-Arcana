@@ -76,6 +76,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchMultiContainer)
         .addCommonMixins("container.MixinContainerArcaneWorkbench_MultiContainer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    THAUMATORIUM_MULTI_CONTAINER(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.thaumatoriumMultiContainer)
+        .addCommonMixins("container.MixinContainerThaumatorium_MultiContainer")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NEGATIVE_BOSS_SPAWN_COUNT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.negativeBossSpawnCount)
         .addCommonMixins("tiles.MixinTileEldritchLock")
