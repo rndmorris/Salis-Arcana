@@ -21,6 +21,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.api.OreDict;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.config.SalisConfig;
+import dev.rndmorris.salisarcana.lib.recipe.EmptyJarRecipe;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
@@ -85,9 +86,8 @@ public class CustomRecipes {
             GameRegistry.addShapelessRecipe(
                 new ItemStack(ConfigItems.itemEssence, 1),
                 new ItemStack(ConfigItems.itemEssence, 1, OreDictionary.WILDCARD_VALUE));
-            GameRegistry.addShapelessRecipe(
-                new ItemStack(ConfigBlocks.blockJar, 1),
-                new ItemStack(ConfigItems.itemJarFilled, 1, OreDictionary.WILDCARD_VALUE));
+
+            GameRegistry.addRecipe(new EmptyJarRecipe());
         }
     }
 
