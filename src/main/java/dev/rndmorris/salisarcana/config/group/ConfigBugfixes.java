@@ -185,6 +185,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "silkTouchCrystals",
         "Allows Thaumcraft crystals to be harvested with Silk Touch, preventing them from dropping as shards.");
 
+    public final ToggleSetting thaumatoriumMultiContainer = new ToggleSetting(
+        this,
+        "thaumatoriumMultiContainer",
+        "Fixes some possible bugs caused by multiple players interacting with a Thaumatorium at the same time.");
+
     @Nonnull
     @Override
     public String getGroupName() {
