@@ -178,7 +178,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting etherealBloomSaveNBT = new ToggleSetting(
         this,
         "etherealBloomSaveNBT",
-        "Thaumcraft will correctly save ethereal bloom counters to disk, preventing the regrowth animation and stopping the cleanse timer from restarting.");
+        "Thaumcraft will correctly save ethereal bloom counters to disk, preventing the growth animation from looping on relog and stopping the cleanse timer from restarting.");
 
     @Nonnull
     @Override

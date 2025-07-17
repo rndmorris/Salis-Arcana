@@ -179,3 +179,9 @@ Causes Warded Jars and Node in a Jar to create an item with the current contents
 **Config option:** `correctItemInsertion`
 
 Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.
+
+## Ethereal Bloom Growth Animation Fix
+
+**Config Option:** `etherealBloomSaveNBT`
+
+Thaumcraft will correctly save ethereal bloom counters to disk, preventing the growth animation from looping on relog and stopping the cleanse timer from restarting.
