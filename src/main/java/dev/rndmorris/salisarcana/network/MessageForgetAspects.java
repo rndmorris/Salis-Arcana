@@ -61,7 +61,7 @@ public class MessageForgetAspects implements IMessage, IMessageHandler<MessageFo
         if (message.forgetCount == 0) { // reset all
             playerAspects.aspects.clear();
         } else {
-            for (Aspect aspect : this.aspectsToForget) {
+            for (Aspect aspect : message.aspectsToForget) {
                 playerAspects.aspects.remove(aspect);
             }
         }

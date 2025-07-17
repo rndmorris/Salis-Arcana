@@ -63,7 +63,7 @@ public class MessageResetAspects implements IMessage, IMessageHandler<MessageRes
                 playerAspects.aspects.put(aspect, 1);
             }
         } else {
-            for (Aspect aspect : this.aspectsToReset) {
+            for (Aspect aspect : message.aspectsToReset) {
                 playerAspects.aspects.put(aspect, 1);
             }
         }
