@@ -173,7 +173,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting correctItemInsertion = new ToggleSetting(
         this,
         "correctItemInsertion",
-        "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+        "Thaumcraft will correctly insert items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
 
     @Nonnull
     @Override
