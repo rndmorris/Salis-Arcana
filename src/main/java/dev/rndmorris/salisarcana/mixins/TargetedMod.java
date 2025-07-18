@@ -9,7 +9,8 @@ public enum TargetedMod implements ITargetMod {
 
     AUTOMAGY("Automagy"),
     THAUMCRAFT("Thaumcraft"),
-    THAUMIC_TINKERER("ThaumicTinkerer");
+    THAUMIC_TINKERER("ThaumicTinkerer"),
+    BAUBLES_EXPANDED("Baubles|Expanded");
 
     private final TargetModBuilder builder;
 
