@@ -60,6 +60,15 @@ public class CustomResearch {
             DisenchantFocusUpgrade.registerResearch();
         }
 
+        if (SalisConfig.features.nomiconDuplicateResearch.isEnabled()) {
+            final var dupeResearch = ResearchCategories.getResearch("RESEARCHDUPE");
+            final var oldPages = dupeResearch.getPages();
+            final var newPages = new ResearchPage[oldPages.length + 1];
+            System.arraycopy(oldPages, 0, newPages, 0, oldPages.length);
+            newPages[oldPages.length] = new ResearchPage("salisarcana:duplicate_research.extra_page");
+            dupeResearch.setPages(newPages);
+        }
+
         containerScanResearch = maybeRegister(
             SalisConfig.features.thaumometerScanContainersResearch,
             Item.getItemFromBlock(Blocks.chest));
