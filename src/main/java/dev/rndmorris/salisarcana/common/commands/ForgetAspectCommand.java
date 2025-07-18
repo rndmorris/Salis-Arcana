@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentTranslation;
 
@@ -57,7 +58,7 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
         final var playerAspects = playerKnowledge.aspectsDiscovered.get(arguments.targetPlayer.getCommandSenderName());
         if (playerAspects != null) {
             if (arguments.reset) {
-                removedCount = resetAspects(playerAspects, arguments);
+                removedCount = resetAspects(playerAspects, arguments, arguments.targetPlayer);
             } else if (arguments.forget) {
                 removedCount = forgetAspects(playerAspects, arguments);
             }
@@ -72,16 +73,16 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
         }
     }
 
-    private int resetAspects(AspectList aspects, Arguments arguments) {
+    private int resetAspects(AspectList aspects, Arguments arguments, EntityPlayerMP player) {
         int removedCount = 0;
         if (arguments.all) {
-            NetworkHandler.instance.sendToServer(new MessageResetAspects());
+            NetworkHandler.instance.sendTo(new MessageResetAspects(), player);
             for (final var aspect : aspects.getAspects()) {
                 aspects.aspects.put(aspect, 1);
                 removedCount++;
             }
         } else if (arguments.aspects != null && !arguments.aspects.isEmpty()) {
-            NetworkHandler.instance.sendToServer(new MessageResetAspects(arguments.aspects));
+            NetworkHandler.instance.sendTo(new MessageResetAspects(arguments.aspects), player);
             for (final var aspect : arguments.aspects) {
                 aspects.aspects.put(aspect, 1);
                 removedCount++;
