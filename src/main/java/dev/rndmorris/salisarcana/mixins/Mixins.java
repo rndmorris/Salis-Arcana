@@ -391,6 +391,16 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.deadlyGazeMobCheck)
         .addCommonMixins("lib.MixinWarpEvents_DeadlyGaze")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    DUPLICATION_BUTTON(new SalisBuilder()
+        .applyIf(SalisConfig.features.nomiconDuplicateResearch)
+        .addClientMixins("gui.MixinGuiResearchBrowser_DuplicateButton")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FREE_DUPLICATES(new SalisBuilder()
+        .applyIf(SalisConfig.features.researchDuplicationFree)
+        .addCommonMixins("tiles.MixinTileResearchTable_FreeDuplicates")
+        .addClientMixins("gui.MixinGuiResearchTable_FreeDuplicates")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ;
     // spotless:on
 
