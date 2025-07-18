@@ -170,7 +170,7 @@ public class ResearchHelper {
         String hash = prefix + ScanManager.generateItemHash(item, meta);
         return scanned != null && scanned.contains(hash);
     }
-  
+
     public static boolean hasResearchAspects(String username, AspectList aspects) {
         final var playerAspects = Thaumcraft.proxy.playerKnowledge.getAspectsDiscovered(username);
         for (final var aspect : aspects.aspects.entrySet()) {
