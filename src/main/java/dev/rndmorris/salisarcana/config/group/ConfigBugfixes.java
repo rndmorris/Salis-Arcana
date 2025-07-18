@@ -185,6 +185,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "lootBlockHitbox",
         "Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.");
 
+    public final ToggleSetting etherealBloomSaveNBT = new ToggleSetting(
+        this,
+        "etherealBloomSaveNBT",
+        "Thaumcraft will correctly save ethereal bloom counters to disk, preventing the growth animation from looping on relog and stopping the cleanse timer from restarting.");
+
     public final ToggleSetting silkTouchCrystalClusters = new ToggleSetting(
         this,
         "silkTouchCrystalClusters",
