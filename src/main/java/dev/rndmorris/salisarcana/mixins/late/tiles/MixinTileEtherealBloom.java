@@ -27,9 +27,9 @@ public class MixinTileEtherealBloom extends TileEntity {
         super.readFromNBT(compound);
 
         // we prevent overflows later which also caps counters to 0 <= counter <= 255 so we can safely cast to byte
-        this.counter = compound.getByte("counter");
+        this.counter = compound.getByte("salisarcana:counter");
 
-        this.growthCounter = compound.getByte("growthCounter");
+        this.growthCounter = compound.getByte("salisarcana:growthCounter");
 
         // might as well prevent some overflows here
 
@@ -45,8 +45,8 @@ public class MixinTileEtherealBloom extends TileEntity {
         this.counter %= 160;
         this.growthCounter = Math.min(101, this.growthCounter);
 
-        compound.setByte("counter", (byte) this.counter);
-        compound.setByte("growthCounter", (byte) this.growthCounter);
+        compound.setByte("salisarcana:counter", (byte) this.counter);
+        compound.setByte("salisarcana:growthCounter", (byte) this.growthCounter);
 
         super.writeToNBT(compound);
     }
