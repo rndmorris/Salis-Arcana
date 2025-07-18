@@ -185,3 +185,9 @@ Thaumcraft will correctly insect items into inventories - prevents double-counti
 **Config option:** `lootBlockHitbox`
 
 Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.
+
+## Thaumatorium Multiplayer Bug-fix
+
+**Config option:** `thaumatoriumMultiContainer`
+
+Makes the server correctly handle multiple players interacting with a Thaumatorium at the same time and cleans up client-side `Container`s when the player closes the GUI.

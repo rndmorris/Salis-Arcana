@@ -180,6 +180,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "lootBlockHitbox",
         "Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.");
 
+    public final ToggleSetting thaumatoriumMultiContainer = new ToggleSetting(
+        this,
+        "thaumatoriumMultiContainer",
+        "Fixes some possible bugs caused by multiple players interacting with a Thaumatorium at the same time.");
+
     @Nonnull
     @Override
     public String getGroupName() {
