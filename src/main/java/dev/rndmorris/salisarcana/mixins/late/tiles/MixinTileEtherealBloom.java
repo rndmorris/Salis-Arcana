@@ -25,9 +25,11 @@ public class MixinTileEtherealBloom extends TileEntity {
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        this.counter = compound.getInteger("counter");
 
-        this.growthCounter = compound.getInteger("growthCounter");
+        // we prevent overflows later which also caps counters to 0 <= counter <= 255 so we can safely cast to byte
+        this.counter = compound.getByte("counter");
+
+        this.growthCounter = compound.getByte("growthCounter");
 
         // might as well prevent some overflows here
 
@@ -40,11 +42,12 @@ public class MixinTileEtherealBloom extends TileEntity {
 
     @Override
     public void writeToNBT(NBTTagCompound compound) {
-        compound.setInteger("counter", this.counter);
-        compound.setInteger("growthCounter", this.growthCounter);
-
         this.counter %= 160;
         this.growthCounter = Math.min(101, this.growthCounter);
+
+        compound.setByte("counter", (byte) this.counter);
+        compound.setByte("growthCounter", (byte) this.growthCounter);
+
         super.writeToNBT(compound);
     }
 
