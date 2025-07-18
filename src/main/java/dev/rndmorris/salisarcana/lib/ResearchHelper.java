@@ -19,8 +19,10 @@ import net.minecraftforge.common.util.FakePlayer;
 
 import dev.rndmorris.salisarcana.api.IResearchItemExtended;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
+import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
 
@@ -154,5 +156,15 @@ public class ResearchHelper {
                 player.getCommandSenderName(),
                 player.worldObj.provider.dimensionId,
                 (byte) 0));
+    }
+
+    public static boolean hasResearchAspects(String username, AspectList aspects) {
+        final var playerAspects = Thaumcraft.proxy.playerKnowledge.getAspectsDiscovered(username);
+        for (final var aspect : aspects.aspects.entrySet()) {
+            if (playerAspects.getAmount(aspect.getKey()) < aspect.getValue()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

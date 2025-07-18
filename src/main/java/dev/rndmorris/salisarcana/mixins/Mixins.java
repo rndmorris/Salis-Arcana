@@ -13,6 +13,10 @@ public enum Mixins implements IMixins {
 
     // spotless:off
     // Bugfixes
+    ADVANCED_ARCANE_FURNACE_SAVE_NBT(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.advAlchemicalFurnaceSaveNbt)
+        .addCommonMixins("tiles.MixinTileAlchemyFurnaceAdvanced_PersistNbt")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ARCANE_FURNACE_DUPE_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.infernalFurnaceDupeFix)
         .addCommonMixins("blocks.MixinBlockArcaneFurnace")
@@ -149,6 +153,10 @@ public enum Mixins implements IMixins {
     ETHEREALBLOOM_SAVE_NBT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.etherealBloomSaveNBT)
         .addCommonMixins("tiles.MixinTileEtherealBloom")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    SILK_TOUCH_CRYSTALS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.silkTouchCrystalClusters)
+        .addCommonMixins("blocks.MixinBlockCrystal")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     LOOT_BLOCK_HITBOX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.lootBlockHitbox)
@@ -390,6 +398,16 @@ public enum Mixins implements IMixins {
     DEADLY_GAZE_MOB_CHECK(new SalisBuilder()
         .applyIf(SalisConfig.features.deadlyGazeMobCheck)
         .addCommonMixins("lib.MixinWarpEvents_DeadlyGaze")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    DUPLICATION_BUTTON(new SalisBuilder()
+        .applyIf(SalisConfig.features.nomiconDuplicateResearch)
+        .addClientMixins("gui.MixinGuiResearchBrowser_DuplicateButton")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FREE_DUPLICATES(new SalisBuilder()
+        .applyIf(SalisConfig.features.researchDuplicationFree)
+        .addCommonMixins("tiles.MixinTileResearchTable_FreeDuplicates")
+        .addClientMixins("gui.MixinGuiResearchTable_FreeDuplicates")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ;
     // spotless:on
