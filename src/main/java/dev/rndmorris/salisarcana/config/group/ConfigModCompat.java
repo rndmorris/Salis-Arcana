@@ -19,6 +19,11 @@ public class ConfigModCompat extends ConfigGroup {
         "Whether or not scrolling should scroll to next page of tabs or loop to first tab of the page, in the event that there are too many tabs.")
             .setCategory("tc4tweaks");
 
+    public final ToggleSetting focusPouchSlot = new ToggleSetting(
+        this,
+        "focusPouchSlot",
+        "Add a special bauble slot specifically for the Focus Pouch.").setCategory("Baubles|Expanded");
+
     @Nonnull
     @Override
     public String getGroupName() {

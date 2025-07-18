@@ -387,6 +387,12 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.deadlyGazeMobCheck)
         .addCommonMixins("lib.MixinWarpEvents_DeadlyGaze")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    FOCUS_POUCH_SLOT(new SalisBuilder()
+        .applyIf(SalisConfig.modCompat.focusPouchSlot)
+        .addCommonMixins("items.MixinItemFocusPouchBauble_ExpandedBaublesSlot")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)
+        .addRequiredMod(TargetedMod.BAUBLES_EXPANDED))
     ;
     // spotless:on
 
