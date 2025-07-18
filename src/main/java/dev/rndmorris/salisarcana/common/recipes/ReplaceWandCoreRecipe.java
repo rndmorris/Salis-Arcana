@@ -7,11 +7,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.github.bsideup.jabel.Desugar;
+import com.gtnewhorizons.tcwands.api.wandinfo.WandDetails;
+import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 
 import dev.rndmorris.salisarcana.api.IMultipleResearchArcaneRecipe;
 import dev.rndmorris.salisarcana.common.CustomResearch;
+import dev.rndmorris.salisarcana.common.compat.GTNHTCWandsCompat;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
@@ -88,7 +92,6 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
 
     @Override
     public AspectList getAspects(IInventory tableInv) {
-        final var empty = new AspectList();
         final var scanResult = scanTable(tableInv);
         if (scanResult == null || scanResult.invalidInputs()) {
             return null;
@@ -101,7 +104,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
         final var cost = scanResult.wandType()
             .getCraftingVisCost(scanResult.wandCaps(), scanResult.newRod());
         if (cost < 0) {
-            return empty;
+            return new AspectList();
         }
 
         return AspectHelper.primalList(cost);
@@ -116,63 +119,110 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
         ItemStack wandItem = null;
         WandRod newRod = null;
 
-        for (var slot = 0; slot < tableInv.getSizeInventory() && slot < 9; ++slot) {
-            final var slotItem = tableInv.getStackInSlot(slot);
+        int screwOreID = -1;
+        ItemStack conductor = null;
+        int screws = 0;
+        int conductors = 0;
+
+        // First pass: find only one wand and one new rod
+        for (int slot = 0; slot < tableInv.getSizeInventory() && slot < 9; ++slot) {
+            final ItemStack slotItem = tableInv.getStackInSlot(slot);
+            if (slotItem == null) continue;
 
             final var maybeRod = WandHelper.getWandRodFromItem(slotItem);
             if (maybeRod != null) {
-                if (newRod != null) {
-                    return null;
-                }
+                if (newRod != null) return null; // Multiple rods
                 newRod = maybeRod;
+
                 continue;
             }
 
             final var maybeWand = WandHelper.getWandItem(slotItem);
             if (maybeWand != null) {
-                if (wandItem != null) {
-                    return null;
-                }
+                if (wandItem != null) return null; // Multiple wands
                 wandItem = slotItem;
-                continue;
-            }
-
-            if (slotItem != null) {
-                return null;
             }
         }
 
-        return new InvScanResult(wandItem, newRod);
+        if (SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled() && wandItem != null && newRod != null) {
+            AbstractWandWrapper wrapper = GTNHTCWandsCompat.getWandWrapper(newRod, WandType.getWandType(wandItem));
+            if (wrapper == null) return null;
+            WandDetails props = wrapper.getDetails();
+            screwOreID = OreDictionary.getOreID(props.getScrew());
+            conductor = props.getConductor();
+        }
+
+        // Second pass: check screws & conductors with GTNHTCWands or find garbage
+        for (int slot = 0; slot < tableInv.getSizeInventory() && slot < 9; ++slot) {
+            final ItemStack slotItem = tableInv.getStackInSlot(slot);
+            if (slotItem == null) continue;
+
+            // Skip wand and rod slots
+            if (slotItem == wandItem) continue;
+            if (WandHelper.getWandRodFromItem(slotItem) == newRod) continue;
+
+            if (!SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) {
+                return null; // Any leftover item
+            }
+
+            boolean matched = false;
+
+            if (conductor != null && slotItem.isItemEqual(conductor)) {
+                conductors++;
+                matched = true;
+            } else if (screwOreID != -1) {
+                for (int id : OreDictionary.getOreIDs(slotItem)) {
+                    if (id == screwOreID) {
+                        screws++;
+                        matched = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!matched) {
+                return null; // Any leftover item
+            }
+        }
+
+        return new InvScanResult(wandItem, newRod, screws, conductors);
     }
 
     @Override
     public String[] salisArcana$getResearches(IInventory inv, World world, EntityPlayer player) {
         final var scan = scanTable(inv);
-
         if (scan == null || scan.invalidInputs()) {
             return new String[] { getResearch() };
         }
-
-        return new String[] { getResearch(), scan.newRod.getResearch() };
+        return new String[] { getResearch(), scan.newRod()
+            .getResearch() };
     }
 
     @Desugar
-    private record InvScanResult(ItemStack wandItem, WandRod newRod) {
+    private record InvScanResult(ItemStack wandItem, WandRod newRod, int screws, int conductors) {
 
         public boolean invalidInputs() {
-            if (wandItem == null) {
+            if (wandItem == null || newRod == null) {
                 return true;
             }
-
             if (SalisConfig.features.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
                 return true;
             }
-
             final var oldRod = oldRod();
-            if (newRod == null || oldRod == null) {
+            if (oldRod == null || newRod == oldRod) {
                 return true;
             }
-            return newRod == oldRod;
+
+            if (!SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) return false;
+
+            return screws != getRequiredScrews() || conductors != 2;
+        }
+
+        public int getRequiredScrews() {
+            if (wandType() == WandType.SCEPTER || wandType() == WandType.STAFFTER) {
+                return 2;
+            }
+            return 4;
         }
 
         public @Nullable WandCap wandCaps() {

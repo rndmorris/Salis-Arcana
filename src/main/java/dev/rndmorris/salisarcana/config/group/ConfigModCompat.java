@@ -5,11 +5,13 @@ import javax.annotation.Nonnull;
 import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
+import dev.rndmorris.salisarcana.config.settings.compat.GTNHTCWandsCompatSettings;
 import dev.rndmorris.salisarcana.config.settings.compat.UBCCompatSettings;
 
 public class ConfigModCompat extends ConfigGroup {
 
     public final UBCCompatSettings undergroundBiomes = new UBCCompatSettings(this);
+    public final GTNHTCWandsCompatSettings gtnhWands = new GTNHTCWandsCompatSettings(this);
 
     public final ToggleSetting tc4tweakScrollPages = new ToggleSetting(
         SalisConfig.features.nomiconScrollwheelEnabled,
