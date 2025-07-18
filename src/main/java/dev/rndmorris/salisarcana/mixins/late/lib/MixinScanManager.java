@@ -44,6 +44,9 @@ public class MixinScanManager {
 
         // Items.feather is just a simple way to get access to getMovingObjectPositionFromPlayer
         MovingObjectPosition mop = Items.feather.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
+        if (mop == null) {
+            return;
+        }
         TileEntity tile = player.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
         // null check is handled by instanceof
         if (tile instanceof IInventory && !ScanManager.isValidScanTarget(player, scan, "@")) {
