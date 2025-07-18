@@ -85,7 +85,7 @@ public class CustomRecipes {
         if (features.addEmptyPhialJarRecipes.isEnabled()) {
             GameRegistry.addShapelessRecipe(
                 new ItemStack(ConfigItems.itemEssence, 1),
-                new ItemStack(ConfigItems.itemEssence, 1, OreDictionary.WILDCARD_VALUE));
+                new ItemStack(ConfigItems.itemEssence, 1, 1));
 
             GameRegistry.addRecipe(new EmptyJarRecipe());
         }
