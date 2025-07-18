@@ -34,7 +34,10 @@ public abstract class MixinWandManager {
             .getSizeInventory();
     }
 
-    @ModifyConstant(method = {"fetchFocusFromPouch", "addFocusToPouch"}, constant = @Constant(intValue = 4), remap = false)
+    @ModifyConstant(
+        method = { "fetchFocusFromPouch", "addFocusToPouch" },
+        constant = @Constant(intValue = 4),
+        remap = false)
     private static int fetchFocusAllBaubles(int value, EntityPlayer player) {
         return BaublesApi.getBaubles(player)
             .getSizeInventory();
