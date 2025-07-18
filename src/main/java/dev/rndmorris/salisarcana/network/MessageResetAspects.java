@@ -2,6 +2,8 @@ package dev.rndmorris.salisarcana.network;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
@@ -55,7 +57,7 @@ public class MessageResetAspects implements IMessage, IMessageHandler<MessageRes
 
     @Override
     public IMessage onMessage(MessageResetAspects message, MessageContext ctx) {
-        EntityPlayer player = ctx.getServerHandler().playerEntity;
+        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
         final PlayerKnowledge playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
         final AspectList playerAspects = playerKnowledge.aspectsDiscovered.get(player.getCommandSenderName());
         if (message.resetCount == 0) { // reset all
