@@ -180,10 +180,10 @@ public class ConfigBugfixes extends ConfigGroup {
         "lootBlockHitbox",
         "Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.");
 
-    public final ToggleSetting silkTouchCrystals = new ToggleSetting(
+    public final ToggleSetting silkTouchCrystalClusters = new ToggleSetting(
         this,
-        "silkTouchCrystals",
-        "Allows Thaumcraft crystals to be harvested with Silk Touch, preventing them from dropping as shards.");
+        "silkTouchCrystalClusters",
+        "Allows Thaumcraft crystal clusters to be harvested with Silk Touch, preventing them from dropping as shards.");
 
     public final ToggleSetting thaumatoriumMultiContainer = new ToggleSetting(
         this,

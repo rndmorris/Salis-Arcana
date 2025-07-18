@@ -182,9 +182,9 @@ Thaumcraft will correctly insect items into inventories - prevents double-counti
 
 ## Silk Touch Crystal Clusters
 
-**Config option:** `silkTouchCrystals`
+**Config option:** `silkTouchCrystalClusters`
 
-Allows Thaumcraft crystals to be harvested with Silk Touch, preventing them from dropping as shards.
+Allows Thaumcraft crystal clusters to be harvested with Silk Touch, preventing them from dropping as shards.
 
 ## Abandoned Crates & Old Urn Hitboxes
 
