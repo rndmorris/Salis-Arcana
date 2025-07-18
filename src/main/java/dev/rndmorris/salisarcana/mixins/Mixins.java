@@ -147,7 +147,7 @@ public enum Mixins implements IMixins {
         .addCommonMixins("lib.MixinInventoryUtils_AmountCounting")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SILK_TOUCH_CRYSTALS(new SalisBuilder()
-        .applyIf(SalisConfig.bugfixes.silkTouchCrystals)
+        .applyIf(SalisConfig.bugfixes.silkTouchCrystalClusters)
         .addCommonMixins("blocks.MixinBlockCrystal")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     LOOT_BLOCK_HITBOX(new SalisBuilder()
