@@ -455,6 +455,11 @@ public class ConfigFeatures extends ConfigGroup {
         "deadlyGazeMobCheck",
         "If enabled, the Deadly Gaze effect will only affect mobs that are not invulnerable or immune to wither");
 
+    public final ToggleSetting addEmptyPhialJarRecipes = new ToggleSetting(
+        this,
+        "addEmptyPhialJarRecipes",
+        "Adds crafting recipes to empty a phial or jar of essentia.");
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
