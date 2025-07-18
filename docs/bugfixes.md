@@ -2,6 +2,13 @@
 
 Config file: `config/salisarcana/bugfixes.cfg`
 
+## Advanced Alchemical Furnace - Save Additional NBT Data
+
+**Config option:** `advAlchemicalFurnaceSaveNbt`
+
+The Advanced Alchemical Furnace will save and load additional NBT data needed to remember how recently it requested
+centivis and its delay between melting items.
+
 ## Beacon Blocks
 
 **Config option:** `blockCosmeticSolidBeaconIds`

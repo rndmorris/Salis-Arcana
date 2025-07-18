@@ -13,6 +13,10 @@ public enum Mixins implements IMixins {
 
     // spotless:off
     // Bugfixes
+    ADVANCED_ARCANE_FURNACE_SAVE_NBT(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.advAlchemicalFurnaceSaveNbt)
+        .addCommonMixins("tiles.MixinTileAlchemyFurnaceAdvanced_PersistNbt")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ARCANE_FURNACE_DUPE_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.infernalFurnaceDupeFix)
         .addCommonMixins("blocks.MixinBlockArcaneFurnace")
