@@ -463,7 +463,7 @@ public class ConfigFeatures extends ConfigGroup {
     public final ToggleSetting bannerFreePatterns = new ToggleSetting(
         this,
         "bannerFreePatterns",
-        "Causes Banners to not consume the essentia inside the phial when a pattern is applied. Overrides bannerReturnPhials in the bugfixes module.")
+        "Applying patterns to banners not consume the phial or the essentia. Overrides bannerReturnPhials in the bugfixes module.")
             .setEnabled(false);
 
     public boolean singleWandReplacementEnabled() {

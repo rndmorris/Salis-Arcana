@@ -203,7 +203,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting bannerReturnPhials = new ToggleSetting(
         this,
         "bannerReturnPhials",
-        "Causes Banners to return an empty phial when a filled phial is used to apply a pattern to the Banner.");
+        "Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.");
 
     @Nonnull
     @Override

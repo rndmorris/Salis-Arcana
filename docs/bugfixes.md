@@ -211,12 +211,8 @@ Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug w
 
 Makes the server correctly handle multiple players interacting with a Thaumatorium at the same time and cleans up client-side `Container`s when the player closes the GUI.
 
-### Prevent Consumption of Phials when Applied to Banners
+## Prevent Consumption of Phials when Applied to Banners
 
-**Config option:** `bannerPhialConsumption`
+**Config option:** `bannerReturnPhials`
 
-Changes the behavior of banners when having a pattern added.
-
-- `FREE` - adding a pattern to a banner does not consume the phial or the essentia.
-- `ESSENTIA` (default) - adding a pattern to a banner will consume the phial and return an empty phial.
-- `PHIAL` - the entire phial is consumed (the vanilla behavior of Thaumcraft's banners)
+Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.
