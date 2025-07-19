@@ -163,6 +163,10 @@ public enum Mixins implements IMixins {
         .addCommonMixins("blocks.MixinBlockLoot_SetHitbox")
         .addClientMixins("client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    BANNER_PHIAL_CONSUMPTION(new SalisBuilder()
+        .setApplyIf(() -> SalisConfig.bugfixes.bannerReturnPhials.isEnabled() || SalisConfig.features.bannerFreePatterns.isEnabled() || SalisConfig.features.stopCreativeModeItemConsumption.isEnabled())
+        .addCommonMixins("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()

@@ -200,6 +200,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "thaumatoriumMultiContainer",
         "Fixes some possible bugs caused by multiple players interacting with a Thaumatorium at the same time.");
 
+    public final ToggleSetting bannerReturnPhials = new ToggleSetting(
+        this,
+        "bannerReturnPhials",
+        "Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.");
+
     @Nonnull
     @Override
     public String getGroupName() {

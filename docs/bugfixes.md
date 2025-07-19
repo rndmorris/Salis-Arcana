@@ -210,3 +210,9 @@ Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug w
 **Config option:** `thaumatoriumMultiContainer`
 
 Makes the server correctly handle multiple players interacting with a Thaumatorium at the same time and cleans up client-side `Container`s when the player closes the GUI.
+
+## Prevent Consumption of Phials when Applied to Banners
+
+**Config option:** `bannerReturnPhials`
+
+Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.
