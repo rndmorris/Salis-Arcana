@@ -6,7 +6,6 @@ package dev.rndmorris.salisarcana.mixins.late.tiles;
 
 import java.util.ArrayList;
 
-import dev.rndmorris.salisarcana.api.IVisContainer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -21,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import dev.rndmorris.salisarcana.api.IVisContainer;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
