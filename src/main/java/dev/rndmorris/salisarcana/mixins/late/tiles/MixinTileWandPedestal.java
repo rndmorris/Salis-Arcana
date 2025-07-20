@@ -6,6 +6,7 @@ package dev.rndmorris.salisarcana.mixins.late.tiles;
 
 import java.util.ArrayList;
 
+import dev.rndmorris.salisarcana.lib.ifaces.IVisContainer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -60,31 +61,15 @@ public abstract class MixinTileWandPedestal extends TileThaumcraft implements IS
     private void sa$rechargeViaCV(CallbackInfo ci) {
         // no null check because vanilla does it
         ItemStack stack = getStackInSlot(0);
-
-        if (stack.getItem() instanceof ItemWandCasting wand) {
-            AspectList as = wand.getAspectsWithRoom(stack);
+        if (stack.getItem() instanceof IVisContainer container) {
+            AspectList as = container.getAspectsWithRoom(stack);
             if (as != null && as.size() > 0) {
                 for (Aspect aspect : as.getAspects()) {
                     // Pedestal operates every 5 ticks
                     int drained = VisNetHandler
                         .drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, aspect, 25);
                     if (drained > 0) {
-                        wand.addRealVis(stack, aspect, drained, true);
-                        draining = true;
-                        somethingChanged = true;
-                        sa$needSync = true;
-                    }
-                }
-            }
-        } else if (stack.getItem() instanceof ItemAmuletVis amulet) {
-            AspectList as = amulet.getAspectsWithRoom(stack);
-            if (as != null && as.size() > 0) {
-                for (Aspect aspect : as.getAspects()) {
-                    // Pedestal operates every 5 ticks
-                    int drained = VisNetHandler
-                        .drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, aspect, 25);
-                    if (drained > 0) {
-                        amulet.addRealVis(stack, aspect, drained, true);
+                        container.addRealVis(stack, aspect, drained, true);
                         draining = true;
                         somethingChanged = true;
                         sa$needSync = true;
