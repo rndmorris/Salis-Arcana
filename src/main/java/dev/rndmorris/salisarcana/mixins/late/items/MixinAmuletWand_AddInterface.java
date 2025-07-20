@@ -1,6 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.items;
 
-import dev.rndmorris.salisarcana.lib.ifaces.IVisContainer;
+import dev.rndmorris.salisarcana.api.IVisContainer;
 import org.spongepowered.asm.mixin.Mixin;
 import thaumcraft.common.items.baubles.ItemAmuletVis;
 import thaumcraft.common.items.wands.ItemWandCasting;

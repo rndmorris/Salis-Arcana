@@ -6,7 +6,7 @@ package dev.rndmorris.salisarcana.mixins.late.tiles;
 
 import java.util.ArrayList;
 
-import dev.rndmorris.salisarcana.lib.ifaces.IVisContainer;
+import dev.rndmorris.salisarcana.api.IVisContainer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -26,8 +26,6 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.visnet.TileVisNode;
 import thaumcraft.api.visnet.VisNetHandler;
-import thaumcraft.common.items.baubles.ItemAmuletVis;
-import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileWandPedestal;
 
 @Mixin(TileWandPedestal.class)
