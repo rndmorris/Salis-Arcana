@@ -8,7 +8,9 @@ public class BaublesExpandedCompat {
     public static final String POUCH_SLOT = "focus_pouch";
 
     public static void initialize() {
-        if (SalisConfig.modCompat.focusPouchSlot.isEnabled()) {
+        if (!SalisConfig.modCompat.baublesExpanded.isEnabled()) return;
+
+        if (SalisConfig.modCompat.baublesExpanded.focusPouchSlot.isEnabled()) {
             BaubleExpandedSlots.tryRegisterType(POUCH_SLOT);
             BaubleExpandedSlots.tryAssignSlotOfType(POUCH_SLOT);
         }

@@ -12,7 +12,6 @@ import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -31,7 +30,6 @@ import dev.rndmorris.salisarcana.common.commands.ListResearchCommand;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
 import dev.rndmorris.salisarcana.common.commands.UpdateNodeCommand;
 import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
-import dev.rndmorris.salisarcana.common.compat.BaublesExpandedCompat;
 import dev.rndmorris.salisarcana.common.compat.ModCompat;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
@@ -66,9 +64,7 @@ public class CommonProxy {
             DisenchantFocusUpgrade.initialize();
         }
 
-        if (Loader.isModLoaded("Baubles|Expanded")) {
-            BaublesExpandedCompat.initialize();
-        }
+        ModCompat.preInit();
 
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();

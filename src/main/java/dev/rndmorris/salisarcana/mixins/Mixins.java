@@ -389,7 +389,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     FOCUS_POUCH_SLOT(new SalisBuilder()
-        .applyIf(SalisConfig.modCompat.focusPouchSlot)
+        .applyIf(SalisConfig.modCompat.baublesExpanded.focusPouchSlot)
         .addCommonMixins("items.MixinItemFocusPouchBauble_ExpandedBaublesSlot")
         .addRequiredMod(TargetedMod.THAUMCRAFT)
         .addRequiredMod(TargetedMod.BAUBLES_EXPANDED))
