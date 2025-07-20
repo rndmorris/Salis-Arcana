@@ -2,6 +2,13 @@
 
 Config file: `config/salisarcana/bugfixes.cfg`
 
+## Advanced Alchemical Furnace - Save Additional NBT Data
+
+**Config option:** `advAlchemicalFurnaceSaveNbt`
+
+The Advanced Alchemical Furnace will save and load additional NBT data needed to remember how recently it requested
+centivis and its delay between melting items.
+
 ## Beacon Blocks
 
 **Config option:** `blockCosmeticSolidBeaconIds`
@@ -179,6 +186,18 @@ Causes Warded Jars and Node in a Jar to create an item with the current contents
 **Config option:** `correctItemInsertion`
 
 Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.
+
+## Ethereal Bloom Growth Animation Fix
+
+**Config Option:** `etherealBloomSaveNBT`
+
+Thaumcraft will correctly save ethereal bloom counters to disk, preventing the growth animation from looping on relog and stopping the cleanse timer from restarting.
+
+## Silk Touch Crystal Clusters
+
+**Config option:** `silkTouchCrystalClusters`
+
+Allows Thaumcraft crystal clusters to be harvested with Silk Touch, preventing them from dropping as shards.
 
 ## Abandoned Crates & Old Urn Hitboxes
 

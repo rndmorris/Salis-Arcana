@@ -54,3 +54,9 @@ Secret salt to enhance and refine Thaumcraft 4
 **Source:** https://game-icons.net/1x1/lorc/double-ringed-orb.html
 
 **License:** [Creative Commons Attribution 3.0 Unported](https://creativecommons.org/licenses/by/3.0/deed.en) license
+
+## "Create Duplicate Research" Icon in Thaumonomicon
+
+**By:** Nikolay S.
+
+**License:** [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
