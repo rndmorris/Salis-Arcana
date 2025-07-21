@@ -10,7 +10,7 @@ import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.foci.ItemFocusExcavation;
 
-@Mixin(ItemFocusExcavation.class)
+@Mixin(value = ItemFocusExcavation.class, remap = false)
 public class MixinItemFocusExcavation_DeterministicCost extends ItemFocusBasic {
 
     @Unique
