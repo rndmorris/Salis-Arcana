@@ -159,6 +159,12 @@ Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Cr
 
 Makes certain upgraded foci (ex. Wand Focus: Fire with Fireball upgrade) spend the upgraded vis cost rather than the default.
 
+## Deterministic Vis Cost of Wand Focus: Excavation
+
+**Config option:** `excavationFocusDeterministicCost`
+
+Causes the upgraded vis cost of Wand Focus: Excavation to be dependent solely on the applied upgrade rather than which upgrade loaded first in any game session.
+
 ## Prevent Blocks From Dropping When Broken In Creative
 
 **Config option:** `jarNoCreativeDrops`

@@ -163,6 +163,10 @@ public enum Mixins implements IMixins {
         .addCommonMixins("blocks.MixinBlockLoot_SetHitbox")
         .addClientMixins("client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EXCAVATION_DETERMINISTIC_COST(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.excavationFocusDeterministicCost)
+        .addCommonMixins("items.MixinItemFocusExcavation_DeterministicCost")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()

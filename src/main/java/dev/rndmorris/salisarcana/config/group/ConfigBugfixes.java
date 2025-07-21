@@ -200,6 +200,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "thaumatoriumMultiContainer",
         "Fixes some possible bugs caused by multiple players interacting with a Thaumatorium at the same time.");
 
+    public final ToggleSetting excavationFocusDeterministicCost = new ToggleSetting(
+        this,
+        "excavationFocusDeterministicCost",
+        "Causes the upgraded vis cost of Wand Focus: Excavation to be dependent solely on the applied upgrade rather than which upgrade loaded first in any game session.");
+
     @Nonnull
     @Override
     public String getGroupName() {
