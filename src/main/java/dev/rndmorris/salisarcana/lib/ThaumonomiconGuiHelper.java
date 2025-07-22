@@ -6,7 +6,7 @@ import net.glease.tc4tweak.api.BrowserPagingAPI;
 import net.glease.tc4tweak.api.TC4TweaksAPI;
 import net.minecraft.util.Tuple;
 
-import dev.rndmorris.salisarcana.common.compat.Mods;
+import dev.rndmorris.salisarcana.mixins.TargetedMod;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
 public class ThaumonomiconGuiHelper {
@@ -15,7 +15,7 @@ public class ThaumonomiconGuiHelper {
 
     // we can't just static init it otherwise we get classnotfound without tc4tweak installed
     private static BrowserPagingAPI getBrowserPaging() {
-        if (Mods.TC4Tweak.isLoaded()) {
+        if (TargetedMod.TC4_TWEAKS.isLoaded()) {
             return TC4TweaksAPI.getBrowserPagingAPI();
         }
         return null;
