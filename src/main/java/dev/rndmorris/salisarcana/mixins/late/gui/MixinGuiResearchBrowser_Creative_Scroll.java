@@ -23,9 +23,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.rndmorris.salisarcana.common.compat.Mods;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
+import dev.rndmorris.salisarcana.mixins.TargetedMod;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
@@ -84,7 +84,7 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
             if (dir != sa$lastDir) {
                 sa$lastDir = dir;
                 dir *= sa$invertScrolling;
-                if (Mods.TC4Tweak.isLoaded()) {
+                if (TargetedMod.TC4_TWEAKS.isLoaded()) {
                     sa$handleTc4TweakScroll(dir);
                     return;
                 }
