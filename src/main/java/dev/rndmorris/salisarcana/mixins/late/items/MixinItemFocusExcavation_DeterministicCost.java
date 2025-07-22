@@ -1,9 +1,7 @@
 package dev.rndmorris.salisarcana.mixins.late.items;
 
 import org.spongepowered.asm.lib.Opcodes;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -12,7 +10,6 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.foci.ItemFocusExcavation;
 
@@ -31,13 +28,6 @@ public class MixinItemFocusExcavation_DeterministicCost extends ItemFocusBasic {
     private static final AspectList sa$dowsingCost = new AspectList().add(Aspect.FIRE, 2)
         .add(Aspect.ORDER, 2)
         .add(Aspect.EARTH, 15);
-
-    @Shadow
-    public static FocusUpgradeType dowsing;
-
-    @Shadow
-    @Final
-    private static AspectList cost;
 
     @ModifyExpressionValue(
         method = "getVisCost",
