@@ -9,15 +9,15 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import dev.rndmorris.salisarcana.common.compat.Mods;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.R;
+import dev.rndmorris.salisarcana.mixins.TargetedMod;
 import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.client.gui.GuiResearchRecipe;
 
 public class GuiHandler {
 
-    private static final boolean tc4tweaksLoaded = Mods.TC4Tweak.isLoaded();
+    private static final boolean tc4tweaksLoaded = TargetedMod.TC4_TWEAKS.isLoaded();
 
     public GuiHandler() {
         MinecraftForge.EVENT_BUS.register(this);

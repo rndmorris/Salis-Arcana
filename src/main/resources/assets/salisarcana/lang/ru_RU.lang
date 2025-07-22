@@ -3,3 +3,5 @@ salisarcana:tcinventoryscan.thaumometerTooltip=Доступно сканиров
 salisarcana:tcinventoryscan.thaumometerTooltipMore=Наведите таумометр на предмет,\nчтобы изучить его.
 
 item.Wand.staffter.obj=посохипетр
+
+tile.blockPortalNothing.name=Портал в никуда

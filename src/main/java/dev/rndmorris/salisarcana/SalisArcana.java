@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.Side;
     version = Tags.VERSION,
     name = "Salis Arcana",
     acceptedMinecraftVersions = "[1.7.10]",
-    dependencies = "required-after:Thaumcraft;after:tc4tweak@[1.5.32,)")
+    dependencies = "required-after:Thaumcraft;after:tc4tweak@[1.5.32,);after:gtnhtcwands")
 public class SalisArcana {
 
     public static final String MODID = "salisarcana";

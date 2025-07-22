@@ -196,6 +196,17 @@ public class ConfigFeatures extends ConfigGroup {
         "Show Research Key",
         "While viewing the Thaumonomicon, allows you to view the internal name of a research while hovering over it and holding control");
 
+    public final ToggleSetting nomiconDuplicateResearch = new ToggleSetting(
+        this,
+        "nomiconDuplicateResearch",
+        "Allow players with \"Research Duplication\" researched to create duplicates out of the Thaumonomicon.");
+
+    public final ToggleSetting researchDuplicationFree = new ToggleSetting(
+        this,
+        "researchDuplicationFree",
+        "Research duplication (in the Research Table and the Thaumonomicon if nomiconDuplicateResearch is enabled) does not cost any research aspects.")
+            .setEnabled(false);
+
     public final ToggleSetting stabilizerRewrite = new ToggleSetting(
         this,
         "useStabilizerRewrite",
@@ -443,6 +454,11 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "deadlyGazeMobCheck",
         "If enabled, the Deadly Gaze effect will only affect mobs that are not invulnerable or immune to wither");
+
+    public final ToggleSetting addEmptyPhialJarRecipes = new ToggleSetting(
+        this,
+        "addEmptyPhialJarRecipes",
+        "Adds crafting recipes to empty a phial or jar of essentia.");
 
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
