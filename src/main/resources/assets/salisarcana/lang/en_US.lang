@@ -175,3 +175,5 @@ salisarcana:duplicate_research.prompt=Shift-click to purchase a duplicate of thi
 salisarcana:duplicate_research.success=Duplicated research paper added to inventory
 
 tile.blockPortalNothing.name=Portal to Nothing
+
+slot.focus_pouch=Focus Pouch

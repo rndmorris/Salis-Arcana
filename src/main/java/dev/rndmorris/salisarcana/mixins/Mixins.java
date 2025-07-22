@@ -413,6 +413,12 @@ public enum Mixins implements IMixins {
         .addCommonMixins("tiles.MixinTileResearchTable_FreeDuplicates")
         .addClientMixins("gui.MixinGuiResearchTable_FreeDuplicates")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    FOCUS_POUCH_SLOT(new SalisBuilder()
+        .applyIf(SalisConfig.modCompat.baublesExpanded.focusPouchSlot)
+        .addCommonMixins("items.MixinItemFocusPouchBauble_ExpandedBaublesSlot")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)
+        .addRequiredMod(TargetedMod.BAUBLES_EXPANDED))
     ;
     // spotless:on
 
