@@ -200,6 +200,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "thaumatoriumMultiContainer",
         "Fixes some possible bugs caused by multiple players interacting with a Thaumatorium at the same time.");
 
+    public final ToggleSetting fixClientSideLocalization = new ToggleSetting(
+        this,
+        "fixClientSideLocalization",
+        "Make all messages displayed get localized on the client.");
+
     @Nonnull
     @Override
     public String getGroupName() {

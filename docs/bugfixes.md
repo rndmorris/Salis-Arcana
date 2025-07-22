@@ -210,3 +210,9 @@ Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug w
 **Config option:** `thaumatoriumMultiContainer`
 
 Makes the server correctly handle multiple players interacting with a Thaumatorium at the same time and cleans up client-side `Container`s when the player closes the GUI.
+
+## Localize Chat Messages on the Client
+
+**Config option:** `fixClientSideLocalization`
+
+All messages displayed in chat will be displayed in the client's language rather than the language of the server.
