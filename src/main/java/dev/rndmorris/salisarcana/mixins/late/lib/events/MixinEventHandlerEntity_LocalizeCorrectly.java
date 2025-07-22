@@ -50,7 +50,7 @@ public class MixinEventHandlerEntity_LocalizeCorrectly {
         constant = @Constant(stringValue = "You are not my Master!"),
         remap = false)
     public String golemPlayerRejectionKey(String constant) {
-        return "salisarcana:misc.golem.reject_owner";
+        return "salisarcana:misc.golem.reject_player";
     }
 
     @ModifyArg(

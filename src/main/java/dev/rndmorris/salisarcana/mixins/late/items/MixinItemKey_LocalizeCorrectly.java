@@ -32,6 +32,8 @@ public class MixinItemKey_LocalizeCorrectly {
             target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
     public String collectKeys(String langKey, Operation<String> original, @Share("key1") LocalRef<String> keyOne,
         @Share("key2") LocalRef<String> keyTwo) {
+
+        // Two keys are required because some messages are made by concatenating two keys together.
         if (keyOne.get() == null) {
             keyOne.set(langKey);
         } else {
