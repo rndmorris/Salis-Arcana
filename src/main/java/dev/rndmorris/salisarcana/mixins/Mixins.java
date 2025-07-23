@@ -163,6 +163,22 @@ public enum Mixins implements IMixins {
         .addCommonMixins("blocks.MixinBlockLoot_SetHitbox")
         .addClientMixins("client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FIX_LOCALIZATION_SIDES(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixClientSideLocalization)
+        .addCommonMixins(
+            "blocks.MixinBlockMetalDevice_LocalizeCorrectly",
+            "blocks.MixinBlockMirrorItem_LocalizableText",
+            "blocks.MixinBlockStoneDevice_LocalizeCorrectly",
+            "blocks.MixinBlockWoodenDevice_LocalizableText",
+            "items.MixinItemHandMirror_LocalizeCorrectly",
+            "items.MixinItemKey_LocalizeCorrectly",
+            "items.MixinItemResearchNotes_LocalizeCorrectly",
+            "entities.MixinEntityThaumcraftBosses_LocalizeCorrectly",
+            "lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
+            "lib.network.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
+            "lib.MixinWarpEvents_LocalizeCorrectly",
+            "tiles.MixinTileEldritchLock_LocalizeCorrectly")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EXCAVATION_DETERMINISTIC_COST(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.excavationFocusDeterministicCost)
         .addCommonMixins("items.MixinItemFocusExcavation_DeterministicCost")
