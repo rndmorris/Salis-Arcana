@@ -163,6 +163,22 @@ public enum Mixins implements IMixins {
         .addCommonMixins("blocks.MixinBlockLoot_SetHitbox")
         .addClientMixins("client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FIX_LOCALIZATION_SIDES(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixClientSideLocalization)
+        .addCommonMixins(
+            "blocks.MixinBlockMetalDevice_LocalizeCorrectly",
+            "blocks.MixinBlockMirrorItem_LocalizableText",
+            "blocks.MixinBlockStoneDevice_LocalizeCorrectly",
+            "blocks.MixinBlockWoodenDevice_LocalizableText",
+            "items.MixinItemHandMirror_LocalizeCorrectly",
+            "items.MixinItemKey_LocalizeCorrectly",
+            "items.MixinItemResearchNotes_LocalizeCorrectly",
+            "entities.MixinEntityThaumcraftBosses_LocalizeCorrectly",
+            "lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
+            "lib.network.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
+            "lib.MixinWarpEvents_LocalizeCorrectly",
+            "tiles.MixinTileEldritchLock_LocalizeCorrectly")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BANNER_PHIAL_CONSUMPTION(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.bugfixes.bannerReturnPhials.isEnabled() || SalisConfig.features.bannerFreePatterns.isEnabled() || SalisConfig.features.stopCreativeModeItemConsumption.isEnabled())
         .addCommonMixins("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
@@ -413,6 +429,12 @@ public enum Mixins implements IMixins {
         .addCommonMixins("tiles.MixinTileResearchTable_FreeDuplicates")
         .addClientMixins("gui.MixinGuiResearchTable_FreeDuplicates")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    FOCUS_POUCH_SLOT(new SalisBuilder()
+        .applyIf(SalisConfig.modCompat.baublesExpanded.focusPouchSlot)
+        .addCommonMixins("items.MixinItemFocusPouchBauble_ExpandedBaublesSlot")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)
+        .addRequiredMod(TargetedMod.BAUBLES_EXPANDED))
     ;
     // spotless:on
 
