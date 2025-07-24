@@ -38,6 +38,10 @@ public class MixinGuiArcaneWorkbench_SingleWandReplacement {
                 final ItemStack slot = this.tileEntity.getStackInSlot(i);
                 if (slot != null && slot.getItem() instanceof ItemWandCasting itemWand) {
                     // Found a wand in table
+
+                    // Staves & Staffters cannot be used to supply vis for crafting
+                    if (itemWand.isStaff(slot)) return null;
+
                     if ((CustomRecipes.replaceWandCapsRecipe != null && CustomRecipes.replaceWandCapsRecipe
                         .matches(this.tileEntity, this.ip.player.worldObj, KnowItAll.getInstance()))
                         || (CustomRecipes.replaceWandCoreRecipe != null && CustomRecipes.replaceWandCoreRecipe
