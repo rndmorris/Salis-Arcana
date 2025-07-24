@@ -5,6 +5,7 @@ import org.spongepowered.asm.lib.MethodVisitor;
 import org.spongepowered.asm.lib.Opcodes;
 
 public class RenderBoundsClassVisitor extends ClassVisitor {
+
     public RenderBoundsClassVisitor(ClassVisitor cv) {
         super(Opcodes.ASM9, cv);
     }
