@@ -62,6 +62,9 @@ public abstract class MixinContainerArcaneWorkbench_SingleWandReplacement extend
                 }
             }
 
+            // Staves & Staffters cannot be used to supply vis for crafting
+            if (itemWand.isStaff(originalWand)) return;
+
             // Vis is spent using the original wand, which is why that loop above is necessary.
             if (itemWand.consumeAllVisCrafting(originalWand, this.ip.player, visPrice, true)) {
                 if (SalisConfig.features.preserveWandVis.isEnabled()) {
