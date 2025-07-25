@@ -29,6 +29,7 @@ public class MixinItemFocusExcavation_DeterministicCost extends ItemFocusBasic {
         .add(Aspect.ORDER, 2)
         .add(Aspect.EARTH, 15);
 
+    // spotless:off
     /*
         The problematic code in question looks like this:
             if(cost2 == null) {
@@ -53,6 +54,7 @@ public class MixinItemFocusExcavation_DeterministicCost extends ItemFocusBasic {
             return sa$dowsingCost;
         Thus the upgrades no longer interfere with each other, and there's no initialization order to worry about.
      */
+    // spotless:on
 
     @ModifyExpressionValue(
         method = "getVisCost",
