@@ -29,6 +29,31 @@ public class MixinItemFocusExcavation_DeterministicCost extends ItemFocusBasic {
         .add(Aspect.ORDER, 2)
         .add(Aspect.EARTH, 15);
 
+    /*
+        The problematic code in question looks like this:
+            if(cost2 == null) {
+                cost2 = (new AspectList()).add(...).add(...);
+                cost2.add(cost);
+            }
+            return cost2;
+        The problem is that both instances of this code segment use the same static variable,
+        so only one secondary cost can exist for the focus.
+        We solve this problem by replacing all gets of cost2 with our own variable for each upgrade:
+            if(sa$silkTouchCost == null) {
+                cost2 = (new AspectList()).add(...).add(...);
+                sa$silkTouchCost.add(cost);
+            }
+            return sa$silkTouchCost;
+        Since our variables are never null, the if-statement never triggers.
+        The @Slices allow us to target each upgrade separately, so the other upgrade instead looks like this:
+            if(sa$dowsingCost == null) {
+                cost2 = (new AspectList()).add(...).add(...);
+                sa$dowsingCost.add(cost);
+            }
+            return sa$dowsingCost;
+        Thus the upgrades no longer interfere with each other, and there's no initialization order to worry about.
+     */
+
     @ModifyExpressionValue(
         method = "getVisCost",
         at = @At(
