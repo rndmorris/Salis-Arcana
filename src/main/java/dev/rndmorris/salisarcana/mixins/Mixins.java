@@ -179,6 +179,10 @@ public enum Mixins implements IMixins {
             "lib.MixinWarpEvents_LocalizeCorrectly",
             "tiles.MixinTileEldritchLock_LocalizeCorrectly")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EXCAVATION_DETERMINISTIC_COST(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.excavationFocusDeterministicCost)
+        .addCommonMixins("items.MixinItemFocusExcavation_DeterministicCost")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BANNER_PHIAL_CONSUMPTION(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.bugfixes.bannerReturnPhials.isEnabled() || SalisConfig.features.bannerFreePatterns.isEnabled() || SalisConfig.features.stopCreativeModeItemConsumption.isEnabled())
         .addCommonMixins("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
