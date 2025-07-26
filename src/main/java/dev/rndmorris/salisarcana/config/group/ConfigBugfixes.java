@@ -205,6 +205,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixClientSideLocalization",
         "Make all messages displayed get localized on the client.");
 
+    public final ToggleSetting excavationFocusDeterministicCost = new ToggleSetting(
+        this,
+        "excavationFocusDeterministicCost",
+        "Causes the upgraded vis cost of Wand Focus: Excavation to be dependent solely on the applied upgrade rather than which upgrade loaded first in any game session.");
+
     @Nonnull
     @Override
     public String getGroupName() {
