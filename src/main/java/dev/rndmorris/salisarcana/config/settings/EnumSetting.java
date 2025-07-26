@@ -3,6 +3,7 @@ package dev.rndmorris.salisarcana.config.settings;
 import java.util.Arrays;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -14,27 +15,37 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
     protected final Class<E> enumClass;
     protected final String name;
     protected final String comment;
+    protected final @Nullable E disabledValue;
     protected E value;
 
-    public EnumSetting(IEnabler dependency, String name, String comment, @Nonnull E defaultValue) {
+    /**
+     * Create a Setting with a fixed set of options based on an Enum
+     *
+     * @param dependency    The parent dependency of this option
+     * @param name          The name of this configuration, as used in the .cfg file
+     * @param comment       The informational comment displayed above the configuration.
+     * @param defaultValue  The default value of the configuration when it isn't set.
+     * @param disabledValue The value of the config that makes it "disabled". Set to null if none of the options
+     *                      "disable" the setting.
+     */
+    public EnumSetting(IEnabler dependency, String name, String comment, @Nonnull E defaultValue,
+        @Nullable E disabledValue) {
         super(dependency);
         this.name = name;
         enumClass = defaultValue.getDeclaringClass();
         value = defaultValue;
+        this.disabledValue = disabledValue;
 
-        final var sb = new StringBuilder();
-        final var $vals = Arrays.stream(enumClass.getEnumConstants())
-            .iterator();
-        while ($vals.hasNext()) {
-            sb.append(
-                $vals.next()
-                    .toString());
-            if ($vals.hasNext()) {
-                sb.append(", ");
-            }
-        }
+        this.comment = comment + " Valid values: " + Arrays.toString(enumClass.getEnumConstants());
+    }
 
-        this.comment = comment + " Valid values: [" + sb + "]";
+    public E getValue() {
+        return this.value;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.value != this.disabledValue && super.isEnabled();
     }
 
     @Override

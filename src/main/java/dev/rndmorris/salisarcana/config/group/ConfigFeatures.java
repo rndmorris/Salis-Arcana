@@ -460,6 +460,12 @@ public class ConfigFeatures extends ConfigGroup {
         "addEmptyPhialJarRecipes",
         "Adds crafting recipes to empty a phial or jar of essentia.");
 
+    public final ToggleSetting bannerFreePatterns = new ToggleSetting(
+        this,
+        "bannerFreePatterns",
+        "Applying patterns to banners not consume the phial or the essentia. Overrides bannerReturnPhials in the bugfixes module.")
+            .setEnabled(false);
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
