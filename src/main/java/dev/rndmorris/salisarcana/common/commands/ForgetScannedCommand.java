@@ -62,22 +62,20 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         final var forgottenHashes = new HashSet<Integer>();
 
         if (arguments.hand) {
-            forgottenHashes
-                .addAll(forgetItems(targetPlayer, Collections.singletonList(arguments.targetPlayer.getHeldItem())));
+            forgottenHashes.addAll(forgetItems(targetPlayer, Collections.singletonList(targetPlayer.getHeldItem())));
         }
         if (arguments.inventory) {
-            forgottenHashes
-                .addAll(forgetItems(targetPlayer, InvHelper.getItemStacks(arguments.targetPlayer.inventory)));
+            forgottenHashes.addAll(forgetItems(targetPlayer, InvHelper.getItemStacks(targetPlayer.inventory)));
         }
         if (arguments.looking || arguments.container) {
             MovingObjectPosition target = getLookingAt(targetPlayer);
             if (arguments.looking) {
-                Block block = arguments.targetPlayer.worldObj.getBlock(target.blockX, target.blockY, target.blockZ);
+                Block block = targetPlayer.worldObj.getBlock(target.blockX, target.blockY, target.blockZ);
                 if (block != null) {
                     final var item = new ItemStack(
                         block,
                         1,
-                        arguments.targetPlayer.worldObj.getBlockMetadata(target.blockX, target.blockY, target.blockZ));
+                        targetPlayer.worldObj.getBlockMetadata(target.blockX, target.blockY, target.blockZ));
                     forgottenHashes.addAll(forgetItems(targetPlayer, Collections.singletonList(item)));
                 }
             }
