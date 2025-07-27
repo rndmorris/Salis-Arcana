@@ -91,26 +91,24 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         }
 
         final var removeFromMaps = new ArrayList<Map<String, ArrayList<String>>>(3);
-
-        if (arguments.all || arguments.objects) {
+        final var forgetObjects = arguments.all || arguments.objects;
+        if (forgetObjects) {
             removeFromMaps.add(playerKnowledge.objectsScanned);
         }
-        if (arguments.all || arguments.entities) {
+        final var forgetEntities = arguments.all || arguments.entities;
+        if (forgetEntities) {
             removeFromMaps.add(playerKnowledge.entitiesScanned);
         }
-        if (arguments.all || arguments.nodes) {
+        final var forgetNodes = arguments.all || arguments.nodes;
+        if (forgetNodes) {
             removeFromMaps.add(playerKnowledge.phenomenaScanned);
         }
 
         int removedCount = forgottenHashes.size();
         if (!removeFromMaps.isEmpty()) {
             removedCount += forgetCategories(playerName, removeFromMaps);
-            NetworkHandler.instance.sendTo(
-                new MessageForgetScannedCategory(
-                    arguments.all || arguments.objects,
-                    arguments.all || arguments.entities,
-                    arguments.all || arguments.nodes),
-                targetPlayer);
+            NetworkHandler.instance
+                .sendTo(new MessageForgetScannedCategory(forgetObjects, forgetEntities, forgetNodes), targetPlayer);
         }
 
         if (removedCount > 0) {
