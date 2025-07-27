@@ -1,14 +1,11 @@
 package dev.rndmorris.salisarcana.network;
 
-import static dev.rndmorris.salisarcana.network.MessageForgetScannedCategory.Category.ENTITIES;
-import static dev.rndmorris.salisarcana.network.MessageForgetScannedCategory.Category.NODES;
-import static dev.rndmorris.salisarcana.network.MessageForgetScannedCategory.Category.OBJECTS;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map;
 
 import net.minecraft.client.Minecraft;
+
+import org.apache.commons.lang3.BitField;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -18,14 +15,26 @@ import thaumcraft.common.Thaumcraft;
 
 public class MessageForgetScannedCategory implements IMessage, IMessageHandler<MessageForgetScannedCategory, IMessage> {
 
-    private byte categories;
+    private final BitField objectsMask = new BitField(0b0001);
+    private final BitField entitiesMask = new BitField(0b0010);
+    private final BitField nodesMask = new BitField(0b0100);
+
+    private int categories = 0;
 
     public MessageForgetScannedCategory() {}
 
-    public MessageForgetScannedCategory(Collection<Category> categories) {
-        for (var category : categories) {
-            this.categories |= category.bitmask;
+    public MessageForgetScannedCategory(boolean objects, boolean entities, boolean nodes) {
+        int categories = 0;
+        if (objects) {
+            categories = objectsMask.set(categories);
         }
+        if (entities) {
+            categories = entitiesMask.set(categories);
+        }
+        if (nodes) {
+            categories = nodesMask.set(categories);
+        }
+        this.categories = categories;
     }
 
     @Override
@@ -48,13 +57,13 @@ public class MessageForgetScannedCategory implements IMessage, IMessageHandler<M
         final var knowledge = Thaumcraft.proxy.getPlayerKnowledge();
         final var playerName = Minecraft.getMinecraft().thePlayer.getCommandSenderName();
 
-        if (OBJECTS.isSet(categories)) {
+        if (objectsMask.isSet(categories)) {
             clearScanMap(playerName, knowledge.objectsScanned);
         }
-        if (ENTITIES.isSet(categories)) {
+        if (entitiesMask.isSet(categories)) {
             clearScanMap(playerName, knowledge.entitiesScanned);
         }
-        if (NODES.isSet(categories)) {
+        if (nodesMask.isSet(categories)) {
             clearScanMap(playerName, knowledge.phenomenaScanned);
         }
 
@@ -65,24 +74,6 @@ public class MessageForgetScannedCategory implements IMessage, IMessageHandler<M
         final var scannedList = map.get(playerName);
         if (scannedList != null) {
             scannedList.clear();
-        }
-    }
-
-    public enum Category {
-
-        OBJECTS(0b0001),
-        ENTITIES(0b0010),
-        NODES(0b0100),
-        ALL(OBJECTS.bitmask | ENTITIES.bitmask | NODES.bitmask);
-
-        public final byte bitmask;
-
-        Category(int bitmask) {
-            this.bitmask = (byte) bitmask;
-        }
-
-        public boolean isSet(byte inBits) {
-            return bitmask == (inBits & bitmask);
         }
     }
 }

@@ -30,7 +30,6 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.Player
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.InvHelper;
 import dev.rndmorris.salisarcana.network.MessageForgetScannedCategory;
-import dev.rndmorris.salisarcana.network.MessageForgetScannedCategory.Category;
 import dev.rndmorris.salisarcana.network.MessageForgetScannedObjects;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.common.Thaumcraft;
@@ -92,27 +91,26 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         }
 
         final var removeFromMaps = new ArrayList<Map<String, ArrayList<String>>>(3);
-        final var messageCategories = new ArrayList<Category>(3);
 
         if (arguments.all || arguments.objects) {
             removeFromMaps.add(playerKnowledge.objectsScanned);
-            messageCategories.add(Category.OBJECTS);
         }
         if (arguments.all || arguments.entities) {
             removeFromMaps.add(playerKnowledge.entitiesScanned);
-            messageCategories.add(Category.ENTITIES);
         }
         if (arguments.all || arguments.nodes) {
             removeFromMaps.add(playerKnowledge.phenomenaScanned);
-            messageCategories.add(Category.NODES);
         }
 
         int removedCount = forgottenHashes.size();
         if (!removeFromMaps.isEmpty()) {
             removedCount += forgetCategories(playerName, removeFromMaps);
-        }
-        if (!messageCategories.isEmpty()) {
-            NetworkHandler.instance.sendTo(new MessageForgetScannedCategory(messageCategories), targetPlayer);
+            NetworkHandler.instance.sendTo(
+                new MessageForgetScannedCategory(
+                    arguments.all || arguments.objects,
+                    arguments.all || arguments.entities,
+                    arguments.all || arguments.nodes),
+                targetPlayer);
         }
 
         if (removedCount > 0) {
