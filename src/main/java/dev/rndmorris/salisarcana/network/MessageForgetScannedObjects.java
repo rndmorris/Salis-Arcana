@@ -27,9 +27,6 @@ public class MessageForgetScannedObjects implements IMessage, IMessageHandler<Me
         final var size = buf.readInt();
         forgetHashes = new HashSet<>(size);
         for (var count = 0; count < size; ++count) {
-            // we can theoretically run into the max packet size doing
-            // this, but that would require so many unique item hashes
-            // that I don't think it's a practical concern
             forgetHashes.add(buf.readInt());
         }
     }
@@ -38,13 +35,15 @@ public class MessageForgetScannedObjects implements IMessage, IMessageHandler<Me
     public void toBytes(ByteBuf buf) {
         buf.writeInt(forgetHashes.size());
         for (var hash : forgetHashes) {
+            // we can theoretically run into the max packet size doing
+            // this, but that would require so many unique item hashes
+            // that I don't think it's a practical concern
             buf.writeInt(hash);
         }
     }
 
     @Override
     public IMessage onMessage(MessageForgetScannedObjects message, MessageContext ctx) {
-
         final var knowledge = Thaumcraft.proxy.getPlayerKnowledge();
         final var playerName = Minecraft.getMinecraft().thePlayer.getCommandSenderName();
         final var objectsScanned = knowledge.objectsScanned.get(playerName);
