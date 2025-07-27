@@ -1,8 +1,12 @@
 package dev.rndmorris.salisarcana.common.commands;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -24,6 +28,11 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHan
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.AspectHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.salisarcana.config.SalisConfig;
+import dev.rndmorris.salisarcana.lib.InvHelper;
+import dev.rndmorris.salisarcana.network.MessageForgetScannedCategory;
+import dev.rndmorris.salisarcana.network.MessageForgetScannedCategory.Category;
+import dev.rndmorris.salisarcana.network.MessageForgetScannedObjects;
+import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.research.ScanManager;
 import thaumcraft.common.lib.utils.BlockUtils;
@@ -44,68 +53,70 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
 
     @Override
     protected void process(ICommandSender sender, Arguments arguments, String[] args) {
-        if (arguments.targetPlayer == null) {
-            arguments.targetPlayer = getCommandSenderAsPlayer(sender);
-        }
+        final var targetPlayer = arguments.targetPlayer != null ? arguments.targetPlayer
+            : getCommandSenderAsPlayer(sender);
 
+        final var playerName = targetPlayer.getCommandSenderName();
         final var playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
-        final var toClear = new ArrayList<Map<String, ArrayList<String>>>(3);
-
-        int removedCount = 0;
+        // aggregate all forgotten item hashes to send to affected client
+        final var forgottenHashes = new HashSet<Integer>();
 
         if (arguments.hand) {
-            if (forgetSingle(sender, arguments.targetPlayer.getHeldItem())) {
-                removedCount++;
-            }
+            forgottenHashes
+                .addAll(forgetItems(targetPlayer, Collections.singletonList(arguments.targetPlayer.getHeldItem())));
         }
         if (arguments.inventory) {
-            final var inventory = arguments.targetPlayer.inventory;
-            for (var i = 0; i < inventory.getSizeInventory(); i++) {
-                if (forgetSingle(sender, inventory.getStackInSlot(i))) {
-                    removedCount++;
+            forgottenHashes
+                .addAll(forgetItems(targetPlayer, InvHelper.getItemStacks(arguments.targetPlayer.inventory)));
+        }
+        if (arguments.looking || arguments.container) {
+            MovingObjectPosition target = getLookingAt(targetPlayer);
+            if (arguments.looking) {
+                Block block = arguments.targetPlayer.worldObj.getBlock(target.blockX, target.blockY, target.blockZ);
+                if (block != null) {
+                    final var item = new ItemStack(
+                        block,
+                        1,
+                        arguments.targetPlayer.worldObj.getBlockMetadata(target.blockX, target.blockY, target.blockZ));
+                    forgottenHashes.addAll(forgetItems(targetPlayer, Collections.singletonList(item)));
+                }
+            }
+            if (arguments.container) {
+                TileEntity tile = targetPlayer.worldObj.getTileEntity(target.blockX, target.blockY, target.blockZ);
+                if (tile instanceof IInventory inventory) {
+                    forgottenHashes.addAll(forgetItems(targetPlayer, InvHelper.getItemStacks(inventory)));
                 }
             }
         }
-        if (arguments.looking) {
-            MovingObjectPosition target = getLookingAt(arguments.targetPlayer);
-            Block block = arguments.targetPlayer.worldObj.getBlock(target.blockX, target.blockY, target.blockZ);
-            if (block != null) {
-                ItemStack item = new ItemStack(
-                    block,
-                    1,
-                    arguments.targetPlayer.worldObj.getBlockMetadata(target.blockX, target.blockY, target.blockZ));
-                if (forgetSingle(sender, item)) {
-                    removedCount++;
-                }
-            }
+
+        if (!forgottenHashes.isEmpty()) {
+            NetworkHandler.instance.sendTo(new MessageForgetScannedObjects(forgottenHashes), targetPlayer);
         }
-        if (arguments.container) {
-            MovingObjectPosition target = getLookingAt(arguments.targetPlayer);
-            TileEntity tile = arguments.targetPlayer.worldObj
-                .getTileEntity(target.blockX, target.blockY, target.blockZ);
-            if (tile instanceof IInventory inventory) {
-                for (var i = 0; i < inventory.getSizeInventory(); i++) {
-                    if (forgetSingle(sender, inventory.getStackInSlot(i))) {
-                        removedCount++;
-                    }
-                }
-            }
-        }
+
+        final var removeFromMaps = new ArrayList<Map<String, ArrayList<String>>>(3);
+        final var messageCategories = new ArrayList<Category>(3);
 
         if (arguments.all || arguments.objects) {
-            toClear.add(playerKnowledge.objectsScanned);
+            removeFromMaps.add(playerKnowledge.objectsScanned);
+            messageCategories.add(Category.OBJECTS);
         }
         if (arguments.all || arguments.entities) {
-            toClear.add(playerKnowledge.entitiesScanned);
+            removeFromMaps.add(playerKnowledge.entitiesScanned);
+            messageCategories.add(Category.ENTITIES);
         }
         if (arguments.all || arguments.nodes) {
-            toClear.add(playerKnowledge.phenomenaScanned);
+            removeFromMaps.add(playerKnowledge.phenomenaScanned);
+            messageCategories.add(Category.NODES);
         }
 
-        final var playerName = arguments.targetPlayer.getCommandSenderName();
-        if (!toClear.isEmpty()) {
-            removedCount = forget(playerName, toClear);
+        int removedCount = forgottenHashes.size();
+        if (!removeFromMaps.isEmpty()) {
+            removedCount += forgetCategories(playerName, removeFromMaps);
         }
+        if (!messageCategories.isEmpty()) {
+            NetworkHandler.instance.sendTo(new MessageForgetScannedCategory(messageCategories), targetPlayer);
+        }
+
         if (removedCount > 0) {
             sender.addChatMessage(
                 new ChatComponentTranslation("salisarcana:command.forget-scanned.success", removedCount, playerName));
@@ -115,7 +126,7 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         }
     }
 
-    private int forget(String playerName, List<Map<String, ArrayList<String>>> toClear) {
+    private int forgetCategories(String playerName, List<Map<String, ArrayList<String>>> toClear) {
         var count = 0;
         for (var map : toClear) {
             if (map == null) {
@@ -131,16 +142,31 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         return count;
     }
 
-    private boolean forgetSingle(ICommandSender sender, ItemStack item) {
-        if (item == null) {
-            return false;
+    private Set<Integer> forgetItems(EntityPlayerMP targetPlayer, Collection<ItemStack> items) {
+        if (items.isEmpty()) {
+            return Collections.emptySet();
         }
         final var playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
-        final var playerName = sender.getCommandSenderName();
-
+        final var playerName = targetPlayer.getCommandSenderName();
         final var objectsScanned = playerKnowledge.objectsScanned.get(playerName);
-        String key = "@" + ScanManager.generateItemHash(item.getItem(), item.getItemDamage());
-        return objectsScanned != null && objectsScanned.remove(key);
+
+        if (objectsScanned == null || objectsScanned.isEmpty()) {
+            return Collections.emptySet();
+        }
+
+        final var forgottenHashes = new HashSet<Integer>(items.size());
+        for (var item : items) {
+            if (item == null || item.getItem() == null) {
+                continue;
+            }
+            final var hash = ScanManager.generateItemHash(item.getItem(), item.getItemDamage());
+            final var key = "@" + hash;
+            if (objectsScanned.remove(key)) {
+                forgottenHashes.add(hash);
+            }
+        }
+
+        return forgottenHashes;
     }
 
     private MovingObjectPosition getLookingAt(EntityPlayer player) {

@@ -5,6 +5,7 @@ import static dev.rndmorris.salisarcana.network.MessageForgetScannedCategory.Cat
 import static dev.rndmorris.salisarcana.network.MessageForgetScannedCategory.Category.OBJECTS;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 import net.minecraft.client.Minecraft;
@@ -21,10 +22,9 @@ public class MessageForgetScannedCategory implements IMessage, IMessageHandler<M
 
     public MessageForgetScannedCategory() {}
 
-    public MessageForgetScannedCategory(Category category, Category... categories) {
-        this.categories |= category.bitmask;
-        for (var cat : categories) {
-            this.categories |= cat.bitmask;
+    public MessageForgetScannedCategory(Collection<Category> categories) {
+        for (var category : categories) {
+            this.categories |= category.bitmask;
         }
     }
 
