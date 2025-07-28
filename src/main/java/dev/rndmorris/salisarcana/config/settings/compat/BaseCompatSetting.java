@@ -5,40 +5,40 @@ import java.util.List;
 
 import net.minecraftforge.common.config.Configuration;
 
-import cpw.mods.fml.common.Loader;
 import dev.rndmorris.salisarcana.config.IEnabler;
 import dev.rndmorris.salisarcana.config.IHaveSettings;
 import dev.rndmorris.salisarcana.config.settings.Setting;
+import dev.rndmorris.salisarcana.mixins.TargetedMod;
 
 public class BaseCompatSetting extends Setting implements IHaveSettings {
 
-    public final String modId;
+    public final TargetedMod mod;
 
     protected final List<Setting> settings = new ArrayList<>();
 
-    public BaseCompatSetting(IEnabler dependency, String modId) {
+    public BaseCompatSetting(IEnabler dependency, TargetedMod mod) {
         super(dependency);
-        this.modId = modId;
-        setCategory(modId);
+        this.mod = mod;
+        setCategory(mod.modId);
     }
 
     @Override
     public void registerSetting(Setting setting) {
-        setting.setCategory(modId);
+        setting.setCategory(mod.modId);
         IHaveSettings.super.registerSetting(setting);
     }
 
     @Override
     public boolean isEnabled() {
-        return Loader.isModLoaded(modId) && super.isEnabled();
+        return mod.isLoaded() && super.isEnabled();
     }
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
         enabled = configuration
-            .getBoolean(modId, defaultCategory, enabled, String.format("Enable compatibility with %s.", modId));
+            .getBoolean(mod.modId, defaultCategory, enabled, String.format("Enable compatibility with %s.", mod.modId));
         for (var setting : settings) {
-            setting.setCategory(modId)
+            setting.setCategory(mod.modId)
                 .loadFromConfiguration(configuration);
         }
     }
