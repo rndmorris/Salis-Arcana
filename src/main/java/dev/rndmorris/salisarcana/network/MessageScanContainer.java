@@ -11,6 +11,8 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.InventoryHelper;
 import io.netty.buffer.ByteBuf;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.playerdata.PacketSyncScannedItems;
 import thaumcraft.common.lib.research.ResearchManager;
 
 public class MessageScanContainer implements IMessage, IMessageHandler<MessageScanContainer, IMessage> {
@@ -56,6 +58,9 @@ public class MessageScanContainer implements IMessage, IMessageHandler<MessageSc
         if (tile instanceof IInventory inventory) {
             InventoryHelper.scanInventory(inventory, entityPlayer);
         }
+        PacketHandler.INSTANCE.sendTo(
+            new PacketSyncScannedItems(ctx.getServerHandler().playerEntity),
+            ctx.getServerHandler().playerEntity);
         return null;
     }
 }

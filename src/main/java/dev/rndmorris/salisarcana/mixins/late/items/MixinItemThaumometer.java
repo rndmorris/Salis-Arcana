@@ -17,7 +17,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 
 import dev.rndmorris.salisarcana.config.SalisConfig;
-import dev.rndmorris.salisarcana.lib.InventoryHelper;
 import dev.rndmorris.salisarcana.network.MessageScanContainer;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.api.research.ScanResult;
@@ -34,8 +33,7 @@ public class MixinItemThaumometer extends Item {
         MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
         if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             TileEntity tile = player.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
-            if (tile instanceof IInventory inventory) {
-                InventoryHelper.scanInventory(inventory, player);
+            if (tile instanceof IInventory) {
                 NetworkHandler.instance.sendToServer(new MessageScanContainer(mop.blockX, mop.blockY, mop.blockZ));
             }
         }
