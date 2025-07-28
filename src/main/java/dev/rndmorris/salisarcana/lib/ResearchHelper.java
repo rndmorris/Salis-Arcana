@@ -167,8 +167,11 @@ public class ResearchHelper {
         int meta = stack.getItemDamage();
         Map<String, ArrayList<String>> scannedObjects = Thaumcraft.proxy.getScannedObjects();
         ArrayList<String> scanned = scannedObjects.get(player.getCommandSenderName());
+        if (scanned == null) {
+            return false;
+        }
         String hash = prefix + ScanManager.generateItemHash(item, meta);
-        return scanned != null && scanned.contains(hash);
+        return scanned.contains(hash);
     }
 
     public static boolean hasResearchAspects(String username, AspectList aspects) {
