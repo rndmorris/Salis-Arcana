@@ -17,7 +17,7 @@ import thaumcraft.api.aspects.AspectList;
 public interface IVisContainer {
 
     /**
-     * Gets the maximum amount of a single type of vis that can be stored in the given ItemStack.
+     * Gets the maximum amount of vis that can be stored in the given ItemStack.
      *
      * @param stack The ItemStack to check.
      * @return The maximum vis capacity of the ItemStack.
@@ -25,7 +25,7 @@ public interface IVisContainer {
     int getMaxVis(ItemStack stack);
 
     /**
-     * Gets the current amount of a specific type of vis stored in the given ItemStack.
+     * Gets the current amount of vis stored in the given ItemStack.
      *
      * @param is     The ItemStack to check.
      * @param aspect The Aspect of vis to retrieve.
@@ -34,7 +34,7 @@ public interface IVisContainer {
     int getVis(ItemStack is, Aspect aspect);
 
     /**
-     * Stores a specific amount of a specific type of vis in the given ItemStack.
+     * Stores a specific amount of vis in the given ItemStack.
      *
      * @param is     The ItemStack to modify.
      * @param aspect The Aspect of vis to store.
@@ -60,7 +60,7 @@ public interface IVisContainer {
 
     /**
      * Consumes vis according to the specified AspectList.
-     * 
+     *
      * @param is       the ItemStack to consume vis from
      * @param player   the player consuming the vis
      * @param aspects  the AspectList containing the aspects and amounts to consume
@@ -70,10 +70,25 @@ public interface IVisContainer {
      */
     boolean consumeAllVis(ItemStack is, EntityPlayer player, AspectList aspects, boolean doit, boolean crafting);
 
-    // don't really know what the difference is between these two methods, but they are used in the code
-    // addVis is multiplied by 100, addRealVis is not
-    // probably smth to do with centivis, dunno
+    /**
+     * Adds a specific amount of vis to the given ItemStack.
+     * 
+     * @param is     the ItemStack to modify
+     * @param aspect the Aspect of vis to add
+     * @param amount the amount of vis to add
+     * @param doit   if true, the vis will be added; if false, it will only check if there is room
+     * @return the amount of leftover vis
+     */
     int addVis(ItemStack is, Aspect aspect, int amount, boolean doit);
 
+    /**
+     * Adds a specific amount of vis to an ItemStack, converting from Centivis to Vis.
+     * 
+     * @param is     the ItemStack to modify
+     * @param aspect the Aspect of vis to add
+     * @param amount the amount of vis to add, in Centivis
+     * @param doit   if true, the vis will be added; if false, it will only check if there is room
+     * @return the amount of leftover vis
+     */
     int addRealVis(ItemStack is, Aspect aspect, int amount, boolean doit);
 }
