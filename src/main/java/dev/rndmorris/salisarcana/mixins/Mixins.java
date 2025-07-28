@@ -389,6 +389,14 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.deadlyGazeMobCheck)
         .addCommonMixins("lib.MixinWarpEvents_DeadlyGaze")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    // Required
+
+    ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
+        .setRequired()
+        .addCommonMixins("items.MixinAmuletWand_AddInterface")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     ;
     // spotless:on
 
@@ -408,6 +416,10 @@ public enum Mixins implements IMixins {
 
         public MixinBuilder applyIf(Setting config) {
             return super.setApplyIf(config::isEnabled);
+        }
+
+        public MixinBuilder setRequired() {
+            return super.setApplyIf(() -> true);
         }
     }
 }
