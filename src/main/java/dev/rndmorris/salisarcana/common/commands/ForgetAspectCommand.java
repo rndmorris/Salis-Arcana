@@ -59,7 +59,7 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
             if (arguments.reset) {
                 removedCount = resetAspects(playerAspects, arguments, arguments.targetPlayer);
             } else if (arguments.forget) {
-                removedCount = forgetAspects(playerAspects, arguments);
+                removedCount = forgetAspects(playerAspects, arguments, arguments.targetPlayer);
             }
         }
         String playerName = arguments.targetPlayer.getCommandSenderName();
@@ -90,10 +90,10 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
         return removedCount;
     }
 
-    private int forgetAspects(AspectList aspects, Arguments arguments) {
+    private int forgetAspects(AspectList aspects, Arguments arguments, EntityPlayerMP player) {
         int removedCount = 0;
         if (arguments.all) {
-            NetworkHandler.instance.sendToServer(new MessageForgetAspects());
+            NetworkHandler.instance.sendTo(new MessageForgetAspects(), player);
             removedCount = Math.max(
                 aspects.size() - Aspect.getPrimalAspects()
                     .size(),
