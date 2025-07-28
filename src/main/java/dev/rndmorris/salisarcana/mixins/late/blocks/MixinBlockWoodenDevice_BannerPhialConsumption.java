@@ -29,9 +29,9 @@ public class MixinBlockWoodenDevice_BannerPhialConsumption {
         if (SalisConfig.features.stopCreativeModeItemConsumption.isEnabled() && player.capabilities.isCreativeMode)
             return;
 
-        if (SalisConfig.bugfixes.bannerReturnPhials.isEnabled()) {
-            original.call(instance, value); // Remove one filled phial
+        original.call(instance, value); // Remove one filled phial
 
+        if (SalisConfig.bugfixes.bannerReturnPhials.isEnabled()) {
             // Add one empty phial to the inventory
             ItemStack emptyPhial = new ItemStack(ConfigItems.itemEssence, 1, 0);
             if (!player.inventory.addItemStackToInventory(emptyPhial)) {
@@ -39,8 +39,6 @@ public class MixinBlockWoodenDevice_BannerPhialConsumption {
             }
 
             player.inventoryContainer.detectAndSendChanges();
-        } else {
-            original.call(instance, value); // Remove the entire phial as usual
         }
     }
 }
