@@ -2,8 +2,6 @@ package dev.rndmorris.salisarcana.mixins.late.gui;
 
 import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.RightClickClose$ScreenStack;
 
-import java.util.ArrayList;
-
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.Tuple;
 
@@ -26,9 +24,6 @@ public class MixinGuiResearchBrowser_RightClickClose extends GuiScreen {
 
     @Shadow(remap = false)
     protected double guiMapY;
-
-    @Shadow(remap = false)
-    public static ArrayList<String> highlightedItem;
 
     @WrapMethod(method = "initGui")
     public void wrapInitGui(Operation<Void> original) {
