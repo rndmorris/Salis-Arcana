@@ -39,6 +39,8 @@ public class MixinBlockWoodenDevice_BannerPhialConsumption {
             }
 
             player.inventoryContainer.detectAndSendChanges();
+        } else {
+            original.call(instance, value); // Remove the entire phial as usual
         }
     }
 }
