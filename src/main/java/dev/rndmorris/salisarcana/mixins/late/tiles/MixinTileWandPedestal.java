@@ -20,12 +20,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import com.llamalad7.mixinextras.sugar.Local;
+
 import dev.rndmorris.salisarcana.api.IVisContainer;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.visnet.TileVisNode;
 import thaumcraft.api.visnet.VisNetHandler;
+import thaumcraft.common.items.baubles.ItemAmuletVis;
+import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileWandPedestal;
 
 @Mixin(TileWandPedestal.class)
@@ -56,25 +60,23 @@ public abstract class MixinTileWandPedestal extends TileThaumcraft implements IS
             shift = At.Shift.AFTER,
             by = 1),
         require = 1)
-    private void sa$rechargeViaCV(CallbackInfo ci) {
-        // no null check because vanilla does it
-        ItemStack stack = getStackInSlot(0);
-        if (stack.getItem() instanceof IVisContainer container) {
-            AspectList as = container.getAspectsWithRoom(stack);
-            if (as != null && as.size() > 0) {
-                for (Aspect aspect : as.getAspects()) {
-                    // Pedestal operates every 5 ticks
-                    int drained = VisNetHandler
-                        .drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, aspect, 25);
-                    if (drained > 0) {
-                        container.addRealVis(stack, aspect, drained, true);
-                        draining = true;
-                        somethingChanged = true;
-                        sa$needSync = true;
-                    }
-                }
-            }
-        }
+    private void sa$rechargeWandViaCV(CallbackInfo ci, @Local ItemWandCasting wand) {
+        this.sa$rechargeItem((IVisContainer) wand);
+    }
+
+    @Inject(
+        method = "updateEntity",
+        at = @At(
+            remap = false,
+            value = "FIELD",
+            target = "Lthaumcraft/common/tiles/TileWandPedestal;draining:Z",
+            opcode = Opcodes.PUTFIELD,
+            ordinal = 3,
+            shift = At.Shift.AFTER,
+            by = 1),
+        require = 1)
+    private void sa$rechargeAmuletViaCV(CallbackInfo ci, @Local ItemAmuletVis amulet) {
+        this.sa$rechargeItem((IVisContainer) amulet);
     }
 
     @Inject(method = "updateEntity", at = @At("TAIL"))
@@ -99,6 +101,25 @@ public abstract class MixinTileWandPedestal extends TileThaumcraft implements IS
     private void sa$addCVNodes(CallbackInfo ci, int xx, int yy, int zz, TileEntity te) {
         if (te instanceof TileVisNode) {
             this.nodes.add(new ChunkCoordinates(te.xCoord, te.yCoord, te.zCoord));
+        }
+    }
+
+    @Unique
+    private void sa$rechargeItem(IVisContainer container) {
+        ItemStack stack = getStackInSlot(0);
+
+        AspectList as = container.getAspectsWithRoom(stack);
+        if (as != null && as.size() > 0) {
+            for (Aspect aspect : as.getAspects()) {
+                // Pedestal operates every 5 ticks
+                int drained = VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, aspect, 25);
+                if (drained > 0) {
+                    container.addRealVis(stack, aspect, drained, true);
+                    draining = true;
+                    somethingChanged = true;
+                    sa$needSync = true;
+                }
+            }
         }
     }
 }

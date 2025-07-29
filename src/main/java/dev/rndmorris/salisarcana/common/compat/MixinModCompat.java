@@ -5,6 +5,7 @@ import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import com.mitchej123.hodgepodge.config.TweaksConfig;
 
 import cpw.mods.fml.common.Loader;
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import jss.bugtorch.config.BugTorchConfig;
 
 public class MixinModCompat {
@@ -18,9 +19,11 @@ public class MixinModCompat {
 
         // For other mods, we may have to fetch config values manually.
         if (Loader.isModLoaded("hodgepodge")) {
-            disableWandCV = TweaksConfig.addCVSupportToWandPedestal;
-            if (disableWandCV) {
-                LOG.info("Salis Arcana: Disabling Wand Pedestal CV support -- Hodgepodge Enabled");
+            // Hodgepodge's cv support is buggy and won't charge amulets, so we force-disable it if either
+            // is enabled, and we enable ours instead.
+            if (TweaksConfig.addCVSupportToWandPedestal || SalisConfig.features.wandPedestalUseCV.isEnabled()) {
+                TweaksConfig.addCVSupportToWandPedestal = false;
+                SalisConfig.features.wandPedestalUseCV.setEnabled(true);
             }
         }
         if (Loader.isModLoaded("bugtorch")) {
