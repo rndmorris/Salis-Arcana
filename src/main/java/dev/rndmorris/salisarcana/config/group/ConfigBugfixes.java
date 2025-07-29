@@ -215,6 +215,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "bannerReturnPhials",
         "Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.");
 
+    public final ToggleSetting extraSecureArcaneKeys = new ToggleSetting(
+        this,
+        "extraSecureArcaneKeys",
+        "Arcane Keys will now save the dimension and the creator of the key when linked to a warded object, and will check those values before granting permission.");
+
     @Nonnull
     @Override
     public String getGroupName() {

@@ -187,6 +187,10 @@ public enum Mixins implements IMixins {
         .setApplyIf(() -> SalisConfig.bugfixes.bannerReturnPhials.isEnabled() || SalisConfig.features.bannerFreePatterns.isEnabled() || SalisConfig.features.stopCreativeModeItemConsumption.isEnabled())
         .addCommonMixins("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    KEY_EXTRA_SECURITY(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.extraSecureArcaneKeys)
+        .addCommonMixins("items.MixinItemKey_ExtraSecurityChecks")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
