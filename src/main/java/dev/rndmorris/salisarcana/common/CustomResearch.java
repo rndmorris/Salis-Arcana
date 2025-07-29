@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizons.tcwands.api.TCWandAPI;
@@ -23,12 +24,15 @@ import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.StaffRod;
+import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
@@ -39,6 +43,10 @@ public class CustomResearch {
     public static ResearchItem containerScanResearch;
 
     public static void init() {
+        ResearchCategories.registerCategory(
+            "salisarcana",
+            new ResourceLocation("salisarcana", "textures/items/dust.png"),
+            new ResourceLocation("thaumcraft", "textures/gui/gui_researchback.png"));
         final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
         final var wand = new ItemStack(wandItem);
 
@@ -72,6 +80,62 @@ public class CustomResearch {
         containerScanResearch = maybeRegister(
             SalisConfig.features.thaumometerScanContainersResearch,
             Item.getItemFromBlock(Blocks.chest));
+
+        registerDocumentation();
+    }
+
+    private static void registerDocumentation() {
+        if (SalisConfig.features.visAmuletCheckInventory.isEnabled()
+            || SalisConfig.features.visAmuletTickRate.isEnabled()
+            || SalisConfig.features.visAmuletTransferRate.isEnabled()) {
+            ResearchItem amuletImprovements = new ResearchItem(
+                "salisarcana:AMULETIMPROVEMENTS",
+                "salisarcana",
+                new AspectList().add(Aspect.AIR, 1),
+                1,
+                1,
+                0,
+                new ItemStack(ConfigItems.itemAmuletVis, 1, 1));
+            amuletImprovements.setAutoUnlock();
+            amuletImprovements.setStub();
+            amuletImprovements.setPages(new ResearchPage("tc.research_page.salisarcana:AMULETIMPROVEMENTS.0"));
+
+            amuletImprovements.registerResearchItem();
+        }
+
+        if (SalisConfig.features.lookalikePlanks.isEnabled()) {
+            ResearchItem lookAlikePlanks = new ResearchItem(
+                "salisarcana:LOOKALIKEPLANKS",
+                "salisarcana",
+                new AspectList().add(Aspect.TREE, 1)
+                    .add(Aspect.CRAFT, 1),
+                1,
+                3,
+                0,
+                new ItemStack(ConfigItems.itemResource, 1, 0));
+            lookAlikePlanks.setAutoUnlock();
+            lookAlikePlanks.setStub();
+            lookAlikePlanks.setPages(new ResearchPage("tc.research_page.salisarcana:LOOKALIKEPLANKS.0"));
+
+            lookAlikePlanks.registerResearchItem();
+        }
+
+        if (SalisConfig.features.wandPedestalUseCV.isEnabled()) {
+            ResearchItem cvWandPedestal = new ResearchItem(
+                "salisarcana:CVWANDPEDESTAL",
+                "salisarcana",
+                new AspectList().add(Aspect.MAGIC, 1)
+                    .add(Aspect.CRAFT, 1),
+                3,
+                1,
+                0,
+                new ItemStack(ConfigBlocks.blockStoneDevice, 1, 5));
+            cvWandPedestal.setAutoUnlock();
+            cvWandPedestal.setStub();
+            cvWandPedestal.setPages(new ResearchPage("tc.research_page.salisarcana:CVWANDPEDESTAL.0"));
+
+            cvWandPedestal.registerResearchItem();
+        }
     }
 
     private static IArcaneRecipe[][] exampleCapRecipes() {
