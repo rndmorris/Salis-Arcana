@@ -15,7 +15,7 @@ public class NetworkHandler {
         instance.registerMessage(MessageScanIInventory.class, MessageScanIInventory.class, 2, Side.SERVER);
         instance.registerMessage(MessageDuplicateResearch.class, MessageDuplicateResearch.class, 3, Side.SERVER);
         instance.registerMessage(MessageForgetResearch.class, MessageForgetResearch.class, 4, Side.CLIENT);
-        instance.registerMessage(MessageResetAspects.class, MessageResetAspects.class, 5, Side.CLIENT);
+        instance.registerMessage(MessageForgetAspects.class, MessageForgetAspects.class, 5, Side.CLIENT);
         instance.registerMessage(MessageForgetScannedObjects.class, MessageForgetScannedObjects.class, 6, Side.CLIENT);
         instance.registerMessage(MessageForgetScannedCategory.class, MessageForgetScannedCategory.class, 7, Side.CLIENT);
         // spotless:on

@@ -1,7 +1,5 @@
 package dev.rndmorris.salisarcana.network;
 
-import static dev.rndmorris.salisarcana.common.commands.ForgetAspectCommand.FORGET_ACTION;
-
 import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
@@ -17,20 +15,23 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.research.PlayerKnowledge;
 
-public class MessageResetAspects implements IMessage, IMessageHandler<MessageResetAspects, IMessage> {
+public class MessageForgetAspects implements IMessage, IMessageHandler<MessageForgetAspects, IMessage> {
+
+    public static final byte RESET_ACTION = (byte) 0;
+    public static final byte FORGET_ACTION = (byte) 1;
 
     Aspect[] aspectsToReset = null;
 
     int aspectCount = 0; // number of aspects to reset. If zero, reset all aspects.
     byte action = 0;
 
-    public MessageResetAspects() {}
+    public MessageForgetAspects() {}
 
-    public MessageResetAspects(byte action) {
+    public MessageForgetAspects(byte action) {
         this.action = action;
     }
 
-    public MessageResetAspects(ArrayList<Aspect> aspects, byte action) {
+    public MessageForgetAspects(ArrayList<Aspect> aspects, byte action) {
         this.action = action;
         aspectCount = aspects.size();
         aspectsToReset = aspects.toArray(new Aspect[0]);
@@ -63,7 +64,7 @@ public class MessageResetAspects implements IMessage, IMessageHandler<MessageRes
     }
 
     @Override
-    public IMessage onMessage(MessageResetAspects message, MessageContext ctx) {
+    public IMessage onMessage(MessageForgetAspects message, MessageContext ctx) {
         EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
         final PlayerKnowledge playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
         final AspectList playerAspects = playerKnowledge.aspectsDiscovered.get(player.getCommandSenderName());
