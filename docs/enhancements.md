@@ -83,6 +83,18 @@ Config Option: `thaumometerDuration`
 
 Changes the duration of the Thaumometer's scanning effect. Default is 20 ticks.
 
+## Research Duplication in Thaumonomicon
+
+Config Option: `nomiconDuplicateResearch`
+
+Allow players with "Research Duplication" researched to create duplicates out of the Thaumonomicon at the cost of ink, paper, & the purchase price of the research (even if the research originally required a puzzle to be solved.)
+
+## Free Research Duplication
+
+Config Option: `researchDuplicationFree` (default: false)
+
+Research duplication (in the Research Table and, if `nomiconDuplicateResearch` is enabled, in the Thaumonomicon) will not cost any research aspects when this setting is enabled.
+
 ## Thaumcraft Command
 
 Config Option: `thaumcraftCommandTabCompletion`
@@ -220,6 +232,12 @@ Override how eldritch altars pick where to try spawning crimson knights and eldr
 * `EVEN_SPREAD`: each valid coordinate in range has an equal chance of being selected. Will not try to spawn in spaces occupied by the altar itself.
 * `CENTER_WEIGHTED`: weighted towards coordinates near the altar. Will not try to spawn in spaces occupied by the altar itself.
 
+## Patterning Banners is Free
+
+**Config option:** `bannerFreePatterns`
+
+Applying patterns to banners not consume the phial or the essentia. Overrides `bannerReturnPhials` in the bugfixes module.
+
 # Enhancements - Infusion
 
 ## Config option: `useStabilizerRewrite`
@@ -308,6 +326,9 @@ Add a recipe to convert flesh blocks back into rotten flesh.
 
 ## Config option: `crystalClusterUncrafting`
 Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.
+
+## Config Option: `addEmptyPhialJarRecipes`
+Adds crafting recipes to convert jars and phials of essentia into their empty variants.
 
 # Enhancements - Wand Component Replacement
 

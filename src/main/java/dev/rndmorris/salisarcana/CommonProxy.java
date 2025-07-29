@@ -63,6 +63,9 @@ public class CommonProxy {
         if (SalisConfig.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.initialize();
         }
+
+        ModCompat.preInit();
+
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
 

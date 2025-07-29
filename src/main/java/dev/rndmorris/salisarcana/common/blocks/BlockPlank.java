@@ -40,6 +40,11 @@ public class BlockPlank extends Block {
         par3List.add(new ItemStack(par1, 1, 1));
     }
 
+    @Override
+    public int damageDropped(int meta) {
+        return meta;
+    }
+
     public IIcon getIcon(int par1, int par2) {
         return par2 == 0 ? this.iconGreatwood : this.iconSilverwood;
     }

@@ -2,6 +2,13 @@
 
 Config file: `config/salisarcana/bugfixes.cfg`
 
+## Advanced Alchemical Furnace - Save Additional NBT Data
+
+**Config option:** `advAlchemicalFurnaceSaveNbt`
+
+The Advanced Alchemical Furnace will save and load additional NBT data needed to remember how recently it requested
+centivis and its delay between melting items.
+
 ## Beacon Blocks
 
 **Config option:** `blockCosmeticSolidBeaconIds`
@@ -152,6 +159,12 @@ Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Cr
 
 Makes certain upgraded foci (ex. Wand Focus: Fire with Fireball upgrade) spend the upgraded vis cost rather than the default.
 
+## Deterministic Vis Cost of Wand Focus: Excavation
+
+**Config option:** `excavationFocusDeterministicCost`
+
+Causes the upgraded vis cost of Wand Focus: Excavation to be dependent solely on the applied upgrade rather than which upgrade loaded first in any game session.
+
 ## Prevent Blocks From Dropping When Broken In Creative
 
 **Config option:** `jarNoCreativeDrops`
@@ -179,3 +192,39 @@ Causes Warded Jars and Node in a Jar to create an item with the current contents
 **Config option:** `correctItemInsertion`
 
 Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.
+
+## Ethereal Bloom Growth Animation Fix
+
+**Config Option:** `etherealBloomSaveNBT`
+
+Thaumcraft will correctly save ethereal bloom counters to disk, preventing the growth animation from looping on relog and stopping the cleanse timer from restarting.
+
+## Silk Touch Crystal Clusters
+
+**Config option:** `silkTouchCrystalClusters`
+
+Allows Thaumcraft crystal clusters to be harvested with Silk Touch, preventing them from dropping as shards.
+
+## Abandoned Crates & Old Urn Hitboxes
+
+**Config option:** `lootBlockHitbox`
+
+Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.
+
+## Thaumatorium Multiplayer Bug-fix
+
+**Config option:** `thaumatoriumMultiContainer`
+
+Makes the server correctly handle multiple players interacting with a Thaumatorium at the same time and cleans up client-side `Container`s when the player closes the GUI.
+
+## Localize Chat Messages on the Client
+
+**Config option:** `fixClientSideLocalization`
+
+All messages displayed in chat will be displayed in the client's language rather than the language of the server.
+
+## Prevent Consumption of Phials when Applied to Banners
+
+**Config option:** `bannerReturnPhials`
+
+Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.

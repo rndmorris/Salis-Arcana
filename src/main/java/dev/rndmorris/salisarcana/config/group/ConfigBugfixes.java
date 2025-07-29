@@ -8,6 +8,11 @@ import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
 public class ConfigBugfixes extends ConfigGroup {
 
+    public final ToggleSetting advAlchemicalFurnaceSaveNbt = new ToggleSetting(
+        this,
+        "advAlchemicalFurnaceSaveNbt",
+        "Saves additional NBT data to the advanced alchemical furnace for more consistent behavior.");
+
     public final BeaconBlockFixSetting beaconBlockFixSetting = new BeaconBlockFixSetting(this);
 
     public final ToggleSetting candleRendererCrashes = new ToggleSetting(
@@ -173,7 +178,42 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting correctItemInsertion = new ToggleSetting(
         this,
         "correctItemInsertion",
-        "Thaumcraft will correctly insect items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+        "Thaumcraft will correctly insert items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+
+    public final ToggleSetting lootBlockHitbox = new ToggleSetting(
+        this,
+        "lootBlockHitbox",
+        "Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.");
+
+    public final ToggleSetting etherealBloomSaveNBT = new ToggleSetting(
+        this,
+        "etherealBloomSaveNBT",
+        "Thaumcraft will correctly save ethereal bloom counters to disk, preventing the growth animation from looping on relog and stopping the cleanse timer from restarting.");
+
+    public final ToggleSetting silkTouchCrystalClusters = new ToggleSetting(
+        this,
+        "silkTouchCrystalClusters",
+        "Allows Thaumcraft crystal clusters to be harvested with Silk Touch, preventing them from dropping as shards.");
+
+    public final ToggleSetting thaumatoriumMultiContainer = new ToggleSetting(
+        this,
+        "thaumatoriumMultiContainer",
+        "Fixes some possible bugs caused by multiple players interacting with a Thaumatorium at the same time.");
+
+    public final ToggleSetting fixClientSideLocalization = new ToggleSetting(
+        this,
+        "fixClientSideLocalization",
+        "Make all messages displayed get localized on the client.");
+
+    public final ToggleSetting excavationFocusDeterministicCost = new ToggleSetting(
+        this,
+        "excavationFocusDeterministicCost",
+        "Causes the upgraded vis cost of Wand Focus: Excavation to be dependent solely on the applied upgrade rather than which upgrade loaded first in any game session.");
+
+    public final ToggleSetting bannerReturnPhials = new ToggleSetting(
+        this,
+        "bannerReturnPhials",
+        "Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.");
 
     @Nonnull
     @Override
