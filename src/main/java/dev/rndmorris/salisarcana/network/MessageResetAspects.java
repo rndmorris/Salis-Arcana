@@ -19,24 +19,27 @@ public class MessageResetAspects implements IMessage, IMessageHandler<MessageRes
 
     Aspect[] aspectsToReset = null;
 
-    int resetCount = 0; // number of aspects to reset. If zero, reset all aspects.
+    int aspectCount = 0; // number of aspects to reset. If zero, reset all aspects.
+    byte action = 0;
 
-    public MessageResetAspects() {
-
+    public MessageResetAspects(byte action) {
+        this.action = action;
     }
 
-    public MessageResetAspects(ArrayList<Aspect> aspects) {
-        resetCount = aspects.size();
+    public MessageResetAspects(ArrayList<Aspect> aspects, byte action) {
+        this.action = action;
+        aspectCount = aspects.size();
         aspectsToReset = aspects.toArray(new Aspect[0]);
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.resetCount = buf.readInt();
-        if (this.resetCount > 0) {
-            this.resetCount = buf.readInt();
-            this.aspectsToReset = new Aspect[this.resetCount];
-            for (int i = 0; i < this.resetCount; i++) {
+        this.action = buf.readByte();
+        this.aspectCount = buf.readInt();
+        if (this.aspectCount > 0) {
+            this.aspectCount = buf.readInt();
+            this.aspectsToReset = new Aspect[this.aspectCount];
+            for (int i = 0; i < this.aspectCount; i++) {
                 String tag = ByteBufUtils.readUTF8String(buf);
                 this.aspectsToReset[i] = Aspect.getAspect(tag);
             }
@@ -45,8 +48,9 @@ public class MessageResetAspects implements IMessage, IMessageHandler<MessageRes
 
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeInt(this.resetCount);
-        if (this.resetCount > 0) {
+        buf.writeByte(this.action);
+        buf.writeInt(this.aspectCount);
+        if (this.aspectCount > 0) {
             buf.writeInt(this.aspectsToReset.length);
             for (Aspect aspect : this.aspectsToReset) {
                 ByteBufUtils.writeUTF8String(buf, aspect.getTag());
@@ -59,13 +63,23 @@ public class MessageResetAspects implements IMessage, IMessageHandler<MessageRes
         EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
         final PlayerKnowledge playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
         final AspectList playerAspects = playerKnowledge.aspectsDiscovered.get(player.getCommandSenderName());
-        if (message.resetCount == 0) { // reset all
-            for (final Aspect aspect : playerAspects.getAspects()) {
-                playerAspects.aspects.put(aspect, 1);
+        if (message.aspectCount == 0) { // reset all
+            if (message.action == 1) {
+                playerAspects.aspects.clear();
+            } else {
+                for (final Aspect aspect : playerAspects.getAspects()) {
+                    playerAspects.aspects.put(aspect, 1);
+                }
             }
         } else {
-            for (Aspect aspect : message.aspectsToReset) {
-                playerAspects.aspects.put(aspect, 1);
+            if (message.action == 1) {
+                for (Aspect aspect : message.aspectsToReset) {
+                    playerAspects.aspects.remove(aspect);
+                }
+            } else {
+                for (Aspect aspect : message.aspectsToReset) {
+                    playerAspects.aspects.put(aspect, 1);
+                }
             }
         }
         return null;

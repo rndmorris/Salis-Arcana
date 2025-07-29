@@ -15,6 +15,5 @@ public class NetworkHandler {
         instance.registerMessage(MessageScanIInventory.class, MessageScanIInventory.class, 3, Side.SERVER);
         instance.registerMessage(MessageForgetResearch.class, MessageForgetResearch.class, 6, Side.CLIENT);
         instance.registerMessage(MessageResetAspects.class, MessageResetAspects.class, 7, Side.CLIENT);
-        instance.registerMessage(MessageForgetAspects.class, MessageForgetAspects.class, 8, Side.CLIENT);
     }
 }

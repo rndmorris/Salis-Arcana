@@ -16,7 +16,6 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHan
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.AspectHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.salisarcana.config.SalisConfig;
-import dev.rndmorris.salisarcana.network.MessageForgetAspects;
 import dev.rndmorris.salisarcana.network.MessageResetAspects;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.api.aspects.Aspect;
@@ -75,13 +74,13 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
     private int resetAspects(AspectList aspects, Arguments arguments, EntityPlayerMP player) {
         int removedCount = 0;
         if (arguments.all) {
-            NetworkHandler.instance.sendTo(new MessageResetAspects(), player);
+            NetworkHandler.instance.sendTo(new MessageResetAspects((byte) 0), player);
             for (final var aspect : aspects.getAspects()) {
                 aspects.aspects.put(aspect, 1);
                 removedCount++;
             }
         } else if (arguments.aspects != null && !arguments.aspects.isEmpty()) {
-            NetworkHandler.instance.sendTo(new MessageResetAspects(arguments.aspects), player);
+            NetworkHandler.instance.sendTo(new MessageResetAspects(arguments.aspects, (byte) 0), player);
             for (final var aspect : arguments.aspects) {
                 aspects.aspects.put(aspect, 1);
                 removedCount++;
@@ -93,14 +92,14 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
     private int forgetAspects(AspectList aspects, Arguments arguments, EntityPlayerMP player) {
         int removedCount = 0;
         if (arguments.all) {
-            NetworkHandler.instance.sendTo(new MessageForgetAspects(), player);
+            NetworkHandler.instance.sendTo(new MessageResetAspects((byte) 1), player);
             removedCount = Math.max(
                 aspects.size() - Aspect.getPrimalAspects()
                     .size(),
                 0);
             aspects.aspects.clear();
         } else if (arguments.aspects != null && !arguments.aspects.isEmpty()) {
-            NetworkHandler.instance.sendToServer(new MessageForgetAspects(arguments.aspects));
+            NetworkHandler.instance.sendToServer(new MessageResetAspects(arguments.aspects, (byte) 1));
             for (final var aspect : arguments.aspects) {
                 if (aspects.aspects.remove(aspect) != null) {
                     removedCount++;
