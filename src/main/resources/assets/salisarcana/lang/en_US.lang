@@ -185,5 +185,5 @@ salisarcana:misc.arcane_pressure_plate.not_you=It will now trigger on everything
 salisarcana:misc.arcane_pressure_plate.only_you=It will now trigger on just you.
 salisarcana:misc.mirror.already_linked=That mirror is already linked to a valid destination.
 
-salisarcana:misc.arcane_key.creator=§5§oCreated by %s
-salisarcana:misc.arcane_key.dimension=§5§o(in dimension %s)
+salisarcana:misc.arcane_key.creator=§5§oCreated by: %s
+salisarcana:misc.arcane_key.dimension= (dimension %s)

@@ -31,8 +31,8 @@ public class MixinItemKey_ExtraSecurityChecks {
     public ItemStack addExtraSecurityInfo(ItemStack key, @Local(argsOnly = true) EntityPlayer player,
         @Local(argsOnly = true) World world) {
         final var nbt = new NBTTagCompound();
-        nbt.setString("salisArcana$creator", player.getCommandSenderName());
-        nbt.setInteger("salisArcana$dimension", world.provider.dimensionId);
+        nbt.setString("salisarcana:creator", player.getCommandSenderName());
+        nbt.setInteger("salisarcana:dimension", world.provider.dimensionId);
         key.setTagCompound(nbt);
         return key;
     }
@@ -44,11 +44,11 @@ public class MixinItemKey_ExtraSecurityChecks {
             target = "Lnet/minecraft/nbt/NBTTagCompound;getString(Ljava/lang/String;)Ljava/lang/String;"))
     public String checkExtraSecurityInfo(NBTTagCompound tag, String nbtKey, Operation<String> original,
         @Local TileEntity tileEntity, @Local(argsOnly = true) World world, @Local(argsOnly = true) ItemStack key) {
-        final var creator = tag.getString("salisArcana$creator");
+        final var creator = tag.getString("salisarcana:creator");
 
         if (!creator.isEmpty()) {
             // This key has the extra security features.
-            if (tag.getInteger("salisArcana$dimension") != world.provider.dimensionId) {
+            if (tag.getInteger("salisarcana:dimension") != world.provider.dimensionId) {
                 // The key is for the wrong dimension.
                 return null;
             }
@@ -68,15 +68,17 @@ public class MixinItemKey_ExtraSecurityChecks {
     @Inject(method = "addInformation", at = @At("TAIL"))
     public void addExtraInfo(ItemStack key, EntityPlayer player, List<String> text, boolean advancedTooltips,
         CallbackInfo ci) {
-        if (key.hasTagCompound() && key.stackTagCompound.hasKey("salisArcana$creator")) {
-            text.add(
-                StatCollector.translateToLocalFormatted(
-                    "salisarcana:misc.arcane_key.dimension",
-                    key.stackTagCompound.getInteger("salisArcana$dimension")));
+        if (key.hasTagCompound() && key.stackTagCompound.hasKey("salisarcana:creator")) {
+            final int lastLine = text.size() - 1;
+            final String dimInfo = StatCollector.translateToLocalFormatted(
+                "salisarcana:misc.arcane_key.dimension",
+                key.stackTagCompound.getInteger("salisarcana:dimension"));
+
+            text.set(lastLine, text.get(lastLine) + dimInfo);
             text.add(
                 StatCollector.translateToLocalFormatted(
                     "salisarcana:misc.arcane_key.creator",
-                    key.stackTagCompound.getString("salisArcana$creator")));
+                    key.stackTagCompound.getString("salisarcana:creator")));
         }
     }
 }
