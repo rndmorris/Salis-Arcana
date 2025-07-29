@@ -33,15 +33,14 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.config.SalisConfig;
-import dev.rndmorris.salisarcana.network.MessageScanSelf;
-import dev.rndmorris.salisarcana.network.MessageScanSlot;
-import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ScanResult;
 import thaumcraft.client.lib.ClientTickEventsFML;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.playerdata.PacketScannedToServer;
 import thaumcraft.common.lib.research.ScanManager;
 
 public class ThaumicInventoryScanner {
@@ -103,15 +102,17 @@ public class ThaumicInventoryScanner {
         }
         // Handle scanning item
         if (hoveringSlot != null && hoveringSlot.getStack() != null) {
+            // spotless:off
+
+            // spotless made this completely unreadable
             result = new ScanResult(
                 (byte) 1,
-                Item.getIdFromItem(
-                    hoveringSlot.getStack()
-                        .getItem()),
-                hoveringSlot.getStack()
-                    .getItemDamage(),
+                Item.getIdFromItem(hoveringSlot.getStack().getItem()),
+                hoveringSlot.getStack().getItemDamage(),
                 null,
-                "");
+                ""
+            );
+            // spotless:on
             if (hoveringSlot.canTakeStack(player) && !(hoveringSlot instanceof SlotCrafting)
                 && !(hoveringSlot instanceof SlotMerchantResult)
                 && ScanManager.isValidScanTarget(player, result, "@")
@@ -175,17 +176,10 @@ public class ThaumicInventoryScanner {
      * Completes a Scan if currentScan was set to a valid target, will complete self and item scans
      **/
     private void tryCompleteScan(EntityPlayer player) {
-        try {
-
-            if (ScanManager.isValidScanTarget(player, currentScan, "@")) {
-                NetworkHandler.instance.sendToServer(
-                    isHoveringOverPlayer ? new MessageScanSelf() : new MessageScanSlot(hoveringSlot.slotNumber));
-            }
-        } catch (StackOverflowError e) {
-            // Can't do anything about Thaumcraft freaking out except for calming it down if it
-            // does.
-            // If Thaumcraft happens to get into a weird recipe loop, we just ignore that and assume
-            // the item unscannable.
+        if (ScanManager.completeScan(player, currentScan, "@")) {
+            // use have to use thaum's packet handler here since PacketScannedToServer is a thaumcraft packet, not a
+            // salis packet
+            PacketHandler.INSTANCE.sendToServer(new PacketScannedToServer(this.currentScan, player, "@"));
         }
         cancel();
     }
