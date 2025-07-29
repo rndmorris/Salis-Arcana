@@ -22,6 +22,8 @@ public class MessageResetAspects implements IMessage, IMessageHandler<MessageRes
     int aspectCount = 0; // number of aspects to reset. If zero, reset all aspects.
     byte action = 0;
 
+    public MessageResetAspects() {}
+
     public MessageResetAspects(byte action) {
         this.action = action;
     }
