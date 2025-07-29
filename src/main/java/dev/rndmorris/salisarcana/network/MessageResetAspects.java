@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.network;
 
+import static dev.rndmorris.salisarcana.common.commands.ForgetAspectCommand.FORGET_ACTION;
+
 import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
@@ -66,7 +68,7 @@ public class MessageResetAspects implements IMessage, IMessageHandler<MessageRes
         final PlayerKnowledge playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
         final AspectList playerAspects = playerKnowledge.aspectsDiscovered.get(player.getCommandSenderName());
         if (message.aspectCount == 0) { // reset all
-            if (message.action == 1) {
+            if (message.action == FORGET_ACTION) {
                 playerAspects.aspects.clear();
             } else {
                 for (final Aspect aspect : playerAspects.getAspects()) {
@@ -74,7 +76,7 @@ public class MessageResetAspects implements IMessage, IMessageHandler<MessageRes
                 }
             }
         } else {
-            if (message.action == 1) {
+            if (message.action == FORGET_ACTION) {
                 for (Aspect aspect : message.aspectsToReset) {
                     playerAspects.aspects.remove(aspect);
                 }

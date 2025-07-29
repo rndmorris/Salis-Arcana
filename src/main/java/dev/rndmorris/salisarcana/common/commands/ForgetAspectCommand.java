@@ -24,6 +24,9 @@ import thaumcraft.common.Thaumcraft;
 
 public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.Arguments> {
 
+    public static final byte RESET_ACTION = (byte) 0;
+    public static final byte FORGET_ACTION = (byte) 1;
+
     public ForgetAspectCommand() {
         super(SalisConfig.commands.forgetAspects);
     }
@@ -74,13 +77,13 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
     private int resetAspects(AspectList aspects, Arguments arguments, EntityPlayerMP player) {
         int removedCount = 0;
         if (arguments.all) {
-            NetworkHandler.instance.sendTo(new MessageResetAspects((byte) 0), player);
+            NetworkHandler.instance.sendTo(new MessageResetAspects(RESET_ACTION), player);
             for (final var aspect : aspects.getAspects()) {
                 aspects.aspects.put(aspect, 1);
                 removedCount++;
             }
         } else if (arguments.aspects != null && !arguments.aspects.isEmpty()) {
-            NetworkHandler.instance.sendTo(new MessageResetAspects(arguments.aspects, (byte) 0), player);
+            NetworkHandler.instance.sendTo(new MessageResetAspects(arguments.aspects, RESET_ACTION), player);
             for (final var aspect : arguments.aspects) {
                 aspects.aspects.put(aspect, 1);
                 removedCount++;
@@ -92,14 +95,14 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
     private int forgetAspects(AspectList aspects, Arguments arguments, EntityPlayerMP player) {
         int removedCount = 0;
         if (arguments.all) {
-            NetworkHandler.instance.sendTo(new MessageResetAspects((byte) 1), player);
+            NetworkHandler.instance.sendTo(new MessageResetAspects(FORGET_ACTION), player);
             removedCount = Math.max(
                 aspects.size() - Aspect.getPrimalAspects()
                     .size(),
                 0);
             aspects.aspects.clear();
         } else if (arguments.aspects != null && !arguments.aspects.isEmpty()) {
-            NetworkHandler.instance.sendToServer(new MessageResetAspects(arguments.aspects, (byte) 1));
+            NetworkHandler.instance.sendTo(new MessageResetAspects(arguments.aspects, FORGET_ACTION), player);
             for (final var aspect : arguments.aspects) {
                 if (aspects.aspects.remove(aspect) != null) {
                     removedCount++;
