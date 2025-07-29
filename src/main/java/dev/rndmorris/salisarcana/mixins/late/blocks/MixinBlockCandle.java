@@ -7,9 +7,6 @@
 
 package dev.rndmorris.salisarcana.mixins.late.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -20,11 +17,7 @@ import thaumcraft.common.blocks.BlockCandle;
 import thaumcraft.common.lib.utils.Utils;
 
 @Mixin(BlockCandle.class)
-public abstract class MixinBlockCandle extends Block {
-
-    protected MixinBlockCandle(Material material) {
-        super(material);
-    }
+public abstract class MixinBlockCandle {
 
     /**
      * @author jss2a98aj
