@@ -1,6 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.gui;
 
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.RightClickClose$ScreenStack;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.RightClickClose$ScreenStack;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.Tuple;
@@ -42,7 +42,10 @@ public class MixinGuiResearchBrowser_RightClickClose extends GuiScreen {
     @WrapMethod(method = "mouseClicked")
     private void onMouseClicked(int mouseX, int mouseY, int button, Operation<Void> operation) {
         if (button == 1) {
-            this.mc.displayGuiScreen(null);
+            // simulate pressing inv key
+            // par1 is the char typed, par2 is the keycode. par1 is not used in super hierarchy, so we can use any char
+            // Thaumcraft checks against keyBindInventory, so we use that for par2
+            this.keyTyped(' ', this.mc.gameSettings.keyBindInventory.getKeyCode());
             return;
         }
         operation.call(mouseX, mouseY, button);

@@ -3,6 +3,9 @@ package dev.rndmorris.salisarcana.core;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
@@ -10,6 +13,11 @@ import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 
 @IFMLLoadingPlugin.MCVersion("1.7.10")
 public class SalisArcanaCore implements IFMLLoadingPlugin {
+
+    public static boolean isObfuscated;
+
+    public static final String MODID = "salisarcana";
+    public static final Logger LOG = LogManager.getLogger("salisarcana-core");
 
     public SalisArcanaCore() {
         SalisConfig.synchronizeConfiguration();
@@ -34,6 +42,7 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
 
     @Override
     public void injectData(Map<String, Object> data) {
+        isObfuscated = (boolean) data.get("runtimeDeobfuscationEnabled");
 
         editors.add(
             new ModCompatEditor(

@@ -8,6 +8,11 @@ import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
 public class ConfigBugfixes extends ConfigGroup {
 
+    public final ToggleSetting advAlchemicalFurnaceSaveNbt = new ToggleSetting(
+        this,
+        "advAlchemicalFurnaceSaveNbt",
+        "Saves additional NBT data to the advanced alchemical furnace for more consistent behavior.");
+
     public final BeaconBlockFixSetting beaconBlockFixSetting = new BeaconBlockFixSetting(this);
 
     public final ToggleSetting candleRendererCrashes = new ToggleSetting(
@@ -129,6 +134,86 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "silverwoodLogCorrectName",
         "Non-vertical silverwood logs will be correctly named \"Silverwood Log\" in WAILA.");
+
+    public final ToggleSetting updateBiomeColorRendering = new ToggleSetting(
+        this,
+        "updateBiomeColorRendering",
+        "Biome changes will correctly update the color of grass in chunks without needing a block to change.");
+
+    public final ToggleSetting preventBlockAiryFluidReplacement = new ToggleSetting(
+        this,
+        "preventBlockAiryFluidReplacement",
+        "Prevents useful airy blocks (nodes, energized nodes, and the blocks of the Outer Lands boss room door) from being replaced by buckets with liquid.");
+
+    public final ToggleSetting runedStoneIgnoreCreative = new ToggleSetting(
+        this,
+        "runedStoneIgnoreCreative",
+        "Runed Stone (shock traps in Outer Lands) will not attempt to shock players in Creative Mode.");
+
+    public final ToggleSetting upgradedFocusVisCost = new ToggleSetting(
+        this,
+        "upgradedFocusVisCost",
+        "Makes certain upgraded foci (ex. Wand Focus: Fire with Fireball upgrade) spend the upgraded vis cost rather than the default.");
+
+    public final ToggleSetting jarNoCreativeDrops = new ToggleSetting(
+        this,
+        "jarNoCreativeDrops",
+        "Prevent Warded Jars and Node in a Jar from dropping items when broken in Creative.");
+
+    public final ToggleSetting bannerNoCreativeDrops = new ToggleSetting(
+        this,
+        "bannerNoCreativeDrops",
+        "Prevent Banners from dropping items when broken in Creative.");
+
+    public final ToggleSetting bannerPickBlock = new ToggleSetting(
+        this,
+        "bannerPickBlock",
+        "Causes the banner to give the actual banner item when pick-block is used, instead of giving a Crimson Cult Banner. Also fixes the icon of the banner in WAILA.");
+
+    public final ToggleSetting jarPickBlock = new ToggleSetting(
+        this,
+        "jarPickBlock",
+        "Causes Warded Jars and Node in a Jar to create an item with the current contents of the jar when pick-block is used. Also fixes the WAILA tooltip for those blocks.");
+
+    public final ToggleSetting correctItemInsertion = new ToggleSetting(
+        this,
+        "correctItemInsertion",
+        "Thaumcraft will correctly insert items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
+
+    public final ToggleSetting lootBlockHitbox = new ToggleSetting(
+        this,
+        "lootBlockHitbox",
+        "Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.");
+
+    public final ToggleSetting etherealBloomSaveNBT = new ToggleSetting(
+        this,
+        "etherealBloomSaveNBT",
+        "Thaumcraft will correctly save ethereal bloom counters to disk, preventing the growth animation from looping on relog and stopping the cleanse timer from restarting.");
+
+    public final ToggleSetting silkTouchCrystalClusters = new ToggleSetting(
+        this,
+        "silkTouchCrystalClusters",
+        "Allows Thaumcraft crystal clusters to be harvested with Silk Touch, preventing them from dropping as shards.");
+
+    public final ToggleSetting thaumatoriumMultiContainer = new ToggleSetting(
+        this,
+        "thaumatoriumMultiContainer",
+        "Fixes some possible bugs caused by multiple players interacting with a Thaumatorium at the same time.");
+
+    public final ToggleSetting fixClientSideLocalization = new ToggleSetting(
+        this,
+        "fixClientSideLocalization",
+        "Make all messages displayed get localized on the client.");
+
+    public final ToggleSetting excavationFocusDeterministicCost = new ToggleSetting(
+        this,
+        "excavationFocusDeterministicCost",
+        "Causes the upgraded vis cost of Wand Focus: Excavation to be dependent solely on the applied upgrade rather than which upgrade loaded first in any game session.");
+
+    public final ToggleSetting bannerReturnPhials = new ToggleSetting(
+        this,
+        "bannerReturnPhials",
+        "Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.");
 
     @Nonnull
     @Override

@@ -4,12 +4,15 @@ import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -19,10 +22,13 @@ import net.minecraftforge.common.util.FakePlayer;
 
 import dev.rndmorris.salisarcana.api.IResearchItemExtended;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
+import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
+import thaumcraft.common.lib.research.ScanManager;
 
 public class ResearchHelper {
 
@@ -87,10 +93,18 @@ public class ResearchHelper {
     public static void sendResearchError(EntityPlayer player, String researchKey, String translationKey) {
         if (player instanceof EntityPlayerMP playerMP && !(player instanceof FakePlayer)) {
             final var research = ResearchCategories.getResearch(researchKey);
+
+            IChatComponent researchName;
+            if (research instanceof IResearchItemExtended extended) {
+                researchName = new ChatComponentTranslation(extended.getNameTranslationKey());
+            } else {
+                researchName = new ChatComponentText(research.getName());
+            }
+
             final var message = new ChatComponentTranslation(
                 translationKey,
-                research.getName(),
-                ResearchCategories.getCategoryName(research.category));
+                researchName,
+                new ChatComponentTranslation("tc.research_category." + research.category));
             message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED));
             playerMP.addChatMessage(message);
         }
@@ -146,5 +160,27 @@ public class ResearchHelper {
                 player.getCommandSenderName(),
                 player.worldObj.provider.dimensionId,
                 (byte) 0));
+    }
+
+    public static boolean isItemScanned(EntityPlayer player, ItemStack stack, String prefix) {
+        Item item = stack.getItem();
+        int meta = stack.getItemDamage();
+        Map<String, ArrayList<String>> scannedObjects = Thaumcraft.proxy.getScannedObjects();
+        ArrayList<String> scanned = scannedObjects.get(player.getCommandSenderName());
+        if (scanned == null) {
+            return false;
+        }
+        String hash = prefix + ScanManager.generateItemHash(item, meta);
+        return scanned.contains(hash);
+    }
+
+    public static boolean hasResearchAspects(String username, AspectList aspects) {
+        final var playerAspects = Thaumcraft.proxy.playerKnowledge.getAspectsDiscovered(username);
+        for (final var aspect : aspects.aspects.entrySet()) {
+            if (playerAspects.getAmount(aspect.getKey()) < aspect.getValue()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

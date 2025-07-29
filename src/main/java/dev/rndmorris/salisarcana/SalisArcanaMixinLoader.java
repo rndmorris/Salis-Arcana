@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
+import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 
 import dev.rndmorris.salisarcana.common.compat.MixinModCompat;
 import dev.rndmorris.salisarcana.mixins.Mixins;
@@ -23,6 +24,6 @@ public class SalisArcanaMixinLoader implements ILateMixinLoader {
 
     @Override
     public List<String> getMixins(Set<String> loadedMods) {
-        return Mixins.getLateMixins(loadedMods);
+        return IMixins.getLateMixins(Mixins.class, loadedMods);
     }
 }

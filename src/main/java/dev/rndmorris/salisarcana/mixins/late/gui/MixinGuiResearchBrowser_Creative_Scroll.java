@@ -1,11 +1,11 @@
 package dev.rndmorris.salisarcana.mixins.late.gui;
 
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$CurrentPageIndex;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$GetTabsOnCurrentPage;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$GetTabsPerPage;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$MaxPageIndex;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$NextPage;
-import static dev.rndmorris.salisarcana.lib.MixinHelpers.BrowserPaging$SetPage;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$CurrentPageIndex;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$GetTabsOnCurrentPage;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$GetTabsPerPage;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$MaxPageIndex;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$NextPage;
+import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$SetPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +23,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.rndmorris.salisarcana.common.compat.Mods;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
+import dev.rndmorris.salisarcana.mixins.TargetedMod;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
@@ -84,7 +84,7 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
             if (dir != sa$lastDir) {
                 sa$lastDir = dir;
                 dir *= sa$invertScrolling;
-                if (Mods.TC4Tweak.isLoaded()) {
+                if (TargetedMod.TC4_TWEAKS.isLoaded()) {
                     sa$handleTc4TweakScroll(dir);
                     return;
                 }
@@ -183,16 +183,11 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
         }
     }
 
-    @Inject(
-        method = "updateResearch",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/api/research/ResearchCategories;getResearchList(Ljava/lang/String;)Lthaumcraft/api/research/ResearchCategoryList;",
-            ordinal = 0),
-        remap = false)
+    @Inject(method = "updateResearch", at = @At("TAIL"), remap = false)
     private void creativePaperCheck(CallbackInfo ci) {
-        this.hasScribestuff = this.mc.thePlayer.capabilities.isCreativeMode && sa$opEnabled
-            && !Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
+        if (this.mc.thePlayer.capabilities.isCreativeMode && sa$opEnabled) {
+            this.hasScribestuff = !Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
+        }
     }
 
 }

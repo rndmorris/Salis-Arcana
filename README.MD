@@ -26,6 +26,7 @@ Secret salt to enhance and refine Thaumcraft 4
 # Credits
 * rndmorris - Project co-lead
 * Midnight145 - Project co-lead
+* nicksitnikov - Developer
 * jss2a98aj - Metadata safety checks from [BugTorch](https://github.com/jss2a98aj/BugTorch)
 * The GTNH Team - The Mixin framework, several mixins from [Hodgepodge](https://github.com/GTNewHorizons/Hodgepodge)
 * Christopher "BlayTheNinth" Baker - Thaumic Inventory Scanning
@@ -54,3 +55,9 @@ Secret salt to enhance and refine Thaumcraft 4
 **Source:** https://game-icons.net/1x1/lorc/double-ringed-orb.html
 
 **License:** [Creative Commons Attribution 3.0 Unported](https://creativecommons.org/licenses/by/3.0/deed.en) license
+
+## "Create Duplicate Research" Icon in Thaumonomicon
+
+**By:** Nikolay S.
+
+**License:** [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)

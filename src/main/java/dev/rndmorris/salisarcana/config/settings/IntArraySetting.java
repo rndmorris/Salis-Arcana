@@ -1,8 +1,11 @@
 package dev.rndmorris.salisarcana.config.settings;
 
+import java.util.Arrays;
+
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.config.IEnabler;
+import dev.rndmorris.salisarcana.core.SalisArcanaCore;
 
 public class IntArraySetting extends Setting {
 
@@ -12,6 +15,8 @@ public class IntArraySetting extends Setting {
     protected int[] value;
     protected int minValue;
     protected int maxValue;
+    protected boolean fixedLength = false;
+    protected int maxLength = -1;
 
     Setting pairedSetting;
 
@@ -45,12 +50,53 @@ public class IntArraySetting extends Setting {
         return pairedSetting.isEnabled();
     }
 
+    public IntArraySetting setLengthFixed(boolean isFixed) {
+        this.fixedLength = isFixed;
+        return this;
+    }
+
+    public IntArraySetting setMaxLength(int maxLength) {
+        this.maxLength = maxLength;
+        return this;
+    }
+
     @Override
     public void loadFromConfiguration(Configuration configuration) {
         pairedSetting.loadFromConfiguration(configuration);
         this.value = configuration
-            .get(getCategory(), this.name, this.defaultValue, this.comment, this.minValue, this.maxValue)
+            .get(
+                getCategory(),
+                this.name,
+                this.defaultValue,
+                this.comment,
+                this.minValue,
+                this.maxValue,
+                this.fixedLength,
+                this.fixedLength ? this.defaultValue.length : this.maxLength)
             .getIntList();
+
+        boolean wrong = false;
+        for (int num : this.value) {
+            if (num < this.minValue || num > this.maxValue) {
+                SalisArcanaCore.LOG.error(
+                    "Value {} in setting \"{}\" is out of bounds. (Bounds: {} <= n <= {})",
+                    num,
+                    this.name,
+                    this.minValue,
+                    this.maxValue);
+                wrong = true;
+            }
+        }
+
+        if (wrong) {
+            if (this.fixedLength) {
+                this.value = this.defaultValue;
+            } else {
+                this.value = Arrays.stream(this.value)
+                    .filter(v -> (v >= this.minValue && v <= this.maxValue))
+                    .toArray();
+            }
+        }
     }
 
 }

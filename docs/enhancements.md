@@ -22,6 +22,16 @@ while avoiding the weirdness in Thaumcraft's plank blocks implementation.
 
 Causes staffters to use their own translation string rather than being called "Staff" in the tooltip.
 
+## Mob Vis Drop Whitelist
+
+**Config option:** `mobVisWhitelist`
+
+Whitelist of entities that can generate vis orbs when killed. If empty, all entities will generate vis orbs.
+
+**Config option:** `mobVisBlacklist`
+
+If enabled, the whitelist will instead function as a blacklist.
+
 ## "Missing Research" Messages
 
 **Config option:** `notifyMissingResearchWorkbench`
@@ -72,6 +82,18 @@ Allows the Thaumometer to scan the contents of containers (eg. chests, barrels) 
 Config Option: `thaumometerDuration`
 
 Changes the duration of the Thaumometer's scanning effect. Default is 20 ticks.
+
+## Research Duplication in Thaumonomicon
+
+Config Option: `nomiconDuplicateResearch`
+
+Allow players with "Research Duplication" researched to create duplicates out of the Thaumonomicon at the cost of ink, paper, & the purchase price of the research (even if the research originally required a puzzle to be solved.)
+
+## Free Research Duplication
+
+Config Option: `researchDuplicationFree` (default: false)
+
+Research duplication (in the Research Table and, if `nomiconDuplicateResearch` is enabled, in the Thaumonomicon) will not cost any research aspects when this setting is enabled.
 
 ## Thaumcraft Command
 
@@ -210,6 +232,12 @@ Override how eldritch altars pick where to try spawning crimson knights and eldr
 * `EVEN_SPREAD`: each valid coordinate in range has an equal chance of being selected. Will not try to spawn in spaces occupied by the altar itself.
 * `CENTER_WEIGHTED`: weighted towards coordinates near the altar. Will not try to spawn in spaces occupied by the altar itself.
 
+## Patterning Banners is Free
+
+**Config option:** `bannerFreePatterns`
+
+Applying patterns to banners not consume the phial or the essentia. Overrides `bannerReturnPhials` in the bugfixes module.
+
 # Enhancements - Infusion
 
 ## Config option: `useStabilizerRewrite`
@@ -299,6 +327,9 @@ Add a recipe to convert flesh blocks back into rotten flesh.
 ## Config option: `crystalClusterUncrafting`
 Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.
 
+## Config Option: `addEmptyPhialJarRecipes`
+Adds crafting recipes to convert jars and phials of essentia into their empty variants.
+
 # Enhancements - Wand Component Replacement
 
 ## Config option: `enableReplaceWandCapsRecipe`
@@ -332,3 +363,21 @@ Requires `enableReplaceWandCapsRecipe=true` or `enableReplaceWandCoreRecipe=true
 Requires `arcaneWorkbenchGhostItemFix=true` in the bugfixes module.
 
 If enabled, allows swapping a wand's components using vis from the wand being modified.
+
+# Enhancements - Vis Relay/Amulet Improvements:
+
+## Config Option: `visRelayBoxExpansion`
+
+Increases the range of the vis relay at which items like amulets will be charged. Default is 5, which means players will have to be within 5 blocks of the relay.
+
+## Config Option: `visAmuletRechargeSpeed`
+
+The rate, in ticks, at which the vis amulet will recharge itself.
+
+## Config Option: `visAmuletTransferRate`
+
+Used to control how much vis can be transferred to and from the vis amulet.
+
+## Config Option: `visAmuletCheckInventory`
+
+If enabled, the vis amulet will check the player's inventory for wands, instead of just the player's hand.
