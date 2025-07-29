@@ -28,7 +28,7 @@ import dev.rndmorris.salisarcana.common.commands.arguments.handlers.flag.FlagHan
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.AspectHandler;
 import dev.rndmorris.salisarcana.common.commands.arguments.handlers.named.PlayerHandler;
 import dev.rndmorris.salisarcana.config.SalisConfig;
-import dev.rndmorris.salisarcana.lib.InvHelper;
+import dev.rndmorris.salisarcana.lib.InventoryHelper;
 import dev.rndmorris.salisarcana.network.MessageForgetScannedCategory;
 import dev.rndmorris.salisarcana.network.MessageForgetScannedObjects;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
@@ -64,7 +64,7 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
             forgottenHashes.addAll(forgetItems(targetPlayer, Collections.singletonList(targetPlayer.getHeldItem())));
         }
         if (arguments.inventory) {
-            forgottenHashes.addAll(forgetItems(targetPlayer, InvHelper.getItemStacks(targetPlayer.inventory)));
+            forgottenHashes.addAll(forgetItems(targetPlayer, InventoryHelper.getItemStacks(targetPlayer.inventory)));
         }
         if (arguments.looking || arguments.container) {
             MovingObjectPosition target = getLookingAt(targetPlayer);
@@ -81,7 +81,7 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
             if (arguments.container) {
                 TileEntity tile = targetPlayer.worldObj.getTileEntity(target.blockX, target.blockY, target.blockZ);
                 if (tile instanceof IInventory inventory) {
-                    forgottenHashes.addAll(forgetItems(targetPlayer, InvHelper.getItemStacks(inventory)));
+                    forgottenHashes.addAll(forgetItems(targetPlayer, InventoryHelper.getItemStacks(inventory)));
                 }
             }
         }
