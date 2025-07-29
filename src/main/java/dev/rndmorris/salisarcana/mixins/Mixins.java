@@ -434,7 +434,14 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.modCompat.baublesExpanded.focusPouchSlot)
         .addCommonMixins("items.MixinItemFocusPouchBauble_ExpandedBaublesSlot")
         .addRequiredMod(TargetedMod.THAUMCRAFT)
-        .addRequiredMod(TargetedMod.BAUBLES_EXPANDED))
+        .addRequiredMod(TargetedMod.BAUBLES_EXPANDED)),
+
+    // Required
+    ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
+        .setRequired()
+        .addCommonMixins("items.MixinAmuletWand_AddInterface")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     ;
     // spotless:on
 
@@ -454,6 +461,10 @@ public enum Mixins implements IMixins {
 
         public MixinBuilder applyIf(Setting config) {
             return super.setApplyIf(config::isEnabled);
+        }
+
+        public MixinBuilder setRequired() {
+            return super.setApplyIf(() -> true);
         }
     }
 }
