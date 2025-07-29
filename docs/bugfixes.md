@@ -222,3 +222,9 @@ Makes the server correctly handle multiple players interacting with a Thaumatori
 **Config option:** `fixClientSideLocalization`
 
 All messages displayed in chat will be displayed in the client's language rather than the language of the server.
+
+## Prevent Consumption of Phials when Applied to Banners
+
+**Config option:** `bannerReturnPhials`
+
+Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.

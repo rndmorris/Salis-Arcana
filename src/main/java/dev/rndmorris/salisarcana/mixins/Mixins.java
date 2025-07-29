@@ -183,6 +183,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.excavationFocusDeterministicCost)
         .addCommonMixins("items.MixinItemFocusExcavation_DeterministicCost")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    BANNER_PHIAL_CONSUMPTION(new SalisBuilder()
+        .setApplyIf(() -> SalisConfig.bugfixes.bannerReturnPhials.isEnabled() || SalisConfig.features.bannerFreePatterns.isEnabled() || SalisConfig.features.stopCreativeModeItemConsumption.isEnabled())
+        .addCommonMixins("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
@@ -434,7 +438,14 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.modCompat.baublesExpanded.focusPouchSlot)
         .addCommonMixins("items.MixinItemFocusPouchBauble_ExpandedBaublesSlot")
         .addRequiredMod(TargetedMod.THAUMCRAFT)
-        .addRequiredMod(TargetedMod.BAUBLES_EXPANDED))
+        .addRequiredMod(TargetedMod.BAUBLES_EXPANDED)),
+
+    // Required
+    ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
+        .setRequired()
+        .addCommonMixins("items.MixinAmuletWand_AddInterface")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     ;
     // spotless:on
 
@@ -454,6 +465,10 @@ public enum Mixins implements IMixins {
 
         public MixinBuilder applyIf(Setting config) {
             return super.setApplyIf(config::isEnabled);
+        }
+
+        public MixinBuilder setRequired() {
+            return super.setApplyIf(() -> true);
         }
     }
 }

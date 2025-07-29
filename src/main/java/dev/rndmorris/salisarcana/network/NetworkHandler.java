@@ -11,8 +11,6 @@ public class NetworkHandler {
     public static void init() {
         // long message type names make spotless weird
         // spotless:off
-        instance.registerMessage(MessageScanSlot.class, MessageScanSlot.class, 0, Side.SERVER);
-        instance.registerMessage(MessageScanSelf.class, MessageScanSelf.class, 1, Side.SERVER);
         instance.registerMessage(MessageScanContainer.class, MessageScanContainer.class, 2, Side.SERVER);
         instance.registerMessage(MessageScanIInventory.class, MessageScanIInventory.class, 3, Side.SERVER);
         instance.registerMessage(MessageDuplicateResearch.class, MessageDuplicateResearch.class, 4, Side.SERVER);

@@ -232,6 +232,12 @@ Override how eldritch altars pick where to try spawning crimson knights and eldr
 * `EVEN_SPREAD`: each valid coordinate in range has an equal chance of being selected. Will not try to spawn in spaces occupied by the altar itself.
 * `CENTER_WEIGHTED`: weighted towards coordinates near the altar. Will not try to spawn in spaces occupied by the altar itself.
 
+## Patterning Banners is Free
+
+**Config option:** `bannerFreePatterns`
+
+Applying patterns to banners not consume the phial or the essentia. Overrides `bannerReturnPhials` in the bugfixes module.
+
 # Enhancements - Infusion
 
 ## Config option: `useStabilizerRewrite`
