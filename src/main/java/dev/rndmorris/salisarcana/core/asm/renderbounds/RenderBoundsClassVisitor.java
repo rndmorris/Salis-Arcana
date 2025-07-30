@@ -12,6 +12,6 @@ public class RenderBoundsClassVisitor extends ClassVisitor {
 
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-        return super.visitMethod(access, name, desc, signature, exceptions);
+        return new RenderBoundsMethodVisitor(super.visitMethod(access, name, desc, signature, exceptions));
     }
 }
