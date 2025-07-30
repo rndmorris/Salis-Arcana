@@ -27,7 +27,7 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
 
     @Override
     public String[] getASMTransformerClass() {
-        return new String[] { "dev.rndmorris.salisarcana.core.SalisArcanaClassTransformer", "" };
+        return new String[] { "dev.rndmorris.salisarcana.core.SalisArcanaClassTransformer", "dev.rndmorris.salisarcana.core.asm.renderbounds.RenderBoundsTransformer" };
     }
 
     @Override
