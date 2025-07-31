@@ -165,7 +165,7 @@ tc.research_page.salisarcana:LOOKALIKEPLANKS.0=Silverwood and Greatwood planks h
 
 tc.research_name.salisarcana:CVWANDPEDESTAL=Improved Wand Pedestal Charging
 tc.research_text.salisarcana:CVWANDPEDESTAL=Another use for CV
-tc.research_page.salisarcana:CVWANDPEDESTAL.0=Salis Arcana improves the Wand Recharge Pedestal by allowing it to charge wands and amulets with a nearby energized node, not just a "normal" node, so you no longer need to worry about your node depleting over time.
+tc.research_page.salisarcana:CVWANDPEDESTAL.0=Salis Arcana improves the Wand Recharge Pedestal by allowing it to charge wands and amulets with a nearby CV source, so you no longer need to worry about your node depleting over time.
 
 item.Wand.staffter.obj=Staffter
 
