@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.config.group;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -7,11 +8,18 @@ import org.jetbrains.annotations.NotNull;
 
 import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
+import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
 public class ConfigTweaks extends ConfigGroup {
 
     private static final String potionCategory = "potion_ids";
     private static final String potionIdComment = "Override the Id of the %s potion effect.";
+
+    public final ToggleSetting potionIdLimitRaised = new ToggleSetting(
+        this,
+        "_uncapped_potion_ids",
+        "If true, will allow setting potion ids to 128 and higher.").setEnabled(false)
+            .setCategory(potionCategory);
 
     public final IntSetting taintPoisonId = new IntSetting(
         this,
@@ -68,6 +76,19 @@ public class ConfigTweaks extends ConfigGroup {
         -1).setMinValue(-1)
             .setCategory(potionCategory);
 
+    public int[] getPotionIdOverrides() {
+        return new int[] { taintPoisonId.getValue(), fluxFluId.getValue(), fluxPhageId.getValue(),
+            unnaturalHungerId.getValue(), warpWardId.getValue(), deadlyGazeId.getValue(), blurredVisionId.getValue(),
+            sunScornedId.getValue(), thaumarhiaId.getValue() };
+    }
+
+    public int maxPotionIdOverride() {
+        final var ids = getPotionIdOverrides();
+        return Arrays.stream(ids)
+            .max()
+            .getAsInt();
+    }
+
     @Override
     public @NotNull String getGroupName() {
         return "tweaks";
@@ -83,6 +104,6 @@ public class ConfigTweaks extends ConfigGroup {
         return Collections.singletonList(
             new CategoryComment(
                 potionCategory,
-                "Override the Ids of Thaumcraft's potion effects. An effect whose Id is set to -1 here will be\nautomatically assigned as normal.\nNOTE: Do not set any Id to 128 or higher unless using a mod that raises the Id limit."));
+                "Override the ids of Thaumcraft's potion effects. An id not overriden here will be automatically assigned\nto the lowest unclaimed id, as normal.\n\nWARNING: Do not set any of these values to 128 or higher unless you are using a mod that increases the\nmaximum potion id. If you are, and would like to set these ids to 128 or higher, set\n`_uncapped_potion_ids` to `true`."));
     }
 }
