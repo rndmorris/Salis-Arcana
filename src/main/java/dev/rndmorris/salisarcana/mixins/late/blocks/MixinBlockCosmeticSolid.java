@@ -22,7 +22,7 @@ public abstract class MixinBlockCosmeticSolid extends Block {
      * @author rndmorris
      * @reason Some {@link BlockCosmeticSolid}s should be beacon bases - the others shouldn't.
      */
-    @Overwrite
+    @Overwrite(remap = false)
     public boolean isBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ) {
         final var metadata = worldObj.getBlockMetadata(x, y, z);
 
