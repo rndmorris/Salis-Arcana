@@ -42,9 +42,11 @@ public class CustomResearch {
     public static ResearchItem replaceCoreResearch;
     public static ResearchItem containerScanResearch;
 
+    private static final String SALIS_CATEGORY = "SALISARCANA";
+
     public static void init() {
         ResearchCategories.registerCategory(
-            "salisarcana",
+            SALIS_CATEGORY,
             new ResourceLocation("salisarcana", "textures/items/dust.png"),
             new ResourceLocation("thaumcraft", "textures/gui/gui_researchback.png"));
         final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
@@ -90,7 +92,7 @@ public class CustomResearch {
             || SalisConfig.features.visAmuletTransferRate.isEnabled()) {
             ResearchItem amuletImprovements = new ResearchItem(
                 "salisarcana:AMULETIMPROVEMENTS",
-                "salisarcana",
+                SALIS_CATEGORY,
                 new AspectList().add(Aspect.AIR, 1),
                 1,
                 1,
@@ -106,7 +108,7 @@ public class CustomResearch {
         if (SalisConfig.features.lookalikePlanks.isEnabled()) {
             ResearchItem lookAlikePlanks = new ResearchItem(
                 "salisarcana:LOOKALIKEPLANKS",
-                "salisarcana",
+                SALIS_CATEGORY,
                 new AspectList().add(Aspect.TREE, 1)
                     .add(Aspect.CRAFT, 1),
                 1,
@@ -123,7 +125,7 @@ public class CustomResearch {
         if (SalisConfig.features.wandPedestalUseCV.isEnabled()) {
             ResearchItem cvWandPedestal = new ResearchItem(
                 "salisarcana:CVWANDPEDESTAL",
-                "salisarcana",
+                SALIS_CATEGORY,
                 new AspectList().add(Aspect.MAGIC, 1)
                     .add(Aspect.CRAFT, 1),
                 3,

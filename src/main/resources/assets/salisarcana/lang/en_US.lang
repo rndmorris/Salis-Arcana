@@ -141,6 +141,8 @@ salisarcana:tcinventoryscan.scanning=Scanning
 salisarcana:tcinventoryscan.thaumometerTooltip=Inventory Scanning available
 salisarcana:tcinventoryscan.thaumometerTooltipMore=Hover items with the Thaumometer\non the cursor to scan.
 
+tc.research_category.SALISARCANA=Salis Arcana
+
 tc.research_name.salisarcana:REPLACEWANDCAPS=Wand Cap Substitution
 tc.research_text.salisarcana:REPLACEWANDCAPS=Improving what is
 tc.research_page.salisarcana:REPLACEWANDCAPS.0=With proper technique, a casting implement's caps can be replaced. This destroys the implement's existing caps, but preserves its core.<BR>Replacing an implement's caps requires the same amount of vis as it would take to craft the same implement from scratch. Upgrading a Gold Banded Greatwood Wand to a Thaumium Bossed Greatwood Wand will cost just as much vis as creating a Thaumium Bossed Greatwood Wand directly.  
