@@ -32,14 +32,14 @@ public abstract class MixinConfig_PotionIds {
         SalisArcanaCore.LOG.info("Overriding TC's potion registration.");
         original.call(instance, s);
         final var potionOffset = potionOffsetRef.get();
-        final var tweaks = SalisConfig.tweaks;
-        final var maxPotionId = tweaks.maxPotionIdOverride();
-        if (maxPotionId > Byte.MAX_VALUE && !tweaks.potionIdLimitRaised.isEnabled()) {
+        final var features = SalisConfig.features;
+        final var maxPotionId = features.maxPotionIdOverride();
+        if (maxPotionId > Byte.MAX_VALUE && !features.potionIdLimitRaised.isEnabled()) {
             throw new RuntimeException(
                 String.format(
                     "Potion ids cannot be above %s. If this limit has been raised through another mod, set %s to `true` in the Salis Arcana potion configs.",
                     Byte.MAX_VALUE,
-                    tweaks.potionIdLimitRaised.getName()));
+                    features.potionIdLimitRaised.getName()));
         }
 
         maxPotionIdRef.set(maxPotionId);
@@ -79,7 +79,7 @@ public abstract class MixinConfig_PotionIds {
         return sa$getConfiguredValueOrNextId(
             start,
             original,
-            SalisConfig.tweaks.taintPoisonId,
+            SalisConfig.features.taintPoisonId,
             "Taint Poison",
             lastAutoIdRef);
     }
@@ -89,7 +89,12 @@ public abstract class MixinConfig_PotionIds {
         at = @At(value = "INVOKE", target = "Lthaumcraft/common/config/Config;getNextPotionId(I)I", ordinal = 1))
     private static int setFluxFluId(int start, Operation<Integer> original,
         @Share("lastAutoId") LocalIntRef lastAutoIdRef) {
-        return sa$getConfiguredValueOrNextId(start, original, SalisConfig.tweaks.fluxFluId, "Flux Flu", lastAutoIdRef);
+        return sa$getConfiguredValueOrNextId(
+            start,
+            original,
+            SalisConfig.features.fluxFluId,
+            "Flux Flu",
+            lastAutoIdRef);
     }
 
     @WrapOperation(
@@ -100,7 +105,7 @@ public abstract class MixinConfig_PotionIds {
         return sa$getConfiguredValueOrNextId(
             start,
             original,
-            SalisConfig.tweaks.fluxPhageId,
+            SalisConfig.features.fluxPhageId,
             "Flux Phage",
             lastAutoIdRef);
     }
@@ -113,7 +118,7 @@ public abstract class MixinConfig_PotionIds {
         return sa$getConfiguredValueOrNextId(
             start,
             original,
-            SalisConfig.tweaks.unnaturalHungerId,
+            SalisConfig.features.unnaturalHungerId,
             "Unnatural Hunger",
             lastAutoIdRef);
     }
@@ -126,7 +131,7 @@ public abstract class MixinConfig_PotionIds {
         return sa$getConfiguredValueOrNextId(
             start,
             original,
-            SalisConfig.tweaks.warpWardId,
+            SalisConfig.features.warpWardId,
             "Warp Ward",
             lastAutoIdRef);
     }
@@ -139,7 +144,7 @@ public abstract class MixinConfig_PotionIds {
         return sa$getConfiguredValueOrNextId(
             start,
             original,
-            SalisConfig.tweaks.deadlyGazeId,
+            SalisConfig.features.deadlyGazeId,
             "Deadly Gaze",
             lastAutoIdRef);
     }
@@ -152,7 +157,7 @@ public abstract class MixinConfig_PotionIds {
         return sa$getConfiguredValueOrNextId(
             start,
             original,
-            SalisConfig.tweaks.blurredVisionId,
+            SalisConfig.features.blurredVisionId,
             "Blurred Vision",
             lastAutoIdRef);
     }
@@ -165,7 +170,7 @@ public abstract class MixinConfig_PotionIds {
         return sa$getConfiguredValueOrNextId(
             start,
             original,
-            SalisConfig.tweaks.sunScornedId,
+            SalisConfig.features.sunScornedId,
             "Sun Scorned",
             lastAutoIdRef);
     }
@@ -178,7 +183,7 @@ public abstract class MixinConfig_PotionIds {
         return sa$getConfiguredValueOrNextId(
             start,
             original,
-            SalisConfig.tweaks.thaumarhiaId,
+            SalisConfig.features.thaumarhiaId,
             "Thaumarhia",
             lastAutoIdRef);
     }
@@ -198,7 +203,7 @@ public abstract class MixinConfig_PotionIds {
     private static int sa$getNextOpenId(String potionName, LocalIntRef lastAutoIdRef) {
         final var potionTypes = Potion.potionTypes;
         final var length = potionTypes.length;
-        final var reservedIds = SalisConfig.tweaks.getPotionIdOverrides();
+        final var reservedIds = SalisConfig.features.getPotionIdOverrides();
         final var start = 31; // vanilla thaum, with no potions from other mods, starts at 31
         for (var index = Math.max(lastAutoIdRef.get(), start); index < length; ++index) {
             if (potionTypes[index] == null && ArrayHelper.indexOf(reservedIds, index) < 0) {
