@@ -15,6 +15,7 @@ import com.gtnewhorizons.tcwands.api.TCWandAPI;
 import com.gtnewhorizons.tcwands.api.wandinfo.WandDetails;
 import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 
+import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.common.compat.GTNHTCWandsCompat;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.config.SalisConfig;
@@ -45,9 +46,10 @@ public class CustomResearch {
     private static final String SALIS_CATEGORY = "SALISARCANA";
 
     public static void init() {
+        ResourceLocation location = SalisArcana.proxy.getSalisTabResource();
         ResearchCategories.registerCategory(
             SALIS_CATEGORY,
-            new ResourceLocation("salisarcana", "textures/items/dust.png"),
+            location,
             new ResourceLocation("thaumcraft", "textures/gui/gui_researchback.png"));
         final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
         final var wand = new ItemStack(wandItem);
@@ -417,4 +419,5 @@ public class CustomResearch {
 
         return research;
     }
+
 }
