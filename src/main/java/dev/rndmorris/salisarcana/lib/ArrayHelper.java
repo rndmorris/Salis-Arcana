@@ -3,12 +3,11 @@ package dev.rndmorris.salisarcana.lib;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.github.bsideup.jabel.Desugar;
 
 public class ArrayHelper {
 
@@ -60,15 +59,41 @@ public class ArrayHelper {
         return result;
     }
 
-    @Desugar
-    public record TryGetResult<E> (boolean success, E data) {
+    public static class TryGetResult<E> {
+
+        public static <E> TryGetResult<E> success(E data) {
+            return new TryGetResult<>(true, data);
+        }
 
         public static <E> TryGetResult<E> failure() {
             return new TryGetResult<>(false, null);
         }
 
-        public static <E> TryGetResult<E> success(E data) {
-            return new TryGetResult<>(true, data);
+        private final boolean success;
+        private final E data;
+
+        public TryGetResult(boolean success, E data) {
+            this.success = success;
+            this.data = data;
+        }
+
+        public boolean success() {
+            return success;
+        }
+
+        public E data() {
+            return data;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof TryGetResult<?>that)) return false;
+            return success == that.success && Objects.equals(data, that.data);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(success, data);
         }
     }
 

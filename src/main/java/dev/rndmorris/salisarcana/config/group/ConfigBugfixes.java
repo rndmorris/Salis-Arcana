@@ -210,6 +210,16 @@ public class ConfigBugfixes extends ConfigGroup {
         "excavationFocusDeterministicCost",
         "Causes the upgraded vis cost of Wand Focus: Excavation to be dependent solely on the applied upgrade rather than which upgrade loaded first in any game session.");
 
+    public final ToggleSetting bannerReturnPhials = new ToggleSetting(
+        this,
+        "bannerReturnPhials",
+        "Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.");
+
+    public final ToggleSetting extraSecureArcaneKeys = new ToggleSetting(
+        this,
+        "extraSecureArcaneKeys",
+        "Arcane Keys will now save the dimension and the creator of the key when linked to a warded object, and will check those values before granting permission.");
+
     @Nonnull
     @Override
     public String getGroupName() {
