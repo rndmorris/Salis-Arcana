@@ -13,6 +13,7 @@ public enum TargetedMod implements ITargetMod {
     GTNH_THAUMCRAFT_WANDS("gtnhtcwands"),
     THAUMCRAFT("Thaumcraft"),
     THAUMIC_TINKERER("ThaumicTinkerer"),
+    THAUMCRAFT_NEI_PLUGIN("thaumcraftneiplugin"),
     TC4_TWEAKS("tc4tweak"),
     BAUBLES_EXPANDED("Baubles|Expanded"),
     UNDERGROUND_BIOMES("UndergroundBiomes");
