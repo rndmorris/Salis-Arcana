@@ -40,7 +40,7 @@ dependencies {
     api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     compileOnly(rfg.deobf("curse.maven:tc4tweaks-431297:6321233"))
     // devOnlyNonPublishable(rfg.deobf("curse.maven:tc4tweaks-431297:6321233"))
-    runtimeOnlyNonPublishable(rfg.deobf("curse.maven:thaumcraft-nei-plugin-225095:2241913"))
+    devOnlyNonPublishable(rfg.deobf("curse.maven:thaumcraft-nei-plugin-225095:2241913")) { transitive = false }
     compileOnly("curse.maven:hodgepodge-688899:6039713")
     compileOnly("maven.modrinth:bugtorch:1.2.13")
     compileOnly(rfg.deobf("maven.modrinth:etfuturum:2.6.2"))
