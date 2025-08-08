@@ -16,15 +16,15 @@ import thaumcraft.common.items.ItemEssence;
 public class MixinItemEssence {
 
     @Inject(
-        method = "onItemUseFirst",
-        at = @At(
-            value = "FIELD",
-            opcode = Opcodes.PUTFIELD,
-            target = "Lnet/minecraft/item/ItemStack;stackSize:I",
-            shift = At.Shift.AFTER),
-        cancellable = true)
+            method = "onItemUseFirst",
+            at = @At(
+                    value = "FIELD",
+                    opcode = Opcodes.PUTFIELD,
+                    target = "Lnet/minecraft/item/ItemStack;stackSize:I",
+                    shift = At.Shift.AFTER),
+            cancellable = true)
     private void onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side,
-        float f1, float f2, float f3, CallbackInfoReturnable<Boolean> cir) {
+            float f1, float f2, float f3, CallbackInfoReturnable<Boolean> cir) {
         if (player.capabilities.isCreativeMode) {
             itemstack.stackSize += 1;
             world.playSoundAtEntity(player, "game.neutral.swim", 0.25F, 1.0F);

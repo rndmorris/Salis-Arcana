@@ -22,8 +22,7 @@ public class StringArraySetting extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        this.value = configuration.get(getCategory(), this.name, this.defaultValue, this.comment)
-            .getStringList();
+        this.value = configuration.get(getCategory(), this.name, this.defaultValue, this.comment).getStringList();
     }
 
     public String[] getValue() {
@@ -31,11 +30,7 @@ public class StringArraySetting extends Setting {
     }
 
     public String[] getNonEmpty() {
-        return Arrays.stream(value)
-            .filter(
-                s -> !s.trim()
-                    .isEmpty())
-            .toArray(String[]::new);
+        return Arrays.stream(value).filter(s -> !s.trim().isEmpty()).toArray(String[]::new);
     }
 
     @Override

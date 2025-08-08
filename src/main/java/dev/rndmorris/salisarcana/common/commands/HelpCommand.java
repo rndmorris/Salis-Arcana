@@ -39,9 +39,9 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
     @Override
     protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
-            Arguments.class,
-            Arguments::new,
-            new IArgumentHandler[] { CommandNameHandler.INSTANCE });
+                Arguments.class,
+                Arguments::new,
+                new IArgumentHandler[] { CommandNameHandler.INSTANCE });
     }
 
     @Override
@@ -59,8 +59,7 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
         final var listMessage = new ChatComponentText("");
         var any = false;
 
-        final var settings$ = SalisConfig.commands.getCommandsSettings()
-            .iterator();
+        final var settings$ = SalisConfig.commands.getCommandsSettings().iterator();
 
         while (settings$.hasNext()) {
             final var setting = settings$.next();
@@ -80,7 +79,7 @@ public class HelpCommand extends ArcanaCommandBase<HelpCommand.Arguments> {
 
         if (any) {
             sender.addChatMessage(
-                new ChatComponentTranslation("salisarcana:command.help.available").setChatStyle(titleStyle()));
+                    new ChatComponentTranslation("salisarcana:command.help.available").setChatStyle(titleStyle()));
             sender.addChatMessage(listMessage);
             return;
         }

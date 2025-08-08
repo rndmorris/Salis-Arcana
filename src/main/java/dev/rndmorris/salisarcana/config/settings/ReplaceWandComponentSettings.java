@@ -10,10 +10,10 @@ public class ReplaceWandComponentSettings extends CustomResearchSetting {
 
     public ReplaceWandComponentSettings(IEnabler dependency, @Nonnull Component component, ResearchInfo info) {
         super(
-            dependency,
-            "replaceWand" + component.nameProper(),
-            "Enable a recipe to swap an existing existing wand, scepter, or staff's " + component.nameLower() + ".",
-            info);
+                dependency,
+                "replaceWand" + component.nameProper(),
+                "Enable a recipe to swap an existing existing wand, scepter, or staff's " + component.nameLower() + ".",
+                info);
     }
 
     public enum Component {

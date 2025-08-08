@@ -20,10 +20,10 @@ public abstract class MixinItemWandCasting_NamedStaffters {
     public abstract boolean isSceptre(ItemStack stack);
 
     @ModifyVariable(
-        method = "getItemStackDisplayName",
-        ordinal = 0,
-        at = @At(value = "STORE", ordinal = 1),
-        remap = true)
+            method = "getItemStackDisplayName",
+            ordinal = 0,
+            at = @At(value = "STORE", ordinal = 1),
+            remap = true)
     public String addStaffterTranslation(final String name, final ItemStack stack) {
         if (this.isStaff(stack) && this.isSceptre(stack)) {
             return name.replace("%OBJ", StatCollector.translateToLocal("item.Wand.staffter.obj"));

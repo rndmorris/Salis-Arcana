@@ -175,7 +175,7 @@ public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen 
                 if (player.capabilities.isCreativeMode) {
                     String username = player.getCommandSenderName();
                     if (ResearchManager.doesPlayerHaveRequisites(username, currentHighlight.key)
-                        && !ResearchManager.isResearchComplete(username, currentHighlight.key)) {
+                            && !ResearchManager.isResearchComplete(username, currentHighlight.key)) {
                         ResearchHelper.completeResearchClient(player, currentHighlight.key);
                     }
                 }

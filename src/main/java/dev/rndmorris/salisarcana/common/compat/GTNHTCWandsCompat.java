@@ -16,8 +16,7 @@ public class GTNHTCWandsCompat {
 
     public static AbstractWandWrapper getWandWrapper(WandRod rod, WandType type) {
         for (AbstractWandWrapper wrapper : TCWandAPI.getWandWrappers()) {
-            if (!wrapper.getRodName()
-                .equals(rod.getTag())) continue;
+            if (!wrapper.getRodName().equals(rod.getTag())) continue;
 
             switch (type) {
                 case WAND -> {
@@ -39,8 +38,7 @@ public class GTNHTCWandsCompat {
 
     public static CapWrapper getCapWrapper(WandCap cap) {
         for (CapWrapper wrapper : TCWandAPI.getCaps()) {
-            if (wrapper.getName()
-                .equals(cap.getTag())) return wrapper;
+            if (wrapper.getName().equals(cap.getTag())) return wrapper;
         }
         return null;
     }

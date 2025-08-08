@@ -9,10 +9,10 @@ import thaumcraft.api.aspects.AspectList;
 /**
  * Interface for items that can store vis, such as wands and amulets.
  * <p>
- * This interface allows for the management of vis storage, retrieval, and consumption.
- * By default, this interface is implemented by {@link thaumcraft.common.items.wands.ItemWandCasting} and
- * {@link thaumcraft.common.items.baubles.ItemAmuletVis}.
- * This avoids redundant code when working with both wands and amulets.
+ * This interface allows for the management of vis storage, retrieval, and consumption. By default, this interface is
+ * implemented by {@link thaumcraft.common.items.wands.ItemWandCasting} and
+ * {@link thaumcraft.common.items.baubles.ItemAmuletVis}. This avoids redundant code when working with both wands and
+ * amulets.
  */
 public interface IVisContainer {
 

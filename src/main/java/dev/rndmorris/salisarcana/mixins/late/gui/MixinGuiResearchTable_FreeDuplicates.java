@@ -18,19 +18,21 @@ public class MixinGuiResearchTable_FreeDuplicates {
     private static final AspectList sa$noAspects = new AspectList();
 
     @ModifyArg(
-        method = "drawScreen",
-        at = @At(value = "INVOKE", target = "Lthaumcraft/client/gui/GuiResearchTable;drawTexturedModalRect(IIIIII)V"),
-        index = 4)
+            method = "drawScreen",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/client/gui/GuiResearchTable;drawTexturedModalRect(IIIIII)V"),
+            index = 4)
     public int changeWidth(int original) {
         return 40;
     }
 
     @WrapOperation(
-        method = "drawScreen",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/api/aspects/AspectList;copy()Lthaumcraft/api/aspects/AspectList;",
-            remap = false))
+            method = "drawScreen",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/api/aspects/AspectList;copy()Lthaumcraft/api/aspects/AspectList;",
+                    remap = false))
     public AspectList dontCopy(AspectList instance, Operation<AspectList> original) {
         return sa$noAspects;
     }

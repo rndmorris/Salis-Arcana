@@ -69,10 +69,7 @@ public abstract class MixinCommandThaumcraft_TabCompletion extends CommandBase {
     private static List<String> sa$handleResearchArgs(ICommandSender sender, String[] commandArgs) {
         switch (commandArgs.length) {
             case 2 -> {
-                List<String> args = new ArrayList<>(
-                    Arrays.asList(
-                        MinecraftServer.getServer()
-                            .getAllUsernames()));
+                List<String> args = new ArrayList<>(Arrays.asList(MinecraftServer.getServer().getAllUsernames()));
                 args.add(0, "list");
                 return getListOfStringsMatchingLastWord(commandArgs, args.toArray(new String[0]));
             }
@@ -89,10 +86,7 @@ public abstract class MixinCommandThaumcraft_TabCompletion extends CommandBase {
     private static List<String> sa$handleWarpArgs(String[] commandArgs) {
         switch (commandArgs.length) {
             case 2 -> {
-                return getListOfStringsMatchingLastWord(
-                    commandArgs,
-                    MinecraftServer.getServer()
-                        .getAllUsernames());
+                return getListOfStringsMatchingLastWord(commandArgs, MinecraftServer.getServer().getAllUsernames());
             }
             case 3 -> {
                 return getListOfStringsMatchingLastWord(commandArgs, "add", "set");
@@ -114,10 +108,7 @@ public abstract class MixinCommandThaumcraft_TabCompletion extends CommandBase {
     private static List<String> sa$handleAspectArgs(String[] commandArgs) {
         switch (commandArgs.length) {
             case 2 -> {
-                return getListOfStringsMatchingLastWord(
-                    commandArgs,
-                    MinecraftServer.getServer()
-                        .getAllUsernames());
+                return getListOfStringsMatchingLastWord(commandArgs, MinecraftServer.getServer().getAllUsernames());
             }
             case 3 -> {
                 List<String> potentialArgs = new ArrayList<>(Aspect.aspects.keySet());

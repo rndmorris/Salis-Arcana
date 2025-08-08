@@ -22,7 +22,7 @@ public class MixinFXBeamWand {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void updateOffset(World par1World, EntityPlayer player, double tx, double ty, double tz, float red,
-        float green, float blue, int age, CallbackInfo ci) {
+            float green, float blue, int age, CallbackInfo ci) {
         WandRod rod = WandHelper.getWandRodFromWand(player.getHeldItem());
         if (rod instanceof StaffRod) {
             this.offset += .07D;

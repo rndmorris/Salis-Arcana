@@ -51,13 +51,16 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft implemen
     }
 
     /**
-     * If Salis has not yet taken over catch-up recharging, let TC do its thing. If not, verify that enough game
-     * time has elapsed to merit catch-up recharging.
+     * If Salis has not yet taken over catch-up recharging, let TC do its thing. If not, verify that enough game time
+     * has elapsed to merit catch-up recharging.
      */
     @WrapOperation(
-        method = "handleRecharge",
-        remap = false,
-        at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;catchUp:Z", opcode = Opcodes.GETFIELD))
+            method = "handleRecharge",
+            remap = false,
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/tiles/TileNode;catchUp:Z",
+                    opcode = Opcodes.GETFIELD))
     private boolean shouldCatchUp(TileNode instance, Operation<Boolean> original) {
         boolean catchUp = original.call(instance);
         if (sa$lastTickActive < 0) {
@@ -80,9 +83,9 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft implemen
      * Otherwise, let TC do its thing.
      */
     @WrapOperation(
-        method = "handleRecharge",
-        remap = false,
-        at = @At(value = "INVOKE", target = "Ljava/lang/System;currentTimeMillis()J", ordinal = 0))
+            method = "handleRecharge",
+            remap = false,
+            at = @At(value = "INVOKE", target = "Ljava/lang/System;currentTimeMillis()J", ordinal = 0))
     private long captureCurrentTimeForRegen(Operation<Long> original) {
         return sa$lastTickActive >= 0 ? TimeHelper.ticksToMs(worldObj.getTotalWorldTime()) : original.call();
     }
@@ -92,9 +95,12 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft implemen
      * active. Otherwise let TC do its thing.
      */
     @WrapOperation(
-        method = "handleRecharge",
-        remap = false,
-        at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;lastActive:J", opcode = Opcodes.GETFIELD))
+            method = "handleRecharge",
+            remap = false,
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/tiles/TileNode;lastActive:J",
+                    opcode = Opcodes.GETFIELD))
     private long captureLastActiveForRegen(TileNode instance, Operation<Long> original) {
         return sa$lastTickActive >= 0 ? TimeHelper.ticksToMs(sa$lastTickActive) : original.call(instance);
     }
@@ -104,9 +110,12 @@ public abstract class MixinTileNode_RechargeTime extends TileThaumcraft implemen
      * already.
      */
     @WrapOperation(
-        method = "handleRecharge",
-        remap = false,
-        at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;lastActive:J", opcode = Opcodes.PUTFIELD))
+            method = "handleRecharge",
+            remap = false,
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/tiles/TileNode;lastActive:J",
+                    opcode = Opcodes.PUTFIELD))
     private void captureCurrentTimeForStorage(TileNode instance, long value, Operation<Void> original) {
         original.call(instance, value);
         sa$updateLastTickActive();

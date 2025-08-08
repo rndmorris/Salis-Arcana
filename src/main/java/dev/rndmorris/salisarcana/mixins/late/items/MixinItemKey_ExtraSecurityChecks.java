@@ -26,10 +26,10 @@ import thaumcraft.common.tiles.TileOwned;
 public class MixinItemKey_ExtraSecurityChecks {
 
     @ModifyExpressionValue(
-        method = "onItemUseFirst",
-        at = @At(value = "NEW", target = "(Lnet/minecraft/item/Item;II)Lnet/minecraft/item/ItemStack;"))
+            method = "onItemUseFirst",
+            at = @At(value = "NEW", target = "(Lnet/minecraft/item/Item;II)Lnet/minecraft/item/ItemStack;"))
     public ItemStack addExtraSecurityInfo(ItemStack key, @Local(argsOnly = true) EntityPlayer player,
-        @Local(argsOnly = true) World world) {
+            @Local(argsOnly = true) World world) {
         final var nbt = new NBTTagCompound();
         nbt.setString("salisarcana:creator", player.getCommandSenderName());
         nbt.setInteger("salisarcana:dimension", world.provider.dimensionId);
@@ -38,12 +38,12 @@ public class MixinItemKey_ExtraSecurityChecks {
     }
 
     @WrapOperation(
-        method = "onItemUseFirst",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/nbt/NBTTagCompound;getString(Ljava/lang/String;)Ljava/lang/String;"))
+            method = "onItemUseFirst",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/nbt/NBTTagCompound;getString(Ljava/lang/String;)Ljava/lang/String;"))
     public String checkExtraSecurityInfo(NBTTagCompound tag, String nbtKey, Operation<String> original,
-        @Local TileEntity tileEntity, @Local(argsOnly = true) World world, @Local(argsOnly = true) ItemStack key) {
+            @Local TileEntity tileEntity, @Local(argsOnly = true) World world, @Local(argsOnly = true) ItemStack key) {
         final var creator = tag.getString("salisarcana:creator");
 
         if (!creator.isEmpty()) {
@@ -55,7 +55,7 @@ public class MixinItemKey_ExtraSecurityChecks {
 
             final var tile = (TileOwned) tileEntity;
             if (!(creator.equals(tile.owner)
-                || (key.getItemDamage() == 0 && tile.accessList.contains("1" + creator)))) {
+                    || (key.getItemDamage() == 0 && tile.accessList.contains("1" + creator)))) {
                 // The creator of the key does not have permission to create keys for this door.
                 return null;
             }
@@ -67,18 +67,18 @@ public class MixinItemKey_ExtraSecurityChecks {
 
     @Inject(method = "addInformation", at = @At("TAIL"))
     public void addExtraInfo(ItemStack key, EntityPlayer player, List<String> text, boolean advancedTooltips,
-        CallbackInfo ci) {
+            CallbackInfo ci) {
         if (key.hasTagCompound() && key.stackTagCompound.hasKey("salisarcana:creator")) {
             final int lastLine = text.size() - 1;
             final String dimInfo = StatCollector.translateToLocalFormatted(
-                "salisarcana:misc.arcane_key.dimension",
-                key.stackTagCompound.getInteger("salisarcana:dimension"));
+                    "salisarcana:misc.arcane_key.dimension",
+                    key.stackTagCompound.getInteger("salisarcana:dimension"));
 
             text.set(lastLine, text.get(lastLine) + dimInfo);
             text.add(
-                StatCollector.translateToLocalFormatted(
-                    "salisarcana:misc.arcane_key.creator",
-                    key.stackTagCompound.getString("salisarcana:creator")));
+                    StatCollector.translateToLocalFormatted(
+                            "salisarcana:misc.arcane_key.creator",
+                            key.stackTagCompound.getString("salisarcana:creator")));
         }
     }
 }

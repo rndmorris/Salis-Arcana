@@ -34,11 +34,7 @@ public class ResearchHelper {
 
     public static boolean matchesTerm(ResearchItem research, String searchTerm) {
         searchTerm = searchTerm.toLowerCase();
-        return research.key.toLowerCase()
-            .contains(searchTerm)
-            || research.getName()
-                .toLowerCase()
-                .contains(searchTerm);
+        return research.key.toLowerCase().contains(searchTerm) || research.getName().toLowerCase().contains(searchTerm);
     }
 
     public static Collection<IChatComponent> printResearchToChat(Predicate<ResearchItem> filter) {
@@ -49,8 +45,7 @@ public class ResearchHelper {
 
             IChatComponent researchMessage = new ChatComponentText("");
 
-            final var research$ = category.research.values()
-                .iterator();
+            final var research$ = category.research.values().iterator();
             var anyInCategory = false;
 
             while (research$.hasNext()) {
@@ -83,8 +78,8 @@ public class ResearchHelper {
         style.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(categoryKey)));
 
         final var headerMessage = new ChatComponentTranslation(
-            "salisarcana:command.category_header",
-            ResearchCategories.getCategoryName(categoryKey));
+                "salisarcana:command.category_header",
+                ResearchCategories.getCategoryName(categoryKey));
         headerMessage.setChatStyle(style);
 
         return headerMessage;
@@ -102,9 +97,9 @@ public class ResearchHelper {
             }
 
             final var message = new ChatComponentTranslation(
-                translationKey,
-                researchName,
-                new ChatComponentTranslation("tc.research_category." + research.category));
+                    translationKey,
+                    researchName,
+                    new ChatComponentTranslation("tc.research_category." + research.category));
             message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED));
             playerMP.addChatMessage(message);
         }
@@ -116,36 +111,33 @@ public class ResearchHelper {
 
     public static IChatComponent formatResearch(ResearchItem research, EnumChatFormatting formatting) {
         final var researchKeyName = research instanceof IResearchItemExtended extended
-            ? extended.getNameTranslationKey()
-            : String.format("tc.research_name.%s", research.key);
+                ? extended.getNameTranslationKey()
+                : String.format("tc.research_name.%s", research.key);
 
         final var style = new ChatStyle().setColor(formatting)
-            .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
+                .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(research.key)));
         return new ChatComponentText("[").setChatStyle(style)
-            .appendSibling(new ChatComponentTranslation(researchKeyName))
-            .appendText("]");
+                .appendSibling(new ChatComponentTranslation(researchKeyName)).appendText("]");
     }
 
     public static IChatComponent formatResearchClickCommand(ResearchItem research) {
         var result = formatResearch(research);
-        result.getChatStyle()
-            .setChatClickEvent(suggestResearchCommandOnClick(research));
+        result.getChatStyle().setChatClickEvent(suggestResearchCommandOnClick(research));
         return result;
     }
 
     public static IChatComponent formatResearchClickCommand(ResearchItem research, EnumChatFormatting formatting) {
         var result = formatResearch(research, formatting);
-        result.getChatStyle()
-            .setChatClickEvent(suggestResearchCommandOnClick(research));
+        result.getChatStyle().setChatClickEvent(suggestResearchCommandOnClick(research));
         return result;
     }
 
     public static ClickEvent suggestResearchCommandOnClick(ResearchItem research) {
         if (commands.prerequisites.isEnabled()
-            && commands.prerequisites.getCommand() instanceof PrerequisitesCommand command) {
+                && commands.prerequisites.getCommand() instanceof PrerequisitesCommand command) {
             return new ClickEvent(
-                ClickEvent.Action.SUGGEST_COMMAND,
-                String.format("/%s --research %s", command.getCommandName(), research.key));
+                    ClickEvent.Action.SUGGEST_COMMAND,
+                    String.format("/%s --research %s", command.getCommandName(), research.key));
         }
         return null;
     }
@@ -155,11 +147,11 @@ public class ResearchHelper {
             return;
         }
         PacketHandler.INSTANCE.sendToServer(
-            new PacketPlayerCompleteToServer(
-                research,
-                player.getCommandSenderName(),
-                player.worldObj.provider.dimensionId,
-                (byte) 0));
+                new PacketPlayerCompleteToServer(
+                        research,
+                        player.getCommandSenderName(),
+                        player.worldObj.provider.dimensionId,
+                        (byte) 0));
     }
 
     public static boolean isItemScanned(EntityPlayer player, ItemStack stack, String prefix) {

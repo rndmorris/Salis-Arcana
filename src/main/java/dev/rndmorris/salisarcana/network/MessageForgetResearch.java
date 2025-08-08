@@ -53,7 +53,7 @@ public class MessageForgetResearch implements IMessage, IMessageHandler<MessageF
     @Override
     public IMessage onMessage(MessageForgetResearch message, MessageContext ctx) {
         final var playerResearch = Thaumcraft.proxy.getPlayerKnowledge().researchCompleted
-            .get(Minecraft.getMinecraft().thePlayer.getCommandSenderName());
+                .get(Minecraft.getMinecraft().thePlayer.getCommandSenderName());
 
         playerResearch.removeAll(message.researchKeys);
 

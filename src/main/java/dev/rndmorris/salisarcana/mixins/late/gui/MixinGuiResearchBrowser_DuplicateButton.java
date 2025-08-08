@@ -41,18 +41,18 @@ public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
 
     @Unique
     private static final ResourceLocation sa$duplicationButtonTexture = new ResourceLocation(
-        SalisArcana.MODID,
-        "textures/gui/duplicate_button.png");
+            SalisArcana.MODID,
+            "textures/gui/duplicate_button.png");
 
     @Unique
     private static final ResourceLocation sa$paperTexture = new ResourceLocation(
-        "minecraft",
-        "textures/items/paper.png");
+            "minecraft",
+            "textures/items/paper.png");
 
     @Unique
     private static final ResourceLocation sa$inkwellTexture = new ResourceLocation(
-        "thaumcraft",
-        "textures/items/inkwell.png");
+            "thaumcraft",
+            "textures/items/inkwell.png");
 
     @Shadow(remap = false)
     private ResearchItem currentHighlight;
@@ -76,27 +76,27 @@ public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
     private long sa$duplicateCooldown;
 
     @Inject(
-        method = "genResearchBackground",
-        at = @At(
-            value = "FIELD",
-            target = "Lthaumcraft/client/gui/GuiResearchBrowser;currentHighlight:Lthaumcraft/api/research/ResearchItem;",
-            opcode = Opcodes.PUTFIELD,
-            ordinal = 1,
-            remap = false),
-        remap = false)
+            method = "genResearchBackground",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/client/gui/GuiResearchBrowser;currentHighlight:Lthaumcraft/api/research/ResearchItem;",
+                    opcode = Opcodes.PUTFIELD,
+                    ordinal = 1,
+                    remap = false),
+            remap = false)
     public void saveDuplicateButton(int mouseX, int mouseY, float partialTicks, CallbackInfo ci,
-        @Local(name = "var42") int researchLeftX, @Local(name = "var41") int researchTopY) {
+            @Local(name = "var42") int researchLeftX, @Local(name = "var41") int researchTopY) {
         this.sa$buttonX = researchLeftX + 15;
         this.sa$buttonY = researchTopY + 15;
     }
 
     @Inject(
-        method = "genResearchBackground",
-        at = @At(
-            value = "FIELD",
-            target = "Lthaumcraft/api/research/ResearchCategories;researchCategories:Ljava/util/LinkedHashMap;",
-            remap = false),
-        remap = false)
+            method = "genResearchBackground",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/api/research/ResearchCategories;researchCategories:Ljava/util/LinkedHashMap;",
+                    remap = false),
+            remap = false)
     public void drawDuplicateButton(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         if (!ResearchManager.isResearchComplete(this.player, "RESEARCHDUPE")) return;
 
@@ -107,7 +107,7 @@ public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
 
         if (this.sa$selectedResearch != null) {
             if (this.sa$selectedResearch.getResearchPrimaryTag() == null
-                || !ResearchManager.isResearchComplete(this.player, this.sa$selectedResearch.key)) {
+                    || !ResearchManager.isResearchComplete(this.player, this.sa$selectedResearch.key)) {
                 this.sa$selectedResearch = null;
                 return;
             }
@@ -136,7 +136,7 @@ public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
     @WrapMethod(method = "mouseClicked")
     public void buttonClicked(int mouseX, int mouseY, int mouseButton, Operation<Void> original) {
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && this.sa$selectedResearch != null
-            && this.sa$mouseOnButton(mouseX, mouseY)) {
+                && this.sa$mouseOnButton(mouseX, mouseY)) {
             final long currentTime = System.currentTimeMillis();
             if (this.hasScribestuff && this.sa$duplicateCooldown < currentTime) {
                 this.sa$duplicateCooldown = currentTime + 2000L;
@@ -150,25 +150,25 @@ public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
     @Unique
     private boolean sa$mouseOnButton(int mouseX, int mouseY) {
         return mouseX >= this.sa$buttonX && mouseX < (this.sa$buttonX + 10)
-            && mouseY >= this.sa$buttonY
-            && mouseY < (this.sa$buttonY + 10);
+                && mouseY >= this.sa$buttonY
+                && mouseY < (this.sa$buttonY + 10);
     }
 
     @Inject(
-        method = "genResearchBackground",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiScreen;drawScreen(IIF)V", remap = true),
-        remap = false)
+            method = "genResearchBackground",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiScreen;drawScreen(IIF)V", remap = true),
+            remap = false)
     private void drawHoverTextbox(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         if (this.currentHighlight != null || this.sa$selectedResearch == null) return;
 
         final var playerEntity = Minecraft.getMinecraft().thePlayer;
         final String titleText = StatCollector
-            .translateToLocalFormatted("salisarcana:duplicate_research.text", this.sa$selectedResearch.getName());
+                .translateToLocalFormatted("salisarcana:duplicate_research.text", this.sa$selectedResearch.getName());
         final boolean opFree = SalisConfig.features.creativeOpThaumonomicon.isEnabled()
-            && playerEntity.capabilities.isCreativeMode;
+                && playerEntity.capabilities.isCreativeMode;
         final boolean aspectFree = opFree || SalisConfig.features.researchDuplicationFree.isEnabled();
         final boolean sufficientAspects = aspectFree
-            || ResearchHelper.hasResearchAspects(this.player, this.sa$selectedResearch.tags);
+                || ResearchHelper.hasResearchAspects(this.player, this.sa$selectedResearch.tags);
 
         final int leftX = mouseX + 6;
         final int topY = mouseY - 4;
@@ -187,13 +187,13 @@ public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
         List<String> message;
         if (System.currentTimeMillis() < this.sa$duplicateCooldown) {
             message = this.fontRendererObj.listFormattedStringToWidth(
-                StatCollector.translateToLocal("salisarcana:duplicate_research.success"),
-                width * 2);
+                    StatCollector.translateToLocal("salisarcana:duplicate_research.success"),
+                    width * 2);
             color = 0xFFA500;
         } else if (opFree || (this.hasScribestuff && sufficientAspects)) {
             message = this.fontRendererObj.listFormattedStringToWidth(
-                StatCollector.translateToLocal("salisarcana:duplicate_research.prompt"),
-                width * 2);
+                    StatCollector.translateToLocal("salisarcana:duplicate_research.prompt"),
+                    width * 2);
             color = 0x87CEEB;
         } else {
             message = new ArrayList<>();
@@ -201,15 +201,16 @@ public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
 
             if (!this.hasScribestuff) {
                 message.addAll(
-                    this.fontRendererObj.listFormattedStringToWidth(
-                        StatCollector.translateToLocal("tc.research.shortprim"),
-                        width * 2));
+                        this.fontRendererObj.listFormattedStringToWidth(
+                                StatCollector.translateToLocal("tc.research.shortprim"),
+                                width * 2));
             }
 
             if (!sufficientAspects) {
                 message.addAll(
-                    this.fontRendererObj
-                        .listFormattedStringToWidth(StatCollector.translateToLocal("tc.research.short"), width * 2));
+                        this.fontRendererObj.listFormattedStringToWidth(
+                                StatCollector.translateToLocal("tc.research.short"),
+                                width * 2));
             }
         }
 
@@ -229,7 +230,7 @@ public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
 
         if (!opFree) {
             final float opacity = (float) Math.sin(((Minecraft.getSystemTime() % 600L) / 600d) * Math.PI * 2.0D) * 0.25F
-                + 0.75F;
+                    + 0.75F;
             final var engine = Minecraft.getMinecraft().renderEngine;
             int xPos = leftX;
             final int yPos = topY + 8;

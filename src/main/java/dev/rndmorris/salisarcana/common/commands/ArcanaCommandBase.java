@@ -71,14 +71,14 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
                 throw ce;
             }
             LOG.error(
-                String.format(
-                    "An error occurred for player %s while executing /%s.",
-                    sender.getCommandSenderName(),
-                    String.join(" ", args)),
-                ex);
+                    String.format(
+                            "An error occurred for player %s while executing /%s.",
+                            sender.getCommandSenderName(),
+                            String.join(" ", args)),
+                    ex);
             sender.addChatMessage(
-                new ChatComponentTranslation("salisarcana:command.error.execute")
-                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+                    new ChatComponentTranslation("salisarcana:command.error.execute")
+                            .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
         }
     }
 
@@ -86,18 +86,18 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
         try {
             return CommandBase.getListOfStringsFromIterableMatchingLastWord(
-                args,
-                argumentProcessor.getAutocompletionSuggestions(sender, args));
+                    args,
+                    argumentProcessor.getAutocompletionSuggestions(sender, args));
         } catch (Exception ex) {
             LOG.error(
-                String.format(
-                    "An error occurred for player %s while providing tab completion for /%s.",
-                    sender.getCommandSenderName(),
-                    String.join(" ", args)),
-                ex);
+                    String.format(
+                            "An error occurred for player %s while providing tab completion for /%s.",
+                            sender.getCommandSenderName(),
+                            String.join(" ", args)),
+                    ex);
             sender.addChatMessage(
-                new ChatComponentTranslation("salisarcana:command.error.tabcomplete")
-                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+                    new ChatComponentTranslation("salisarcana:command.error.tabcomplete")
+                            .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
         }
         return null;
     }
@@ -116,10 +116,8 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
         description.setChatStyle(titleStyle);
         description.appendText(" ");
         final var descriptionText = new ChatComponentTranslation(
-            String.format("salisarcana:command.%s.desc", settings.name));
-        descriptionText.getChatStyle()
-            .setColor(EnumChatFormatting.RESET)
-            .setBold(false);
+                String.format("salisarcana:command.%s.desc", settings.name));
+        descriptionText.getChatStyle().setColor(EnumChatFormatting.RESET).setBold(false);
         description.appendSibling(descriptionText);
 
         final var usageTitle = new ChatComponentTranslation("salisarcana:command.usage");
@@ -129,17 +127,15 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
         argumentsTitle.setChatStyle(titleStyle);
 
         final var first = Arrays.stream(
-            new ChatComponentTranslation[] { description, usageTitle,
-                new ChatComponentTranslation(String.format("salisarcana:command.%s.usage", settings.name)),
-                argumentsTitle
+                new ChatComponentTranslation[] { description, usageTitle,
+                        new ChatComponentTranslation(String.format("salisarcana:command.%s.usage", settings.name)),
+                        argumentsTitle
 
-            });
-        final var descLangKeys = argumentProcessor.descriptionLangKeys.stream()
-            .map(
+                });
+        final var descLangKeys = argumentProcessor.descriptionLangKeys.stream().map(
                 key -> new ChatComponentTranslation(
-                    String.format("salisarcana:command.%s.args.%s", settings.name, key)));
-        Stream.concat(first, descLangKeys)
-            .forEachOrdered(sender::addChatMessage);
+                        String.format("salisarcana:command.%s.args.%s", settings.name, key)));
+        Stream.concat(first, descLangKeys).forEachOrdered(sender::addChatMessage);
     }
 
     public void printUsage(ICommandSender sender) {

@@ -15,7 +15,6 @@ public class MixinREHWandHandler {
 
     @ModifyConstant(method = "handleFociRadial", constant = @Constant(intValue = 4, ordinal = 0), remap = false)
     private int handleFociRadial(int value, Minecraft mc, long time, RenderGameOverlayEvent event) {
-        return BaublesApi.getBaubles(mc.thePlayer)
-            .getSizeInventory();
+        return BaublesApi.getBaubles(mc.thePlayer).getSizeInventory();
     }
 }

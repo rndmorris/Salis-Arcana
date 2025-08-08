@@ -67,7 +67,7 @@ public class InfusionMatrixLogic {
         }
 
         final var isRegularStabilizer = block == Blocks.skull
-            || (block instanceof IInfusionStabiliser stabilizer && stabilizer.canStabaliseInfusion(world, x, y, z));
+                || (block instanceof IInfusionStabiliser stabilizer && stabilizer.canStabaliseInfusion(world, x, y, z));
 
         if (!isRegularStabilizer) {
             return false;
@@ -78,7 +78,7 @@ public class InfusionMatrixLogic {
     }
 
     private static boolean checkForAndHandlePedestal(MatrixOrigin matrix, MatrixSurroundingsResult result, int dX,
-        int dY, int dZ) {
+            int dY, int dZ) {
         if (Math.abs(dX) > pedestalRange || Math.abs(dZ) > pedestalRange) {
             return false;
         }
@@ -213,8 +213,8 @@ public class InfusionMatrixLogic {
         public boolean equals(Object o) {
             if (!(o instanceof MatrixOrigin that)) return false;
             return xCoord == that.xCoord && yCoord == that.yCoord
-                && zCoord == that.zCoord
-                && Objects.equals(world, that.world);
+                    && zCoord == that.zCoord
+                    && Objects.equals(world, that.world);
         }
 
         @Override

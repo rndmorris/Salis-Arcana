@@ -38,13 +38,12 @@ public class Updater {
             VersionInfo newVersion = checkForNewVersion();
             if (newVersion != null) {
                 event.player.addChatMessage(
-                    new ChatComponentTranslation("salisarcana:update_available", newVersion.getVersionNumber()));
+                        new ChatComponentTranslation("salisarcana:update_available", newVersion.getVersionNumber()));
                 IChatComponent message = new ChatComponentTranslation("salisarcana:update_link");
-                message.getChatStyle()
-                    .setChatClickEvent(
+                message.getChatStyle().setChatClickEvent(
                         new ClickEvent(
-                            ClickEvent.Action.OPEN_URL,
-                            "https://modrinth.com/mod/salis-arcana/version/" + newVersion.getVersionNumber()));
+                                ClickEvent.Action.OPEN_URL,
+                                "https://modrinth.com/mod/salis-arcana/version/" + newVersion.getVersionNumber()));
                 event.player.addChatMessage(message);
             }
         }
@@ -68,12 +67,9 @@ public class Updater {
             reader.close();
             conn.disconnect();
 
-            versions.sort(
-                Comparator.comparing(VersionInfo::getVersionNumber)
-                    .reversed());
+            versions.sort(Comparator.comparing(VersionInfo::getVersionNumber).reversed());
             VersionInfo latestVersion = versions.get(0);
-            if (!latestVersion.getVersionNumber()
-                .equals(Tags.VERSION)) {
+            if (!latestVersion.getVersionNumber().equals(Tags.VERSION)) {
                 return latestVersion;
             }
         } catch (Exception e) {

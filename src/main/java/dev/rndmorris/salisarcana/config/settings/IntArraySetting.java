@@ -29,10 +29,9 @@ public class IntArraySetting extends Setting {
         this.maxValue = max;
 
         pairedSetting = new ToggleSetting(
-            dependency,
-            "enable" + name.substring(0, 1)
-                .toUpperCase() + name.substring(1),
-            "Enable " + name + "?");
+                dependency,
+                "enable" + name.substring(0, 1).toUpperCase() + name.substring(1),
+                "Enable " + name + "?");
     }
 
     @Override
@@ -63,8 +62,7 @@ public class IntArraySetting extends Setting {
     @Override
     public void loadFromConfiguration(Configuration configuration) {
         pairedSetting.loadFromConfiguration(configuration);
-        this.value = configuration
-            .get(
+        this.value = configuration.get(
                 getCategory(),
                 this.name,
                 this.defaultValue,
@@ -72,18 +70,17 @@ public class IntArraySetting extends Setting {
                 this.minValue,
                 this.maxValue,
                 this.fixedLength,
-                this.fixedLength ? this.defaultValue.length : this.maxLength)
-            .getIntList();
+                this.fixedLength ? this.defaultValue.length : this.maxLength).getIntList();
 
         boolean wrong = false;
         for (int num : this.value) {
             if (num < this.minValue || num > this.maxValue) {
                 SalisArcanaCore.LOG.error(
-                    "Value {} in setting \"{}\" is out of bounds. (Bounds: {} <= n <= {})",
-                    num,
-                    this.name,
-                    this.minValue,
-                    this.maxValue);
+                        "Value {} in setting \"{}\" is out of bounds. (Bounds: {} <= n <= {})",
+                        num,
+                        this.name,
+                        this.minValue,
+                        this.maxValue);
                 wrong = true;
             }
         }
@@ -92,9 +89,8 @@ public class IntArraySetting extends Setting {
             if (this.fixedLength) {
                 this.value = this.defaultValue;
             } else {
-                this.value = Arrays.stream(this.value)
-                    .filter(v -> (v >= this.minValue && v <= this.maxValue))
-                    .toArray();
+                this.value = Arrays.stream(this.value).filter(v -> (v >= this.minValue && v <= this.maxValue))
+                        .toArray();
             }
         }
     }

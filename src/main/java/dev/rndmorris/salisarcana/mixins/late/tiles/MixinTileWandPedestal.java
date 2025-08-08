@@ -50,31 +50,31 @@ public abstract class MixinTileWandPedestal extends TileThaumcraft implements IS
     boolean somethingChanged;
 
     @Inject(
-        method = "updateEntity",
-        at = @At(
-            remap = false,
-            value = "FIELD",
-            target = "Lthaumcraft/common/tiles/TileWandPedestal;draining:Z",
-            opcode = Opcodes.PUTFIELD,
-            ordinal = 0,
-            shift = At.Shift.AFTER,
-            by = 1),
-        require = 1)
+            method = "updateEntity",
+            at = @At(
+                    remap = false,
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/tiles/TileWandPedestal;draining:Z",
+                    opcode = Opcodes.PUTFIELD,
+                    ordinal = 0,
+                    shift = At.Shift.AFTER,
+                    by = 1),
+            require = 1)
     private void sa$rechargeWandViaCV(CallbackInfo ci, @Local ItemWandCasting wand) {
         this.sa$rechargeItem((IVisContainer) wand);
     }
 
     @Inject(
-        method = "updateEntity",
-        at = @At(
-            remap = false,
-            value = "FIELD",
-            target = "Lthaumcraft/common/tiles/TileWandPedestal;draining:Z",
-            opcode = Opcodes.PUTFIELD,
-            ordinal = 3,
-            shift = At.Shift.AFTER,
-            by = 1),
-        require = 1)
+            method = "updateEntity",
+            at = @At(
+                    remap = false,
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/tiles/TileWandPedestal;draining:Z",
+                    opcode = Opcodes.PUTFIELD,
+                    ordinal = 3,
+                    shift = At.Shift.AFTER,
+                    by = 1),
+            require = 1)
     private void sa$rechargeAmuletViaCV(CallbackInfo ci, @Local ItemAmuletVis amulet) {
         this.sa$rechargeItem((IVisContainer) amulet);
     }
@@ -90,14 +90,14 @@ public abstract class MixinTileWandPedestal extends TileThaumcraft implements IS
 
     @SuppressWarnings("LocalCaptureFailException")
     @Inject(
-        at = @At(
-            args = "classValue=thaumcraft/api/nodes/INode",
-            target = "Lnet/minecraft/world/World;getTileEntity(III)Lnet/minecraft/tileentity/TileEntity;",
-            value = "CONSTANT"),
-        locals = LocalCapture.CAPTURE_FAILEXCEPTION,
-        method = "findNodes()V",
-        remap = false,
-        require = 1)
+            at = @At(
+                    args = "classValue=thaumcraft/api/nodes/INode",
+                    target = "Lnet/minecraft/world/World;getTileEntity(III)Lnet/minecraft/tileentity/TileEntity;",
+                    value = "CONSTANT"),
+            locals = LocalCapture.CAPTURE_FAILEXCEPTION,
+            method = "findNodes()V",
+            remap = false,
+            require = 1)
     private void sa$addCVNodes(CallbackInfo ci, int xx, int yy, int zz, TileEntity te) {
         if (te instanceof TileVisNode) {
             this.nodes.add(new ChunkCoordinates(te.xCoord, te.yCoord, te.zCoord));

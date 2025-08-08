@@ -11,9 +11,9 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 public class MixinItemWandCasting_DisableSpendingCheck {
 
     @ModifyExpressionValue(
-        method = "consumeAllVis",
-        at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z", remap = true),
-        remap = false)
+            method = "consumeAllVis",
+            at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z", remap = true),
+            remap = false)
     private boolean isRemoteOverride(boolean isRemote) {
         return false;
     }

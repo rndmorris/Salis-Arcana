@@ -49,8 +49,8 @@ public class MixinGuiFocalManipulator {
     public void addDisenchantOption(Operation<Void> original) {
         original.call();
 
-        if (!this.upgrades.isEmpty()
-            && (this.selected == DisenchantFocusUpgrade.upgradeID || this.salisArcana$disenchantResearchComplete())) {
+        if (!this.upgrades.isEmpty() && (this.selected == DisenchantFocusUpgrade.upgradeID
+                || this.salisArcana$disenchantResearchComplete())) {
             ItemStack focusStack = this.table.getStackInSlot(0);
             if (focusStack != null && focusStack.getItem() instanceof ItemFocusBasic focus) {
                 this.possibleUpgrades.add(DisenchantFocusUpgrade.createSpecific(focus.getAppliedUpgrades(focusStack)));
@@ -62,13 +62,13 @@ public class MixinGuiFocalManipulator {
     }
 
     @WrapOperation(
-        method = "mouseClicked",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/research/ResearchManager;reduceToPrimals(Lthaumcraft/api/aspects/AspectList;)Lthaumcraft/api/aspects/AspectList;",
-            remap = false))
+            method = "mouseClicked",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/lib/research/ResearchManager;reduceToPrimals(Lthaumcraft/api/aspects/AspectList;)Lthaumcraft/api/aspects/AspectList;",
+                    remap = false))
     public AspectList replaceDisenchantCalculation(AspectList al, Operation<AspectList> original,
-        @Local FocusUpgradeType type) {
+            @Local FocusUpgradeType type) {
         if (this.selected == DisenchantFocusUpgrade.upgradeID && type instanceof DisenchantFocusUpgrade upgrade) {
             return upgrade.getVisPoints();
         } else {
@@ -77,24 +77,24 @@ public class MixinGuiFocalManipulator {
     }
 
     @ModifyArg(
-        method = "drawGuiContainerBackgroundLayer",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/client/gui/GuiFocalManipulator$Sparkle;<init>(Lthaumcraft/client/gui/GuiFocalManipulator;FFFFFFF)V",
-            ordinal = 1,
-            remap = false),
-        index = 1)
+            method = "drawGuiContainerBackgroundLayer",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/client/gui/GuiFocalManipulator$Sparkle;<init>(Lthaumcraft/client/gui/GuiFocalManipulator;FFFFFFF)V",
+                    ordinal = 1,
+                    remap = false),
+            index = 1)
     public float moveSparkles(float x) {
         return (this.rank == 6 || this.selected == DisenchantFocusUpgrade.upgradeID) ? x - 16f : x;
     }
 
     @ModifyExpressionValue(
-        method = "drawGuiContainerBackgroundLayer",
-        at = @At(
-            value = "FIELD",
-            target = "Lthaumcraft/client/gui/GuiFocalManipulator;nextSparkle:J",
-            opcode = Opcodes.GETFIELD,
-            remap = false))
+            method = "drawGuiContainerBackgroundLayer",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/client/gui/GuiFocalManipulator;nextSparkle:J",
+                    opcode = Opcodes.GETFIELD,
+                    remap = false))
     public long cancelFifthUpgradeSparkles(long nextSparkle) {
         return (this.rank == 6 && this.selected == -1) ? Long.MAX_VALUE : nextSparkle;
     }
@@ -110,12 +110,12 @@ public class MixinGuiFocalManipulator {
     }
 
     @ModifyExpressionValue(
-        method = { "drawScreen", "drawGuiContainerBackgroundLayer", "mouseClicked" },
-        at = @At(value = "FIELD", target = "Lnet/minecraft/client/entity/EntityClientPlayerMP;experienceLevel:I"))
+            method = { "drawScreen", "drawGuiContainerBackgroundLayer", "mouseClicked" },
+            at = @At(value = "FIELD", target = "Lnet/minecraft/client/entity/EntityClientPlayerMP;experienceLevel:I"))
     public int forceXpChecks(int original) {
         return this.selected == DisenchantFocusUpgrade.upgradeID
-            ? (salisArcana$disenchantResearchComplete() ? Integer.MAX_VALUE : Integer.MIN_VALUE)
-            : original;
+                ? (salisArcana$disenchantResearchComplete() ? Integer.MAX_VALUE : Integer.MIN_VALUE)
+                : original;
     }
 
     @Unique

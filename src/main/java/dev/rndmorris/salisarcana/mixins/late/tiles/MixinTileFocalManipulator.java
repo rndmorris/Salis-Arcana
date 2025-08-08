@@ -33,21 +33,19 @@ public abstract class MixinTileFocalManipulator extends TileThaumcraftInventory 
     public int upgrade;
 
     @WrapOperation(
-        method = "updateEntity",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/api/wands/ItemFocusBasic;applyUpgrade(Lnet/minecraft/item/ItemStack;Lthaumcraft/api/wands/FocusUpgradeType;I)Z",
-            remap = false))
+            method = "updateEntity",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/api/wands/ItemFocusBasic;applyUpgrade(Lnet/minecraft/item/ItemStack;Lthaumcraft/api/wands/FocusUpgradeType;I)Z",
+                    remap = false))
     public boolean applyUpgradeOverride(ItemFocusBasic focus, ItemStack focusStack, FocusUpgradeType type, int rank,
-        Operation<Boolean> original) {
+            Operation<Boolean> original) {
         if (type.equals(DisenchantFocusUpgrade.baseInstance)) {
             short[] appliedUpgrades = focus.getAppliedUpgrades(focusStack);
             DisenchantFocusUpgrade specific = DisenchantFocusUpgrade.createSpecific(appliedUpgrades);
             NBTTagCompound tag = focusStack.getTagCompound();
 
-            if (specific.lastRank <= 1 && tag != null
-                && tag.func_150296_c()
-                    .size() <= 1) {
+            if (specific.lastRank <= 1 && tag != null && tag.func_150296_c().size() <= 1) {
                 // Remove the whole tag, since there are no more enchantments and no other properties.
                 focusStack.setTagCompound(null);
             } else if (specific.lastRank > 0) {
@@ -91,8 +89,13 @@ public abstract class MixinTileFocalManipulator extends TileThaumcraftInventory 
 
                     this.markDirty();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-                    this.worldObj
-                        .playSoundEffect(this.xCoord, this.yCoord, this.zCoord, "thaumcraft:craftstart", 0.25F, 1.0F);
+                    this.worldObj.playSoundEffect(
+                            this.xCoord,
+                            this.yCoord,
+                            this.zCoord,
+                            "thaumcraft:craftstart",
+                            0.25F,
+                            1.0F);
 
                     this.salisArcana$prioritizePlayer(p);
                     return true;

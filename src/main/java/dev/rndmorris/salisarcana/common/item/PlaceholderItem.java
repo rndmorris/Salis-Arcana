@@ -46,8 +46,7 @@ public abstract class PlaceholderItem extends Item {
 
     private ItemStack[] baseItemCache() {
         if (baseItemCache == null) {
-            baseItemCache = getBaseItems().filter(i -> i != null && i.getItem() != null)
-                .toArray(ItemStack[]::new);
+            baseItemCache = getBaseItems().filter(i -> i != null && i.getItem() != null).toArray(ItemStack[]::new);
         }
         return baseItemCache;
     }
@@ -55,16 +54,13 @@ public abstract class PlaceholderItem extends Item {
     @SideOnly(Side.CLIENT)
     private IIcon[] cachedIcons() {
         if (cachedIcons == null) {
-            cachedIcons = Arrays.stream(baseItemCache())
-                .map(itemStack -> {
-                    Item item;
-                    if (itemStack == null || (item = itemStack.getItem()) == null) {
-                        return null;
-                    }
-                    return item.getIconFromDamage(itemStack.getItemDamage());
-                })
-                .filter(Objects::nonNull)
-                .toArray(IIcon[]::new);
+            cachedIcons = Arrays.stream(baseItemCache()).map(itemStack -> {
+                Item item;
+                if (itemStack == null || (item = itemStack.getItem()) == null) {
+                    return null;
+                }
+                return item.getIconFromDamage(itemStack.getItemDamage());
+            }).filter(Objects::nonNull).toArray(IIcon[]::new);
         }
         return cachedIcons;
     }
@@ -107,10 +103,7 @@ public abstract class PlaceholderItem extends Item {
 
         @Override
         public Stream<ItemStack> getBaseItems() {
-            return WandHelper.allVanillaCaps()
-                .stream()
-                .filter(Objects::nonNull)
-                .map(WandCap::getItem);
+            return WandHelper.allVanillaCaps().stream().filter(Objects::nonNull).map(WandCap::getItem);
         }
     }
 
@@ -118,10 +111,7 @@ public abstract class PlaceholderItem extends Item {
 
         @Override
         public Stream<ItemStack> getBaseItems() {
-            return WandHelper.allVanillaRods()
-                .stream()
-                .filter(Objects::nonNull)
-                .map(WandRod::getItem);
+            return WandHelper.allVanillaRods().stream().filter(Objects::nonNull).map(WandRod::getItem);
         }
     }
 

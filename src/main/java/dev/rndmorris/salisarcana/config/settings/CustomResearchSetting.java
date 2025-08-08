@@ -32,7 +32,7 @@ public class CustomResearchSetting extends Setting {
     public String[] aspectStrings; // formatted aspect:amount
 
     public CustomResearchSetting(IEnabler dependency, String configName, String configComment,
-        ResearchInfo researchInfo) {
+            ResearchInfo researchInfo) {
         super(dependency);
 
         this.researchName = researchInfo.getResearchName();
@@ -57,61 +57,61 @@ public class CustomResearchSetting extends Setting {
     @Override
     public void loadFromConfiguration(Configuration configuration) {
         this.enabled = configuration
-            .getBoolean("_enabled" + this.configName, this.getCategory(), this.enabled, this.configComment);
+                .getBoolean("_enabled" + this.configName, this.getCategory(), this.enabled, this.configComment);
 
         this.researchCategory = configuration.getString(
-            this.configName + "Category",
-            this.getCategory(),
-            this.researchCategory,
-            "The tab in the Thaumonomicon in which the research should appear");
+                this.configName + "Category",
+                this.getCategory(),
+                this.researchCategory,
+                "The tab in the Thaumonomicon in which the research should appear");
 
         this.researchCol = configuration.getInt(
-            this.configName + "Col",
-            this.getCategory(),
-            this.researchCol,
-            Integer.MIN_VALUE,
-            Integer.MAX_VALUE,
-            "The column in the given category at which the research should appear");
+                this.configName + "Col",
+                this.getCategory(),
+                this.researchCol,
+                Integer.MIN_VALUE,
+                Integer.MAX_VALUE,
+                "The column in the given category at which the research should appear");
 
         this.researchRow = configuration.getInt(
-            this.configName + "Row",
-            this.getCategory(),
-            this.researchRow,
-            Integer.MIN_VALUE,
-            Integer.MAX_VALUE,
-            "The row in the given category at which the research should appear");
+                this.configName + "Row",
+                this.getCategory(),
+                this.researchRow,
+                Integer.MIN_VALUE,
+                Integer.MAX_VALUE,
+                "The row in the given category at which the research should appear");
 
         this.parentResearches = configuration.getStringList(
-            this.configName + "Parents",
-            this.getCategory(),
-            this.parentResearches,
-            "The research entry IDs of the parent research entries");
+                this.configName + "Parents",
+                this.getCategory(),
+                this.parentResearches,
+                "The research entry IDs of the parent research entries");
 
         this.purchasable = configuration.getBoolean(
-            this.configName + "Purchasable",
-            this.getCategory(),
-            this.purchasable,
-            "Whether the research should be purchasable with aspects instead of the normal minigame");
+                this.configName + "Purchasable",
+                this.getCategory(),
+                this.purchasable,
+                "Whether the research should be purchasable with aspects instead of the normal minigame");
 
         this.autoUnlock = configuration.getBoolean(
-            this.configName + "AutoUnlock",
-            this.getCategory(),
-            this.autoUnlock,
-            "Whether the research should automatically unlock as soon as its parents are researched.");
+                this.configName + "AutoUnlock",
+                this.getCategory(),
+                this.autoUnlock,
+                "Whether the research should automatically unlock as soon as its parents are researched.");
 
         this.warp = configuration.getInt(
-            this.configName + "Warp",
-            this.getCategory(),
-            this.warp,
-            0,
-            100,
-            "How much warp is applied upon researching this research.");
+                this.configName + "Warp",
+                this.getCategory(),
+                this.warp,
+                0,
+                100,
+                "How much warp is applied upon researching this research.");
 
         this.aspectStrings = configuration.getStringList(
-            this.configName + "Aspects",
-            this.getCategory(),
-            this.aspectStrings,
-            "The aspects required for the research entry");
+                this.configName + "Aspects",
+                this.getCategory(),
+                this.aspectStrings,
+                "The aspects required for the research entry");
 
     }
 
@@ -122,9 +122,9 @@ public class CustomResearchSetting extends Setting {
             if (aspectParts.length == 2) {
                 if (Aspect.aspects.get(aspectParts[0]) == null) {
                     LOG.error(
-                        "Error: Aspect {} in custom research {} does not exist!",
-                        aspectParts[0],
-                        this.configName);
+                            "Error: Aspect {} in custom research {} does not exist!",
+                            aspectParts[0],
+                            this.configName);
                     continue;
                 }
                 researchAspects.add(Aspect.getAspect(aspectParts[0]), Integer.parseInt(aspectParts[1]));

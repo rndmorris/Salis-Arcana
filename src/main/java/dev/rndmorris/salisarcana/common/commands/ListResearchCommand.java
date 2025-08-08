@@ -30,9 +30,9 @@ public class ListResearchCommand extends ArcanaCommandBase<ListResearchCommand.A
     @Override
     protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
-            Arguments.class,
-            Arguments::new,
-            new IArgumentHandler[] { PlayerHandler.INSTANCE, SearchHandler.INSTANCE });
+                Arguments.class,
+                Arguments::new,
+                new IArgumentHandler[] { PlayerHandler.INSTANCE, SearchHandler.INSTANCE });
     }
 
     @Override
@@ -41,16 +41,16 @@ public class ListResearchCommand extends ArcanaCommandBase<ListResearchCommand.A
 
         if (arguments.forPlayer != null) {
             if (!sender.canCommandSenderUseCommand(
-                settings.getChildPermissionLevel(listOthersReserach),
-                settings.getFullName())) {
+                    settings.getChildPermissionLevel(listOthersReserach),
+                    settings.getFullName())) {
                 CommandErrors.insufficientPermission();
             }
             final var playerKnowledge = new TreeSet<>(
-                Thaumcraft.proxy.playerKnowledge.researchCompleted.get(arguments.forPlayer.getCommandSenderName()));
+                    Thaumcraft.proxy.playerKnowledge.researchCompleted.get(arguments.forPlayer.getCommandSenderName()));
 
             predicate = arguments.searchTerm != null
-                ? (r) -> playerKnowledge.contains(r.key) && ResearchHelper.matchesTerm(r, arguments.searchTerm)
-                : (r) -> playerKnowledge.contains(r.key);
+                    ? (r) -> playerKnowledge.contains(r.key) && ResearchHelper.matchesTerm(r, arguments.searchTerm)
+                    : (r) -> playerKnowledge.contains(r.key);
         } else if (arguments.searchTerm != null) {
             predicate = (r) -> ResearchHelper.matchesTerm(r, arguments.searchTerm);
         }

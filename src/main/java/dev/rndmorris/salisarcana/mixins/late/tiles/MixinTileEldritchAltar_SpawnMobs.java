@@ -20,23 +20,23 @@ import thaumcraft.common.tiles.TileEldritchAltar;
 public abstract class MixinTileEldritchAltar_SpawnMobs extends TileThaumcraft {
 
     @WrapOperation(
-        method = { "spawnGuards", "spawnGuardian" },
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/util/MathHelper;getRandomIntegerInRange(Ljava/util/Random;II)I"))
+            method = { "spawnGuards", "spawnGuardian" },
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/MathHelper;getRandomIntegerInRange(Ljava/util/Random;II)I"))
     private int preventRandCalls(Random random, int min, int max, Operation<Integer> original) {
         return 0;
     }
 
     @WrapOperation(
-        method = { "spawnGuards", "spawnGuardian" },
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/World;doesBlockHaveSolidTopSurface(Lnet/minecraft/world/IBlockAccess;III)Z"))
+            method = { "spawnGuards", "spawnGuardian" },
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/World;doesBlockHaveSolidTopSurface(Lnet/minecraft/world/IBlockAccess;III)Z"))
     @SuppressWarnings("ParameterCanBeLocal")
     private boolean pickAndCheckCoords(IBlockAccess worldIn, int x, int y, int z, Operation<Boolean> original,
-        @Local(name = "i1") LocalIntRef xRef, @Local(name = "j1") LocalIntRef yRef,
-        @Local(name = "k1") LocalIntRef zRef) {
+            @Local(name = "i1") LocalIntRef xRef, @Local(name = "j1") LocalIntRef yRef,
+            @Local(name = "k1") LocalIntRef zRef) {
 
         final var spawnSettings = SalisConfig.features.eldritchAltarSpawningMethod;
 

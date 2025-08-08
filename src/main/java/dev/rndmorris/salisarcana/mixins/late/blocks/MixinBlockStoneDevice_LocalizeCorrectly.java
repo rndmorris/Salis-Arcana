@@ -19,10 +19,10 @@ public class MixinBlockStoneDevice_LocalizeCorrectly {
     private static final ChatStyle salisArcana$redTextStyle = new ChatStyle().setColor(EnumChatFormatting.RED);
 
     @ModifyArg(
-        method = "onBlockActivated",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
+            method = "onBlockActivated",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
     public IChatComponent replaceComponent(IChatComponent original) {
         return new ChatComponentTranslation("tc.researchmissing").setChatStyle(salisArcana$redTextStyle);
     }

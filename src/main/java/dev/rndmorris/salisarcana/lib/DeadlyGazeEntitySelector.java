@@ -10,8 +10,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 /**
- * This class is used to filter out entities that should not be affected by the
- * Deadly Gaze effect.
+ * This class is used to filter out entities that should not be affected by the Deadly Gaze effect.
  *
  * @author Midnight145
  */
@@ -23,10 +22,10 @@ public class DeadlyGazeEntitySelector implements IEntitySelector {
     public boolean isEntityApplicable(Entity entity) {
         if (entity instanceof EntityLivingBase living) {
             return !(living.isEntityInvulnerable()
-                || !living.isPotionApplicable(new PotionEffect(Potion.wither.getId(), 1))
-                || (living instanceof EntitySkeleton skeleton && skeleton.getSkeletonType() != 0)
-                || living instanceof EntityWither
-                || living instanceof EntityDragon);
+                    || !living.isPotionApplicable(new PotionEffect(Potion.wither.getId(), 1))
+                    || (living instanceof EntitySkeleton skeleton && skeleton.getSkeletonType() != 0)
+                    || living instanceof EntityWither
+                    || living instanceof EntityDragon);
         }
         return false;
     }

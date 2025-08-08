@@ -25,14 +25,14 @@ public abstract class PrimalCrusher_StoneOredictCompat {
     private int sa$stoneBrickOreId = -1;
 
     @WrapOperation(
-        method = "onBlockDestroyed",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/items/equipment/ItemPrimalCrusher;isEffectiveAgainst(Lnet/minecraft/block/Block;)Z",
-            remap = false),
-        remap = true)
+            method = "onBlockDestroyed",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/items/equipment/ItemPrimalCrusher;isEffectiveAgainst(Lnet/minecraft/block/Block;)Z",
+                    remap = false),
+            remap = true)
     private boolean wrapIsEffectiveAgainst(ItemPrimalCrusher instance, Block block, Operation<Boolean> original,
-        @Local(name = "md") int metadata) {
+            @Local(name = "md") int metadata) {
         if (original.call(instance, block)) {
             return true;
         }

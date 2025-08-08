@@ -18,15 +18,14 @@ public class CrucibleHeatLogic {
 
     /**
      * Meant to be called from the relevant TileCrucible and TileThaumatorium mixins, where we target the
-     * {@code mat == Material.lava} check.
-     * All of these parameters already exist as locals in the relevant target methods, so we re-use them instead of
-     * getting them again ourselves.
+     * {@code mat == Material.lava} check. All of these parameters already exist as locals in the relevant target
+     * methods, so we re-use them instead of getting them again ourselves.
      */
     public static boolean isCrucibleHeatSource(Block block, int blockMetadata, Material blockMaterial) {
         // Maintain default behavior. If the block's material is lava or fire, or the block is Nitor, it can already
         // heat the crucible.
         if (blockMaterial == Material.lava || blockMaterial == Material.fire
-            || (block == ConfigBlocks.blockAiry && blockMetadata == 1)) {
+                || (block == ConfigBlocks.blockAiry && blockMetadata == 1)) {
             return true;
         }
 

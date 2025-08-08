@@ -28,11 +28,10 @@ public class HexColorSetting extends Setting {
     @Override
     public void loadFromConfiguration(Configuration configuration) {
         enabled = configuration.getBoolean(
-            "enable" + WordUtils.capitalizeFully(name)
-                .replace(" ", ""),
-            getCategory(),
-            false,
-            "Enable " + WordUtils.capitalizeFully(name));
+                "enable" + WordUtils.capitalizeFully(name).replace(" ", ""),
+                getCategory(),
+                false,
+                "Enable " + WordUtils.capitalizeFully(name));
 
         final var colorString = configuration.getString(name, getCategory(), defaultHexString, comment);
         final var colorInt = tryParseHexInteger(colorString);

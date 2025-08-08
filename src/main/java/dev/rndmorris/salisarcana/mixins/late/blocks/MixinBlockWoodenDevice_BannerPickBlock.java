@@ -28,10 +28,7 @@ public abstract class MixinBlockWoodenDevice_BannerPickBlock extends BlockContai
                 NBTTagCompound nbt = new NBTTagCompound();
                 nbt.setByte("color", banner.getColor());
                 if (banner.getAspect() != null) {
-                    nbt.setString(
-                        "aspect",
-                        banner.getAspect()
-                            .getTag());
+                    nbt.setString("aspect", banner.getAspect().getTag());
                 }
                 item.setTagCompound(nbt);
             }

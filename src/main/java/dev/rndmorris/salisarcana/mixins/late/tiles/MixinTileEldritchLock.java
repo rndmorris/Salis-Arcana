@@ -13,8 +13,11 @@ import thaumcraft.common.tiles.TileEldritchLock;
 public class MixinTileEldritchLock {
 
     @WrapOperation(
-        method = "doBossSpawn",
-        at = @At(value = "INVOKE", target = "Lthaumcraft/common/lib/world/dim/MapBossData;markDirty()V", ordinal = 1))
+            method = "doBossSpawn",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/lib/world/dim/MapBossData;markDirty()V",
+                    ordinal = 1))
     private void ensureNonNegative(MapBossData instance, Operation<Void> original) {
         instance.bossCount %= 4;
         original.call(instance);

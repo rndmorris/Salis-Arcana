@@ -19,17 +19,17 @@ public class MixinResearchManager {
 
     @WrapMethod(method = "consumeInkFromPlayer", remap = false)
     private static boolean creativeThaumonomiconInkCheck(EntityPlayer player, boolean doit,
-        Operation<Boolean> original) {
+            Operation<Boolean> original) {
         return player.capabilities.isCreativeMode || original.call(player, doit);
     }
 
     @WrapOperation(
-        method = "createResearchNoteForPlayer",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/InventoryPlayer;consumeInventoryItem(Lnet/minecraft/item/Item;)Z"))
+            method = "createResearchNoteForPlayer",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/InventoryPlayer;consumeInventoryItem(Lnet/minecraft/item/Item;)Z"))
     private static boolean creativeThaumonomiconPaperCheck(InventoryPlayer instance, Item p_146026_1_,
-        Operation<Boolean> original, @Local(argsOnly = true) EntityPlayer player) {
+            Operation<Boolean> original, @Local(argsOnly = true) EntityPlayer player) {
         return player.capabilities.isCreativeMode || original.call(instance, p_146026_1_);
     }
 }

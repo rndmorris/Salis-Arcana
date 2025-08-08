@@ -47,8 +47,8 @@ public class MessageScanContainer implements IMessage, IMessageHandler<MessageSc
         // we do this check serverside since the client can lie
         if (SalisConfig.features.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
-                entityPlayer.getCommandSenderName(),
-                SalisConfig.features.thaumometerScanContainersResearch.getInternalName())) {
+                    entityPlayer.getCommandSenderName(),
+                    SalisConfig.features.thaumometerScanContainersResearch.getInternalName())) {
                 return null;
             }
         }
@@ -59,8 +59,8 @@ public class MessageScanContainer implements IMessage, IMessageHandler<MessageSc
             InventoryHelper.scanInventory(inventory, entityPlayer);
         }
         PacketHandler.INSTANCE.sendTo(
-            new PacketSyncScannedItems(ctx.getServerHandler().playerEntity),
-            ctx.getServerHandler().playerEntity);
+                new PacketSyncScannedItems(ctx.getServerHandler().playerEntity),
+                ctx.getServerHandler().playerEntity);
         return null;
     }
 }

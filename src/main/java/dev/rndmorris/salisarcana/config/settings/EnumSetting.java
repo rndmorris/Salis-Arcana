@@ -29,7 +29,7 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
      *                      "disable" the setting.
      */
     public EnumSetting(IEnabler dependency, String name, String comment, @Nonnull E defaultValue,
-        @Nullable E disabledValue) {
+            @Nullable E disabledValue) {
         super(dependency);
         this.name = name;
         enumClass = defaultValue.getDeclaringClass();
@@ -50,9 +50,7 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        final var validValues = Arrays.stream(enumClass.getEnumConstants())
-            .map(Enum::toString)
-            .toArray(String[]::new);
+        final var validValues = Arrays.stream(enumClass.getEnumConstants()).map(Enum::toString).toArray(String[]::new);
         final var valueString = configuration.getString(name, getCategory(), value.toString(), comment, validValues);
 
         try {
@@ -60,10 +58,10 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
         } catch (IllegalArgumentException e) {
             // Don't do anything, just use the default value
             SalisArcanaCore.LOG.error(
-                "Invalid enum value for config \"{}\": {}. Value must be one of: {}",
-                this.name,
-                valueString,
-                String.join(", ", validValues));
+                    "Invalid enum value for config \"{}\": {}. Value must be one of: {}",
+                    this.name,
+                    valueString,
+                    String.join(", ", validValues));
         }
     }
 }

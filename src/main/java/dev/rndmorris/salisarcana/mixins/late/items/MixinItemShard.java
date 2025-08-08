@@ -22,7 +22,7 @@ public class MixinItemShard extends Item {
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int par2) {
         return stack.getItemDamage() > 6 ? 0
-            : stack.getItemDamage() == 6 ? super.getColorFromItemStack(stack, par2)
-                : BlockCustomOreItem.colors[stack.getItemDamage() + 1];
+                : stack.getItemDamage() == 6 ? super.getColorFromItemStack(stack, par2)
+                        : BlockCustomOreItem.colors[stack.getItemDamage() + 1];
     }
 }

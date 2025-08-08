@@ -35,11 +35,13 @@ public class BaseCompatSetting extends Setting implements IHaveSettings {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        enabled = configuration
-            .getBoolean(mod.modId, defaultCategory, enabled, String.format("Enable compatibility with %s.", mod.modId));
+        enabled = configuration.getBoolean(
+                mod.modId,
+                defaultCategory,
+                enabled,
+                String.format("Enable compatibility with %s.", mod.modId));
         for (var setting : settings) {
-            setting.setCategory(mod.modId)
-                .loadFromConfiguration(configuration);
+            setting.setCategory(mod.modId).loadFromConfiguration(configuration);
         }
     }
 

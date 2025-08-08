@@ -13,8 +13,8 @@ import thaumcraft.common.blocks.BlockAiry;
 public class MixinBlockAiry_EarthShockCheckSolidGround {
 
     @ModifyExpressionValue(
-        method = "onNeighborBlockChange",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlockMetadata(III)I"))
+            method = "onNeighborBlockChange",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlockMetadata(III)I"))
     public int checkSolidGround(int meta, World world, int x, int y, int z) {
         // Spark block from Earth Shock
         if (meta == 10 && !world.isRemote && !World.doesBlockHaveSolidTopSurface(world, x, y - 1, z)) {

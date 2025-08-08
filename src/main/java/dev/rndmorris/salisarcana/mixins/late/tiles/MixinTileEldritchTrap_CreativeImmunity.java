@@ -15,12 +15,12 @@ import thaumcraft.common.tiles.TileEldritchTrap;
 public class MixinTileEldritchTrap_CreativeImmunity {
 
     @WrapOperation(
-        method = "updateEntity",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/World;getClosestPlayer(DDDD)Lnet/minecraft/entity/player/EntityPlayer;"))
+            method = "updateEntity",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/World;getClosestPlayer(DDDD)Lnet/minecraft/entity/player/EntityPlayer;"))
     public EntityPlayer getClosestSurvivalPlayer(World world, double x, double y, double z, double maxDistance,
-        Operation<EntityPlayer> original) {
+            Operation<EntityPlayer> original) {
         EntityPlayer closest = null;
         double minDistanceSq = maxDistance * maxDistance;
 

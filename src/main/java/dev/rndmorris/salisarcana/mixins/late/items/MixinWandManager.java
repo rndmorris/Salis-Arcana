@@ -18,28 +18,24 @@ public abstract class MixinWandManager {
 
     @ModifyConstant(method = "getTotalVisDiscount", constant = @Constant(intValue = 4, ordinal = 0), remap = false)
     private static int getTotalVisDiscountWithAllBaubles(int value, EntityPlayer player, Aspect aspect) {
-        return BaublesApi.getBaubles(player)
-            .getSizeInventory();
+        return BaublesApi.getBaubles(player).getSizeInventory();
     }
 
     @ModifyConstant(method = "consumeVisFromInventory", constant = @Constant(intValue = 4, ordinal = 0), remap = false)
     private static int consumeVisFromBaublesInventory(int value, EntityPlayer player, AspectList cost) {
-        return BaublesApi.getBaubles(player)
-            .getSizeInventory();
+        return BaublesApi.getBaubles(player).getSizeInventory();
     }
 
     @ModifyConstant(method = "changeFocus", constant = @Constant(intValue = 4), remap = false)
     private static int changeFocusAllBaubles(int value, ItemStack is, World w, EntityPlayer player, String focus) {
-        return BaublesApi.getBaubles(player)
-            .getSizeInventory();
+        return BaublesApi.getBaubles(player).getSizeInventory();
     }
 
     @ModifyConstant(
-        method = { "fetchFocusFromPouch", "addFocusToPouch" },
-        constant = @Constant(intValue = 4),
-        remap = false)
+            method = { "fetchFocusFromPouch", "addFocusToPouch" },
+            constant = @Constant(intValue = 4),
+            remap = false)
     private static int fetchFocusAllBaubles(int value, EntityPlayer player) {
-        return BaublesApi.getBaubles(player)
-            .getSizeInventory();
+        return BaublesApi.getBaubles(player).getSizeInventory();
     }
 }

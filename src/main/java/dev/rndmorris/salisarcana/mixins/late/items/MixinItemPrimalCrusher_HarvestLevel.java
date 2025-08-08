@@ -16,14 +16,14 @@ import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 public class MixinItemPrimalCrusher_HarvestLevel {
 
     @WrapOperation(
-        method = "onBlockDestroyed",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/block/Block;getBlockHardness(Lnet/minecraft/world/World;III)F"))
+            method = "onBlockDestroyed",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/block/Block;getBlockHardness(Lnet/minecraft/world/World;III)F"))
     private float wrapIsEffectiveAgainst(Block instance, World world, int x, int y, int z, Operation<Float> original,
-        @Local(name = "md") int meta) {
+            @Local(name = "md") int meta) {
         return ItemPrimalCrusher.material.getHarvestLevel() >= instance.getHarvestLevel(meta)
-            ? original.call(instance, world, x, y, z)
-            : -1F;
+                ? original.call(instance, world, x, y, z)
+                : -1F;
     }
 }

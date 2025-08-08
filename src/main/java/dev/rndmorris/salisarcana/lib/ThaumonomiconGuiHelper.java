@@ -22,7 +22,7 @@ public class ThaumonomiconGuiHelper {
     }
 
     public static java.util.Map<String, thaumcraft.api.research.ResearchCategoryList> BrowserPaging$GetTabsOnCurrentPage(
-        GuiResearchBrowser browser, String player) {
+            GuiResearchBrowser browser, String player) {
         return browserPaging.getTabsOnCurrentPage(browser, player);
     }
 

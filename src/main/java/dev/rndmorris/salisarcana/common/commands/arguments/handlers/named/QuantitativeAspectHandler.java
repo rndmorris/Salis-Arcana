@@ -32,8 +32,7 @@ public class QuantitativeAspectHandler implements INamedArgumentHandler {
         String peeked;
         do {
             final var tag = args.hasNext() ? args.next() : "";
-            final var aspect = AspectHelper.aspectsCI()
-                .get(tag);
+            final var aspect = AspectHelper.aspectsCI().get(tag);
             if (aspect == null) {
                 throw new CommandException("salisarcana:error.invalid_aspect", tag);
             }
@@ -55,8 +54,7 @@ public class QuantitativeAspectHandler implements INamedArgumentHandler {
                 return aspectSuggestions(alreadyFound);
             }
             final var tag = args.next();
-            final var aspect = AspectHelper.aspectsCI()
-                .get(tag);
+            final var aspect = AspectHelper.aspectsCI().get(tag);
 
             if (aspect == null) {
                 return aspectSuggestions(alreadyFound);
@@ -80,12 +78,8 @@ public class QuantitativeAspectHandler implements INamedArgumentHandler {
 
     private List<String> aspectSuggestions(Set<QuantitativeAspectArgument> except) {
         return new ArrayList<>(
-            AspectHelper.aspectsExcept(
-                except.stream()
-                    .map(a -> a.aspect)
-                    .collect(Collectors.toList()))).stream()
-                        .map(Aspect::getTag)
-                        .collect(Collectors.toList());
+                AspectHelper.aspectsExcept(except.stream().map(a -> a.aspect).collect(Collectors.toList()))).stream()
+                        .map(Aspect::getTag).collect(Collectors.toList());
     }
 
     @Nonnull

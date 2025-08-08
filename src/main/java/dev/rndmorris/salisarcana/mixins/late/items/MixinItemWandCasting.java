@@ -23,7 +23,7 @@ public class MixinItemWandCasting {
 
     @WrapMethod(method = "consumeVis")
     private boolean wrapConsumeVis(ItemStack is, EntityPlayer player, Aspect aspect, int amount, boolean crafting,
-        Operation<Boolean> original) {
+            Operation<Boolean> original) {
         if (sa$isCreative(player)) {
             return true;
         }
@@ -32,7 +32,7 @@ public class MixinItemWandCasting {
 
     @WrapMethod(method = "consumeAllVis")
     private boolean wrapConsumeAllVis(ItemStack is, EntityPlayer player, AspectList aspects, boolean doit,
-        boolean crafting, Operation<Boolean> original) {
+            boolean crafting, Operation<Boolean> original) {
         if (sa$isCreative(player)) {
             return true;
         }
@@ -41,7 +41,7 @@ public class MixinItemWandCasting {
 
     @WrapMethod(method = "consumeAllVisCrafting")
     private boolean wrapConsumeAllVisCrafting(ItemStack is, EntityPlayer player, AspectList aspects, boolean doit,
-        Operation<Boolean> original) {
+            Operation<Boolean> original) {
         if (sa$isCreative(player)) {
             return true;
         }

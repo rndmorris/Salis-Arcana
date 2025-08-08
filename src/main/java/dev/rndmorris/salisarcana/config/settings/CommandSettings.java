@@ -88,25 +88,25 @@ public class CommandSettings extends Setting {
         enabled = configuration.getBoolean("commandEnabled", getCategory(), enabled, "Enable or disable the command.");
 
         final var configAliases = configuration.getStringList(
-            "aliases",
-            getCategory(),
-            aliases.toArray(new String[0]),
-            "Secondary names that refer to this command.");
+                "aliases",
+                getCategory(),
+                aliases.toArray(new String[0]),
+                "Secondary names that refer to this command.");
         aliases.clear();
         Collections.addAll(aliases, configAliases);
 
         permissionLevel = (byte) configuration.getInt(
-            "permissionLevel",
-            getCategory(),
-            permissionLevel,
-            0,
-            4,
-            "The permission level required to execute the command.");
+                "permissionLevel",
+                getCategory(),
+                permissionLevel,
+                0,
+                4,
+                "The permission level required to execute the command.");
 
         for (var childConfig : childPermissions.keySet()) {
             final var childPerm = childPermissions.get(childConfig);
             final var configLevel = configuration
-                .getInt(childConfig, getCategory(), childPerm.permissionLevel, 0, 4, childPerm.description);
+                    .getInt(childConfig, getCategory(), childPerm.permissionLevel, 0, 4, childPerm.description);
             childPerm.permissionLevel = (byte) configLevel;
         }
     }

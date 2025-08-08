@@ -40,9 +40,9 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
     @Override
     protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
-            Arguments.class,
-            Arguments::new,
-            new IArgumentHandler[] { PlayerHandler.INSTANCE, ResearchKeyHandler.INSTANCE, FlagHandler.INSTANCE, });
+                Arguments.class,
+                Arguments::new,
+                new IArgumentHandler[] { PlayerHandler.INSTANCE, ResearchKeyHandler.INSTANCE, FlagHandler.INSTANCE, });
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
 
         // required to be a reference to the original list
         final var playerResearch = Thaumcraft.proxy.getPlayerKnowledge().researchCompleted
-            .get(arguments.targetPlayer.getCommandSenderName());
+                .get(arguments.targetPlayer.getCommandSenderName());
         if (playerResearch == null) {
             return;
         }
@@ -67,11 +67,8 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
             toForget.addAll(arguments.researchKeys);
         }
 
-        final var researchMap = playerResearch.stream()
-            .filter(Objects::nonNull)
-            .map(ResearchCategories::getResearch)
-            .filter(Objects::nonNull)
-            .collect(Collectors.toMap(r -> r.key, r -> r));
+        final var researchMap = playerResearch.stream().filter(Objects::nonNull).map(ResearchCategories::getResearch)
+                .filter(Objects::nonNull).collect(Collectors.toMap(r -> r.key, r -> r));
         final var visited = new TreeSet<>(toForget);
 
         var permWarp = 0;
@@ -133,13 +130,11 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
                 return false;
             };
 
-            researchMap.values()
-                .stream()
-                .filter(r -> !visited.contains(r.key) && isChildResearch.test(r))
-                .forEach(r -> {
-                    toForget.add(r.key);
-                    visited.add(r.key);
-                });
+            researchMap.values().stream().filter(r -> !visited.contains(r.key) && isChildResearch.test(r))
+                    .forEach(r -> {
+                        toForget.add(r.key);
+                        visited.add(r.key);
+                    });
         }
 
         final var target = arguments.targetPlayer;
@@ -155,18 +150,18 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
             }
             if (permWarp > 0 || stickyWarp > 0) {
                 knowledge.setWarpCounter(
-                    target.getCommandSenderName(),
-                    knowledge.getWarpTotal(target.getCommandSenderName()));
+                        target.getCommandSenderName(),
+                        knowledge.getWarpTotal(target.getCommandSenderName()));
             }
         }
         NetworkHandler.instance.sendTo(new MessageForgetResearch(removed), arguments.targetPlayer);
         sender.addChatMessage(
-            new ChatComponentTranslation(
-                arguments.retainWarp ? "salisarcana:command.forget-research.retain"
-                    : "salisarcana:command.forget-research.remove",
-                removedCount,
-                permWarp,
-                stickyWarp));
+                new ChatComponentTranslation(
+                        arguments.retainWarp ? "salisarcana:command.forget-research.retain"
+                                : "salisarcana:command.forget-research.remove",
+                        removedCount,
+                        permWarp,
+                        stickyWarp));
     }
 
     @Override
@@ -180,10 +175,10 @@ public class ForgetResearchCommand extends ArcanaCommandBase<ForgetResearchComma
         public boolean allResearch;
 
         @NamedArg(
-            name = "--research-key",
-            handler = ResearchKeyHandler.class,
-            excludes = "--all",
-            descLangKey = "research")
+                name = "--research-key",
+                handler = ResearchKeyHandler.class,
+                excludes = "--all",
+                descLangKey = "research")
         public ArrayList<String> researchKeys = new ArrayList<>();
 
         @NamedArg(name = "--player", handler = PlayerHandler.class, descLangKey = "player")

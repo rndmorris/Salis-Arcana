@@ -32,9 +32,9 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
     @Override
     protected ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
-            ForgetAspectCommand.Arguments.class,
-            ForgetAspectCommand.Arguments::new,
-            new IArgumentHandler[] { AspectHandler.INSTANCE, FlagHandler.INSTANCE, PlayerHandler.INSTANCE });
+                ForgetAspectCommand.Arguments.class,
+                ForgetAspectCommand.Arguments::new,
+                new IArgumentHandler[] { AspectHandler.INSTANCE, FlagHandler.INSTANCE, PlayerHandler.INSTANCE });
     }
 
     @Override
@@ -64,10 +64,13 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
         String playerName = arguments.targetPlayer.getCommandSenderName();
         if (removedCount > 0) {
             sender.addChatMessage(
-                new ChatComponentTranslation("salisarcana:command.forget-aspect.success", removedCount, playerName));
+                    new ChatComponentTranslation(
+                            "salisarcana:command.forget-aspect.success",
+                            removedCount,
+                            playerName));
         } else {
-            sender
-                .addChatMessage(new ChatComponentTranslation("salisarcana:command.forget-aspect.failure", playerName));
+            sender.addChatMessage(
+                    new ChatComponentTranslation("salisarcana:command.forget-aspect.failure", playerName));
         }
     }
 
@@ -81,7 +84,7 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
             }
         } else if (arguments.aspects != null && !arguments.aspects.isEmpty()) {
             NetworkHandler.instance
-                .sendTo(new MessageForgetAspects(arguments.aspects, MessageForgetAspects.RESET_ACTION), player);
+                    .sendTo(new MessageForgetAspects(arguments.aspects, MessageForgetAspects.RESET_ACTION), player);
             for (final var aspect : arguments.aspects) {
                 aspects.aspects.put(aspect, 1);
                 removedCount++;
@@ -94,14 +97,11 @@ public class ForgetAspectCommand extends ArcanaCommandBase<ForgetAspectCommand.A
         int removedCount = 0;
         if (arguments.all) {
             NetworkHandler.instance.sendTo(new MessageForgetAspects(MessageForgetAspects.FORGET_ACTION), player);
-            removedCount = Math.max(
-                aspects.size() - Aspect.getPrimalAspects()
-                    .size(),
-                0);
+            removedCount = Math.max(aspects.size() - Aspect.getPrimalAspects().size(), 0);
             aspects.aspects.clear();
         } else if (arguments.aspects != null && !arguments.aspects.isEmpty()) {
             NetworkHandler.instance
-                .sendTo(new MessageForgetAspects(arguments.aspects, MessageForgetAspects.FORGET_ACTION), player);
+                    .sendTo(new MessageForgetAspects(arguments.aspects, MessageForgetAspects.FORGET_ACTION), player);
             for (final var aspect : arguments.aspects) {
                 if (aspects.aspects.remove(aspect) != null) {
                     removedCount++;

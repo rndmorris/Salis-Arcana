@@ -14,10 +14,10 @@ import thaumcraft.common.blocks.BlockEldritch;
 public class MixinBlockEldritch {
 
     @Inject(
-        method = "onBlockActivated",
-        at = @At(value = "INVOKE", target = "Lthaumcraft/common/tiles/TileEldritchAltar;markDirty()V"))
+            method = "onBlockActivated",
+            at = @At(value = "INVOKE", target = "Lthaumcraft/common/tiles/TileEldritchAltar;markDirty()V"))
     private void onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float par7,
-        float par8, float par9, CallbackInfoReturnable<Boolean> cir) {
+            float par8, float par9, CallbackInfoReturnable<Boolean> cir) {
         if (player.capabilities.isCreativeMode) {
             player.getHeldItem().stackSize += 1;
         }

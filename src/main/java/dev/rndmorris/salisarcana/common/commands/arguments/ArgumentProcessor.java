@@ -35,7 +35,7 @@ import dev.rndmorris.salisarcana.lib.PeekableIterator;
 public class ArgumentProcessor<TArguments> {
 
     private final Map<Class<? extends IArgumentHandler>, IArgumentHandler> argumentHandlers = new TreeMap<>(
-        new ClassComparator());
+            new ClassComparator());
     private final Class<TArguments> argumentsClass;
     private final Supplier<TArguments> initializer;
 
@@ -55,7 +55,7 @@ public class ArgumentProcessor<TArguments> {
      *                         you want to parse value-less flags.
      */
     public ArgumentProcessor(Class<TArguments> argumentsClass, Supplier<TArguments> initializer,
-        IArgumentHandler[] argumentHandlers) {
+            IArgumentHandler[] argumentHandlers) {
         this.argumentsClass = argumentsClass;
         this.initializer = initializer;
         for (var handler : argumentHandlers) {
@@ -76,9 +76,7 @@ public class ArgumentProcessor<TArguments> {
         final var excludedNames = new TreeSet<>(String::compareToIgnoreCase);
         final var arguments = initializer.get();
 
-        final var $args = new PeekableIterator<>(
-            Arrays.stream(args)
-                .iterator());
+        final var $args = new PeekableIterator<>(Arrays.stream(args).iterator());
         var index = 0;
 
         while ($args.hasNext()) {
@@ -140,9 +138,7 @@ public class ArgumentProcessor<TArguments> {
     public List<String> getAutocompletionSuggestions(ICommandSender sender, String[] args) {
         final var excludedNames = new TreeSet<String>();
 
-        final var $args = new PeekableIterator<>(
-            Arrays.stream(args)
-                .iterator());
+        final var $args = new PeekableIterator<>(Arrays.stream(args).iterator());
         var index = 0;
 
         while ($args.hasNext()) {
@@ -178,14 +174,9 @@ public class ArgumentProcessor<TArguments> {
             if (entry == null || !$args.hasNext()) {
                 // we don't have a current entry, so we instead return suggestions for non-excluded flags and named
                 // arguments
-                final var availableFlags = flagArgs.keySet()
-                    .stream()
-                    .filter(k -> !excludedNames.contains(k));
-                final var availableNames = namedArgs.keySet()
-                    .stream()
-                    .filter(k -> !excludedNames.contains(k));
-                return Stream.concat(availableFlags, availableNames)
-                    .collect(Collectors.toList());
+                final var availableFlags = flagArgs.keySet().stream().filter(k -> !excludedNames.contains(k));
+                final var availableNames = namedArgs.keySet().stream().filter(k -> !excludedNames.contains(k));
+                return Stream.concat(availableFlags, availableNames).collect(Collectors.toList());
             }
 
             // if the handler has *any* results, we return them. If it returns null, we advance to the next handler.
@@ -212,7 +203,7 @@ public class ArgumentProcessor<TArguments> {
 
             // evaulate if the current field is an argument we can register
             if (!(evaluatePositionalArg(field, entry) || evaluateFlagArg(field, entry)
-                || evaluateNamedArg(field, entry))) {
+                    || evaluateNamedArg(field, entry))) {
                 continue;
             }
 
@@ -222,10 +213,10 @@ public class ArgumentProcessor<TArguments> {
             // It's a headache otherwise, trust me
             if (fieldType.isInterface()) {
                 throw new RuntimeException(
-                    String.format(
-                        "Argument field \"%s\" on %s must be a concrete type, not an interface.",
-                        field.getName(),
-                        argumentsClass.getName()));
+                        String.format(
+                                "Argument field \"%s\" on %s must be a concrete type, not an interface.",
+                                field.getName(),
+                                argumentsClass.getName()));
             }
 
             entry.isList = List.class.isAssignableFrom(fieldType);
@@ -233,12 +224,12 @@ public class ArgumentProcessor<TArguments> {
 
             if (!entry.isList && outputIsList) {
                 throw new RuntimeException(
-                    String.format(
-                        "Handler output (%s) is not assignable to target field %s (%s) on %s.",
-                        outputType,
-                        field.getName(),
-                        field.getType(),
-                        argumentsClass.getName()));
+                        String.format(
+                                "Handler output (%s) is not assignable to target field %s (%s) on %s.",
+                                outputType,
+                                field.getName(),
+                                field.getType(),
+                                argumentsClass.getName()));
             }
 
             // basic type checking to catch blatant type mismatches
@@ -247,12 +238,12 @@ public class ArgumentProcessor<TArguments> {
 
                 if (!expectedOutput.isAssignableFrom(entry.handler.getOutputType())) {
                     throw new RuntimeException(
-                        String.format(
-                            "Handler output (%s) is not assignable to target field %s (%s) on %s",
-                            entry.handler.getOutputType(),
-                            field.getName(),
-                            expectedOutput,
-                            argumentsClass.getName()));
+                            String.format(
+                                    "Handler output (%s) is not assignable to target field %s (%s) on %s",
+                                    entry.handler.getOutputType(),
+                                    field.getName(),
+                                    expectedOutput,
+                                    argumentsClass.getName()));
                 }
             }
 
@@ -301,16 +292,16 @@ public class ArgumentProcessor<TArguments> {
 
         if (entry.isList) {
             if (field.getGenericType() instanceof ParameterizedType parameterizedType
-                && parameterizedType.getActualTypeArguments()[0] instanceof Class<?>typeInList) {
+                    && parameterizedType.getActualTypeArguments()[0] instanceof Class<?>typeInList) {
                 valueClass = typeInList;
             } else {
                 // From what I understand, this should only happen if the field type is a subclass of a generic
                 // class. We would need to climb the type chain, somehow. Hopefully it never comes to that.
                 throw new RuntimeException(
-                    String.format(
-                        "Could not get generic type from field \"%s\" on %s.",
-                        field.getName(),
-                        argumentsClass.getName()));
+                        String.format(
+                                "Could not get generic type from field \"%s\" on %s.",
+                                field.getName(),
+                                argumentsClass.getName()));
             }
         } else {
             valueClass = fieldType;
@@ -336,8 +327,7 @@ public class ArgumentProcessor<TArguments> {
             LOG.error(String.format("No parser found for positional argument at index %d", posArg.index()));
             throw new RuntimeException();
         }
-        if (!posArg.descLangKey()
-            .isEmpty()) {
+        if (!posArg.descLangKey().isEmpty()) {
             descriptionLangKeys.add(posArg.descLangKey());
         }
         entry.argType = ArgType.POS;
@@ -364,13 +354,10 @@ public class ArgumentProcessor<TArguments> {
             LOG.error(String.format("No parser found for named argument at %s", flagArg.name()));
             throw new RuntimeException();
         }
-        if (!flagArg.descLangKey()
-            .isEmpty()) {
+        if (!flagArg.descLangKey().isEmpty()) {
             descriptionLangKeys.add(flagArg.descLangKey());
         }
-        entry.excludes = Arrays.stream(flagArg.excludes())
-            .filter(s -> !s.isEmpty())
-            .collect(Collectors.toList());
+        entry.excludes = Arrays.stream(flagArg.excludes()).filter(s -> !s.isEmpty()).collect(Collectors.toList());
         entry.argType = ArgType.FLAG;
 
         return true;
@@ -395,13 +382,10 @@ public class ArgumentProcessor<TArguments> {
             LOG.error(String.format("No parser found for named argument at %s", namedArg.name()));
             throw new RuntimeException();
         }
-        if (!namedArg.descLangKey()
-            .isEmpty()) {
+        if (!namedArg.descLangKey().isEmpty()) {
             descriptionLangKeys.add(namedArg.descLangKey());
         }
-        entry.excludes = Arrays.stream(namedArg.excludes())
-            .filter(s -> !s.isEmpty())
-            .collect(Collectors.toList());
+        entry.excludes = Arrays.stream(namedArg.excludes()).filter(s -> !s.isEmpty()).collect(Collectors.toList());
         entry.argType = ArgType.NAMED;
 
         return true;

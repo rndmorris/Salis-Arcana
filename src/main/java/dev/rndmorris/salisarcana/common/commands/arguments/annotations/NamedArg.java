@@ -31,8 +31,7 @@ public @interface NamedArg {
 
     /**
      * The subname used to get this argument's description from the lang file. Called by
-     * {@link dev.rndmorris.salisarcana.common.commands.HelpCommand}.
-     * The langkey in question should have the structure
+     * {@link dev.rndmorris.salisarcana.common.commands.HelpCommand}. The langkey in question should have the structure
      * {@code salisarrcana:command.COMMAND_NAME.args.DESC_LANG_KEY=§7[--ARG_NAME]§r Description text here.}
      */
     String descLangKey() default "";

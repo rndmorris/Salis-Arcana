@@ -38,9 +38,7 @@ public abstract class EnumHandler<E extends Enum<E>> implements INamedArgumentHa
         if (args.hasNext()) {
             return null;
         }
-        return Arrays.stream(enumDefinition.getEnumConstants())
-            .map(E::toString)
-            .collect(Collectors.toList());
+        return Arrays.stream(enumDefinition.getEnumConstants()).map(E::toString).collect(Collectors.toList());
     }
 
     @Nonnull

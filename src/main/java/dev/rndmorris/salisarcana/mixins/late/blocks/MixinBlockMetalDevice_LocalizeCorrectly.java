@@ -22,22 +22,22 @@ public class MixinBlockMetalDevice_LocalizeCorrectly {
     private static final ChatStyle salisArcana$alembicStyle = new ChatStyle().setColor(EnumChatFormatting.DARK_AQUA);
 
     @WrapOperation(
-        method = "onBlockActivated",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
+            method = "onBlockActivated",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
     public String captureKey(String langKey, Operation<String> original, @Share("key") LocalRef<String> key) {
         key.set(langKey);
         return "";
     }
 
     @WrapOperation(
-        method = "onBlockActivated",
-        at = @At(
-            value = "NEW",
-            target = "(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/util/ChatComponentTranslation;"))
+            method = "onBlockActivated",
+            at = @At(
+                    value = "NEW",
+                    target = "(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/util/ChatComponentTranslation;"))
     public ChatComponentTranslation modifyChatComponent(String langKey, Object[] params,
-        Operation<ChatComponentTranslation> original, @Share("key") LocalRef<String> key) {
+            Operation<ChatComponentTranslation> original, @Share("key") LocalRef<String> key) {
         final ChatComponentTranslation out = original.call(key.get(), params);
         out.setChatStyle(salisArcana$alembicStyle);
         return out;

@@ -18,15 +18,15 @@ public class MixinBlockMirrorItem_LocalizableText {
 
     @Unique
     private static final ChatStyle salisArcana$errorStyle = new ChatStyle().setColor(EnumChatFormatting.DARK_PURPLE)
-        .setItalic(true);
+            .setItalic(true);
 
     @WrapOperation(
-        method = "onItemUseFirst",
-        at = @At(
-            value = "NEW",
-            target = "(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/util/ChatComponentTranslation;"))
+            method = "onItemUseFirst",
+            at = @At(
+                    value = "NEW",
+                    target = "(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/util/ChatComponentTranslation;"))
     public ChatComponentTranslation alterComponent(String j, Object[] objects,
-        Operation<ChatComponentTranslation> original) {
+            Operation<ChatComponentTranslation> original) {
         final var component = original.call("salisarcana:misc.mirror.already_linked", objects);
         component.setChatStyle(salisArcana$errorStyle);
         return component;

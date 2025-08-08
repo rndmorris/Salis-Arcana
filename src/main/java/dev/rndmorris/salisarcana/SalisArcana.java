@@ -15,19 +15,19 @@ import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.relauncher.Side;
 
 @Mod(
-    modid = SalisArcana.MODID,
-    version = Tags.VERSION,
-    name = "Salis Arcana",
-    acceptedMinecraftVersions = "[1.7.10]",
-    dependencies = "required-after:Thaumcraft;after:tc4tweak@[1.5.32,);after:gtnhtcwands")
+        modid = SalisArcana.MODID,
+        version = Tags.VERSION,
+        name = "Salis Arcana",
+        acceptedMinecraftVersions = "[1.7.10]",
+        dependencies = "required-after:Thaumcraft;after:tc4tweak@[1.5.32,);after:gtnhtcwands")
 public class SalisArcana {
 
     public static final String MODID = "salisarcana";
     public static final Logger LOG = LogManager.getLogger(MODID);
 
     @SidedProxy(
-        clientSide = "dev.rndmorris.salisarcana.ClientProxy",
-        serverSide = "dev.rndmorris.salisarcana.CommonProxy")
+            clientSide = "dev.rndmorris.salisarcana.ClientProxy",
+            serverSide = "dev.rndmorris.salisarcana.CommonProxy")
     public static CommonProxy proxy;
     public static boolean isServerSideInstalled;
 

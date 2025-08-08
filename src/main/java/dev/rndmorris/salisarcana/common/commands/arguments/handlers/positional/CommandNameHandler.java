@@ -36,8 +36,7 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
     @Override
     public List<String> getAutocompleteOptions(ICommandSender sender, PeekingIterator<String> args) {
         args.next();
-        final var settingsList = SalisConfig.commands.getCommandsSettings()
-            .collect(Collectors.toList());
+        final var settingsList = SalisConfig.commands.getCommandsSettings().collect(Collectors.toList());
 
         if (!args.hasNext()) {
             // automatically sort our output alphanumerically
@@ -62,15 +61,11 @@ public class CommandNameHandler implements IPositionalArgumentHandler {
     }
 
     private CommandSettings findCommand(final String current) {
-        var maybeFoundCommand = SalisConfig.commands.getCommandsSettings()
-            .filter(CommandSettings::isEnabled)
-            .filter(
-                s -> s.getFullName()
-                    .equalsIgnoreCase(current)
-                    || s.aliases.stream()
-                        .anyMatch(a -> a.equalsIgnoreCase(current)))
-            .limit(1)
-            .collect(Collectors.toList());
+        var maybeFoundCommand = SalisConfig.commands.getCommandsSettings().filter(CommandSettings::isEnabled)
+                .filter(
+                        s -> s.getFullName().equalsIgnoreCase(current)
+                                || s.aliases.stream().anyMatch(a -> a.equalsIgnoreCase(current)))
+                .limit(1).collect(Collectors.toList());
         return !maybeFoundCommand.isEmpty() ? maybeFoundCommand.get(0) : null;
     }
 }

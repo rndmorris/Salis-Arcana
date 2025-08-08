@@ -31,11 +31,11 @@ public class MixinGuiResearchBrowser_RightClickClose extends GuiScreen {
         if (!RightClickClose$ScreenStack.isEmpty() && SalisConfig.features.nomiconSavePage.isEnabled()) {
             Tuple currentPage = RightClickClose$ScreenStack.pop();
             this.mc.displayGuiScreen(
-                new GuiResearchRecipe(
-                    (ResearchItem) currentPage.getFirst(),
-                    (int) currentPage.getSecond(),
-                    this.guiMapX,
-                    this.guiMapY));
+                    new GuiResearchRecipe(
+                            (ResearchItem) currentPage.getFirst(),
+                            (int) currentPage.getSecond(),
+                            this.guiMapX,
+                            this.guiMapY));
         }
     }
 

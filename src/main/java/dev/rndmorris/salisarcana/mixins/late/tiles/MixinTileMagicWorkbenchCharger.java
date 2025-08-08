@@ -16,13 +16,13 @@ import thaumcraft.common.tiles.TileMagicWorkbenchCharger;
 public class MixinTileMagicWorkbenchCharger {
 
     @Inject(
-        method = "updateEntity",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/items/wands/ItemWandCasting;addRealVis(Lnet/minecraft/item/ItemStack;Lthaumcraft/api/aspects/Aspect;IZ)I",
-            remap = false))
+            method = "updateEntity",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/items/wands/ItemWandCasting;addRealVis(Lnet/minecraft/item/ItemStack;Lthaumcraft/api/aspects/Aspect;IZ)I",
+                    remap = false))
     public void captureWorkbench(CallbackInfo ci, @Local TileMagicWorkbench workbench,
-        @Share("workbench") LocalRef<TileMagicWorkbench> workbenchRef) {
+            @Share("workbench") LocalRef<TileMagicWorkbench> workbenchRef) {
         // Only gets called on the logical server whenever an aspect is charged into the wand.
         workbenchRef.set(workbench);
     }

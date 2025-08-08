@@ -56,9 +56,7 @@ public class FocusUpgradesHandler implements INamedArgumentHandler, IPositionalA
         ItemStack heldItem;
         ItemFocusBasic heldFocus;
         if ((heldItem = player.getCurrentEquippedItem()) == null || (heldFocus = getFocusFrom(heldItem)) == null) {
-            return Arrays.stream(FocusUpgradeType.types)
-                .map(this::formatUpgradeKey)
-                .collect(Collectors.toList());
+            return Arrays.stream(FocusUpgradeType.types).map(this::formatUpgradeKey).collect(Collectors.toList());
         }
 
         // copied, so we can modify it as we work
@@ -71,8 +69,8 @@ public class FocusUpgradesHandler implements INamedArgumentHandler, IPositionalA
 
         String peeked = null;
         while (appliedUpgrades.size() < 5 && args.hasNext()
-            && (peeked = args.peek()) != null
-            && !peeked.startsWith("-")) {
+                && (peeked = args.peek()) != null
+                && !peeked.startsWith("-")) {
             final var key = args.next();
             final var upgrade = getUpgradeFromKey(key);
             if (upgrade != null) {
@@ -108,10 +106,8 @@ public class FocusUpgradesHandler implements INamedArgumentHandler, IPositionalA
 
     private @Nonnull String formatUpgradeKey(@Nonnull FocusUpgradeType focusUpgrade) {
         return upgradeKeyCache.computeIfAbsent(focusUpgrade.id, (id) -> {
-            final var cleanedName = focusUpgrade.getLocalizedName()
-                .toLowerCase()
-                .replaceAll(" +", "-")
-                .replaceAll("[^\\w-]", "");
+            final var cleanedName = focusUpgrade.getLocalizedName().toLowerCase().replaceAll(" +", "-")
+                    .replaceAll("[^\\w-]", "");
             return String.format("%s-%d", cleanedName, focusUpgrade.id);
         });
     }
@@ -125,8 +121,7 @@ public class FocusUpgradesHandler implements INamedArgumentHandler, IPositionalA
         if (upgradeId == null) {
             return null;
         }
-        return ArrayHelper.tryGet(FocusUpgradeType.types, upgradeId)
-            .data();
+        return ArrayHelper.tryGet(FocusUpgradeType.types, upgradeId).data();
     }
 
 }

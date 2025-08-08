@@ -45,16 +45,16 @@ public class CustomResearch {
         wandItem.setRod(wand, ConfigItems.WAND_ROD_WOOD);
         wandItem.setCap(wand, ConfigItems.WAND_CAP_GOLD);
         replaceCapsResearch = maybeRegister(
-            SalisConfig.features.replaceWandCapsSettings,
-            PlaceholderItem.capPlaceholder,
-            exampleCapRecipes());
+                SalisConfig.features.replaceWandCapsSettings,
+                PlaceholderItem.capPlaceholder,
+                exampleCapRecipes());
 
         wandItem.setRod(wand, ConfigItems.WAND_ROD_GREATWOOD);
         wandItem.setCap(wand, ConfigItems.WAND_CAP_IRON);
         replaceCoreResearch = maybeRegister(
-            SalisConfig.features.replaceWandCoreSettings,
-            PlaceholderItem.rodPlaceholder,
-            exampleRodRecipes());
+                SalisConfig.features.replaceWandCoreSettings,
+                PlaceholderItem.rodPlaceholder,
+                exampleRodRecipes());
 
         if (SalisConfig.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.registerResearch();
@@ -70,8 +70,8 @@ public class CustomResearch {
         }
 
         containerScanResearch = maybeRegister(
-            SalisConfig.features.thaumometerScanContainersResearch,
-            Item.getItemFromBlock(Blocks.chest));
+                SalisConfig.features.thaumometerScanContainersResearch,
+                Item.getItemFromBlock(Blocks.chest));
     }
 
     private static IArcaneRecipe[][] exampleCapRecipes() {
@@ -97,60 +97,56 @@ public class CustomResearch {
         final var staffList = new ArrayList<IArcaneRecipe>();
         final var scepterList = new ArrayList<IArcaneRecipe>();
 
-        WandHelper.allVanillaCaps()
-            .stream()
-            .filter(
-                wandCap -> wandCap != null && wandCap.getItem() != null
-                    && wandCap.getItem()
-                        .getItem() != null)
-            .forEach(wandCap -> {
-                if (baseCap == wandCap) {
-                    return;
-                }
+        WandHelper.allVanillaCaps().stream()
+                .filter(wandCap -> wandCap != null && wandCap.getItem() != null && wandCap.getItem().getItem() != null)
+                .forEach(wandCap -> {
+                    if (baseCap == wandCap) {
+                        return;
+                    }
 
-                final ItemStack wandCapItem = wandCap.getItem();
+                    final ItemStack wandCapItem = wandCap.getItem();
 
-                final var outputWand = wandItem.copy();
-                final var outputStaff = staffItem.copy();
-                final var outputScepter = scepterItem.copy();
-                wand.setCap(outputWand, wandCap);
-                wand.setCap(outputStaff, wandCap);
-                wand.setCap(outputScepter, wandCap);
+                    final var outputWand = wandItem.copy();
+                    final var outputStaff = staffItem.copy();
+                    final var outputScepter = scepterItem.copy();
+                    wand.setCap(outputWand, wandCap);
+                    wand.setCap(outputStaff, wandCap);
+                    wand.setCap(outputScepter, wandCap);
 
-                final var wandCost = WandType.WAND.getCraftingVisCost(wandCap, baseWandRod);
-                wandList.add(
-                    new ShapelessArcaneRecipe(
-                        null,
-                        outputWand,
-                        AspectHelper.primalList(wandCost),
-                        wandItem,
-                        wandCapItem,
-                        wandCapItem));
+                    final var wandCost = WandType.WAND.getCraftingVisCost(wandCap, baseWandRod);
+                    wandList.add(
+                            new ShapelessArcaneRecipe(
+                                    null,
+                                    outputWand,
+                                    AspectHelper.primalList(wandCost),
+                                    wandItem,
+                                    wandCapItem,
+                                    wandCapItem));
 
-                final var staffCost = WandType.STAFF.getCraftingVisCost(wandCap, baseStaffRod);
-                staffList.add(
-                    new ShapelessArcaneRecipe(
-                        null,
-                        outputStaff,
-                        AspectHelper.primalList(staffCost),
-                        staffItem.copy(),
-                        wandCapItem,
-                        wandCapItem));
+                    final var staffCost = WandType.STAFF.getCraftingVisCost(wandCap, baseStaffRod);
+                    staffList.add(
+                            new ShapelessArcaneRecipe(
+                                    null,
+                                    outputStaff,
+                                    AspectHelper.primalList(staffCost),
+                                    staffItem.copy(),
+                                    wandCapItem,
+                                    wandCapItem));
 
-                final var scepterCost = WandType.SCEPTER.getCraftingVisCost(wandCap, baseWandRod);
-                scepterList.add(
-                    new ShapelessArcaneRecipe(
-                        null,
-                        outputScepter,
-                        AspectHelper.primalList(scepterCost),
-                        scepterItem.copy(),
-                        wandCapItem,
-                        wandCapItem,
-                        wandCapItem));
-            });
+                    final var scepterCost = WandType.SCEPTER.getCraftingVisCost(wandCap, baseWandRod);
+                    scepterList.add(
+                            new ShapelessArcaneRecipe(
+                                    null,
+                                    outputScepter,
+                                    AspectHelper.primalList(scepterCost),
+                                    scepterItem.copy(),
+                                    wandCapItem,
+                                    wandCapItem,
+                                    wandCapItem));
+                });
 
         return new IArcaneRecipe[][] { wandList.toArray(new IArcaneRecipe[0]), staffList.toArray(new IArcaneRecipe[0]),
-            scepterList.toArray(new IArcaneRecipe[0]), };
+                scepterList.toArray(new IArcaneRecipe[0]), };
     }
 
     private static IArcaneRecipe[][] exampleRodRecipes() {
@@ -179,128 +175,120 @@ public class CustomResearch {
         final ItemStack[] screw = { null }; // Needs to be like this to work in the lambda
         final ItemStack[] conductor = { null };
 
-        WandHelper.allVanillaRods()
-            .stream()
-            .filter(
-                wandRod -> wandRod != null && wandRod.getItem() != null
-                    && wandRod.getItem()
-                        .getItem() != null)
-            .forEach(wandRod -> {
-                final ItemStack rodItem = wandRod.getItem();
+        WandHelper.allVanillaRods().stream()
+                .filter(wandRod -> wandRod != null && wandRod.getItem() != null && wandRod.getItem().getItem() != null)
+                .forEach(wandRod -> {
+                    final ItemStack rodItem = wandRod.getItem();
 
-                if (wandRod instanceof StaffRod) {
-                    if (wandRod == baseStaffRod) {
-                        return;
-                    }
-                    final var outputStaff = staffItem.copy();
-                    wand.setRod(outputStaff, wandRod);
+                    if (wandRod instanceof StaffRod) {
+                        if (wandRod == baseStaffRod) {
+                            return;
+                        }
+                        final var outputStaff = staffItem.copy();
+                        wand.setRod(outputStaff, wandRod);
 
-                    final var staffCost = WandType.STAFF.getCraftingVisCost(baseCap, wandRod);
+                        final var staffCost = WandType.STAFF.getCraftingVisCost(baseCap, wandRod);
 
-                    if (SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) {
-                        AbstractWandWrapper wrapper = GTNHTCWandsCompat
-                            .getWandWrapper(wandRod, WandType.getWandType(wandItem));
-                        if (wrapper == null) wrapper = TCWandAPI.getWandWrappers()
-                            .get(0);
-                        WandDetails props = wrapper.getDetails();
-                        screw[0] = OreDictionary.getOres(props.getScrew())
-                            .get(0);
-                        conductor[0] = props.getConductor();
+                        if (SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) {
+                            AbstractWandWrapper wrapper = GTNHTCWandsCompat
+                                    .getWandWrapper(wandRod, WandType.getWandType(wandItem));
+                            if (wrapper == null) wrapper = TCWandAPI.getWandWrappers().get(0);
+                            WandDetails props = wrapper.getDetails();
+                            screw[0] = OreDictionary.getOres(props.getScrew()).get(0);
+                            conductor[0] = props.getConductor();
 
-                        staffList.add(
-                            new ShapelessArcaneRecipe(
-                                null,
-                                outputStaff,
-                                AspectHelper.primalList(staffCost),
-                                staffItem,
-                                rodItem,
-                                screw[0],
-                                screw[0],
-                                screw[0],
-                                screw[0],
-                                conductor[0],
-                                conductor[0]));
+                            staffList.add(
+                                    new ShapelessArcaneRecipe(
+                                            null,
+                                            outputStaff,
+                                            AspectHelper.primalList(staffCost),
+                                            staffItem,
+                                            rodItem,
+                                            screw[0],
+                                            screw[0],
+                                            screw[0],
+                                            screw[0],
+                                            conductor[0],
+                                            conductor[0]));
+                        } else {
+                            staffList.add(
+                                    new ShapelessArcaneRecipe(
+                                            null,
+                                            outputStaff,
+                                            AspectHelper.primalList(staffCost),
+                                            staffItem,
+                                            rodItem));
+                        }
                     } else {
-                        staffList.add(
-                            new ShapelessArcaneRecipe(
-                                null,
-                                outputStaff,
-                                AspectHelper.primalList(staffCost),
-                                staffItem,
-                                rodItem));
+                        if (wandRod == baseWandRod) {
+                            return;
+                        }
+                        final var outputWand = wandItem.copy();
+                        final var outputScepter = scepterItem.copy();
+                        wand.setRod(outputWand, wandRod);
+                        wand.setRod(outputScepter, wandRod);
+                        final var wandCost = WandType.WAND.getCraftingVisCost(baseCap, wandRod);
+                        final var scepterCost = WandType.SCEPTER.getCraftingVisCost(baseCap, wandRod);
+
+                        if (SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) {
+                            AbstractWandWrapper wrapper = GTNHTCWandsCompat
+                                    .getWandWrapper(wandRod, WandType.getWandType(wandItem));
+                            if (wrapper == null) wrapper = TCWandAPI.getWandWrappers().get(0);
+                            WandDetails props = wrapper.getDetails();
+                            screw[0] = OreDictionary.getOres(props.getScrew()).get(0);
+                            conductor[0] = props.getConductor();
+
+                            wandList.add(
+                                    new ShapelessArcaneRecipe(
+                                            null,
+                                            outputWand,
+                                            AspectHelper.primalList(wandCost),
+                                            wandItem,
+                                            rodItem,
+                                            screw[0],
+                                            screw[0],
+                                            screw[0],
+                                            screw[0],
+                                            conductor[0],
+                                            conductor[0]));
+
+                            scepterList.add(
+                                    new ShapelessArcaneRecipe(
+                                            null,
+                                            outputScepter,
+                                            AspectHelper.primalList(scepterCost),
+                                            scepterItem,
+                                            rodItem,
+                                            screw[0],
+                                            screw[0],
+                                            conductor[0],
+                                            conductor[0]));
+                        } else {
+                            wandList.add(
+                                    new ShapelessArcaneRecipe(
+                                            null,
+                                            outputWand,
+                                            AspectHelper.primalList(wandCost),
+                                            wandItem,
+                                            rodItem));
+
+                            scepterList.add(
+                                    new ShapelessArcaneRecipe(
+                                            null,
+                                            outputScepter,
+                                            AspectHelper.primalList(scepterCost),
+                                            scepterItem,
+                                            rodItem));
+                        }
                     }
-                } else {
-                    if (wandRod == baseWandRod) {
-                        return;
-                    }
-                    final var outputWand = wandItem.copy();
-                    final var outputScepter = scepterItem.copy();
-                    wand.setRod(outputWand, wandRod);
-                    wand.setRod(outputScepter, wandRod);
-                    final var wandCost = WandType.WAND.getCraftingVisCost(baseCap, wandRod);
-                    final var scepterCost = WandType.SCEPTER.getCraftingVisCost(baseCap, wandRod);
-
-                    if (SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) {
-                        AbstractWandWrapper wrapper = GTNHTCWandsCompat
-                            .getWandWrapper(wandRod, WandType.getWandType(wandItem));
-                        if (wrapper == null) wrapper = TCWandAPI.getWandWrappers()
-                            .get(0);
-                        WandDetails props = wrapper.getDetails();
-                        screw[0] = OreDictionary.getOres(props.getScrew())
-                            .get(0);
-                        conductor[0] = props.getConductor();
-
-                        wandList.add(
-                            new ShapelessArcaneRecipe(
-                                null,
-                                outputWand,
-                                AspectHelper.primalList(wandCost),
-                                wandItem,
-                                rodItem,
-                                screw[0],
-                                screw[0],
-                                screw[0],
-                                screw[0],
-                                conductor[0],
-                                conductor[0]));
-
-                        scepterList.add(
-                            new ShapelessArcaneRecipe(
-                                null,
-                                outputScepter,
-                                AspectHelper.primalList(scepterCost),
-                                scepterItem,
-                                rodItem,
-                                screw[0],
-                                screw[0],
-                                conductor[0],
-                                conductor[0]));
-                    } else {
-                        wandList.add(
-                            new ShapelessArcaneRecipe(
-                                null,
-                                outputWand,
-                                AspectHelper.primalList(wandCost),
-                                wandItem,
-                                rodItem));
-
-                        scepterList.add(
-                            new ShapelessArcaneRecipe(
-                                null,
-                                outputScepter,
-                                AspectHelper.primalList(scepterCost),
-                                scepterItem,
-                                rodItem));
-                    }
-                }
-            });
+                });
 
         return new IArcaneRecipe[][] { wandList.toArray(new IArcaneRecipe[0]),
-            scepterList.toArray(new IArcaneRecipe[0]), staffList.toArray(new IArcaneRecipe[0]), };
+                scepterList.toArray(new IArcaneRecipe[0]), staffList.toArray(new IArcaneRecipe[0]), };
     }
 
     private static ResearchItem maybeRegister(CustomResearchSetting settings, Item placeholderItem,
-        IArcaneRecipe[]... recipeSets) {
+            IArcaneRecipe[]... recipeSets) {
         if (!settings.isEnabled()) {
             return null;
         }
@@ -310,15 +298,14 @@ public class CustomResearch {
         final var row = settings.researchRow;
 
         final var research = new ResearchItem(
-            fullKey,
-            category,
-            settings.getAspects(),
-            col,
-            row,
-            settings.difficulty,
-            new ItemStack(placeholderItem, 0, OreDictionary.WILDCARD_VALUE)).setConcealed()
-                .setParents(settings.parentResearches)
-                .setSpecial();
+                fullKey,
+                category,
+                settings.getAspects(),
+                col,
+                row,
+                settings.difficulty,
+                new ItemStack(placeholderItem, 0, OreDictionary.WILDCARD_VALUE)).setConcealed()
+                        .setParents(settings.parentResearches).setSpecial();
         if (settings.autoUnlock) {
             research.setStub();
             for (String parentResearch : settings.parentResearches) {

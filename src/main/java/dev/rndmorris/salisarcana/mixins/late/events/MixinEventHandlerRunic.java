@@ -15,8 +15,7 @@ public abstract class MixinEventHandlerRunic {
 
     @ModifyConstant(method = "livingTick", constant = @Constant(intValue = 4, ordinal = 1), remap = false)
     private int useAllBaubleSlots(int value, LivingEvent.LivingUpdateEvent event) {
-        return BaublesApi.getBaubles((EntityPlayer) event.entity)
-            .getSizeInventory();
+        return BaublesApi.getBaubles((EntityPlayer) event.entity).getSizeInventory();
     }
 
 }

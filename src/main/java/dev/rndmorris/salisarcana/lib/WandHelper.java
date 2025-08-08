@@ -116,8 +116,8 @@ public class WandHelper {
     public static List<WandCap> allVanillaCaps() {
         if (allVanillaCaps == null) {
             final var allCaps = new WandCap[] { ConfigItems.WAND_CAP_IRON, ConfigItems.WAND_CAP_COPPER,
-                ConfigItems.WAND_CAP_GOLD, ConfigItems.WAND_CAP_SILVER, ConfigItems.WAND_CAP_THAUMIUM,
-                ConfigItems.WAND_CAP_VOID, };
+                    ConfigItems.WAND_CAP_GOLD, ConfigItems.WAND_CAP_SILVER, ConfigItems.WAND_CAP_THAUMIUM,
+                    ConfigItems.WAND_CAP_VOID, };
             allVanillaCaps = new ArrayList<>(allCaps.length);
             for (var wandCap : allCaps) {
                 if (wandCap == null) {
@@ -134,12 +134,12 @@ public class WandHelper {
     public static List<WandRod> allVanillaRods() {
         if (allVanillaRods == null) {
             final var allRods = new WandRod[] { ConfigItems.WAND_ROD_WOOD, ConfigItems.WAND_ROD_GREATWOOD,
-                ConfigItems.WAND_ROD_OBSIDIAN, ConfigItems.WAND_ROD_BLAZE, ConfigItems.WAND_ROD_ICE,
-                ConfigItems.WAND_ROD_QUARTZ, ConfigItems.WAND_ROD_BONE, ConfigItems.WAND_ROD_REED,
-                ConfigItems.WAND_ROD_SILVERWOOD, ConfigItems.STAFF_ROD_GREATWOOD, ConfigItems.STAFF_ROD_OBSIDIAN,
-                ConfigItems.STAFF_ROD_BLAZE, ConfigItems.STAFF_ROD_ICE, ConfigItems.STAFF_ROD_QUARTZ,
-                ConfigItems.STAFF_ROD_BONE, ConfigItems.STAFF_ROD_REED, ConfigItems.STAFF_ROD_SILVERWOOD,
-                ConfigItems.STAFF_ROD_PRIMAL, };
+                    ConfigItems.WAND_ROD_OBSIDIAN, ConfigItems.WAND_ROD_BLAZE, ConfigItems.WAND_ROD_ICE,
+                    ConfigItems.WAND_ROD_QUARTZ, ConfigItems.WAND_ROD_BONE, ConfigItems.WAND_ROD_REED,
+                    ConfigItems.WAND_ROD_SILVERWOOD, ConfigItems.STAFF_ROD_GREATWOOD, ConfigItems.STAFF_ROD_OBSIDIAN,
+                    ConfigItems.STAFF_ROD_BLAZE, ConfigItems.STAFF_ROD_ICE, ConfigItems.STAFF_ROD_QUARTZ,
+                    ConfigItems.STAFF_ROD_BONE, ConfigItems.STAFF_ROD_REED, ConfigItems.STAFF_ROD_SILVERWOOD,
+                    ConfigItems.STAFF_ROD_PRIMAL, };
             allVanillaRods = new ArrayList<>(allRods.length);
             for (var wandRod : allRods) {
                 if (wandRod == null) {

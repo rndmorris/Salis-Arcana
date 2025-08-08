@@ -28,11 +28,11 @@ public class MixinEntityThaumicSlime extends EntityMob {
     }
 
     @Redirect(
-        method = "updateEntityActionState",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/World;spawnEntityInWorld(Lnet/minecraft/entity/Entity;)Z",
-            ordinal = 0))
+            method = "updateEntityActionState",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/World;spawnEntityInWorld(Lnet/minecraft/entity/Entity;)Z",
+                    ordinal = 0))
     public boolean proxySpawnEntityInWorld(World target, Entity entity) {
         if (!this.isEntityAlive()) {
             return false;

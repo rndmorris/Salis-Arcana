@@ -33,11 +33,7 @@ public final class PlayerHelper {
         // We don't just use player.inventory.mainInventory here because we want to include anything
         // that's not part of the main inventory, like armor slots
         return player.inventoryContainer.inventorySlots.stream()
-            .filter(
-                slot -> slot.getHasStack() && itemClass.isInstance(
-                    slot.getStack()
-                        .getItem()))
-            .map(Slot::getStack)
-            .toArray(ItemStack[]::new);
+                .filter(slot -> slot.getHasStack() && itemClass.isInstance(slot.getStack().getItem()))
+                .map(Slot::getStack).toArray(ItemStack[]::new);
     }
 }
