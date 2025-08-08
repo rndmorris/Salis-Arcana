@@ -220,6 +220,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "extraSecureArcaneKeys",
         "Arcane Keys will now save the dimension and the creator of the key when linked to a warded object, and will check those values before granting permission.");
 
+    public final ToggleSetting earthShockRequireSolidGround = new ToggleSetting(
+        this,
+        "earthShockRequireSolidGround",
+        "Requires the spark blocks left behind by Wand Focus: Shock with the Earth Shock upgrade to have a solid block beneath them to exist.");
+
     @Nonnull
     @Override
     public String getGroupName() {
