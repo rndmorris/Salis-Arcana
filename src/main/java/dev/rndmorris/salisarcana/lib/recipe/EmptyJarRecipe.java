@@ -36,8 +36,7 @@ public class EmptyJarRecipe implements IRecipe {
                 emptyJar = new ItemStack(jar, 1, stack.getItemDamage());
                 // If the jar has a filter, we return an empty jar with the filter intact
                 emptyJar.setTagCompound(new NBTTagCompound());
-                emptyJar.getTagCompound()
-                    .setString("AspectFilter", filter.getTag());
+                emptyJar.getTagCompound().setString("AspectFilter", filter.getTag());
             } else {
                 // If the jar doesn't have a filter, we return a warded jar instead of jar of essentia
                 emptyJar = new ItemStack(ConfigBlocks.blockJar, 1, stack.getItemDamage());

@@ -45,8 +45,8 @@ public class MessageScanIInventory implements IMessage, IMessageHandler<MessageS
         }
         ScanManager.completeScan(ctx.getServerHandler().playerEntity, sr, "@");
         PacketHandler.INSTANCE.sendTo(
-            new PacketSyncScannedItems(ctx.getServerHandler().playerEntity),
-            ctx.getServerHandler().playerEntity);
+                new PacketSyncScannedItems(ctx.getServerHandler().playerEntity),
+                ctx.getServerHandler().playerEntity);
         return null;
     }
 }

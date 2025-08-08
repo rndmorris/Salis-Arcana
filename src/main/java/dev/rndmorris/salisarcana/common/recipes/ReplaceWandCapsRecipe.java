@@ -50,8 +50,7 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
             return null;
         }
 
-        final var outputItem = scanResult.wandItem()
-            .copy();
+        final var outputItem = scanResult.wandItem().copy();
         wandInstance.setCap(outputItem, scanResult.newCaps());
 
         if (!SalisConfig.features.preserveWandVis.isEnabled()) {
@@ -88,8 +87,7 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
             return null;
         }
 
-        final var cost = scanResult.wandType()
-            .getCraftingVisCost(scanResult.newCaps(), scanResult.wandRod());
+        final var cost = scanResult.wandType().getCraftingVisCost(scanResult.newCaps(), scanResult.wandRod());
         if (cost < 0) {
             return empty;
         }
@@ -181,7 +179,7 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
         public boolean equals(Object o) {
             if (!(o instanceof InvScanResult that)) return false;
             return newCapsFound == that.newCapsFound && Objects.equals(wandItem, that.wandItem)
-                && Objects.equals(newCaps, that.newCaps);
+                    && Objects.equals(newCaps, that.newCaps);
         }
 
         @Override

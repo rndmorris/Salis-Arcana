@@ -14,11 +14,11 @@ import thaumcraft.common.config.ConfigItems;
 public class MixinConfigItems_UnOredictGoldCoin {
 
     @WrapOperation(
-        method = "init",
-        at = @At(
-            value = "INVOKE",
-            ordinal = 24,
-            target = "Lnet/minecraftforge/oredict/OreDictionary;registerOre(Ljava/lang/String;Lnet/minecraft/item/ItemStack;)V"))
+            method = "init",
+            at = @At(
+                    value = "INVOKE",
+                    ordinal = 24,
+                    target = "Lnet/minecraftforge/oredict/OreDictionary;registerOre(Ljava/lang/String;Lnet/minecraft/item/ItemStack;)V"))
     private static void onInit(String s, ItemStack itemStack, Operation<Void> original) {
         // intentionally do nothing
     }

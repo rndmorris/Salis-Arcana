@@ -21,19 +21,19 @@ import thaumcraft.common.tiles.TileInfusionMatrix;
 public class MixinTileInfusionMatrix_MissingResearch {
 
     @WrapOperation(
-        method = "craftingStart",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingInfusionRecipe(Ljava/util/ArrayList;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;)Lthaumcraft/api/crafting/InfusionRecipe;",
-            remap = false),
-        remap = false)
+            method = "craftingStart",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingInfusionRecipe(Ljava/util/ArrayList;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;)Lthaumcraft/api/crafting/InfusionRecipe;",
+                    remap = false),
+            remap = false)
     public InfusionRecipe captureInfusionRecipe(ArrayList<ItemStack> components, ItemStack centerItem,
-        EntityPlayer player, Operation<InfusionRecipe> original) {
+            EntityPlayer player, Operation<InfusionRecipe> original) {
         final var recipe = original.call(components, centerItem, KnowItAll.getInstance());
 
         if (recipe != null && !recipe.matches(components, centerItem, player.worldObj, player)) {
             ResearchHelper
-                .sendResearchError(player, recipe.getResearch(), "salisarcana:error_missing_research.infusion");
+                    .sendResearchError(player, recipe.getResearch(), "salisarcana:error_missing_research.infusion");
             return null;
         }
 
@@ -41,19 +41,19 @@ public class MixinTileInfusionMatrix_MissingResearch {
     }
 
     @WrapOperation(
-        method = "craftingStart",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingInfusionEnchantmentRecipe(Ljava/util/ArrayList;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;)Lthaumcraft/api/crafting/InfusionEnchantmentRecipe;",
-            remap = false),
-        remap = false)
+            method = "craftingStart",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingInfusionEnchantmentRecipe(Ljava/util/ArrayList;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;)Lthaumcraft/api/crafting/InfusionEnchantmentRecipe;",
+                    remap = false),
+            remap = false)
     public InfusionEnchantmentRecipe captureInfusionEnchantmentRecipe(ArrayList<ItemStack> components,
-        ItemStack centerItem, EntityPlayer player, Operation<InfusionEnchantmentRecipe> original) {
+            ItemStack centerItem, EntityPlayer player, Operation<InfusionEnchantmentRecipe> original) {
         final var recipe = original.call(components, centerItem, KnowItAll.getInstance());
 
         if (recipe != null && !recipe.matches(components, centerItem, player.worldObj, player)) {
             ResearchHelper
-                .sendResearchError(player, recipe.getResearch(), "salisarcana:error_missing_research.infusion");
+                    .sendResearchError(player, recipe.getResearch(), "salisarcana:error_missing_research.infusion");
             return null;
         }
 

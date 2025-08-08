@@ -14,10 +14,10 @@ import thaumcraft.common.lib.events.EventHandlerEntity;
 public abstract class MixinEventHandlerEntity {
 
     @WrapOperation(
-        method = "livingTick(Lnet/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent;)V",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/WarpEvents;checkWarpEvent(Lnet/minecraft/entity/player/EntityPlayer;)V"))
+            method = "livingTick(Lnet/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent;)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/lib/WarpEvents;checkWarpEvent(Lnet/minecraft/entity/player/EntityPlayer;)V"))
     private void suppressCreativeWarpEvent(EntityPlayer player, Operation<EntityPlayer> original) {
         // This check is in the event handler, instead checkWarpEvent itself, to avoid interfering
         // with any mods or addons that want to call that method themselves.

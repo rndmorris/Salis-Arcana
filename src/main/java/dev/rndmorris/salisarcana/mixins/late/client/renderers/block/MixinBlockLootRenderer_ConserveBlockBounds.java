@@ -17,18 +17,18 @@ import thaumcraft.client.renderers.block.BlockLootUrnRenderer;
 public class MixinBlockLootRenderer_ConserveBlockBounds {
 
     @WrapOperation(
-        method = "renderWorldBlock",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;setBlockBounds(FFFFFF)V"))
+            method = "renderWorldBlock",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;setBlockBounds(FFFFFF)V"))
     public void setRenderBounds(Block instance, float minX, float minY, float minZ, float maxX, float maxY, float maxZ,
-        Operation<Void> original, @Local(argsOnly = true) RenderBlocks renderer) {
+            Operation<Void> original, @Local(argsOnly = true) RenderBlocks renderer) {
         renderer.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
     @WrapOperation(
-        method = "renderWorldBlock",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/renderer/RenderBlocks;setRenderBoundsFromBlock(Lnet/minecraft/block/Block;)V"))
+            method = "renderWorldBlock",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/renderer/RenderBlocks;setRenderBoundsFromBlock(Lnet/minecraft/block/Block;)V"))
     public void ignoreBoundsFromBlock(RenderBlocks instance, Block p_147775_1_, Operation<Void> original) {
         // The previous method sets the render bounds. This method intentionally does nothing.
     }

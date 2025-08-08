@@ -7,9 +7,9 @@ import dev.rndmorris.salisarcana.mixins.TargetedMod;
 public class GTNHTCWandsCompatSettings extends BaseCompatSetting {
 
     public final ToggleSetting coreSwapMaterials = new ToggleSetting(
-        this,
-        "coreSwapMaterials",
-        "Require screws and conductors to swap wand/staff cores.");
+            this,
+            "coreSwapMaterials",
+            "Require screws and conductors to swap wand/staff cores.");
 
     public final ToggleSetting cost = new ToggleSetting(this, "cost", "Use the increased vis costs from GTNHTCWands.");
 

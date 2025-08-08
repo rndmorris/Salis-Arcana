@@ -38,14 +38,14 @@ public class CreateNodeCommand extends ArcanaCommandBase<CreateNodeCommand.Argum
         final var pos = arguments.createAt;
         world.setBlockToAir(pos.x, pos.y, pos.z);
         ThaumcraftWorldGenerator.createRandomNodeAt(
-            world,
-            pos.x,
-            pos.y,
-            pos.z,
-            world.rand,
-            arguments.silverwood,
-            arguments.eerie,
-            arguments.small);
+                world,
+                pos.x,
+                pos.y,
+                pos.z,
+                world.rand,
+                arguments.silverwood,
+                arguments.eerie,
+                arguments.small);
 
         final var newTile = world.getTileEntity(pos.x, pos.y, pos.z);
         if (!(newTile instanceof TileNode node)) {
@@ -70,10 +70,10 @@ public class CreateNodeCommand extends ArcanaCommandBase<CreateNodeCommand.Argum
     @Override
     protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
-            Arguments.class,
-            Arguments::new,
-            new IArgumentHandler[] { CoordinateHandler.INSTANCE, NodeTypeHandler.INSTANCE, NodeModifierHandler.INSTANCE,
-                FlagHandler.INSTANCE, QuantitativeAspectHandler.INSTANCE });
+                Arguments.class,
+                Arguments::new,
+                new IArgumentHandler[] { CoordinateHandler.INSTANCE, NodeTypeHandler.INSTANCE,
+                        NodeModifierHandler.INSTANCE, FlagHandler.INSTANCE, QuantitativeAspectHandler.INSTANCE });
     }
 
     @Override

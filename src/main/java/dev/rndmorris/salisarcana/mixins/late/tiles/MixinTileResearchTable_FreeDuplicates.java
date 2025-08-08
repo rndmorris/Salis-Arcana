@@ -14,12 +14,12 @@ import thaumcraft.common.tiles.TileResearchTable;
 public class MixinTileResearchTable_FreeDuplicates {
 
     @WrapOperation(
-        method = "duplicate",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/api/aspects/AspectList;getAspects()[Lthaumcraft/api/aspects/Aspect;",
-            remap = false),
-        remap = false)
+            method = "duplicate",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/api/aspects/AspectList;getAspects()[Lthaumcraft/api/aspects/Aspect;",
+                    remap = false),
+            remap = false)
     public Aspect[] makeItFree(AspectList instance, Operation<Aspect[]> original) {
         return new Aspect[] {};
     }

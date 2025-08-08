@@ -19,7 +19,7 @@ public class MixinItemEldritchObject_FakePlayerFix {
 
     @WrapMethod(method = "onItemRightClick")
     private ItemStack cancelFakePlayer(ItemStack stack, World par2World, EntityPlayer player,
-        Operation<ItemStack> original) {
+            Operation<ItemStack> original) {
         final String name = player.getCommandSenderName();
         if (name == null) return stack;
 

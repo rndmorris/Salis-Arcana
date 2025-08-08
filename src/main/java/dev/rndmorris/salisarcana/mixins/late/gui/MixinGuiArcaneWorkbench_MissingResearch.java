@@ -31,13 +31,13 @@ public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContain
     }
 
     @WrapOperation(
-        method = "drawGuiContainerBackgroundLayer",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingArcaneRecipe(Lnet/minecraft/inventory/IInventory;Lnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;",
-            remap = false))
+            method = "drawGuiContainerBackgroundLayer",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingArcaneRecipe(Lnet/minecraft/inventory/IInventory;Lnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;",
+                    remap = false))
     public ItemStack captureRecipe(IInventory awb, EntityPlayer player, Operation<ItemStack> original,
-        @Local(name = "var5") int centerX, @Local(name = "var6") int topY, @Local ItemWandCasting wand) {
+            @Local(name = "var5") int centerX, @Local(name = "var6") int topY, @Local ItemWandCasting wand) {
 
         if (wand == null) return null;
 
@@ -45,8 +45,8 @@ public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContain
 
         if (recipe != null && !recipe.matches(awb, player.worldObj, player)) {
             final var researchArray = (recipe instanceof IMultipleResearchArcaneRecipe multi)
-                ? multi.salisArcana$getResearches(awb, player.worldObj, player)
-                : new String[] { recipe.getResearch() };
+                    ? multi.salisArcana$getResearches(awb, player.worldObj, player)
+                    : new String[] { recipe.getResearch() };
 
             GL11.glPushMatrix();
             GL11.glTranslatef(centerX + 168, topY, 0f);
@@ -59,7 +59,7 @@ public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContain
                     final var lines = this.fontRendererObj.listFormattedStringToWidth(research.getName(), 120);
                     for (final var line : lines) {
                         this.fontRendererObj
-                            .drawString(line, this.fontRendererObj.getStringWidth(line) / -2, y, 0xEE6E6E);
+                                .drawString(line, this.fontRendererObj.getStringWidth(line) / -2, y, 0xEE6E6E);
                         y += this.fontRendererObj.FONT_HEIGHT + 2;
                     }
                     y += 3;
@@ -69,7 +69,7 @@ public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContain
             if (y > 185) {
                 String error = StatCollector.translateToLocal("salisarcana:error_missing_research.gui");
                 this.fontRendererObj
-                    .drawString(error, this.fontRendererObj.getStringWidth(error) / -2, 46 * 2, 0xEE6E6E);
+                        .drawString(error, this.fontRendererObj.getStringWidth(error) / -2, 46 * 2, 0xEE6E6E);
             }
 
             GL11.glPopMatrix();

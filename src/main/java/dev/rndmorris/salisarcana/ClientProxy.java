@@ -22,9 +22,7 @@ public class ClientProxy extends CommonProxy {
         if (SalisConfig.features.thaumicInventoryScanning.isEnabled()) {
             scanner = new ThaumicInventoryScanner();
             MinecraftForge.EVENT_BUS.register(scanner);
-            FMLCommonHandler.instance()
-                .bus()
-                .register(scanner);
+            FMLCommonHandler.instance().bus().register(scanner);
 
             scanner.init(event);
         }
@@ -41,16 +39,13 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public boolean isSingleplayerClient() {
-        return Minecraft.getMinecraft()
-            .isSingleplayer();
+        return Minecraft.getMinecraft().isSingleplayer();
     }
 
     @Override
     public World getFakePlayerWorld() {
-        if (Minecraft.getMinecraft()
-            .isSingleplayer()) {
-            return MinecraftServer.getServer()
-                .worldServerForDimension(0);
+        if (Minecraft.getMinecraft().isSingleplayer()) {
+            return MinecraftServer.getServer().worldServerForDimension(0);
         } else {
             return Minecraft.getMinecraft().theWorld;
         }

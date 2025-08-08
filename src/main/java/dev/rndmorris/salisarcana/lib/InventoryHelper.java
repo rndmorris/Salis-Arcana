@@ -57,11 +57,11 @@ public class InventoryHelper {
                 continue;
             }
             ScanResult result = new ScanResult(
-                (byte) 1,
-                Item.getIdFromItem(item.getItem()),
-                item.getItemDamage(),
-                null,
-                "");
+                    (byte) 1,
+                    Item.getIdFromItem(item.getItem()),
+                    item.getItemDamage(),
+                    null,
+                    "");
 
             if (ResearchHelper.isItemScanned(player, item, "@")) {
                 continue;

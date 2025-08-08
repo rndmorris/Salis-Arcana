@@ -60,16 +60,16 @@ public class MixinGuiResearchRecipe extends GuiScreen {
                 Tuple item = RightClickClose$ScreenStack.pop(); // current screen
                 if (this.page != 0) {
                     this.mc.displayGuiScreen(
-                        new GuiResearchRecipe((ResearchItem) item.getFirst(), 0, this.guiMapX, this.guiMapY));
+                            new GuiResearchRecipe((ResearchItem) item.getFirst(), 0, this.guiMapX, this.guiMapY));
                     return;
                 }
                 item = RightClickClose$ScreenStack.pop(); // next screen
                 this.mc.displayGuiScreen(
-                    new GuiResearchRecipe(
-                        (ResearchItem) item.getFirst(),
-                        (int) item.getSecond(),
-                        this.guiMapX,
-                        this.guiMapY));
+                        new GuiResearchRecipe(
+                                (ResearchItem) item.getFirst(),
+                                (int) item.getSecond(),
+                                this.guiMapX,
+                                this.guiMapY));
             }
             return;
         }
@@ -78,10 +78,10 @@ public class MixinGuiResearchRecipe extends GuiScreen {
     }
 
     @WrapOperation(
-        method = "keyTyped",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/Minecraft;displayGuiScreen(Lnet/minecraft/client/gui/GuiScreen;)V"))
+            method = "keyTyped",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/Minecraft;displayGuiScreen(Lnet/minecraft/client/gui/GuiScreen;)V"))
     private void onKeyTyped(Minecraft instance, GuiScreen i, Operation<Void> original) {
         if (SalisConfig.features.nomiconSavePage.isEnabled()) {
             RightClickClose$ScreenStack.pop(); // current screen at first page

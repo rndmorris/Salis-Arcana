@@ -19,7 +19,7 @@ public class MixinArcaneWorkbenchOverlayHandler {
 
     @Inject(method = "moveIngredients", at = @At("TAIL"))
     public void triggerRecipeSearch(GuiContainer gui,
-        List<DefaultOverlayHandler.IngredientDistribution> assignedIngredients, int quantity, CallbackInfo ci) {
+            List<DefaultOverlayHandler.IngredientDistribution> assignedIngredients, int quantity, CallbackInfo ci) {
         if (gui.inventorySlots instanceof ContainerArcaneWorkbench workbench) {
             workbench.onCraftMatrixChanged(null);
         }

@@ -1,8 +1,6 @@
 /*
- * Copyright (c) 2015 Christopher "BlayTheNinth" Baker
- * Licensed under the MIT License
- * Taken from ThaumicInventoryScanning
- * https://github.com/GTNewHorizons/ThaumicInventoryScanning
+ * Copyright (c) 2015 Christopher "BlayTheNinth" Baker Licensed under the MIT License Taken from
+ * ThaumicInventoryScanning https://github.com/GTNewHorizons/ThaumicInventoryScanning
  */
 
 package dev.rndmorris.salisarcana.client;
@@ -114,10 +112,10 @@ public class ThaumicInventoryScanner {
             );
             // spotless:on
             if (hoveringSlot.canTakeStack(player) && !(hoveringSlot instanceof SlotCrafting)
-                && !(hoveringSlot instanceof SlotMerchantResult)
-                && ScanManager.isValidScanTarget(player, result, "@")
-                && !ScanManager.getScanAspects(result, Minecraft.getMinecraft().theWorld.provider.worldObj).aspects
-                    .isEmpty()) {
+                    && !(hoveringSlot instanceof SlotMerchantResult)
+                    && ScanManager.isValidScanTarget(player, result, "@")
+                    && !ScanManager.getScanAspects(result, Minecraft.getMinecraft().theWorld.provider.worldObj).aspects
+                            .isEmpty()) {
                 currentScan = result;
                 isValidSlot = true;
                 return;
@@ -129,8 +127,7 @@ public class ThaumicInventoryScanner {
 
     private boolean notHoldingThaumometer(EntityPlayer player) {
         return player == null || player.inventory.getItemStack() == null
-            || player.inventory.getItemStack()
-                .getItem() != thaumometer;
+                || player.inventory.getItemStack().getItem() != thaumometer;
     }
 
     private void cancel() {
@@ -191,13 +188,13 @@ public class ThaumicInventoryScanner {
     private void playScanningSoundTick(EntityPlayer entityPlayer) {
         if (ticksHovered > SOUND_TICKS && ticksHovered % 2 == 0) {
             entityPlayer.worldObj.playSound(
-                entityPlayer.posX,
-                entityPlayer.posY,
-                entityPlayer.posZ,
-                "thaumcraft:cameraticks",
-                0.2F,
-                0.45F + entityPlayer.worldObj.rand.nextFloat() * 0.1F,
-                false);
+                    entityPlayer.posX,
+                    entityPlayer.posY,
+                    entityPlayer.posZ,
+                    "thaumcraft:cameraticks",
+                    0.2F,
+                    0.45F + entityPlayer.worldObj.rand.nextFloat() * 0.1F,
+                    false);
         }
     }
 
@@ -206,8 +203,7 @@ public class ThaumicInventoryScanner {
         if (SalisArcana.isServerSideInstalled && event.itemStack.getItem() == thaumometer) {
             event.toolTip.add("§6" + I18n.format("salisarcana:tcinventoryscan.thaumometerTooltip"));
             if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-                String[] lines = I18n.format("salisarcana:tcinventoryscan.thaumometerTooltipMore")
-                    .split("\\\\n");
+                String[] lines = I18n.format("salisarcana:tcinventoryscan.thaumometerTooltipMore").split("\\\\n");
                 for (String line : lines) {
                     event.toolTip.add("§3" + line);
                 }
@@ -250,8 +246,7 @@ public class ThaumicInventoryScanner {
         int shiftY = Thaumcraft.instance.aspectShift ? -16 : -8;
         int x = mouseX + 17;
         int y = mouseY + 7 - 33;
-        EntityPlayer entityPlayer = FMLClientHandler.instance()
-            .getClientPlayerEntity();
+        EntityPlayer entityPlayer = FMLClientHandler.instance().getClientPlayerEntity();
         AspectList aspectList = ScanManager.generateEntityAspects(entityPlayer);
         if (aspectList != null) {
             GL11.glDisable(GL11.GL_DEPTH_TEST);
@@ -270,14 +265,14 @@ public class ThaumicInventoryScanner {
                         GL11.glDisable(GL11.GL_BLEND);
                         GL11.glPopMatrix();
                         if (Thaumcraft.proxy.playerKnowledge
-                            .hasDiscoveredAspect(entityPlayer.getCommandSenderName(), aspect)) {
+                                .hasDiscoveredAspect(entityPlayer.getCommandSenderName(), aspect)) {
                             UtilsFX.drawTag(
-                                x + shiftX,
-                                y + shiftY,
-                                aspect,
-                                aspectList.getAmount(aspect),
-                                0,
-                                UtilsFX.getGuiZLevel(gui));
+                                    x + shiftX,
+                                    y + shiftY,
+                                    aspect,
+                                    aspectList.getAmount(aspect),
+                                    0,
+                                    UtilsFX.getGuiZLevel(gui));
                         } else {
                             UtilsFX.bindTexture("textures/aspects/_unknown.png");
                             GL11.glPushMatrix();
@@ -314,7 +309,7 @@ public class ThaumicInventoryScanner {
         float oldZLevel = gui.zLevel;
         gui.zLevel = 300;
         Minecraft.getMinecraft().fontRenderer
-            .drawStringWithShadow(sb.toString(), mouseX, mouseY - 30, Integer.MAX_VALUE);
+                .drawStringWithShadow(sb.toString(), mouseX, mouseY - 30, Integer.MAX_VALUE);
         gui.zLevel = oldZLevel;
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -324,8 +319,8 @@ public class ThaumicInventoryScanner {
 
     public boolean isHoveringPlayer(GuiContainer gui, int mouseX, int mouseY) {
         return gui instanceof GuiInventory && mouseX >= gui.guiLeft + INVENTORY_PLAYER_X
-            && mouseX < gui.guiLeft + INVENTORY_PLAYER_X + INVENTORY_PLAYER_WIDTH
-            && mouseY >= gui.guiTop + INVENTORY_PLAYER_Y
-            && mouseY < gui.guiTop + INVENTORY_PLAYER_Y + INVENTORY_PLAYER_HEIGHT;
+                && mouseX < gui.guiLeft + INVENTORY_PLAYER_X + INVENTORY_PLAYER_WIDTH
+                && mouseY >= gui.guiTop + INVENTORY_PLAYER_Y
+                && mouseY < gui.guiTop + INVENTORY_PLAYER_Y + INVENTORY_PLAYER_HEIGHT;
     }
 }

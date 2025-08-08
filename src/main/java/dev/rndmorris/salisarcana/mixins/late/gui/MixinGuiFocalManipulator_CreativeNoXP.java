@@ -18,8 +18,8 @@ public abstract class MixinGuiFocalManipulator_CreativeNoXP extends GuiContainer
     }
 
     @ModifyExpressionValue(
-        method = { "drawScreen", "drawGuiContainerBackgroundLayer", "mouseClicked" },
-        at = @At(value = "FIELD", target = "Lnet/minecraft/client/entity/EntityClientPlayerMP;experienceLevel:I"))
+            method = { "drawScreen", "drawGuiContainerBackgroundLayer", "mouseClicked" },
+            at = @At(value = "FIELD", target = "Lnet/minecraft/client/entity/EntityClientPlayerMP;experienceLevel:I"))
     public int replaceXpLevel(int original) {
         return this.mc.thePlayer.capabilities.isCreativeMode ? Integer.MAX_VALUE : original;
     }

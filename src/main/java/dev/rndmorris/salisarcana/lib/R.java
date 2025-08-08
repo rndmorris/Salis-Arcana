@@ -119,9 +119,7 @@ public class R {
      */
     public <T> T call(String name, Class<T> returnType, Object... args) {
         try {
-            Class<?>[] classes = Arrays.stream(args)
-                .map(Object::getClass)
-                .toArray(Class[]::new);
+            Class<?>[] classes = Arrays.stream(args).map(Object::getClass).toArray(Class[]::new);
             Object returnVal = findMethod(name, clazz, classes).invoke(instance, args);
             if (returnVal == null || returnType == null) return null;
             return returnType.cast(returnVal);
@@ -146,16 +144,13 @@ public class R {
 
         Type generic = clazz.getGenericSuperclass();
         if (generic instanceof ParameterizedType) {
-            return Arrays.stream(((ParameterizedType) generic).getActualTypeArguments())
-                .map(t -> {
-                    try {
-                        return Class.forName(t.getTypeName());
-                    } catch (ClassNotFoundException e) {
-                        return null;
-                    }
-                })
-                .filter(Objects::nonNull)
-                .toArray(Class[]::new);
+            return Arrays.stream(((ParameterizedType) generic).getActualTypeArguments()).map(t -> {
+                try {
+                    return Class.forName(t.getTypeName());
+                } catch (ClassNotFoundException e) {
+                    return null;
+                }
+            }).filter(Objects::nonNull).toArray(Class[]::new);
         }
         return new Class[] {};
     }

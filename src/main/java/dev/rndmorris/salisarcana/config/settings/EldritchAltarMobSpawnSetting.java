@@ -17,9 +17,9 @@ public class EldritchAltarMobSpawnSetting extends EnumSetting<EldritchAltarMobSp
             case EVEN_SPREAD -> horizontalEven(random);
             case CENTER_WEIGHTED -> horizontalWeighted(random);
             default -> throw new RuntimeException(
-                String.format(
-                    "%s called while its mixin should be disabled.",
-                    EldritchAltarMobSpawnSetting.class.getName()));
+                    String.format(
+                            "%s called while its mixin should be disabled.",
+                            EldritchAltarMobSpawnSetting.class.getName()));
         };
     }
 
@@ -28,9 +28,9 @@ public class EldritchAltarMobSpawnSetting extends EnumSetting<EldritchAltarMobSp
             case EVEN_SPREAD -> verticalEven(random);
             case CENTER_WEIGHTED -> verticalWeighted(random);
             default -> throw new RuntimeException(
-                String.format(
-                    "%s called while its mixin should be disabled.",
-                    EldritchAltarMobSpawnSetting.class.getName()));
+                    String.format(
+                            "%s called while its mixin should be disabled.",
+                            EldritchAltarMobSpawnSetting.class.getName()));
         };
     }
 
@@ -44,7 +44,7 @@ public class EldritchAltarMobSpawnSetting extends EnumSetting<EldritchAltarMobSp
 
     private int horizontalWeighted(Random random) {
         final var val = MathHelper.getRandomIntegerInRange(random, 0, 6)
-            - MathHelper.getRandomIntegerInRange(random, 0, 6);
+                - MathHelper.getRandomIntegerInRange(random, 0, 6);
         if (val == 0) {
             return val + (4 * (random.nextBoolean() ? 1 : -1));
         }

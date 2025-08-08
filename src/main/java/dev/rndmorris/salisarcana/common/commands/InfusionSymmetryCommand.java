@@ -28,9 +28,9 @@ public class InfusionSymmetryCommand extends ArcanaCommandBase<InfusionSymmetryC
     @Override
     protected ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
-            Arguments.class,
-            Arguments::new,
-            new IArgumentHandler[] { CoordinateHandler.INSTANCE });
+                Arguments.class,
+                Arguments::new,
+                new IArgumentHandler[] { CoordinateHandler.INSTANCE });
     }
 
     @Override
@@ -87,7 +87,7 @@ public class InfusionSymmetryCommand extends ArcanaCommandBase<InfusionSymmetryC
 
     private int getMatrixSymmetry(TileInfusionMatrix matrix) {
         return InfusionMatrixLogic
-            .checkMatrixSurroundings(matrix.getWorldObj(), matrix.xCoord, matrix.yCoord, matrix.zCoord).symmetry;
+                .checkMatrixSurroundings(matrix.getWorldObj(), matrix.xCoord, matrix.yCoord, matrix.zCoord).symmetry;
     }
 
     public static class Arguments {

@@ -41,8 +41,7 @@ public class MixinGuiResearchBrowser_ShowResearchID extends GuiScreen {
         GL11.glPushMatrix();
 
         int textWidth = this.fontRendererObj.getStringWidth(str);
-        int lineCount = this.fontRendererObj.listFormattedStringToWidth(str, 150)
-            .size();
+        int lineCount = this.fontRendererObj.listFormattedStringToWidth(str, 150).size();
         int textHeight = lineCount * this.fontRendererObj.FONT_HEIGHT;
         int rectangleColor = 0xC0000000; // RGBA
         int purple = 0xFF9090FF;
@@ -50,12 +49,12 @@ public class MixinGuiResearchBrowser_ShowResearchID extends GuiScreen {
         y += 4;
 
         this.drawGradientRect(
-            x - 3,
-            y - 3 - (textHeight * 2),
-            x + (int) (textWidth * .5) + 3,
-            y - textHeight - 3,
-            rectangleColor,
-            rectangleColor);
+                x - 3,
+                y - 3 - (textHeight * 2),
+                x + (int) (textWidth * .5) + 3,
+                y - textHeight - 3,
+                rectangleColor,
+                rectangleColor);
 
         GL11.glTranslatef((float) x, (float) y - (textHeight * 2), 0);
         GL11.glScalef(0.5F, 0.5F, 1.0F);

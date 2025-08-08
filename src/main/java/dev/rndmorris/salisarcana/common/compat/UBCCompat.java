@@ -29,9 +29,9 @@ public class UBCCompat {
         final Set<Block> blockSet = primalCrusher.get("isEffective", Set.class);
 
         final var ubcSlabs = new StoneSlabPair[] { UndergroundBiomes.igneousStoneSlab,
-            UndergroundBiomes.igneousCobblestoneSlab, UndergroundBiomes.igneousBrickSlab,
-            UndergroundBiomes.metamorphicStoneSlab, UndergroundBiomes.metamorphicCobblestoneSlab,
-            UndergroundBiomes.metamorphicBrickSlab, UndergroundBiomes.sedimentaryStoneSlab, };
+                UndergroundBiomes.igneousCobblestoneSlab, UndergroundBiomes.igneousBrickSlab,
+                UndergroundBiomes.metamorphicStoneSlab, UndergroundBiomes.metamorphicCobblestoneSlab,
+                UndergroundBiomes.metamorphicBrickSlab, UndergroundBiomes.sedimentaryStoneSlab, };
 
         for (var slab : ubcSlabs) {
             Collections.addAll(blockSet, slab.half, slab.full);

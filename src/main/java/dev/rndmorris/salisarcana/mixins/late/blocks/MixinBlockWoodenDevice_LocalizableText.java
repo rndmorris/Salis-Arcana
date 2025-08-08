@@ -10,15 +10,15 @@ import thaumcraft.common.blocks.BlockWoodenDevice;
 public class MixinBlockWoodenDevice_LocalizableText {
 
     @ModifyConstant(
-        method = "onBlockActivated",
-        constant = @Constant(stringValue = "It will now trigger on everything."))
+            method = "onBlockActivated",
+            constant = @Constant(stringValue = "It will now trigger on everything."))
     public String replaceKeyEveryone(String original) {
         return "salisarcana:misc.arcane_pressure_plate.everyone";
     }
 
     @ModifyConstant(
-        method = "onBlockActivated",
-        constant = @Constant(stringValue = "It will now trigger on everything except you."))
+            method = "onBlockActivated",
+            constant = @Constant(stringValue = "It will now trigger on everything except you."))
     public String replaceKeyNotYou(String original) {
         return "salisarcana:misc.arcane_pressure_plate.not_you";
     }

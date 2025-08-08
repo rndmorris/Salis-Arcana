@@ -13,8 +13,8 @@ import thaumcraft.common.tiles.TileFocalManipulator;
 public class MixinTileFocalManipulator_NoXP {
 
     @ModifyExpressionValue(
-        method = "startCraft",
-        at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/EntityPlayer;experienceLevel:I"))
+            method = "startCraft",
+            at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/EntityPlayer;experienceLevel:I"))
     public int creativeXP(final int original, final int id, final EntityPlayer player) {
         return player.capabilities.isCreativeMode ? Integer.MAX_VALUE : original;
     }

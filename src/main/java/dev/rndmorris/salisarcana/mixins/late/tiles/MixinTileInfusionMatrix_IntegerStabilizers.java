@@ -25,9 +25,9 @@ public class MixinTileInfusionMatrix_IntegerStabilizers extends TileThaumcraft {
     public int symmetry;
 
     @Inject(
-        method = "getSurroundings",
-        at = @At(value = "CONSTANT", args = "floatValue=0.0", ordinal = 0),
-        cancellable = true)
+            method = "getSurroundings",
+            at = @At(value = "CONSTANT", args = "floatValue=0.0", ordinal = 0),
+            cancellable = true)
     private void calculateStabilizers(CallbackInfo ci, @Local ArrayList<ChunkCoordinates> stuff) {
         // inject immediately before the matrix starts calculating infusion stabilizers
         var instabilityModifier = 0;
@@ -52,7 +52,7 @@ public class MixinTileInfusionMatrix_IntegerStabilizers extends TileThaumcraft {
     @Unique
     private boolean sa$isStabilizer(int x, int y, int z) {
         final var block = worldObj.getBlock(x, y, z);
-        return block == Blocks.skull
-            || (block instanceof IInfusionStabiliser stabilizer && stabilizer.canStabaliseInfusion(worldObj, x, y, z));
+        return block == Blocks.skull || (block instanceof IInfusionStabiliser stabilizer
+                && stabilizer.canStabaliseInfusion(worldObj, x, y, z));
     }
 }

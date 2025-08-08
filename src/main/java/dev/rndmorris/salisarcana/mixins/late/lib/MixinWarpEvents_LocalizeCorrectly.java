@@ -22,23 +22,23 @@ public class MixinWarpEvents_LocalizeCorrectly {
 
     @Unique
     private static final ChatStyle salisArcana$warpChatStyle = new ChatStyle().setColor(EnumChatFormatting.DARK_PURPLE)
-        .setItalic(true);
+            .setItalic(true);
 
     @WrapOperation(
-        method = { "checkWarpEvent", "spawnMist", "suddenlySpiders" },
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
+            method = { "checkWarpEvent", "spawnMist", "suddenlySpiders" },
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
     private static String captureKey(String langKey, Operation<String> original, @Share("key") LocalRef<String> key) {
         key.set(langKey);
         return "";
     }
 
     @ModifyArg(
-        method = { "checkWarpEvent", "spawnMist", "suddenlySpiders" },
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
+            method = { "checkWarpEvent", "spawnMist", "suddenlySpiders" },
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
     private static IChatComponent replaceComponent(IChatComponent original, @Share("key") LocalRef<String> key) {
         return new ChatComponentTranslation(key.get()).setChatStyle(salisArcana$warpChatStyle);
     }

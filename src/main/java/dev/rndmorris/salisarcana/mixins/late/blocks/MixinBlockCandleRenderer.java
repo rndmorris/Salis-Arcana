@@ -1,7 +1,5 @@
 /*
- * Copyright (c) 2020 Jonathan Simmons
- * Licensed under the MIT License
- * Taken from BugTorch
+ * Copyright (c) 2020 Jonathan Simmons Licensed under the MIT License Taken from BugTorch
  * https://github.com/jss2a98aj/BugTorch
  */
 
@@ -22,11 +20,11 @@ public abstract class MixinBlockCandleRenderer {
      * @reason Prevents an array out of bounds exception when metadata greater than 15 is used.
      */
     @ModifyVariable(
-        method = "renderInventoryBlock(Lnet/minecraft/block/Block;IILnet/minecraft/client/renderer/RenderBlocks;)V",
-        at = @At("HEAD"),
-        ordinal = 0,
-        remap = false,
-        argsOnly = true)
+            method = "renderInventoryBlock(Lnet/minecraft/block/Block;IILnet/minecraft/client/renderer/RenderBlocks;)V",
+            at = @At("HEAD"),
+            ordinal = 0,
+            remap = false,
+            argsOnly = true)
     private int sanitizeRenderInventoryBlock(int meta) {
         return meta >= Utils.colors.length ? 0 : meta;
     }

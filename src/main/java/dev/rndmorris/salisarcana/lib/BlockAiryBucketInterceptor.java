@@ -37,7 +37,7 @@ public class BlockAiryBucketInterceptor {
             }
 
             if (event.world.getBlock(x, y, z) == ConfigBlocks.blockAiry
-                && !ConfigBlocks.blockAiry.isAir(event.world, x, y, z)) {
+                    && !ConfigBlocks.blockAiry.isAir(event.world, x, y, z)) {
                 event.setCanceled(true);
             }
         }

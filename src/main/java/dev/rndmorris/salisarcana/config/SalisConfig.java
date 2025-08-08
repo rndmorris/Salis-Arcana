@@ -26,18 +26,20 @@ public class SalisConfig {
     public static boolean enableVersionChecking;
 
     public static void synchronizeConfiguration() {
-        final var rootConfigFile = Paths.get("config", SalisArcana.MODID + ".cfg")
-            .toString();
+        final var rootConfigFile = Paths.get("config", SalisArcana.MODID + ".cfg").toString();
         final var rootConfig = new Configuration(new File(rootConfigFile));
 
-        enableVersionChecking = rootConfig
-            .getBoolean("enableversionChecking", "general", true, "Check for new versions of Salis Arcana on startup");
+        enableVersionChecking = rootConfig.getBoolean(
+                "enableversionChecking",
+                "general",
+                true,
+                "Check for new versions of Salis Arcana on startup");
 
         for (var group : groups) {
 
             final var toggleName = String.format("Enable %s group", group.getGroupName());
             final var enabled = rootConfig
-                .getBoolean(toggleName, "modules", group.isEnabled(), group.getGroupComment());
+                    .getBoolean(toggleName, "modules", group.isEnabled(), group.getGroupComment());
             group.setEnabled(enabled);
 
             if (!enabled) {
@@ -58,8 +60,7 @@ public class SalisConfig {
     }
 
     private static Configuration getGroupConfig(ConfigGroup group) {
-        final var path = Paths.get("config", SalisArcana.MODID, group.getGroupName() + ".cfg")
-            .toString();
+        final var path = Paths.get("config", SalisArcana.MODID, group.getGroupName() + ".cfg").toString();
         return new Configuration(new File(path));
     }
 }

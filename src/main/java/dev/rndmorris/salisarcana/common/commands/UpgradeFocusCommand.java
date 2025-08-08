@@ -30,9 +30,9 @@ public class UpgradeFocusCommand extends ArcanaCommandBase<UpgradeFocusCommand.A
     @Override
     protected ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
-            Arguments.class,
-            Arguments::new,
-            new IArgumentHandler[] { FocusUpgradesHandler.INSTANCE, PlayerHandler.INSTANCE, });
+                Arguments.class,
+                Arguments::new,
+                new IArgumentHandler[] { FocusUpgradesHandler.INSTANCE, PlayerHandler.INSTANCE, });
     }
 
     @Override
@@ -62,8 +62,8 @@ public class UpgradeFocusCommand extends ArcanaCommandBase<UpgradeFocusCommand.A
         for (var upgrade : arguments.upgrades) {
             if (appliedUpgrades.size() == 5) {
                 throw new CommandException(
-                    "salisarcana:command.upgrade-focus.tooManyUpgrades",
-                    arguments.upgrades.size() - applied);
+                        "salisarcana:command.upgrade-focus.tooManyUpgrades",
+                        arguments.upgrades.size() - applied);
             }
             appliedUpgrades.add(upgrade);
             heldFocus.applyUpgrade(heldItem, upgrade, appliedUpgrades.size());

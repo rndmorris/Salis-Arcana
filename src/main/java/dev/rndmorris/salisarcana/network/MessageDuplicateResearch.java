@@ -53,11 +53,11 @@ public class MessageDuplicateResearch implements IMessage, IMessageHandler<Messa
         final String username = player.getCommandSenderName();
 
         final boolean freeScribestuff = SalisConfig.features.creativeOpThaumonomicon.isEnabled()
-            && player.capabilities.isCreativeMode;
+                && player.capabilities.isCreativeMode;
         final boolean freeAspects = freeScribestuff || SalisConfig.features.researchDuplicationFree.isEnabled();
 
         if (!ResearchManager.isResearchComplete(username, message.key)
-            || !ResearchManager.isResearchComplete(username, "RESEARCHDUPE")) {
+                || !ResearchManager.isResearchComplete(username, "RESEARCHDUPE")) {
             // The player does not have enough knowledge to duplicate the research.
             return null;
         }
@@ -99,10 +99,9 @@ public class MessageDuplicateResearch implements IMessage, IMessageHandler<Messa
 
         // Create the research note.
         final var note = ResearchManager
-            .createNote(new ItemStack(ConfigItems.itemResearchNotes, 1, 64), message.key, player.worldObj);
+                .createNote(new ItemStack(ConfigItems.itemResearchNotes, 1, 64), message.key, player.worldObj);
         if (note != null) {
-            note.getTagCompound()
-                .setBoolean("complete", true);
+            note.getTagCompound().setBoolean("complete", true);
             if (!player.inventory.addItemStackToInventory(note)) {
                 player.dropPlayerItemWithRandomChoice(note, false);
             }

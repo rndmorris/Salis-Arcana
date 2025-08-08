@@ -21,7 +21,7 @@ public class MixinCommandThaumcraft_WarpArg {
 
     @Inject(method = "setWarp", at = @At("HEAD"), remap = false)
     private void warpAllParams(ICommandSender icommandsender, EntityPlayerMP player, int i, String type,
-        CallbackInfo ci) {
+            CallbackInfo ci) {
         if (type.equalsIgnoreCase("ALL")) {
             Thaumcraft.proxy.playerKnowledge.setWarpPerm(player.getCommandSenderName(), i);
             PacketHandler.INSTANCE.sendTo(new PacketSyncWarp(player, (byte) 0), player);
@@ -36,7 +36,7 @@ public class MixinCommandThaumcraft_WarpArg {
 
     @Inject(method = "addWarp", at = @At("HEAD"), remap = false)
     private void addWarpAllParams(ICommandSender icommandsender, EntityPlayerMP player, int i, String type,
-        CallbackInfo ci) {
+            CallbackInfo ci) {
         if (type.equalsIgnoreCase("ALL")) {
             Thaumcraft.proxy.playerKnowledge.addWarpPerm(player.getCommandSenderName(), i);
             PacketHandler.INSTANCE.sendTo(new PacketSyncWarp(player, (byte) 0), player);
@@ -53,15 +53,15 @@ public class MixinCommandThaumcraft_WarpArg {
     }
 
     @ModifyConstant(
-        method = "processCommand",
-        constant = @Constant(stringValue = "  /thaumcraft warp <player> <add|set> <amount> <PERM|TEMP>"))
+            method = "processCommand",
+            constant = @Constant(stringValue = "  /thaumcraft warp <player> <add|set> <amount> <PERM|TEMP>"))
     private String modifyWarpCommandHelp(String original) {
         return "  /thaumcraft warp <player> <add|set> <amount> [PERM|TEMP|ALL]";
     }
 
     @ModifyConstant(
-        method = "processCommand",
-        constant = @Constant(stringValue = "§cUse /thaumcraft warp <player> <add|set> <amount> <PERM|TEMP>"))
+            method = "processCommand",
+            constant = @Constant(stringValue = "§cUse /thaumcraft warp <player> <add|set> <amount> <PERM|TEMP>"))
     private String modifyWarpInvalidUsage(String original) {
         return "§cUse /thaumcraft warp <player> <add|set> <amount> [PERM|TEMP|ALL]";
     }

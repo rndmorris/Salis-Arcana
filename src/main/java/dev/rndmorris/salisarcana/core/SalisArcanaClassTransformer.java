@@ -40,9 +40,9 @@ public class SalisArcanaClassTransformer implements IClassTransformer {
         }
 
         if (!foundMethod) throw new RuntimeException(
-            "SalisArcana failed to find a method named " + editor.getMethodName()
-                + " in class "
-                + editor.getClassName());
+                "SalisArcana failed to find a method named " + editor.getMethodName()
+                        + " in class "
+                        + editor.getClassName());
 
         ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         node.accept(writer);

@@ -24,20 +24,20 @@ public class MixinThaumcraftWorldGenerator {
 
     @Unique
     private static final NodeModifier[] sa$modifiers = new NodeModifier[] { null, NodeModifier.BRIGHT,
-        NodeModifier.PALE, NodeModifier.FADING, };
+            NodeModifier.PALE, NodeModifier.FADING, };
 
     @Unique
     private static final NodeType[] sa$types = new NodeType[] { NodeType.NORMAL, NodeType.UNSTABLE, NodeType.DARK,
-        NodeType.PURE, NodeType.HUNGRY, };
+            NodeType.PURE, NodeType.HUNGRY, };
 
     @Inject(
-        method = "createRandomNodeAt",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/World;getBiomeGenForCoords(II)Lnet/minecraft/world/biome/BiomeGenBase;"))
+            method = "createRandomNodeAt",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/World;getBiomeGenForCoords(II)Lnet/minecraft/world/biome/BiomeGenBase;"))
     private static void mixinCreateRandomNodeAt(World world, int x, int y, int z, Random random, boolean silverwood,
-        boolean eerie, boolean small, CallbackInfo ci, @Local LocalRef<NodeType> type,
-        @Local LocalRef<NodeModifier> modifier) {
+            boolean eerie, boolean small, CallbackInfo ci, @Local LocalRef<NodeType> type,
+            @Local LocalRef<NodeModifier> modifier) {
         int index;
 
         if (SalisConfig.features.nodeModifierWeights.isEnabled()) {

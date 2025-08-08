@@ -27,8 +27,8 @@ import thaumcraft.common.lib.research.ResearchManager;
 public class MixinItemThaumometer extends Item {
 
     @Inject(
-        method = "onUsingTick",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/EntityPlayer;stopUsingItem()V"))
+            method = "onUsingTick",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/EntityPlayer;stopUsingItem()V"))
     private void mixinOnUsingTick(ItemStack stack, EntityPlayer player, int count, CallbackInfo ci) {
         MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
         if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
@@ -40,18 +40,18 @@ public class MixinItemThaumometer extends Item {
     }
 
     @WrapOperation(
-        method = "doScan",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/research/ScanManager;isValidScanTarget(Lnet/minecraft/entity/player/EntityPlayer;Lthaumcraft/api/research/ScanResult;Ljava/lang/String;)Z",
-            ordinal = 2),
-        remap = false)
+            method = "doScan",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/lib/research/ScanManager;isValidScanTarget(Lnet/minecraft/entity/player/EntityPlayer;Lthaumcraft/api/research/ScanResult;Ljava/lang/String;)Z",
+                    ordinal = 2),
+            remap = false)
     private boolean rescanInventory(EntityPlayer player, ScanResult item, String t, Operation<Boolean> original,
-        @Local TileEntity tile) {
+            @Local TileEntity tile) {
         if (SalisConfig.features.thaumometerScanContainersResearch.isEnabled()) {
             if (!ResearchManager.isResearchComplete(
-                player.getCommandSenderName(),
-                SalisConfig.features.thaumometerScanContainersResearch.getInternalName())) {
+                    player.getCommandSenderName(),
+                    SalisConfig.features.thaumometerScanContainersResearch.getInternalName())) {
                 return original.call(player, item, t);
             }
         }

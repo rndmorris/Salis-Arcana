@@ -40,25 +40,25 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
 
     @Shadow
     abstract protected MovingObjectPosition getMovingObjectPositionFromPlayer(World par1World,
-        EntityPlayer par2EntityPlayer);
+            EntityPlayer par2EntityPlayer);
 
     @Shadow
     public abstract boolean onEntitySwing(EntityLivingBase player, ItemStack stack);
 
     @WrapMethod(method = "onFocusRightClick")
     public ItemStack wrapOnFocusRightClick(ItemStack itemstack, World world, EntityPlayer player,
-        MovingObjectPosition mop, Operation<ItemStack> original) {
+            MovingObjectPosition mop, Operation<ItemStack> original) {
         sa$rightClick = true;
         return original.call(itemstack, world, player, mop);
     }
 
     @WrapOperation(
-        method = "onFocusRightClick",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/items/wands/foci/ItemFocusTrade;getPickedBlock(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
+            method = "onFocusRightClick",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/items/wands/foci/ItemFocusTrade;getPickedBlock(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack wrapGetPickedBlock(ItemFocusTrade instance, ItemStack stack, Operation<ItemStack> original,
-        @Local(name = "player") EntityPlayer player) {
+            @Local(name = "player") EntityPlayer player) {
         if (this.sa$shouldBreak(stack, player)) {
             return original.call(instance, stack);
         }
@@ -67,16 +67,16 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
     }
 
     @WrapOperation(
-        method = "onEntitySwing",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/items/wands/foci/ItemFocusTrade;getPickedBlock(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
+            method = "onEntitySwing",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/items/wands/foci/ItemFocusTrade;getPickedBlock(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     public ItemStack wrapOnEntitySwing(ItemFocusTrade instance, ItemStack stack, Operation<ItemStack> original,
-        @Local(name = "player") EntityLivingBase player) {
+            @Local(name = "player") EntityLivingBase player) {
         if (this.sa$shouldBreak(stack, (EntityPlayer) player) || (sa$rightClick && player.isSneaking())
         // The itemstack here can be the ItemFocusBasic itself for some unholy reason. Believe it or not, we don't
         // want that.
-            || !(stack.getItem() instanceof ItemWandCasting)) {
+                || !(stack.getItem() instanceof ItemWandCasting)) {
             sa$rightClick = false;
             return original.call(instance, stack);
         }
@@ -86,7 +86,7 @@ public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic im
             if (System.currentTimeMillis() - this.sa$lastPlayedSound > 500) {
                 this.sa$lastPlayedSound = System.currentTimeMillis();
                 player.worldObj
-                    .playSoundEffect(player.posX, player.posY, player.posZ, "thaumcraft:craftfail", 1.0F, 1.0F);
+                        .playSoundEffect(player.posX, player.posY, player.posZ, "thaumcraft:craftfail", 1.0F, 1.0F);
             }
         }
         sa$rightClick = false;

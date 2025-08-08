@@ -17,17 +17,12 @@ import thaumcraft.common.items.wands.foci.ItemFocusExcavation;
 public class MixinItemFocusExcavation_DeterministicCost extends ItemFocusBasic {
 
     @Unique
-    private static final AspectList sa$silkTouchCost = new AspectList().add(Aspect.AIR, 1)
-        .add(Aspect.FIRE, 1)
-        .add(Aspect.WATER, 1)
-        .add(Aspect.ORDER, 1)
-        .add(Aspect.ENTROPY, 1)
-        .add(Aspect.EARTH, 16);
+    private static final AspectList sa$silkTouchCost = new AspectList().add(Aspect.AIR, 1).add(Aspect.FIRE, 1)
+            .add(Aspect.WATER, 1).add(Aspect.ORDER, 1).add(Aspect.ENTROPY, 1).add(Aspect.EARTH, 16);
 
     @Unique
-    private static final AspectList sa$dowsingCost = new AspectList().add(Aspect.FIRE, 2)
-        .add(Aspect.ORDER, 2)
-        .add(Aspect.EARTH, 15);
+    private static final AspectList sa$dowsingCost = new AspectList().add(Aspect.FIRE, 2).add(Aspect.ORDER, 2)
+            .add(Aspect.EARTH, 15);
 
     // spotless:off
     /*
@@ -57,29 +52,29 @@ public class MixinItemFocusExcavation_DeterministicCost extends ItemFocusBasic {
     // spotless:on
 
     @ModifyExpressionValue(
-        method = "getVisCost",
-        at = @At(
-            value = "FIELD",
-            target = "Lthaumcraft/common/items/wands/foci/ItemFocusExcavation;cost2:Lthaumcraft/api/aspects/AspectList;",
-            opcode = Opcodes.GETSTATIC),
-        slice = @Slice(
-            to = @At(
-                value = "FIELD",
-                target = "Lthaumcraft/common/items/wands/foci/ItemFocusExcavation;dowsing:Lthaumcraft/api/wands/FocusUpgradeType;")))
+            method = "getVisCost",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/items/wands/foci/ItemFocusExcavation;cost2:Lthaumcraft/api/aspects/AspectList;",
+                    opcode = Opcodes.GETSTATIC),
+            slice = @Slice(
+                    to = @At(
+                            value = "FIELD",
+                            target = "Lthaumcraft/common/items/wands/foci/ItemFocusExcavation;dowsing:Lthaumcraft/api/wands/FocusUpgradeType;")))
     public AspectList silkTouchCost(AspectList original) {
         return sa$silkTouchCost;
     }
 
     @ModifyExpressionValue(
-        method = "getVisCost",
-        at = @At(
-            value = "FIELD",
-            target = "Lthaumcraft/common/items/wands/foci/ItemFocusExcavation;cost2:Lthaumcraft/api/aspects/AspectList;",
-            opcode = Opcodes.GETSTATIC),
-        slice = @Slice(
-            from = @At(
-                value = "FIELD",
-                target = "Lthaumcraft/common/items/wands/foci/ItemFocusExcavation;dowsing:Lthaumcraft/api/wands/FocusUpgradeType;")))
+            method = "getVisCost",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/items/wands/foci/ItemFocusExcavation;cost2:Lthaumcraft/api/aspects/AspectList;",
+                    opcode = Opcodes.GETSTATIC),
+            slice = @Slice(
+                    from = @At(
+                            value = "FIELD",
+                            target = "Lthaumcraft/common/items/wands/foci/ItemFocusExcavation;dowsing:Lthaumcraft/api/wands/FocusUpgradeType;")))
     public AspectList dowsingCost(AspectList original) {
         return sa$dowsingCost;
     }

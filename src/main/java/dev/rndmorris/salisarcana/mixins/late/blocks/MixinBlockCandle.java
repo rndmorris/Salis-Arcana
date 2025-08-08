@@ -1,7 +1,5 @@
 /*
- * Copyright (c) 2020 Jonathan Simmons
- * Licensed under the MIT License
- * Taken from BugTorch
+ * Copyright (c) 2020 Jonathan Simmons Licensed under the MIT License Taken from BugTorch
  * https://github.com/jss2a98aj/BugTorch
  */
 

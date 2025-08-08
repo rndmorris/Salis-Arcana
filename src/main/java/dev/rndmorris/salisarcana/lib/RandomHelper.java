@@ -6,8 +6,7 @@ import java.util.stream.IntStream;
 public class RandomHelper {
 
     public static int weightedRandom(Random random, int[] weights) {
-        int fullWeight = IntStream.of(weights)
-            .sum();
+        int fullWeight = IntStream.of(weights).sum();
         if (fullWeight <= 0) {
             return -1;
         }

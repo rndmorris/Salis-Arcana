@@ -21,8 +21,7 @@ public class IntegerHelper {
     public static Integer tryParseHexInteger(String hexInteger) {
 
         var color = hexInteger;
-        while (color.length() >= 2 && color.substring(0, 2)
-            .equalsIgnoreCase("0x")) {
+        while (color.length() >= 2 && color.substring(0, 2).equalsIgnoreCase("0x")) {
             color = color.substring(2);
         }
 

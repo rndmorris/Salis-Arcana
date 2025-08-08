@@ -14,8 +14,8 @@ import thaumcraft.common.tiles.TileNode;
 public class MixinTileNode {
 
     @ModifyExpressionValue(
-        method = "handlePureNode",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlock(III)Lnet/minecraft/block/Block;"))
+            method = "handlePureNode",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlock(III)Lnet/minecraft/block/Block;"))
     private Block forceTrue(Block original) {
         return ConfigBlocks.blockMagicalLog;
     }

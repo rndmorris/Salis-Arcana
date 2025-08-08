@@ -38,7 +38,7 @@ public abstract class MixinItemAmuletVis_InventoryCheck {
     @WrapMethod(method = "onWornTick")
     private void wrapOnWornTick(ItemStack itemstack, EntityLivingBase entity, Operation<Void> original) {
         if (!entity.worldObj.isRemote && entity.ticksExisted % sa$tickRate == 0
-            && entity instanceof EntityPlayer player) {
+                && entity instanceof EntityPlayer player) {
             ItemStack[] wands = PlayerHelper.getItemsInInventory(player, ItemWandCasting.class);
             for (ItemStack wandStack : wands) {
                 // if it's the held item, it'll be taken care of when we call the original

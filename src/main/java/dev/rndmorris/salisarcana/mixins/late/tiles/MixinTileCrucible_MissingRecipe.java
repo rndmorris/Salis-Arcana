@@ -32,35 +32,32 @@ public class MixinTileCrucible_MissingRecipe extends TileEntity {
     // when they log off)
     @Unique
     private static final Map<EntityPlayer, ConcurrentHashMap<CrucibleRecipe, LocalDateTime>> sa$warnings = Collections
-        .synchronizedMap(new WeakHashMap<>());
+            .synchronizedMap(new WeakHashMap<>());
 
     @WrapOperation(
-        method = "attemptSmelt",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingCrucibleRecipe(Ljava/lang/String;Lthaumcraft/api/aspects/AspectList;Lnet/minecraft/item/ItemStack;)Lthaumcraft/api/crafting/CrucibleRecipe;",
-            remap = false),
-        remap = false)
+            method = "attemptSmelt",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingCrucibleRecipe(Ljava/lang/String;Lthaumcraft/api/aspects/AspectList;Lnet/minecraft/item/ItemStack;)Lthaumcraft/api/crafting/CrucibleRecipe;",
+                    remap = false),
+            remap = false)
     public CrucibleRecipe captureCrucibleRecipe(String username, AspectList aspects, ItemStack lastItem,
-        Operation<CrucibleRecipe> original) {
+            Operation<CrucibleRecipe> original) {
         final var recipe = original.call(KnowItAll.getUsername(), aspects, lastItem);
 
         if (recipe != null && !ResearchManager.isResearchComplete(username, recipe.key)) {
             final var player = this.worldObj.getPlayerEntityByName(username);
             LocalDateTime lastUsageTime;
             if (player != null) {
-                lastUsageTime = sa$warnings.computeIfAbsent(player, (_key) -> new ConcurrentHashMap<>())
-                    .get(recipe);
+                lastUsageTime = sa$warnings.computeIfAbsent(player, (_key) -> new ConcurrentHashMap<>()).get(recipe);
                 // if the player hasn't been warned since they last logged in, OR if it's been five minutes
                 // since the player last tossed something in that matches this recipe
-                if (lastUsageTime == null || lastUsageTime.isBefore(
-                    LocalDateTime.now()
-                        .minusMinutes(5))) {
+                if (lastUsageTime == null || lastUsageTime.isBefore(LocalDateTime.now().minusMinutes(5))) {
                     ResearchHelper.sendResearchError(player, recipe.key, "salisarcana:error_missing_research.crucible");
                 }
                 // keeps the warning tied to a rolling window, to minimize spamming
                 sa$warnings.computeIfAbsent(player, (_key) -> new ConcurrentHashMap<>())
-                    .put(recipe, LocalDateTime.now());
+                        .put(recipe, LocalDateTime.now());
             }
             return null;
         }

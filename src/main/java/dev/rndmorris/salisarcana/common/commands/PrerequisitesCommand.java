@@ -74,9 +74,9 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
         final var depthHandler = new IntHandler(-1, Integer.MAX_VALUE, 3);
         final var itemhandler = new ItemHandler(recipeOutputCache.keySet());
         return new ArgumentProcessor<>(
-            Arguments.class,
-            Arguments::new,
-            new IArgumentHandler[] { ResearchHandler.INSTANCE, FlagHandler.INSTANCE, depthHandler, itemhandler });
+                Arguments.class,
+                Arguments::new,
+                new IArgumentHandler[] { ResearchHandler.INSTANCE, FlagHandler.INSTANCE, depthHandler, itemhandler });
     }
 
     private void buildOutputCache() {
@@ -160,12 +160,11 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
         }
 
         sender.addChatMessage(
-            new ChatComponentText("")
-                .appendSibling(
-                    new ChatComponentTranslation("salisarcana:command.prereqs.header")
-                        .setChatStyle(color(EnumChatFormatting.LIGHT_PURPLE)))
-                .appendText(" ")
-                .appendSibling(formatResearch(research)));
+                new ChatComponentText("")
+                        .appendSibling(
+                                new ChatComponentTranslation("salisarcana:command.prereqs.header")
+                                        .setChatStyle(color(EnumChatFormatting.LIGHT_PURPLE)))
+                        .appendText(" ").appendSibling(formatResearch(research)));
 
         final var scanPrereqs = buildScanPrereqs(research);
         if (scanPrereqs != null) {
@@ -179,14 +178,14 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
 
         if (matchingResearchKeys.isEmpty()) {
             sender.addChatMessage(
-                new ChatComponentTranslation("salisarcana:command.prereqs.item_not_found", item.func_151000_E())
-                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
+                    new ChatComponentTranslation("salisarcana:command.prereqs.item_not_found", item.func_151000_E())
+                            .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
             return;
         }
 
         final var message = new ChatComponentText("").appendSibling(
-            new ChatComponentTranslation("salisarcana:command.prereqs.header_item", item.func_151000_E())
-                .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
+                new ChatComponentTranslation("salisarcana:command.prereqs.header_item", item.func_151000_E())
+                        .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLUE)));
         sender.addChatMessage(message);
 
         final var listMessage = new ChatComponentText("");
@@ -227,7 +226,7 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
 
     private Set<String> getPlayerKnowledge(ICommandSender sender) {
         final var knowledgeList = Thaumcraft.proxy.getPlayerKnowledge().researchCompleted
-            .get(sender.getCommandSenderName());
+                .get(sender.getCommandSenderName());
         if (knowledgeList == null) {
             return Collections.emptySet();
         }
@@ -236,8 +235,8 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
 
     private void sendAlreadyKnown(ICommandSender sender, ResearchItem research) {
         final var message = new ChatComponentTranslation(
-            "salisarcana:command.prereqs.already_known",
-            formatResearch(research));
+                "salisarcana:command.prereqs.already_known",
+                formatResearch(research));
         message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_PURPLE));
         sender.addChatMessage(message);
     }
@@ -255,8 +254,9 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
             return null;
         }
         final var message = new ChatComponentText("")
-            .appendSibling(new ChatComponentTranslation("salisarcana:command.prereqs.triggers").setChatStyle(blue()))
-            .appendText(" ");
+                .appendSibling(
+                        new ChatComponentTranslation("salisarcana:command.prereqs.triggers").setChatStyle(blue()))
+                .appendText(" ");
 
         IChatComponent lastMessage = null;
         if (aspectsMessage != null) {
@@ -280,18 +280,17 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
     }
 
     private IChatComponent orText() {
-        return new ChatComponentText(" ")
-            .appendSibling(
+        return new ChatComponentText(" ").appendSibling(
                 new ChatComponentTranslation("salisarcana:command.prereqs.triggers_or").setChatStyle(italicBlue()))
-            .appendText(" ");
+                .appendText(" ");
     }
 
     @Nullable
     private IChatComponent buildAspectsMessage(List<Aspect> aspectTriggers) {
 
         final var message = new ChatComponentText("")
-            .appendSibling(new ChatComponentTranslation("salisarcana:command.prereqs.triggers_aspects"))
-            .appendText(" ");
+                .appendSibling(new ChatComponentTranslation("salisarcana:command.prereqs.triggers_aspects"))
+                .appendText(" ");
 
         var anyAspects = false;
         final var aspects$ = aspectTriggers.iterator();
@@ -305,7 +304,7 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
             final var aspectColor = aspect.getChatcolor();
             EnumChatFormatting color;
             if (aspectColor != null && !aspectColor.isEmpty()
-                && ((color = EnumHelper.findByFormattingCode(aspectColor.charAt(0))) != null)) {
+                    && ((color = EnumHelper.findByFormattingCode(aspectColor.charAt(0))) != null)) {
                 aspectChat.setChatStyle(new ChatStyle().setColor(color));
             }
             message.appendSibling(aspectChat);
@@ -321,8 +320,8 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
     private IChatComponent buildEntitiesMessage(List<String> entityTriggers) {
 
         final var message = new ChatComponentText("")
-            .appendSibling(new ChatComponentTranslation("salisarcana:command.prereqs.triggers_entities"))
-            .appendText(" ");
+                .appendSibling(new ChatComponentTranslation("salisarcana:command.prereqs.triggers_entities"))
+                .appendText(" ");
 
         var noEntities = true;
 
@@ -334,11 +333,11 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
             }
             noEntities = false;
             final var component = new ChatComponentText("[")
-                .setChatStyle(
-                    new ChatStyle()
-                        .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(entity))))
-                .appendSibling(new ChatComponentTranslation(String.format("entity.%s.name", entity)))
-                .appendText("]");
+                    .setChatStyle(
+                            new ChatStyle().setChatHoverEvent(
+                                    new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(entity))))
+                    .appendSibling(new ChatComponentTranslation(String.format("entity.%s.name", entity)))
+                    .appendText("]");
             message.appendSibling(component);
             if (entities$.hasNext()) {
                 message.appendText(", ");
@@ -356,8 +355,8 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
     private IChatComponent buildItemsMessage(List<ItemStack> itemTriggers) {
 
         final var message = new ChatComponentText("")
-            .appendSibling(new ChatComponentTranslation("salisarcana:command.prereqs.triggers_items"))
-            .appendText(" ");
+                .appendSibling(new ChatComponentTranslation("salisarcana:command.prereqs.triggers_items"))
+                .appendText(" ");
 
         var noItems = true;
         final var items$ = itemTriggers.iterator();
@@ -382,7 +381,7 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
 
     @Nonnull
     private IChatComponent buildResearchMessage(ResearchItem research, boolean allResearch,
-        Set<String> playerKnowledge) {
+            Set<String> playerKnowledge) {
         final var visited = new TreeSet<String>();
         final var todo = new ArrayDeque<String>();
 
@@ -401,12 +400,11 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
 
             final var currentResearch = ResearchCategories.getResearch(currentKey);
             final var researchText = formatResearchClickCommand(
-                currentResearch,
-                researchColor(playerKnowledge.contains(currentKey)));
+                    currentResearch,
+                    researchColor(playerKnowledge.contains(currentKey)));
 
             if (message != null) {
-                message.appendText(" ")
-                    .appendSibling(researchText);
+                message.appendText(" ").appendSibling(researchText);
             } else {
                 message = researchText;
             }
@@ -415,8 +413,8 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
         }
 
         final var header = new ChatComponentText("")
-            .appendSibling(new ChatComponentTranslation("salisarcana:command.prereqs.parents").setChatStyle(blue()))
-            .appendText(" ");
+                .appendSibling(new ChatComponentTranslation("salisarcana:command.prereqs.parents").setChatStyle(blue()))
+                .appendText(" ");
 
         if (message == null) {
             return header.appendSibling(new ChatComponentTranslation("salisarcana:command.prereqs.parents_none"));
@@ -427,20 +425,16 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
 
     private void queueParents(ResearchItem research, Set<String> visited, Deque<String> todo) {
         if (research.parents != null) {
-            Arrays.stream(research.parents)
-                .filter(p -> !visited.contains(p))
-                .forEach(p -> {
-                    visited.add(p);
-                    todo.add(p);
-                });
+            Arrays.stream(research.parents).filter(p -> !visited.contains(p)).forEach(p -> {
+                visited.add(p);
+                todo.add(p);
+            });
         }
         if (research.parentsHidden != null) {
-            Arrays.stream(research.parentsHidden)
-                .filter(p -> !visited.contains(p))
-                .forEach(p -> {
-                    visited.add(p);
-                    todo.add(p);
-                });
+            Arrays.stream(research.parentsHidden).filter(p -> !visited.contains(p)).forEach(p -> {
+                visited.add(p);
+                todo.add(p);
+            });
         }
     }
 
@@ -474,10 +468,10 @@ public class PrerequisitesCommand extends ArcanaCommandBase<PrerequisitesCommand
         public boolean allResearch;
 
         @NamedArg(
-            name = "--item",
-            handler = ItemHandler.class,
-            excludes = { "--research", "--completed" },
-            descLangKey = "item")
+                name = "--item",
+                handler = ItemHandler.class,
+                excludes = { "--research", "--completed" },
+                descLangKey = "item")
         public ItemStack itemStack;
 
     }

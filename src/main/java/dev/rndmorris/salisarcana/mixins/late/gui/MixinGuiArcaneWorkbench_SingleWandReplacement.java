@@ -30,7 +30,7 @@ public class MixinGuiArcaneWorkbench_SingleWandReplacement {
 
     @ModifyVariable(method = "drawGuiContainerBackgroundLayer", at = @At(value = "STORE", ordinal = 0))
     public ItemWandCasting captureWandInTable(final ItemWandCasting initial,
-        final @Share("wandStack") LocalRef<ItemStack> wandStack) {
+            final @Share("wandStack") LocalRef<ItemStack> wandStack) {
 
         if (this.tileEntity.getStackInSlot(10) == null) {
             // No wand in wand slot - check if a wand-swap recipe matches
@@ -43,9 +43,9 @@ public class MixinGuiArcaneWorkbench_SingleWandReplacement {
                     if (itemWand.isStaff(slot)) return null;
 
                     if ((CustomRecipes.replaceWandCapsRecipe != null && CustomRecipes.replaceWandCapsRecipe
-                        .matches(this.tileEntity, this.ip.player.worldObj, KnowItAll.getInstance()))
-                        || (CustomRecipes.replaceWandCoreRecipe != null && CustomRecipes.replaceWandCoreRecipe
-                            .matches(this.tileEntity, this.ip.player.worldObj, KnowItAll.getInstance()))) {
+                            .matches(this.tileEntity, this.ip.player.worldObj, KnowItAll.getInstance()))
+                            || (CustomRecipes.replaceWandCoreRecipe != null && CustomRecipes.replaceWandCoreRecipe
+                                    .matches(this.tileEntity, this.ip.player.worldObj, KnowItAll.getInstance()))) {
                         // Recipe match found
                         wandStack.set(slot);
                         return itemWand;
@@ -62,17 +62,17 @@ public class MixinGuiArcaneWorkbench_SingleWandReplacement {
     }
 
     @ModifyExpressionValue(
-        method = "drawGuiContainerBackgroundLayer",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;getStackInSlot(I)Lnet/minecraft/item/ItemStack;"),
-        slice = @Slice(
-            from = @At(
-                value = "INVOKE",
-                target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingArcaneRecipeAspects(Lnet/minecraft/inventory/IInventory;Lnet/minecraft/entity/player/EntityPlayer;)Lthaumcraft/api/aspects/AspectList;",
-                remap = false)))
+            method = "drawGuiContainerBackgroundLayer",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;getStackInSlot(I)Lnet/minecraft/item/ItemStack;"),
+            slice = @Slice(
+                    from = @At(
+                            value = "INVOKE",
+                            target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;findMatchingArcaneRecipeAspects(Lnet/minecraft/inventory/IInventory;Lnet/minecraft/entity/player/EntityPlayer;)Lthaumcraft/api/aspects/AspectList;",
+                            remap = false)))
     public ItemStack replaceWandStack(final ItemStack initial,
-        final @Share("wandStack") LocalRef<ItemStack> wandStack) {
+            final @Share("wandStack") LocalRef<ItemStack> wandStack) {
         return initial == null ? wandStack.get() : initial;
     }
 }

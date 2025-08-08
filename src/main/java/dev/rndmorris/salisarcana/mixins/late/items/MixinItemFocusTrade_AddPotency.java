@@ -15,7 +15,7 @@ public class MixinItemFocusTrade_AddPotency {
 
     @WrapMethod(method = "getPossibleUpgradesByRank", remap = false)
     public FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack itemstack, int rank,
-        Operation<FocusUpgradeType[]> original) {
+            Operation<FocusUpgradeType[]> original) {
         FocusUpgradeType[] original_return = original.call(itemstack, rank);
         FocusUpgradeType[] copy = new FocusUpgradeType[original_return.length + 1];
         System.arraycopy(original_return, 0, copy, 0, original_return.length);

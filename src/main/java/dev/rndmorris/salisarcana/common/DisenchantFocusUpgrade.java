@@ -20,8 +20,8 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
     public static final String RESEARCH_KEY = "salisarcana:FOCUS_DISENCHANTING";
     private static final int[] RANK_TO_XP_POINTS = new int[] { 136, 272, 516, 956, 1760 }; // 8L, 16L, 24L, 32L, 40L
     private static final ResourceLocation ICON_LOCATION = new ResourceLocation(
-        SalisArcana.MODID,
-        "textures/foci/disenchant.png");
+            SalisArcana.MODID,
+            "textures/foci/disenchant.png");
     private static final String NAME_KEY = "focus.upgrade.salisarcana:disenchant.name";
     private static final String UNFORMATTED_TOOLTIP_KEY = "focus.upgrade.salisarcana:disenchant.text";
     private static final String GENERIC_TOOLTIP_KEY = "focus.upgrade.salisarcana:disenchant.text.generic";
@@ -41,20 +41,19 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
         final var data = SalisConfig.features.focusDisenchantingResearch;
 
         researchItem = new ResearchItem(
-            RESEARCH_KEY,
-            data.researchCategory,
-            data.getAspects(),
-            data.researchCol,
-            data.researchRow,
-            data.difficulty,
-            ICON_LOCATION);
+                RESEARCH_KEY,
+                data.researchCategory,
+                data.getAspects(),
+                data.researchCol,
+                data.researchRow,
+                data.difficulty,
+                ICON_LOCATION);
         researchItem.setPages(
-            new FormattedResearchPage("tc.research_page.salisarcana:FOCUS_DISENCHANTING.0", new Object[] { percentXP }),
-            new ResearchPage("tc.research_page.salisarcana:FOCUS_DISENCHANTING.1"));
-        researchItem.setConcealed()
-            .setSecondary()
-            .setParents(data.parentResearches)
-            .registerResearchItem();
+                new FormattedResearchPage(
+                        "tc.research_page.salisarcana:FOCUS_DISENCHANTING.0",
+                        new Object[] { percentXP }),
+                new ResearchPage("tc.research_page.salisarcana:FOCUS_DISENCHANTING.1"));
+        researchItem.setConcealed().setSecondary().setParents(data.parentResearches).registerResearchItem();
 
         if (data.warp > 0) {
             ThaumcraftApi.addWarpToResearch(RESEARCH_KEY, data.warp);
@@ -70,9 +69,9 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
     }
 
     /***
-     * Creates a new instance of {@link DisenchantFocusUpgrade} using the upgrade data of a focus.
-     * This new instance has special tooltip text detailing the effects of the disenchantment and provides useful data
-     * for executing the disenchantment.
+     * Creates a new instance of {@link DisenchantFocusUpgrade} using the upgrade data of a focus. This new instance has
+     * special tooltip text detailing the effects of the disenchantment and provides useful data for executing the
+     * disenchantment.
      *
      * @param upgrades The upgrade data of the focus being disenchanted
      * @return A new instance, customized to the focus data.
@@ -128,17 +127,17 @@ public class DisenchantFocusUpgrade extends FocusUpgradeType {
                 upgradeName.append(StatCollector.translateToLocal("enchantment.level." + this.lastUpgradeLevel));
             }
             return StatCollector
-                .translateToLocalFormatted(SPECIFIC_TOOLTIP_KEY, upgradeName.toString(), this.getXpPoints());
+                    .translateToLocalFormatted(SPECIFIC_TOOLTIP_KEY, upgradeName.toString(), this.getXpPoints());
         } else {
             return StatCollector.translateToLocalFormatted(
-                GENERIC_TOOLTIP_KEY,
-                SalisConfig.features.focusDisenchantingRefundPercentage.getValue());
+                    GENERIC_TOOLTIP_KEY,
+                    SalisConfig.features.focusDisenchantingRefundPercentage.getValue());
         }
     }
 
     public int getXpPoints() {
         return (RANK_TO_XP_POINTS[Math.min(this.lastRank, 5) - 1]
-            * SalisConfig.features.focusDisenchantingRefundPercentage.getValue()) / 100;
+                * SalisConfig.features.focusDisenchantingRefundPercentage.getValue()) / 100;
     }
 
     public AspectList getVisPoints() {

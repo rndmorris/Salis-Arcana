@@ -45,15 +45,15 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
     @Override
     protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
-            Arguments.class,
-            Arguments::new,
-            new IArgumentHandler[] { PlayerHandler.INSTANCE, FlagHandler.INSTANCE, AspectHandler.INSTANCE, });
+                Arguments.class,
+                Arguments::new,
+                new IArgumentHandler[] { PlayerHandler.INSTANCE, FlagHandler.INSTANCE, AspectHandler.INSTANCE, });
     }
 
     @Override
     protected void process(ICommandSender sender, Arguments arguments, String[] args) {
         final var targetPlayer = arguments.targetPlayer != null ? arguments.targetPlayer
-            : getCommandSenderAsPlayer(sender);
+                : getCommandSenderAsPlayer(sender);
 
         final var playerName = targetPlayer.getCommandSenderName();
         final var playerKnowledge = Thaumcraft.proxy.getPlayerKnowledge();
@@ -72,9 +72,9 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
                 Block block = targetPlayer.worldObj.getBlock(target.blockX, target.blockY, target.blockZ);
                 if (block != null) {
                     final var item = new ItemStack(
-                        block,
-                        1,
-                        targetPlayer.worldObj.getBlockMetadata(target.blockX, target.blockY, target.blockZ));
+                            block,
+                            1,
+                            targetPlayer.worldObj.getBlockMetadata(target.blockX, target.blockY, target.blockZ));
                     forgottenHashes.addAll(forgetItems(targetPlayer, Collections.singletonList(item)));
                 }
             }
@@ -108,15 +108,18 @@ public class ForgetScannedCommand extends ArcanaCommandBase<ForgetScannedCommand
         if (!removeFromMaps.isEmpty()) {
             removedCount += forgetCategories(playerName, removeFromMaps);
             NetworkHandler.instance
-                .sendTo(new MessageForgetScannedCategory(forgetObjects, forgetEntities, forgetNodes), targetPlayer);
+                    .sendTo(new MessageForgetScannedCategory(forgetObjects, forgetEntities, forgetNodes), targetPlayer);
         }
 
         if (removedCount > 0) {
             sender.addChatMessage(
-                new ChatComponentTranslation("salisarcana:command.forget-scanned.success", removedCount, playerName));
+                    new ChatComponentTranslation(
+                            "salisarcana:command.forget-scanned.success",
+                            removedCount,
+                            playerName));
         } else {
-            sender
-                .addChatMessage(new ChatComponentTranslation("salisarcana:command.forget-scanned.failure", playerName));
+            sender.addChatMessage(
+                    new ChatComponentTranslation("salisarcana:command.forget-scanned.failure", playerName));
         }
     }
 

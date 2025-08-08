@@ -12,10 +12,10 @@ import thaumcraft.common.items.ItemResearchNotes;
 public class MixinItemResearchNotes_LocalizeCorrectly {
 
     @WrapOperation(
-        method = "onItemRightClick",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
+            method = "onItemRightClick",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
     public String doNotLocalizeOnServer(String langKey, Operation<String> original) {
         return langKey;
     }

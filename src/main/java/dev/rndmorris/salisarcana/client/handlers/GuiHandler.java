@@ -27,9 +27,9 @@ public class GuiHandler {
     @SubscribeEvent
     public void onGuiOpen(GuiOpenEvent event) {
         if (SalisConfig.features.nomiconRightClickClose.isEnabled()
-            && !SalisConfig.features.nomiconSavePage.isEnabled()) {
+                && !SalisConfig.features.nomiconSavePage.isEnabled()) {
             if (event.gui instanceof GuiResearchBrowser
-                && Minecraft.getMinecraft().currentScreen instanceof GuiResearchRecipe) {
+                    && Minecraft.getMinecraft().currentScreen instanceof GuiResearchRecipe) {
                 RightClickClose$ScreenStack.clear();
             }
         }
@@ -40,17 +40,16 @@ public class GuiHandler {
     @SubscribeEvent
     public void onGuiPostInit(GuiScreenEvent.InitGuiEvent.Post event) {
         if (!tc4tweaksLoaded || !SalisConfig.features.nomiconSavePage.isEnabled()
-            || RightClickClose$ScreenStack.isEmpty()) {
+                || RightClickClose$ScreenStack.isEmpty()) {
             return;
         }
 
         // At this point, when opening directly to a page, the current screen is the GuiResearchRecipe,
         // and the current event is for the GuiResearchBrowser
         if (event.gui instanceof GuiResearchBrowser
-            && Minecraft.getMinecraft().currentScreen instanceof GuiResearchRecipe) {
+                && Minecraft.getMinecraft().currentScreen instanceof GuiResearchRecipe) {
             // If this is null, all attempts to draw it will be skipped.
-            R.of(ThaumonomiconIndexSearcher.instance)
-                .set("thaumSearchField", null);
+            R.of(ThaumonomiconIndexSearcher.instance).set("thaumSearchField", null);
         }
     }
 }

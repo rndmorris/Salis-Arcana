@@ -14,8 +14,8 @@ import thaumcraft.common.entities.projectile.EntityShockOrb;
 public class MixinEntityShockOrb_CheckSolidGround {
 
     @WrapOperation(
-        method = "onImpact",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isAirBlock(III)Z", ordinal = 2))
+            method = "onImpact",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isAirBlock(III)Z", ordinal = 2))
     public boolean isSolidBlock(World world, int x, int y, int z, Operation<Boolean> original) {
         return !World.doesBlockHaveSolidTopSurface(world, x, y, z);
     }

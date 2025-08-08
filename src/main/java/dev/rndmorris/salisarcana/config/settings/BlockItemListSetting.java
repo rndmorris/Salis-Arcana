@@ -52,11 +52,10 @@ public class BlockItemListSetting<DATA> extends Setting {
     @Override
     public void loadFromConfiguration(Configuration configuration) {
         final var rawEntries = configuration
-            .getStringList(name, getCategory(), defaults.toArray(new String[0]), comment);
+                .getStringList(name, getCategory(), defaults.toArray(new String[0]), comment);
 
         for (var rawEntry : rawEntries) {
-            if (rawEntry.trim()
-                .isEmpty()) {
+            if (rawEntry.trim().isEmpty()) {
                 continue;
             }
             final var entry = parseEntry(rawEntry);

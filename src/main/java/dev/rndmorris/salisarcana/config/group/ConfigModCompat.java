@@ -16,10 +16,10 @@ public class ConfigModCompat extends ConfigGroup {
     public final BaublesExpandedSettings baublesExpanded = new BaublesExpandedSettings(this);
 
     public final ToggleSetting tc4tweakScrollPages = new ToggleSetting(
-        SalisConfig.features.nomiconScrollwheelEnabled,
-        "tc4tweakScrollPages",
-        "Whether or not scrolling should scroll to next page of tabs or loop to first tab of the page, in the event that there are too many tabs.")
-            .setCategory("tc4tweaks");
+            SalisConfig.features.nomiconScrollwheelEnabled,
+            "tc4tweakScrollPages",
+            "Whether or not scrolling should scroll to next page of tabs or loop to first tab of the page, in the event that there are too many tabs.")
+                    .setCategory("tc4tweaks");
 
     @Nonnull
     @Override

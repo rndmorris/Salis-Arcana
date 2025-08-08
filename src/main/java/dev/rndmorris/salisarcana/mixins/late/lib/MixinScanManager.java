@@ -25,20 +25,20 @@ import thaumcraft.common.lib.research.ScanManager;
 public class MixinScanManager {
 
     @Inject(
-        method = "completeScan",
-        at = @At(
-            value = "INVOKE_ASSIGN",
-            target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;getObjectTags(Lnet/minecraft/item/ItemStack;)Lthaumcraft/api/aspects/AspectList;",
-            ordinal = 0),
-        cancellable = true)
+            method = "completeScan",
+            at = @At(
+                    value = "INVOKE_ASSIGN",
+                    target = "Lthaumcraft/common/lib/crafting/ThaumcraftCraftingManager;getObjectTags(Lnet/minecraft/item/ItemStack;)Lthaumcraft/api/aspects/AspectList;",
+                    ordinal = 0),
+            cancellable = true)
     private static void onScanComplete(EntityPlayer player, ScanResult scan, String prefix,
-        CallbackInfoReturnable<Boolean> cir, @Local AspectList aspects) {
+            CallbackInfoReturnable<Boolean> cir, @Local AspectList aspects) {
         if (!player.worldObj.isRemote) {
             return;
         }
         if (SalisConfig.features.thaumometerScanContainersResearch.isEnabled() && !ResearchManager.isResearchComplete(
-            player.getCommandSenderName(),
-            SalisConfig.features.thaumometerScanContainersResearch.getInternalName())) {
+                player.getCommandSenderName(),
+                SalisConfig.features.thaumometerScanContainersResearch.getInternalName())) {
             return;
         }
 

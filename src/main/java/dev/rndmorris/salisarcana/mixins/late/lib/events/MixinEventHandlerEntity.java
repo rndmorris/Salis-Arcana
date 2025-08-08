@@ -31,10 +31,10 @@ public class MixinEventHandlerEntity {
     }
 
     @WrapOperation(
-        method = "livingTick(Lnet/minecraftforge/event/entity/living/LivingDeathEvent;)V",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/utils/EntityUtils;getRecentlyHit(Lnet/minecraft/entity/EntityLivingBase;)I"))
+            method = "livingTick(Lnet/minecraftforge/event/entity/living/LivingDeathEvent;)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/lib/utils/EntityUtils;getRecentlyHit(Lnet/minecraft/entity/EntityLivingBase;)I"))
     private int sa$shouldGenerateVisOrbs(EntityLivingBase e, Operation<Integer> original) {
         if (sa$isWhitelist) {
             if (sa$getEntities().contains(e.getClass())) {
@@ -51,6 +51,6 @@ public class MixinEventHandlerEntity {
     @Unique
     private HashSet<Class<? extends Entity>> sa$getEntities() {
         return sa$entities != null ? sa$entities
-            : (sa$entities = EntityHelper.getEntitiesFromStringArr(SalisConfig.features.mobVisDropList.getValue()));
+                : (sa$entities = EntityHelper.getEntitiesFromStringArr(SalisConfig.features.mobVisDropList.getValue()));
     }
 }

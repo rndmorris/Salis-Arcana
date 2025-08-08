@@ -19,12 +19,12 @@ import thaumcraft.common.lib.WarpEvents;
 public class MixinWarpEvents_DeadlyGaze {
 
     @WrapOperation(
-        method = "checkDeathGaze",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/World;getEntitiesWithinAABBExcludingEntity(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/AxisAlignedBB;)Ljava/util/List;"))
+            method = "checkDeathGaze",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/World;getEntitiesWithinAABBExcludingEntity(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/AxisAlignedBB;)Ljava/util/List;"))
     private static List wrapGetEntities(World instance, Entity entity, AxisAlignedBB box,
-        Operation<List<Entity>> original) {
+            Operation<List<Entity>> original) {
         return instance.getEntitiesWithinAABBExcludingEntity(entity, box, DeadlyGazeEntitySelector.INSTANCE);
     }
 }

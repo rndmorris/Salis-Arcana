@@ -30,7 +30,7 @@ public class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
 
     @WrapMethod(method = "excavate", remap = false)
     private boolean wrapExcavate(World world, ItemStack stack, EntityPlayer player, Block block, int md, int x, int y,
-        int z, Operation<Boolean> original) {
+            int z, Operation<Boolean> original) {
         int requiredLevel = block.getHarvestLevel(md);
         int harvestLevel = sa$harvestLevel;
         if (sa$potencyEnabled) {

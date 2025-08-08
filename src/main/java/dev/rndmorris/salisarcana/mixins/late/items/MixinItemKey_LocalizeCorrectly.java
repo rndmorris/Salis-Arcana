@@ -22,16 +22,15 @@ public class MixinItemKey_LocalizeCorrectly {
 
     @Unique
     private static final ChatStyle salisArcana$wardedDoorStyle = new ChatStyle()
-        .setColor(EnumChatFormatting.DARK_PURPLE)
-        .setItalic(true);
+            .setColor(EnumChatFormatting.DARK_PURPLE).setItalic(true);
 
     @WrapOperation(
-        method = "onItemUseFirst",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
+            method = "onItemUseFirst",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
     public String collectKeys(String langKey, Operation<String> original, @Share("key1") LocalRef<String> keyOne,
-        @Share("key2") LocalRef<String> keyTwo) {
+            @Share("key2") LocalRef<String> keyTwo) {
 
         // Two keys are required because some messages are made by concatenating two keys together.
         if (keyOne.get() == null) {
@@ -44,12 +43,12 @@ public class MixinItemKey_LocalizeCorrectly {
     }
 
     @ModifyArg(
-        method = "onItemUseFirst",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
+            method = "onItemUseFirst",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
     public IChatComponent replaceComponent(IChatComponent original, @Share("key1") LocalRef<String> keyOne,
-        @Share("key2") LocalRef<String> keyTwo) {
+            @Share("key2") LocalRef<String> keyTwo) {
         ChatComponentTranslation output = new ChatComponentTranslation(keyOne.get());
         output.setChatStyle(salisArcana$wardedDoorStyle);
 

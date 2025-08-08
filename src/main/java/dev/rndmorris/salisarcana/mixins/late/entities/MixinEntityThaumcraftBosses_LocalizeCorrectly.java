@@ -17,19 +17,19 @@ import thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss;
 public class MixinEntityThaumcraftBosses_LocalizeCorrectly {
 
     @WrapOperation(
-        method = "attackEntityFrom",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
+            method = "attackEntityFrom",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
     public String preventLocalization(String langKey, Operation<String> original) {
         return "";
     }
 
     @ModifyArg(
-        method = "attackEntityFrom",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
+            method = "attackEntityFrom",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
     public IChatComponent addTranslationComponent(IChatComponent original) {
         return original.appendSibling(new ChatComponentTranslation("tc.boss.enrage"));
     }

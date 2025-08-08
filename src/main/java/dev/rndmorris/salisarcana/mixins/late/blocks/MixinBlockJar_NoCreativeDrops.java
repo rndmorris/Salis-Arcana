@@ -15,12 +15,12 @@ import thaumcraft.common.blocks.BlockJar;
 public class MixinBlockJar_NoCreativeDrops {
 
     @WrapWithCondition(
-        method = "onBlockHarvested",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/blocks/BlockJar;dropBlockAsItem(Lnet/minecraft/world/World;IIIII)V"))
+            method = "onBlockHarvested",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/blocks/BlockJar;dropBlockAsItem(Lnet/minecraft/world/World;IIIII)V"))
     public boolean requireSurvival(BlockJar instance, World world, int x, int y, int z, int meta, int fortune,
-        @Local(argsOnly = true) EntityPlayer player) {
+            @Local(argsOnly = true) EntityPlayer player) {
         return !player.capabilities.isCreativeMode;
     }
 }

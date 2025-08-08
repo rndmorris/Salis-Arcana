@@ -45,17 +45,17 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
         isObfuscated = (boolean) data.get("runtimeDeobfuscationEnabled");
 
         editors.add(
-            new ModCompatEditor(
-                "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins",
-                "getMixins",
-                "(Ljava/util/Set;)Ljava/util/List;")
-                    .addConflict("MixinBlockCosmeticSolid", SalisConfig.bugfixes.beaconBlockFixSetting)
-                    .addConflict("MixinBlockCandleRenderer", SalisConfig.bugfixes.candleRendererCrashes)
-                    .addConflict("MixinBlockCandle", SalisConfig.bugfixes.candleRendererCrashes)
-                    .addConflict("MixinItemShard", SalisConfig.bugfixes.itemShardColor)
-                    .addConflict("MixinWandManager", SalisConfig.features.useAllBaublesSlots)
-                    .addConflict("MixinEventHandlerRunic", SalisConfig.features.useAllBaublesSlots)
-                    .addConflict("MixinWarpEvents_BaubleSlots", SalisConfig.features.useAllBaublesSlots));
+                new ModCompatEditor(
+                        "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins",
+                        "getMixins",
+                        "(Ljava/util/Set;)Ljava/util/List;")
+                                .addConflict("MixinBlockCosmeticSolid", SalisConfig.bugfixes.beaconBlockFixSetting)
+                                .addConflict("MixinBlockCandleRenderer", SalisConfig.bugfixes.candleRendererCrashes)
+                                .addConflict("MixinBlockCandle", SalisConfig.bugfixes.candleRendererCrashes)
+                                .addConflict("MixinItemShard", SalisConfig.bugfixes.itemShardColor)
+                                .addConflict("MixinWandManager", SalisConfig.features.useAllBaublesSlots)
+                                .addConflict("MixinEventHandlerRunic", SalisConfig.features.useAllBaublesSlots)
+                                .addConflict("MixinWarpEvents_BaubleSlots", SalisConfig.features.useAllBaublesSlots));
     }
 
     @Override

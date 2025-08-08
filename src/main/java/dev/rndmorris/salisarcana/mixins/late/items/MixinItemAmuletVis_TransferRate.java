@@ -17,14 +17,14 @@ public abstract class MixinItemAmuletVis_TransferRate {
     private final int sa$transferRate = SalisConfig.features.visAmuletTransferRate.getValue();
 
     @ModifyConstant(
-        method = "onWornTick",
-        constant = @Constant(intValue = 5),
-        // we don't want to modify the first constant, so we have to slice it out of the
-        // method.
-        slice = @Slice(
-            from = @At(
-                value = "INVOKE",
-                target = "Lnet/minecraft/entity/EntityLivingBase;getHeldItem()Lnet/minecraft/item/ItemStack;")))
+            method = "onWornTick",
+            constant = @Constant(intValue = 5),
+            // we don't want to modify the first constant, so we have to slice it out of the
+            // method.
+            slice = @Slice(
+                    from = @At(
+                            value = "INVOKE",
+                            target = "Lnet/minecraft/entity/EntityLivingBase;getHeldItem()Lnet/minecraft/item/ItemStack;")))
     private int modifyTransferRate(int original) {
         return sa$transferRate;
     }

@@ -16,7 +16,7 @@ public class MixinThaumcraft_FakePlayerWarp {
 
     @WrapMethod(method = "addWarpToPlayer", remap = false)
     private static void cancelFakePlayers(EntityPlayer player, int amount, boolean temporary,
-        Operation<Void> original) {
+            Operation<Void> original) {
         if (!(player instanceof EntityPlayerMP) || player instanceof FakePlayer) {
             final var knowledge = Thaumcraft.proxy.getPlayerKnowledge();
             final String name = player.getCommandSenderName();

@@ -19,10 +19,10 @@ import thaumcraft.common.config.ConfigItems;
 public class MixinBlockWoodenDevice_BannerPhialConsumption {
 
     @WrapOperation(
-        method = "onBlockActivated",
-        at = @At(value = "FIELD", target = "Lnet/minecraft/item/ItemStack;stackSize:I", opcode = Opcodes.PUTFIELD))
+            method = "onBlockActivated",
+            at = @At(value = "FIELD", target = "Lnet/minecraft/item/ItemStack;stackSize:I", opcode = Opcodes.PUTFIELD))
     public void removePhial(ItemStack instance, int value, Operation<Void> original,
-        @Local(argsOnly = true) EntityPlayer player) {
+            @Local(argsOnly = true) EntityPlayer player) {
 
         if (SalisConfig.features.bannerFreePatterns.isEnabled()) return;
 

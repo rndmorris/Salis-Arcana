@@ -18,10 +18,10 @@ import thaumcraft.common.items.ItemResource;
 public abstract class MixinItemResource_DisableCreativeDecay {
 
     @WrapOperation(
-        method = "onUpdate",
-        at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", remap = false))
+            method = "onUpdate",
+            at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", remap = false))
     private int disableCreativeDecay(Random instance, int i, Operation<Integer> original,
-        @Local(argsOnly = true) Entity entity) {
+            @Local(argsOnly = true) Entity entity) {
         if (entity instanceof EntityPlayer player && player.capabilities.isCreativeMode) {
             return Integer.MAX_VALUE;
         }

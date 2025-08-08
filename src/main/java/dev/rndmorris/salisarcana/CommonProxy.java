@@ -51,9 +51,7 @@ import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 public class CommonProxy {
 
     public CommonProxy() {
-        FMLCommonHandler.instance()
-            .bus()
-            .register(this);
+        FMLCommonHandler.instance().bus().register(this);
     }
 
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
@@ -78,12 +76,8 @@ public class CommonProxy {
         }
         updateHarvestLevels();
 
-        FMLCommonHandler.instance()
-            .bus()
-            .register(new Updater());
-        FMLCommonHandler.instance()
-            .bus()
-            .register(new StartupNotifications());
+        FMLCommonHandler.instance().bus().register(new Updater());
+        FMLCommonHandler.instance().bus().register(new StartupNotifications());
         MinecraftForge.EVENT_BUS.register(KnowItAll.EVENT_COLLECTOR);
 
         if (SalisConfig.bugfixes.preventBlockAiryFluidReplacement.isEnabled()) {
@@ -142,7 +136,7 @@ public class CommonProxy {
     }
 
     private void maybeRegister(FMLServerStartingEvent event, CommandSettings settings,
-        Supplier<ArcanaCommandBase<?>> init) {
+            Supplier<ArcanaCommandBase<?>> init) {
         if (settings.isEnabled()) {
             event.registerServerCommand(init.get());
         }
@@ -153,8 +147,7 @@ public class CommonProxy {
     }
 
     public World getFakePlayerWorld() {
-        return MinecraftServer.getServer()
-            .worldServerForDimension(0);
+        return MinecraftServer.getServer().worldServerForDimension(0);
     }
 
     private void fixGolemFishingLists() {

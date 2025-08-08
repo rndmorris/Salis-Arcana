@@ -51,11 +51,11 @@ public abstract class MixinTileFocalManipulator_CancelReturnXP implements IFocal
     }
 
     @Inject(
-        method = "updateEntity",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/World;playSoundEffect(DDDLjava/lang/String;FF)V",
-            ordinal = 0))
+            method = "updateEntity",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/World;playSoundEffect(DDDLjava/lang/String;FF)V",
+                    ordinal = 0))
     public void returnOnCancel(CallbackInfo ci) {
         this.salisArcana$addXP(this.salisArcana$craftingXP);
         this.salisArcana$craftingXP = 0;

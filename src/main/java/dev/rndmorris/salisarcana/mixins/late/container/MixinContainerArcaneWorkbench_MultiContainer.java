@@ -26,58 +26,58 @@ public abstract class MixinContainerArcaneWorkbench_MultiContainer extends Conta
     private final InventoryFake salisArcana$outputSlot = new InventoryFake(new ItemStack[1]);
 
     @WrapOperation(
-        method = "<init>",
-        at = @At(
-            value = "FIELD",
-            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;eventHandler:Lnet/minecraft/inventory/Container;",
-            remap = false),
-        remap = false)
+            method = "<init>",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;eventHandler:Lnet/minecraft/inventory/Container;",
+                    remap = false),
+            remap = false)
     public void setEventHandler(TileArcaneWorkbench instance, Container value, Operation<Void> original) {
         original.call(instance, MultiContainer.mergeContainers(instance.eventHandler, value));
     }
 
     @WrapOperation(
-        method = "onContainerClosed",
-        at = @At(
-            value = "FIELD",
-            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;eventHandler:Lnet/minecraft/inventory/Container;",
-            remap = false))
+            method = "onContainerClosed",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;eventHandler:Lnet/minecraft/inventory/Container;",
+                    remap = false))
     public void removeEventHandler(TileArcaneWorkbench instance, Container value, Operation<Void> original) {
         original.call(instance, MultiContainer.removeContainer(instance.eventHandler, this));
     }
 
     @ModifyExpressionValue(
-        method = "onContainerClosed",
-        at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z"))
+            method = "onContainerClosed",
+            at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z"))
     public boolean removeEventHanderOnClientToo(boolean original) {
         return false;
     }
 
     @WrapOperation(
-        method = "<init>",
-        at = @At(value = "NEW", target = "thaumcraft/common/container/SlotCraftingArcaneWorkbench", remap = false),
-        remap = false)
+            method = "<init>",
+            at = @At(value = "NEW", target = "thaumcraft/common/container/SlotCraftingArcaneWorkbench", remap = false),
+            remap = false)
     public SlotCraftingArcaneWorkbench useFakeOutputSlot(EntityPlayer player, IInventory matrix, IInventory output,
-        int slotNum, int xPos, int yPos, Operation<SlotCraftingArcaneWorkbench> original) {
+            int slotNum, int xPos, int yPos, Operation<SlotCraftingArcaneWorkbench> original) {
         return original.call(player, matrix, salisArcana$outputSlot, 0, xPos, yPos);
     }
 
     @WrapOperation(
-        method = "onCraftMatrixChanged",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;setInventorySlotContentsSoftly(ILnet/minecraft/item/ItemStack;)V",
-            remap = false))
+            method = "onCraftMatrixChanged",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;setInventorySlotContentsSoftly(ILnet/minecraft/item/ItemStack;)V",
+                    remap = false))
     public void setOutputSlot(TileArcaneWorkbench instance, int i, ItemStack itemStack, Operation<Void> original) {
         salisArcana$outputSlot.setInventorySlotContents(0, itemStack);
     }
 
     @WrapOperation(
-        method = "onCraftMatrixChanged",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;getStackInSlot(I)Lnet/minecraft/item/ItemStack;",
-            ordinal = 1))
+            method = "onCraftMatrixChanged",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/tiles/TileArcaneWorkbench;getStackInSlot(I)Lnet/minecraft/item/ItemStack;",
+                    ordinal = 1))
     public ItemStack getOutputSlot(TileArcaneWorkbench instance, int i, Operation<ItemStack> original) {
         return salisArcana$outputSlot.getStackInSlot(0);
     }

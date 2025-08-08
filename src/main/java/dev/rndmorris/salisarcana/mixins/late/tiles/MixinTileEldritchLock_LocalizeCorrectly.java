@@ -18,20 +18,20 @@ import thaumcraft.common.tiles.TileEldritchLock;
 public class MixinTileEldritchLock_LocalizeCorrectly {
 
     @WrapOperation(
-        method = { "spawnWardenBossRoom", "spawnGolemBossRoom", "spawnCultistBossRoom", "spawnTaintBossRoom" },
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
+            method = { "spawnWardenBossRoom", "spawnGolemBossRoom", "spawnCultistBossRoom", "spawnTaintBossRoom" },
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;"))
     public String captureKey(String langKey, Operation<String> original, @Share("key") LocalRef<String> key) {
         key.set(langKey);
         return "";
     }
 
     @ModifyArg(
-        method = { "spawnWardenBossRoom", "spawnGolemBossRoom", "spawnCultistBossRoom", "spawnTaintBossRoom" },
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
+            method = { "spawnWardenBossRoom", "spawnGolemBossRoom", "spawnCultistBossRoom", "spawnTaintBossRoom" },
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V"))
     public IChatComponent replaceComponent(IChatComponent original, @Share("key") LocalRef<String> key) {
         return new ChatComponentTranslation(key.get());
     }

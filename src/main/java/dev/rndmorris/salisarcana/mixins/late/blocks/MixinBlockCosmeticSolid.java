@@ -22,7 +22,7 @@ public abstract class MixinBlockCosmeticSolid extends Block {
 
     @Inject(method = "isBeaconBase", at = @At("HEAD"), cancellable = true, remap = false)
     public void onIsBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ,
-        CallbackInfoReturnable<Boolean> cir) {
+            CallbackInfoReturnable<Boolean> cir) {
         final var metadata = worldObj.getBlockMetadata(x, y, z);
 
         cir.setReturnValue(bugfixes.beaconBlockFixSetting.isBeaconMetadata(metadata));

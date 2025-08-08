@@ -40,10 +40,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             return false;
         }
 
-        return ThaumcraftApiHelper.isResearchComplete(
-            player.getCommandSenderName(),
-            scanResult.newRod()
-                .getResearch());
+        return ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), scanResult.newRod().getResearch());
     }
 
     @Override
@@ -57,8 +54,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             return null;
         }
 
-        final var outputItem = scanResult.wandItem()
-            .copy();
+        final var outputItem = scanResult.wandItem().copy();
         wandInstance.setRod(outputItem, scanResult.newRod());
 
         if (SalisConfig.features.preserveWandVis.isEnabled()) {
@@ -102,8 +98,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             return null;
         }
 
-        final var cost = scanResult.wandType()
-            .getCraftingVisCost(scanResult.wandCaps(), scanResult.newRod());
+        final var cost = scanResult.wandType().getCraftingVisCost(scanResult.wandCaps(), scanResult.newRod());
         if (cost < 0) {
             return new AspectList();
         }
@@ -195,8 +190,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
         if (scan == null || scan.invalidInputs()) {
             return new String[] { getResearch() };
         }
-        return new String[] { getResearch(), scan.newRod()
-            .getResearch() };
+        return new String[] { getResearch(), scan.newRod().getResearch() };
     }
 
     private static class InvScanResult {
@@ -233,8 +227,8 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
         public boolean equals(Object o) {
             if (!(o instanceof InvScanResult that)) return false;
             return screws == that.screws && conductors == that.conductors
-                && Objects.equals(wandItem, that.wandItem)
-                && Objects.equals(newRod, that.newRod);
+                    && Objects.equals(wandItem, that.wandItem)
+                    && Objects.equals(newRod, that.newRod);
         }
 
         @Override

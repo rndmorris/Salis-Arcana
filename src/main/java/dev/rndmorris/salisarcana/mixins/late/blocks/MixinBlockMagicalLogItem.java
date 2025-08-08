@@ -11,8 +11,8 @@ import thaumcraft.common.blocks.BlockMagicalLogItem;
 public class MixinBlockMagicalLogItem {
 
     @ModifyExpressionValue(
-        method = "getUnlocalizedName",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getItemDamage()I"))
+            method = "getUnlocalizedName",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getItemDamage()I"))
     public int limitToValidMetadata(int original) {
         return original & 3;
     }

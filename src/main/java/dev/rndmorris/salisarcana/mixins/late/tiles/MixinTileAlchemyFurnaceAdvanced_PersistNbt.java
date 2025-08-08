@@ -34,10 +34,10 @@ public abstract class MixinTileAlchemyFurnaceAdvanced_PersistNbt extends TileTha
 
         try {
             count = nbtCompound.hasKey(sa$keyCount, Constants.NBT.TAG_INT) ? nbtCompound.getInteger(sa$keyCount)
-                // The TE's worldObj is usually null when the TE is first being loaded
-                // in my experience, so we need fallbacks
-                : (worldObj != null && worldObj.rand != null ? worldObj.rand
-                    : WorldProvider.getProviderForDimension(0).worldObj.rand).nextInt(countLimit);
+                    // The TE's worldObj is usually null when the TE is first being loaded
+                    // in my experience, so we need fallbacks
+                    : (worldObj != null && worldObj.rand != null ? worldObj.rand
+                            : WorldProvider.getProviderForDimension(0).worldObj.rand).nextInt(countLimit);
         } catch (RuntimeException re) {
             // technically a possibility with `getProviderForDimension`,
             // but it should hopefully never happen

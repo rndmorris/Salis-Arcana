@@ -18,31 +18,31 @@ import thaumcraft.common.tiles.TileThaumatorium;
 public abstract class MixinContainerThaumatorium_MultiContainer extends Container {
 
     @WrapOperation(
-        method = "<init>",
-        at = @At(
-            value = "FIELD",
-            target = "Lthaumcraft/common/tiles/TileThaumatorium;eventHandler:Lnet/minecraft/inventory/Container;",
-            opcode = Opcodes.PUTFIELD,
-            remap = false),
-        remap = false)
+            method = "<init>",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/tiles/TileThaumatorium;eventHandler:Lnet/minecraft/inventory/Container;",
+                    opcode = Opcodes.PUTFIELD,
+                    remap = false),
+            remap = false)
     public void setEventHandler(TileThaumatorium instance, Container value, Operation<Void> original) {
         original.call(instance, MultiContainer.mergeContainers(instance.eventHandler, value));
     }
 
     @WrapOperation(
-        method = "onContainerClosed",
-        at = @At(
-            value = "FIELD",
-            target = "Lthaumcraft/common/tiles/TileThaumatorium;eventHandler:Lnet/minecraft/inventory/Container;",
-            opcode = Opcodes.PUTFIELD,
-            remap = false))
+            method = "onContainerClosed",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lthaumcraft/common/tiles/TileThaumatorium;eventHandler:Lnet/minecraft/inventory/Container;",
+                    opcode = Opcodes.PUTFIELD,
+                    remap = false))
     public void removeEventHandler(TileThaumatorium instance, Container value, Operation<Void> original) {
         original.call(instance, MultiContainer.removeContainer(instance.eventHandler, this));
     }
 
     @ModifyExpressionValue(
-        method = "onContainerClosed",
-        at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z", opcode = Opcodes.GETFIELD))
+            method = "onContainerClosed",
+            at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z", opcode = Opcodes.GETFIELD))
     public boolean removeClientEventHandlerOnClose(boolean initial) {
         return false;
     }

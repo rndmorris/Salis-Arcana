@@ -47,8 +47,8 @@ public abstract class ConfigGroup implements IEnabler, IHaveSettings {
     }
 
     /**
-     * The unique id string of the group. Used as part of the group's "Enable" config option name.
-     * This should also be the name, or the prefix of the name, of any configuration categories this group reads.
+     * The unique id string of the group. Used as part of the group's "Enable" config option name. This should also be
+     * the name, or the prefix of the name, of any configuration categories this group reads.
      */
     @Nonnull
     public abstract String getGroupName();

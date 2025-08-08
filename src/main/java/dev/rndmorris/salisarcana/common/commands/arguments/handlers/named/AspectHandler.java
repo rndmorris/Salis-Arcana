@@ -27,8 +27,7 @@ public class AspectHandler implements INamedArgumentHandler {
         String peeked;
         do {
             final var tag = args.hasNext() ? args.next() : "";
-            final var aspect = AspectHelper.aspectsCI()
-                .get(tag);
+            final var aspect = AspectHelper.aspectsCI().get(tag);
             if (aspect == null) {
                 throw new CommandException("salisarcana:error.invalid_aspect", tag);
             }
@@ -45,8 +44,7 @@ public class AspectHandler implements INamedArgumentHandler {
         String peeked = null;
         do {
             final var tag = args.next();
-            final var aspect = AspectHelper.aspectsCI()
-                .get(tag);
+            final var aspect = AspectHelper.aspectsCI().get(tag);
             if (aspect == null) {
                 continue;
             }
@@ -54,10 +52,8 @@ public class AspectHandler implements INamedArgumentHandler {
         } while (args.hasNext() && (peeked = args.peek()) != null && !peeked.startsWith("-"));
 
         if (!args.hasNext() || (peeked != null && !peeked.startsWith("-"))) {
-            return AspectHelper.aspectsExcept(alreadyIncluded)
-                .stream()
-                .map(Aspect::getTag)
-                .collect(Collectors.toList());
+            return AspectHelper.aspectsExcept(alreadyIncluded).stream().map(Aspect::getTag)
+                    .collect(Collectors.toList());
         }
 
         return null;

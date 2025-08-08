@@ -22,8 +22,7 @@ public class ResearchKeyHandler implements INamedArgumentHandler, IPositionalArg
     @Override
     public Object parse(ICommandSender sender, PeekingIterator<String> args) {
         final var current = args.next();
-        final var results = allResearchKeys().filter(current::equals)
-            .collect(Collectors.toList());
+        final var results = allResearchKeys().filter(current::equals).collect(Collectors.toList());
         if (results.isEmpty()) {
             throw new CommandException("salisarcana:error.unknown_research", current);
         }
@@ -47,10 +46,6 @@ public class ResearchKeyHandler implements INamedArgumentHandler, IPositionalArg
     }
 
     private Stream<String> allResearchKeys() {
-        return ResearchCategories.researchCategories.values()
-            .stream()
-            .flatMap(
-                c -> c.research.keySet()
-                    .stream());
+        return ResearchCategories.researchCategories.values().stream().flatMap(c -> c.research.keySet().stream());
     }
 }

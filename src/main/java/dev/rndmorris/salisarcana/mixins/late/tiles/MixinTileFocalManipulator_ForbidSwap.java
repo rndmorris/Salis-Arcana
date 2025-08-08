@@ -15,11 +15,11 @@ public class MixinTileFocalManipulator_ForbidSwap {
     public int size;
 
     @Inject(
-        method = "updateEntity",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/World;playSoundEffect(DDDLjava/lang/String;FF)V",
-            ordinal = 0))
+            method = "updateEntity",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/World;playSoundEffect(DDDLjava/lang/String;FF)V",
+                    ordinal = 0))
     public void cancelCraft(CallbackInfo ci) {
         this.size = 0;
     }

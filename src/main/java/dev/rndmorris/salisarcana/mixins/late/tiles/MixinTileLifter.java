@@ -21,21 +21,21 @@ public abstract class MixinTileLifter extends TileEntity {
     public int rangeAbove;
 
     @Inject(
-        method = "updateEntity",
-        at = @At(
-            value = "INVOKE_ASSIGN",
-            target = "Lnet/minecraft/world/World;getEntitiesWithinAABB(Ljava/lang/Class;Lnet/minecraft/util/AxisAlignedBB;)Ljava/util/List;"),
-        cancellable = true)
+            method = "updateEntity",
+            at = @At(
+                    value = "INVOKE_ASSIGN",
+                    target = "Lnet/minecraft/world/World;getEntitiesWithinAABB(Ljava/lang/Class;Lnet/minecraft/util/AxisAlignedBB;)Ljava/util/List;"),
+            cancellable = true)
     private void mixinUpdateEntity(CallbackInfo ci) {
         List<Entity> targets = this.worldObj.getEntitiesWithinAABB(
-            Entity.class,
-            AxisAlignedBB.getBoundingBox(
-                this.xCoord,
-                this.yCoord + 1,
-                this.zCoord,
-                this.xCoord + 1,
-                this.yCoord + 1 + this.rangeAbove,
-                this.zCoord + 1));
+                Entity.class,
+                AxisAlignedBB.getBoundingBox(
+                        this.xCoord,
+                        this.yCoord + 1,
+                        this.zCoord,
+                        this.xCoord + 1,
+                        this.yCoord + 1 + this.rangeAbove,
+                        this.zCoord + 1));
         if (!targets.isEmpty()) {
             for (Entity e : targets) {
                 if (e.isSneaking()) {

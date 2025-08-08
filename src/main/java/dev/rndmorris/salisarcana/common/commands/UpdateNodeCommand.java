@@ -48,29 +48,22 @@ public class UpdateNodeCommand extends ArcanaCommandBase<UpdateNodeCommand.Argum
 
         if (!arguments.removeAspects.isEmpty()) {
             for (var aspect : arguments.removeAspects) {
-                node.getAspectsBase()
-                    .remove(aspect);
-                node.getAspects()
-                    .remove(aspect);
+                node.getAspectsBase().remove(aspect);
+                node.getAspects().remove(aspect);
             }
         }
 
         if (!arguments.addAspects.isEmpty()) {
             for (var aspect : arguments.addAspects) {
-                node.getAspectsBase()
-                    .remove(aspect.aspect);
-                node.getAspects()
-                    .remove(aspect.aspect);
+                node.getAspectsBase().remove(aspect.aspect);
+                node.getAspects().remove(aspect.aspect);
 
-                node.getAspectsBase()
-                    .add(aspect.aspect, aspect.amount);
-                node.getAspects()
-                    .add(aspect.aspect, aspect.amount);
+                node.getAspectsBase().add(aspect.aspect, aspect.amount);
+                node.getAspects().add(aspect.aspect, aspect.amount);
             }
         }
 
-        if (node.getAspects()
-            .visSize() <= 0) {
+        if (node.getAspects().visSize() <= 0) {
             world.setBlockToAir(pos.x, pos.y, pos.z);
             return;
         }
@@ -82,10 +75,10 @@ public class UpdateNodeCommand extends ArcanaCommandBase<UpdateNodeCommand.Argum
     @Override
     protected @Nonnull ArgumentProcessor<Arguments> initializeProcessor() {
         return new ArgumentProcessor<>(
-            Arguments.class,
-            Arguments::new,
-            new IArgumentHandler[] { CoordinateHandler.INSTANCE, NodeTypeHandler.INSTANCE, NodeModifierHandler.INSTANCE,
-                QuantitativeAspectHandler.INSTANCE, AspectHandler.INSTANCE });
+                Arguments.class,
+                Arguments::new,
+                new IArgumentHandler[] { CoordinateHandler.INSTANCE, NodeTypeHandler.INSTANCE,
+                        NodeModifierHandler.INSTANCE, QuantitativeAspectHandler.INSTANCE, AspectHandler.INSTANCE });
     }
 
     @Override

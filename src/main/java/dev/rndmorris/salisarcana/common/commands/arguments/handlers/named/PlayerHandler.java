@@ -34,9 +34,7 @@ public class PlayerHandler implements INamedArgumentHandler {
         if (args.hasNext()) {
             return null;
         }
-        return Arrays.asList(
-            MinecraftServer.getServer()
-                .getAllUsernames());
+        return Arrays.asList(MinecraftServer.getServer().getAllUsernames());
     }
 
     @Nonnull

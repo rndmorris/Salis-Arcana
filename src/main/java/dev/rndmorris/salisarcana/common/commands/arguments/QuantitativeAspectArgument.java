@@ -7,7 +7,7 @@ import thaumcraft.api.aspects.Aspect;
 public class QuantitativeAspectArgument {
 
     public static final Comparator<QuantitativeAspectArgument> COMPARATOR = Comparator
-        .comparing(q -> q.aspect.getTag());
+            .comparing(q -> q.aspect.getTag());
 
     public final Aspect aspect;
     public final int amount;

@@ -45,8 +45,7 @@ public class CustomRecipes {
 
         if (features.lessPickyPrimalCharmRecipe.isEnabled()) {
             // noinspection unchecked
-            ThaumcraftApi.getCraftingRecipes()
-                .add(new RecipeForgivingPrimalCharm());
+            ThaumcraftApi.getCraftingRecipes().add(new RecipeForgivingPrimalCharm());
         }
 
         if (features.rotatedThaumometerRecipe.isEnabled()) {
@@ -59,33 +58,32 @@ public class CustomRecipes {
 
         if (features.replaceWandCapsSettings.isEnabled()) {
             // noinspection unchecked
-            ThaumcraftApi.getCraftingRecipes()
-                .add(replaceWandCapsRecipe = new ReplaceWandCapsRecipe());
+            ThaumcraftApi.getCraftingRecipes().add(replaceWandCapsRecipe = new ReplaceWandCapsRecipe());
         }
 
         if (features.replaceWandCoreSettings.isEnabled()) {
             // noinspection unchecked
-            ThaumcraftApi.getCraftingRecipes()
-                .add(replaceWandCoreRecipe = new ReplaceWandCoreRecipe());
+            ThaumcraftApi.getCraftingRecipes().add(replaceWandCoreRecipe = new ReplaceWandCoreRecipe());
         }
 
         if (features.rottenFleshRecipe.isEnabled()) {
-            GameRegistry
-                .addShapelessRecipe(new ItemStack(Items.rotten_flesh, 9), new ItemStack(ConfigBlocks.blockTaint, 1, 2));
+            GameRegistry.addShapelessRecipe(
+                    new ItemStack(Items.rotten_flesh, 9),
+                    new ItemStack(ConfigBlocks.blockTaint, 1, 2));
         }
 
         if (features.crystalClusterUncrafting.isEnabled()) {
             for (var metadata = 0; metadata <= 5; ++metadata) {
                 GameRegistry.addShapelessRecipe(
-                    new ItemStack(ConfigItems.itemShard, 6, metadata),
-                    new ItemStack(ConfigBlocks.blockCrystal, 1, metadata));
+                        new ItemStack(ConfigItems.itemShard, 6, metadata),
+                        new ItemStack(ConfigBlocks.blockCrystal, 1, metadata));
             }
         }
 
         if (features.addEmptyPhialJarRecipes.isEnabled()) {
             GameRegistry.addShapelessRecipe(
-                new ItemStack(ConfigItems.itemEssence, 1),
-                new ItemStack(ConfigItems.itemEssence, 1, 1));
+                    new ItemStack(ConfigItems.itemEssence, 1),
+                    new ItemStack(ConfigItems.itemEssence, 1, 1));
 
             GameRegistry.addRecipe(new EmptyJarRecipe());
         }
@@ -113,54 +111,54 @@ public class CustomRecipes {
         conversionOutput.stackSize = 8;
 
         GameRegistry.addShapelessRecipe(
-            conversionOutput,
-            thaumGreatwoodPlanks,
-            thaumGreatwoodPlanks,
-            thaumGreatwoodPlanks,
-            thaumGreatwoodPlanks,
-            thaumGreatwoodPlanks,
-            thaumGreatwoodPlanks,
-            thaumGreatwoodPlanks,
-            thaumGreatwoodPlanks);
+                conversionOutput,
+                thaumGreatwoodPlanks,
+                thaumGreatwoodPlanks,
+                thaumGreatwoodPlanks,
+                thaumGreatwoodPlanks,
+                thaumGreatwoodPlanks,
+                thaumGreatwoodPlanks,
+                thaumGreatwoodPlanks,
+                thaumGreatwoodPlanks);
 
         conversionOutput = arcanaSilverwoodPlanks.copy();
         conversionOutput.stackSize = 8;
         GameRegistry.addShapelessRecipe(
-            conversionOutput,
-            thaumSilverwoodPlanks,
-            thaumSilverwoodPlanks,
-            thaumSilverwoodPlanks,
-            thaumSilverwoodPlanks,
-            thaumSilverwoodPlanks,
-            thaumSilverwoodPlanks,
-            thaumSilverwoodPlanks,
-            thaumSilverwoodPlanks);
+                conversionOutput,
+                thaumSilverwoodPlanks,
+                thaumSilverwoodPlanks,
+                thaumSilverwoodPlanks,
+                thaumSilverwoodPlanks,
+                thaumSilverwoodPlanks,
+                thaumSilverwoodPlanks,
+                thaumSilverwoodPlanks,
+                thaumSilverwoodPlanks);
 
         conversionOutput = thaumGreatwoodPlanks.copy();
         conversionOutput.stackSize = 8;
         GameRegistry.addShapelessRecipe(
-            conversionOutput,
-            arcanaGreatwoodPlanks,
-            arcanaGreatwoodPlanks,
-            arcanaGreatwoodPlanks,
-            arcanaGreatwoodPlanks,
-            arcanaGreatwoodPlanks,
-            arcanaGreatwoodPlanks,
-            arcanaGreatwoodPlanks,
-            arcanaGreatwoodPlanks);
+                conversionOutput,
+                arcanaGreatwoodPlanks,
+                arcanaGreatwoodPlanks,
+                arcanaGreatwoodPlanks,
+                arcanaGreatwoodPlanks,
+                arcanaGreatwoodPlanks,
+                arcanaGreatwoodPlanks,
+                arcanaGreatwoodPlanks,
+                arcanaGreatwoodPlanks);
 
         conversionOutput = thaumSilverwoodPlanks.copy();
         conversionOutput.stackSize = 8;
         GameRegistry.addShapelessRecipe(
-            conversionOutput,
-            arcanaSilverwoodPlanks,
-            arcanaSilverwoodPlanks,
-            arcanaSilverwoodPlanks,
-            arcanaSilverwoodPlanks,
-            arcanaSilverwoodPlanks,
-            arcanaSilverwoodPlanks,
-            arcanaSilverwoodPlanks,
-            arcanaSilverwoodPlanks);
+                conversionOutput,
+                arcanaSilverwoodPlanks,
+                arcanaSilverwoodPlanks,
+                arcanaSilverwoodPlanks,
+                arcanaSilverwoodPlanks,
+                arcanaSilverwoodPlanks,
+                arcanaSilverwoodPlanks,
+                arcanaSilverwoodPlanks,
+                arcanaSilverwoodPlanks);
 
         // Greatwood Slabs
         final var greatwoodSlabs = new ItemStack(ConfigBlocks.blockSlabWood, 6, 0);
@@ -174,23 +172,23 @@ public class CustomRecipes {
 
         // Greatwood Stairs
         GameRegistry.addRecipe(
-            new ShapedOreRecipe(
-                new ItemStack(ConfigBlocks.blockStairsGreatwood, 4, 0),
-                "P  ",
-                "PP ",
-                "PPP",
-                'P',
-                OreDict.GREATWOOD_PLANKS));
+                new ShapedOreRecipe(
+                        new ItemStack(ConfigBlocks.blockStairsGreatwood, 4, 0),
+                        "P  ",
+                        "PP ",
+                        "PPP",
+                        'P',
+                        OreDict.GREATWOOD_PLANKS));
 
         // Silverwood Stairs
         GameRegistry.addRecipe(
-            new ShapedOreRecipe(
-                new ItemStack(ConfigBlocks.blockStairsSilverwood, 4, 0),
-                "P  ",
-                "PP ",
-                "PPP",
-                'P',
-                OreDict.SILVERWOOD_PLANKS));
+                new ShapedOreRecipe(
+                        new ItemStack(ConfigBlocks.blockStairsSilverwood, 4, 0),
+                        "P  ",
+                        "PP ",
+                        "PPP",
+                        'P',
+                        OreDict.SILVERWOOD_PLANKS));
     }
 
     private static void registerSlabRecipes(ItemStack output, ItemStack tcPlanks, ItemStack tfPlanks) {
@@ -237,16 +235,16 @@ public class CustomRecipes {
 
     private static void registerRotatedThaumometer() {
         final var recipe = new ShapedOreRecipe(
-            ConfigItems.itemThaumometer,
-            " I ",
-            "SGS",
-            " I ",
-            'I',
-            Items.gold_ingot,
-            'G',
-            Blocks.glass,
-            'S',
-            new ItemStack(ConfigItems.itemShard, 1, OreDictionary.WILDCARD_VALUE));
+                ConfigItems.itemThaumometer,
+                " I ",
+                "SGS",
+                " I ",
+                'I',
+                Items.gold_ingot,
+                'G',
+                Blocks.glass,
+                'S',
+                new ItemStack(ConfigItems.itemShard, 1, OreDictionary.WILDCARD_VALUE));
         GameRegistry.addRecipe(recipe);
     }
 
@@ -254,40 +252,39 @@ public class CustomRecipes {
         final var toFind = new HashSet<Item>();
         final var toAdd = new ArrayList<ShapedArcaneRecipe>();
         Collections.addAll(
-            toFind,
-            ConfigItems.itemFocusFire,
-            ConfigItems.itemFocusShock,
-            ConfigItems.itemFocusFrost,
-            ConfigItems.itemFocusTrade,
-            ConfigItems.itemFocusExcavation,
-            ConfigItems.itemFocusPrimal);
+                toFind,
+                ConfigItems.itemFocusFire,
+                ConfigItems.itemFocusShock,
+                ConfigItems.itemFocusFrost,
+                ConfigItems.itemFocusTrade,
+                ConfigItems.itemFocusExcavation,
+                ConfigItems.itemFocusPrimal);
 
         for (var recipe : ThaumcraftApi.getCraftingRecipes()) {
             ItemStack output;
             Item outputItem;
             if (recipe instanceof ShapedArcaneRecipe arcaneRecipe && (output = arcaneRecipe.getRecipeOutput()) != null
-                && (outputItem = output.getItem()) != null
-                && toFind.contains(outputItem)) {
+                    && (outputItem = output.getItem()) != null
+                    && toFind.contains(outputItem)) {
                 toAdd.add(createCopy(arcaneRecipe));
                 toFind.remove(outputItem);
             }
         }
 
         // noinspection unchecked
-        ThaumcraftApi.getCraftingRecipes()
-            .addAll(toAdd);
+        ThaumcraftApi.getCraftingRecipes().addAll(toAdd);
     }
 
     private static ShapedArcaneRecipe createCopy(ShapedArcaneRecipe inputRecipe) {
         final var newRecipe = new ShapedArcaneRecipe(
-            "DUMMY",
-            new ItemStack(Items.stick),
-            new AspectList(),
-            "   ",
-            " S ",
-            "   ",
-            'S',
-            Items.stick);
+                "DUMMY",
+                new ItemStack(Items.stick),
+                new AspectList(),
+                "   ",
+                " S ",
+                "   ",
+                'S',
+                Items.stick);
         newRecipe.output = inputRecipe.output;
         newRecipe.input = copyRotated(inputRecipe.input);
         newRecipe.aspects = inputRecipe.aspects.copy();

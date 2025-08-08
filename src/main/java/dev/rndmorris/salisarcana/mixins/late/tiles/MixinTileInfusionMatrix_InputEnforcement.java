@@ -14,12 +14,12 @@ import thaumcraft.common.tiles.TileInfusionMatrix;
 public class MixinTileInfusionMatrix_InputEnforcement {
 
     @WrapOperation(
-        method = "craftCycle",
-        at = @At(
-            value = "INVOKE",
-            target = "Lthaumcraft/common/lib/utils/InventoryUtils;areItemStacksEqualForCrafting(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;ZZZ)Z"))
+            method = "craftCycle",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lthaumcraft/common/lib/utils/InventoryUtils;areItemStacksEqualForCrafting(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;ZZZ)Z"))
     private boolean mixinCraftCycle(ItemStack fromPedestal, ItemStack recipeInput, boolean useOre, boolean ignoreDamage,
-        boolean ignoreNBT, Operation<Boolean> original) {
+            boolean ignoreNBT, Operation<Boolean> original) {
 
         // we just need to know that the input item and the item on the pedestal are the exact same item
         // ore dict stuff is irrelevant here

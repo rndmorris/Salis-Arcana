@@ -15,8 +15,8 @@ import thaumcraft.common.items.ItemResource;
 public abstract class MixinItemResource_DecayChance {
 
     @WrapOperation(
-        method = "onUpdate",
-        at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", remap = false))
+            method = "onUpdate",
+            at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", remap = false))
     private int disableCreativeDecay(Random instance, int i, Operation<Integer> original) {
         final var bound = SalisConfig.features.taintedItemDecayChance.getValue();
         if (bound < 0) {
