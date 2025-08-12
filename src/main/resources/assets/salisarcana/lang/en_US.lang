@@ -194,3 +194,27 @@ salisarcana:wand_cap.vis_discount.generic=§5Discount: %s
 salisarcana:wand_cap.vis_discount.aspect=%s §5Discount: %s
 salisarcana:wand_rod.vis_capacity=§5Capacity: %s vis
 salisarcana:wand_rod.runes=§5+1 Potency§2 for any equipped focus
+
+salisarcana:wand_rod.special.obsidian=§5Regenerates §21 Terra§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.obsidian_staff=§5Regenerates §21 Terra§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.blaze=§5Regenerates §c1 Ignis§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.blaze_staff=§5Regenerates §c1 Ignis§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.ice=§5Regenerates §31 Aqua§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.ice_staff=§5Regenerates §31 Aqua§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.quartz=§5Regenerates §71 Ordo§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.quartz_staff=§5Regenerates §71 Ordo§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.bone=§5Regenerates §81 Perditio§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.bone_staff=§5Regenerates §81 Perditio§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.reed=§5Regenerates §e1 Aer§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.reed_staff=§5Regenerates §e1 Aer§5 vis every 10 seconds (max 10% vis)
+salisarcana:wand_rod.special.primal_staff=§5Regenerates 1 vis of a random aspect every 2.5 seconds (max 10% vis)
+
+salisarcana:wand_rod.special.warpwood=§5Regenerates 1 vis of every aspect, rate increases the more permanent warp you have (max 100% vis)
+salisarcana:wand_rod.special.warpwood_staff=§5Regenerates 1 vis of every aspect, rate increases the more permanent warp you have (max 100% vis)
+
+salisarcana:wand_rod.special.AMBER=§5Regenerates 1 vis of every aspect every 5 seconds (max 100% vis)
+salisarcana:wand_rod.special.AMBER_staff=§5Regenerates 1 vis of every aspect every 5 seconds (max 100% vis)
+salisarcana:wand_rod.special.BREAD=§6Sentient, French, and quite chatty!
+salisarcana:wand_rod.special.TRANSMUTATION=§5Instantly refills any aspects below 90% vis by transmuting other aspects above 90% vis.
+salisarcana:wand_rod.special.TRANSMUTATION_staff=§5Instantly refills any aspects below 90% vis by transmuting other aspects above 90% vis.
+salisarcana:wand_rod.special.NECROMANCER_staff=§5Quadruples the vis collected from aspect orbs from mobs, loses 25% of vis from all other sources.

@@ -9,7 +9,9 @@ import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.wands.StaffRod;
+import thaumcraft.common.config.ConfigItems;
 
 public class WandPartTooltipEventHandler {
 
@@ -24,6 +26,9 @@ public class WandPartTooltipEventHandler {
 
         final var wandCap = WandHelper.getWandCapFromItem(event.itemStack);
         final var wandRod = WandHelper.getWandRodFromItem(event.itemStack);
+
+        if (wandCap != null && ResearchCategories.getResearch(wandCap.getResearch()) == null) return;
+        if (wandRod != null && ResearchCategories.getResearch(wandRod.getResearch()) == null) return;
 
         if (!expandText && (wandCap != null || wandRod != null)) {
             event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_part.show_details"));
@@ -56,8 +61,13 @@ public class WandPartTooltipEventHandler {
                 }
             }
 
-            if (wandCap.getTag()
-                .equals("iron")) {
+            final String specialLangKey = "salisarcana:wand_cap.special." + wandCap.getTag();
+            final String specialText = StatCollector.translateToLocal(specialLangKey);
+            if (specialLangKey != specialText) {
+                event.toolTip.add(specialText);
+            }
+
+            if (wandCap == ConfigItems.WAND_CAP_IRON) {
                 event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_part.cannot_preserve_node"));
             }
         } else if (wandRod != null) {
@@ -68,8 +78,13 @@ public class WandPartTooltipEventHandler {
                 event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_rod.runes"));
             }
 
-            if (wandRod.getTag()
-                .equals("wood")) {
+            final String specialLangKey = "salisarcana:wand_rod.special." + wandRod.getTag();
+            final String specialText = StatCollector.translateToLocal(specialLangKey);
+            if (specialLangKey != specialText) {
+                event.toolTip.add(specialText);
+            }
+
+            if (wandRod == ConfigItems.WAND_ROD_WOOD) {
                 event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_part.cannot_preserve_node"));
             }
         }
