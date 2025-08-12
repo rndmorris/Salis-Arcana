@@ -188,7 +188,9 @@ salisarcana:misc.mirror.already_linked=That mirror is already linked to a valid 
 salisarcana:misc.arcane_key.creator=§5§oCreated by: %s
 salisarcana:misc.arcane_key.dimension= (dimension %s)
 
+salisarcana:wand_part.show_details=§8Hold §6CTRL§8 to show Thaumcraft Wand stats
+salisarcana:wand_part.cannot_preserve_node=§4Cannot preserve nodes!
 salisarcana:wand_cap.vis_discount.generic=§5Discount: %s
-salisarcana:wand_cap.vis_discount.aspect=%s Discount: %s
+salisarcana:wand_cap.vis_discount.aspect=%s §5Discount: %s
 salisarcana:wand_rod.vis_capacity=§5Capacity: %s vis
 salisarcana:wand_rod.runes=§5+1 Potency§2 for any equipped focus

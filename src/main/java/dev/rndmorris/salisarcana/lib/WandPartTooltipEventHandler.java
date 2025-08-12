@@ -5,6 +5,8 @@ import java.text.NumberFormat;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.wands.StaffRod;
@@ -18,7 +20,16 @@ public class WandPartTooltipEventHandler {
 
     @SubscribeEvent
     public void renderTooltip(ItemTooltipEvent event) {
+        final boolean expandText = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
+
         final var wandCap = WandHelper.getWandCapFromItem(event.itemStack);
+        final var wandRod = WandHelper.getWandRodFromItem(event.itemStack);
+
+        if (!expandText && (wandCap != null || wandRod != null)) {
+            event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_part.show_details"));
+            return;
+        }
+
         if (wandCap != null) {
             final float baseCost = wandCap.getBaseCostModifier();
             final float specialCost = wandCap.getSpecialCostModifier();
@@ -35,7 +46,7 @@ public class WandPartTooltipEventHandler {
                     + PERCENT_FORMAT.format(1f - specialCost);
 
                 for (final Aspect primal : PRIMALS) {
-                    final String primalName = "§" + primal.getChatcolor() + primal.getName() + "§5";
+                    final String primalName = "§" + primal.getChatcolor() + primal.getName();
 
                     event.toolTip.add(
                         StatCollector.translateToLocalFormatted(
@@ -44,16 +55,22 @@ public class WandPartTooltipEventHandler {
                             specialAspects.contains(primal) ? specialCostString : baseCostString));
                 }
             }
-            return;
-        }
 
-        final var wandRod = WandHelper.getWandRodFromItem(event.itemStack);
-        if (wandRod != null) {
+            if (wandCap.getTag()
+                .equals("iron")) {
+                event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_part.cannot_preserve_node"));
+            }
+        } else if (wandRod != null) {
             event.toolTip.add(
                 StatCollector.translateToLocalFormatted("salisarcana:wand_rod.vis_capacity", wandRod.getCapacity()));
 
             if (wandRod instanceof StaffRod staff && staff.hasRunes()) {
                 event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_rod.runes"));
+            }
+
+            if (wandRod.getTag()
+                .equals("wood")) {
+                event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_part.cannot_preserve_node"));
             }
         }
     }
