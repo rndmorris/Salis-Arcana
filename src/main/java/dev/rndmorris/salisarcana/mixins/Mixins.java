@@ -200,6 +200,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.earthShockRequireSolidGround)
         .addCommonMixins("entities.MixinEntityShockOrb_CheckSolidGround", "blocks.MixinBlockAiry_EarthShockCheckSolidGround")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    DEFAULT_WAND_COMPONENTS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.unknownWandComponentSupport)
+        .addCommonMixins("items.MixinItemWandCasting_DefaultWandComponents")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()

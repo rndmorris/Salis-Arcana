@@ -225,6 +225,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "earthShockRequireSolidGround",
         "Requires the spark blocks left behind by Wand Focus: Shock with the Earth Shock upgrade to have a solid block beneath them to exist.");
 
+    public final ToggleSetting unknownWandComponentSupport = new ToggleSetting(
+        this,
+        "unknownWandComponentSupport",
+        "Prevents wand items from crashing everything when they contain a component which hasn't been registered by any mod.");
+
     @Nonnull
     @Override
     public String getGroupName() {

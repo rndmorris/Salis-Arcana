@@ -5,8 +5,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
+import dev.rndmorris.salisarcana.SalisArcana;
+import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
@@ -149,5 +153,20 @@ public class WandHelper {
             }
         }
         return new ArrayList<>(allVanillaRods);
+    }
+
+    // Unknown Wand Components
+    public static final WandCap CAP_UNKNOWN = new WandCap("salisarcana:unknown", 1f, new ItemStack(Blocks.bedrock), 0);
+    public static final WandRod ROD_UNKNOWN = new WandRod("salisarcana:unknown", 0, new ItemStack(Blocks.bedrock), 0);
+    public static final StaffRod STAFF_UNKNOWN = new StaffRod(
+        "salisarcana:unknown",
+        0,
+        new ItemStack(Blocks.bedrock),
+        0);
+
+    static {
+        CAP_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_cap.png"));
+        ROD_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_rod.png"));
+        STAFF_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_rod.png"));
     }
 }
