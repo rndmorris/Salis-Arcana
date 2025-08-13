@@ -190,3 +190,4 @@ salisarcana:misc.arcane_key.dimension= (dimension %s)
 
 item.Wand.salisarcana:unknown.cap=[INVALID CAP]
 item.Wand.salisarcana:unknown.rod=[INVALID CORE]
+salisarcana:unknown_wand.craft=§4Place in a crafting grid to clear all invalid components.
