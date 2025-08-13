@@ -1,6 +1,7 @@
 package dev.rndmorris.salisarcana.lib;
 
 import java.text.NumberFormat;
+import java.util.List;
 
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -61,11 +62,7 @@ public class WandPartTooltipEventHandler {
                 }
             }
 
-            final String specialLangKey = "salisarcana:wand_cap.special." + wandCap.getTag();
-            final String specialText = StatCollector.translateToLocal(specialLangKey);
-            if (specialLangKey != specialText) {
-                event.toolTip.add(specialText);
-            }
+            addMultilineTranslation(event.toolTip, "salisarcana:wand_cap.special." + wandCap.getTag());
 
             if (wandCap == ConfigItems.WAND_CAP_IRON) {
                 event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_part.cannot_preserve_node"));
@@ -78,15 +75,30 @@ public class WandPartTooltipEventHandler {
                 event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_rod.runes"));
             }
 
-            final String specialLangKey = "salisarcana:wand_rod.special." + wandRod.getTag();
-            final String specialText = StatCollector.translateToLocal(specialLangKey);
-            if (specialLangKey != specialText) {
-                event.toolTip.add(specialText);
-            }
+            addMultilineTranslation(event.toolTip, "salisarcana:wand_rod.special." + wandRod.getTag());
 
             if (wandRod == ConfigItems.WAND_ROD_WOOD) {
                 event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_part.cannot_preserve_node"));
             }
+        }
+    }
+
+    private static void addMultilineTranslation(final List<String> tooltip, final String langKey) {
+        String translation = StatCollector.translateToLocal(langKey);
+        if (translation != langKey) {
+            tooltip.add(translation);
+            return;
+        }
+
+        int keyNum = 1;
+        while (true) {
+            final String langKeyLine = langKey + "." + keyNum;
+            final String line = StatCollector.translateToLocal(langKeyLine);
+
+            if (langKeyLine == line) return;
+
+            tooltip.add(line);
+            keyNum++;
         }
     }
 }
