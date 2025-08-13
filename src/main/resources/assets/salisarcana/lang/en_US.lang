@@ -219,8 +219,8 @@ salisarcana:wand_rod.special.TRANSMUTATION=§5Instantly refills any aspects belo
 salisarcana:wand_rod.special.TRANSMUTATION_staff=§5Instantly refills any aspects below 90% vis by transmuting other aspects above 90% vis.
 salisarcana:wand_rod.special.NECROMANCER_staff=§5Quadruples the vis collected from aspect orbs from mobs, loses 25% of vis from all other sources.
 
-salisarcana:wand_cap.special.manasteel=§525% discount on §bmana costs§5 for regenerating vis.
-salisarcana:wand_cap.special.elementium=§525% discount on §bmana costs§5 for regenerating vis.
+salisarcana:wand_cap.special.manasteel=§525% discount on §bBotania mana drain§5 for regenerating vis.
+salisarcana:wand_cap.special.elementium=§525% discount on §bBotania mana drain§5 for regenerating vis.
 salisarcana:wand_rod.special.livingwood.1=§5Regenerates 1 vis of each aspect every 2 seconds (max 100% vis)
 salisarcana:wand_rod.special.livingwood.2=  §5at the cost of §bsome Botania mana§5.
 salisarcana:wand_rod.special.dreamwood.1=§5Regenerates 1 vis of each aspect every 2 seconds (max 100% vis)
