@@ -196,6 +196,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.extraSecureArcaneKeys)
         .addCommonMixins("items.MixinItemKey_ExtraSecurityChecks")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EARTH_SHOCK_REQUIRE_SOLID_GROUND(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.earthShockRequireSolidGround)
+        .addCommonMixins("entities.MixinEntityShockOrb_CheckSolidGround", "blocks.MixinBlockAiry_EarthShockCheckSolidGround")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
