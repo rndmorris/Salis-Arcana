@@ -238,7 +238,7 @@ salisarcana:wand_rod.special.blood_staff.3=§4Can kill you if you run out of LP!
 salisarcana:wand_rod.special.blood_staff.4=§5Inflicts §8Weakness III§5 on spell targets when combined with Alchemical Caps.
 
 salisarcana:wand_rod.special.infernal.1=§5Regenerates §c1 Ignis§5 vis every 5 seconds (max 20% vis)
-salisarcana:wand_rod.special.infernal.2=§5Regenerates 1 vis of all types every 5 seconds while in the §4Nether§5 (max 10% vis)
+salisarcana:wand_rod.special.infernal.2=§5Regenerates 1 vis of all other types every 5 seconds while in the §4Nether§5 (max 10% vis)
 salisarcana:wand_rod.special.infernal.3=§4Extinguishes fire§5 and removes the §8Wither§5 effect.
 salisarcana:wand_rod.special.profane.1=§5Recovers all consumed vis every second (max 100% vis)
 salisarcana:wand_rod.special.profane.2=  §5at the cost of 1 warp per 25.01 vis.
