@@ -18,7 +18,7 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 @Mixin(ThaumcraftCraftingManager.class)
 public class MixinThaumcraftCraftingManager_UseCache {
 
-    @WrapMethod(method = "findMatchingArcaneRecipe")
+    @WrapMethod(method = "findMatchingArcaneRecipe", remap = false)
     private static ItemStack checkArcaneRecipeCache(IInventory awb, EntityPlayer player,
         Operation<ItemStack> original) {
         if (awb instanceof ICachedMagicWorkbench cache) {
@@ -33,7 +33,7 @@ public class MixinThaumcraftCraftingManager_UseCache {
         return original.call(awb, player);
     }
 
-    @WrapMethod(method = "findMatchingArcaneRecipeAspects")
+    @WrapMethod(method = "findMatchingArcaneRecipeAspects", remap = false)
     private static AspectList checkArcaneRecipeCacheAspects(IInventory awb, EntityPlayer player,
         Operation<AspectList> original) {
         if (awb instanceof ICachedMagicWorkbench cache) {

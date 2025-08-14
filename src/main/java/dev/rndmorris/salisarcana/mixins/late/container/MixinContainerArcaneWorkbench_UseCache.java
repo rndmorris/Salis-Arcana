@@ -19,7 +19,7 @@ import thaumcraft.common.tiles.TileArcaneWorkbench;
 @Mixin(ContainerArcaneWorkbench.class)
 public class MixinContainerArcaneWorkbench_UseCache {
 
-    @Shadow
+    @Shadow(remap = false)
     private TileArcaneWorkbench tileEntity;
 
     @WrapOperation(

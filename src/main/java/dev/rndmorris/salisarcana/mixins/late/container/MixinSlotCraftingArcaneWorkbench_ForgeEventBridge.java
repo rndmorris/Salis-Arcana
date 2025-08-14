@@ -17,14 +17,15 @@ import thaumcraft.common.tiles.TileMagicWorkbench;
 @Mixin(SlotCraftingArcaneWorkbench.class)
 public class MixinSlotCraftingArcaneWorkbench_ForgeEventBridge {
 
-    @Shadow
+    @Shadow(remap = false)
     private EntityPlayer thePlayer;
 
     @ModifyArg(
         method = "onPickupFromSlot",
         at = @At(
             value = "INVOKE",
-            target = "Lcpw/mods/fml/common/FMLCommonHandler;firePlayerCraftingEvent(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/item/ItemStack;Lnet/minecraft/inventory/IInventory;)V"),
+            target = "Lcpw/mods/fml/common/FMLCommonHandler;firePlayerCraftingEvent(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/item/ItemStack;Lnet/minecraft/inventory/IInventory;)V",
+            remap = false),
         index = 2)
     public IInventory wrapEventInventory(IInventory craftMatrix) {
         if (craftMatrix instanceof ICachedMagicWorkbench cache && cache.salisArcana$getMundaneRecipe() != null) {

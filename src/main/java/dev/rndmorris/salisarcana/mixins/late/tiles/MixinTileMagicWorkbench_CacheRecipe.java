@@ -25,7 +25,7 @@ import thaumcraft.common.tiles.TileMagicWorkbench;
 public abstract class MixinTileMagicWorkbench_CacheRecipe extends TileThaumcraft
     implements IInventory, ICachedMagicWorkbench {
 
-    @Shadow
+    @Shadow(remap = false)
     public ItemStack[] stackList;
 
     @Unique
@@ -74,7 +74,7 @@ public abstract class MixinTileMagicWorkbench_CacheRecipe extends TileThaumcraft
         }
     }
 
-    @Inject(method = "readCustomNBT", at = @At("HEAD"))
+    @Inject(method = "readCustomNBT", at = @At("HEAD"), remap = false)
     private void resetCache4(NBTTagCompound par1NBTTagCompound, CallbackInfo ci) {
         this.salisArcana$recipeCacheReady = false;
     }
