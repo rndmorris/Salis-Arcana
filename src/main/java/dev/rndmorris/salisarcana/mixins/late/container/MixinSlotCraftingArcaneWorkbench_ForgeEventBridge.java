@@ -28,8 +28,10 @@ public class MixinSlotCraftingArcaneWorkbench_ForgeEventBridge {
             remap = false),
         index = 2)
     public IInventory wrapEventInventory(IInventory craftMatrix) {
-        if (craftMatrix instanceof ICachedMagicWorkbench cache && cache.salisArcana$getMundaneRecipe() != null) {
-            return new MundaneCraftingBridge((TileMagicWorkbench) craftMatrix);
+        if (craftMatrix instanceof ICachedMagicWorkbench cache) {
+            if (cache.salisArcana$getMundaneRecipe() != null) {
+                return new MundaneCraftingBridge((TileMagicWorkbench) craftMatrix);
+            }
         } else if (craftMatrix.getStackInSlot(10) == null
             || ThaumcraftCraftingManager.findMatchingArcaneRecipeAspects(craftMatrix, this.thePlayer)
                 .size() == 0) {
