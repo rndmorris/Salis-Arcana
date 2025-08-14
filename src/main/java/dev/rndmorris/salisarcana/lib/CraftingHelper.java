@@ -3,6 +3,8 @@ package dev.rndmorris.salisarcana.lib;
 import net.glease.tc4tweak.modules.findRecipes.FindRecipes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.world.World;
 
 import cpw.mods.fml.common.Loader;
 import thaumcraft.api.ThaumcraftApi;
@@ -22,7 +24,11 @@ public class CraftingHelper {
 
     private CraftingHelper() {}
 
-    public IArcaneRecipe findArcaneRecipe(final IInventory awb, final EntityPlayer player) {
+    public IRecipe findMundaneRecipe(final IInventory awb, final World world) {
+        // TODO Figure out this bit.
+    }
+
+    public IArcaneRecipe findArcaneRecipe(final IInventory awb, final World world, final EntityPlayer player) {
         final var recipes = ThaumcraftApi.getCraftingRecipes();
 
         for (final var recipe : recipes) {

@@ -41,7 +41,7 @@ public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContain
 
         if (wand == null) return null;
 
-        final var recipe = CraftingHelper.INSTANCE.findArcaneRecipe(awb, KnowItAll.getInstance());
+        final var recipe = CraftingHelper.INSTANCE.findArcaneRecipe(awb, player.worldObj, KnowItAll.getInstance());
 
         if (recipe != null && !recipe.matches(awb, player.worldObj, player)) {
             final var researchArray = (recipe instanceof IMultipleResearchArcaneRecipe multi)
