@@ -3,6 +3,8 @@ package dev.rndmorris.salisarcana.lib;
 import net.glease.tc4tweak.modules.findRecipes.FindRecipes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
@@ -24,11 +26,21 @@ public class CraftingHelper {
 
     private CraftingHelper() {}
 
-    public IRecipe findMundaneRecipe(final IInventory awb, final World world) {
-        // TODO Figure out this bit.
+    public IRecipe findMundaneRecipe(final InventoryCrafting awb, final World world) {
+        // TODO Add support for repair-combination recipe.
+        final var recipes = CraftingManager.getInstance()
+            .getRecipeList();
+
+        for (final var recipe : recipes) {
+            if (recipe.matches(awb, world)) {
+                return recipe;
+            }
+        }
+
+        return null;
     }
 
-    public IArcaneRecipe findArcaneRecipe(final IInventory awb, final World world, final EntityPlayer player) {
+    public IArcaneRecipe findArcaneRecipe(final IInventory awb, final EntityPlayer player) {
         final var recipes = ThaumcraftApi.getCraftingRecipes();
 
         for (final var recipe : recipes) {
