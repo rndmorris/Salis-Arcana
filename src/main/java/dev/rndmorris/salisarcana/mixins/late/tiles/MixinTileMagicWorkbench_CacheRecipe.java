@@ -98,8 +98,7 @@ public abstract class MixinTileMagicWorkbench_CacheRecipe extends TileThaumcraft
             }
         }
 
-        this.salisArcana$mundaneRecipe = CraftingHelper.INSTANCE
-            .findMundaneRecipe(bridge, this.worldObj);
+        this.salisArcana$mundaneRecipe = CraftingHelper.INSTANCE.findMundaneRecipe(bridge, this.worldObj);
 
         if (this.salisArcana$mundaneRecipe == null) {
             this.salisArcana$arcaneRecipe = CraftingHelper.INSTANCE.findArcaneRecipe(this, knowItAll);
