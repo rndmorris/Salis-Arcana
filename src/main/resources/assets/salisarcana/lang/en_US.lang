@@ -247,7 +247,7 @@ salisarcana:wand_rod.special.tainted.1=§5Regenerates 1 vis of each aspect every
 salisarcana:wand_rod.special.tainted.2=§5Gains 3 vis of random aspects if the wand is held when you take taint damage.
 
 salisarcana:wand_rod.special.witchwood.1=§5Regenerates 1 vis of each aspect every 5 seconds (max 100% vis)
-salisarcana:wand_rod.special.witchwood.2=  §5at the cost of §91.4 Ars Magica 2 mana§5 per vis.
+salisarcana:wand_rod.special.witchwood.2=  §5at the cost of §9140 Ars Magica 2 mana§5 per vis.
 salisarcana:wand_rod.special.witchwood_staff.1=§5Regenerates 1 vis of each aspect every 2 seconds (max 100% vis)
-salisarcana:wand_rod.special.witchwood_staff.2=  §5at the cost of §91.0 Ars Magica 2 mana§5 per vis.
+salisarcana:wand_rod.special.witchwood_staff.2=  §5at the cost of §9100 Ars Magica 2 mana§5 per vis.
 salisarcana:wand_cap.special.vinteum=§5Reduces the §9Ars Magica mana§5 cost of Witchwood cores' vis regeneration by about half. 
