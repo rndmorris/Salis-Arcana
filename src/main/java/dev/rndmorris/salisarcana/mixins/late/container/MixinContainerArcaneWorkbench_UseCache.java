@@ -30,8 +30,8 @@ public class MixinContainerArcaneWorkbench_UseCache {
     private ItemStack useCachedRecipe(CraftingManager instance, InventoryCrafting inventoryCrafting, World world,
         Operation<ItemStack> original) {
         if (this.tileEntity instanceof ICachedMagicWorkbench cache) {
-            return cache.salisArcana$getMundaneRecipe()
-                .getCraftingResult(inventoryCrafting);
+            final var recipe = cache.salisArcana$getMundaneRecipe();
+            return recipe != null ? recipe.getCraftingResult(inventoryCrafting) : null;
         }
 
         return original.call(instance, inventoryCrafting, world);

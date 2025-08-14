@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 
 import thaumcraft.common.tiles.TileMagicWorkbench;
 
-public class MundaneCraftingBridge extends InventoryCrafting {
+public final class MundaneCraftingBridge extends InventoryCrafting {
 
     private final TileMagicWorkbench workbench;
 
