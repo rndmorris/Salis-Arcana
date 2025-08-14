@@ -17,7 +17,6 @@ public final class MundaneRepairRecipe implements IRecipe {
 
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
-        Item toolItem = null;
         ItemStack toolOne = null;
         ItemStack toolTwo = null;
 
@@ -33,10 +32,10 @@ public final class MundaneRepairRecipe implements IRecipe {
 
             if (toolOne == null) {
                 toolOne = stack;
-                toolItem = stack.getItem();
 
-                //noinspection DataFlowIssue
-                if (!toolItem.isRepairable()) {
+                // noinspection DataFlowIssue
+                if (!stack.getItem()
+                    .isRepairable()) {
                     // Tool cannot be repaired in workbench
                     return null;
                 }
@@ -55,11 +54,14 @@ public final class MundaneRepairRecipe implements IRecipe {
 
         if (toolTwo != null) {
             // Two matching items found
-            int durability = toolItem.getMaxDamage() - toolOne.getItemDamageForDisplay();
-            durability += toolItem.getMaxDamage() - toolTwo.getItemDamageForDisplay();
-            durability += toolItem.getMaxDamage() / 20; // 5% bonus
+            final Item item = toolOne.getItem();
+            final int maxDamage = item.getMaxDamage();
 
-            return new ItemStack(toolItem, 1, Math.max(0, toolItem.getMaxDamage() - durability));
+            int durability = maxDamage - toolOne.getItemDamageForDisplay();
+            durability += maxDamage - toolTwo.getItemDamageForDisplay();
+            durability += maxDamage / 20; // 5% bonus
+
+            return new ItemStack(item, 1, Math.max(0, maxDamage - durability));
         } else {
             // One or zero matching items found
             return null;
