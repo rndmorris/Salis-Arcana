@@ -9,6 +9,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.common.Loader;
+import dev.rndmorris.salisarcana.lib.recipe.MundaneRepairRecipe;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.crafting.IArcaneRecipe;
 
@@ -27,9 +28,13 @@ public class CraftingHelper {
     private CraftingHelper() {}
 
     public IRecipe findMundaneRecipe(final InventoryCrafting awb, final World world) {
-        // TODO Add support for repair-combination recipe.
         final var recipes = CraftingManager.getInstance()
             .getRecipeList();
+
+        // Minecraft checks for the "combine two tools' durability" recipe without using a IRecipe.
+        if (MundaneRepairRecipe.INSTANCE.matches(awb, world)) {
+            return MundaneRepairRecipe.INSTANCE;
+        }
 
         for (final var recipe : recipes) {
             if (recipe.matches(awb, world)) {
