@@ -100,6 +100,16 @@ public class ConfigBugfixes extends ConfigGroup {
         "arcaneWorkbenchMultiContainer",
         "Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time.");
 
+    public final ToggleSetting arcaneWorkbenchCache = new ToggleSetting(
+        this,
+        "arcaneWorkbenchCache",
+        "Causes each Arcane Workbench to keep a cache of the last valid recipe, massively improving the performance of bulk crafts & the GUI.");
+
+    public final ToggleSetting arcaneWorkbenchForgeEventBridge = new ToggleSetting(
+        this,
+        "arcaneWorkbenchForgeEventBridge",
+        "When performing a mundane crafting recipe in an Arcane Workbench, it will pretend to be a normal crafting table when sending the Forge event. Prevents the Spellbinding Cloth item duplication glitch.");
+
     public final ToggleSetting negativeBossSpawnCount = new ToggleSetting(
         this,
         "negativeBossSpawnCount",

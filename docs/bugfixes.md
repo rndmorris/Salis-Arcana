@@ -123,6 +123,18 @@ Allows players to craft after the wand in the GUI runs out of vis and is recharg
 
 Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time, including a duplication bug, research verification bug, and some others.
 
+### Cache Last Recipe in Arcane Workbench
+
+**Config option:** `arcaneWorkbenchCache`
+
+Causes each Arcane Workbench to keep a cache of the last valid recipe, massively improving the performance of bulk crafts & the GUI.
+
+### Arcane Workbench Pretends to be a Crafting Table during Forge Events
+
+**Config option:** `arcaneWorkbenchForgeEventBridge`
+
+When performing a mundane crafting recipe in an Arcane Workbench, it will pretend to be a normal crafting table when sending the Forge event. Prevents the Spellbinding Cloth item duplication glitch.
+
 ## Use Forge fishing lists for fishing golem loot
 
 **Config option:** `useForgeFishingLists`
