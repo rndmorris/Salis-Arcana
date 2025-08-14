@@ -38,7 +38,7 @@ public abstract class MixinTileMagicWorkbench_CacheRecipe extends TileThaumcraft
     private boolean salisArcana$recipeCacheReady = false;
 
     @Override
-    public IRecipe salisArcana$getMundaneRecipe() {
+    public final IRecipe salisArcana$getMundaneRecipe() {
         if (!this.salisArcana$recipeCacheReady) {
             this.salisArcana$calculateRecipeCache();
         }
@@ -47,7 +47,7 @@ public abstract class MixinTileMagicWorkbench_CacheRecipe extends TileThaumcraft
     }
 
     @Override
-    public IArcaneRecipe salisArcana$getArcaneRecipe() {
+    public final IArcaneRecipe salisArcana$getArcaneRecipe() {
         if (!this.salisArcana$recipeCacheReady) {
             this.salisArcana$calculateRecipeCache();
         }
