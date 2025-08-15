@@ -196,6 +196,18 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.extraSecureArcaneKeys)
         .addCommonMixins("items.MixinItemKey_ExtraSecurityChecks")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EARTH_SHOCK_REQUIRE_SOLID_GROUND(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.earthShockRequireSolidGround)
+        .addCommonMixins("entities.MixinEntityShockOrb_CheckSolidGround", "blocks.MixinBlockAiry_EarthShockCheckSolidGround")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    DEFAULT_WAND_COMPONENTS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.unknownWandComponentSupport)
+        .addCommonMixins("items.MixinItemWandCasting_DefaultWandComponents")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    CLAMP_WAND_OVERLAY_VIS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.clampWandOverlayVis)
+        .addClientMixins("client.lib.MixinClientTickEventsFML_VisOverflow")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
