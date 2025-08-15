@@ -36,7 +36,7 @@ public class GuiHandler {
             }
         }
 
-        // Re-connects GUIs to their tile entities on the client after NEI closes & returns focus.
+        // Re-connects GUIs to their tile entities on the client after NEI closes & returns focus, mitigates #337
         if (event.gui instanceof GuiContainer gui && gui.inventorySlots instanceof IReconnectableContainer container) {
             container.salisArcana$reconnect();
         }
