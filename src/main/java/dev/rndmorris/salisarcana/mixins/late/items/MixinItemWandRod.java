@@ -1,15 +1,12 @@
 package dev.rndmorris.salisarcana.mixins.late.items;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.util.IIcon;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import thaumcraft.common.items.wands.ItemWandRod;
 
@@ -22,33 +19,12 @@ public abstract class MixinItemWandRod {
     @Shadow
     public IIcon[] iconStaff;
 
-    @Shadow
-    public IIcon iconPrimalStaff;
-
-    @Inject(method = "getIconFromDamage", at = @At("HEAD"), cancellable = true, remap = true)
-    private void mixinGetIconFromDamage(int meta, CallbackInfoReturnable<IIcon> cir) {
-        if (meta < 50) {
-            final var icon = sa$tryGet(iconWand, meta);
-            cir.setReturnValue(icon);
-            cir.cancel();
-            return;
+    @WrapMethod(method = "getIconFromDamage")
+    private IIcon mixinGetIconFromDamage(int meta, Operation<IIcon> original) {
+        if ((meta >= 0 && meta < iconWand.length) || (meta >= 50 && (meta - 50) < iconStaff.length) || meta >= 100) {
+            return original.call(meta);
+        } else {
+            return null;
         }
-        if (meta < 100) {
-            final var icon = sa$tryGet(iconStaff, meta - 50);
-            cir.setReturnValue(icon);
-            cir.cancel();
-            return;
-        }
-        cir.setReturnValue(iconPrimalStaff);
-        cir.cancel();
     }
-
-    @Unique
-    private @Nullable IIcon sa$tryGet(IIcon[] arr, int index) {
-        if (0 <= index && index < arr.length) {
-            return arr[index];
-        }
-        return null;
-    }
-
 }
