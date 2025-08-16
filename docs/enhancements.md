@@ -238,6 +238,12 @@ Override how eldritch altars pick where to try spawning crimson knights and eldr
 
 Applying patterns to banners not consume the phial or the essentia. Overrides `bannerReturnPhials` in the bugfixes module.
 
+## Wand Cap & Wand Core Properties in Tooltip
+
+**Config option:** `wandPartStatsTooltip`
+
+Wand caps & wand rods will show information about their vis capacity & discount in their tooltips.
+
 # Enhancements - Infusion
 
 ## Config option: `useStabilizerRewrite`

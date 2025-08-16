@@ -40,6 +40,7 @@ import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.ObfuscationInfo;
 import dev.rndmorris.salisarcana.lib.R;
+import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
@@ -125,6 +126,7 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         CustomRecipes.registerRecipesPostInit();
         CustomResearch.init();
+        WandHelper.loadWandParts();
     }
 
     // register server commands in this event handler (Remove if not needed)
