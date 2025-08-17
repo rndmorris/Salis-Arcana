@@ -29,14 +29,6 @@ public class ArrayHelper {
         return -1;
     }
 
-    public static boolean tryAssign(boolean[] arr, int index, boolean value) {
-        if (0 <= index && index < arr.length) {
-            arr[index] = value;
-            return true;
-        }
-        return false;
-    }
-
     public static <E> TryGetResult<E> tryGet(E[] arr, int index) {
         if (0 <= index && index < arr.length) {
             return TryGetResult.success(arr[index]);
