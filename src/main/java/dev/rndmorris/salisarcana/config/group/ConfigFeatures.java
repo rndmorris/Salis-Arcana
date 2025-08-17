@@ -23,7 +23,7 @@ import dev.rndmorris.salisarcana.lib.IntegerHelper;
 public class ConfigFeatures extends ConfigGroup {
 
     private static final String potionCategory = "potion_ids";
-    private static final String potionIdComment = "Override the Id of the %s potion effect.";
+    private static final String potionIdComment = "Override the id of the %s potion effect.";
 
     public final ToggleSetting lessPickyPrimalCharmRecipe = new ToggleSetting(
         this,
