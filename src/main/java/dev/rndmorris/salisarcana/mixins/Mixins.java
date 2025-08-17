@@ -80,6 +80,17 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchMultiContainer)
         .addCommonMixins("container.MixinContainerArcaneWorkbench_MultiContainer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    CACHE_ARCANE_WORKBENCH_RECIPE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.arcaneWorkbenchCache)
+        .addCommonMixins(
+            "container.MixinContainerArcaneWorkbench_UseCache",
+            "lib.MixinThaumcraftCraftingManager_UseCache",
+            "tiles.MixinTileMagicWorkbench_CacheRecipe")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    MUNDANE_CRAFT_FORGE_EVENT_BRIDGE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.arcaneWorkbenchForgeEventBridge)
+        .addCommonMixins("container.MixinSlotCraftingArcaneWorkbench_ForgeEventBridge")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     THAUMATORIUM_MULTI_CONTAINER(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.thaumatoriumMultiContainer)
         .addCommonMixins("container.MixinContainerThaumatorium_MultiContainer")
@@ -190,6 +201,18 @@ public enum Mixins implements IMixins {
     KEY_EXTRA_SECURITY(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.extraSecureArcaneKeys)
         .addCommonMixins("items.MixinItemKey_ExtraSecurityChecks")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EARTH_SHOCK_REQUIRE_SOLID_GROUND(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.earthShockRequireSolidGround)
+        .addCommonMixins("entities.MixinEntityShockOrb_CheckSolidGround", "blocks.MixinBlockAiry_EarthShockCheckSolidGround")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    DEFAULT_WAND_COMPONENTS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.unknownWandComponentSupport)
+        .addCommonMixins("items.MixinItemWandCasting_DefaultWandComponents")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    CLAMP_WAND_OVERLAY_VIS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.clampWandOverlayVis)
+        .addClientMixins("client.lib.MixinClientTickEventsFML_VisOverflow")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features

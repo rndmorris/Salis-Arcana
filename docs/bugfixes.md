@@ -123,6 +123,18 @@ Allows players to craft after the wand in the GUI runs out of vis and is recharg
 
 Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time, including a duplication bug, research verification bug, and some others.
 
+### Cache Last Recipe in Arcane Workbench
+
+**Config option:** `arcaneWorkbenchCache`
+
+Causes each Arcane Workbench to keep a cache of the last valid recipe, massively improving the performance of bulk crafts & the GUI.
+
+### Arcane Workbench Pretends to be a Crafting Table during Forge Events
+
+**Config option:** `arcaneWorkbenchForgeEventBridge`
+
+When performing a mundane crafting recipe in an Arcane Workbench, it will pretend to be a normal crafting table when sending the Forge event. Prevents the Spellbinding Cloth item duplication glitch.
+
 ## Use Forge fishing lists for fishing golem loot
 
 **Config option:** `useForgeFishingLists`
@@ -234,3 +246,21 @@ Applying patterns to banners will only consume the essentia, and not the phial i
 **Config option:** `extraSecureArcaneKeys`
 
 Arcane Keys will now save the dimension and the creator of the key when linked to a warded object, and will check those values before granting permission.
+
+## Earth Shock Blocks Require Solid Ground
+
+**Config option:** `earthShockRequireSolidGround`
+
+Requires the spark blocks left behind by Wand Focus: Shock with the Earth Shock upgrade to have a solid block beneath them to exist.
+
+## Prevent "Unknown Wand Part" Crashes
+
+**Config option:** `unknownWandComponentSupport`
+
+Prevents wand items from crashing everything when they contain a component which hasn't been registered by any mod.
+
+## Prevent Wand Vis GUI Bars from Overflowing
+
+**Config option:** `clampWandOverlayVis`
+
+Prevents the "Vis in Wand" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.
