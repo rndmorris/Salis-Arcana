@@ -575,6 +575,6 @@ public class ConfigFeatures extends ConfigGroup {
         return Collections.singletonList(
             new CategoryComment(
                 potionCategory,
-                "Override the ids of Thaumcraft's potion effects. An id not overridden here will be automatically assigned\nto the lowest unclaimed id, as normal.\n\nWARNING: Do not set any of these values to 128 or higher unless you are using a mod that increases the\nmaximum potion id. If you are, and would like to set these ids to 128 or higher, set\n`_uncapped_potion_ids` to `true`."));
+                "Override the ids of Thaumcraft's potion effects. An id not overridden, or that cannot be assigned to its\noverridden id, here will be automatically assigned to the lowest unclaimed id as normal.\n\nWARNING: Do not set any of these values to 128 or higher unless you are using a mod that increases the\nmaximum potion id. If you are, and would like to set these ids to 128 or higher, set\n`_uncapped_potion_ids` to `true`."));
     }
 }
