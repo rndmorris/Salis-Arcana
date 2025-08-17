@@ -80,11 +80,6 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchMultiContainer)
         .addCommonMixins("container.MixinContainerArcaneWorkbench_MultiContainer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
-    MULTI_CONTAINER_NEI_FIX(new SalisBuilder()
-        .applyIf(SalisConfig.bugfixes.arcaneWorkbenchMultiContainer)
-        .addClientMixins("addons.ThaumcraftNEIPlugin.MixinArcaneWorkbenchOverlayHandler")
-        .addRequiredMod(TargetedMod.THAUMCRAFT_NEI_PLUGIN)
-        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     CACHE_ARCANE_WORKBENCH_RECIPE(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchCache)
         .addCommonMixins(
