@@ -6,7 +6,7 @@ public enum ObfuscationInfo {
     // spotless:off
 
     HARVEST_LEVEL("field_78001_f", "harvestLevel"),
-
+    POTION_TYPES("field_76425_a", "potionTypes"),
     ;
 
     // spotless:on

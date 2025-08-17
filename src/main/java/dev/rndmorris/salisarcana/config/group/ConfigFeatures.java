@@ -544,17 +544,18 @@ public class ConfigFeatures extends ConfigGroup {
         -1).setMinValue(-1)
             .setCategory(potionCategory);
 
-    public int[] getPotionIdOverrides() {
-        return new int[] { taintPoisonId.getValue(), fluxFluId.getValue(), fluxPhageId.getValue(),
-            unnaturalHungerId.getValue(), warpWardId.getValue(), deadlyGazeId.getValue(), blurredVisionId.getValue(),
-            sunScornedId.getValue(), thaumarhiaId.getValue() };
-    }
+    public final IntSetting[] potionIdSettings = new IntSetting[] { taintPoisonId, fluxFluId, fluxPhageId,
+        unnaturalHungerId, warpWardId, deadlyGazeId, blurredVisionId, sunScornedId, thaumarhiaId };
 
-    public int maxPotionIdOverride() {
-        final var ids = getPotionIdOverrides();
-        return Arrays.stream(ids)
-            .max()
-            .orElse(-1);
+    public final String[] potionTranslationKeys = new String[] { "potion.fluxtaint", "potion.visexhaust",
+        "potion.infvisexhaust", "potion.unhunger", "potion.warpward", "potion.deathgaze", "potion.blurred",
+        "potion.sunscorned", "potion.thaumarhia" };
+    public final String[] potionNames = new String[] { "Taint Poison", "Flux Flu", "Flux Phage", "Unnatural Hunger",
+        "Warp Ward", "Deadly Gaze", "Blurred Vision", "Sun Scorned", "Thaumarhia" };
+
+    public boolean potionIdOverridesActive() {
+        return Arrays.stream(potionIdSettings)
+            .anyMatch(IntSetting::isEnabled);
     }
 
     @Nonnull

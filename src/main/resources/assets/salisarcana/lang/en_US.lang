@@ -191,3 +191,8 @@ salisarcana:misc.arcane_key.dimension= (dimension %s)
 item.Wand.salisarcana:unknown.cap=[INVALID CAP]
 item.Wand.salisarcana:unknown.rod=[INVALID CORE]
 salisarcana:unknown_wand.craft=§4Place in a crafting grid to clear all invalid components.
+
+salisarcana:error.preface=Salis Arcana Error: 
+salisarcana:error.potion_id_limit=%s was assigned id %d, which is above the safe limit of 127. If the limit has been raised through another mod, please set _uncapped_potion_ids to `true` in the Salis Arcana feature configs.
+salisarcana:error.potion_id_claimed=%s could not be given id %d as configured because that id has been assigned to a different potion effect.
+salisaracan:error.potion_array_too_long=No more unassigned potion ids could be found within the safe limit. If the limit has been raised through another mod, please set _uncapped_potion_ids to `true` in the Salis Arcana feature configs.
