@@ -12,6 +12,7 @@ import dev.rndmorris.salisarcana.config.group.ConfigBugfixes;
 import dev.rndmorris.salisarcana.config.group.ConfigCommands;
 import dev.rndmorris.salisarcana.config.group.ConfigFeatures;
 import dev.rndmorris.salisarcana.config.group.ConfigModCompat;
+import dev.rndmorris.salisarcana.config.group.ConfigTweaks;
 
 public class SalisConfig {
 
@@ -22,6 +23,7 @@ public class SalisConfig {
     public static final ConfigCommands commands = new ConfigCommands();
     public static final ConfigFeatures features = new ConfigFeatures();
     public static final ConfigModCompat modCompat = new ConfigModCompat();
+    public static final ConfigTweaks tweaks = new ConfigTweaks();
 
     public static boolean enableVersionChecking;
 

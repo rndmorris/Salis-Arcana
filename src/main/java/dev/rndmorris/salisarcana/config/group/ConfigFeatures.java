@@ -29,13 +29,13 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "friendlyPrimalCharm",
         "Make the primal charm's crafting recipe less picky about the order in which primal shards are placed in the top and bottom rows.")
-            .setCategory("recipes");
+        .setCategory("recipes");
 
     public final ToggleSetting rotatedFociRecipes = new ToggleSetting(
         this,
         "rotatedFoci",
         "Add rotated recipes for the fire, shock, frost, equal rade, excavation, and primal wand foci.")
-            .setCategory("recipes");
+        .setCategory("recipes");
 
     public final ToggleSetting rotatedThaumometerRecipe = new ToggleSetting(
         this,
@@ -58,19 +58,19 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "enforceWandCoreTypes",
         "If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core.\nDisable to allow upgrading a wand to a staff and vice versa.")
-            .setCategory("wand_component_swapping");
+        .setCategory("wand_component_swapping");
 
     public final ToggleSetting preserveWandVis = new ToggleSetting(
         this,
         "preserveWandVis",
         "If enabled, vis will be preserved when a wand, staff, or stave's components are replaced.")
-            .setCategory("wand_component_swapping");
+        .setCategory("wand_component_swapping");
 
     public final ToggleSetting allowSingleWandReplacement = new ToggleSetting(
         this,
         "allowSingleWandReplacement",
         "If enabled, allows swapping a wand's components using vis from the wand being modified.")
-            .setCategory("wand_component_swapping");
+        .setCategory("wand_component_swapping");
 
     public final ToggleSetting lookalikePlanks = new ToggleSetting(
         this,
@@ -85,7 +85,7 @@ public class ConfigFeatures extends ConfigGroup {
         new int[] { 972222, 9259, 9259, 9259, },
         0,
         1000000).setEnabled(false)
-            .setLengthFixed(true);
+        .setLengthFixed(true);
 
     public final IntArraySetting nodeTypeWeights = new IntArraySetting(
         this,
@@ -95,7 +95,7 @@ public class ConfigFeatures extends ConfigGroup {
         new int[] { 944444, 16666, 16666, 16666, 5555, },
         0,
         1000000).setEnabled(false)
-            .setLengthFixed(true);
+        .setLengthFixed(true);
 
     public final ToggleSetting suppressWarpEventsInCreative = new ToggleSetting(
         this,
@@ -117,7 +117,7 @@ public class ConfigFeatures extends ConfigGroup {
         "manaBeanGrowthChance",
         "The chance for a mana bean to grow when a mana pod is updated. Lower values are more likely to grow, with 0 growing every random tick.",
         30).setMinValue(0)
-            .setMaxValue(100);
+        .setMaxValue(100);
 
     public final ToggleSetting infiniteCreativeVis = new ToggleSetting(
         this,
@@ -158,15 +158,15 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "enableFocusDisenchanting",
         "Allow players to use the Focal Manipulator to remove focus enchantments and refund XP.")
-            .setCategory("focus_disenchanting");
+        .setCategory("focus_disenchanting");
 
     public final IntSetting focusDisenchantingRefundPercentage = new IntSetting(
         enableFocusDisenchanting,
         "focusDisenchantingRefundPercentage",
         "Percentage of XP points refunded upon removing an enchantment from a focus, calculated as levels from 0 XP.",
         75).setMinValue(0)
-            .setMaxValue(100)
-            .setCategory("focus_disenchanting");
+        .setMaxValue(100)
+        .setCategory("focus_disenchanting");
 
     public final CustomResearchSetting focusDisenchantingResearch = new CustomResearchSetting(
         enableFocusDisenchanting,
@@ -196,7 +196,7 @@ public class ConfigFeatures extends ConfigGroup {
         nomiconRightClickClose,
         "Save Thaumonomicon Page",
         "When closing the Thaumonomicon, it will remember the page you are on when it is reopened. Requires Right-Click Navigation to be enabled.")
-            .setEnabled(false);
+        .setEnabled(false);
 
     public final Setting nomiconShowResearchId = new ToggleSetting(
         this,
@@ -212,14 +212,14 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "researchDuplicationFree",
         "Research duplication (in the Research Table and the Thaumonomicon if nomiconDuplicateResearch is enabled) does not cost any research aspects.")
-            .setEnabled(false);
+        .setEnabled(false);
 
     public final ToggleSetting stabilizerRewrite = new ToggleSetting(
         this,
         "useStabilizerRewrite",
         "Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers.")
-            .setCategory("infusion")
-            .setEnabled(false);
+        .setCategory("infusion")
+        .setEnabled(false);
 
     public final IntSetting stabilizerStrength = new IntSetting(
         stabilizerRewrite,
@@ -231,8 +231,8 @@ public class ConfigFeatures extends ConfigGroup {
             "If a stabilizer doesn't have a symmetrical opposite, an equivalent amount of symmetry will be subtracted instead.",
             ""),
         10).setMinValue(-10000)
-            .setMaxValue(10000)
-            .setCategory("infusion");
+        .setMaxValue(10000)
+        .setCategory("infusion");
 
     public final BlockItemListSetting<Integer> stabilizerAdditions = new BlockItemListSetting<Integer>(
         stabilizerRewrite,
@@ -249,13 +249,13 @@ public class ConfigFeatures extends ConfigGroup {
             "    * Defaults to `stabilizerStrength` if not set.",
             "    * Range: " + stabilizerStrength.getMinValue() + " ~ " + stabilizerStrength.getMaxValue() + ".",
             "")).setListType(BlockItemListSetting.ListType.BLOCKS)
-                .withAdditionalData((strSlice) -> {
-                    if (strSlice.length < 4) {
-                        return null;
-                    }
-                    return IntegerHelper.tryParse(strSlice[3]);
-                })
-                .setCategory("infusion");
+        .withAdditionalData((strSlice) -> {
+            if (strSlice.length < 4) {
+                return null;
+            }
+            return IntegerHelper.tryParse(strSlice[3]);
+        })
+        .setCategory("infusion");
 
     public final BlockItemListSetting<Object> stabilizerExclusions = new BlockItemListSetting<>(
         stabilizerRewrite,
@@ -269,14 +269,14 @@ public class ConfigFeatures extends ConfigGroup {
             "    * Defaults to 0 if not set.",
             "    * If set to * or 32767, all metadata variants of the block will be included.",
             "")).setListType(BlockItemListSetting.ListType.BLOCKS)
-                .setCategory("infusion");
+        .setCategory("infusion");
 
     public final IntSetting itemEldritchObjectStackSize = new IntSetting(
         this,
         "eldritchObjectStackSize",
         "The maximum stack size for Eldritch Objects (Primordial Pearl, Eldritch Eye, Crimson Rites, Eldritch Obelisk Placer, Runed Tablet).",
         16).setMinValue(1)
-            .setMaxValue(64);
+        .setMaxValue(64);
 
     public final ToggleSetting disableCreativeTaintedItemDecay = new ToggleSetting(
         this,
@@ -303,7 +303,7 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "thaumometerScanContainers",
         "Allow the thaumometer to scan the contents of inventories when right-clicking on them.")
-            .setCategory("thaumometer_container_scan");
+        .setCategory("thaumometer_container_scan");
 
     public final CustomResearchSetting thaumometerScanContainersResearch = new CustomResearchSetting(
         thaumometerScanContainers,
@@ -332,7 +332,7 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "crystalClusterUncrafting",
         "Add crafting recipes to convert crystal cluster blocks back into primal shards. Does not work for mixed crystal clusters.")
-            .setCategory("recipes");
+        .setCategory("recipes");
 
     public final ToggleSetting staffterNameTooltip = new ToggleSetting(
         this,
@@ -380,48 +380,48 @@ public class ConfigFeatures extends ConfigGroup {
         "thaumiumHarvestLevel",
         "Override the harvest level of thaumium tools.",
         3).setMinValue(0)
-            .setCategory("harvestLevels");
+        .setCategory("harvestLevels");
 
     public final IntSetting elementalHarvestLevel = new IntSetting(
         this,
         "elementalHarvestLevel",
         "Override the harvest level of elemental tools.",
         3).setMinValue(0)
-            .setCategory("harvestLevels");
+        .setCategory("harvestLevels");
 
     public final IntSetting voidHarvestLevel = new IntSetting(
         this,
         "voidHarvestLevel",
         "Override the harvest level of void metal tools.",
         4).setMinValue(0)
-            .setCategory("harvestLevels");
+        .setCategory("harvestLevels");
 
     public final IntSetting crusherHarvestLevel = new IntSetting(
         this,
         "crusherHarvestLevel",
         "Override the harvest level of the primal crusher.",
         5).setMinValue(0)
-            .setCategory("harvestLevels");
+        .setCategory("harvestLevels");
 
     public final IntSetting excavationFocusHarvestLevel = new IntSetting(
         this,
         "excavationFocusHarvestLevel",
         "Override the harvest level of the excavation focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).",
         -1).setMinValue(-1)
-            .setCategory("harvestLevels");
+        .setCategory("harvestLevels");
 
     public final IntSetting equalTradeFocusHarvestLevel = new IntSetting(
         this,
         "equalTradeFocusHarvestLevel",
         "Override the harvest level of the equal trade focus. -1 ignores harvest levels (vanilla Thaumcraft behavior).",
         -1).setMinValue(-1)
-            .setCategory("harvestLevels");
+        .setCategory("harvestLevels");
 
     public final ToggleSetting potencyModifiesHarvestLevel = new ToggleSetting(
         this,
         "potencyModifiesHarvestLevel",
         "If enabled, the potency level of an equal trade or excavation focus will modify its harvest level by one level per level of potency.")
-            .setCategory("harvestLevels");
+        .setCategory("harvestLevels");
 
     public final FloatSetting visRelayBoxExpansion = new FloatSetting(
         this,
@@ -471,7 +471,7 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "bannerFreePatterns",
         "Applying patterns to banners not consume the phial or the essentia. Overrides bannerReturnPhials in the bugfixes module.")
-            .setEnabled(false);
+        .setEnabled(false);
 
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
@@ -487,62 +487,62 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "_uncapped_potion_ids",
         "If true, will allow setting potion ids to 128 and higher.").setEnabled(false)
-            .setCategory(potionCategory);
+        .setCategory(potionCategory);
 
     public final IntSetting taintPoisonId = new IntSetting(
         this,
         "taintPoisonId",
         String.format(potionIdComment, "Taint Poison"),
         -1).setMinValue(-1)
-            .setCategory(potionCategory);
+        .setCategory(potionCategory);
     public final IntSetting fluxFluId = new IntSetting(
         this,
         "fluxFluId",
         String.format(potionIdComment, "Flux Flu"),
         -1).setMinValue(-1)
-            .setCategory(potionCategory);
+        .setCategory(potionCategory);
     public final IntSetting fluxPhageId = new IntSetting(
         this,
         "fluxPhageId",
         String.format(potionIdComment, "Flux Phage"),
         -1).setMinValue(-1)
-            .setCategory(potionCategory);
+        .setCategory(potionCategory);
     public final IntSetting unnaturalHungerId = new IntSetting(
         this,
         "unnaturalHungerId",
         String.format(potionIdComment, "Unnatural Hunger"),
         -1).setMinValue(-1)
-            .setCategory(potionCategory);
+        .setCategory(potionCategory);
     public final IntSetting warpWardId = new IntSetting(
         this,
         "warpWardId",
         String.format(potionIdComment, "Warp Ward"),
         -1).setMinValue(-1)
-            .setCategory(potionCategory);
+        .setCategory(potionCategory);
     public final IntSetting deadlyGazeId = new IntSetting(
         this,
         "deadlyGazeId",
         String.format(potionIdComment, "Deadly Gaze"),
         -1).setMinValue(-1)
-            .setCategory(potionCategory);
+        .setCategory(potionCategory);
     public final IntSetting blurredVisionId = new IntSetting(
         this,
         "blurredVisionId",
         String.format(potionIdComment, "Blurred Vision"),
         -1).setMinValue(-1)
-            .setCategory(potionCategory);
+        .setCategory(potionCategory);
     public final IntSetting sunScornedId = new IntSetting(
         this,
         "sunScornedId",
         String.format(potionIdComment, "Sun Scorned"),
         -1).setMinValue(-1)
-            .setCategory(potionCategory);
+        .setCategory(potionCategory);
     public final IntSetting thaumarhiaId = new IntSetting(
         this,
         "thaumarhiaId",
         String.format(potionIdComment, "Thaumarhia"),
         -1).setMinValue(-1)
-            .setCategory(potionCategory);
+        .setCategory(potionCategory);
 
     public final IntSetting[] potionIdSettings = new IntSetting[] { taintPoisonId, fluxFluId, fluxPhageId,
         unnaturalHungerId, warpWardId, deadlyGazeId, blurredVisionId, sunScornedId, thaumarhiaId };
@@ -567,7 +567,7 @@ public class ConfigFeatures extends ConfigGroup {
     @Nonnull
     @Override
     public String getGroupComment() {
-        return "Tweaks and adjustments to enhance Thaumcraft";
+        return "Features and enhancements for Thaumcraft";
     }
 
     @Override
