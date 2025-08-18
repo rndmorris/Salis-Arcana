@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.StatCollector;
 
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,6 +17,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
@@ -33,20 +33,32 @@ public abstract class MixinConfig_PotionIds {
         method = "initPotions",
         at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;info(Ljava/lang/String;)V", ordinal = 0))
     private static void initPotions(Logger instance, String s, Operation<Void> original,
-        @Local(name = "potionOffset") LocalIntRef potionOffsetRef, @Share("potionIndex") LocalIntRef potionIndexRef) {
+        @Local(name = "potionOffset") LocalIntRef potionOffsetRef, @Share("potionIndex") LocalIntRef potionIndexRef,
+        @Share("potionNameLangKeys") LocalRef<String[]> potionNameLangKeysRef,
+        @Share("potionNames") LocalRef<String[]> potionNamesRef) {
         LOG.info("Overriding Thaumcraft's potion ID assignement.");
-        final var features = SalisConfig.features;
-        // noinspection OptionalGetWithoutIsPresent
-        final var maxId = Arrays.stream(features.potionIdSettings)
+
+        final var tweaks = SalisConfig.tweaks;
+        final String[] langKeys = new String[] { "potion.fluxtaint", "potion.visexhaust", "potion.infvisexhaust",
+            "potion.unhunger", "potion.warpward", "potion.deathgaze", "potion.blurred", "potion.sunscorned",
+            "potion.thaumarhia" };
+        final String[] potionNames = new String[] { "Taint Poison", "Flux Flu", "Flux Phage", "Unnatural Hunger",
+            "Warp Ward", "Deadly Gaze", "Blurred Vision", "Sun Scorned", "Thaumarhia" };
+
+        potionNameLangKeysRef.set(langKeys);
+        potionNamesRef.set(potionNames);
+
+        @SuppressWarnings("OptionalGetWithoutIsPresent")
+        final var maxId = Arrays.stream(tweaks.potionIdSettings)
             .mapToInt(IntSetting::getValue)
             .max()
             .getAsInt();
-        final var arrayLengthLimit = features.potionIdLimitRaised.isEnabled() ? Integer.MAX_VALUE : Byte.MAX_VALUE;
-        final var idsNeeded = 32 + features.potionIdSettings.length; // 32 is the vanilla length
+        final var arrayLengthLimit = tweaks.potionIdLimitRaised.isEnabled() ? Integer.MAX_VALUE : Byte.MAX_VALUE;
+        final var idCount = 32 + tweaks.potionIdSettings.length; // 32 is the vanilla length
 
-        final var expandTo = Math.min(
+        final var expandTo = 1 + Math.min(
             // we may need IDs above the max
-            Math.max(maxId, idsNeeded),
+            Math.max(maxId, idCount),
             // but we don't want to go over our safe limit
             arrayLengthLimit);
         if (!sa$expandPotionArray(expandTo)) {
@@ -62,20 +74,21 @@ public abstract class MixinConfig_PotionIds {
         method = "initPotions",
         at = @At(value = "INVOKE", target = "Lthaumcraft/common/config/Config;getNextPotionId(I)I"))
     private static int wrapPotionId(int _start, Operation<Integer> original,
-        @Share("potionIndex") LocalIntRef potionIndexRef, @Share("lastAutoId") LocalIntRef lastAutoIdRef) {
+        @Share("potionIndex") LocalIntRef potionIndexRef, @Share("lastAutoId") LocalIntRef lastAutoIdRef,
+        @Share("potionNameLangKeys") LocalRef<String[]> potionNameLangKeysRef,
+        @Share("potionNames") LocalRef<String[]> potionNamesRef) {
         final var potionIndex = potionIndexRef.get();
         if (potionIndex == -1) {
             return -1;
         }
         potionIndexRef.set(potionIndex + 1);
 
-        final var features = SalisConfig.features;
-        final var setting = features.potionIdSettings[potionIndex];
+        final var setting = SalisConfig.tweaks.potionIdSettings[potionIndex];
         var potionId = setting.getValue();
         if (setting.isEnabled()) {
             // we have an id to assign
             final var isInLimit = potionId
-                < (features.potionIdLimitRaised.isEnabled() ? Integer.MAX_VALUE : Byte.MAX_VALUE);
+                < (SalisConfig.tweaks.potionIdLimitRaised.isEnabled() ? Integer.MAX_VALUE : Byte.MAX_VALUE);
             if (isInLimit) {
                 // and its within our safe limits
                 if (Potion.potionTypes[potionId] == null) {
@@ -83,15 +96,21 @@ public abstract class MixinConfig_PotionIds {
                     return potionId;
                 }
                 // but it's already claimed, so we log an error and look up the next available id
-                sa$logPotionIdClaimed(potionId, potionIndex);
+                sa$logPotionIdClaimed(
+                    potionId,
+                    potionNameLangKeysRef.get()[potionIndex],
+                    potionNamesRef.get()[potionIndex]);
             } else {
                 // but it's above the safe limit
-                sa$logPotionIdAboveSafeLimit(potionId, potionIndex);
+                sa$logPotionIdAboveSafeLimit(
+                    potionId,
+                    potionNameLangKeysRef.get()[potionIndex],
+                    potionNamesRef.get()[potionIndex]);
             }
         }
 
         // either we don't have an override set, or something was wrong with the overridden id
-        final var autoId = sa$findNextOpenId(potionIndex, lastAutoIdRef);
+        final var autoId = sa$findNextOpenId(lastAutoIdRef, potionNamesRef.get()[potionIndex]);
         if (autoId == -1) {
             // we can no longer safely expand the array, abort the rest of the process
             potionIndexRef.set(-1);
@@ -101,16 +120,13 @@ public abstract class MixinConfig_PotionIds {
     }
 
     @Unique
-    private static int sa$findNextOpenId(int potionIndex, LocalIntRef lastAutoRef) {
+    private static int sa$findNextOpenId(LocalIntRef lastAutoRef, String potionName) {
         final int startIndex = 32;
         // noinspection ConstantValue
         for (var index = Math.max(lastAutoRef.get(), startIndex); index < Potion.potionTypes.length; ++index) {
             if (Potion.potionTypes[index] == null) {
                 lastAutoRef.set(index);
-                LOG.info(
-                    "Found unassigned potion id {}. Assigning it to {}.",
-                    index,
-                    StatCollector.translateToLocal(SalisConfig.features.potionTranslationKeys[potionIndex]));
+                LOG.info("Found unassigned potion id {}. Assigning it to {}.", index, potionName);
                 return index;
             }
         }
@@ -135,7 +151,7 @@ public abstract class MixinConfig_PotionIds {
                 oldArray.length);
             return true;
         }
-        final var limitRaised = SalisConfig.features.potionIdLimitRaised.isEnabled();
+        final var limitRaised = SalisConfig.tweaks.potionIdLimitRaised.isEnabled();
         if (!limitRaised && increaseTo > Byte.MAX_VALUE) {
             return false;
         }
@@ -155,9 +171,7 @@ public abstract class MixinConfig_PotionIds {
     }
 
     @Unique
-    private static void sa$logPotionIdClaimed(int potionId, int potionIndex) {
-        final var potionNameKey = SalisConfig.features.potionTranslationKeys[potionIndex];
-        final var potionName = SalisConfig.features.potionNames[potionIndex];
+    private static void sa$logPotionIdClaimed(int potionId, String potionNameLangKey, String potionName) {
         LOG.error(
             "{} could not be given id {} as configured because that id has been assigned to a different potion effect.",
             potionName,
@@ -165,14 +179,12 @@ public abstract class MixinConfig_PotionIds {
         StartupNotifications.queueError(
             new ChatComponentTranslation(
                 "salisarcana:error.potion_id_claimed",
-                new ChatComponentTranslation(potionNameKey),
+                new ChatComponentTranslation(potionNameLangKey),
                 potionId));
     }
 
     @Unique
-    private static void sa$logPotionIdAboveSafeLimit(int potionId, int potionIndex) {
-        final var potionNameKey = SalisConfig.features.potionTranslationKeys[potionIndex];
-        final var potionName = SalisConfig.features.potionNames[potionIndex];
+    private static void sa$logPotionIdAboveSafeLimit(int potionId, String potionNameLangKey, String potionName) {
         LOG.error(
             "{} was assigned id {}, which is above the safe limit of 127. If the limit has been raised through another mod, please set _uncapped_potion_ids to `true` in the Salis Arcana feature configs.",
             potionName,
@@ -180,7 +192,7 @@ public abstract class MixinConfig_PotionIds {
         StartupNotifications.queueError(
             new ChatComponentTranslation(
                 "salisarcana:error.potion_id_limit",
-                new ChatComponentTranslation(potionNameKey),
+                new ChatComponentTranslation(potionNameLangKey),
                 potionId));
     }
 }
