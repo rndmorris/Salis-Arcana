@@ -196,7 +196,9 @@ salisarcana:wand_part.show_details=§8Hold §6CTRL§8 to show Thaumcraft Wand st
 salisarcana:wand_part.cannot_preserve_node=§4Cannot preserve nodes!
 salisarcana:wand_cap.vis_discount.generic=§5Discount: %s
 salisarcana:wand_cap.vis_discount.aspect=%s §5Discount: %s
-salisarcana:wand_rod.vis_capacity=§5Capacity: %s vis
+salisarcana:wand_cap.price_mult=§3Crafting Cost Multiplier: §e%sx
+salisarcana:wand_rod.vis_capacity=§5Capacity: §d%s vis
+salisarcana:wand_rod.base_price=§3Base Crafting Cost: §d%s vis
 salisarcana:wand_rod.runes=§5+1 Potency§2 for any equipped focus
 
 salisarcana:wand_rod.special.obsidian=§5Regenerates §21 Terra§5 vis every 10 seconds (max 10% vis)

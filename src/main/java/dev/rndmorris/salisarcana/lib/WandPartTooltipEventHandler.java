@@ -62,6 +62,9 @@ public class WandPartTooltipEventHandler {
                 }
             }
 
+            event.toolTip.add(
+                StatCollector.translateToLocalFormatted("salisarcana:wand_cap.price_mult", wandCap.getCraftCost()));
+
             addMultilineTranslation(event.toolTip, "salisarcana:wand_cap.special." + wandCap.getTag());
 
             if (wandCap == ConfigItems.WAND_CAP_IRON) {
@@ -70,6 +73,9 @@ public class WandPartTooltipEventHandler {
         } else if (wandRod != null) {
             event.toolTip.add(
                 StatCollector.translateToLocalFormatted("salisarcana:wand_rod.vis_capacity", wandRod.getCapacity()));
+
+            event.toolTip.add(
+                StatCollector.translateToLocalFormatted("salisarcana:wand_rod.base_price", wandRod.getCraftCost()));
 
             if (wandRod instanceof StaffRod staff && staff.hasRunes()) {
                 event.toolTip.add(StatCollector.translateToLocal("salisarcana:wand_rod.runes"));
@@ -84,6 +90,8 @@ public class WandPartTooltipEventHandler {
     }
 
     private static void addMultilineTranslation(final List<String> tooltip, final String langKey) {
+        // StatCollector.translateToLocal will return the same string if it cannot find a translation key.
+        // In order to avoid a second hashmap lookup, we use a direct comparison to check if this happened.
         String translation = StatCollector.translateToLocal(langKey);
         if (translation != langKey) {
             tooltip.add(translation);
@@ -95,6 +103,7 @@ public class WandPartTooltipEventHandler {
             final String langKeyLine = langKey + "." + keyNum;
             final String line = StatCollector.translateToLocal(langKeyLine);
 
+            // StatCollector.translateToLocal will return the same string if it cannot find the key, see above.
             if (langKeyLine == line) return;
 
             tooltip.add(line);
