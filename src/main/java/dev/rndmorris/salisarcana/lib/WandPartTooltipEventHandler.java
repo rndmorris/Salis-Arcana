@@ -90,7 +90,7 @@ public class WandPartTooltipEventHandler {
     }
 
     private static void addMultilineTranslation(final List<String> tooltip, final String langKey) {
-        // StatCollector.translateToLocal will return the same string if it cannot find a translation key.
+        // StatCollector.translateToLocal will return the original string object if it cannot find a translation key.
         // In order to avoid a second hashmap lookup, we use a direct comparison to check if this happened.
         String translation = StatCollector.translateToLocal(langKey);
         if (translation != langKey) {
@@ -103,7 +103,7 @@ public class WandPartTooltipEventHandler {
             final String langKeyLine = langKey + "." + keyNum;
             final String line = StatCollector.translateToLocal(langKeyLine);
 
-            // StatCollector.translateToLocal will return the same string if it cannot find the key, see above.
+            // StatCollector.translateToLocal will return the original string object if it cannot find the key.
             if (langKeyLine == line) return;
 
             tooltip.add(line);
