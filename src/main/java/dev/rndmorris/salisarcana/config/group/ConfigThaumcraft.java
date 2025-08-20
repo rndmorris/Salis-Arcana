@@ -15,6 +15,8 @@ public class ConfigThaumcraft extends ConfigGroup {
     private static final String potionCategory = "potion_ids";
     private static final String potionIdComment = "Override the id of the %s potion effect.";
 
+    private static final String primalArrowCategory = "primal_arrows";
+
     //
     // Potion Ids
     //
@@ -87,6 +89,11 @@ public class ConfigThaumcraft extends ConfigGroup {
                     blurredVisionId, sunScornedId, thaumarhiaId })
             .anyMatch(IntSetting::isEnabled);
     }
+
+    public final ToggleSetting primalArrowsCanBeFiredFromDispensers = new ToggleSetting(
+        this,
+        "canBeFiredFromDispensers",
+        "Primal arrows can be shot from dispensers").setCategory(primalArrowCategory);
 
     @Override
     public @NotNull String getGroupName() {
