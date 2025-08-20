@@ -468,7 +468,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.BAUBLES_EXPANDED)),
 
     POTION_ID_OVERRIDE(new SalisBuilder()
-        .setApplyIf(SalisConfig.tweaks::potionIdOverridesActive)
+        .setApplyIf(SalisConfig.thaum::potionIdOverridesActive)
         .addCommonMixins("config.MixinConfig_PotionIds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 

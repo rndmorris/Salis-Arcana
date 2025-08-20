@@ -38,7 +38,7 @@ public abstract class MixinConfig_PotionIds {
         @Share("potionNames") LocalRef<String[]> potionNamesRef) {
         LOG.info("Overriding Thaumcraft's potion ID assignement.");
 
-        final var tweaks = SalisConfig.tweaks;
+        final var tweaks = SalisConfig.thaum;
         final String[] langKeys = new String[] { "potion.fluxtaint", "potion.visexhaust", "potion.infvisexhaust",
             "potion.unhunger", "potion.warpward", "potion.deathgaze", "potion.blurred", "potion.sunscorned",
             "potion.thaumarhia" };
@@ -83,12 +83,12 @@ public abstract class MixinConfig_PotionIds {
         }
         potionIndexRef.set(potionIndex + 1);
 
-        final var setting = SalisConfig.tweaks.potionIdSettings[potionIndex];
+        final var setting = SalisConfig.thaum.potionIdSettings[potionIndex];
         var potionId = setting.getValue();
         if (setting.isEnabled()) {
             // we have an id to assign
             final var isInLimit = potionId
-                < (SalisConfig.tweaks.potionIdLimitRaised.isEnabled() ? Integer.MAX_VALUE : Byte.MAX_VALUE);
+                < (SalisConfig.thaum.potionIdLimitRaised.isEnabled() ? Integer.MAX_VALUE : Byte.MAX_VALUE);
             if (isInLimit) {
                 // and its within our safe limits
                 if (Potion.potionTypes[potionId] == null) {
@@ -151,7 +151,7 @@ public abstract class MixinConfig_PotionIds {
                 oldArray.length);
             return true;
         }
-        final var limitRaised = SalisConfig.tweaks.potionIdLimitRaised.isEnabled();
+        final var limitRaised = SalisConfig.thaum.potionIdLimitRaised.isEnabled();
         if (!limitRaised && increaseTo > Byte.MAX_VALUE) {
             return false;
         }

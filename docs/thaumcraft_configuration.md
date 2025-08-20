@@ -1,6 +1,6 @@
-# Tweaks
+# Thaumcraft Configuration
 
-Config file: `config/salisarcana/tweaks.cfg`
+Config file: `config/salisarcana/thaumcraft_configuration.cfg`
 
 ## Potion ID Overrides (Group `potion_ids`)
 

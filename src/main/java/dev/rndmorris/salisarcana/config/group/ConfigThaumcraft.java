@@ -10,7 +10,7 @@ import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
-public class ConfigTweaks extends ConfigGroup {
+public class ConfigThaumcraft extends ConfigGroup {
 
     private static final String potionCategory = "potion_ids";
     private static final String potionIdComment = "Override the id of the %s potion effect.";
@@ -90,12 +90,12 @@ public class ConfigTweaks extends ConfigGroup {
 
     @Override
     public @NotNull String getGroupName() {
-        return "tweaks";
+        return "thaumcraft_configuration";
     }
 
     @Override
     public @NotNull String getGroupComment() {
-        return "Tweaks and minor adjustments for Thaumcraft";
+        return "Additional configuration options for Thaumcraft";
     }
 
     @Override
