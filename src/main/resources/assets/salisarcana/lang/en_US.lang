@@ -248,7 +248,7 @@ salisarcana:wand_rod.special.infernal.2=§5Regenerates §d1 vis§5 of all other 
 salisarcana:wand_rod.special.infernal.3=§4Extinguishes fire§5 and removes the §8Wither§5 effect.
 salisarcana:wand_rod.special.profane.1=§5Recovers §dall consumed vis§5 every second (max §d100% vis§5)
 salisarcana:wand_rod.special.profane.2=  §5at the cost of 1 warp per §d25.01 vis§5.
-salisarcana:wand_rod.special.profane.3=§5After recovering 250 vis, it §4burns out§5 forever & gives 1 extra warp.
+salisarcana:wand_rod.special.profane.3=§5After recovering §d250 vis§5, it §4burns out§5 forever & gives 1 extra warp.
 salisarcana:wand_rod.special.tainted.1=§5Regenerates §d1 vis§5 of each aspect every 5 seconds while in Tainted Land (max §d10% vis§5)
 salisarcana:wand_rod.special.tainted.2=§5Gains §d3 vis§5 of random aspects if the wand is held when you take taint damage.
 
