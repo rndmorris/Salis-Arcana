@@ -2,6 +2,7 @@ package dev.rndmorris.salisarcana.lib;
 
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.StringJoiner;
 
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -51,15 +52,30 @@ public class WandPartTooltipEventHandler {
                 final String specialCostString = (specialCost > 1f ? "§4" : "§2")
                     + PERCENT_FORMAT.format(1f - specialCost);
 
+                final StringJoiner specials = new StringJoiner(", ");
+                final StringJoiner normals = new StringJoiner(", ");
+
                 for (final Aspect primal : PRIMALS) {
                     final String primalName = "§" + primal.getChatcolor() + primal.getName();
 
-                    event.toolTip.add(
-                        StatCollector.translateToLocalFormatted(
-                            "salisarcana:wand_cap.vis_discount.aspect",
-                            primalName,
-                            specialAspects.contains(primal) ? specialCostString : baseCostString));
+                    if (specialAspects.contains(primal)) {
+                        specials.add(primalName);
+                    } else {
+                        normals.add(primalName);
+                    }
                 }
+
+                event.toolTip.add(
+                    StatCollector.translateToLocalFormatted(
+                        "salisarcana:wand_cap.vis_discount.aspect",
+                        specials.toString(),
+                        specialCostString));
+
+                event.toolTip.add(
+                    StatCollector.translateToLocalFormatted(
+                        "salisarcana:wand_cap.vis_discount.aspect",
+                        normals.toString(),
+                        baseCostString));
             }
 
             event.toolTip.add(
