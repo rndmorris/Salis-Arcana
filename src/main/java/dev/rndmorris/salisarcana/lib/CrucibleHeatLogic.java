@@ -5,16 +5,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import dev.rndmorris.salisarcana.api.OreDict;
+import dev.rndmorris.salisarcana.SalisArcana;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class CrucibleHeatLogic {
-
-    public static void registerOreDictName() {
-        heatSourceId = OreDictionary.getOreID(OreDict.HEAT_SOURCE);
-    }
-
-    private static int heatSourceId = -1;
 
     /**
      * Meant to be called from the relevant TileCrucible and TileThaumatorium mixins, where we target the
@@ -32,6 +26,6 @@ public class CrucibleHeatLogic {
 
         // Then check the ore dictionary.
         final var oreIds = OreDictionary.getOreIDs(new ItemStack(block, 1, blockMetadata));
-        return ArrayHelper.indexOf(oreIds, heatSourceId) > -1;
+        return ArrayHelper.indexOf(oreIds, SalisArcana.proxy.oreDictIds.heatSource) > -1;
     }
 }
