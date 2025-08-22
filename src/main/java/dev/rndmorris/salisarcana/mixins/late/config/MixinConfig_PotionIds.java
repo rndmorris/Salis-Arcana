@@ -84,7 +84,7 @@ public abstract class MixinConfig_PotionIds {
         potionIndexRef.set(potionIndex + 1);
 
         final var setting = SalisConfig.thaum.potionIdSettings[potionIndex];
-        var potionId = setting.getValue();
+        final var potionId = setting.getValue();
         if (setting.isEnabled()) {
             // we have an id to assign
             final var isInLimit = potionId
