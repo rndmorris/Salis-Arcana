@@ -54,11 +54,11 @@ public abstract class MixinConfig_PotionIds {
             .max()
             .getAsInt();
         final var arrayLengthLimit = tweaks.potionIdLimitRaised.isEnabled() ? Integer.MAX_VALUE : Byte.MAX_VALUE;
-        final var idCount = 32 + tweaks.potionIdSettings.length; // 32 is the vanilla length
+        final var minRequiredSize = 32 + tweaks.potionIdSettings.length; // 32 is the vanilla length
 
         final var expandTo = 1 + Math.min(
             // we may need IDs above the max
-            Math.max(maxId, idCount),
+            Math.max(maxId, minRequiredSize),
             // but we don't want to go over our safe limit
             arrayLengthLimit);
         if (!sa$expandPotionArray(expandTo)) {
