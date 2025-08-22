@@ -7,10 +7,11 @@ import java.util.Arrays;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ChatComponentTranslation;
 
-import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -29,11 +30,11 @@ import thaumcraft.common.config.Config;
 @Mixin(value = Config.class, remap = false)
 public abstract class MixinConfig_PotionIds {
 
-    @WrapOperation(
+    @Inject(
         method = "initPotions",
         at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;info(Ljava/lang/String;)V", ordinal = 0))
-    private static void initPotions(Logger instance, String s, Operation<Void> original,
-        @Local(name = "potionOffset") LocalIntRef potionOffsetRef, @Share("potionIndex") LocalIntRef potionIndexRef,
+    private static void initPotions(CallbackInfo ci, @Local(name = "potionOffset") LocalIntRef potionOffsetRef,
+        @Share("potionIndex") LocalIntRef potionIndexRef,
         @Share("potionNameLangKeys") LocalRef<String[]> potionNameLangKeysRef,
         @Share("potionNames") LocalRef<String[]> potionNamesRef) {
         LOG.info("Overriding Thaumcraft's potion ID assignement.");
