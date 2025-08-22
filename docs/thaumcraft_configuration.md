@@ -2,6 +2,11 @@
 
 Config file: `config/salisarcana/thaumcraft_configuration.cfg`
 
+## Primal Arrows (Group `primal_arrows`)
+
+### Config Option: `canBeFiredFromDispensers`
+Allows dispensers to fire primal arrows.
+
 ## Potion ID Overrides (Group `potion_ids`)
 
 ### Config Option: `_uncapped_potion_ids`
