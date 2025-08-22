@@ -251,6 +251,12 @@ public class ConfigBugfixes extends ConfigGroup {
         "Fixes an oversight with the pickaxe of the core that prevents it from detecting blocks with no aspects.")
             .setCategory("tools");
 
+    public final ToggleSetting detectLitRedstoneOre = new ToggleSetting(
+        this,
+        "detectLitRedstoneOre",
+        "When the pickaxe of the core scans for ores, it will detect lit redstone ore as the same block as unlit redstone ore.")
+            .setCategory("tools");
+
     @Nonnull
     @Override
     public String getGroupName() {
