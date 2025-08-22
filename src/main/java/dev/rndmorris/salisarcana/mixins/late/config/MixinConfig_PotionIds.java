@@ -124,7 +124,7 @@ public abstract class MixinConfig_PotionIds {
     private static int sa$findNextOpenId(LocalIntRef lastAutoRef, String potionName) {
         final int startIndex = 32;
         // noinspection ConstantValue
-        for (var index = Math.max(lastAutoRef.get(), startIndex); index < Potion.potionTypes.length; ++index) {
+        for (var index = Math.max(lastAutoRef.get() + 1, startIndex); index < Potion.potionTypes.length; ++index) {
             if (Potion.potionTypes[index] == null) {
                 lastAutoRef.set(index);
                 LOG.info("Found unassigned potion id {}. Assigning it to {}.", index, potionName);
