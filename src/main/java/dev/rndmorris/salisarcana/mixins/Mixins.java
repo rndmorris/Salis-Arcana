@@ -467,6 +467,13 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)
         .addRequiredMod(TargetedMod.BAUBLES_EXPANDED)),
 
+    SUPPRESS_ASPECTS_TAG(new SalisBuilder()
+        .setApplyIf(() -> true)
+        .addCommonMixins(
+            "lib.MixinThaumicCraftingManager_SuppressAspectsTag",
+            "tiles.MixinTileNode_SuppressAspectsTag")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     // Required
     ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
         .setRequired()
