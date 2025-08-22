@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.lib;
+package dev.rndmorris.salisarcana.client.events;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -10,6 +10,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import dev.rndmorris.salisarcana.lib.WandHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.wands.StaffRod;
