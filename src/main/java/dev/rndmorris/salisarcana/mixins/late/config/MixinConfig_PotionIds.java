@@ -35,27 +35,31 @@ public abstract class MixinConfig_PotionIds {
         at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;info(Ljava/lang/String;)V", ordinal = 0))
     private static void initPotions(CallbackInfo ci, @Local(name = "potionOffset") LocalIntRef potionOffsetRef,
         @Share("potionIndex") LocalIntRef potionIndexRef,
+        @Share("potionIdSettings") LocalRef<IntSetting[]> potionIdSettingsRef,
         @Share("potionNameLangKeys") LocalRef<String[]> potionNameLangKeysRef,
         @Share("potionNames") LocalRef<String[]> potionNamesRef) {
         LOG.info("Overriding Thaumcraft's potion ID assignement.");
 
-        final var tweaks = SalisConfig.thaum;
+        final var thaum = SalisConfig.thaum;
+        final IntSetting[] potionIdSettings = new IntSetting[] { thaum.taintPoisonId, thaum.fluxFluId,
+            thaum.fluxPhageId, thaum.unnaturalHungerId, thaum.warpWardId, thaum.deadlyGazeId, thaum.blurredVisionId,
+            thaum.sunScornedId, thaum.thaumarhiaId };
         final String[] langKeys = new String[] { "potion.fluxtaint", "potion.visexhaust", "potion.infvisexhaust",
             "potion.unhunger", "potion.warpward", "potion.deathgaze", "potion.blurred", "potion.sunscorned",
             "potion.thaumarhia" };
         final String[] potionNames = new String[] { "Taint Poison", "Flux Flu", "Flux Phage", "Unnatural Hunger",
             "Warp Ward", "Deadly Gaze", "Blurred Vision", "Sun Scorned", "Thaumarhia" };
 
+        potionIdSettingsRef.set(potionIdSettings);
         potionNameLangKeysRef.set(langKeys);
         potionNamesRef.set(potionNames);
 
-        @SuppressWarnings("OptionalGetWithoutIsPresent")
-        final var maxId = Arrays.stream(tweaks.potionIdSettings)
+        final var maxId = Arrays.stream(potionIdSettings)
             .mapToInt(IntSetting::getValue)
             .max()
             .getAsInt();
-        final var arrayLengthLimit = tweaks.potionIdLimitRaised.isEnabled() ? Integer.MAX_VALUE : Byte.MAX_VALUE;
-        final var minRequiredSize = 32 + tweaks.potionIdSettings.length; // 32 is the vanilla length
+        final var arrayLengthLimit = thaum.potionIdLimitRaised.isEnabled() ? Integer.MAX_VALUE : Byte.MAX_VALUE;
+        final var minRequiredSize = 32 + potionIdSettings.length; // 32 is the vanilla length
 
         final var expandTo = 1 + Math.min(
             // we may need IDs above the max
@@ -76,6 +80,7 @@ public abstract class MixinConfig_PotionIds {
         at = @At(value = "INVOKE", target = "Lthaumcraft/common/config/Config;getNextPotionId(I)I"))
     private static int wrapPotionId(int _start, Operation<Integer> original,
         @Share("potionIndex") LocalIntRef potionIndexRef, @Share("lastAutoId") LocalIntRef lastAutoIdRef,
+        @Share("potionIdSettings") LocalRef<IntSetting[]> potionIdSettingsRef,
         @Share("potionNameLangKeys") LocalRef<String[]> potionNameLangKeysRef,
         @Share("potionNames") LocalRef<String[]> potionNamesRef) {
         final var potionIndex = potionIndexRef.get();
@@ -84,7 +89,7 @@ public abstract class MixinConfig_PotionIds {
         }
         potionIndexRef.set(potionIndex + 1);
 
-        final var setting = SalisConfig.thaum.potionIdSettings[potionIndex];
+        final var setting = potionIdSettingsRef.get()[potionIndex];
         final var potionId = setting.getValue();
         if (setting.isEnabled()) {
             // we have an id to assign

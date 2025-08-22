@@ -80,11 +80,11 @@ public class ConfigThaumcraft extends ConfigGroup {
         -1).setMinValue(-1)
             .setCategory(potionCategory);
 
-    public final IntSetting[] potionIdSettings = new IntSetting[] { taintPoisonId, fluxFluId, fluxPhageId,
-        unnaturalHungerId, warpWardId, deadlyGazeId, blurredVisionId, sunScornedId, thaumarhiaId };
-
-    public boolean potionIdOverridesActive() {
-        return Arrays.stream(potionIdSettings)
+    public boolean anyPotionIdOverrideActive() {
+        return Arrays
+            .stream(
+                new IntSetting[] { taintPoisonId, fluxFluId, fluxPhageId, unnaturalHungerId, warpWardId, deadlyGazeId,
+                    blurredVisionId, sunScornedId, thaumarhiaId })
             .anyMatch(IntSetting::isEnabled);
     }
 
