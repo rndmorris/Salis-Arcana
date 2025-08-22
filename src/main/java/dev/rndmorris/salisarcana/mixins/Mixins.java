@@ -475,7 +475,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ELEMENTAL_PICK_SCAN_OREDICT(new SalisBuilder()
-        .setApplyIf(() -> true)
+        .applyIf(SalisConfig.thaum.elementalPickScanTags)
         .addClientMixins("client.lib.MixinRenderEventHandler_ElementalPickOredict")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 

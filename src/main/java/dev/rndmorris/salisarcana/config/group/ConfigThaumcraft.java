@@ -88,6 +88,12 @@ public class ConfigThaumcraft extends ConfigGroup {
             .anyMatch(IntSetting::isEnabled);
     }
 
+    public final ToggleSetting elementalPickScanTags = new ToggleSetting(
+        this,
+        "elementalPickOredictFilter",
+        "When enabled, the Pickaxe of the Core will respect two new ore dictionary tags. Blocks labeled with\n`salisarcana:elementalPickScanExclude` will never be detected by the pickaxe, while blocks labeled with\n`salisarcana:elementalPickScanInclude` will be detected even if they normally would not.")
+            .setCategory("tools");
+
     @Override
     public @NotNull String getGroupName() {
         return "thaumcraft_configuration";

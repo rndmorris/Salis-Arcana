@@ -16,13 +16,11 @@ public class OreDict {
      * Blocks with this oredict tag will always be included in the output of the Pickaxe of the Core's right-click
      * ability.
      */
-    // this intentionally contains the term "ore" so that it will be accepted as an "ore" oredict name for TC's ore
-    // scanning
-    public static final String ELEMENTAL_PICK_SCAN_INCLUDE = "salisarcana:pickaxeCoreScanInclude";
+    public static final String ELEMENTAL_PICK_SCAN_INCLUDE = "salisarcana:elementalPickScanInclude";
 
     /**
      * Blocks with this oredict tag will not be included in the output of the Pickaxe of the Core's right-click ability,
      * even if they normally would be.
      */
-    public static final String ELEMENTAL_PICK_SCAN_EXCLUDE = "salisarcana:pickaxeCoreScanExclude";
+    public static final String ELEMENTAL_PICK_SCAN_EXCLUDE = "salisarcana:elementalPickScanExclude";
 }
