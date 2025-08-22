@@ -6,6 +6,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -14,16 +15,27 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import dev.rndmorris.salisarcana.lib.MultiContainer;
+import dev.rndmorris.salisarcana.lib.ifaces.IReconnectableContainer;
 import thaumcraft.common.container.ContainerArcaneWorkbench;
 import thaumcraft.common.container.InventoryFake;
 import thaumcraft.common.container.SlotCraftingArcaneWorkbench;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 @Mixin(ContainerArcaneWorkbench.class)
-public abstract class MixinContainerArcaneWorkbench_MultiContainer extends Container {
+public abstract class MixinContainerArcaneWorkbench_MultiContainer extends Container
+    implements IReconnectableContainer, IInventory {
+
+    @Shadow(remap = false)
+    private TileArcaneWorkbench tileEntity;
+
+    @Shadow
+    public abstract void onCraftMatrixChanged(IInventory par1IInventory);
 
     @Unique
     private final InventoryFake salisArcana$outputSlot = new InventoryFake(new ItemStack[1]);
+
+    @Unique
+    private boolean salisArcana$connected;
 
     @WrapOperation(
         method = "<init>",
@@ -34,6 +46,7 @@ public abstract class MixinContainerArcaneWorkbench_MultiContainer extends Conta
         remap = false)
     public void setEventHandler(TileArcaneWorkbench instance, Container value, Operation<Void> original) {
         original.call(instance, MultiContainer.mergeContainers(instance.eventHandler, value));
+        this.salisArcana$connected = true;
     }
 
     @WrapOperation(
@@ -44,6 +57,7 @@ public abstract class MixinContainerArcaneWorkbench_MultiContainer extends Conta
             remap = false))
     public void removeEventHandler(TileArcaneWorkbench instance, Container value, Operation<Void> original) {
         original.call(instance, MultiContainer.removeContainer(instance.eventHandler, this));
+        this.salisArcana$connected = false;
     }
 
     @ModifyExpressionValue(
@@ -80,5 +94,14 @@ public abstract class MixinContainerArcaneWorkbench_MultiContainer extends Conta
             ordinal = 1))
     public ItemStack getOutputSlot(TileArcaneWorkbench instance, int i, Operation<ItemStack> original) {
         return salisArcana$outputSlot.getStackInSlot(0);
+    }
+
+    @Override
+    public void salisArcana$reconnect() {
+        if (!this.salisArcana$connected) {
+            this.tileEntity.eventHandler = MultiContainer.mergeContainers(this.tileEntity.eventHandler, this);
+            this.onCraftMatrixChanged(this);
+            this.salisArcana$connected = true;
+        }
     }
 }

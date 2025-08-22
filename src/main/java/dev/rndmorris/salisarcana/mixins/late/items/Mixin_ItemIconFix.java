@@ -5,12 +5,10 @@ import net.minecraft.util.IIcon;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+
 import thaumcraft.common.items.ItemLootBag;
 import thaumcraft.common.items.ItemNugget;
 import thaumcraft.common.items.ItemResource;
@@ -29,15 +27,13 @@ public abstract class Mixin_ItemIconFix extends Item {
     @Shadow(remap = false)
     public IIcon[] icon;
 
-    @SideOnly(Side.CLIENT)
-    @Inject(method = "getIconFromDamage", at = @At("HEAD"), cancellable = true)
-    private void mixinGetIconFromDamage(int meta, CallbackInfoReturnable<IIcon> cir) {
+    @WrapMethod(method = "getIconFromDamage")
+    private IIcon mixinGetIconFromDamage(int meta, Operation<IIcon> original) {
         if (0 <= meta && meta < icon.length) {
-            cir.setReturnValue(icon[meta]);
+            return original.call(meta);
         } else {
-            cir.setReturnValue(null);
+            return null;
         }
-        cir.cancel();
     }
 
 }

@@ -6,7 +6,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
@@ -34,7 +33,10 @@ public class RecipeForgivingPrimalCharm implements IArcaneRecipe {
         for (var slot : SLOT_PRIMAL) {
             final var itemStack = craftingTable.getStackInSlot(slot);
             final var shardId = shardId(itemStack);
-            ArrayHelper.tryAssign(foundShards, shardId, true);
+
+            if (shardId >= 0 && shardId < 6) {
+                foundShards[shardId] = true;
+            }
         }
 
         for (var foundShard : foundShards) {
@@ -45,6 +47,9 @@ public class RecipeForgivingPrimalCharm implements IArcaneRecipe {
 
         for (var slot : SLOT_GOLD) {
             final var itemStack = craftingTable.getStackInSlot(slot);
+            if (itemStack == null) {
+                return false;
+            }
             if (itemStack.getItem() != Items.gold_ingot) {
                 return false;
             }
