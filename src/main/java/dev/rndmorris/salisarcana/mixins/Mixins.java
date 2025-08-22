@@ -468,7 +468,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.BAUBLES_EXPANDED)),
 
     SUPPRESS_ASPECTS_TAG(new SalisBuilder()
-        .setApplyIf(() -> true)
+        .applyIf(SalisConfig.features.alchemicalSealant)
         .addCommonMixins(
             "lib.MixinThaumicCraftingManager_SuppressAspectsTag",
             "tiles.MixinTileNode_SuppressAspectsTag")

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -39,14 +40,19 @@ public class CustomRecipes {
 
         final var features = SalisConfig.features;
 
+        // noinspection unchecked
+        final var thaumcraftRecipes = (List<Object>) ThaumcraftApi.getCraftingRecipes();
+
+        if (features.alchemicalSealant.isEnabled()) {
+            thaumcraftRecipes.add(new ToggleSuppressAspectsRecipe());
+        }
+
         if (features.lookalikePlanks.isEnabled()) {
             registerPlankRecipes();
         }
 
         if (features.lessPickyPrimalCharmRecipe.isEnabled()) {
-            // noinspection unchecked
-            ThaumcraftApi.getCraftingRecipes()
-                .add(new RecipeForgivingPrimalCharm());
+            thaumcraftRecipes.add(new RecipeForgivingPrimalCharm());
         }
 
         if (features.rotatedThaumometerRecipe.isEnabled()) {
@@ -58,15 +64,11 @@ public class CustomRecipes {
         }
 
         if (features.replaceWandCapsSettings.isEnabled()) {
-            // noinspection unchecked
-            ThaumcraftApi.getCraftingRecipes()
-                .add(replaceWandCapsRecipe = new ReplaceWandCapsRecipe());
+            thaumcraftRecipes.add(replaceWandCapsRecipe = new ReplaceWandCapsRecipe());
         }
 
         if (features.replaceWandCoreSettings.isEnabled()) {
-            // noinspection unchecked
-            ThaumcraftApi.getCraftingRecipes()
-                .add(replaceWandCoreRecipe = new ReplaceWandCoreRecipe());
+            thaumcraftRecipes.add(replaceWandCoreRecipe = new ReplaceWandCoreRecipe());
         }
 
         if (features.rottenFleshRecipe.isEnabled()) {
