@@ -466,6 +466,11 @@ public class ConfigFeatures extends ConfigGroup {
         "Applying patterns to banners not consume the phial or the essentia. Overrides bannerReturnPhials in the bugfixes module.")
             .setEnabled(false);
 
+    public final ToggleSetting wandPartStatsTooltip = new ToggleSetting(
+        this,
+        "wandPartStatsTooltip",
+        "Wand caps & wand rods will show information about their vis capacity & discount in their tooltips.");
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
