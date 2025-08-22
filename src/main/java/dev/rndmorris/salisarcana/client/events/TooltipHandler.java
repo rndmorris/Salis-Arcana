@@ -4,19 +4,21 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.StringJoiner;
 
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import dev.rndmorris.salisarcana.api.NbtUtilities;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.wands.StaffRod;
 import thaumcraft.common.config.ConfigItems;
 
-public class WandPartTooltipEventHandler {
+public class TooltipHandler {
 
     private static final NumberFormat PERCENT_FORMAT = NumberFormat.getPercentInstance();
 
@@ -25,6 +27,23 @@ public class WandPartTooltipEventHandler {
 
     @SubscribeEvent
     public void renderTooltip(ItemTooltipEvent event) {
+        renderAlchSealTooltip(event);
+        renderWandComponentTooltip(event);
+    }
+
+    private static void renderAlchSealTooltip(ItemTooltipEvent event) {
+        if (NbtUtilities.hasSuppressAspectsTag(event.itemStack)) {
+            event.toolTip.add(
+                String.format(
+                    "%s%s%s%s",
+                    EnumChatFormatting.DARK_PURPLE,
+                    EnumChatFormatting.ITALIC,
+                    StatCollector.translateToLocal("salisarcana:tagged.alchemically_sealed"),
+                    EnumChatFormatting.RESET));
+        }
+    }
+
+    private static void renderWandComponentTooltip(ItemTooltipEvent event) {
         final boolean expandText = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
 
         final var wandCap = WandHelper.getWandCapFromItem(event.itemStack);
