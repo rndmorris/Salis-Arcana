@@ -4,7 +4,7 @@ Config file: `config/salisarcana/thaumcraft_configuration.cfg`
 
 ## Potion ID Overrides (Group `potion_ids`)
 
-### Config Option: `uncapped_potion_ids`
+### Config Option: `_uncapped_potion_ids`
 If true, will allow setting potion ids to 128 and higher. Defaults to `false` for safety.
 
 ### Config Option: `blurredVisionId`
