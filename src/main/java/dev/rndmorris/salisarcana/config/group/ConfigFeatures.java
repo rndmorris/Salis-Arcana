@@ -471,6 +471,11 @@ public class ConfigFeatures extends ConfigGroup {
         "wandPartStatsTooltip",
         "Wand caps & wand rods will show information about their vis capacity & discount in their tooltips.");
 
+    public final ToggleSetting alchemicalSealant = new ToggleSetting(
+        this,
+        "alchemicalSealant",
+        "Enables crafting recipes that prevent hungry nodes, crucibles, and alchemical furnaces from being able to destroy items.");
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
