@@ -5,7 +5,7 @@
 ## Salis Arcana's Goals
 
 ### Find and correct bugs
-No code is perfect, and Thaumcraft 4 is no exception. Sometimes errors occur that can crash the game, log or announce error messages, or otherwise cause things in-game to behave in ways one wouldn't expect. Salis Arcana wants to fix those errors.
+No software is perfect, and Thaumcraft 4 is no exception. Sometimes errors occur that can crash the game, log or announce error messages, or otherwise cause things in-game to behave in ways one wouldn't expect. Salis Arcana wants to fix those errors.
 
 **Author's note:** Something behaving *"in ways one wouldn't expect"* can be very subjective. Is it *intentional* that banners, when being patterned with an essentia phial, consume both the essentia and the entire glass phial? Some would argue that it's clearly a bug because it doesn't make sense. Others would argue that, since there's no evidence that an effort was made in-code to *not* consume the whole phial, it's intended behavior. In these situations, it's best to discuss and try to find some agreement. If it's ultimately unclear, perhaps it would be better resolved as an additional configuration option.
 
