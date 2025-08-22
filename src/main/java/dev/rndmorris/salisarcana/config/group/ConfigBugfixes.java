@@ -245,6 +245,12 @@ public class ConfigBugfixes extends ConfigGroup {
         "clampWandOverlayVis",
         "Prevents the \"Vis in Wand\" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.");
 
+    public final ToggleSetting detectZeroAspectBlocks = new ToggleSetting(
+        this,
+        "detectZeroAspectBlocks",
+        "Fixes an oversight with the pickaxe of the core that prevents it from detecting blocks with no aspects.")
+            .setCategory("tools");
+
     @Nonnull
     @Override
     public String getGroupName() {

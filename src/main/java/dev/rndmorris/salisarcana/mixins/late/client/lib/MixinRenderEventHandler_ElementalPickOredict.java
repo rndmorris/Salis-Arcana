@@ -72,13 +72,4 @@ public abstract class MixinRenderEventHandler_ElementalPickOredict {
         // set `boolean ore` to `true` if it was flagged earlier
         return includeBlockRef.get() ? 1 : original;
     }
-
-    @ModifyExpressionValue(
-        method = "startScan",
-        at = @At(value = "INVOKE", target = "Lthaumcraft/api/aspects/AspectList;visSize()I"))
-    private int showZeroAspectOres(int original, @Share("block") LocalRef<Block> blockRef) {
-        // anything that returns 0 is effectively
-        // excluded from the scan, and we can't have that
-        return Math.max(1, original);
-    }
 }

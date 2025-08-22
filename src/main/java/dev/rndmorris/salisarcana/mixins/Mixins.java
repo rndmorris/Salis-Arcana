@@ -215,6 +215,11 @@ public enum Mixins implements IMixins {
         .addClientMixins("client.lib.MixinClientTickEventsFML_VisOverflow")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
+    ELEMENTAL_PICK_SCAN_ZERO_ASPECTS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.detectZeroAspectBlocks)
+        .addClientMixins("client.lib.MixinRenderEventHandler_DetectZeroAspectBlocks")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
         .applyIf(SalisConfig.features.useAllBaublesSlots)
