@@ -248,20 +248,21 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting detectZeroAspectBlocks = new ToggleSetting(
         this,
         "detectZeroAspectBlocks",
-        "Fixes an oversight with the pickaxe of the core that prevents it from detecting blocks with no aspects.")
+        "Fixes an oversight with the pickaxe of the core that prevents it from displaying detected blocks that have no aspects.")
             .setCategory("tools");
 
     public final ToggleSetting detectLitRedstoneOre = new ToggleSetting(
         this,
         "detectLitRedstoneOre",
-        "When the pickaxe of the core scans for ores, it will detect lit redstone ore as the same block as unlit redstone ore.")
-            .setCategory("tools");
+        "Works around limitation with Forge that prevents the pickaxe of the core fom detecting lit redstone ore by treating it\n"
+            + "as identical to regular redstone ore.").setCategory("tools");
 
     public final ToggleSetting detectLapisOre = new ToggleSetting(
         this,
         "detectLapisOre",
-        "When the pickaxe of the core scans for ores, it will detect vanilla lapis ore correctly.")
-            .setCategory("tools");
+        "Allows the pickaxe of the core to correctly detect vanilla lapis ore.\n" + "\n"
+            + "Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of a block's dropped item to\n"
+            + "identify a block instead of its in-world metadata when scanning for ores.").setCategory("tools");
 
     @Nonnull
     @Override
