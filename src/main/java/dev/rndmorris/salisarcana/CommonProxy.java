@@ -6,8 +6,6 @@ import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
@@ -67,10 +65,6 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
-        // for some reason, lapis ore needs a wildcard to be detected in `RenderEventHandler::startScan`.
-        // Don't ask me why. This is so inconsequential that I don't think it needs a config option.
-        OreDictionary.registerOre("oreLapisLazuli", new ItemStack(Blocks.lapis_ore, 1, Short.MAX_VALUE));
-
         if (SalisConfig.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.initialize();
         }

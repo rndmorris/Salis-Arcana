@@ -225,6 +225,11 @@ public enum Mixins implements IMixins {
         .addClientMixins("client.lib.MixinRenderEventHandler_DetectLitRedstoneOre")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
+    ELEMENTAL_PICK_SCAN_DETECT_LAPIS_ORE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.detectLapisOre)
+        .addClientMixins("client.lib.MixinRenderEventHandler_DetectLapisOre")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
         .applyIf(SalisConfig.features.useAllBaublesSlots)

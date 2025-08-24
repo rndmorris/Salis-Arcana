@@ -257,6 +257,12 @@ public class ConfigBugfixes extends ConfigGroup {
         "When the pickaxe of the core scans for ores, it will detect lit redstone ore as the same block as unlit redstone ore.")
             .setCategory("tools");
 
+    public final ToggleSetting detectLapisOre = new ToggleSetting(
+        this,
+        "detectLapisOre",
+        "When the pickaxe of the core scans for ores, it will detect vanilla lapis ore correctly.")
+            .setCategory("tools");
+
     @Nonnull
     @Override
     public String getGroupName() {
