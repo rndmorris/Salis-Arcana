@@ -141,6 +141,8 @@ salisarcana:tcinventoryscan.scanning=Scanning
 salisarcana:tcinventoryscan.thaumometerTooltip=Inventory Scanning available
 salisarcana:tcinventoryscan.thaumometerTooltipMore=Hover items with the Thaumometer\non the cursor to scan.
 
+tc.research_category.SALISARCANA=Salis Arcana
+
 tc.research_name.salisarcana:REPLACEWANDCAPS=Wand Cap Substitution
 tc.research_text.salisarcana:REPLACEWANDCAPS=Improving what is
 tc.research_page.salisarcana:REPLACEWANDCAPS.0=With proper technique, a casting implement's caps can be replaced. This destroys the implement's existing caps, but preserves its core.<BR>Replacing an implement's caps requires the same amount of vis as it would take to craft the same implement from scratch. Upgrading a Gold Banded Greatwood Wand to a Thaumium Bossed Greatwood Wand will cost just as much vis as creating a Thaumium Bossed Greatwood Wand directly.  
@@ -152,6 +154,18 @@ tc.research_page.salisarcana:REPLACEWANDCORE.0=With proper technique, a casting 
 tc.research_name.salisarcana:CHESTSCAN=Container Scanning
 tc.research_text.salisarcana:CHESTSCAN=Looking a little closer
 tc.research_page.salisarcana:CHESTSCAN.0=Thanks to your research about deconstructing items, you've learned to look inside other blocks with your Thaumometer by using it to "deconstruct" the block magically. You can scan any block that can hold items, such as a chest or hopper, to scan all contained items automatically.
+
+tc.research_name.salisarcana:AMULETIMPROVEMENTS=Amulet Improvements
+tc.research_text.salisarcana:AMULETIMPROVEMENTS=Finally, they're useful!
+tc.research_page.salisarcana:AMULETIMPROVEMENTS.0=Salis Arcana has added several configurable improvements to the Amulet of Vis Storage, making it a more useful item. First, it can now recharge any wand in your inventory, not just the wand you are holding. Additionally, the rate at which it recharges wands, and the amount of vis it can move at once, can also be configured in the config file.
+
+tc.research_name.salisarcana:LOOKALIKEPLANKS=Lookalike Planks
+tc.research_text.salisarcana:LOOKALIKEPLANKS=Azanor, why?
+tc.research_page.salisarcana:LOOKALIKEPLANKS.0=Silverwood and Greatwood planks have some flags set that, in some cases, stops the game from treating them as a full block. For example, you cannot push a redstone signal through the block via a repeater or torch. Salis Arcana adds a recipe to convert Thaumcraft planks into a lookalike version that are a "true" full block. Craft 8 planks of either type to create 8 lookalike planks of the same type.
+
+tc.research_name.salisarcana:CVWANDPEDESTAL=Improved Wand Pedestal Charging
+tc.research_text.salisarcana:CVWANDPEDESTAL=Another use for CV
+tc.research_page.salisarcana:CVWANDPEDESTAL.0=Salis Arcana improves the Wand Recharge Pedestal by allowing it to charge wands and amulets with a nearby CV source, so you no longer need to worry about your node depleting over time.
 
 item.Wand.staffter.obj=Staffter
 
