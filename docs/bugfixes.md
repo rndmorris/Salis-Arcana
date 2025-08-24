@@ -264,3 +264,21 @@ Prevents wand items from crashing everything when they contain a component which
 **Config option:** `clampWandOverlayVis`
 
 Prevents the "Vis in Wand" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.
+
+## Pickaxe of the Core (Group `tools`)
+
+**Config option:** `detectZeroAspectBlocks`
+
+Fixes an oversight with the pickaxe of the core that prevents it from displaying detected blocks that have no aspects.
+
+**Config option:** `detectLitRedstoneOre`
+
+Works around limitation with Forge that prevents the pickaxe of the core fom detecting lit redstone ore by treating it
+as identical to regular redstone ore.
+
+**Config option:** `detectLapisOre`
+
+Allows the pickaxe of the core to correctly detect vanilla lapis ore.
+
+Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of the block's dropped item to
+identify a block instead of its in-world metadata when scanning for ores.

@@ -2,6 +2,13 @@
 
 Config file: `config/salisarcana/thaumcraft_configuration.cfg`
 
+## Pickaxe of the Core Detection Ore Dictionary Labels (Group `tools`)
+
+### Config Option: `elementalPickOredictFilter`
+When enabled, the Pickaxe of the Core will respect two new ore dictionary tags. Blocks labeled with
+`salisarcana:elementalPickScanExclude` will never be detected by the pickaxe, while blocks labeled with
+`salisarcana:elementalPickScanInclude` will be detected even if they normally would not.
+
 ## Potion ID Overrides (Group `potion_ids`)
 
 ### Config Option: `_uncapped_potion_ids`
