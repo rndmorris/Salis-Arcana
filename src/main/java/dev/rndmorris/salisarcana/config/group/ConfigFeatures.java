@@ -486,6 +486,6 @@ public class ConfigFeatures extends ConfigGroup {
     @Nonnull
     @Override
     public String getGroupComment() {
-        return "Tweaks and adjustments to enhance Thaumcraft";
+        return "Features and enhancements for Thaumcraft";
     }
 }
