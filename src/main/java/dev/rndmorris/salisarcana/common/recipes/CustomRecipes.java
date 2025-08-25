@@ -35,6 +35,8 @@ public class CustomRecipes {
 
     public static @Nullable ReplaceWandCapsRecipe replaceWandCapsRecipe = null;
     public static @Nullable ReplaceWandCoreRecipe replaceWandCoreRecipe = null;
+    public static @Nullable SuppressAspectsRecipe suppressAspectsRecipe = null;
+    public static @Nullable SuppressAspectsRecipe unsuppressAspectsRecipe = null;
 
     public static void registerRecipes() {
 
@@ -44,7 +46,8 @@ public class CustomRecipes {
         final var thaumcraftRecipes = (List<Object>) ThaumcraftApi.getCraftingRecipes();
 
         if (features.alchemicalSealant.isEnabled()) {
-            thaumcraftRecipes.add(new ToggleSuppressAspectsRecipe());
+            thaumcraftRecipes.add(suppressAspectsRecipe = new SuppressAspectsRecipe.AddTagRecipe());
+            thaumcraftRecipes.add(unsuppressAspectsRecipe = new SuppressAspectsRecipe.RemoveTagRecipe());
         }
 
         if (features.lookalikePlanks.isEnabled()) {
