@@ -1,8 +1,8 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 
 import dev.rndmorris.salisarcana.api.NbtUtilities;
 import dev.rndmorris.salisarcana.common.CustomResearch;
+import dev.rndmorris.salisarcana.lib.ArrayHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
@@ -122,17 +123,22 @@ public abstract class SuppressAspectsRecipe implements IArcaneRecipe {
         itemWandCasting.setRod(wandItem, ConfigItems.WAND_ROD_SILVERWOOD);
         wandItem.getTagCompound()
             .setBoolean("sceptre", true);
-        final var results = new ArrayList<ItemStack>();
-        Collections.addAll(
-            results,
+
+        final var hoeItem = new ItemStack(ConfigItems.itemHoeVoid);
+        if (new Random().nextInt(100) == 0) {
+            // Because I think it's funny
+            hoeItem.setStackDisplayName("Your Mother");
+        }
+
+        return ArrayHelper.of(
+            new ArrayList<>(),
             new ItemStack(Items.diamond),
             new ItemStack(Blocks.red_flower, 1, 2),
             new ItemStack(Items.wooden_pickaxe),
             new ItemStack(ConfigItems.itemResource, 1, 15),
             new ItemStack(ConfigItems.itemFocusPouch),
-            new ItemStack(ConfigItems.itemHoeVoid),
+            hoeItem,
             wandItem);
-        return results;
     }
 
     public IArcaneRecipe[] getExampleRecipes() {

@@ -1,6 +1,7 @@
 package dev.rndmorris.salisarcana.lib;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -49,6 +50,12 @@ public class ArrayHelper {
             Collections.addAll(result, arr);
         }
         return result;
+    }
+
+    @SafeVarargs
+    public static <T extends Collection<U>, U> T of(T collection, U... items) {
+        Collections.addAll(collection, items);
+        return collection;
     }
 
     public static class TryGetResult<E> {
