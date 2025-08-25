@@ -3,11 +3,13 @@ package dev.rndmorris.salisarcana.common;
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizons.tcwands.api.TCWandAPI;
@@ -16,6 +18,7 @@ import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 
 import dev.rndmorris.salisarcana.common.compat.GTNHTCWandsCompat;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
+import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CustomResearchSetting;
 import dev.rndmorris.salisarcana.lib.ArrayHelper;
@@ -23,6 +26,8 @@ import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 import thaumcraft.api.research.ResearchCategories;
@@ -37,6 +42,7 @@ public class CustomResearch {
     public static ResearchItem replaceCapsResearch;
     public static ResearchItem replaceCoreResearch;
     public static ResearchItem containerScanResearch;
+    public static ResearchItem alchemicalSealant;
 
     public static void init() {
         final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
@@ -58,6 +64,35 @@ public class CustomResearch {
 
         if (SalisConfig.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.registerResearch();
+        }
+
+        if (SalisConfig.features.alchemicalSealant.isEnabled()) {
+            final var key = "salisarcana:AlchemicalSealant";
+            final var parentResearch = "ESSENTIACRYSTAL";
+            // todo: move this to the Salis Arcana tab
+            final var category = "ALCHEMY";
+            alchemicalSealant = new ResearchItem(
+                key,
+                category,
+                new AspectList().add(Aspect.ARMOR, 8)
+                    .add(Aspect.WEAPON, 8)
+                    .add(Aspect.CRYSTAL, 5),
+                7,
+                -2,
+                1,
+                new ResourceLocation("thaumcraft", "textures/aspects/tutamen.png")).setParents(parentResearch);
+
+            alchemicalSealant.setPages(
+                new ResearchPage("tc.research_page.salisarcana:AlchemicalSealant.0"),
+                new ResearchPage(
+                    Objects.requireNonNull(CustomRecipes.suppressAspectsRecipe)
+                        .getExampleRecipes()),
+                new ResearchPage("tc.research_page.salisarcana:AlchemicalSealant.1"),
+                new ResearchPage(
+                    Objects.requireNonNull(CustomRecipes.unsuppressAspectsRecipe)
+                        .getExampleRecipes()));
+
+            alchemicalSealant.registerResearchItem();
         }
 
         if (SalisConfig.features.nomiconDuplicateResearch.isEnabled()) {

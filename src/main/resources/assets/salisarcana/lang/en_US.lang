@@ -155,6 +155,11 @@ tc.research_name.salisarcana:CHESTSCAN=Container Scanning
 tc.research_text.salisarcana:CHESTSCAN=Looking a little closer
 tc.research_page.salisarcana:CHESTSCAN.0=Thanks to your research about deconstructing items, you've learned to look inside other blocks with your Thaumometer by using it to "deconstruct" the block magically. You can scan any block that can hold items, such as a chest or hopper, to scan all contained items automatically.
 
+tc.research_name.salisarcana:AlchemicalSealant=Alchemical Sealant
+tc.research_text.salisarcana:AlchemicalSealant=Slightly icky loss prevention
+tc.research_page.salisarcana:AlchemicalSealant.0=I'm in my laboratory, tossing items into the crucible. I'm close to achieving the perfect essentia combination for a recipe. Suddenly, my hands slip and my favorite scepter is suddenly reduced to essential slurry.<BR>Never again.<BR>By mixing magic tallow with crystalized tutamen and activating it with vis, I can alchemically seal an item and render it alchemically inert. It won't break down in a crucible or alchemical furnace, and should even be safe from hungry nodes.
+tc.research_page.salisarcana:AlchemicalSealant.1=In the event that I wish to remove the sealant, grinding crystalized telum into a fine powder and channeling the released energy through the item should render it once more alchemically-reactive without damaging it. 
+
 item.Wand.staffter.obj=Staffter
 
 focus.upgrade.salisarcana:disenchant.name=Disenchant Focus
