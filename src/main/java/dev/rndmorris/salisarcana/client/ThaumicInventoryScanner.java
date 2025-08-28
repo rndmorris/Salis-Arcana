@@ -46,7 +46,7 @@ import thaumcraft.common.lib.network.playerdata.PacketScannedToServer;
 import thaumcraft.common.lib.research.ScanManager;
 
 public class ThaumicInventoryScanner {
-    
+
     // +5 is added to the duration to account for the fact that in the config, we set the duration to be the total usage
     // duration - 5 since thaumcraft completes the scan when the remaining duration is <= 5
     private static int SCAN_TICKS;
