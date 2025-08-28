@@ -14,14 +14,8 @@ public enum Mixins implements IMixins {
     // spotless:off
     //Early Mixins
     ACCESSORS(new SalisBuilder(Phase.EARLY)
-        .addCommonMixins(
-            "accessor.AccessorGui",
-            "accessor.AccessorGuiContainer")
-        .addClientMixins(
-            "accessor.AccessorEffectRenderer",
-            "accessor.AccessorItemRenderer",
-            "accessor.AccessorMinecraft"
-        )),
+        .addCommonMixins("accessor.AccessorGuiContainer")
+        .addClientMixins("accessor.AccessorMinecraft")),
 
     // Bugfixes
     ADVANCED_ARCANE_FURNACE_SAVE_NBT(new SalisBuilder()
@@ -225,6 +219,13 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.clampWandOverlayVis)
         .addClientMixins("client.lib.MixinClientTickEventsFML_VisOverflow")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    IMPROVED_THAUMCRAFT_PERFORMANCE(new SalisBuilder()
+        .addClientMixins(
+            "client.lib.MixinClientTickEventsFML_Performance",
+            "client.lib.MixinUtilsFX",
+            "client.fx.MixinParticleEngine")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)
+    ),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
