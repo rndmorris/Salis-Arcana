@@ -46,6 +46,14 @@ import thaumcraft.common.lib.network.playerdata.PacketScannedToServer;
 import thaumcraft.common.lib.research.ScanManager;
 
 public class ThaumicInventoryScanner {
+    
+    // +5 is added to the duration to account for the fact that in the config, we set the duration to be the total usage
+    // duration - 5 since thaumcraft completes the scan when the remaining duration is <= 5
+    private static int SCAN_TICKS;
+
+    static int getScanTicks() {
+        return SCAN_TICKS;
+    }
 
     private static final int SOUND_TICKS = 5;
     private static final int INVENTORY_PLAYER_X = 26;
@@ -68,10 +76,6 @@ public class ThaumicInventoryScanner {
      **/
     private boolean isHoveringOverPlayer;
     public static ThaumicInventoryScanner instance;
-
-    // +5 is added to the duration to account for the fact that in the config, we set the duration to be the total usage
-    // duration - 5 since thaumcraft completes the scan when the remaining duration is <= 5
-    private static int SCAN_TICKS;
 
     public void onServerInstallStatusChanged(boolean newValue) {
         if (newValue) {
@@ -166,7 +170,7 @@ public class ThaumicInventoryScanner {
                 // Scan Slot
                 ticksHovered++;
                 playScanningSoundTick(player);
-                if (ticksHovered >= SCAN_TICKS) tryCompleteScan(player);
+                if (ticksHovered >= getScanTicks()) tryCompleteScan(player);
             } else {
                 // Check if there was a sudden jump to player sprite, otherwise do nothing
                 if (isHoveringOverPlayer) {
@@ -199,7 +203,7 @@ public class ThaumicInventoryScanner {
      * ticksHovered
      **/
     private void playScanningSoundTick(EntityPlayer entityPlayer) {
-        if (ticksHovered > SOUND_TICKS && ticksHovered % 2 == 0) {
+        if (ticksHovered > SOUND_TICKS) {
             entityPlayer.worldObj.playSound(
                 entityPlayer.posX,
                 entityPlayer.posY,
@@ -238,7 +242,7 @@ public class ThaumicInventoryScanner {
             if (!isHoveringOverPlayer && !stackExists) return;
             // If there's something being scanned
             if (currentScan != null && stackExists) {
-                renderScanningProgress(event.gui, event.mouseX, event.mouseY, ticksHovered / (float) SCAN_TICKS);
+                renderScanningProgress(event.gui, event.mouseX, event.mouseY, ticksHovered / (float) getScanTicks());
             } else {
                 // Display Tooltips and aspects
                 if (!isHoveringOverPlayer) {

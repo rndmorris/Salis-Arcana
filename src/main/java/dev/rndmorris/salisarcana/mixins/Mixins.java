@@ -219,9 +219,17 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.clampWandOverlayVis)
         .addClientMixins("client.lib.MixinClientTickEventsFML_VisOverflow")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
-    IMPROVED_THAUMCRAFT_PERFORMANCE(new SalisBuilder()
+
+    FIX_INVENTORY_ASPECTS(new SalisBuilder()
+        .setApplyIf(() -> SalisConfig.bugfixes.fixInventoryAspects.isEnabled()
+                        || SalisConfig.bugfixes.improveTC4Performance.isEnabled())
+        .addClientMixins("client.lib.MixinClientTickEventsFML_Aspectfix")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)
+
+    ),
+    IMPROVE_THAUMCRAFT_PERFORMANCE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.improveTC4Performance)
         .addClientMixins(
-            "client.lib.MixinClientTickEventsFML_Performance",
             "client.lib.MixinUtilsFX",
             "client.fx.MixinParticleEngine")
         .addRequiredMod(TargetedMod.THAUMCRAFT)

@@ -245,6 +245,16 @@ public class ConfigBugfixes extends ConfigGroup {
         "clampWandOverlayVis",
         "Prevents the \"Vis in Wand\" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.");
 
+    public final ToggleSetting fixInventoryAspects = new ToggleSetting(
+        this,
+        "fixInventoryAspects",
+        "Fixes a bug where some gui's will render the wrong aspects when shifting over them, while also improving its performance.");
+
+    public final ToggleSetting improveTC4Performance = new ToggleSetting(
+        this,
+        "improveTC4Performance",
+        "Implements several performance-enhancers into Thaumcraft.");
+
     @Nonnull
     @Override
     public String getGroupName() {

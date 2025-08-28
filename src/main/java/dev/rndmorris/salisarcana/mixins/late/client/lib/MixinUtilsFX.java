@@ -90,6 +90,7 @@ public class MixinUtilsFX {
     private static final ResourceLocation sa$particleTextures;
 
     static {
+        // this can also be done via accessors, makes no difference though.
         ResourceLocation location;
         try {
             Field f;
