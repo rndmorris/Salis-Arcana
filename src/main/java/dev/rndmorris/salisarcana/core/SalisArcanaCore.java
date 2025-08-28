@@ -1,18 +1,24 @@
 package dev.rndmorris.salisarcana.core;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
+import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
 import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
+import dev.rndmorris.salisarcana.mixins.Mixins;
 
 @IFMLLoadingPlugin.MCVersion("1.7.10")
-public class SalisArcanaCore implements IFMLLoadingPlugin {
+public class SalisArcanaCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
     public static boolean isObfuscated;
 
@@ -61,5 +67,15 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
     @Override
     public String getAccessTransformerClass() {
         return null;
+    }
+
+    @Override
+    public String getMixinConfig() {
+        return "mixins.salisarcana.early.json";
+    }
+
+    @Override
+    public List<String> getMixins(Set<String> loadedCoreMods) {
+        return IMixins.getEarlyMixins(Mixins.class, loadedCoreMods);
     }
 }
