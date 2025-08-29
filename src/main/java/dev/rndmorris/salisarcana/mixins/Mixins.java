@@ -230,8 +230,7 @@ public enum Mixins implements IMixins {
         .addClientMixins(
             "client.lib.MixinUtilsFX",
             "client.fx.MixinParticleEngine")
-        .addRequiredMod(TargetedMod.THAUMCRAFT)
-    ),
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
