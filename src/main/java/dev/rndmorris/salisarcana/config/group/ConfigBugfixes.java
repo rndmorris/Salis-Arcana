@@ -248,7 +248,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting fixInventoryAspects = new ToggleSetting(
         this,
         "fixInventoryAspects",
-        "Fixes a bug where some gui's will render the wrong aspects when shifting over them, while also improving its performance.");
+        "Some GUIs will no longer render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.");
 
     public final ToggleSetting improveTC4Performance = new ToggleSetting(
         this,
