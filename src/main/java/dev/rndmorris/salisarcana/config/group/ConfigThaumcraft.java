@@ -95,6 +95,11 @@ public class ConfigThaumcraft extends ConfigGroup {
         "canBeFiredFromDispensers",
         "Primal arrows can be shot from dispensers").setCategory(primalArrowCategory);
 
+    public final ToggleSetting improveTC4Rendering = new ToggleSetting(
+        this,
+        "improveTC4Rendering",
+        "Implements more efficient rendering methods into Thaumcraft, reducing the CPU overhead.");
+
     @Override
     public @NotNull String getGroupName() {
         return "thaumcraft_configuration";
