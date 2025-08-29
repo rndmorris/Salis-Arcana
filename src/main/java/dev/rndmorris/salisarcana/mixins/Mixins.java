@@ -12,7 +12,7 @@ import dev.rndmorris.salisarcana.config.settings.Setting;
 public enum Mixins implements IMixins {
 
     // spotless:off
-    //Early Mixins
+    // Early Mixins
     ACCESSORS(new SalisBuilder(Phase.EARLY)
         .addCommonMixins("accessor.AccessorGuiContainer")
         .addClientMixins("accessor.AccessorMinecraft")),
