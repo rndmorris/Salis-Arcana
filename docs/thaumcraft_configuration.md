@@ -39,5 +39,13 @@ Override the id of the Unnatural Hunger potion effect. Set to -1 to auto-assign 
 ### Config Option: `warpWardId`
 Override the id of the Warp Ward potion effect. Set to -1 to auto-assign as normal.
 
-### Config Option: `improveTC4Rendering`
-Implements more efficient rendering methods into Thaumcraft, reducing the CPU overhead.
+## Performance-related Changes (Group `thaumcraft_performance`)
+
+### Config Option: `replaceReflection`
+Replaces slow reflection calls with quick accessors.
+
+### Config Option: `improveAspectTooltipPerformance`
+Improves the performance of the aspect tooltips by rewriting its logic.
+
+### Config Option: `betterParticleEngine`
+Improves the particle engine of Thaumcraft by removing unnecessary GL operations.

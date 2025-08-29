@@ -222,14 +222,16 @@ public enum Mixins implements IMixins {
 
     FIX_INVENTORY_ASPECTS(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.bugfixes.fixInventoryAspects.isEnabled()
-                        || SalisConfig.thaum.improveTC4Rendering.isEnabled())
+                        || SalisConfig.thaum.improveAspectTooltipPerformance.isEnabled())
         .addClientMixins("client.lib.MixinClientTickEventsFML_Aspectfix")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
-    IMPROVE_THAUMCRAFT_PERFORMANCE(new SalisBuilder()
-        .applyIf(SalisConfig.thaum.improveTC4Rendering)
-        .addClientMixins(
-            "client.lib.MixinUtilsFX",
-            "client.fx.MixinParticleEngine")
+    REPLACE_THAUMCRAFT_REFLECTION(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.replaceReflection)
+        .addClientMixins("client.lib.MixinUtilsFX")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    BETTER_PARTICLE_ENGINE(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.betterParticleEngine)
+        .addClientMixins("client.fx.MixinParticleEngine")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
