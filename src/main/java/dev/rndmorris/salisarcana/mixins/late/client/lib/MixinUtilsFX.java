@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
 
+import dev.rndmorris.salisarcana.lib.ObfuscationInfo;
 import dev.rndmorris.salisarcana.mixins.early.accessor.AccessorGuiContainer;
 import dev.rndmorris.salisarcana.mixins.early.accessor.AccessorMinecraft;
 import thaumcraft.client.lib.UtilsFX;
@@ -93,12 +94,7 @@ public class MixinUtilsFX {
         // this can also be done via accessors, makes no difference though.
         ResourceLocation location;
         try {
-            Field f;
-            try {
-                f = EffectRenderer.class.getDeclaredField("field_110737_b");
-            } catch (Exception e) {
-                f = EffectRenderer.class.getDeclaredField("particleTextures");
-            }
+            Field f = EffectRenderer.class.getDeclaredField(ObfuscationInfo.PARTICLE_TEXTURES.getName());
             f.setAccessible(true);
             location = (ResourceLocation) f.get(null);
         } catch (Throwable t) {

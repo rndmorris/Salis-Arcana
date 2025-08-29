@@ -9,6 +9,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+
+import cpw.mods.fml.common.gameevent.TickEvent;
 import thaumcraft.client.fx.ParticleEngine;
 
 @Mixin(value = ParticleEngine.class, remap = false)
@@ -17,10 +21,10 @@ public class MixinParticleEngine {
     @Unique
     private boolean sa$hasParticles;
 
-    @Inject(method = "onRenderWorldLast", at = @At("HEAD"), cancellable = true)
-    private void sa$onRenderWorldLast(RenderWorldLastEvent event, CallbackInfo ci) {
-        if (!sa$hasParticles) {
-            ci.cancel();
+    @WrapMethod(method = "onRenderWorldLast")
+    private void sa$onRenderWorldLast(RenderWorldLastEvent event, Operation<Void> original) {
+        if (sa$hasParticles) {
+            original.call(event);
         }
     }
 
@@ -39,10 +43,10 @@ public class MixinParticleEngine {
         sa$hasParticles = true;
     }
 
-    @Inject(method = "updateParticles", at = @At("HEAD"), cancellable = true)
-    private void sa$shortCircuitUpdate(CallbackInfo ci) {
-        if (!sa$hasParticles) {
-            ci.cancel();
+    @WrapMethod(method = "updateParticles")
+    private void sa$onUpdateParticles(TickEvent.ClientTickEvent event, Operation<Void> original) {
+        if (sa$hasParticles) {
+            original.call(event);
         }
     }
 
