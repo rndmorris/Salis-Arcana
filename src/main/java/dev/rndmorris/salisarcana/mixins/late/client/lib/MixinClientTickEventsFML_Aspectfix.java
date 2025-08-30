@@ -29,10 +29,10 @@ public class MixinClientTickEventsFML_Aspectfix {
     /**
      * @author Sisyphussy
      * @reason Fix a bug with the hovered slot being wrong + make it more performant
-     * Changes:
-     * - remove unnecessary GL calls
-     * - move logic outside the loop to prevent unnecessary recalculations/GL calls
-     * - Access GuiContainer.theSlot instead of iterating over every slot in order to find the hovered slot
+     *         Changes:
+     *         - remove unnecessary GL calls
+     *         - move logic outside the loop to prevent unnecessary recalculations/GL calls
+     *         - Access GuiContainer.theSlot instead of iterating over every slot in order to find the hovered slot
      */
     @Overwrite
     public void renderAspectsInGui(GuiContainer gui, EntityPlayer player) {

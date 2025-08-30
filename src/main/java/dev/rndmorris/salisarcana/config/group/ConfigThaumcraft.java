@@ -100,20 +100,18 @@ public class ConfigThaumcraft extends ConfigGroup {
     public final ToggleSetting replaceReflection = new ToggleSetting(
         this,
         "replaceReflection",
-        "Replaces slow reflection calls with quick accessors.")
-        .setCategory(tc4PerformanceCategory);
+        "Replaces slow reflection calls with quick accessors.").setCategory(tc4PerformanceCategory);
 
     public final ToggleSetting improveAspectTooltipPerformance = new ToggleSetting(
         this,
         "improveAspectTooltipPerformance",
-        "Improves the performance of the aspect tooltips by rewriting its logic.")
-        .setCategory(tc4PerformanceCategory);
+        "Improves the performance of the aspect tooltips by rewriting its logic.").setCategory(tc4PerformanceCategory);
 
     public final ToggleSetting betterParticleEngine = new ToggleSetting(
         this,
         "betterParticleEngine",
         "Improves the particle engine of Thaumcraft by removing unnecessary GL operations.")
-        .setCategory(tc4PerformanceCategory);
+            .setCategory(tc4PerformanceCategory);
 
     @Override
     public @NotNull String getGroupName() {
