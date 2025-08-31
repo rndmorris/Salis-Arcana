@@ -5,7 +5,7 @@ import org.spongepowered.asm.lib.Label;
 import org.spongepowered.asm.lib.MethodVisitor;
 import org.spongepowered.asm.lib.Opcodes;
 
-public class RenderBoundsMethodVisitor extends MethodVisitor {
+public class RendererBoundsMethodVisitor extends MethodVisitor {
     // Sequence:
     // 1) INVOKEVIRTUAL net/minecraft/block/Block.setBlockBounds(FFFFFF)V
     // 2) ALOAD #1 (RenderBlocks)
@@ -17,7 +17,7 @@ public class RenderBoundsMethodVisitor extends MethodVisitor {
     private int aload1 = 0;
     private int aload2 = 0;
 
-    public RenderBoundsMethodVisitor(MethodVisitor mv) {
+    public RendererBoundsMethodVisitor(MethodVisitor mv) {
         super(Opcodes.ASM9, mv);
     }
 

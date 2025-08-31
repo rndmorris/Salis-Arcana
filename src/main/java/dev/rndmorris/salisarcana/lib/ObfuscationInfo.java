@@ -5,6 +5,8 @@ import dev.rndmorris.salisarcana.core.SalisArcanaCore;
 public enum ObfuscationInfo {
     // spotless:off
 
+    ADD_COLLISION_BOXES_TO_LIST("func_149743_a", "addCollisionBoxesToList"),
+    GET_SELECTED_BOUNDING_BOX_FROM_POOL("func_149633_g", "getSelectedBoundingBoxFromPool"),
     HARVEST_LEVEL("field_78001_f", "harvestLevel"),
 
     ;
