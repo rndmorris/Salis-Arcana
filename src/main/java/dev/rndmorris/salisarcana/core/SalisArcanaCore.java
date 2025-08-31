@@ -21,6 +21,7 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
 
     public SalisArcanaCore() {
         SalisConfig.synchronizeConfiguration();
+        SalisArcanaAlternateClassTransformer.initialize();
     }
 
     public static ArrayList<IAsmEditor> editors = new ArrayList<>();
