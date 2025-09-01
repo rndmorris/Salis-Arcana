@@ -80,6 +80,17 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchMultiContainer)
         .addCommonMixins("container.MixinContainerArcaneWorkbench_MultiContainer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    CACHE_ARCANE_WORKBENCH_RECIPE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.arcaneWorkbenchCache)
+        .addCommonMixins(
+            "container.MixinContainerArcaneWorkbench_UseCache",
+            "lib.MixinThaumcraftCraftingManager_UseCache",
+            "tiles.MixinTileMagicWorkbench_CacheRecipe")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    MUNDANE_CRAFT_FORGE_EVENT_BRIDGE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.arcaneWorkbenchForgeEventBridge)
+        .addCommonMixins("container.MixinSlotCraftingArcaneWorkbench_ForgeEventBridge")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     THAUMATORIUM_MULTI_CONTAINER(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.thaumatoriumMultiContainer)
         .addCommonMixins("container.MixinContainerThaumatorium_MultiContainer")
@@ -162,6 +173,46 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.lootBlockHitbox)
         .addCommonMixins("blocks.MixinBlockLoot_SetHitbox")
         //.addClientMixins("client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FIX_LOCALIZATION_SIDES(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixClientSideLocalization)
+        .addCommonMixins(
+            "blocks.MixinBlockMetalDevice_LocalizeCorrectly",
+            "blocks.MixinBlockMirrorItem_LocalizableText",
+            "blocks.MixinBlockStoneDevice_LocalizeCorrectly",
+            "blocks.MixinBlockWoodenDevice_LocalizableText",
+            "items.MixinItemHandMirror_LocalizeCorrectly",
+            "items.MixinItemKey_LocalizeCorrectly",
+            "items.MixinItemResearchNotes_LocalizeCorrectly",
+            "entities.MixinEntityThaumcraftBosses_LocalizeCorrectly",
+            "lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
+            "lib.network.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
+            "lib.MixinWarpEvents_LocalizeCorrectly",
+            "tiles.MixinTileEldritchLock_LocalizeCorrectly")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EXCAVATION_DETERMINISTIC_COST(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.excavationFocusDeterministicCost)
+        .addCommonMixins("items.MixinItemFocusExcavation_DeterministicCost")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    BANNER_PHIAL_CONSUMPTION(new SalisBuilder()
+        .setApplyIf(() -> SalisConfig.bugfixes.bannerReturnPhials.isEnabled() || SalisConfig.features.bannerFreePatterns.isEnabled() || SalisConfig.features.stopCreativeModeItemConsumption.isEnabled())
+        .addCommonMixins("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    KEY_EXTRA_SECURITY(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.extraSecureArcaneKeys)
+        .addCommonMixins("items.MixinItemKey_ExtraSecurityChecks")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EARTH_SHOCK_REQUIRE_SOLID_GROUND(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.earthShockRequireSolidGround)
+        .addCommonMixins("entities.MixinEntityShockOrb_CheckSolidGround", "blocks.MixinBlockAiry_EarthShockCheckSolidGround")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    DEFAULT_WAND_COMPONENTS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.unknownWandComponentSupport)
+        .addCommonMixins("items.MixinItemWandCasting_DefaultWandComponents")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    CLAMP_WAND_OVERLAY_VIS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.clampWandOverlayVis)
+        .addClientMixins("client.lib.MixinClientTickEventsFML_VisOverflow")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
@@ -414,7 +465,19 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.modCompat.baublesExpanded.focusPouchSlot)
         .addCommonMixins("items.MixinItemFocusPouchBauble_ExpandedBaublesSlot")
         .addRequiredMod(TargetedMod.THAUMCRAFT)
-        .addRequiredMod(TargetedMod.BAUBLES_EXPANDED))
+        .addRequiredMod(TargetedMod.BAUBLES_EXPANDED)),
+
+    POTION_ID_OVERRIDE(new SalisBuilder()
+        .setApplyIf(SalisConfig.thaum::anyPotionIdOverrideActive)
+        .addCommonMixins("config.MixinConfig_PotionIds")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    // Required
+    ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
+        .setRequired()
+        .addCommonMixins("items.MixinAmuletWand_AddInterface")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     ;
     // spotless:on
 
@@ -434,6 +497,10 @@ public enum Mixins implements IMixins {
 
         public MixinBuilder applyIf(Setting config) {
             return super.setApplyIf(config::isEnabled);
+        }
+
+        public MixinBuilder setRequired() {
+            return super.setApplyIf(() -> true);
         }
     }
 }

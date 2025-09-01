@@ -1,12 +1,11 @@
 package dev.rndmorris.salisarcana.lib;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-
-import com.github.bsideup.jabel.Desugar;
 
 import dev.rndmorris.salisarcana.api.IVariableInfusionStabilizer;
 import dev.rndmorris.salisarcana.config.SalisConfig;
@@ -180,6 +179,47 @@ public class InfusionMatrixLogic {
         public int symmetry = 0;
     }
 
-    @Desugar
-    private record MatrixOrigin(World world, int xCoord, int yCoord, int zCoord) {}
+    private static class MatrixOrigin {
+
+        private final World world;
+        private final int xCoord;
+        private final int yCoord;
+        private final int zCoord;
+
+        public MatrixOrigin(World world, int xCoord, int yCoord, int zCoord) {
+            this.world = world;
+            this.xCoord = xCoord;
+            this.yCoord = yCoord;
+            this.zCoord = zCoord;
+        }
+
+        public World world() {
+            return world;
+        }
+
+        public int xCoord() {
+            return xCoord;
+        }
+
+        public int yCoord() {
+            return yCoord;
+        }
+
+        public int zCoord() {
+            return zCoord;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof MatrixOrigin that)) return false;
+            return xCoord == that.xCoord && yCoord == that.yCoord
+                && zCoord == that.zCoord
+                && Objects.equals(world, that.world);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(world, xCoord, yCoord, zCoord);
+        }
+    }
 }

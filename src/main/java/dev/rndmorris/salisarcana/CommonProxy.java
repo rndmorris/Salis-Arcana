@@ -6,6 +6,7 @@ import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
@@ -16,6 +17,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import dev.rndmorris.salisarcana.common.BehaviorDispensePrimalArrow;
 import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.common.DisenchantFocusUpgrade;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
@@ -40,6 +42,7 @@ import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.ObfuscationInfo;
 import dev.rndmorris.salisarcana.lib.R;
+import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
@@ -68,6 +71,11 @@ public class CommonProxy {
 
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
+
+        if (SalisConfig.thaum.primalArrowsCanBeFiredFromDispensers.isEnabled()) {
+            BlockDispenser.dispenseBehaviorRegistry
+                .putObject(ConfigItems.itemPrimalArrow, new BehaviorDispensePrimalArrow());
+        }
 
         if (SalisConfig.bugfixes.useForgeFishingLists.isEnabled()) {
             fixGolemFishingLists();
@@ -125,6 +133,7 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         CustomRecipes.registerRecipesPostInit();
         CustomResearch.init();
+        WandHelper.loadWandParts();
     }
 
     // register server commands in this event handler (Remove if not needed)

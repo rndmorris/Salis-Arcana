@@ -1,18 +1,51 @@
 package dev.rndmorris.salisarcana.lib;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
+import dev.rndmorris.salisarcana.SalisArcana;
+import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class WandHelper {
+
+    private static final HashMap<Item, HashMap<Integer, WandCap>> WAND_CAPS = new HashMap<>();
+    private static final HashMap<Item, HashMap<Integer, WandRod>> WAND_RODS = new HashMap<>();
+
+    public static void loadWandParts() {
+        for (final var cap : WandCap.caps.values()) {
+            final var itemStack = cap.getItem();
+            if (itemStack == null) continue;
+
+            final var item = itemStack.getItem();
+            if (item == null) continue;
+
+            WAND_CAPS.computeIfAbsent(item, ignore -> new HashMap<>())
+                .put(itemStack.getItemDamage(), cap);
+        }
+
+        for (final var rod : WandRod.rods.values()) {
+            final var itemStack = rod.getItem();
+            if (itemStack == null) continue;
+
+            final var item = itemStack.getItem();
+            if (item == null) continue;
+
+            WAND_RODS.computeIfAbsent(item, ignore -> new HashMap<>())
+                .put(itemStack.getItemDamage(), rod);
+        }
+    }
 
     /**
      * Try to find the registered {@link WandCap} by its item form.
@@ -21,24 +54,13 @@ public class WandHelper {
      * @return The registered {@link WandCap} if one was found, or {@code null} otherwise.
      */
     public static @Nullable WandCap getWandCapFromItem(@Nullable ItemStack itemStack) {
-        if (itemStack == null) {
-            return null;
-        }
-        final var item = itemStack.getItem();
-        if (item == null) {
-            return null;
-        }
-        for (var cap : WandCap.caps.values()) {
-            final var capItemStack = cap.getItem();
-            if (capItemStack == null) {
-                continue;
-            }
-            if (itemStack.isItemEqual(capItemStack)) {
-                return cap;
-            }
-        }
+        if (itemStack == null) return null;
 
-        return null;
+        final var item = itemStack.getItem();
+        if (item == null) return null;
+
+        final var subMap = WAND_CAPS.get(item);
+        return subMap != null ? subMap.get(itemStack.getItemDamage()) : null;
     }
 
     /**
@@ -63,24 +85,13 @@ public class WandHelper {
      * @return The registered {@link WandRod} if one was found, or {@code null} otherwise.
      */
     public static @Nullable WandRod getWandRodFromItem(@Nullable ItemStack itemStack) {
-        if (itemStack == null) {
-            return null;
-        }
-        final var item = itemStack.getItem();
-        if (item == null) {
-            return null;
-        }
-        for (var rod : WandRod.rods.values()) {
-            final var rodItemStack = rod.getItem();
-            if (rodItemStack == null) {
-                continue;
-            }
-            if (itemStack.isItemEqual(rodItemStack)) {
-                return rod;
-            }
-        }
+        if (itemStack == null) return null;
 
-        return null;
+        final var item = itemStack.getItem();
+        if (item == null) return null;
+
+        final var subMap = WAND_RODS.get(item);
+        return subMap != null ? subMap.get(itemStack.getItemDamage()) : null;
     }
 
     /**
@@ -149,5 +160,20 @@ public class WandHelper {
             }
         }
         return new ArrayList<>(allVanillaRods);
+    }
+
+    // Unknown Wand Components
+    public static final WandCap CAP_UNKNOWN = new WandCap("salisarcana:unknown", 1f, new ItemStack(Blocks.bedrock), 0);
+    public static final WandRod ROD_UNKNOWN = new WandRod("salisarcana:unknown", 0, new ItemStack(Blocks.bedrock), 0);
+    public static final StaffRod STAFF_UNKNOWN = new StaffRod(
+        "salisarcana:unknown",
+        0,
+        new ItemStack(Blocks.bedrock),
+        0);
+
+    static {
+        CAP_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_cap.png"));
+        ROD_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_rod.png"));
+        STAFF_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_rod.png"));
     }
 }
