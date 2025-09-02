@@ -264,3 +264,9 @@ Prevents wand items from crashing everything when they contain a component which
 **Config option:** `clampWandOverlayVis`
 
 Prevents the "Vis in Wand" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.
+
+## Fix Wrong Aspects from being Rendered
+
+**Config option:** `fixInventoryAspects`
+
+Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.
