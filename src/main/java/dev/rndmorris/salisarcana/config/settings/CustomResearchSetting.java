@@ -127,7 +127,32 @@ public class CustomResearchSetting extends Setting {
                         this.configName);
                     continue;
                 }
-                researchAspects.add(Aspect.getAspect(aspectParts[0]), Integer.parseInt(aspectParts[1]));
+
+                int amount;
+                try {
+                    amount = Integer.parseInt(aspectParts[1]);
+                } catch (NumberFormatException e) {
+                    LOG.error(
+                        "Cannot parse amount of aspects in value \"{}\" in config setting \"{}Aspects\".",
+                        aspect,
+                        this.configName);
+                    continue;
+                }
+
+                if (amount > 0) {
+                    researchAspects.add(Aspect.getAspect(aspectParts[0]), amount);
+                } else {
+                    LOG.error(
+                        "Invalid amount of aspect {} in value \"{}\" in config setting \"{}Aspects\".",
+                        aspectParts[0],
+                        aspect,
+                        this.configName);
+                }
+            } else {
+                LOG.error(
+                    "Invalid aspect string \"{}\" in config setting \"{}Aspects\". Each value must be formatted as \"aspect:amount\".",
+                    aspect,
+                    this.configName);
             }
         }
         return researchAspects;

@@ -329,7 +329,13 @@ public class CustomResearch {
                 }
                 sibling.siblings = ArrayHelper.appendToArray(sibling.siblings, fullKey);
             }
+        } else if (research.tags.size() == 0) {
+            // The research isn't free, so we need some aspect cost for it to be researchable
+            LOG.error(
+                "Research {} does not have any aspects set but is not auto-unlockable, making it impossible to research.",
+                fullKey);
         }
+
         if (settings.warp > 0) {
             ThaumcraftApi.addWarpToResearch(fullKey, settings.warp);
         }
