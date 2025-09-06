@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.core.asm.renderbounds;
 
+import dev.rndmorris.salisarcana.lib.ObfuscationInfo;
 import org.spongepowered.asm.lib.Handle;
 import org.spongepowered.asm.lib.Label;
 import org.spongepowered.asm.lib.MethodVisitor;
@@ -12,6 +13,9 @@ public class RendererBoundsMethodVisitor extends MethodVisitor {
     // 3) ALOAD #2 (Block)
     // 4) INVOKEVIRTUAL
     // net/minecraft/client/renderer/RenderBlocks.setRenderBoundsFromBlock(Lnet/minecraft/block/Block;)V
+
+    private final String setBlockBounds = ObfuscationInfo.SET_BLOCK_BOUNDS.getName();
+    private final String setRenderBoundsFromBlock = ObfuscationInfo.SET_RENDER_BOUNDS_FROM_BLOCK.getName();
 
     private int sequenceStep = 0;
     private int aload1 = 0;
@@ -43,14 +47,14 @@ public class RendererBoundsMethodVisitor extends MethodVisitor {
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
         if (sequenceStep == 0) {
             if (opcode == Opcodes.INVOKEVIRTUAL && "net/minecraft/block/Block".equals(owner)
-                && "setBlockBounds".equals(name)
+                && setBlockBounds.equals(name)
                 && "(FFFFFF)V".equals(descriptor)) {
                 sequenceStep = 1;
                 return;
             }
         } else if (sequenceStep == 3) {
             if (opcode == Opcodes.INVOKEVIRTUAL && "net/minecraft/client/renderer/RenderBlocks".equals(owner)
-                && "setRenderBoundsFromBlock".equals(name)
+                && setRenderBoundsFromBlock.equals(name)
                 && "(Lnet/minecraft/block/Block;)V".equals(descriptor)) {
                 injectNewSequence();
                 return;
@@ -69,7 +73,7 @@ public class RendererBoundsMethodVisitor extends MethodVisitor {
                 super.visitMethodInsn(
                     Opcodes.INVOKEVIRTUAL,
                     "net/minecraft/block/Block",
-                    "setBlockBounds",
+                    setBlockBounds,
                     "(FFFFFF)V",
                     false);
             } else break seq;

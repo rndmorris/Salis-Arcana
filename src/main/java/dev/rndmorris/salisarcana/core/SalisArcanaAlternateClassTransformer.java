@@ -2,7 +2,6 @@ package dev.rndmorris.salisarcana.core;
 
 import java.util.HashMap;
 
-import dev.rndmorris.salisarcana.core.asm.renderbounds.AxisAlignedBBClassVisitor;
 import net.minecraft.launchwrapper.IClassTransformer;
 
 import org.spongepowered.asm.lib.ClassReader;
@@ -54,8 +53,6 @@ public class SalisArcanaAlternateClassTransformer implements IClassTransformer {
             addTransformer("thaumcraft.client.renderers.block.BlockTaintRenderer", renderBoundsFixer);
             addTransformer("thaumcraft.client.renderers.block.BlockTubeRenderer", renderBoundsFixer);
             addTransformer("thaumcraft.client.renderers.block.BlockWoodenDeviceRenderer", renderBoundsFixer);
-
-            final IClassVisitorFactory blockClassFixer = AxisAlignedBBClassVisitor::new;
         }
     }
 

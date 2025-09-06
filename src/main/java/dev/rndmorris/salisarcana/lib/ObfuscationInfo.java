@@ -7,6 +7,8 @@ public enum ObfuscationInfo {
 
     ADD_COLLISION_BOXES_TO_LIST("func_149743_a", "addCollisionBoxesToList"),
     GET_SELECTED_BOUNDING_BOX_FROM_POOL("func_149633_g", "getSelectedBoundingBoxFromPool"),
+    SET_BLOCK_BOUNDS("func_149676_a", "setBlockBounds"),
+    SET_RENDER_BOUNDS_FROM_BLOCK("func_147775_a", "setRenderBoundsFromBlock"),
     HARVEST_LEVEL("field_78001_f", "harvestLevel"),
     POTION_TYPES("field_76425_a", "potionTypes"),
     ;
