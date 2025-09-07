@@ -19,7 +19,7 @@ public abstract class MixinItemWandRod {
     @Shadow
     public IIcon[] iconStaff;
 
-    @WrapMethod(method = "getIconFromDamage")
+    @WrapMethod(method = "getIconFromDamage", remap = true)
     private IIcon mixinGetIconFromDamage(int meta, Operation<IIcon> original) {
         if ((meta >= 0 && meta < iconWand.length) || (meta >= 50 && (meta - 50) < iconStaff.length) || meta >= 100) {
             return original.call(meta);
