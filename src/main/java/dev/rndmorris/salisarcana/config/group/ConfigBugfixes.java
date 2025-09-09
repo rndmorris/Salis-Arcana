@@ -245,6 +245,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "clampWandOverlayVis",
         "Prevents the \"Vis in Wand\" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.");
 
+    public final ToggleSetting fixInventoryAspects = new ToggleSetting(
+        this,
+        "fixInventoryAspects",
+        "Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.");
+
     @Nonnull
     @Override
     public String getGroupName() {
