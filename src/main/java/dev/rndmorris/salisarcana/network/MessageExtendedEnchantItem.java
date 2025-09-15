@@ -7,22 +7,22 @@ import io.netty.buffer.ByteBuf;
 
 public class MessageExtendedEnchantItem implements IMessage, IMessageHandler<MessageExtendedEnchantItem, IMessage> {
 
-    private int button;
+    private short button;
 
     public MessageExtendedEnchantItem() {}
 
-    public MessageExtendedEnchantItem(int button) {
+    public MessageExtendedEnchantItem(short button) {
         this.button = button;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.button = buf.readInt();
+        this.button = buf.readShort();
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeInt(this.button);
+        buf.writeShort(this.button);
     }
 
     @Override

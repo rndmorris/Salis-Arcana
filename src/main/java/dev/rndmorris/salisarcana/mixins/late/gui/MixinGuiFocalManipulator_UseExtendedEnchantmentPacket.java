@@ -21,6 +21,6 @@ public class MixinGuiFocalManipulator_UseExtendedEnchantmentPacket {
             value = "INVOKE",
             target = "Lnet/minecraft/client/multiplayer/PlayerControllerMP;sendEnchantPacket(II)V"))
     public void sendExtendedPacket(PlayerControllerMP controller, int windowID, int button, Operation<Void> original) {
-        NetworkHandler.instance.sendToServer(new MessageExtendedEnchantItem(button));
+        NetworkHandler.instance.sendToServer(new MessageExtendedEnchantItem((short) button));
     }
 }
