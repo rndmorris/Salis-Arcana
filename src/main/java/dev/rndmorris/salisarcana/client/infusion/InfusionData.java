@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.client.handlers;
+package dev.rndmorris.salisarcana.client.infusion;
 
 import java.util.ArrayList;
 import java.util.HashSet;
