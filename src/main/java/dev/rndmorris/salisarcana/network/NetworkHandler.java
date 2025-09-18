@@ -18,6 +18,7 @@ public class NetworkHandler {
         instance.registerMessage(MessageForgetAspects.class, MessageForgetAspects.class, 5, Side.CLIENT);
         instance.registerMessage(MessageForgetScannedObjects.class, MessageForgetScannedObjects.class, 6, Side.CLIENT);
         instance.registerMessage(MessageForgetScannedCategory.class, MessageForgetScannedCategory.class, 7, Side.CLIENT);
+        instance.registerMessage(MessageExtendedEnchantItem.class, MessageExtendedEnchantItem.class, 8, Side.SERVER);
         // spotless:on
     }
 }
