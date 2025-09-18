@@ -248,7 +248,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting extendUpgradeFocusPacket = new ToggleSetting(
         this,
         "extendUpgradeFocusPacket",
-        "Use a larger packet for sending the ID of the focus upgrade being selected, thus allowing the use of focus upgrade IDs > 127 on multiplayer servers.");
+        "Use a larger packet for sending the ID of the focus upgrade being selected, allowing the use of focus upgrade IDs > 127 on multiplayer servers.");
 
     @Nonnull
     @Override
