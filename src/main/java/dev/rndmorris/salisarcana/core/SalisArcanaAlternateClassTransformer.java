@@ -2,6 +2,7 @@ package dev.rndmorris.salisarcana.core;
 
 import java.util.HashMap;
 
+import dev.rndmorris.salisarcana.core.asm.renderbounds.CollisionBoxesClassVisitor;
 import net.minecraft.launchwrapper.IClassTransformer;
 
 import org.spongepowered.asm.lib.ClassReader;
@@ -53,6 +54,15 @@ public class SalisArcanaAlternateClassTransformer implements IClassTransformer {
             addTransformer("thaumcraft.client.renderers.block.BlockTaintRenderer", renderBoundsFixer);
             addTransformer("thaumcraft.client.renderers.block.BlockTubeRenderer", renderBoundsFixer);
             addTransformer("thaumcraft.client.renderers.block.BlockWoodenDeviceRenderer", renderBoundsFixer);
+
+            final IClassVisitorFactory collisionBoxesFixer = CollisionBoxesClassVisitor::new;
+            addTransformer("thaumcraft.common.blocks.BlockAiry", collisionBoxesFixer);
+            addTransformer("thaumcraft.common.blocks.BlockAlchemyFurnace", collisionBoxesFixer);
+            addTransformer("thaumcraft.common.blocks.BlockArcaneFurnace", collisionBoxesFixer);
+            addTransformer("thaumcraft.common.blocks.BlockMetalDevice", collisionBoxesFixer);
+            addTransformer("thaumcraft.common.blocks.BlockStoneDevice", collisionBoxesFixer);
+            addTransformer("thaumcraft.common.blocks.BlockTube", collisionBoxesFixer);
+            addTransformer("thaumcraft.common.blocks.BlockWoodenDevice", collisionBoxesFixer);
         }
     }
 
