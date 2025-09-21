@@ -7,8 +7,15 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class SalisArcanaHooks {
+    private static final AxisAlignedBB emptyAABB = AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
+
     public static AxisAlignedBB createBoundingBox(float minX, float minY, float minZ, float maxX, float maxY, float maxZ, int x, int y, int z) {
+        if (minX == maxX || minY == maxY || minZ == maxZ) {
+            return emptyAABB;
+        }
+
         return AxisAlignedBB.getBoundingBox(
             (double) x + minX,
             (double) y + minY,
@@ -19,6 +26,9 @@ public class SalisArcanaHooks {
     }
 
     public static void addBoundingBox(Block block, World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider, AxisAlignedBB box) {
+        // Apparently, you can collide with zero-volume AABBs, so we skip them.
+        if (box == emptyAABB) return;
+
         if (box == null) {
             box = block.getCollisionBoundingBoxFromPool(worldIn, x, y, z);
         }
