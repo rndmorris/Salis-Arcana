@@ -476,6 +476,11 @@ public enum Mixins implements IMixins {
         .addCommonMixins("config.MixinConfig_PotionIds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
+    DYNAMIC_HUNGRY_NODE_REACH(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.dynamicHungryNodeRadius)
+        .addCommonMixins("tiles.MixinTileNode_DynamicHungryNodeReach")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     // Required
     ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
         .setRequired()

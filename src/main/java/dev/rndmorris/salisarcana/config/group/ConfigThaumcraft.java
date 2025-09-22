@@ -15,7 +15,20 @@ public class ConfigThaumcraft extends ConfigGroup {
     private static final String potionCategory = "potion_ids";
     private static final String potionIdComment = "Override the id of the %s potion effect.";
 
+    private static final String nodeBehaviorsCategory = "node_behaviors";
+
     private static final String primalArrowCategory = "primal_arrows";
+
+    //
+    // Node Behaviors
+    //
+
+    public final ToggleSetting dynamicHungryNodeRadius = new ToggleSetting(
+        this,
+        "dynamicHungryNodeRadius",
+        "If true, the radius within which hungry nodes can break blocks and attract entities will scale with the current size of the node.")
+            .setCategory(nodeBehaviorsCategory)
+            .setEnabled(false);
 
     //
     // Potion Ids
