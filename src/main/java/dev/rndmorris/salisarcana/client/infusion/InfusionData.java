@@ -7,17 +7,23 @@ import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectSource;
 import thaumcraft.api.crafting.IInfusionStabiliser;
+import thaumcraft.api.crafting.InfusionEnchantmentRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileInfusionMatrix;
@@ -26,21 +32,23 @@ import thaumcraft.common.tiles.TilePedestal;
 
 public class InfusionData {
 
-    private int recipeType;
-    private String recipeOutputLabel;
-    private Object recipeOutput;
+    private ItemStack recipeOutput;
     private int recipeInstability;
     private AspectList recipeEssentia;
     private float instability;
     private final List<ChunkCoordinates> pedestals = new ArrayList<>();
     private final TileInfusionMatrix matrix;
+    private String recipeOutputString;
 
     // positive values -> more instability
     private float itemSymmetry;
     private float structureSymmetry;
-    private final Set<TileEntity> essentiaSources = new HashSet<>();
+    private final Set<IAspectSource> essentiaSources = new HashSet<>();
 
     private final World world;
+
+    private static final int INFUSION_RANGE = 12;
+    private static final int MIRROR_RANGE = 8;
 
     public InfusionData(World world, TileInfusionMatrix matrix) {
         this.world = world;
@@ -58,8 +66,7 @@ public class InfusionData {
             int zCoord = matrix.zCoord;
             ItemStack recipeInput = null;
             TileEntity pedestal = world.getTileEntity(xCoord, yCoord - 2, zCoord);
-            if (pedestal instanceof TilePedestal) {
-                TilePedestal ped = (TilePedestal) pedestal;
+            if (pedestal instanceof TilePedestal ped) {
                 ItemStack stack = ped.getStackInSlot(0);
                 if (stack != null) {
                     recipeInput = stack.copy();
@@ -81,24 +88,57 @@ public class InfusionData {
                     }
                 }
                 if (!components.isEmpty()) {
+                    EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
                     InfusionRecipe recipe = ThaumcraftCraftingManager
                         .findMatchingInfusionRecipe(components, recipeInput, Minecraft.getMinecraft().thePlayer);
                     if (recipe != null) {
-                        recipeType = 0;
 
                         if (recipe.getRecipeOutput(recipeInput) instanceof Object[]) {
                             Object[] obj = (Object[]) (recipe.getRecipeOutput(recipeInput));
-                            recipeOutputLabel = (String) obj[0];
-                            recipeOutput = obj[1];
+                            // recipeOutputLabel = (String) obj[0];
+                            recipeOutput = (ItemStack) obj[1];
                         } else {
-                            recipeOutput = recipe.getRecipeOutput(recipeInput);
+                            recipeOutput = (ItemStack) recipe.getRecipeOutput(recipeInput);
                         }
 
                         recipeInstability = recipe.getInstability(recipeInput);
                         recipeEssentia = recipe.getAspects(recipeInput)
                             .copy();
                         instability = itemSymmetry + structureSymmetry + recipeInstability;
-                    } // TODO enchantments
+                        EnumChatFormatting color = recipeOutput.getRarity().rarityColor;
+                        this.recipeOutputString = color.toString() + recipeOutput.stackSize
+                            + "x "
+                            + recipeOutput.getDisplayName();
+                    } else {
+                        InfusionEnchantmentRecipe enchantmentRecipe = ThaumcraftCraftingManager
+                            .findMatchingInfusionEnchantmentRecipe(components, recipeInput, player);
+                        if (enchantmentRecipe != null) {
+                            Enchantment enchantment = enchantmentRecipe.getEnchantment();
+
+                            this.recipeOutput = new ItemStack(Items.enchanted_book, 1);
+
+                            this.recipeInstability = enchantmentRecipe.calcInstability(recipeInput);
+                            AspectList esscost = enchantmentRecipe.aspects.copy();
+                            float essmod = enchantmentRecipe.getEssentiaMod(recipeInput);
+
+                            for (Aspect as : esscost.getAspects()) {
+                                esscost.add(as, (int) ((float) esscost.getAmount(as) * essmod));
+                            }
+
+                            this.recipeEssentia = esscost;
+                            int levels = enchantmentRecipe.calcXP(recipeInput);
+                            int enchantmentLevel = EnchantmentHelper
+                                .getEnchantmentLevel(enchantment.effectId, recipeInput) + 1;
+                            this.recipeOutputString = EnumChatFormatting.YELLOW
+                                + enchantment.getTranslatedName(enchantmentLevel)
+                                + " (Requires "
+                                + EnumChatFormatting.GREEN
+                                + levels
+                                + EnumChatFormatting.YELLOW
+                                + " Levels)";
+                            instability = itemSymmetry + structureSymmetry + recipeInstability;
+                        }
+                    }
                 }
             }
         }
@@ -106,24 +146,20 @@ public class InfusionData {
     }
 
     public ItemStack getOutputStack() {
-        if (recipeOutput instanceof ItemStack stack) {
-            return stack;
-        }
-        return null;
+        return recipeOutput;
     }
 
-    public String getOutputString(ItemStack outputStack) {
-        EnumChatFormatting color = outputStack.getRarity().rarityColor;
-        return color.toString() + outputStack.stackSize + "x " + outputStack.getDisplayName();
+    public String getOutputString() {
+        return this.recipeOutputString;
     }
 
     private void getRecipe(int xCoord, int yCoord, int zCoord) {
         List<ChunkCoordinates> stabilizers = new ArrayList<>();
-        for (int xx = -12; xx <= 12; ++xx) {
-            for (int zz = -12; zz <= 12; ++zz) {
+        for (int xx = -INFUSION_RANGE; xx <= INFUSION_RANGE; xx++) {
+            for (int zz = -INFUSION_RANGE; zz <= INFUSION_RANGE; zz++) {
                 boolean skip = false;
 
-                for (int yy = -5; yy <= 10; ++yy) {
+                for (int yy = -5; yy <= 10; yy++) {
                     if (xx != 0 || zz != 0) {
                         int x = xCoord + xx;
                         int y = yCoord - yy;
@@ -168,8 +204,6 @@ public class InfusionData {
             }
         }
 
-        float sym = 0.0F;
-
         for (ChunkCoordinates cc : stabilizers) {
             structureSymmetry += 0.1F;
 
@@ -185,9 +219,6 @@ public class InfusionData {
         }
     }
 
-    private static final int INFUSION_RANGE = 12;
-    private static final int MIRROR_RANGE = 8;
-
     public void fetchEssentiaSources() {
         essentiaSources.clear();
         for (int aa = -INFUSION_RANGE; aa <= INFUSION_RANGE; aa++) {
@@ -199,11 +230,11 @@ public class InfusionData {
                         final int zz = matrix.zCoord + cc;
 
                         TileEntity te = world.getTileEntity(xx, yy, zz);
-                        if (te instanceof IAspectSource) {
+                        if (te instanceof IAspectSource source) {
                             if (te instanceof TileMirrorEssentia mirror) {
                                 getSourcesFromMirror(mirror);
                             } else {
-                                essentiaSources.add(te);
+                                essentiaSources.add(source);
                             }
                         }
                     }
@@ -212,16 +243,43 @@ public class InfusionData {
         }
     }
 
-    // TODO add compat for mirrors (scan the area of the link for all essentia sources and exclude any mirrors)
     private void getSourcesFromMirror(TileMirrorEssentia mirror) {
-
+        int posX = mirror.linkX;
+        int posY = mirror.linkY;
+        int posZ = mirror.linkZ;
+        ForgeDirection dir = mirror.linkedFacing;
+        for (int aa = -MIRROR_RANGE; aa <= MIRROR_RANGE; aa++) {
+            for (int bb = -MIRROR_RANGE; bb <= MIRROR_RANGE; bb++) {
+                for (int cc = -MIRROR_RANGE; cc < MIRROR_RANGE; cc++) {
+                    int x = posX;
+                    int y = posY;
+                    int z = posZ;
+                    if (dir.offsetX != 0) {
+                        x = x + cc * dir.offsetX;
+                        y = y + aa;
+                        z = z + bb;
+                    } else if (dir.offsetY != 0) {
+                        x = x + aa;
+                        y = y + cc * dir.offsetY;
+                        z = z + bb;
+                    } else if (dir.offsetZ != 0) {
+                        x = x + aa;
+                        y = y + bb;
+                        z = z + cc * dir.offsetZ;
+                    }
+                    TileEntity te = world.getTileEntity(x, y, z);
+                    if (te instanceof IAspectSource source && !(te instanceof TileMirrorEssentia)) {
+                        essentiaSources.add(source);
+                    }
+                }
+            }
+        }
     }
 
     public AspectList buildAspectList() {
         AspectList list = new AspectList();
-        for (TileEntity te : essentiaSources) {
-            IAspectSource source = (IAspectSource) te;
-            list.add(source.getAspects());
+        for (IAspectSource te : essentiaSources) {
+            list.add(te.getAspects());
         }
         return list;
     }
