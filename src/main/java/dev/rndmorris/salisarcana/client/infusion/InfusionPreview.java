@@ -57,6 +57,7 @@ public class InfusionPreview {
                         "cross");
                 } catch (Exception e) {
                     e.printStackTrace();
+                    //TODO do something if this fails, else it throws NPE
                 }
             }).start();
 
