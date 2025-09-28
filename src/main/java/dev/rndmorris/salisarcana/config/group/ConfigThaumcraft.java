@@ -23,12 +23,18 @@ public class ConfigThaumcraft extends ConfigGroup {
     // Node Behaviors
     //
 
-    public final ToggleSetting dynamicHungryNodeRadius = new ToggleSetting(
+    public final ToggleSetting hungryDynamicRadius = new ToggleSetting(
         this,
-        "dynamicHungryNodeRadius",
+        "hungryDynamicReach",
         "If true, the radius within which hungry nodes can break blocks and attract entities will scale with the current size of the node.")
             .setCategory(nodeBehaviorsCategory)
             .setEnabled(false);
+
+    public final ToggleSetting hungryBrightness = new ToggleSetting(
+        this,
+        "hungryBrightness",
+        "If true, the rate at which hungry nodes will try to break blocks will be adjusted by its modifier: 20% more often when bright, 20% less often when pale, 50% less often when fading.")
+            .setCategory(nodeBehaviorsCategory);
 
     //
     // Potion Ids
