@@ -35,6 +35,9 @@ public class MixinTileInfusionMatrix_InputEnforcement {
         final var inputTag = recipeInput.stackTagCompound;
         final var pedestalTag = fromPedestal.stackTagCompound;
 
+        // be more lenient with TiCon tools specifically
+        if (pedestalTag.hasKey("InfiTool")) return true;
+
         if ((inputTag != null && pedestalTag == null) || (inputTag == null && pedestalTag != null)) {
             return false;
         }
