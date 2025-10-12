@@ -46,12 +46,7 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
             to = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getHeightValue(II)I", remap = true)))
     private int adjustParticleCoords(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
         @Share("reach") LocalIntRef reachRef) {
-        if (reachRef.get() < 0) {
-            final var value = (int) (constant * sizeMultiplierRef.get());
-            reachRef.set(value > 0 ? value : 1);
-            return value;
-        }
-        return reachRef.get();
+        return DynamicNodeLogic.useReachMemo(constant, sizeMultiplierRef, reachRef);
     }
 
     /**
@@ -102,13 +97,7 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
                 ordinal = 0)))
     private int adjustBlockRandomCoordinate(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
         @Share("reach") LocalIntRef reachRef) {
-        final var reach = reachRef.get();
-        if (reach < 0) {
-            final var value = (int) (constant * sizeMultiplierRef.get());
-            reachRef.set(value > 0 ? value : 1);
-            return value;
-        }
-        return reach;
+        return DynamicNodeLogic.useReachMemo(constant, sizeMultiplierRef, reachRef);
     }
 
     /**

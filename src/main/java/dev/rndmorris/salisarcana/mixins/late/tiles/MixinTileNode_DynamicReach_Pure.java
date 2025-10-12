@@ -50,12 +50,6 @@ public class MixinTileNode_DynamicReach_Pure extends TileThaumcraft {
     @ModifyExpressionValue(method = "handlePureNode", at = @At(value = "CONSTANT", args = "intValue=8"))
     private int adjustCoordsForBiome(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
         @Share("reach") LocalIntRef reachRef) {
-        final var reach = reachRef.get();
-        if (reach < 0) {
-            final var value = (int) (constant * sizeMultiplierRef.get());
-            reachRef.set(value > 0 ? value : 1);
-            return value;
-        }
-        return reach;
+        return DynamicNodeLogic.useReachMemo(constant, sizeMultiplierRef, reachRef);
     }
 }

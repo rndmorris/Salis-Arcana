@@ -2,6 +2,9 @@ package dev.rndmorris.salisarcana.lib;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
+
 import thaumcraft.api.nodes.NodeModifier;
 
 public final class DynamicNodeLogic {
@@ -84,5 +87,24 @@ public final class DynamicNodeLogic {
     public static double calculateSmallSizeMultiplier(int visSize) {
         return (0 <= visSize && visSize < cbrtMemo.length ? cbrtMemo[visSize] : Math.cbrt(visSize))
             / DynamicNodeLogic.NODE_SIZE_AVERAGE_SMALL_CBRT;
+    }
+
+    /**
+     * Shared logic for calculating and memoizing a dynamic node's adjusted reach.
+     * 
+     * @param constant          The original value being scaled.
+     * @param sizeMultiplierRef The ref storing the node's calculated size multiplier.
+     * @param reachRef          The ref storing the memoized reach. If its value is less than 0, the reach will be
+     *                          calculated and stored in it.
+     * @return The reach that the node should use.
+     */
+    public static int useReachMemo(int constant, LocalDoubleRef sizeMultiplierRef, LocalIntRef reachRef) {
+        final var reach = reachRef.get();
+        if (reach < 0) {
+            final var value = (int) (constant * sizeMultiplierRef.get());
+            reachRef.set(value > 0 ? value : 1);
+            return value;
+        }
+        return reach;
     }
 }
