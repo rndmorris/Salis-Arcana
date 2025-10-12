@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 
 import dev.rndmorris.salisarcana.lib.DynamicNodeLogic;
 import thaumcraft.api.TileThaumcraft;
@@ -32,17 +33,48 @@ public class MixinTileNode_DynamicReach_Tainted extends TileThaumcraft {
         method = "handleTaintNode",
         at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;xCoord:I", remap = true, ordinal = 0))
     private void calculateSizeMultiplier(boolean change, CallbackInfoReturnable<Boolean> cir,
-        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
+        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef) {
+        reachRef.set(-1);
         sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
     }
 
     /**
-     * Adjust the bound within which the node will convert biomes and place tendrils
+     * Adjust the bound within which the node will convert biomes.
      */
-    @ModifyExpressionValue(
+    @ModifyExpressionValue(method = "handleTaintNode", at = @At(value = "CONSTANT", args = "intValue=8"))
+    private int adjustCoordsForBiome(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
+        @Share("reach") LocalIntRef reachRef) {
+        final var reach = reachRef.get();
+        if (reach < 0) {
+            final var value = (int) (constant * sizeMultiplierRef.get());
+            reachRef.set(value > 0 ? value : 1);
+            return value;
+        }
+        return reach;
+    }
+
+    /**
+     * Reset memoized reach to re-use in tendril placement.
+     */
+    @Inject(
         method = "handleTaintNode",
-        at = { @At(value = "CONSTANT", args = "intValue=8"), @At(value = "CONSTANT", args = "intValue=5") })
-    private int adjustCoordsForBiomeAndTendrils(int value, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
-        return (int) Math.floor(value * sizeMultiplierRef.get());
+        at = @At(value = "FIELD", target = "Lthaumcraft/common/config/Config;hardNode:Z"))
+    private void resetReach(boolean change, CallbackInfoReturnable<Boolean> cir, @Share("reach") LocalIntRef reachRef) {
+        reachRef.set(-1);
+    }
+
+    /**
+     * Adjust the bound within which the node will place tendrils.
+     */
+    @ModifyExpressionValue(method = "handleTaintNode", at = @At(value = "CONSTANT", args = "intValue=5"))
+    private int adjustCoordsForTendrils(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
+        @Share("reach") LocalIntRef reachRef) {
+        final var reach = reachRef.get();
+        if (reach < 0) {
+            final var value = (int) (constant * sizeMultiplierRef.get());
+            reachRef.set(value > 0 ? value : 1);
+            return value;
+        }
+        return reach;
     }
 }

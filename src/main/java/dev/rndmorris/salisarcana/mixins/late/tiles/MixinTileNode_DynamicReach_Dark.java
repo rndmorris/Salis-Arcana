@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 
 import dev.rndmorris.salisarcana.lib.DynamicNodeLogic;
 import thaumcraft.api.TileThaumcraft;
@@ -32,7 +33,8 @@ public class MixinTileNode_DynamicReach_Dark extends TileThaumcraft {
         at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;xCoord:I", remap = true, ordinal = 0),
         slice = @Slice(from = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;count:I")))
     private void calculateSizeMultiplier(boolean change, CallbackInfoReturnable<Boolean> cir,
-        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
+        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef) {
+        reachRef.set(-1);
         sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
     }
 
@@ -43,7 +45,14 @@ public class MixinTileNode_DynamicReach_Dark extends TileThaumcraft {
         method = "handleDarkNode",
         at = @At(value = "CONSTANT", args = "intValue=12"),
         slice = @Slice(to = @At(value = "FIELD", target = "Lthaumcraft/common/config/Config;hardNode:Z")))
-    private int adjustCoordsForBiome(int value, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
-        return (int) (value * sizeMultiplierRef.get());
+    private int adjustCoordsForBiome(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
+        @Share("reach") LocalIntRef reachRef) {
+        final var reach = reachRef.get();
+        if (reach < 0) {
+            final var value = (int) (constant * sizeMultiplierRef.get());
+            reachRef.set(value > 0 ? value : 1);
+            return value;
+        }
+        return reach;
     }
 }

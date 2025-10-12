@@ -30,10 +30,10 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
         method = { "handleHungryNodeFirst" },
         at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z", remap = true))
     private void calculateSizeMultiplierFirst(CallbackInfoReturnable<Boolean> cir,
-        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
+        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef) {
         // we don't actually need to do anything with `isRemote`, it's just a convenient target
-        final var sizeMultiplier = DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize());
-        sizeMultiplierRef.set(sizeMultiplier);
+        reachRef.set(-1);
+        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
     }
 
     /**
@@ -46,9 +46,10 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
             to = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getHeightValue(II)I", remap = true)))
     private int adjustParticleCoords(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
         @Share("reach") LocalIntRef reachRef) {
-        if (reachRef.get() == 0) {
+        if (reachRef.get() < 0) {
             final var value = (int) (constant * sizeMultiplierRef.get());
             reachRef.set(value > 0 ? value : 1);
+            return value;
         }
         return reachRef.get();
     }
@@ -82,9 +83,9 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
         method = "handleHungryNodeSecond",
         at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;xCoord:I", remap = true, ordinal = 0))
     private void calculateSizeMultiplierSecond(CallbackInfoReturnable<Boolean> cir,
-        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
-        final var sizeMultiplier = DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize());
-        sizeMultiplierRef.set(sizeMultiplier);
+        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef) {
+        reachRef.set(-1);
+        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
     }
 
     /**
@@ -101,11 +102,13 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
                 ordinal = 0)))
     private int adjustBlockRandomCoordinate(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
         @Share("reach") LocalIntRef reachRef) {
-        if (reachRef.get() == 0) {
+        final var reach = reachRef.get();
+        if (reach < 0) {
             final var value = (int) (constant * sizeMultiplierRef.get());
             reachRef.set(value > 0 ? value : 1);
+            return value;
         }
-        return reachRef.get();
+        return reach;
     }
 
     /**
