@@ -476,14 +476,38 @@ public enum Mixins implements IMixins {
         .addCommonMixins("config.MixinConfig_PotionIds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
-    NODE_HUNGRY_BRIGHTNESS(new SalisBuilder()
-        .applyIf(SalisConfig.thaum.hungryBrightness)
-        .addCommonMixins("tiles.MixinTileNode_Hungry_Brightness")
+    NODE_DYNAMIC_REACH_DARK(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.sinisterDynamicReach)
+        .addCommonMixins("tiles.MixinTileNode_DynamicReach_Dark")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_DYNAMIC_REACH_HUNGRY(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.hungryDynamicReach)
+        .addCommonMixins("tiles.MixinTileNode_DynamicReach_Hungry")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_DYNAMIC_REACH_PURE(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.pureDynamicReach)
+        .addCommonMixins("tiles.MixinTileNode_DynamicReach_Pure")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_DYNAMIC_REACH_TAINTED(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.taintedDynamicReach)
+        .addCommonMixins("tiles.MixinTileNode_DynamicReach_Tainted")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
-    NODE_HUNGRY_DYNAMIC_REACH(new SalisBuilder()
-        .applyIf(SalisConfig.thaum.hungryDynamicRadius)
-        .addCommonMixins("tiles.MixinTileNode_Hungry_DynamicReach")
+    NODE_MODIFIER_SPEED_DARK(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.sinisterModifierSpeed)
+        .addCommonMixins("tiles.MixinTileNode_ModifierSpeed_Dark")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_MODIFIER_SPEED_HUNGRY(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.hungryModifierSpeed)
+        .addCommonMixins("tiles.MixinTileNode_ModifierSpeed_Hungry")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_MODIFIER_SPEED_PURE(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.pureModifierSpeed)
+        .addCommonMixins("tiles.MixinTileNode_ModifierSpeed_Pure")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_MODIFIER_SPEED_TAINTED(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.taintedModifierSpeed)
+        .addCommonMixins("tiles.MixinTileNode_ModifierSpeed_Tainted")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Required
