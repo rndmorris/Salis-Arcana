@@ -37,8 +37,6 @@ public final class DynamicNodeLogic {
      */
     private final static double[] cbrtMemo = ArrayHelper.calculateArray(new double[512], Math::cbrt);
 
-    private final static int[] speedMemo = new int[] { /* bright */ 40, /* pale */ 60, /* fading */ 100 };
-
     public static int brightnessSpeedAdjustment(int value, @Nullable NodeModifier modifier) {
         if (modifier == null) {
             return value;
@@ -46,9 +44,9 @@ public final class DynamicNodeLogic {
 
         if (value == 50) {
             return switch (modifier) {
-                case BRIGHT -> speedMemo[0];
-                case PALE -> speedMemo[1];
-                case FADING -> speedMemo[2];
+                case BRIGHT -> 40;
+                case PALE -> 60;
+                case FADING -> 100;
                 // just on the off chance someone hacked on a new modifier value
                 // noinspection UnnecessaryDefault
                 default -> value;
