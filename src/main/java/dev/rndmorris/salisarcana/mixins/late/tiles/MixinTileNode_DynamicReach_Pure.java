@@ -31,8 +31,8 @@ public class MixinTileNode_DynamicReach_Pure extends TileThaumcraft {
         method = "handlePureNode",
         at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;xCoord:I", remap = true, ordinal = 0))
     private void calculateSizeMultiplier(boolean change, CallbackInfoReturnable<Boolean> cir,
-        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef shareRef) {
-        shareRef.set(-1);
+        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef) {
+        reachRef.set(-1);
         final var visSize = this.aspects.visSize();
         final var nodeLogMetadata = 2;
         if (this.blockType == ConfigBlocks.blockMagicalLog && this.blockMetadata == nodeLogMetadata
