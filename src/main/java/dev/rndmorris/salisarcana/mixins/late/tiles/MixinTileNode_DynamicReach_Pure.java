@@ -41,7 +41,7 @@ public class MixinTileNode_DynamicReach_Pure extends TileThaumcraft {
             sizeMultiplierRef.set(DynamicNodeLogic.calculateSmallSizeMultiplier(visSize));
             return;
         }
-        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
+        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(visSize));
     }
 
     /**
