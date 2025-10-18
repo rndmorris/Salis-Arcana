@@ -100,7 +100,6 @@ public class InfusionPreview {
         }
         final TileInfusionMatrix matrix = infusionData.matrix;
         if (matrix.crafting) return;
-        System.out.println("matrix active: " + matrix.active);
         boolean spaceAbove = world.isAirBlock(xCoord, yCoord + 1, zCoord);
         float y = yCoord + (spaceAbove ? 0.4F : 0.0F);
         ForgeDirection dir = spaceAbove ? ForgeDirection.UP : ForgeDirection.getOrientation(event.target.sideHit);
