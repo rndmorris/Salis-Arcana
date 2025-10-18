@@ -56,10 +56,23 @@ public class InfusionPreview {
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.START || infusionData.matrix == null) return;
-        if (infusionData.world != Minecraft.getMinecraft().theWorld) {
+        final World world = Minecraft.getMinecraft().theWorld;
+        if (infusionData.world != world || world == null) {
             infusionData.invalidate();
             return;
         }
+        MovingObjectPosition mouseOver = Minecraft.getMinecraft().objectMouseOver;
+        if (mouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
+            infusionData.invalidate();
+            return;
+        }
+        final TileInfusionMatrix matrix = infusionData.matrix;
+        if (mouseOver.blockX != matrix.xCoord || mouseOver.blockY != matrix.yCoord
+            || mouseOver.blockZ != matrix.zCoord) {
+            matrix.invalidate();
+            return;
+        }
+
         infusionData.onTick();
     }
 

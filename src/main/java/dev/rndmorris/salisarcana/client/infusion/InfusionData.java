@@ -76,7 +76,7 @@ public class InfusionData {
         return WandManager.fitInfusionAltar(world, xCoord - 1, yCoord - 2, zCoord - 1);
     }
 
-    public void computeData() {
+    private void computeData() {
         if (!matrix.active) {
             unformed = isUnformed(world, matrix.xCoord, matrix.yCoord, matrix.zCoord);
             return;
@@ -171,6 +171,7 @@ public class InfusionData {
     }
 
     private void getRecipe(int xCoord, int yCoord, int zCoord) {
+        pedestals.clear();
         List<ChunkCoordinates> stabilizers = new ArrayList<>();
         for (int xx = -INFUSION_RANGE; xx <= INFUSION_RANGE; xx++) {
             for (int zz = -INFUSION_RANGE; zz <= INFUSION_RANGE; zz++) {
@@ -304,6 +305,7 @@ public class InfusionData {
     public void invalidate() {
         world = null;
         matrix = null;
+        essentiaSources.clear();
     }
 
     public void onTick() {
