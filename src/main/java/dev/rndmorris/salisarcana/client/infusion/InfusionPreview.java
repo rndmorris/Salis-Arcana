@@ -105,7 +105,7 @@ public class InfusionPreview {
         ForgeDirection dir = spaceAbove ? ForgeDirection.UP : ForgeDirection.getOrientation(event.target.sideHit);
 
         if (!infusionData.matrix.active) {
-            if (infusionData.unformed) {
+            if (infusionData.unformed || infusionData.matrix.validLocation()) {
                 drawString(
                     StatCollector.translateToLocal("salisarcana:infusion.preview.unformed"),
                     xCoord,
