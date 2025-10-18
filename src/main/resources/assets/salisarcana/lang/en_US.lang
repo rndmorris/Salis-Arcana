@@ -262,3 +262,8 @@ salisarcana:wand_rod.special.witchwood.2=  §5at the cost of §9140 Ars Magica 2
 salisarcana:wand_rod.special.witchwood_staff.1=§5Regenerates §d1 vis§5 of each aspect every 2 seconds (max §d100% vis§5)
 salisarcana:wand_rod.special.witchwood_staff.2=  §5at the cost of §9100 Ars Magica 2 mana§5 per vis.
 salisarcana:wand_cap.special.vinteum=§5Reduces the §9Ars Magica mana§5 cost of Witchwood cores' vis regeneration by about half.
+
+salisarcana:infusion.preview.invalid=§cInvalid Location
+salisarcana:infusion.preview.unformed=§6Right-Click with a wand to activate
+salisarcana:infusion.preview.norecipe=§cNo valid recipe found.
+salisarcana:infusion.preview.enchantment=Requires §a%s §eLevels
