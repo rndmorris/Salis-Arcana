@@ -268,3 +268,8 @@ salisarcana:wand_rod.special.witchwood.2=  §5at the cost of §9140 Ars Magica 2
 salisarcana:wand_rod.special.witchwood_staff.1=§5Regenerates §d1 vis§5 of each aspect every 2 seconds (max §d100% vis§5)
 salisarcana:wand_rod.special.witchwood_staff.2=  §5at the cost of §9100 Ars Magica 2 mana§5 per vis.
 salisarcana:wand_cap.special.vinteum=§5Reduces the §9Ars Magica mana§5 cost of Witchwood cores' vis regeneration by about half.
+
+salisarcana:wand_rod.special.alfheimSpiritual_staff.1=§5Regenerates §d1 vis§5 of each aspect every 2 seconds (max §d100% vis§5)
+salisarcana:wand_rod.special.alfheimSpiritual_staff.2=  §5at the cost of §bsome Botania mana§5.
+salisarcana:wand_rod.special.alfheimSpiritual_staff.3=§5If paired with Alfheim wand caps, reduces the §bmana cost§5 of
+salisarcana:wand_rod.special.alfheimSpiritual_staff.4=  §5regenerating vis by your armor's §bmana discounts§5.
