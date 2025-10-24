@@ -1,6 +1,7 @@
 package dev.rndmorris.salisarcana;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -58,5 +59,10 @@ public class ClientProxy extends CommonProxy {
         } else {
             return Minecraft.getMinecraft().theWorld;
         }
+    }
+
+    @Override
+    public Profiler getProfiler() {
+        return Minecraft.getMinecraft().mcProfiler;
     }
 }
