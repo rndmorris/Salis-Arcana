@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
-import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 
 import dev.rndmorris.salisarcana.lib.DynamicNodeLogic;
 import thaumcraft.api.TileThaumcraft;
@@ -31,8 +30,7 @@ public class MixinTileNode_DynamicReach_Pure extends TileThaumcraft {
         method = "handlePureNode",
         at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;xCoord:I", remap = true, ordinal = 0))
     private void calculateSizeMultiplier(boolean change, CallbackInfoReturnable<Boolean> cir,
-        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef) {
-        reachRef.set(-1);
+        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
         final var visSize = this.aspects.visSize();
         final var nodeLogMetadata = 2;
         if (this.blockType == ConfigBlocks.blockMagicalLog && this.blockMetadata == nodeLogMetadata
@@ -48,8 +46,7 @@ public class MixinTileNode_DynamicReach_Pure extends TileThaumcraft {
      * Adjust the bound within which the node will convert biomes.
      */
     @ModifyExpressionValue(method = "handlePureNode", at = @At(value = "CONSTANT", args = "intValue=8"))
-    private int adjustCoordsForBiome(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
-        @Share("reach") LocalIntRef reachRef) {
-        return DynamicNodeLogic.useReachMemo(constant, sizeMultiplierRef, reachRef);
+    private int adjustCoordsForBiome(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
+        return (int) (constant * sizeMultiplierRef.get());
     }
 }

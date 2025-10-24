@@ -3,9 +3,7 @@ package dev.rndmorris.salisarcana.mixins.late.tiles;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
@@ -24,41 +22,46 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
     AspectList aspects;
 
     /**
-     * Once we know that this is a hungry node in {@code handleHungryNodeFirst}, calculate the node's size multiplier.
+     * Adjust the volume within which a hungry node can draw particles.
+     * Memoization is needed for {@code adjustMopDistance} below.
      */
-    @Inject(
-        method = { "handleHungryNodeFirst" },
-        at = @At(value = "FIELD", target = "Lnet/minecraft/world/World;isRemote:Z", remap = true))
-    private void calculateSizeMultiplierFirst(CallbackInfoReturnable<Boolean> cir,
-        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef) {
-        // we don't actually need to do anything with `isRemote`, it's just a convenient target
-        reachRef.set(-1);
+    @ModifyExpressionValue(
+        method = "handleHungryNodeFirst",
+        at = @At(value = "CONSTANT", args = "intValue=16", ordinal = 0))
+    private int adjustAndMemoReachFirst(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
+        @Share("reach") LocalIntRef reachRef) {
         sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
+        final var reach = (int) (constant * sizeMultiplierRef.get());
+        reachRef.set(reach);
+        return reach;
     }
 
     /**
-     * Adjust the volume within which a hungry node can draw particles
+     * Adjust the volume within which a hungry node can eat blocks.
+     * Memoization is needed for {@code adjustMopDistance} below.
+     */
+    @ModifyExpressionValue(
+        method = "handleHungryNodeSecond",
+        at = @At(value = "CONSTANT", args = "intValue=16", ordinal = 0))
+    private int adjustAndMemoReachSecond(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
+        @Share("reach") LocalIntRef reachRef) {
+        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
+        final var reach = (int) (constant * sizeMultiplierRef.get());
+        reachRef.set(reach);
+        return reach;
+    }
+
+    /**
+     * Adjust the volume within which a hungry node can draw particles.
      */
     @ModifyExpressionValue(
         method = "handleHungryNodeFirst",
         at = @At(value = "CONSTANT", args = "intValue=16"),
         slice = @Slice(
+            from = @At(value = "CONSTANT", args = "intValue=16", ordinal = 1),
             to = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getHeightValue(II)I", remap = true)))
-    private int adjustParticleCoords(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
-        @Share("reach") LocalIntRef reachRef) {
-        return DynamicNodeLogic.useReachMemo(constant, sizeMultiplierRef, reachRef);
-    }
-
-    /**
-     * Adjust the maximum distance from which the node will draw particles and eat blocks.
-     */
-    @ModifyExpressionValue(
-        method = { "handleHungryNodeFirst", "handleHungryNodeSecond" },
-        at = @At(value = "CONSTANT", args = "doubleValue=256.0D"))
-    private double adjustMopDistance(double constant, @Share("reach") LocalIntRef reachRef) {
-        // 256 is 16^2. Since we probably aren't using 16, we use the reach calculated earlier
-        final var val = reachRef.get();
-        return val * val;
+    private int adjustParticleCoords(int constant, @Share("reach") LocalIntRef reachRef) {
+        return reachRef.get();
     }
 
     /**
@@ -71,33 +74,20 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
     }
 
     /**
-     * The first time we know we'll need the multiplier in {@code handleHungryNodeSecond}, calculate it.
-     * No need to execute this every tick for every node if it'll only be needed once every 40/50/60/100 ticks.
-     */
-    @Inject(
-        method = "handleHungryNodeSecond",
-        at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;xCoord:I", remap = true, ordinal = 0))
-    private void calculateSizeMultiplierSecond(CallbackInfoReturnable<Boolean> cir,
-        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef) {
-        reachRef.set(-1);
-        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
-    }
-
-    /**
-     * Adjust the volume within which a hungry node can eat blocks
+     * Adjust the volume within which a hungry node can eat blocks.
      */
     @ModifyExpressionValue(
         method = "handleHungryNodeSecond",
         at = @At(value = "CONSTANT", args = "intValue=16"),
         slice = @Slice(
+            from = @At(value = "CONSTANT", args = "intValue=16", ordinal = 1),
             to = @At(
                 value = "INVOKE",
                 target = "Lnet/minecraft/world/World;getHeightValue(II)I",
                 remap = true,
                 ordinal = 0)))
-    private int adjustBlockRandomCoordinate(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
-        @Share("reach") LocalIntRef reachRef) {
-        return DynamicNodeLogic.useReachMemo(constant, sizeMultiplierRef, reachRef);
+    private int adjustBlockRandomCoordinate(int constant, @Share("reach") LocalIntRef reachRef) {
+        return reachRef.get();
     }
 
     /**
@@ -106,5 +96,17 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
     @ModifyExpressionValue(method = "handleHungryNodeSecond", at = @At(value = "CONSTANT", args = "floatValue=5.0"))
     private float adjustHardness(float constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
         return constant * (float) sizeMultiplierRef.get();
+    }
+
+    /**
+     * Adjust the maximum distance from which the node will draw particles and eat blocks.
+     */
+    @ModifyExpressionValue(
+        method = { "handleHungryNodeFirst", "handleHungryNodeSecond" },
+        at = @At(value = "CONSTANT", args = "doubleValue=256.0D"))
+    private double adjustMopDistance(double constant, @Share("reach") LocalIntRef reachRef) {
+        // 256 is 16^2. Since we probably aren't using 16, we use the reach calculated earlier
+        final var val = reachRef.get();
+        return val * val;
     }
 }

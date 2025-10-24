@@ -33,8 +33,7 @@ public class MixinTileNode_DynamicReach_Dark extends TileThaumcraft {
         at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;xCoord:I", remap = true, ordinal = 0),
         slice = @Slice(from = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;count:I")))
     private void calculateSizeMultiplier(boolean change, CallbackInfoReturnable<Boolean> cir,
-        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef) {
-        reachRef.set(-1);
+        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
         sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
     }
 
@@ -47,6 +46,6 @@ public class MixinTileNode_DynamicReach_Dark extends TileThaumcraft {
         slice = @Slice(to = @At(value = "FIELD", target = "Lthaumcraft/common/config/Config;hardNode:Z")))
     private int adjustCoordsForBiome(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
         @Share("reach") LocalIntRef reachRef) {
-        return DynamicNodeLogic.useReachMemo(constant, sizeMultiplierRef, reachRef);
+        return (int) (constant * sizeMultiplierRef.get());
     }
 }
