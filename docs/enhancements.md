@@ -387,3 +387,9 @@ Used to control how much vis can be transferred to and from the vis amulet.
 ## Config Option: `visAmuletCheckInventory`
 
 If enabled, the vis amulet will check the player's inventory for wands, instead of just the player's hand.
+
+## Starry void block
+
+**Config option:** `enableStarryVoidBlock`
+
+Adds the starry void block from the TC5 outer lands.
