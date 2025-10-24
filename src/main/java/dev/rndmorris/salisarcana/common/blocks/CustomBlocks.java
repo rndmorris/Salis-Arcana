@@ -1,6 +1,7 @@
 package dev.rndmorris.salisarcana.common.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -13,6 +14,7 @@ import thaumcraft.common.config.ConfigBlocks;
 public class CustomBlocks {
 
     public static Block blockPlank;
+    public static Block blockStarryVoid;
 
     public static void registerBlocks() {
 
@@ -20,6 +22,10 @@ public class CustomBlocks {
             registerLookaLikePlanks();
         }
 
+        if (SalisConfig.features.starryVoidBlock.isEnabled()) {
+            blockStarryVoid = new BlockStarryVoid();
+            GameRegistry.registerBlock(blockStarryVoid, ItemBlock.class, "blockStarryVoid");
+        }
     }
 
     private static void registerLookaLikePlanks() {

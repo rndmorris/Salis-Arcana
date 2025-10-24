@@ -471,6 +471,11 @@ public class ConfigFeatures extends ConfigGroup {
         "wandPartStatsTooltip",
         "Wand caps & wand rods will show information about their vis capacity & discount in their tooltips.");
 
+    public final ToggleSetting starryVoidBlock = new ToggleSetting(
+        this,
+        "enableStarryVoidBlock",
+        "Adds the starry void block from TC5.");
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
