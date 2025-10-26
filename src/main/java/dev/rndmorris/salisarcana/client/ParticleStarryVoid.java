@@ -18,6 +18,7 @@ public class ParticleStarryVoid extends FXGeneric {
         particleTextureJitterX = 0.0f;
         particleTextureJitterY = 0.0f;
         setScale(5);
+        noClip = false;
 
         // Initial random motion
         motionX = rand.nextGaussian() * 0.01;
