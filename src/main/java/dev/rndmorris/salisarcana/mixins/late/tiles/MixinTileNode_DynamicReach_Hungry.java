@@ -39,32 +39,13 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
     }
 
     /**
-     * Adjust the volume within which a hungry node can draw particles.
+     * For {@code handleHungryNodeFirst}, adjust the volume within which a hungry node can draw particles.
+     * For {@code handleHungryNodeSecond}, adjust the volume within which a hungry node can break blocks.
+     * Targets from second occurrence of the constant {@code 16} to the first call to {@code world.getHeightValue()} to
+     * keep the affected area scoped only to the desired {@code rand.nextInt()} calls.
      */
     @ModifyExpressionValue(
-        method = "handleHungryNodeFirst",
-        at = @At(value = "CONSTANT", args = "intValue=16"),
-        slice = @Slice(
-            from = @At(value = "CONSTANT", args = "intValue=16", ordinal = 1),
-            to = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getHeightValue(II)I", remap = true)))
-    private int adjustParticleCoords(int constant, @Share("reach") LocalIntRef reachRef) {
-        return reachRef.get();
-    }
-
-    /**
-     * Adjust the bounding box used to select entities the node will drag towards it, and the divisors used to calculate
-     * how much motion each entity receives.
-     */
-    @ModifyExpressionValue(method = "handleHungryNodeFirst", at = @At(value = "CONSTANT", args = "doubleValue=15.0"))
-    private double adjustEntityBB(double constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
-        return constant * sizeMultiplierRef.get();
-    }
-
-    /**
-     * Adjust the volume within which a hungry node can eat blocks.
-     */
-    @ModifyExpressionValue(
-        method = "handleHungryNodeSecond",
+        method = { "handleHungryNodeFirst", "handleHungryNodeSecond" },
         at = @At(value = "CONSTANT", args = "intValue=16"),
         slice = @Slice(
             from = @At(value = "CONSTANT", args = "intValue=16", ordinal = 1),
@@ -73,16 +54,8 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
                 target = "Lnet/minecraft/world/World;getHeightValue(II)I",
                 remap = true,
                 ordinal = 0)))
-    private int adjustBlockRandomCoordinate(int constant, @Share("reach") LocalIntRef reachRef) {
+    private int adjustRandomCoords(int constant, @Share("reach") LocalIntRef reachRef) {
         return reachRef.get();
-    }
-
-    /**
-     * Adjust the maximum block hardness the node can break.
-     */
-    @ModifyExpressionValue(method = "handleHungryNodeSecond", at = @At(value = "CONSTANT", args = "floatValue=5.0"))
-    private float adjustHardness(float constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
-        return constant * (float) sizeMultiplierRef.get();
     }
 
     /**
@@ -95,5 +68,22 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
         // 256 is 16^2. Since we probably aren't using 16, we use the reach calculated earlier
         final var val = reachRef.get();
         return val * val;
+    }
+
+    /**
+     * Adjust the bounding box used to select entities the node will drag towards it, and the divisors used to calculate
+     * how much motion each entity receives.
+     */
+    @ModifyExpressionValue(method = "handleHungryNodeFirst", at = @At(value = "CONSTANT", args = "doubleValue=15.0"))
+    private double adjustEntityBB(double constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
+        return constant * sizeMultiplierRef.get();
+    }
+
+    /**
+     * Adjust the maximum block hardness the node can break.
+     */
+    @ModifyExpressionValue(method = "handleHungryNodeSecond", at = @At(value = "CONSTANT", args = "floatValue=5.0"))
+    private float adjustHardness(float constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
+        return constant * (float) sizeMultiplierRef.get();
     }
 }
