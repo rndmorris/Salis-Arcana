@@ -35,7 +35,7 @@ public final class DynamicNodeLogic {
      * A precomputed cache for a range of potential node sizes. Possibly a premature optimization, but one that should
      * be harmless enough.
      */
-    private final static double[] cbrtMemo = ArrayHelper.calculateArray(new double[512], Math::cbrt);
+    private static final double[] cbrtMemo = ArrayHelper.calculateArray(new double[512], Math::cbrt);
 
     public static int brightnessSpeedAdjustment(int value, @Nullable NodeModifier modifier) {
         if (modifier == null) {
