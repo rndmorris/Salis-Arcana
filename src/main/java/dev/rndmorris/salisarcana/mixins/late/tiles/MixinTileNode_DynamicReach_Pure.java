@@ -32,9 +32,7 @@ public class MixinTileNode_DynamicReach_Pure extends TileThaumcraft {
     private void calculateSizeMultiplier(boolean change, CallbackInfoReturnable<Boolean> cir,
         @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
         final var visSize = this.aspects.visSize();
-        final var nodeLogMetadata = 2;
-        if (this.getBlockType() == ConfigBlocks.blockMagicalLog && this.blockMetadata == nodeLogMetadata
-            && visSize <= DynamicNodeLogic.NODE_SIZE_SMALL_MAX) {
+        if (this.getBlockType() == ConfigBlocks.blockMagicalLog && visSize <= DynamicNodeLogic.NODE_SIZE_SMALL_MAX) {
             // special exception for sufficiently-small in-log nodes
             sizeMultiplierRef.set(DynamicNodeLogic.calculateSmallSizeMultiplier(visSize));
             return;
