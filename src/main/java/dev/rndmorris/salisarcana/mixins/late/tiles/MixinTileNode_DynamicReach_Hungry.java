@@ -24,26 +24,13 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
     /**
      * Adjust the volume within which a hungry node can draw particles.
      * Memoization is needed for {@code adjustMopDistance} below.
+     * Wraps the first occurrence of a constant {@code 16} in each method, which should be part the very first
+     * {@code rand.nextInt()} call.
      */
     @ModifyExpressionValue(
-        method = "handleHungryNodeFirst",
+        method = { "handleHungryNodeFirst", "handleHungryNodeSecond" },
         at = @At(value = "CONSTANT", args = "intValue=16", ordinal = 0))
-    private int adjustAndMemoReachFirst(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
-        @Share("reach") LocalIntRef reachRef) {
-        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
-        final var reach = (int) (constant * sizeMultiplierRef.get());
-        reachRef.set(reach);
-        return reach;
-    }
-
-    /**
-     * Adjust the volume within which a hungry node can eat blocks.
-     * Memoization is needed for {@code adjustMopDistance} below.
-     */
-    @ModifyExpressionValue(
-        method = "handleHungryNodeSecond",
-        at = @At(value = "CONSTANT", args = "intValue=16", ordinal = 0))
-    private int adjustAndMemoReachSecond(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
+    private int adjustAndMemoReach(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
         @Share("reach") LocalIntRef reachRef) {
         sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
         final var reach = (int) (constant * sizeMultiplierRef.get());
