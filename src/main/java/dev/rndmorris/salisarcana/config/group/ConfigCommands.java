@@ -69,6 +69,10 @@ public class ConfigCommands extends ConfigGroup {
     public final CommandSettings upgradeFocus = new CommandSettings("upgrade-focus", this).addDefaultAlias()
         .setPermissionLevel(2);
 
+    public final CommandSettings scanAll = new CommandSettings("scan-all", this).addDefaultAlias()
+        .setDescription("Marks all aspects and items as scanned for a player.")
+        .setPermissionLevel(2);
+
     @Nonnull
     @Override
     public String getGroupName() {
