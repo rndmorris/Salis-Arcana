@@ -1,16 +1,17 @@
 package dev.rndmorris.salisarcana.mixins.late.client.lib;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
@@ -21,14 +22,17 @@ import thaumcraft.client.lib.RenderEventHandler;
 @Mixin(value = RenderEventHandler.class, remap = false)
 public abstract class MixinRenderEventHandler_ElementalPickOredict {
 
-    @ModifyExpressionValue(
+    @WrapOperation(
         method = "startScan",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlock(III)Lnet/minecraft/block/Block;"))
-    private Block preFilterBlock(Block original, @Local(argsOnly = true) Entity player, @Local(name = "x") int x,
-        @Local(name = "y") int y, @Local(name = "z") int z, @Local(name = "xx") int xx, @Local(name = "yy") int yy,
-        @Local(name = "zz") int zz, @Share("includeBlock") LocalBooleanRef includeBlockRef) {
-        final var metadata = player.worldObj.getBlockMetadata(x + xx, y + yy, z + zz);
-        final var oreIds = OreDictionary.getOreIDs(new ItemStack(original, 1, metadata));
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/World;getBlock(III)Lnet/minecraft/block/Block;",
+            remap = true))
+    private Block preFilterBlock(World world, int x, int y, int z, Operation<Block> original,
+        @Share("includeBlock") LocalBooleanRef includeBlockRef) {
+        final var block = original.call(world, x, y, z);
+        final var metadata = world.getBlockMetadata(x, y, z);
+        final var oreIds = OreDictionary.getOreIDs(new ItemStack(block, 1, metadata));
         final var oreDictIds = SalisArcana.proxy.oreDictIds;
 
         var includeBlock = false;
@@ -44,7 +48,7 @@ public abstract class MixinRenderEventHandler_ElementalPickOredict {
             }
         }
         includeBlockRef.set(includeBlock);
-        return original;
+        return block;
     }
 
     @ModifyExpressionValue(
