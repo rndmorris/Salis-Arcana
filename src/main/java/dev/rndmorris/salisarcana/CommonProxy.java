@@ -52,8 +52,7 @@ import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 
 public class CommonProxy {
 
-    // todo: this *should* be safe, but initialization may need moved into preInit?
-    public final OreDictIds oreDictIds = new OreDictIds();
+    public OreDictIds oreDictIds;
 
     public CommonProxy() {
         FMLCommonHandler.instance()
@@ -65,6 +64,8 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
+        oreDictIds = new OreDictIds();
+
         if (SalisConfig.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.initialize();
         }
