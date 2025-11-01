@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
@@ -166,6 +167,10 @@ public class CommonProxy {
     public World getFakePlayerWorld() {
         return MinecraftServer.getServer()
             .worldServerForDimension(0);
+    }
+
+    public Profiler getProfiler() {
+        return MinecraftServer.getServer().theProfiler;
     }
 
     private void fixGolemFishingLists() {
