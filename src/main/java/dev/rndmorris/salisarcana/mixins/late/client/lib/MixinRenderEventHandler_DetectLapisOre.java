@@ -1,27 +1,27 @@
 package dev.rndmorris.salisarcana.mixins.late.client.lib;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.block.Block;
+import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import thaumcraft.client.lib.RenderEventHandler;
 
 @Mixin(value = RenderEventHandler.class, remap = false)
 public abstract class MixinRenderEventHandler_DetectLapisOre {
 
-    @ModifyExpressionValue(
+    @WrapOperation(
         method = "startScan",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/block/Block;getDamageValue(Lnet/minecraft/world/World;III)I",
             remap = true))
-    private int useMetadataInsteadOfDamage(int original, @Local(name = "player") Entity player,
-        @Local(name = "x") int x, @Local(name = "y") int y, @Local(name = "z") int z, @Local(name = "xx") int xx,
-        @Local(name = "yy") int yy, @Local(name = "zz") int zz) {
-        return player.worldObj.getBlockMetadata(x + xx, y + yy, z + zz);
+    private int useMetadataInsteadOfDamage(Block instance, World world, int x, int y, int z,
+        Operation<Integer> original) {
+        return world.getBlockMetadata(x, y, z);
     }
 }
