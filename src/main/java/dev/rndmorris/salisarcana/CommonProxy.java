@@ -6,6 +6,7 @@ import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
@@ -18,6 +19,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import dev.rndmorris.salisarcana.api.OreDict;
+import dev.rndmorris.salisarcana.common.BehaviorDispensePrimalArrow;
 import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.common.DisenchantFocusUpgrade;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
@@ -74,6 +76,11 @@ public class CommonProxy {
 
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
+
+        if (SalisConfig.thaum.primalArrowsCanBeFiredFromDispensers.isEnabled()) {
+            BlockDispenser.dispenseBehaviorRegistry
+                .putObject(ConfigItems.itemPrimalArrow, new BehaviorDispensePrimalArrow());
+        }
 
         if (SalisConfig.bugfixes.useForgeFishingLists.isEnabled()) {
             fixGolemFishingLists();

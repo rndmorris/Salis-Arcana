@@ -265,6 +265,12 @@ Prevents wand items from crashing everything when they contain a component which
 
 Prevents the "Vis in Wand" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.
 
+## Extend Upgrade Focus Packet
+
+**Config option:** `extendUpgradeFocusPacket`
+
+Use a larger packet for sending the ID of the focus upgrade being selected, allowing the use of focus upgrade IDs > 127 on multiplayer servers.
+
 ## Pickaxe of the Core (Group `tools`)
 
 **Config option:** `detectZeroAspectBlocks`

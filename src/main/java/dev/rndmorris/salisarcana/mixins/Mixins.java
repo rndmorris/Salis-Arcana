@@ -214,6 +214,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.clampWandOverlayVis)
         .addClientMixins("client.lib.MixinClientTickEventsFML_VisOverflow")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EXTEND_FOCUS_UPGRADE_PACKET(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.extendUpgradeFocusPacket)
+        .addClientMixins("gui.MixinGuiFocalManipulator_UseExtendedEnchantmentPacket")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ELEMENTAL_PICK_SCAN_ZERO_ASPECTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectZeroAspectBlocks)

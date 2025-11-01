@@ -9,6 +9,11 @@ When enabled, the Pickaxe of the Core will respect two new ore dictionary tags. 
 `salisarcana:elementalPickScanExclude` will never be detected by the pickaxe, while blocks labeled with
 `salisarcana:elementalPickScanInclude` will be detected even if they normally would not.
 
+## Primal Arrows (Group `primal_arrows`)
+
+### Config Option: `canBeFiredFromDispensers`
+Allows dispensers to fire primal arrows.
+
 ## Potion ID Overrides (Group `potion_ids`)
 
 ### Config Option: `_uncapped_potion_ids`

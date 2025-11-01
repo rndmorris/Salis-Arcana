@@ -263,6 +263,10 @@ public class ConfigBugfixes extends ConfigGroup {
         "Allows the pickaxe of the core to correctly detect vanilla lapis ore.\n" + "\n"
             + "Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of a block's dropped item to\n"
             + "identify a block instead of its in-world metadata when scanning for ores.").setCategory("tools");
+    public final ToggleSetting extendUpgradeFocusPacket = new ToggleSetting(
+        this,
+        "extendUpgradeFocusPacket",
+        "Use a larger packet for sending the ID of the focus upgrade being selected, allowing the use of focus upgrade IDs > 127 on multiplayer servers.");
 
     @Nonnull
     @Override
