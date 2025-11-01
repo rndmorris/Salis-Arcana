@@ -223,12 +223,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.detectZeroAspectBlocks)
         .addClientMixins("client.lib.MixinRenderEventHandler_DetectZeroAspectBlocks")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
-
     ELEMENTAL_PICK_SCAN_DETECT_LIT_REDSTONE_ORE(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectLitRedstoneOre)
         .addClientMixins("client.lib.MixinRenderEventHandler_DetectLitRedstoneOre")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
-
     ELEMENTAL_PICK_SCAN_DETECT_LAPIS_ORE(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectLapisOre)
         .addClientMixins("client.lib.MixinRenderEventHandler_DetectLapisOre")
