@@ -17,7 +17,8 @@ public abstract class MixinRenderEventHandler_DetectLapisOre {
         method = "startScan",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/block/Block;getDamageValue(Lnet/minecraft/world/World;III)I"))
+            target = "Lnet/minecraft/block/Block;getDamageValue(Lnet/minecraft/world/World;III)I",
+            remap = true))
     private int useMetadataInsteadOfDamage(int original, @Local(name = "player") Entity player,
         @Local(name = "x") int x, @Local(name = "y") int y, @Local(name = "z") int z, @Local(name = "xx") int xx,
         @Local(name = "yy") int yy, @Local(name = "zz") int zz) {
