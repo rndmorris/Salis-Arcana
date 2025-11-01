@@ -12,12 +12,14 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import dev.rndmorris.salisarcana.api.OreDict;
 import dev.rndmorris.salisarcana.common.BehaviorDispensePrimalArrow;
 import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.common.DisenchantFocusUpgrade;
@@ -39,7 +41,6 @@ import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.BlockAiryBucketInterceptor;
-import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.ObfuscationInfo;
 import dev.rndmorris.salisarcana.lib.R;
@@ -54,6 +55,8 @@ import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 
 public class CommonProxy {
 
+    public OreDictIds oreDictIds;
+
     public CommonProxy() {
         FMLCommonHandler.instance()
             .bus()
@@ -64,6 +67,8 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
+        oreDictIds = new OreDictIds();
+
         if (SalisConfig.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.initialize();
         }
@@ -82,9 +87,6 @@ public class CommonProxy {
             fixGolemFishingLists();
         }
 
-        if (SalisConfig.features.heatSourceOreDict.isEnabled()) {
-            CrucibleHeatLogic.registerOreDictName();
-        }
         updateHarvestLevels();
 
         FMLCommonHandler.instance()
@@ -183,5 +185,15 @@ public class CommonProxy {
         } catch (RuntimeException e) {
             LOG.error("An error occurred updating golem fishing lists.", e);
         }
+    }
+
+    public static class OreDictIds {
+
+        public final int pickaxeCoreScanExclude = OreDictionary.getOreID(OreDict.ELEMENTAL_PICK_SCAN_EXCLUDE);
+        public final int pickaxeCoreScanInclude = OreDictionary.getOreID(OreDict.ELEMENTAL_PICK_SCAN_INCLUDE);
+        public final int heatSource = OreDictionary.getOreID(OreDict.HEAT_SOURCE);
+        public final int plankGreatwood = OreDictionary.getOreID(OreDict.GREATWOOD_PLANKS);
+        public final int plankSilverwood = OreDictionary.getOreID(OreDict.SILVERWOOD_PLANKS);
+
     }
 }
