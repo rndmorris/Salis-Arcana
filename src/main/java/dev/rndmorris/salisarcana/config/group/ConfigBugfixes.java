@@ -250,6 +250,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "extendUpgradeFocusPacket",
         "Use a larger packet for sending the ID of the focus upgrade being selected, allowing the use of focus upgrade IDs > 127 on multiplayer servers.");
 
+    public final ToggleSetting fixEqualTradeLeafPlacement = new ToggleSetting(
+        this,
+        "fixEqualTradeLeafPlacement",
+        "Ensures leaf blocks will not decay after being placed when using the Equal Trade focus. They will behave as if placed by the player.");
+
     @Nonnull
     @Override
     public String getGroupName() {

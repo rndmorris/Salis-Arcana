@@ -218,6 +218,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.extendUpgradeFocusPacket)
         .addClientMixins("gui.MixinGuiFocalManipulator_UseExtendedEnchantmentPacket")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FIX_EQUAL_TRADE_LEAF_PLACEMENT(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixEqualTradeLeafPlacement)
+        .addCommonMixins("events.MixinServerTickEventsFML", "events.MixinServerTickEventsFML_VirtualSwapper")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
