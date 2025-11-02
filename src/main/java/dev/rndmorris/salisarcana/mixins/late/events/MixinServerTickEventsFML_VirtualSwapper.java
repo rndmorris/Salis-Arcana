@@ -5,83 +5,68 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-import dev.rndmorris.salisarcana.mixins.accessors.IVirtualSwapperAccessor;
 import thaumcraft.common.lib.events.ServerTickEventsFML;
 
+/**
+ * Accessor for the package local values of {@link ServerTickEventsFML.VirtualSwapper}
+ */
 @Mixin(ServerTickEventsFML.VirtualSwapper.class)
-public abstract class MixinServerTickEventsFML_VirtualSwapper implements IVirtualSwapperAccessor {
+public interface MixinServerTickEventsFML_VirtualSwapper {
 
-    @Shadow(remap = false)
-    int lifespan;
+    /**
+     * Get the swapper lifespan for this block.
+     * Reduces by 1 for every subsequent block that is replaced during a swap event until it reaches 0
+     */
+    @Accessor(remap = false)
+    int getLifespan();
 
-    @Shadow(remap = false)
-    int x;
+    /**
+     * Get the block's X coordinate
+     */
+    @Accessor(remap = false)
+    int getX();
 
-    @Shadow(remap = false)
-    int y;
+    /**
+     * Get the block's Y coordinate
+     */
+    @Accessor(remap = false)
+    int getY();
 
-    @Shadow(remap = false)
-    int z;
+    /**
+     * Get the block's Z coordinate
+     */
+    @Accessor(remap = false)
+    int getZ();
 
-    @Shadow(remap = false)
-    Block bSource;
+    /**
+     * Get the class for the block currently in world
+     */
+    @Accessor(remap = false)
+    Block getBSource();
 
-    @Shadow(remap = false)
-    int mSource;
+    /**
+     * Get the metadata for the block currently in world
+     */
+    @Accessor(remap = false)
+    int getMSource();
 
-    @Shadow(remap = false)
-    ItemStack target;
+    /**
+     * Get the ItemStack for the block to be swapped in, from the player's inventory
+     */
+    @Accessor(remap = false)
+    ItemStack getTarget();
 
-    @Shadow(remap = false)
-    int wand;
+    /**
+     * Get the Wand used for this swap event
+     */
+    @Accessor(remap = false)
+    int getWand();
 
-    @Shadow(remap = false)
-    EntityPlayer player;
-
-    @Override
-    public int sa$getLifespan() {
-        return this.lifespan;
-    }
-
-    @Override
-    public int sa$getX() {
-        return x;
-    }
-
-    @Override
-    public int sa$getY() {
-        return y;
-    }
-
-    @Override
-    public int sa$getZ() {
-        return z;
-    }
-
-    @Override
-    public Block sa$getSourceBlock() {
-        return bSource;
-    }
-
-    @Override
-    public int sa$getSourceMetadata() {
-        return mSource;
-    }
-
-    @Override
-    public ItemStack sa$getTarget() {
-        return target;
-    }
-
-    @Override
-    public int sa$getWand() {
-        return wand;
-    }
-
-    @Override
-    public EntityPlayer sa$getPlayer() {
-        return player;
-    }
+    /**
+     * Get the player for this swap event
+     */
+    @Accessor(remap = false)
+    EntityPlayer getPlayer();
 }
