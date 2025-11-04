@@ -248,7 +248,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting detectZeroAspectBlocks = new ToggleSetting(
         this,
         "detectZeroAspectBlocks",
-        "Fixes an oversight with the pickaxe of the core that prevents it from displaying detected blocks that have no aspects.")
+        "Fixes an oversight with the Pickaxe of the Core that prevents it from displaying detected ores with no aspects.")
             .setCategory("tools");
 
     public final ToggleSetting detectLitRedstoneOre = new ToggleSetting(
