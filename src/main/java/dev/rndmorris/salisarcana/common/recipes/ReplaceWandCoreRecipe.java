@@ -73,6 +73,10 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             wandInstance.storeAllVis(outputItem, AspectHelper.primalList(0));
         }
 
+        final int cost = scanResult.wandType()
+            .getCraftingVisCost(scanResult.wandCaps(), scanResult.newRod());
+        outputItem.setItemDamage(Math.max(cost, 0));
+
         return outputItem;
     }
 

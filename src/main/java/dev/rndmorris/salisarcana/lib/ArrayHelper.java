@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
@@ -27,6 +28,20 @@ public class ArrayHelper {
             }
         }
         return -1;
+    }
+
+    /**
+     * For each index in the array, execute {@code calculate} for that index and store the result in that index.
+     * 
+     * @param arr       The array to iterate over.
+     * @param calculate The function to apply to each index of the array. Takes in the index as the only parameter.
+     * @return The original array {@code arr}.
+     */
+    public static double[] calculateArray(double[] arr, Function<Integer, Double> calculate) {
+        for (var index = 0; index < arr.length; ++index) {
+            arr[index] = calculate.apply(index);
+        }
+        return arr;
     }
 
     public static <E> TryGetResult<E> tryGet(E[] arr, int index) {
