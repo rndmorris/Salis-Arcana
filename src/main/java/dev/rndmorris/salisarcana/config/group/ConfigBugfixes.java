@@ -250,6 +250,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "extendUpgradeFocusPacket",
         "Use a larger packet for sending the ID of the focus upgrade being selected, allowing the use of focus upgrade IDs > 127 on multiplayer servers.");
 
+    public final ToggleSetting earlyTerminateCrucibleCraft = new ToggleSetting(
+        this,
+        "earlyTerminateCrucibleCraft",
+        "Prevent large item stacks from partially dissolving into aspects if the Crucible runs out of water while crafting.");
+
     @Nonnull
     @Override
     public String getGroupName() {
