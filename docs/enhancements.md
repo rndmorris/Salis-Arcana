@@ -244,6 +244,12 @@ Applying patterns to banners not consume the phial or the essentia. Overrides `b
 
 Wand caps & wand rods will show information about their vis capacity & discount in their tooltips.
 
+## Show Hints for Unknown Aspects in Research Table
+
+**Config option:** `researchTableAspectHints`
+
+Hovering over an unknown aspect inside the Research Table will show a tooltip with a hint about where you can find it.
+
 # Enhancements - Infusion
 
 ## Config option: `useStabilizerRewrite`
