@@ -245,6 +245,23 @@ public class ConfigBugfixes extends ConfigGroup {
         "clampWandOverlayVis",
         "Prevents the \"Vis in Wand\" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.");
 
+    public final ToggleSetting detectZeroAspectBlocks = new ToggleSetting(
+        this,
+        "detectZeroAspectBlocks",
+        "Fixes an oversight with the Pickaxe of the Core that prevents it from displaying detected ores with no aspects.")
+            .setCategory("tools");
+
+    public final ToggleSetting detectLitRedstoneOre = new ToggleSetting(
+        this,
+        "detectLitRedstoneOre",
+        "Works around limitation with Forge that prevents the pickaxe of the core fom detecting lit redstone ore by treating it\n"
+            + "as identical to regular redstone ore.").setCategory("tools");
+
+    public final ToggleSetting detectLapisOre = new ToggleSetting(this, "detectLapisOre", """
+        Allows the pickaxe of the core to correctly detect vanilla lapis ore.
+
+        Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of a block's dropped item to
+        identify a block instead of its in-world metadata when scanning for ores.""").setCategory("tools");
     public final ToggleSetting extendUpgradeFocusPacket = new ToggleSetting(
         this,
         "extendUpgradeFocusPacket",
