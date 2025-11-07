@@ -245,6 +245,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "clampWandOverlayVis",
         "Prevents the \"Vis in Wand\" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.");
 
+    public final ToggleSetting extendUpgradeFocusPacket = new ToggleSetting(
+        this,
+        "extendUpgradeFocusPacket",
+        "Use a larger packet for sending the ID of the focus upgrade being selected, allowing the use of focus upgrade IDs > 127 on multiplayer servers.");
+
     @Nonnull
     @Override
     public String getGroupName() {
