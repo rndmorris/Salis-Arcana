@@ -471,6 +471,11 @@ public class ConfigFeatures extends ConfigGroup {
         "wandPartStatsTooltip",
         "Wand caps & wand rods will show information about their vis capacity & discount in their tooltips.");
 
+    public final ToggleSetting researchTableAspectHints = new ToggleSetting(
+        this,
+        "researchTableAspectHints",
+        "Hovering over an unknown aspect inside the Research Table will show a tooltip with a hint about where you can find it.");
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
