@@ -260,9 +260,11 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting detectLapisOre = new ToggleSetting(
         this,
         "detectLapisOre",
-        "Allows the pickaxe of the core to correctly detect vanilla lapis ore.\n" + "\n"
-            + "Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of a block's dropped item to\n"
-            + "identify a block instead of its in-world metadata when scanning for ores.").setCategory("tools");
+        """
+            Allows the pickaxe of the core to correctly detect vanilla lapis ore.
+            
+            Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of a block's dropped item to
+            identify a block instead of its in-world metadata when scanning for ores.""").setCategory("tools");
     public final ToggleSetting extendUpgradeFocusPacket = new ToggleSetting(
         this,
         "extendUpgradeFocusPacket",
