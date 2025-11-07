@@ -49,22 +49,18 @@ public class ResearchHelper {
 
             IChatComponent researchMessage = new ChatComponentText("");
 
-            final var research$ = category.research.values()
-                .iterator();
-            var anyInCategory = false;
-
-            while (research$.hasNext()) {
-                final var research = research$.next();
+            boolean anyInCategory = false;
+            for (final var research : category.research.values()) {
                 if (!filter.test(research)) {
                     continue;
                 }
-                anyInCategory = true;
-                final var item = formatResearch(research);
 
-                researchMessage.appendSibling(item);
-                if (research$.hasNext()) {
+                if (anyInCategory) {
                     researchMessage.appendText(", ");
                 }
+
+                anyInCategory = true;
+                researchMessage.appendSibling(formatResearch(research));
             }
 
             if (anyInCategory) {
