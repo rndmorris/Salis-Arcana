@@ -270,3 +270,9 @@ Prevents the "Vis in Wand" GUI when the wand is held from showing impossible bar
 **Config option:** `extendUpgradeFocusPacket`
 
 Use a larger packet for sending the ID of the focus upgrade being selected, allowing the use of focus upgrade IDs > 127 on multiplayer servers.
+
+## Terminate Crucible Item-Stack Melting Early
+
+**Config option:** `earlyTerminateCrucibleCraft`
+
+Prevent large item stacks from partially dissolving into aspects if the Crucible runs out of water while crafting.
