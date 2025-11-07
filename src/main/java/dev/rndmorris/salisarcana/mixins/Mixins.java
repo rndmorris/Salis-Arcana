@@ -464,6 +464,10 @@ public enum Mixins implements IMixins {
         .addCommonMixins("tiles.MixinTileResearchTable_FreeDuplicates")
         .addClientMixins("gui.MixinGuiResearchTable_FreeDuplicates")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    RESEARCH_UNKNOWN_ASPECT_HINT(new SalisBuilder()
+        .applyIf(SalisConfig.features.researchTableAspectHints)
+        .addClientMixins("gui.MixinGuiResearchTable_UnknownAspectTooltip")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     FOCUS_POUCH_SLOT(new SalisBuilder()
         .applyIf(SalisConfig.modCompat.baublesExpanded.focusPouchSlot)
