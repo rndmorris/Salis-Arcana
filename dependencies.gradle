@@ -34,7 +34,7 @@
  * For more details, see https://docs.gradle.org/8.0.1/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
 dependencies {
-    api("com.github.GTNewHorizons:NotEnoughItems:2.7.64-GTNH:dev")
+    api("com.github.GTNewHorizons:NotEnoughItems:2.7.77-GTNH:dev")
     runtimeOnly("com.github.GTNewHorizons:waila:1.8.12:dev@jar")
     api("com.github.GTNewHorizons:Baubles:1.0.4:dev")
     api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
@@ -45,11 +45,11 @@ dependencies {
     compileOnly("maven.modrinth:bugtorch:1.2.13")
     compileOnly(rfg.deobf("maven.modrinth:etfuturum:2.6.2"))
     compileOnly(rfg.deobf("curse.maven:undergroundbiomesconstructs-72744:2304497"))
-    compileOnly("com.github.GTNewHorizons:GTNH-TC-Wands:1.4.5:dev")
-    compileOnly('com.github.GTNewHorizons:Baubles-Expanded:2.1.8-GTNH:dev')
+    compileOnly("com.github.GTNewHorizons:GTNH-TC-Wands:1.4.6:dev")
+    compileOnly('com.github.GTNewHorizons:Baubles-Expanded:2.1.13-GTNH:dev')
 
     /* Patched TC4 addons */
-    compileOnly("com.github.GTNewHorizons:ThaumicTinkerer:2.11.15:dev")
+    compileOnly("com.github.GTNewHorizons:ThaumicTinkerer:2.11.20:dev")
     compileOnly(rfg.deobf("curse.maven:automagy-222153:2285272"))
 
     project.getConfigurations()
@@ -59,7 +59,7 @@ dependencies {
     //      final DependencySubstitutions ds = c.getResolutionStrategy()
     //          .getDependencySubstitution()
     //      ds.substitute(ds.module("com.github.GTNewHorizons:Baubles"))
-    //          .using(ds.module("com.github.GTNewHorizons:Baubles-Expanded:2.1.8-GTNH"))
+    //          .using(ds.module("com.github.GTNewHorizons:Baubles-Expanded:2.1.13-GTNH"))
     //          .withClassifier("dev")
     //          .because("Baubles-Expanded replaces Baubles")
     //  })

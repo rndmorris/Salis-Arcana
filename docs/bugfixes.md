@@ -294,3 +294,9 @@ Allows the pickaxe of the core to correctly detect vanilla lapis ore.
 
 Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of the block's dropped item to
 identify a block instead of its in-world metadata when scanning for ores.
+
+## Fix Wrong Aspects from being Rendered
+
+**Config option:** `fixInventoryAspects`
+
+Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.

@@ -12,6 +12,11 @@ import dev.rndmorris.salisarcana.config.settings.Setting;
 public enum Mixins implements IMixins {
 
     // spotless:off
+    // Early Mixins
+    ACCESSORS(new SalisBuilder(Phase.EARLY)
+        .addCommonMixins("accessor.AccessorGuiContainer")
+        .addClientMixins("accessor.AccessorMinecraft")),
+
     // Bugfixes
     ADVANCED_ARCANE_FURNACE_SAVE_NBT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.advAlchemicalFurnaceSaveNbt)
@@ -234,6 +239,20 @@ public enum Mixins implements IMixins {
     ELEMENTAL_PICK_SCAN_DETECT_LAPIS_ORE(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectLapisOre)
         .addClientMixins("client.lib.MixinRenderEventHandler_DetectLapisOre")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    FIX_INVENTORY_ASPECTS(new SalisBuilder()
+        .setApplyIf(() -> SalisConfig.bugfixes.fixInventoryAspects.isEnabled()
+                        || SalisConfig.thaum.improveAspectTooltipPerformance.isEnabled())
+        .addClientMixins("client.lib.MixinClientTickEventsFML_Aspectfix")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    REPLACE_THAUMCRAFT_REFLECTION(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.replaceReflection)
+        .addClientMixins("client.lib.MixinUtilsFX")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    BETTER_PARTICLE_ENGINE(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.betterParticleEngine)
+        .addClientMixins("client.fx.MixinParticleEngine")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
@@ -550,7 +569,7 @@ public enum Mixins implements IMixins {
     private final MixinBuilder builder;
 
     Mixins(MixinBuilder builder) {
-        this.builder = builder.setPhase(Phase.LATE);
+        this.builder = builder;
     }
 
     @Nonnull
@@ -560,6 +579,14 @@ public enum Mixins implements IMixins {
     }
 
     static class SalisBuilder extends MixinBuilder {
+
+        public SalisBuilder() {
+            setPhase(Phase.LATE);
+        }
+
+        public SalisBuilder(Phase phase) {
+            setPhase(phase);
+        }
 
         public MixinBuilder applyIf(Setting config) {
             return super.setApplyIf(config::isEnabled);

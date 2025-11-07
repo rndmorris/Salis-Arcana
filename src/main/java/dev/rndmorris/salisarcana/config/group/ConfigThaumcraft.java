@@ -19,6 +19,8 @@ public class ConfigThaumcraft extends ConfigGroup {
 
     private static final String primalArrowCategory = "primal_arrows";
 
+    private static final String tc4PerformanceCategory = "thaumcraft_performance";
+
     //
     // Node Behaviors
     //
@@ -163,6 +165,22 @@ public class ConfigThaumcraft extends ConfigGroup {
         this,
         "canBeFiredFromDispensers",
         "Primal arrows can be shot from dispensers").setCategory(primalArrowCategory);
+
+    public final ToggleSetting replaceReflection = new ToggleSetting(
+        this,
+        "replaceReflection",
+        "Replaces slow reflection calls with quick accessors.").setCategory(tc4PerformanceCategory);
+
+    public final ToggleSetting improveAspectTooltipPerformance = new ToggleSetting(
+        this,
+        "improveAspectTooltipPerformance",
+        "Improves the performance of the aspect tooltips by rewriting its logic.").setCategory(tc4PerformanceCategory);
+
+    public final ToggleSetting betterParticleEngine = new ToggleSetting(
+        this,
+        "betterParticleEngine",
+        "Improves the particle engine of Thaumcraft by removing unnecessary GL operations.")
+            .setCategory(tc4PerformanceCategory);
 
     @Override
     public @NotNull String getGroupName() {
