@@ -276,3 +276,21 @@ Use a larger packet for sending the ID of the focus upgrade being selected, allo
 **Config option:** `earlyTerminateCrucibleCraft`
 
 Prevent large item stacks from partially dissolving into aspects if the Crucible runs out of water while crafting.
+
+## Pickaxe of the Core (Group `tools`)
+
+**Config option:** `detectZeroAspectBlocks`
+
+Fixes an oversight with the pickaxe of the core that prevents it from displaying detected blocks that have no aspects.
+
+**Config option:** `detectLitRedstoneOre`
+
+Works around limitation with Forge that prevents the pickaxe of the core fom detecting lit redstone ore by treating it
+as identical to regular redstone ore.
+
+**Config option:** `detectLapisOre`
+
+Allows the pickaxe of the core to correctly detect vanilla lapis ore.
+
+Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of the block's dropped item to
+identify a block instead of its in-world metadata when scanning for ores.
