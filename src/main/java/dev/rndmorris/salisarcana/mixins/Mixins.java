@@ -218,6 +218,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.extendUpgradeFocusPacket)
         .addClientMixins("gui.MixinGuiFocalManipulator_UseExtendedEnchantmentPacket")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EARLY_TERMINATE_CRUCIBLE_CRAFT(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.earlyTerminateCrucibleCraft)
+        .addCommonMixins("tiles.MixinTileCrucible_EarlyTerminateCraft")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
@@ -463,6 +467,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.researchDuplicationFree)
         .addCommonMixins("tiles.MixinTileResearchTable_FreeDuplicates")
         .addClientMixins("gui.MixinGuiResearchTable_FreeDuplicates")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    RESEARCH_UNKNOWN_ASPECT_HINT(new SalisBuilder()
+        .applyIf(SalisConfig.features.researchTableAspectHints)
+        .addClientMixins("gui.MixinGuiResearchTable_UnknownAspectTooltip")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     FOCUS_POUCH_SLOT(new SalisBuilder()
