@@ -222,6 +222,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.earlyTerminateCrucibleCraft)
         .addCommonMixins("tiles.MixinTileCrucible_EarlyTerminateCraft")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EQUAL_TRADE_EXTRA_TRIGGERS(new SalisBuilder()
+        .setApplyIf(() -> true)
+        .addCommonMixins("lib.events.MixinServerTickEventsFML_EqualTrade", "lib.events.IVirtualSwapperAccessor")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ELEMENTAL_PICK_SCAN_ZERO_ASPECTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectZeroAspectBlocks)
