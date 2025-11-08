@@ -33,6 +33,7 @@ import dev.rndmorris.salisarcana.common.commands.HelpCommand;
 import dev.rndmorris.salisarcana.common.commands.InfusionSymmetryCommand;
 import dev.rndmorris.salisarcana.common.commands.ListResearchCommand;
 import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
+import dev.rndmorris.salisarcana.common.commands.ScanAllCommand;
 import dev.rndmorris.salisarcana.common.commands.UpdateNodeCommand;
 import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
 import dev.rndmorris.salisarcana.common.compat.ModCompat;
@@ -151,6 +152,7 @@ public class CommonProxy {
         maybeRegister(event, commands.playerResearch, ListResearchCommand::new);
         maybeRegister(event, commands.updateNode, UpdateNodeCommand::new);
         maybeRegister(event, commands.upgradeFocus, UpgradeFocusCommand::new);
+        maybeRegister(event, commands.scanAll, ScanAllCommand::new);
     }
 
     private void maybeRegister(FMLServerStartingEvent event, CommandSettings settings,
