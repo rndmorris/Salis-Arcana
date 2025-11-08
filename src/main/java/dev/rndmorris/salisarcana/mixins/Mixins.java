@@ -218,6 +218,23 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.extendUpgradeFocusPacket)
         .addClientMixins("gui.MixinGuiFocalManipulator_UseExtendedEnchantmentPacket")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EARLY_TERMINATE_CRUCIBLE_CRAFT(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.earlyTerminateCrucibleCraft)
+        .addCommonMixins("tiles.MixinTileCrucible_EarlyTerminateCraft")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    ELEMENTAL_PICK_SCAN_ZERO_ASPECTS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.detectZeroAspectBlocks)
+        .addClientMixins("client.lib.MixinRenderEventHandler_DetectZeroAspectBlocks")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    ELEMENTAL_PICK_SCAN_DETECT_LIT_REDSTONE_ORE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.detectLitRedstoneOre)
+        .addClientMixins("client.lib.MixinRenderEventHandler_DetectLitRedstoneOre")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    ELEMENTAL_PICK_SCAN_DETECT_LAPIS_ORE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.detectLapisOre)
+        .addClientMixins("client.lib.MixinRenderEventHandler_DetectLapisOre")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
@@ -464,6 +481,10 @@ public enum Mixins implements IMixins {
         .addCommonMixins("tiles.MixinTileResearchTable_FreeDuplicates")
         .addClientMixins("gui.MixinGuiResearchTable_FreeDuplicates")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    RESEARCH_UNKNOWN_ASPECT_HINT(new SalisBuilder()
+        .applyIf(SalisConfig.features.researchTableAspectHints)
+        .addClientMixins("gui.MixinGuiResearchTable_UnknownAspectTooltip")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     FOCUS_POUCH_SLOT(new SalisBuilder()
         .applyIf(SalisConfig.modCompat.baublesExpanded.focusPouchSlot)
@@ -471,9 +492,16 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)
         .addRequiredMod(TargetedMod.BAUBLES_EXPANDED)),
 
+    // Tweaks
+
     POTION_ID_OVERRIDE(new SalisBuilder()
         .setApplyIf(SalisConfig.thaum::anyPotionIdOverrideActive)
         .addCommonMixins("config.MixinConfig_PotionIds")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    ELEMENTAL_PICK_SCAN_OREDICT(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.elementalPickScanTags)
+        .addClientMixins("client.lib.MixinRenderEventHandler_ElementalPickOredict")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     NODE_DYNAMIC_REACH_DARK(new SalisBuilder()
