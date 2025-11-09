@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.entities;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster.boss;
 
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;

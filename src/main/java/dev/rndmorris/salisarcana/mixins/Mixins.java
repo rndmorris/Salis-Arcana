@@ -34,9 +34,9 @@ public enum Mixins implements IMixins {
     DEAD_MOBS_DONT_ATTACK(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.deadMobsDontAttack)
         .addCommonMixins(
-            "entities.MixinEntityTaintacle",
-            "entities.MixinEntityEldritchCrab",
-            "entities.MixinEntityThaumicSlime")
+            "thaumcraft.common.entities.monster.MixinEntityTaintacle",
+            "thaumcraft.common.entities.monster.MixinEntityEldritchCrab",
+            "thaumcraft.common.entities.monster.MixinEntityThaumicSlime")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     INTEGER_INFUSION_MATRIX(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.bugfixes.integerInfusionMatrixMath.isEnabled() && !SalisConfig.features.stabilizerRewrite.isEnabled())
@@ -184,7 +184,7 @@ public enum Mixins implements IMixins {
             "items.MixinItemHandMirror_LocalizeCorrectly",
             "items.MixinItemKey_LocalizeCorrectly",
             "items.MixinItemResearchNotes_LocalizeCorrectly",
-            "entities.MixinEntityThaumcraftBosses_LocalizeCorrectly",
+            "thaumcraft.common.entities.monster.boss.MixinEntityThaumcraftBosses_LocalizeCorrectly",
             "lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
             "lib.network.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
             "lib.MixinWarpEvents_LocalizeCorrectly",
@@ -204,7 +204,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EARTH_SHOCK_REQUIRE_SOLID_GROUND(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.earthShockRequireSolidGround)
-        .addCommonMixins("entities.MixinEntityShockOrb_CheckSolidGround", "thaumcraft.common.blocks.MixinBlockAiry_EarthShockCheckSolidGround")
+        .addCommonMixins("thaumcraft.common.entities.projectile.MixinEntityShockOrb_CheckSolidGround", "thaumcraft.common.blocks.MixinBlockAiry_EarthShockCheckSolidGround")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     DEFAULT_WAND_COMPONENTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.unknownWandComponentSupport)

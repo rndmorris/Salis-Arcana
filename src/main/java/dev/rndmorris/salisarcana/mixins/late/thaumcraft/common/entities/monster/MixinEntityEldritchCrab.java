@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.entities;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;

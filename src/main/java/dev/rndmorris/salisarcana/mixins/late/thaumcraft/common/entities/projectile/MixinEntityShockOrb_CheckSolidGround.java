@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.entities;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.projectile;
 
 import net.minecraft.world.World;
 
