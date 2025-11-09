@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.config;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.config;
 
 import net.minecraft.item.ItemStack;
 
@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.config.ConfigItems;
 
 @Mixin(value = ConfigItems.class, remap = false)
-public class MixinConfigItems_UnOredictGoldCoin {
+public abstract class MixinConfigItems_UnOredictGoldCoin {
 
     @WrapOperation(
         method = "init",

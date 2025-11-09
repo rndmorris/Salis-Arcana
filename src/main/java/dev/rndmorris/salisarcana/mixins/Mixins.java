@@ -56,7 +56,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     UN_OREDICT_GOLD_COIN(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.unOredictGoldCoin)
-        .addCommonMixins("config.MixinConfigItems_UnOredictGoldCoin")
+        .addCommonMixins("thaumcraft.common.config.MixinConfigItems_UnOredictGoldCoin")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCI_STAFF_VISUAL_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.staffFocusEffectFix)
@@ -496,7 +496,7 @@ public enum Mixins implements IMixins {
 
     POTION_ID_OVERRIDE(new SalisBuilder()
         .setApplyIf(SalisConfig.thaum::anyPotionIdOverrideActive)
-        .addCommonMixins("config.MixinConfig_PotionIds")
+        .addCommonMixins("thaumcraft.common.config.MixinConfig_PotionIds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ELEMENTAL_PICK_SCAN_OREDICT(new SalisBuilder()

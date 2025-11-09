@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.config;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.config;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
