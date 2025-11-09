@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.common;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -12,7 +12,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import thaumcraft.common.Thaumcraft;
 
 @Mixin(Thaumcraft.class)
-public class MixinThaumcraft_FakePlayerWarp {
+public abstract class MixinThaumcraft_FakePlayerWarp {
 
     @WrapMethod(method = "addWarpToPlayer", remap = false)
     private static void cancelFakePlayers(EntityPlayer player, int amount, boolean temporary,

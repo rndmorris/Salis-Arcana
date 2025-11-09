@@ -101,7 +101,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     WARP_FAKE_PLAYER(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.warpFakePlayerCheck)
-        .addCommonMixins("common.MixinThaumcraft_FakePlayerWarp")
+        .addCommonMixins("thaumcraft.common.MixinThaumcraft_FakePlayerWarp")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     CRIMSON_RITES_FAKE_PLAYER(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.crimsonRitesFakePlayerCheck)
