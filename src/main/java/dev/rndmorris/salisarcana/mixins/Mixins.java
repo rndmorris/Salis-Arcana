@@ -544,7 +544,9 @@ public enum Mixins implements IMixins {
     // Required
     ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
         .setRequired()
-        .addCommonMixins("items.MixinAmuletWand_AddInterface")
+        .addCommonMixins(
+            "thaumcraft.common.items.baubles.MixinItemAmuletVis_AddInterface",
+            "thaumcraft.common.items.wands.MixinItemWandCasting_AddInterface")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ;
