@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.lib.events;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.events;
 
 import java.util.HashSet;
 
@@ -17,7 +17,7 @@ import dev.rndmorris.salisarcana.lib.EntityHelper;
 import thaumcraft.common.lib.events.EventHandlerEntity;
 
 @Mixin(value = EventHandlerEntity.class, remap = false)
-public class MixinEventHandlerEntity {
+public abstract class MixinEventHandlerEntity_MobVisWhitelist {
 
     @Unique
     private final boolean sa$isWhitelist = SalisConfig.features.mobVisWhitelist.isEnabled();
@@ -26,7 +26,7 @@ public class MixinEventHandlerEntity {
     private HashSet<Class<? extends Entity>> sa$entities = null;
 
     // we need this for both nonstatic fields to be initialized in the real constructor
-    public MixinEventHandlerEntity() {
+    public MixinEventHandlerEntity_MobVisWhitelist() {
 
     }
 

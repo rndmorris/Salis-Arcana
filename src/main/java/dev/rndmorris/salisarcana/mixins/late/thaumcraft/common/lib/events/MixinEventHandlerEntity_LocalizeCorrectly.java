@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.lib.events;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.events;
 
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import thaumcraft.common.lib.events.EventHandlerEntity;
 
 @Mixin(EventHandlerEntity.class)
-public class MixinEventHandlerEntity_LocalizeCorrectly {
+public abstract class MixinEventHandlerEntity_LocalizeCorrectly {
 
     @Unique
     private static final ChatStyle salisArcana$disableFlyStyle = new ChatStyle().setColor(EnumChatFormatting.GRAY)

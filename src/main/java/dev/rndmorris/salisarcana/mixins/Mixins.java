@@ -188,7 +188,7 @@ public enum Mixins implements IMixins {
             "thaumcraft.common.items.MixinItemKey_LocalizeCorrectly",
             "thaumcraft.common.items.MixinItemResearchNotes_LocalizeCorrectly",
             "thaumcraft.common.entities.monster.boss.MixinEntityThaumcraftBosses_LocalizeCorrectly",
-            "lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
+            "thaumcraft.common.lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
             "lib.network.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
             "lib.MixinWarpEvents_LocalizeCorrectly",
             "tiles.MixinTileEldritchLock_LocalizeCorrectly")
@@ -250,7 +250,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SUPPRESS_CREATIVE_WARP(new SalisBuilder()
         .applyIf(SalisConfig.features.suppressWarpEventsInCreative)
-        .addCommonMixins("thaumcraft.common.lib.events.MixinEventHandlerEntity")
+        .addCommonMixins("thaumcraft.common.lib.events.MixinEventHandlerEntity_SuppressCreativeWarpEvents")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     CTRL_SCROLL_NAVIGATION(new SalisBuilder()
@@ -467,7 +467,7 @@ public enum Mixins implements IMixins {
 
     MOB_VIS_WHITELIST(new SalisBuilder()
         .setApplyIf(() -> !SalisConfig.features.mobVisWhitelist.isEnabled() || SalisConfig.features.mobVisDropList.getNonEmpty().length != 0)
-        .addCommonMixins("lib.events.MixinEventHandlerEntity")
+        .addCommonMixins("thaumcraft.common.lib.events.MixinEventHandlerEntity_MobVisWhitelist")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     DEADLY_GAZE_MOB_CHECK(new SalisBuilder()
