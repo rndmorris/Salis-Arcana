@@ -1,4 +1,3 @@
-
 package dev.rndmorris.salisarcana.mixins.late.tuhljin.automagy.config;
 
 import org.spongepowered.asm.mixin.Mixin;
