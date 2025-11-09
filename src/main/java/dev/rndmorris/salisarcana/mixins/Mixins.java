@@ -19,17 +19,17 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ARCANE_FURNACE_DUPE_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.infernalFurnaceDupeFix)
-        .addCommonMixins("blocks.MixinBlockArcaneFurnace")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockArcaneFurnace")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BEACON_BLOCKS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.beaconBlockFixSetting)
-        .addCommonMixins("blocks.MixinBlockCosmeticSolid")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockCosmeticSolid")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BLOCKCANDLE_OOB(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.bugfixes.candleRendererCrashes.isEnabled() && !MixinModCompat.disableBlockCandleFixes)
         .addClientMixins(
-            "blocks.MixinBlockCandleRenderer",
-            "blocks.MixinBlockCandle")
+            "thaumcraft.common.blocks.MixinBlockCandleRenderer",
+            "thaumcraft.common.blocks.MixinBlockCandle")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     DEAD_MOBS_DONT_ATTACK(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.deadMobsDontAttack)
@@ -48,7 +48,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RENDER_REDSTONE_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.renderRedstoneFix)
-        .addCommonMixins("blocks.MixinBlockCustomOre")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockCustomOre")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     STRICT_INFUSION_INPUTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.strictInfusionMatrixInputChecks)
@@ -127,7 +127,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SILVERWOOD_LOG_NAME_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.silverwoodLogCorrectName)
-        .addCommonMixins("blocks.MixinBlockMagicalLogItem")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockMagicalLogItem")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     UPDATE_BIOME_COLOR(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.updateBiomeColorRendering)
@@ -143,19 +143,19 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     JAR_NO_CREATIVE_DROPS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.jarNoCreativeDrops)
-        .addCommonMixins("blocks.MixinBlockJar_NoCreativeDrops")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockJar_NoCreativeDrops")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BANNER_NO_CREATIVE_DROPS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.bannerNoCreativeDrops)
-        .addCommonMixins("blocks.MixinBlockWoodenDevice_NoBannerCreativeDrops")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockWoodenDevice_NoBannerCreativeDrops")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BANNER_PICK_BLOCK(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.bannerPickBlock)
-        .addCommonMixins("blocks.MixinBlockWoodenDevice_BannerPickBlock")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockWoodenDevice_BannerPickBlock")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     JAR_PICK_BLOCK(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.jarPickBlock)
-        .addCommonMixins("blocks.MixinBlockJar_PickBlock")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockJar_PickBlock")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ITEM_COUNTING_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.correctItemInsertion)
@@ -167,20 +167,20 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SILK_TOUCH_CRYSTALS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.silkTouchCrystalClusters)
-        .addCommonMixins("blocks.MixinBlockCrystal")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockCrystal")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     LOOT_BLOCK_HITBOX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.lootBlockHitbox)
-        .addCommonMixins("blocks.MixinBlockLoot_SetHitbox")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockLoot_SetHitbox")
         .addClientMixins("client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_LOCALIZATION_SIDES(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixClientSideLocalization)
         .addCommonMixins(
-            "blocks.MixinBlockMetalDevice_LocalizeCorrectly",
-            "blocks.MixinBlockMirrorItem_LocalizableText",
-            "blocks.MixinBlockStoneDevice_LocalizeCorrectly",
-            "blocks.MixinBlockWoodenDevice_LocalizableText",
+            "thaumcraft.common.blocks.MixinBlockMetalDevice_LocalizeCorrectly",
+            "thaumcraft.common.blocks.MixinBlockMirrorItem_LocalizableText",
+            "thaumcraft.common.blocks.MixinBlockStoneDevice_LocalizeCorrectly",
+            "thaumcraft.common.blocks.MixinBlockWoodenDevice_LocalizableText",
             "items.MixinItemHandMirror_LocalizeCorrectly",
             "items.MixinItemKey_LocalizeCorrectly",
             "items.MixinItemResearchNotes_LocalizeCorrectly",
@@ -196,7 +196,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BANNER_PHIAL_CONSUMPTION(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.bugfixes.bannerReturnPhials.isEnabled() || SalisConfig.features.bannerFreePatterns.isEnabled() || SalisConfig.features.stopCreativeModeItemConsumption.isEnabled())
-        .addCommonMixins("blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockWoodenDevice_BannerPhialConsumption")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     KEY_EXTRA_SECURITY(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.extraSecureArcaneKeys)
@@ -204,7 +204,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EARTH_SHOCK_REQUIRE_SOLID_GROUND(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.earthShockRequireSolidGround)
-        .addCommonMixins("entities.MixinEntityShockOrb_CheckSolidGround", "blocks.MixinBlockAiry_EarthShockCheckSolidGround")
+        .addCommonMixins("entities.MixinEntityShockOrb_CheckSolidGround", "thaumcraft.common.blocks.MixinBlockAiry_EarthShockCheckSolidGround")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     DEFAULT_WAND_COMPONENTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.unknownWandComponentSupport)
@@ -292,7 +292,7 @@ public enum Mixins implements IMixins {
     CREATIVE_MODE_ITEM_CONSUMPTION(new SalisBuilder()
         .applyIf(SalisConfig.features.stopCreativeModeItemConsumption)
         .addCommonMixins(
-            "blocks.MixinBlockEldritch",
+            "thaumcraft.common.blocks.MixinBlockEldritch",
             "items.MixinItemEssence")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
@@ -303,7 +303,7 @@ public enum Mixins implements IMixins {
 
     MANA_POD_GROWTH_RATE(new SalisBuilder()
         .applyIf(SalisConfig.features.manaPodGrowthRate)
-        .addCommonMixins("blocks.MixinBlockManaPod")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockManaPod")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     THAUMCRAFT_COMMAND_TAB_COMPLETION(new SalisBuilder()

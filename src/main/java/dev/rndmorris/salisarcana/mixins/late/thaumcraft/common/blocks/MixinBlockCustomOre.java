@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.blocks;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;

@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.blocks;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks;
 
 import static dev.rndmorris.salisarcana.config.SalisConfig.bugfixes;
 
