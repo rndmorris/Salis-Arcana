@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.gui;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(GuiResearchBrowser.class)
-public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
+public abstract class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
 
     @Unique
     private static final ResourceLocation sa$duplicationButtonTexture = new ResourceLocation(

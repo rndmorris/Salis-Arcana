@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.gui;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.lib;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -11,7 +11,7 @@ import baubles.api.BaublesApi;
 import thaumcraft.client.lib.REHWandHandler;
 
 @Mixin(value = REHWandHandler.class, remap = false)
-public class MixinREHWandHandler {
+public abstract class MixinREHWandHandler {
 
     @ModifyConstant(method = "handleFociRadial", constant = @Constant(intValue = 4, ordinal = 0), remap = false)
     private int handleFociRadial(int value, Minecraft mc, long time, RenderGameOverlayEvent event) {

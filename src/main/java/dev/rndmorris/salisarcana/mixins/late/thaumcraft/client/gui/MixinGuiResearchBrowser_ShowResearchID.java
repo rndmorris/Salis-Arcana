@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.gui;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
 
@@ -15,7 +15,7 @@ import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
 @Mixin(GuiResearchBrowser.class)
-public class MixinGuiResearchBrowser_ShowResearchID extends GuiScreen {
+public abstract class MixinGuiResearchBrowser_ShowResearchID extends GuiScreen {
 
     @Unique
     private boolean sa$isControlHeld;

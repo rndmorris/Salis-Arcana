@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.gui;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui;
 
 import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$CurrentPageIndex;
 import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.BrowserPaging$GetTabsOnCurrentPage;

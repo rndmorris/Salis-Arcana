@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.gui;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui;
 
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 
@@ -13,7 +13,7 @@ import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.client.gui.GuiFocalManipulator;
 
 @Mixin(GuiFocalManipulator.class)
-public class MixinGuiFocalManipulator_UseExtendedEnchantmentPacket {
+public abstract class MixinGuiFocalManipulator_UseExtendedEnchantmentPacket {
 
     @WrapOperation(
         method = "mouseClicked",

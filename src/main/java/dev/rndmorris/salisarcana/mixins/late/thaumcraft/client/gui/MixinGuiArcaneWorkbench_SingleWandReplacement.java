@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.gui;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 @Mixin(GuiArcaneWorkbench.class)
-public class MixinGuiArcaneWorkbench_SingleWandReplacement {
+public abstract class MixinGuiArcaneWorkbench_SingleWandReplacement {
 
     @Shadow(remap = false)
     private TileArcaneWorkbench tileEntity;

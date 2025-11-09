@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.gui;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.tiles.TileFocalManipulator;
 
 @Mixin(GuiFocalManipulator.class)
-public class MixinGuiFocalManipulator {
+public abstract class MixinGuiFocalManipulator {
 
     @Shadow(remap = false)
     ArrayList<FocusUpgradeType> upgrades;

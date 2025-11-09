@@ -216,7 +216,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EXTEND_FOCUS_UPGRADE_PACKET(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.extendUpgradeFocusPacket)
-        .addClientMixins("gui.MixinGuiFocalManipulator_UseExtendedEnchantmentPacket")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiFocalManipulator_UseExtendedEnchantmentPacket")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EARLY_TERMINATE_CRUCIBLE_CRAFT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.earlyTerminateCrucibleCraft)
@@ -243,7 +243,7 @@ public enum Mixins implements IMixins {
             "thaumcraft.common.lib.events.MixinEventHandlerRunic",
             "items.MixinWandManager",
             "lib.MixinWarpEvents_BaubleSlots")
-        .addClientMixins("gui.MixinREHWandHandler")
+        .addClientMixins("thaumcraft.client.lib.MixinREHWandHandler")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SUPPRESS_CREATIVE_WARP(new SalisBuilder()
         .applyIf(SalisConfig.features.suppressWarpEventsInCreative)
@@ -252,17 +252,17 @@ public enum Mixins implements IMixins {
 
     CTRL_SCROLL_NAVIGATION(new SalisBuilder()
         .applyIf(SalisConfig.features.nomiconScrollwheelEnabled)
-        .addClientMixins("gui.MixinGuiResearchBrowser_Creative_Scroll")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiResearchBrowser_Creative_Scroll")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RESEARCH_ID_POPUP(new SalisBuilder()
         .applyIf(SalisConfig.features.nomiconShowResearchId)
-        .addClientMixins("gui.MixinGuiResearchBrowser_ShowResearchID")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiResearchBrowser_ShowResearchID")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RIGHT_CLICK_NAVIGATION(new SalisBuilder()
         .applyIf(SalisConfig.features.nomiconRightClickClose)
         .addClientMixins(
-            "gui.MixinGuiResearchBrowser_RightClickClose",
-            "gui.MixinGuiResearchRecipe")
+            "thaumcraft.client.gui.MixinGuiResearchBrowser_RightClickClose",
+            "thaumcraft.client.gui.MixinGuiResearchRecipe")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     NODE_GENERATION_MODIFIER_WEIGHTS(new SalisBuilder()
@@ -331,7 +331,7 @@ public enum Mixins implements IMixins {
     CREATIVE_NO_XP_MANIPULATOR(new SalisBuilder()
         .applyIf(SalisConfig.features.creativeNoXPManipulator)
         .addCommonMixins("tiles.MixinTileFocalManipulator_NoXP")
-        .addClientMixins("gui.MixinGuiFocalManipulator_CreativeNoXP")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiFocalManipulator_CreativeNoXP")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_STORE_XP(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.features.enableFocusDisenchanting.isEnabled() || SalisConfig.features.focalDisenchanterReturnXP.isEnabled())
@@ -346,7 +346,7 @@ public enum Mixins implements IMixins {
     FOCUS_DISENCHANTING(new SalisBuilder()
         .applyIf(SalisConfig.features.enableFocusDisenchanting)
         .addCommonMixins("tiles.MixinTileFocalManipulator")
-        .addClientMixins("gui.MixinGuiFocalManipulator")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiFocalManipulator")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     LEVITATOR_SHIFT_FIX(new SalisBuilder()
@@ -380,7 +380,7 @@ public enum Mixins implements IMixins {
     SINGLE_WAND_REPLACEMENT(new SalisBuilder()
         .setApplyIf(SalisConfig.features::singleWandReplacementEnabled)
         .addCommonMixins("thaumcraft.common.container.MixinContainerArcaneWorkbench_SingleWandReplacement")
-        .addClientMixins("gui.MixinGuiArcaneWorkbench_SingleWandReplacement")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiArcaneWorkbench_SingleWandReplacement")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     PRIMAL_CRUSHER_OREDICT_COMPAT(new SalisBuilder()
@@ -420,7 +420,7 @@ public enum Mixins implements IMixins {
     MISSING_RESEARCH_WORKBENCH(new SalisBuilder()
         .applyIf(SalisConfig.features.notifyMissingResearchWorkbench)
         .addCommonMixins("lib.MixinArcaneSceptreRecipe", "lib.MixinArcaneWandRecipe")
-        .addClientMixins("gui.MixinGuiArcaneWorkbench_MissingResearch")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiArcaneWorkbench_MissingResearch")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     RESEARCH_ITEM_EXTENDED(new SalisBuilder()
@@ -474,16 +474,16 @@ public enum Mixins implements IMixins {
 
     DUPLICATION_BUTTON(new SalisBuilder()
         .applyIf(SalisConfig.features.nomiconDuplicateResearch)
-        .addClientMixins("gui.MixinGuiResearchBrowser_DuplicateButton")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiResearchBrowser_DuplicateButton")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FREE_DUPLICATES(new SalisBuilder()
         .applyIf(SalisConfig.features.researchDuplicationFree)
         .addCommonMixins("tiles.MixinTileResearchTable_FreeDuplicates")
-        .addClientMixins("gui.MixinGuiResearchTable_FreeDuplicates")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiResearchTable_FreeDuplicates")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RESEARCH_UNKNOWN_ASPECT_HINT(new SalisBuilder()
         .applyIf(SalisConfig.features.researchTableAspectHints)
-        .addClientMixins("gui.MixinGuiResearchTable_UnknownAspectTooltip")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiResearchTable_UnknownAspectTooltip")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     FOCUS_POUCH_SLOT(new SalisBuilder()

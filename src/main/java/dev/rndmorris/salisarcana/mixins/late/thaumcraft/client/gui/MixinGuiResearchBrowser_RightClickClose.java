@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.gui;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui;
 
 import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.RightClickClose$ScreenStack;
 
@@ -17,7 +17,7 @@ import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.client.gui.GuiResearchRecipe;
 
 @Mixin(value = GuiResearchBrowser.class)
-public class MixinGuiResearchBrowser_RightClickClose extends GuiScreen {
+public abstract class MixinGuiResearchBrowser_RightClickClose extends GuiScreen {
 
     @Shadow(remap = false)
     protected double guiMapX;
