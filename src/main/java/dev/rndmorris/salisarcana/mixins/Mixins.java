@@ -78,22 +78,22 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ARCANE_WORKBENCH_MULTI_CONTAINER(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchMultiContainer)
-        .addCommonMixins("container.MixinContainerArcaneWorkbench_MultiContainer")
+        .addCommonMixins("thaumcraft.common.container.MixinContainerArcaneWorkbench_MultiContainer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     CACHE_ARCANE_WORKBENCH_RECIPE(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchCache)
         .addCommonMixins(
-            "container.MixinContainerArcaneWorkbench_UseCache",
+            "thaumcraft.common.container.MixinContainerArcaneWorkbench_UseCache",
             "lib.MixinThaumcraftCraftingManager_UseCache",
             "tiles.MixinTileMagicWorkbench_CacheRecipe")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     MUNDANE_CRAFT_FORGE_EVENT_BRIDGE(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchForgeEventBridge)
-        .addCommonMixins("container.MixinSlotCraftingArcaneWorkbench_ForgeEventBridge")
+        .addCommonMixins("thaumcraft.common.container.MixinSlotCraftingArcaneWorkbench_ForgeEventBridge")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     THAUMATORIUM_MULTI_CONTAINER(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.thaumatoriumMultiContainer)
-        .addCommonMixins("container.MixinContainerThaumatorium_MultiContainer")
+        .addCommonMixins("thaumcraft.common.container.MixinContainerThaumatorium_MultiContainer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NEGATIVE_BOSS_SPAWN_COUNT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.negativeBossSpawnCount)
@@ -337,7 +337,7 @@ public enum Mixins implements IMixins {
         .setApplyIf(() -> SalisConfig.features.enableFocusDisenchanting.isEnabled() || SalisConfig.features.focalDisenchanterReturnXP.isEnabled())
         .addCommonMixins(
             "tiles.MixinTileFocalManipulator_CanStoreXP",
-            "container.MixinContainerFocalManipulator")
+            "thaumcraft.common.container.MixinContainerFocalManipulator")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_RETURN_XP(new SalisBuilder()
         .applyIf(SalisConfig.features.focalDisenchanterReturnXP)
@@ -379,7 +379,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SINGLE_WAND_REPLACEMENT(new SalisBuilder()
         .setApplyIf(SalisConfig.features::singleWandReplacementEnabled)
-        .addCommonMixins("container.MixinContainerArcaneWorkbench_SingleWandReplacement")
+        .addCommonMixins("thaumcraft.common.container.MixinContainerArcaneWorkbench_SingleWandReplacement")
         .addClientMixins("gui.MixinGuiArcaneWorkbench_SingleWandReplacement")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 

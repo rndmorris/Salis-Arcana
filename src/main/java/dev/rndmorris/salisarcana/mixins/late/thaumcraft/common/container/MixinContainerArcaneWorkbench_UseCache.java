@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.container;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.container;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -17,7 +17,7 @@ import thaumcraft.common.container.ContainerArcaneWorkbench;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 @Mixin(ContainerArcaneWorkbench.class)
-public class MixinContainerArcaneWorkbench_UseCache {
+public abstract class MixinContainerArcaneWorkbench_UseCache {
 
     @Shadow(remap = false)
     private TileArcaneWorkbench tileEntity;

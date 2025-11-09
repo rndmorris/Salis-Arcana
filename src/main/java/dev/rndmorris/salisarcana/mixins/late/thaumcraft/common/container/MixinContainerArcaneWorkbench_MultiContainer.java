@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.container;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
