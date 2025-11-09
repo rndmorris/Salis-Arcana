@@ -425,15 +425,15 @@ public enum Mixins implements IMixins {
 
     RESEARCH_ITEM_EXTENDED(new SalisBuilder()
         .applyIf(SalisConfig.features.researchItemExtensions)
-        .addCommonMixins("thaumcraft.api.research.ResearchItem_Extended")
+        .addCommonMixins("thaumcraft.api.research.MixinResearchItem_Extended")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RESEARCH_ITEM_EXTENDED_THAUMIC_TINKERER(new SalisBuilder()
         .applyIf(SalisConfig.features.researchItemExtensions)
-        .addCommonMixins("thaumic.tinkerer.common.research.TTResearchItem_Extended")
+        .addCommonMixins("thaumic.tinkerer.common.research.MixinTTResearchItem_Extended")
         .addRequiredMod(TargetedMod.THAUMIC_TINKERER)),
     RESEARCH_ITEM_EXTENDED_AUTOMAGY(new SalisBuilder()
         .applyIf(SalisConfig.features.researchItemExtensions)
-        .addCommonMixins("tuhljin.automagy.config.ModResearchItem_Extended")
+        .addCommonMixins("tuhljin.automagy.config.MixinModResearchItem_Extended")
         .addRequiredMod(TargetedMod.AUTOMAGY)),
 
     CRUCIBLE_HEAT_SOURCES(new SalisBuilder()

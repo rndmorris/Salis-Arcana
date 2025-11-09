@@ -8,9 +8,9 @@ import thaumic.tinkerer.common.research.TTResearchItem;
 
 @SuppressWarnings("AddedMixinMembersNamePattern")
 @Mixin(value = TTResearchItem.class, remap = false)
-public abstract class TTResearchItem_Extended extends ResearchItem implements IResearchItemExtended {
+public abstract class MixinTTResearchItem_Extended extends ResearchItem implements IResearchItemExtended {
 
-    public TTResearchItem_Extended(String key, String category) {
+    public MixinTTResearchItem_Extended(String key, String category) {
         super(key, category);
     }
 
