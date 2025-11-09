@@ -329,7 +329,7 @@ public enum Mixins implements IMixins {
     CREATIVE_OP_THAUMONOMICON(new SalisBuilder()
         .applyIf(SalisConfig.features.creativeOpThaumonomicon)
         .addCommonMixins("thaumcraft.common.lib.research.MixinResearchManager_CreativeOpThaumonomicon")
-        .addClientMixins("gui.MixinGuiResearchBrowser_Creative_Scroll")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiResearchBrowser_Creative_Scroll")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     CREATIVE_NO_XP_MANIPULATOR(new SalisBuilder()
         .applyIf(SalisConfig.features.creativeNoXPManipulator)
