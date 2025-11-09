@@ -189,7 +189,7 @@ public enum Mixins implements IMixins {
             "thaumcraft.common.items.MixinItemResearchNotes_LocalizeCorrectly",
             "thaumcraft.common.entities.monster.boss.MixinEntityThaumcraftBosses_LocalizeCorrectly",
             "thaumcraft.common.lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
-            "lib.network.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
+            "thaumcraft.common.lib.network.playerdata.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
             "lib.MixinWarpEvents_LocalizeCorrectly",
             "tiles.MixinTileEldritchLock_LocalizeCorrectly")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
