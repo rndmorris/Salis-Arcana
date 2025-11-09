@@ -270,11 +270,11 @@ public enum Mixins implements IMixins {
 
     NODE_GENERATION_MODIFIER_WEIGHTS(new SalisBuilder()
         .applyIf(SalisConfig.features.nodeModifierWeights)
-        .addCommonMixins("world.MixinThaumcraftWorldGenerator")
+        .addCommonMixins("thaumcraft.common.lib.world.MixinThaumcraftWorldGenerator")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NODE_GENERATION_TYPE_WEIGHTS(new SalisBuilder()
         .applyIf(SalisConfig.features.nodeTypeWeights)
-        .addCommonMixins("world.MixinThaumcraftWorldGenerator")
+        .addCommonMixins("thaumcraft.common.lib.world.MixinThaumcraftWorldGenerator")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     STABILIZER_REWRITE(new SalisBuilder()

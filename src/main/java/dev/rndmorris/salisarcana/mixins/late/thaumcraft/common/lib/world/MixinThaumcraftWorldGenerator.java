@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.world;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.world;
 
 import java.util.Random;
 
@@ -20,7 +20,7 @@ import thaumcraft.api.nodes.NodeType;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
 @Mixin(value = ThaumcraftWorldGenerator.class, remap = false)
-public class MixinThaumcraftWorldGenerator {
+public abstract class MixinThaumcraftWorldGenerator {
 
     @Unique
     private static final NodeModifier[] sa$modifiers = new NodeModifier[] { null, NodeModifier.BRIGHT,
