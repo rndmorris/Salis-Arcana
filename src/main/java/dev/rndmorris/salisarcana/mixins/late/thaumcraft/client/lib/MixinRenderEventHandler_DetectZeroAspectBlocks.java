@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.client.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.lib;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

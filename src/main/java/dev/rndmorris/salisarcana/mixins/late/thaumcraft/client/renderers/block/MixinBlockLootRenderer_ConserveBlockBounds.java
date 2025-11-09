@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.client.renderers.block;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.renderers.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -14,7 +14,7 @@ import thaumcraft.client.renderers.block.BlockLootCrateRenderer;
 import thaumcraft.client.renderers.block.BlockLootUrnRenderer;
 
 @Mixin({ BlockLootUrnRenderer.class, BlockLootCrateRenderer.class })
-public class MixinBlockLootRenderer_ConserveBlockBounds {
+public abstract class MixinBlockLootRenderer_ConserveBlockBounds {
 
     @WrapOperation(
         method = "renderWorldBlock",

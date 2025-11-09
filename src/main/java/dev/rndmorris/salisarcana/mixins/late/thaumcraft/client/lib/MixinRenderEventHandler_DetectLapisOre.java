@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.client.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.lib;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;

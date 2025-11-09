@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.client.fx.beams;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.fx.beams;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;

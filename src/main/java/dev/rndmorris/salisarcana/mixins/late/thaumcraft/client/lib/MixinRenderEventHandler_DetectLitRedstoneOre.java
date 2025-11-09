@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.client.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.lib;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -12,7 +12,7 @@ import thaumcraft.client.lib.RenderEventHandler;
 
 // this priority positions it to be executed before the big mixin
 @Mixin(value = RenderEventHandler.class, remap = false, priority = 1001)
-public class MixinRenderEventHandler_DetectLitRedstoneOre {
+public abstract class MixinRenderEventHandler_DetectLitRedstoneOre {
 
     @ModifyExpressionValue(
         method = "startScan",

@@ -60,7 +60,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCI_STAFF_VISUAL_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.staffFocusEffectFix)
-        .addClientMixins("client.fx.beams.MixinFXBeamWand")
+        .addClientMixins("thaumcraft.client.fx.beams.MixinFXBeamWand")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_FORBID_SWAP(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.focalManipulatorForbidSwaps)
@@ -172,7 +172,7 @@ public enum Mixins implements IMixins {
     LOOT_BLOCK_HITBOX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.lootBlockHitbox)
         .addCommonMixins("thaumcraft.common.blocks.MixinBlockLoot_SetHitbox")
-        .addClientMixins("client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
+        .addClientMixins("thaumcraft.client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_LOCALIZATION_SIDES(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixClientSideLocalization)
@@ -212,7 +212,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     CLAMP_WAND_OVERLAY_VIS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.clampWandOverlayVis)
-        .addClientMixins("client.lib.MixinClientTickEventsFML_VisOverflow")
+        .addClientMixins("thaumcraft.client.lib.MixinClientTickEventsFML_VisOverflow")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EXTEND_FOCUS_UPGRADE_PACKET(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.extendUpgradeFocusPacket)
@@ -225,15 +225,15 @@ public enum Mixins implements IMixins {
 
     ELEMENTAL_PICK_SCAN_ZERO_ASPECTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectZeroAspectBlocks)
-        .addClientMixins("client.lib.MixinRenderEventHandler_DetectZeroAspectBlocks")
+        .addClientMixins("thaumcraft.client.lib.MixinRenderEventHandler_DetectZeroAspectBlocks")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ELEMENTAL_PICK_SCAN_DETECT_LIT_REDSTONE_ORE(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectLitRedstoneOre)
-        .addClientMixins("client.lib.MixinRenderEventHandler_DetectLitRedstoneOre")
+        .addClientMixins("thaumcraft.client.lib.MixinRenderEventHandler_DetectLitRedstoneOre")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ELEMENTAL_PICK_SCAN_DETECT_LAPIS_ORE(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectLapisOre)
-        .addClientMixins("client.lib.MixinRenderEventHandler_DetectLapisOre")
+        .addClientMixins("thaumcraft.client.lib.MixinRenderEventHandler_DetectLapisOre")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
@@ -501,7 +501,7 @@ public enum Mixins implements IMixins {
 
     ELEMENTAL_PICK_SCAN_OREDICT(new SalisBuilder()
         .applyIf(SalisConfig.thaum.elementalPickScanTags)
-        .addClientMixins("client.lib.MixinRenderEventHandler_ElementalPickOredict")
+        .addClientMixins("thaumcraft.client.lib.MixinRenderEventHandler_ElementalPickOredict")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     NODE_DYNAMIC_REACH_DARK(new SalisBuilder()
