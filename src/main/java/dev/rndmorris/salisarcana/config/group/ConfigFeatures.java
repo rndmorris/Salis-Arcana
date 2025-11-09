@@ -482,7 +482,7 @@ public class ConfigFeatures extends ConfigGroup {
 
         Expected format: A/B (A in B occurrences). E.g. 1/10 will cause a nether portal to spawn a wisp instead of a
         zombie pigman 10% of the time. Negative values are not allowed. Set to 0 to disable, or 1 to always spawn
-        wisps instead of zombie pigmen.""", 1, 10);
+        wisps instead of zombie pigmen.""", 1, 20);
 
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
