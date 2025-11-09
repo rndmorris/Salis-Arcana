@@ -10,7 +10,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import thaumcraft.common.tiles.TileFocalManipulator;
 
 @Mixin(TileFocalManipulator.class)
-public class MixinTileFocalManipulator_NoXP {
+public abstract class MixinTileFocalManipulator_NoXP {
 
     @ModifyExpressionValue(
         method = "startCraft",

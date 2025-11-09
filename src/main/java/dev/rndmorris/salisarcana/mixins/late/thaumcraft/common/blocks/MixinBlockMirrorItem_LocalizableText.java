@@ -14,7 +14,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.blocks.BlockMirrorItem;
 
 @Mixin(BlockMirrorItem.class)
-public class MixinBlockMirrorItem_LocalizableText {
+public abstract class MixinBlockMirrorItem_LocalizableText {
 
     @Unique
     private static final ChatStyle salisArcana$errorStyle = new ChatStyle().setColor(EnumChatFormatting.DARK_PURPLE)

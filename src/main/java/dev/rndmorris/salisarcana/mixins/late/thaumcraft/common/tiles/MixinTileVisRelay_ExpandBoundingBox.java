@@ -11,7 +11,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.tiles.TileVisRelay;
 
 @Mixin(value = TileVisRelay.class, remap = false)
-public class MixinTileVisRelay_ExpandBoundingBox extends TileEntity {
+public abstract class MixinTileVisRelay_ExpandBoundingBox extends TileEntity {
 
     @Unique
     private static final double sa$Expanded = SalisConfig.features.visRelayBoxExpansion.getValue();

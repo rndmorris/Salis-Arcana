@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import thaumcraft.common.blocks.BlockEldritch;
 
 @Mixin(BlockEldritch.class)
-public class MixinBlockEldritch {
+public abstract class MixinBlockEldritch {
 
     @Inject(
         method = "onBlockActivated",

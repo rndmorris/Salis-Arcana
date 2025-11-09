@@ -16,7 +16,7 @@ import thaumcraft.common.blocks.BlockWoodenDevice;
 import thaumcraft.common.config.ConfigItems;
 
 @Mixin(BlockWoodenDevice.class)
-public class MixinBlockWoodenDevice_BannerPhialConsumption {
+public abstract class MixinBlockWoodenDevice_BannerPhialConsumption {
 
     @WrapOperation(
         method = "onBlockActivated",

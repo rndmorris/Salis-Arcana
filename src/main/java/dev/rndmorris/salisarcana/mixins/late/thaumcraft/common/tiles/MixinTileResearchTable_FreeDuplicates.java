@@ -11,7 +11,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.tiles.TileResearchTable;
 
 @Mixin(TileResearchTable.class)
-public class MixinTileResearchTable_FreeDuplicates {
+public abstract class MixinTileResearchTable_FreeDuplicates {
 
     @WrapOperation(
         method = "duplicate",

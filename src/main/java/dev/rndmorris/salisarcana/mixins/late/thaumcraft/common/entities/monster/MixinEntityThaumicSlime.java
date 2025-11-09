@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.entities.monster.EntityThaumicSlime;
 
 @Mixin(value = EntityThaumicSlime.class)
-public class MixinEntityThaumicSlime extends EntityMob {
+public abstract class MixinEntityThaumicSlime extends EntityMob {
 
     public MixinEntityThaumicSlime(World p_i1738_1_) {
         super(p_i1738_1_);

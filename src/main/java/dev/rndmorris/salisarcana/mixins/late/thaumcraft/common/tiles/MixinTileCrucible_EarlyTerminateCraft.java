@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import thaumcraft.common.tiles.TileCrucible;
 
 @Mixin(value = TileCrucible.class, remap = false)
-public class MixinTileCrucible_EarlyTerminateCraft {
+public abstract class MixinTileCrucible_EarlyTerminateCraft {
 
     @Shadow
     public FluidTank tank;

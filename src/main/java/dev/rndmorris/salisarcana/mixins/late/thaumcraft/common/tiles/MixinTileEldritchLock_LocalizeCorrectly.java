@@ -15,7 +15,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import thaumcraft.common.tiles.TileEldritchLock;
 
 @Mixin(TileEldritchLock.class)
-public class MixinTileEldritchLock_LocalizeCorrectly {
+public abstract class MixinTileEldritchLock_LocalizeCorrectly {
 
     @WrapOperation(
         method = { "spawnWardenBossRoom", "spawnGolemBossRoom", "spawnCultistBossRoom", "spawnTaintBossRoom" },

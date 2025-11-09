@@ -8,7 +8,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 @Mixin(value = ItemWandCasting.class)
-public class MixinItemWandCasting_DisableSpendingCheck {
+public abstract class MixinItemWandCasting_DisableSpendingCheck {
 
     @ModifyExpressionValue(
         method = "consumeAllVis",

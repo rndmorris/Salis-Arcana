@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import thaumcraft.common.blocks.BlockWoodenDevice;
 
 @Mixin(BlockWoodenDevice.class)
-public class MixinBlockWoodenDevice_LocalizableText {
+public abstract class MixinBlockWoodenDevice_LocalizableText {
 
     @ModifyConstant(
         method = "onBlockActivated",

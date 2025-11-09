@@ -18,7 +18,7 @@ import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 @Mixin(TileInfusionMatrix.class)
-public class MixinTileInfusionMatrix_MissingResearch {
+public abstract class MixinTileInfusionMatrix_MissingResearch {
 
     @WrapOperation(
         method = "craftingStart",

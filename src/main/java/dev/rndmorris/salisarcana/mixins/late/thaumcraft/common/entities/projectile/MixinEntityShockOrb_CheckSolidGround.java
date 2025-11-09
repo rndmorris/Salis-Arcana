@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.entities.projectile.EntityShockOrb;
 
 @Mixin(EntityShockOrb.class)
-public class MixinEntityShockOrb_CheckSolidGround {
+public abstract class MixinEntityShockOrb_CheckSolidGround {
 
     @WrapOperation(
         method = "onImpact",

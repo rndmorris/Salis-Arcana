@@ -13,7 +13,7 @@ import thaumcraft.common.tiles.TileMagicWorkbench;
 import thaumcraft.common.tiles.TileMagicWorkbenchCharger;
 
 @Mixin(TileMagicWorkbenchCharger.class)
-public class MixinTileMagicWorkbenchCharger {
+public abstract class MixinTileMagicWorkbenchCharger {
 
     @Inject(
         method = "updateEntity",

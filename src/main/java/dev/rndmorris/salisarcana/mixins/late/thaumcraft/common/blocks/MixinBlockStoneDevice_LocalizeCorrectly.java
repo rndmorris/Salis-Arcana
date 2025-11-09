@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import thaumcraft.common.blocks.BlockStoneDevice;
 
 @Mixin(BlockStoneDevice.class)
-public class MixinBlockStoneDevice_LocalizeCorrectly {
+public abstract class MixinBlockStoneDevice_LocalizeCorrectly {
 
     @Unique
     private static final ChatStyle salisArcana$redTextStyle = new ChatStyle().setColor(EnumChatFormatting.RED);

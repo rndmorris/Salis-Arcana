@@ -11,7 +11,7 @@ import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(TileNode.class)
-public class MixinTileNode {
+public abstract class MixinTileNode {
 
     @ModifyExpressionValue(
         method = "handlePureNode",

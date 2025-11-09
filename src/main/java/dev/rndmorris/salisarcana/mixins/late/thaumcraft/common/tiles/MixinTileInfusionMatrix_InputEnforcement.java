@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 @Mixin(value = TileInfusionMatrix.class, remap = false)
-public class MixinTileInfusionMatrix_InputEnforcement {
+public abstract class MixinTileInfusionMatrix_InputEnforcement {
 
     @WrapOperation(
         method = "craftCycle",

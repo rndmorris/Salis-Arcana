@@ -15,7 +15,7 @@ import thaumcraft.api.wands.WandRod;
 import thaumcraft.client.fx.beams.FXBeamWand;
 
 @Mixin(value = FXBeamWand.class, remap = false)
-public class MixinFXBeamWand {
+public abstract class MixinFXBeamWand {
 
     @Shadow
     private double offset;

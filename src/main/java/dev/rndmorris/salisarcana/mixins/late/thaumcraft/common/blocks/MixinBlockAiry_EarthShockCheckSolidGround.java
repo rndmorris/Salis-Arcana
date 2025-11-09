@@ -10,7 +10,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import thaumcraft.common.blocks.BlockAiry;
 
 @Mixin(BlockAiry.class)
-public class MixinBlockAiry_EarthShockCheckSolidGround {
+public abstract class MixinBlockAiry_EarthShockCheckSolidGround {
 
     @ModifyExpressionValue(
         method = "onNeighborBlockChange",

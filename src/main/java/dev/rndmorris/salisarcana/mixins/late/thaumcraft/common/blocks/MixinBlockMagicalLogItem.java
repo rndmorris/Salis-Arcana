@@ -8,7 +8,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import thaumcraft.common.blocks.BlockMagicalLogItem;
 
 @Mixin(BlockMagicalLogItem.class)
-public class MixinBlockMagicalLogItem {
+public abstract class MixinBlockMagicalLogItem {
 
     @ModifyExpressionValue(
         method = "getUnlocalizedName",

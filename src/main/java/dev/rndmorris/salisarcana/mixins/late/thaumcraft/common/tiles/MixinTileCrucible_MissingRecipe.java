@@ -25,7 +25,7 @@ import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.tiles.TileCrucible;
 
 @Mixin(TileCrucible.class)
-public class MixinTileCrucible_MissingRecipe extends TileEntity {
+public abstract class MixinTileCrucible_MissingRecipe extends TileEntity {
 
     // player -> crucible recipe -> last time the player matched that recipe
     // WeakHashMap ensures that the data being tracked can get garbage collected after the player entity does (such as

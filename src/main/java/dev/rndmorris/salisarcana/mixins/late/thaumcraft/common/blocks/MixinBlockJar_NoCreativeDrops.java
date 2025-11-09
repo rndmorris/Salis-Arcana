@@ -12,7 +12,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import thaumcraft.common.blocks.BlockJar;
 
 @Mixin(BlockJar.class)
-public class MixinBlockJar_NoCreativeDrops {
+public abstract class MixinBlockJar_NoCreativeDrops {
 
     @WrapWithCondition(
         method = "onBlockHarvested",

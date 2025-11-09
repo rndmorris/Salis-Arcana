@@ -14,7 +14,7 @@ import thaumcraft.common.entities.monster.boss.EntityTaintacleGiant;
 import thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss;
 
 @Mixin({ EntityTaintacleGiant.class, EntityThaumcraftBoss.class })
-public class MixinEntityThaumcraftBosses_LocalizeCorrectly {
+public abstract class MixinEntityThaumcraftBosses_LocalizeCorrectly {
 
     @WrapOperation(
         method = "attackEntityFrom",

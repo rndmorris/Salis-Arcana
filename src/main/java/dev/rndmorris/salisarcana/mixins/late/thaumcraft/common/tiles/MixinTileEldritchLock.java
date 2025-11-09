@@ -10,7 +10,7 @@ import thaumcraft.common.lib.world.dim.MapBossData;
 import thaumcraft.common.tiles.TileEldritchLock;
 
 @Mixin(TileEldritchLock.class)
-public class MixinTileEldritchLock {
+public abstract class MixinTileEldritchLock {
 
     @WrapOperation(
         method = "doBossSpawn",

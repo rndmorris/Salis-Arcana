@@ -13,7 +13,7 @@ import dev.rndmorris.salisarcana.SalisArcana;
 import thaumcraft.common.tiles.TileMagicWorkbench;
 
 @Mixin(value = TileMagicWorkbench.class, remap = false)
-public class MixinTileMagicWorkbench_GhostItemFix {
+public abstract class MixinTileMagicWorkbench_GhostItemFix {
 
     @Inject(method = "readCustomNBT", at = @At("HEAD"))
     public void copyWandNBTTagOnClient(NBTTagCompound par1NBTTagCompound, CallbackInfo ci) {

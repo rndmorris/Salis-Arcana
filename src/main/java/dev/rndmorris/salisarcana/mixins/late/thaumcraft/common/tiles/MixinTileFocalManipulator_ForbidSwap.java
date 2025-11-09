@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.tiles.TileFocalManipulator;
 
 @Mixin(TileFocalManipulator.class)
-public class MixinTileFocalManipulator_ForbidSwap {
+public abstract class MixinTileFocalManipulator_ForbidSwap {
 
     @Shadow(remap = false)
     public int size;

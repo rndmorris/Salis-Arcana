@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.blocks.BlockArcaneFurnace;
 
 @Mixin(BlockArcaneFurnace.class)
-public class MixinBlockArcaneFurnace {
+public abstract class MixinBlockArcaneFurnace {
 
     @Inject(method = "onEntityCollidedWithBlock", at = @At(value = "HEAD"), cancellable = true)
     private void mixinOnEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity, CallbackInfo ci) {

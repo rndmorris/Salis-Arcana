@@ -11,7 +11,7 @@ import thaumcraft.client.renderers.block.BlockRenderer;
 import thaumcraft.common.blocks.BlockLoot;
 
 @Mixin(BlockLoot.class)
-public class MixinBlockLoot_SetHitbox {
+public abstract class MixinBlockLoot_SetHitbox {
 
     @WrapOperation(
         method = "<init>",

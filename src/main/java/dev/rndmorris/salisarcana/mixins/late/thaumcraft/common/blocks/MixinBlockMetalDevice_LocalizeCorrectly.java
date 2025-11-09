@@ -16,7 +16,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import thaumcraft.common.blocks.BlockMetalDevice;
 
 @Mixin(BlockMetalDevice.class)
-public class MixinBlockMetalDevice_LocalizeCorrectly {
+public abstract class MixinBlockMetalDevice_LocalizeCorrectly {
 
     @Unique
     private static final ChatStyle salisArcana$alembicStyle = new ChatStyle().setColor(EnumChatFormatting.DARK_AQUA);

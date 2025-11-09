@@ -12,7 +12,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.tiles.TileEldritchTrap;
 
 @Mixin(TileEldritchTrap.class)
-public class MixinTileEldritchTrap_CreativeImmunity {
+public abstract class MixinTileEldritchTrap_CreativeImmunity {
 
     @WrapOperation(
         method = "updateEntity",
