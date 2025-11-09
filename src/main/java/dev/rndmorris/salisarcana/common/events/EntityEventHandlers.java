@@ -65,7 +65,7 @@ public class EntityEventHandlers {
 
     public static class PigZombieProperties implements IExtendedEntityProperties {
 
-        public static final String KEY = SalisArcana.MODID + ":" + EntityPigZombie.class.getName();
+        public static final String KEY = SalisArcana.MODID + ":portalWisps";
 
         /**
          * If we check a zombie pigman and determine they won't be replaced with a wisp, we flag them so we never check
