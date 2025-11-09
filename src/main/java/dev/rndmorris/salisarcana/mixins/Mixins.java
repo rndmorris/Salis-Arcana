@@ -433,7 +433,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMIC_TINKERER)),
     RESEARCH_ITEM_EXTENDED_AUTOMAGY(new SalisBuilder()
         .applyIf(SalisConfig.features.researchItemExtensions)
-        .addCommonMixins("addons.Automagy.ModResearchItem_Extended")
+        .addCommonMixins("tuhljin.automagy.config.ModResearchItem_Extended")
         .addRequiredMod(TargetedMod.AUTOMAGY)),
 
     CRUCIBLE_HEAT_SOURCES(new SalisBuilder()
