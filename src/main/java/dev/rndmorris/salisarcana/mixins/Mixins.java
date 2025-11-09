@@ -122,7 +122,10 @@ public enum Mixins implements IMixins {
     ITEM_ICON_METADATA_PROTECTIONS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.itemMetadataSafetyCheck)
         .addClientMixins(
-            "items.Mixin_ItemIconFix",
+            "thaumcraft.common.items.MixinItems_ItemIconFix",
+            "thaumcraft.common.items.baubles.MixinBaubles_ItemIconFix",
+            "thaumcraft.common.items.equipment.MixinEquipment_ItemIconFix",
+            "thaumcraft.common.items.wands.MixinWands_ItemIconFix",
             "items.MixinItemWandRod")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SILVERWOOD_LOG_NAME_FIX(new SalisBuilder()

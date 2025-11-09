@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.items;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.baubles;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
@@ -9,19 +9,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
-import thaumcraft.common.items.ItemLootBag;
-import thaumcraft.common.items.ItemNugget;
-import thaumcraft.common.items.ItemResource;
 import thaumcraft.common.items.baubles.ItemAmuletRunic;
 import thaumcraft.common.items.baubles.ItemGirdleRunic;
 import thaumcraft.common.items.baubles.ItemRingRunic;
-import thaumcraft.common.items.equipment.ItemPrimalArrow;
-import thaumcraft.common.items.wands.ItemWandCap;
 
-@Mixin(
-    value = { ItemLootBag.class, ItemNugget.class, ItemResource.class, ItemAmuletRunic.class, ItemGirdleRunic.class,
-        ItemRingRunic.class, ItemPrimalArrow.class, ItemWandCap.class })
-public abstract class Mixin_ItemIconFix extends Item {
+@Mixin(value = { ItemAmuletRunic.class, ItemGirdleRunic.class, ItemRingRunic.class })
+public abstract class MixinBaubles_ItemIconFix extends Item {
 
     // explicitly remap = false otherwise we get a runtime InvalidMixinException
     @Shadow(remap = false)
