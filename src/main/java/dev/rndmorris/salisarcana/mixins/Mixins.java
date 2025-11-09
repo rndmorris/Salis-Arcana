@@ -429,7 +429,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RESEARCH_ITEM_EXTENDED_THAUMIC_TINKERER(new SalisBuilder()
         .applyIf(SalisConfig.features.researchItemExtensions)
-        .addCommonMixins("addons.ThaumicTinkerer.TTResearchItem_Extended")
+        .addCommonMixins("thaumic.tinkerer.common.research.TTResearchItem_Extended")
         .addRequiredMod(TargetedMod.THAUMIC_TINKERER)),
     RESEARCH_ITEM_EXTENDED_AUTOMAGY(new SalisBuilder()
         .applyIf(SalisConfig.features.researchItemExtensions)
