@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.crafting;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -13,7 +13,7 @@ import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.lib.crafting.ArcaneWandRecipe;
 
 @Mixin(ArcaneWandRecipe.class)
-public abstract class MixinArcaneWandRecipe implements IMultipleResearchArcaneRecipe {
+public abstract class MixinArcaneWandRecipe_MissingResearchWorkbench implements IMultipleResearchArcaneRecipe {
 
     @Override
     public String[] salisArcana$getResearches(IInventory inv, World world, EntityPlayer player) {

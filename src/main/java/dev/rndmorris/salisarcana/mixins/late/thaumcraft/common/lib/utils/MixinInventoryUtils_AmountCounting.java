@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.utils;
 
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -15,7 +15,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.lib.utils.InventoryUtils;
 
 @Mixin(value = InventoryUtils.class, remap = false)
-public class MixinInventoryUtils_AmountCounting {
+public abstract class MixinInventoryUtils_AmountCounting {
 
     @Unique
     private static final ItemStack sa$nonNullItemStack = new ItemStack(Items.stick);

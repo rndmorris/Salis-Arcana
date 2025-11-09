@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.research;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -15,7 +15,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(ResearchManager.class)
-public class MixinResearchManager {
+public abstract class MixinResearchManager_CreativeOpThaumonomicon {
 
     @WrapMethod(method = "consumeInkFromPlayer", remap = false)
     private static boolean creativeThaumonomiconInkCheck(EntityPlayer player, boolean doit,

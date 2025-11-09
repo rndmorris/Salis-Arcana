@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib;
 
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -18,7 +18,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import thaumcraft.common.lib.WarpEvents;
 
 @Mixin(WarpEvents.class)
-public class MixinWarpEvents_LocalizeCorrectly {
+public abstract class MixinWarpEvents_LocalizeCorrectly {
 
     @Unique
     private static final ChatStyle salisArcana$warpChatStyle = new ChatStyle().setColor(EnumChatFormatting.DARK_PURPLE)

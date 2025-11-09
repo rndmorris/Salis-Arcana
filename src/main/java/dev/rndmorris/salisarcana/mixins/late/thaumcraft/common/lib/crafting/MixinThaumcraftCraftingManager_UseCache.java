@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.crafting;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -16,7 +16,7 @@ import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 
 @Mixin(ThaumcraftCraftingManager.class)
-public class MixinThaumcraftCraftingManager_UseCache {
+public abstract class MixinThaumcraftCraftingManager_UseCache {
 
     @WrapMethod(method = "findMatchingArcaneRecipe", remap = false)
     private static ItemStack checkArcaneRecipeCache(IInventory awb, EntityPlayer player,

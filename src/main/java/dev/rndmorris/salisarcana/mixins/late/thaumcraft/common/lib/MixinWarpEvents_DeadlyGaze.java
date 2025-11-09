@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import dev.rndmorris.salisarcana.lib.DeadlyGazeEntitySelector;
 import thaumcraft.common.lib.WarpEvents;
 
 @Mixin(WarpEvents.class)
-public class MixinWarpEvents_DeadlyGaze {
+public abstract class MixinWarpEvents_DeadlyGaze {
 
     @WrapOperation(
         method = "checkDeathGaze",

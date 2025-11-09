@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.research;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -22,7 +22,7 @@ import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.research.ScanManager;
 
 @Mixin(value = ScanManager.class, remap = false)
-public class MixinScanManager {
+public abstract class MixinScanManager_ThaumometerScanContainers {
 
     @Inject(
         method = "completeScan",

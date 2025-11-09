@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.lib.utils.Utils;
 
 @Mixin(Utils.class)
-public class MixinUtils_UpdateBiomeColor {
+public abstract class MixinUtils_UpdateBiomeColor {
 
     @Inject(method = "setBiomeAt", at = @At("TAIL"), remap = false)
     private static void updateClientColor(World world, int x, int z, BiomeGenBase biome, CallbackInfo ci) {

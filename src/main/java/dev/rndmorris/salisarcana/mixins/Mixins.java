@@ -84,7 +84,7 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchCache)
         .addCommonMixins(
             "thaumcraft.common.container.MixinContainerArcaneWorkbench_UseCache",
-            "lib.MixinThaumcraftCraftingManager_UseCache",
+            "thaumcraft.common.lib.crafting.MixinThaumcraftCraftingManager_UseCache",
             "tiles.MixinTileMagicWorkbench_CacheRecipe")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     MUNDANE_CRAFT_FORGE_EVENT_BRIDGE(new SalisBuilder()
@@ -134,7 +134,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     UPDATE_BIOME_COLOR(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.updateBiomeColorRendering)
-        .addClientMixins("lib.MixinUtils_UpdateBiomeColor")
+        .addClientMixins("thaumcraft.common.lib.utils.MixinUtils_UpdateBiomeColor")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RUNED_STONE_CREATIVE_IMMUNITY(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.runedStoneIgnoreCreative)
@@ -162,7 +162,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ITEM_COUNTING_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.correctItemInsertion)
-        .addCommonMixins("lib.MixinInventoryUtils_AmountCounting")
+        .addCommonMixins("thaumcraft.common.lib.utils.MixinInventoryUtils_AmountCounting")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ETHEREALBLOOM_SAVE_NBT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.etherealBloomSaveNBT)
@@ -190,7 +190,7 @@ public enum Mixins implements IMixins {
             "thaumcraft.common.entities.monster.boss.MixinEntityThaumcraftBosses_LocalizeCorrectly",
             "thaumcraft.common.lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
             "thaumcraft.common.lib.network.playerdata.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
-            "lib.MixinWarpEvents_LocalizeCorrectly",
+            "thaumcraft.common.lib.MixinWarpEvents_LocalizeCorrectly",
             "tiles.MixinTileEldritchLock_LocalizeCorrectly")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EXCAVATION_DETERMINISTIC_COST(new SalisBuilder()
@@ -245,7 +245,7 @@ public enum Mixins implements IMixins {
         .addCommonMixins(
             "thaumcraft.common.lib.events.MixinEventHandlerRunic",
             "thaumcraft.common.items.wands.MixinWandManager",
-            "lib.MixinWarpEvents_BaubleSlots")
+            "thaumcraft.common.lib.MixinWarpEvents_BaubleSlots")
         .addClientMixins("thaumcraft.client.lib.MixinREHWandHandler")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SUPPRESS_CREATIVE_WARP(new SalisBuilder()
@@ -323,12 +323,12 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.thaumometerScanContainers)
         .addCommonMixins(
             "thaumcraft.common.items.relics.MixinItemThaumometer",
-            "lib.MixinScanManager")
+            "thaumcraft.common.lib.research.MixinScanManager_ThaumometerScanContainers")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     CREATIVE_OP_THAUMONOMICON(new SalisBuilder()
         .applyIf(SalisConfig.features.creativeOpThaumonomicon)
-        .addCommonMixins("lib.MixinResearchManager")
+        .addCommonMixins("thaumcraft.common.lib.research.MixinResearchManager_CreativeOpThaumonomicon")
         .addClientMixins("gui.MixinGuiResearchBrowser_Creative_Scroll")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     CREATIVE_NO_XP_MANIPULATOR(new SalisBuilder()
@@ -422,7 +422,9 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     MISSING_RESEARCH_WORKBENCH(new SalisBuilder()
         .applyIf(SalisConfig.features.notifyMissingResearchWorkbench)
-        .addCommonMixins("lib.MixinArcaneSceptreRecipe", "lib.MixinArcaneWandRecipe")
+        .addCommonMixins(
+            "thaumcraft.common.lib.crafting.MixinArcaneSceptreRecipe_MissingResearchWorkbench",
+            "thaumcraft.common.lib.crafting.MixinArcaneWandRecipe_MissingResearchWorkbench")
         .addClientMixins("thaumcraft.client.gui.MixinGuiArcaneWorkbench_MissingResearch")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
@@ -472,7 +474,7 @@ public enum Mixins implements IMixins {
 
     DEADLY_GAZE_MOB_CHECK(new SalisBuilder()
         .applyIf(SalisConfig.features.deadlyGazeMobCheck)
-        .addCommonMixins("lib.MixinWarpEvents_DeadlyGaze")
+        .addCommonMixins("thaumcraft.common.lib.MixinWarpEvents_DeadlyGaze")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     DUPLICATION_BUTTON(new SalisBuilder()
