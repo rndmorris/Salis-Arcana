@@ -11,7 +11,7 @@ import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 @Mixin(ItemFocusBasic.class)
-public class MixinItemFocusBasic_WandUpgradeLevel {
+public abstract class MixinItemFocusBasic_WandUpgradeLevel {
 
     @WrapMethod(method = "getAppliedUpgrades", remap = false)
     public short[] unwrapWandItem(ItemStack focusStack, Operation<short[]> original) {
