@@ -240,14 +240,14 @@ public enum Mixins implements IMixins {
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
         .applyIf(SalisConfig.features.useAllBaublesSlots)
         .addCommonMixins(
-            "events.MixinEventHandlerRunic",
+            "thaumcraft.common.lib.events.MixinEventHandlerRunic",
             "items.MixinWandManager",
             "lib.MixinWarpEvents_BaubleSlots")
         .addClientMixins("gui.MixinREHWandHandler")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SUPPRESS_CREATIVE_WARP(new SalisBuilder()
         .applyIf(SalisConfig.features.suppressWarpEventsInCreative)
-        .addCommonMixins("events.MixinEventHandlerEntity")
+        .addCommonMixins("thaumcraft.common.lib.events.MixinEventHandlerEntity")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     CTRL_SCROLL_NAVIGATION(new SalisBuilder()
@@ -308,12 +308,12 @@ public enum Mixins implements IMixins {
 
     THAUMCRAFT_COMMAND_TAB_COMPLETION(new SalisBuilder()
         .applyIf(SalisConfig.features.thaumcraftCommandTabCompletion)
-        .addCommonMixins("events.MixinCommandThaumcraft_TabCompletion")
+        .addCommonMixins("thaumcraft.common.lib.events.MixinCommandThaumcraft_TabCompletion")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     THAUMCRAFT_COMMAND_WARP_ARG_ALL(new SalisBuilder()
         .applyIf(SalisConfig.features.thaumcraftCommandWarpArgAll)
-        .addCommonMixins("events.MixinCommandThaumcraft_WarpArg")
+        .addCommonMixins("thaumcraft.common.lib.events.MixinCommandThaumcraft_WarpArg")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     THAUMOMETER_SCAN_CONTAINERS(new SalisBuilder()

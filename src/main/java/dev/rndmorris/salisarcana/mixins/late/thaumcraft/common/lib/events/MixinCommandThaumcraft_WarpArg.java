@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.events;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.events;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -17,7 +17,7 @@ import thaumcraft.common.lib.network.playerdata.PacketSyncWarp;
 import thaumcraft.common.lib.network.playerdata.PacketWarpMessage;
 
 @Mixin(CommandThaumcraft.class)
-public class MixinCommandThaumcraft_WarpArg {
+public abstract class MixinCommandThaumcraft_WarpArg {
 
     @Inject(method = "setWarp", at = @At("HEAD"), remap = false)
     private void warpAllParams(ICommandSender icommandsender, EntityPlayerMP player, int i, String type,

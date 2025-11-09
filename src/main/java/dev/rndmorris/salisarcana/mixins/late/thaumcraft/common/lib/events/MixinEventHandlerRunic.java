@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.events;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.events;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent;

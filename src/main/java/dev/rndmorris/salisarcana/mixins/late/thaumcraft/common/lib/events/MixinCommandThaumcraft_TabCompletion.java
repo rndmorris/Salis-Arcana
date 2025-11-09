@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.events;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.events;
 
 import java.util.ArrayList;
 import java.util.Arrays;
