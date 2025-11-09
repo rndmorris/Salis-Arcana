@@ -8,7 +8,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -21,14 +20,6 @@ public class EntityEventHandlers {
     public static void preInit() {
         if (SalisConfig.features.netherPortalWispSpawns.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new EntityEventHandlers());
-        }
-    }
-
-    @SubscribeEvent
-    public void onEntityConstructed(EntityEvent.EntityConstructing event) {
-        if (event.entity instanceof EntityPigZombie pigZombie
-            && pigZombie.getExtendedProperties(PigZombieProperties.KEY) == null) {
-            pigZombie.registerExtendedProperties(SalisArcana.MODID, new PigZombieProperties());
         }
     }
 
@@ -63,8 +54,10 @@ public class EntityEventHandlers {
         if (SalisConfig.features.netherPortalWispSpawns.roll(event.world.rand)) {
             final var newWisp = new EntityWisp(event.world);
             newWisp.setPosition(pigZombie.posX, pigZombie.posY, pigZombie.posZ);
+            // prevent the wisp from being immediately sucked into the nether
             newWisp.timeUntilPortal = newWisp.getPortalCooldown();
             event.world.spawnEntityInWorld(newWisp);
+            // move the pigzombie out of sight and kill it
             pigZombie.setPosition(pigZombie.posX, -50, pigZombie.posZ);
             pigZombie.setDead();
         }
@@ -74,6 +67,10 @@ public class EntityEventHandlers {
 
         public static final String KEY = SalisArcana.MODID + ":" + EntityPigZombie.class.getName();
 
+        /**
+         * If we check a zombie pigman and determine they won't be replaced with a wisp, we flag them so we never check
+         * them again.
+         */
         public boolean checkedWispReplacement = false;
 
         @Override
