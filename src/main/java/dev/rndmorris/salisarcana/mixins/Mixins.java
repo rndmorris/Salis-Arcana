@@ -139,7 +139,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     WAND_FOCUS_LEVEL_PATCH(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.upgradedFocusVisCost)
-        .addCommonMixins("api.MixinItemFocusBasic_WandUpgradeLevel")
+        .addCommonMixins("thaumcraft.api.wands.MixinItemFocusBasic_WandUpgradeLevel")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     JAR_NO_CREATIVE_DROPS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.jarNoCreativeDrops)
@@ -425,7 +425,7 @@ public enum Mixins implements IMixins {
 
     RESEARCH_ITEM_EXTENDED(new SalisBuilder()
         .applyIf(SalisConfig.features.researchItemExtensions)
-        .addCommonMixins("api.ResearchItem_Extended")
+        .addCommonMixins("thaumcraft.api.research.ResearchItem_Extended")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RESEARCH_ITEM_EXTENDED_THAUMIC_TINKERER(new SalisBuilder()
         .applyIf(SalisConfig.features.researchItemExtensions)

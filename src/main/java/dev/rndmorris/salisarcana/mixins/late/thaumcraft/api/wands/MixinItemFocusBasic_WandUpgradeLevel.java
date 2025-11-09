@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.api;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.api.wands;
 
 import net.minecraft.item.ItemStack;
 

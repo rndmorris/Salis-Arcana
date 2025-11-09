@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.api;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.api.research;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
