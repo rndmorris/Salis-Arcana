@@ -5,12 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -23,7 +21,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectSource;
-import thaumcraft.api.crafting.IInfusionStabiliser;
 import thaumcraft.api.crafting.InfusionEnchantmentRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.common.items.wands.WandManager;
@@ -170,9 +167,10 @@ public class InfusionData {
         return this.recipeOutputString;
     }
 
+    // TODO handle + display instability
     private void getRecipe(int xCoord, int yCoord, int zCoord) {
         pedestals.clear();
-        List<ChunkCoordinates> stabilizers = new ArrayList<>();
+        // List<ChunkCoordinates> stabilizers = new ArrayList<>();
         for (int xx = -INFUSION_RANGE; xx <= INFUSION_RANGE; xx++) {
             for (int zz = -INFUSION_RANGE; zz <= INFUSION_RANGE; zz++) {
                 boolean skip = false;
@@ -187,11 +185,11 @@ public class InfusionData {
                             pedestals.add(new ChunkCoordinates(x, y, z));
                             skip = true;
                         } else {
-                            Block bi = world.getBlock(x, y, z);
-                            if (bi == Blocks.skull || bi instanceof IInfusionStabiliser
-                                && ((IInfusionStabiliser) bi).canStabaliseInfusion(world, x, y, z)) {
-                                stabilizers.add(new ChunkCoordinates(x, y, z));
-                            }
+                            // Block bi = world.getBlock(x, y, z);
+                            // if (bi == Blocks.skull || bi instanceof IInfusionStabiliser
+                            // && ((IInfusionStabiliser) bi).canStabaliseInfusion(world, x, y, z)) {
+                            // stabilizers.add(new ChunkCoordinates(x, y, z));
+                            // }
                         }
                     }
                 }
@@ -222,19 +220,19 @@ public class InfusionData {
             }
         }
 
-        for (ChunkCoordinates cc : stabilizers) {
-            structureSymmetry += 0.1F;
-
-            int x = xCoord - cc.posX;
-            int z = zCoord - cc.posZ;
-            int xx = xCoord + x;
-            int zz = zCoord + z;
-            Block bi = world.getBlock(xx, cc.posY, zz);
-            if (bi == Blocks.skull || bi instanceof IInfusionStabiliser
-                && ((IInfusionStabiliser) bi).canStabaliseInfusion(world, xx, cc.posY, zz)) {
-                structureSymmetry -= 0.2F;
-            }
-        }
+        // for (ChunkCoordinates cc : stabilizers) {
+        // structureSymmetry += 0.1F;
+        //
+        // int x = xCoord - cc.posX;
+        // int z = zCoord - cc.posZ;
+        // int xx = xCoord + x;
+        // int zz = zCoord + z;
+        // Block bi = world.getBlock(xx, cc.posY, zz);
+        // if (bi == Blocks.skull || bi instanceof IInfusionStabiliser
+        // && ((IInfusionStabiliser) bi).canStabaliseInfusion(world, xx, cc.posY, zz)) {
+        // structureSymmetry -= 0.2F;
+        // }
+        // }
     }
 
     public void fetchEssentiaSources() {
