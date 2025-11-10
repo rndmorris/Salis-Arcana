@@ -278,3 +278,5 @@ salisarcana:infusion.preview.invalid=§cInvalid Location
 salisarcana:infusion.preview.unformed=§6Right-Click with a wand to activate
 salisarcana:infusion.preview.norecipe=§cNo valid recipe found.
 salisarcana:infusion.preview.enchantment=Requires §a%s §eLevels
+salisarcana:infusion.preview.missingessentia=§rNot enough essentia
+salisarcana:infusion.preview.valid=§6Right-Click with wand to start

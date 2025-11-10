@@ -284,7 +284,10 @@ public class InfusionPreview {
                 current++;
             }
             GL11.glPopMatrix();
-            String display = missingEssentia ? EnumChatFormatting.RED + "Not enough essentia" : EnumChatFormatting.GOLD + "Right-Click with wand to start";
+            String display = StatCollector.translateToLocal(
+                missingEssentia ? "salisarcana:infusion.preview.missingessentia" : "salisarcana:infusion.preview.valid"
+            );
+
             sw = fontRenderer.getStringWidth(display);
             GL11.glPushMatrix();
             GL11.glTranslatef(0, 1.05F, 0);
