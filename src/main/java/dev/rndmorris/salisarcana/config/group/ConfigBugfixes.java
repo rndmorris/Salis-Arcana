@@ -272,6 +272,16 @@ public class ConfigBugfixes extends ConfigGroup {
         "earlyTerminateCrucibleCraft",
         "Prevent large item stacks from partially dissolving into aspects if the Crucible runs out of water while crafting.");
 
+    public final ToggleSetting hiddenResearchUseWorldRandom = new ToggleSetting(
+        this,
+        "hiddenResearchUseWorldRandom",
+        "When right-clicking a Research Note made from Knowledge Fragments, will use a random value not dependent on the world's time of day.");
+
+    public final ToggleSetting hiddenResearchCheckInventory = new ToggleSetting(
+        this,
+        "hiddenResearchCheckInventory",
+        "When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.");
+
     @Nonnull
     @Override
     public String getGroupName() {
