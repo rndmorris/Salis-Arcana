@@ -12,18 +12,17 @@ import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
 import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 
 @IFMLLoadingPlugin.MCVersion("1.7.10")
+@IFMLLoadingPlugin.TransformerExclusions("dev.rndmorris.salisarcana.core")
 public class SalisArcanaCore implements IFMLLoadingPlugin {
 
-    public static boolean isObfuscated;
-
+    private static Boolean isObf;
     public static final String MODID = "salisarcana";
     public static final Logger LOG = LogManager.getLogger("salisarcana-core");
+    public static ArrayList<IAsmEditor> editors = new ArrayList<>();
 
     public SalisArcanaCore() {
         SalisConfig.synchronizeConfiguration();
     }
-
-    public static ArrayList<IAsmEditor> editors = new ArrayList<>();
 
     @Override
     public String[] getASMTransformerClass() {
@@ -42,7 +41,7 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
 
     @Override
     public void injectData(Map<String, Object> data) {
-        isObfuscated = (boolean) data.get("runtimeDeobfuscationEnabled");
+        isObf = (boolean) data.get("runtimeDeobfuscationEnabled");
 
         editors.add(
             new ModCompatEditor(
@@ -61,5 +60,12 @@ public class SalisArcanaCore implements IFMLLoadingPlugin {
     @Override
     public String getAccessTransformerClass() {
         return null;
+    }
+
+    public static boolean isObf() {
+        if (isObf == null) {
+            throw new IllegalStateException("Obfuscation state has been accessed too early!");
+        }
+        return isObf;
     }
 }
