@@ -17,8 +17,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.ResearchHelper;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.CrucibleRecipe;
 import thaumcraft.common.lib.research.ResearchManager;
@@ -43,28 +43,42 @@ public class MixinTileCrucible_MissingRecipe extends TileEntity {
         remap = false)
     public CrucibleRecipe captureCrucibleRecipe(String username, AspectList aspects, ItemStack lastItem,
         Operation<CrucibleRecipe> original) {
-        final var recipe = original.call(KnowItAll.getUsername(), aspects, lastItem);
+        int bestRecipeScore = -1;
+        CrucibleRecipe bestRecipe = null;
 
-        if (recipe != null && !ResearchManager.isResearchComplete(username, recipe.key)) {
-            final var player = this.worldObj.getPlayerEntityByName(username);
-            LocalDateTime lastUsageTime;
-            if (player != null) {
-                lastUsageTime = sa$warnings.computeIfAbsent(player, (_key) -> new ConcurrentHashMap<>())
-                    .get(recipe);
-                // if the player hasn't been warned since they last logged in, OR if it's been five minutes
-                // since the player last tossed something in that matches this recipe
-                if (lastUsageTime == null || lastUsageTime.isBefore(
-                    LocalDateTime.now()
-                        .minusMinutes(5))) {
-                    ResearchHelper.sendResearchError(player, recipe.key, "salisarcana:error_missing_research.crucible");
+        for (Object obj : ThaumcraftApi.getCraftingRecipes()) {
+            if (!(obj instanceof CrucibleRecipe recipe)) continue;
+            if (!recipe.matches(aspects, lastItem)) continue;
+
+            if (ResearchManager.isResearchComplete(username, recipe.key)) {
+                // Recipe matches & is craftable, implement standard recipe search logic
+                final int score = recipe.aspects.size();
+                if (score > bestRecipeScore) {
+                    bestRecipeScore = score;
+                    bestRecipe = recipe;
                 }
-                // keeps the warning tied to a rolling window, to minimize spamming
-                sa$warnings.computeIfAbsent(player, (_key) -> new ConcurrentHashMap<>())
-                    .put(recipe, LocalDateTime.now());
+            } else {
+                // Missing research for possible recipe, report to player.
+                final var player = this.worldObj.getPlayerEntityByName(username);
+                LocalDateTime lastUsageTime;
+                if (player != null) {
+                    lastUsageTime = sa$warnings.computeIfAbsent(player, _key -> new ConcurrentHashMap<>())
+                        .get(recipe);
+                    // if the player hasn't been warned since they last logged in, OR if it's been five minutes
+                    // since the player last tossed something in that matches this recipe
+                    if (lastUsageTime == null || lastUsageTime.isBefore(
+                        LocalDateTime.now()
+                            .minusMinutes(5))) {
+                        ResearchHelper
+                            .sendResearchError(player, recipe.key, "salisarcana:error_missing_research.crucible");
+                    }
+                    // keeps the warning tied to a rolling window, to minimize spamming
+                    sa$warnings.get(player)
+                        .put(recipe, LocalDateTime.now());
+                }
             }
-            return null;
         }
 
-        return recipe;
+        return bestRecipe;
     }
 }
