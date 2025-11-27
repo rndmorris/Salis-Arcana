@@ -3,7 +3,6 @@ package dev.rndmorris.salisarcana;
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -173,17 +172,14 @@ public class CommonProxy {
     private static void clearTeleporterThaumcraftCache() {
         // fix a world object memory leak
         try {
-            final Field field1 = TeleporterThaumcraft.class.getDeclaredField("destinationCoordinateCache");
-            final Field field2 = TeleporterThaumcraft.class.getDeclaredField("destinationCoordinateKeys");
-            field1.setAccessible(true);
-            field2.setAccessible(true);
-            final LongHashMap destinationCoordinateCache = (LongHashMap) field1.get(null);
-            final List destinationCoordinateKeys = (List) field2.get(null);
-            Iterator iterator = destinationCoordinateKeys.iterator();
+            final R accessor = new R(TeleporterThaumcraft.class);
+            final LongHashMap cache = accessor.get("destinationCoordinateCache", LongHashMap.class);
+            final List keys = accessor.get("destinationCoordinateKeys", List.class);
+            Iterator iterator = keys.iterator();
             while (iterator.hasNext()) {
                 Long olong = (Long) iterator.next();
                 iterator.remove();
-                destinationCoordinateCache.remove(olong);
+                cache.remove(olong);
             }
         } catch (Throwable t) {
             t.printStackTrace();
