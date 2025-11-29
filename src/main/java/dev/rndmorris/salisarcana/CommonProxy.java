@@ -40,6 +40,7 @@ import dev.rndmorris.salisarcana.common.commands.PrerequisitesCommand;
 import dev.rndmorris.salisarcana.common.commands.UpdateNodeCommand;
 import dev.rndmorris.salisarcana.common.commands.UpgradeFocusCommand;
 import dev.rndmorris.salisarcana.common.compat.ModCompat;
+import dev.rndmorris.salisarcana.common.events.EntityEventHandlers;
 import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.SalisConfig;
@@ -105,6 +106,7 @@ public class CommonProxy {
         if (SalisConfig.bugfixes.preventBlockAiryFluidReplacement.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new BlockAiryBucketInterceptor());
         }
+        EntityEventHandlers.preInit();
     }
 
     private void updateHarvestLevels() {
