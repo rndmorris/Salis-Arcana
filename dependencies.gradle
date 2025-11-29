@@ -63,4 +63,7 @@ dependencies {
     //          .withClassifier("dev")
     //          .because("Baubles-Expanded replaces Baubles")
     //  })
+
+    // TC4Tweaks changes some injection points with ASM
+    // runtimeOnlyNonPublishable(rfg.deobf("curse.maven:TC4Tweaks-431297:6929888"))
 }
