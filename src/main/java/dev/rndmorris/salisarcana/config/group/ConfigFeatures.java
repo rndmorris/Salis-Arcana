@@ -476,6 +476,11 @@ public class ConfigFeatures extends ConfigGroup {
         "researchTableAspectHints",
         "Hovering over an unknown aspect inside the Research Table will show a tooltip with a hint about where you can find it.");
 
+    public final ToggleSetting fakePlayersDropLootbags = new ToggleSetting(
+        this,
+        "fakePlayersDropLootbags",
+        "Allows kills from fake players to drop loot bags from champion mobs.").setEnabled(true);
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
