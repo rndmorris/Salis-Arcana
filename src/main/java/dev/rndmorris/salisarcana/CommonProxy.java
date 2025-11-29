@@ -4,11 +4,14 @@ import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.function.Supplier;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.LongHashMap;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,6 +22,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import dev.rndmorris.salisarcana.api.OreDict;
 import dev.rndmorris.salisarcana.common.BehaviorDispensePrimalArrow;
 import dev.rndmorris.salisarcana.common.CustomResearch;
@@ -52,6 +56,7 @@ import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.ai.interact.AIFish;
 import thaumcraft.common.items.equipment.ItemPrimalCrusher;
+import thaumcraft.common.lib.world.dim.TeleporterThaumcraft;
 
 public class CommonProxy {
 
@@ -157,6 +162,30 @@ public class CommonProxy {
         Supplier<ArcanaCommandBase<?>> init) {
         if (settings.isEnabled()) {
             event.registerServerCommand(init.get());
+        }
+    }
+
+    public void onServerStopped(FMLServerStoppedEvent event) {
+        clearTeleporterThaumcraftCache();
+    }
+
+    private static void clearTeleporterThaumcraftCache() {
+        if (!SalisConfig.bugfixes.fixTeleporterThaumcraftLeak.isEnabled()) {
+            return;
+        }
+        // fix a world object memory leak
+        try {
+            final R accessor = new R(TeleporterThaumcraft.class);
+            final LongHashMap cache = accessor.get("destinationCoordinateCache", LongHashMap.class);
+            final List keys = accessor.get("destinationCoordinateKeys", List.class);
+            Iterator iterator = keys.iterator();
+            while (iterator.hasNext()) {
+                Long olong = (Long) iterator.next();
+                iterator.remove();
+                cache.remove(olong);
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
         }
     }
 
