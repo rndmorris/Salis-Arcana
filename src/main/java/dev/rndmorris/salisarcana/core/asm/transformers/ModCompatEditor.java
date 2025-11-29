@@ -1,42 +1,39 @@
-package dev.rndmorris.salisarcana.core.asm.compat;
+package dev.rndmorris.salisarcana.core.asm.transformers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.spongepowered.asm.lib.Opcodes;
-import org.spongepowered.asm.lib.tree.InsnList;
-import org.spongepowered.asm.lib.tree.InsnNode;
-import org.spongepowered.asm.lib.tree.LdcInsnNode;
-import org.spongepowered.asm.lib.tree.MethodInsnNode;
-import org.spongepowered.asm.lib.tree.MethodNode;
-import org.spongepowered.asm.lib.tree.VarInsnNode;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.InsnNode;
+import org.objectweb.asm.tree.LdcInsnNode;
+import org.objectweb.asm.tree.MethodInsnNode;
+import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 import dev.rndmorris.salisarcana.config.IEnabler;
-import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
 
-public class ModCompatEditor implements IAsmEditor {
-
-    /**
-     * This class is used to inject compatibility checks into the mixin loading process
-     * <p>
-     * Specifically, it is primarily used to disable non-configurable incompatible mixins in other mods.
-     * </p>
-     * The method anything extending or using this class should target should be the
-     * {@code getMixins(List<String> loadedCoreMods)}
-     * method in the LateMixin class.
-     * <p>
-     * You can use this for other methods as well, but you will have to extend this class and override
-     * {@code edit(MethodNode method)}
-     * to target the correct method
-     */
+/**
+ * This class is used to inject compatibility checks into the mixin loading process
+ * <p>
+ * Specifically, it is primarily used to disable non-configurable incompatible mixins in other mods.
+ * </p>
+ * The method anything extending or using this class should target should be the
+ * {@code getMixins(List<String> loadedCoreMods)}
+ * method in the LateMixin class.
+ * <p>
+ * You can use this for other methods as well, but you will have to extend this class and override
+ * {@code transformClassnode(MethodNode method)}
+ * to target the correct method
+ */
+public class ModCompatEditor implements ISalisTransformer {
 
     // Static list to fetch any given transformer from the editor
     private static final List<ModCompatEditor> transformers = new ArrayList<>();
-
     // compatibility map for what mixin to disable based on what setting
     private final HashMap<String, IEnabler> compatMap = new HashMap<>();
-
     private final String className, methodName, methodDesc;
 
     public ModCompatEditor(String className, String methodName, String methodDesc) {
@@ -44,6 +41,11 @@ public class ModCompatEditor implements IAsmEditor {
         this.methodName = methodName;
         this.methodDesc = methodDesc;
         transformers.add(this);
+    }
+
+    @Override
+    public String getTargetClassName() {
+        return className;
     }
 
     /**
@@ -57,7 +59,20 @@ public class ModCompatEditor implements IAsmEditor {
      * statements will break
      */
     @Override
-    public void edit(MethodNode method) {
+    public void transform(ClassNode classNode) {
+
+        MethodNode method = null;
+        for (MethodNode mn : classNode.methods) {
+            if (mn.name.equals(methodName) && mn.desc.equals(methodDesc)) {
+                method = mn;
+            }
+        }
+
+        if (method == null) {
+            throw new RuntimeException(
+                "SalisArcana failed to find a method named " + methodName + " in class " + className);
+        }
+
         VarInsnNode previousNode = null;
         InsnNode node = null;
         for (int i = 0; i < method.instructions.size(); i++) {
@@ -75,21 +90,19 @@ public class ModCompatEditor implements IAsmEditor {
         }
         if (node == null || previousNode == null || previousNode.getOpcode() != Opcodes.ALOAD) {
             throw new RuntimeException(
-                "SalisArcana failed to find an injection point in method " + this.getMethodName()
-                    + " in class "
-                    + this.getClassName());
+                "SalisArcana failed to find an injection point in method " + methodName + " in class " + className);
         }
         int index = previousNode.var; // The index of the local variable that holds the List<String>
 
         // We need to load the class name, method name, and method desc onto the stack
-        LdcInsnNode loadClassName = new LdcInsnNode(this.getClassName());
-        LdcInsnNode loadMethodName = new LdcInsnNode(this.getMethodName());
-        LdcInsnNode loadMethodDesc = new LdcInsnNode(this.getMethodDesc());
+        LdcInsnNode loadClassName = new LdcInsnNode(this.className);
+        LdcInsnNode loadMethodName = new LdcInsnNode(this.methodName);
+        LdcInsnNode loadMethodDesc = new LdcInsnNode(this.methodDesc);
 
         // We need to call the static method ModCompatEditor.getTransformer, popping the strings off the stack
         MethodInsnNode getTransformer = new MethodInsnNode(
             Opcodes.INVOKESTATIC,
-            "dev/rndmorris/salisarcana/core/asm/compat/ModCompatEditor",
+            "dev/rndmorris/salisarcana/core/asm/transformers/ModCompatEditor",
             "getTransformer",
             "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/rndmorris/salisarcana/core/asm/compat/ModCompatEditor;",
             false);
@@ -99,7 +112,7 @@ public class ModCompatEditor implements IAsmEditor {
         // We need to call the instance method ModCompatEditor.apply_compat, popping the List<String> off the stack
         MethodInsnNode methodNode = new MethodInsnNode(
             Opcodes.INVOKEVIRTUAL,
-            "dev/rndmorris/salisarcana/core/asm/compat/ModCompatEditor",
+            "dev/rndmorris/salisarcana/core/asm/transformers/ModCompatEditor",
             "apply_compat",
             "(Ljava/util/List;)Ljava/util/List;",
             false);
@@ -115,21 +128,6 @@ public class ModCompatEditor implements IAsmEditor {
 
     }
 
-    @Override
-    public String getClassName() {
-        return className;
-    }
-
-    @Override
-    public String getMethodName() {
-        return methodName;
-    }
-
-    @Override
-    public String getMethodDesc() {
-        return methodDesc;
-    }
-
     /**
      * Adds a mixin to the compatibility map
      *
@@ -141,6 +139,8 @@ public class ModCompatEditor implements IAsmEditor {
         compatMap.put(mixin, enabler);
         return this;
     }
+
+    /* ============ ASM Hook ============ */
 
     @SuppressWarnings("unused")
     public List<String> apply_compat(List<String> mixins) {
@@ -163,14 +163,11 @@ public class ModCompatEditor implements IAsmEditor {
      * @param methodDesc The method desc
      * @return The ModCompatEditor instance
      */
+    @SuppressWarnings("unused")
     public static ModCompatEditor getTransformer(String className, String methodName, String methodDesc) {
         for (ModCompatEditor editor : transformers) {
-            if (editor.getClassName()
-                .equals(className)
-                && editor.getMethodName()
-                    .equals(methodName)
-                && editor.getMethodDesc()
-                    .equals(methodDesc)) {
+            if (editor.className.equals(className) && editor.methodName.equals(methodName)
+                && editor.methodDesc.equals(methodDesc)) {
                 return editor;
             }
         }
