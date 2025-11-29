@@ -20,7 +20,7 @@ public class MixinItemPrimalCrusher_HarvestLevel {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/block/Block;getBlockHardness(Lnet/minecraft/world/World;III)F"),
-            remap = true)
+        remap = true)
     private float wrapIsEffectiveAgainst(Block instance, World world, int x, int y, int z, Operation<Float> original,
         @Local(name = "md") int meta) {
         return ItemPrimalCrusher.material.getHarvestLevel() >= instance.getHarvestLevel(meta)
