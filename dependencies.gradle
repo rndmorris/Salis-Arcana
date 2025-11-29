@@ -65,5 +65,5 @@ dependencies {
     //  })
 
     // TC4Tweaks changes some injection points with ASM
-    runtimeOnlyNonPublishable("com.github.GTNewHorizons:TC4Tweaks:1.5.39:dev")
+    // runtimeOnlyNonPublishable(rfg.deobf("curse.maven:TC4Tweaks-431297:6929888"))
 }

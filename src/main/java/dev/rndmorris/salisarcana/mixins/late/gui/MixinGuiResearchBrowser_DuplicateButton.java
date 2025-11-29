@@ -93,8 +93,8 @@ public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
     @Inject(
         method = "genResearchBackground",
         at = @At(
-            value = "FIELD",
-            target = "Lthaumcraft/api/research/ResearchCategories;researchCategories:Ljava/util/LinkedHashMap;",
+            value = "INVOKE",
+            target = "Ljava/util/LinkedHashMap;keySet()Ljava/util/Set;",
             remap = false),
         remap = false)
     public void drawDuplicateButton(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
