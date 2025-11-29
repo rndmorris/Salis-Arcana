@@ -170,6 +170,9 @@ public class CommonProxy {
     }
 
     private static void clearTeleporterThaumcraftCache() {
+        if (!SalisConfig.bugfixes.fixTeleporterThaumcraftLeak.isEnabled()) {
+            return;
+        }
         // fix a world object memory leak
         try {
             final R accessor = new R(TeleporterThaumcraft.class);
