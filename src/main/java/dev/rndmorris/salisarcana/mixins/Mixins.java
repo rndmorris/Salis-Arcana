@@ -247,7 +247,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SUPPRESS_CREATIVE_WARP(new SalisBuilder()
         .applyIf(SalisConfig.features.suppressWarpEventsInCreative)
-        .addCommonMixins("events.MixinEventHandlerEntity")
+        .addCommonMixins("events.MixinEventHandlerEntity_SuppressCreativeWarp")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     CTRL_SCROLL_NAVIGATION(new SalisBuilder()
@@ -536,6 +536,11 @@ public enum Mixins implements IMixins {
     NODE_MODIFIER_SPEED_TAINTED(new SalisBuilder()
         .applyIf(SalisConfig.thaum.taintedModifierSpeed)
         .addCommonMixins("tiles.MixinTileNode_ModifierSpeed_Tainted")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    FAKE_PLAYERS_DROP_LOOTBAGS(new SalisBuilder()
+        .applyIf(SalisConfig.features.fakePlayersDropLootbags)
+        .addCommonMixins("events.MixinEventHandlerEntity_LootBagFakePlayer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Required
