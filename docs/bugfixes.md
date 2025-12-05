@@ -283,6 +283,12 @@ Prevent large item stacks from partially dissolving into aspects if the Crucible
 
 Prevents a world object memory leak in the TeleporterThaumcraft class.
 
+## Handle Invalid Focus NBT on Wands
+
+**Config option:** `preventInvalidFociOnWands`
+
+Prevent wands with invalid foci NBT (from uninstalling add-ons, for example) from crashing the game.
+
 ## Pickaxe of the Core (Group `tools`)
 
 **Config option:** `detectZeroAspectBlocks`
