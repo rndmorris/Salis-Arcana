@@ -16,7 +16,10 @@ public class MixinRenderEventHandler_DetectLitRedstoneOre {
 
     @ModifyExpressionValue(
         method = "startScan",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlock(III)Lnet/minecraft/block/Block;"))
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/World;getBlock(III)Lnet/minecraft/block/Block;",
+            remap = true))
     private Block substituteLitRedstoneOre(Block original) {
         // lit redstone ore (apparently) does not have an item form, which prevents it from being given oredict labels
         // (or at least that's what the OreDictionary says when I try to register a label for it)

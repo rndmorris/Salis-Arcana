@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.lib.events.EventHandlerEntity;
 
 @Mixin(value = EventHandlerEntity.class, remap = false)
-public abstract class MixinEventHandlerEntity {
+public abstract class MixinEventHandlerEntity_SuppressCreativeWarp {
 
     @WrapOperation(
         method = "livingTick(Lnet/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent;)V",
