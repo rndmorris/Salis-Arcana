@@ -220,7 +220,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     PREVENT_WARP_SOUND_BLAST(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.muteExcessiveWarpSounds)
-        .addCommonMixins("lib.network.MixinPacketWarpMessage_MuteExcessiveSounds")
+        .addClientMixins("lib.network.MixinPacketWarpMessage_MuteExcessiveSounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EARLY_TERMINATE_CRUCIBLE_CRAFT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.earlyTerminateCrucibleCraft)
