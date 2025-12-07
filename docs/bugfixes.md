@@ -283,6 +283,12 @@ Prevent large item stacks from partially dissolving into aspects if the Crucible
 
 Prevents a world object memory leak in the TeleporterThaumcraft class.
 
+## Prevent Warp Sounds from Blasting Out Your Eardrums
+
+**Config option:** `muteExcessiveWarpSounds`
+
+Prevent warp sounds from blasting out your eardrums when you obtains lots of warp in an instant.
+
 ## Pickaxe of the Core (Group `tools`)
 
 **Config option:** `detectZeroAspectBlocks`
