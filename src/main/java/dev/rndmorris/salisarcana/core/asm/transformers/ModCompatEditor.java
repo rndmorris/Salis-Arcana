@@ -104,7 +104,7 @@ public class ModCompatEditor implements ISalisTransformer {
             Opcodes.INVOKESTATIC,
             "dev/rndmorris/salisarcana/core/asm/transformers/ModCompatEditor",
             "getTransformer",
-            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/rndmorris/salisarcana/core/asm/compat/ModCompatEditor;",
+            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/rndmorris/salisarcana/core/asm/transformers/ModCompatEditor;",
             false);
 
         // We need to re-load the List<String> mixins onto the stack

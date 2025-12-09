@@ -277,6 +277,18 @@ Use a larger packet for sending the ID of the focus upgrade being selected, allo
 
 Prevent large item stacks from partially dissolving into aspects if the Crucible runs out of water while crafting.
 
+## Fix TeleporterThaumcraft memory leak
+
+**Config option:** `fixTeleporterThaumcraftLeak`
+
+Prevents a world object memory leak in the TeleporterThaumcraft class.
+
+## Prevent Warp Sounds from Blasting Out Your Eardrums
+
+**Config option:** `muteExcessiveWarpSounds`
+
+Prevent warp sounds from blasting out your eardrums when you obtains lots of warp in an instant.
+
 ## Pickaxe of the Core (Group `tools`)
 
 **Config option:** `detectZeroAspectBlocks`
