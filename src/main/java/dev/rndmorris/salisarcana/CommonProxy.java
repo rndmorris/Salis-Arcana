@@ -62,12 +62,6 @@ public class CommonProxy {
 
     public OreDictIds oreDictIds;
 
-    public CommonProxy() {
-        FMLCommonHandler.instance()
-            .bus()
-            .register(this);
-    }
-
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
 
