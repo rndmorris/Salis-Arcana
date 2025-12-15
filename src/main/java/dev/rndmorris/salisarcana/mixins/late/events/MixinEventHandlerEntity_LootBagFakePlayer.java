@@ -13,7 +13,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 
 import thaumcraft.common.lib.events.EventHandlerEntity;
 
-@Mixin(value = EventHandlerEntity.class, remap = false)
+@Mixin(value = EventHandlerEntity.class, remap = false, priority = 1001)
 public abstract class MixinEventHandlerEntity_LootBagFakePlayer {
 
     @Definition(id = "FakePlayer", type = FakePlayer.class, remap = true)

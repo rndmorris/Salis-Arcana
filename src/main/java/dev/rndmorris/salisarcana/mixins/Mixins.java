@@ -218,6 +218,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.extendUpgradeFocusPacket)
         .addClientMixins("gui.MixinGuiFocalManipulator_UseExtendedEnchantmentPacket")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    PREVENT_WARP_SOUND_BLAST(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.muteExcessiveWarpSounds)
+        .addClientMixins("lib.network.MixinPacketWarpMessage_MuteExcessiveSounds")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EARLY_TERMINATE_CRUCIBLE_CRAFT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.earlyTerminateCrucibleCraft)
         .addCommonMixins("tiles.MixinTileCrucible_EarlyTerminateCraft")
