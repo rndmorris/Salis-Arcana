@@ -278,6 +278,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixTeleporterThaumcraftLeak",
         "Fix a world object memory leak in the TeleporterThaumcraft class");
 
+    public final ToggleSetting muteExcessiveWarpSounds = new ToggleSetting(
+        this,
+        "muteExcessiveWarpSounds",
+        "Prevent warp sounds from blasting out your eardrums when you obtains lots of warp in an instant.");
+
     public final ToggleSetting preventInvalidFociOnWands = new ToggleSetting(
         this,
         "preventInvalidFociOnWands",
