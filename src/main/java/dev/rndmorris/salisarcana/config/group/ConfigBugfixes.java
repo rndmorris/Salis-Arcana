@@ -272,6 +272,16 @@ public class ConfigBugfixes extends ConfigGroup {
         "earlyTerminateCrucibleCraft",
         "Prevent large item stacks from partially dissolving into aspects if the Crucible runs out of water while crafting.");
 
+    public final ToggleSetting fixTeleporterThaumcraftLeak = new ToggleSetting(
+        this,
+        "fixTeleporterThaumcraftLeak",
+        "Fix a world object memory leak in the TeleporterThaumcraft class");
+
+    public final ToggleSetting muteExcessiveWarpSounds = new ToggleSetting(
+        this,
+        "muteExcessiveWarpSounds",
+        "Prevent warp sounds from blasting out your eardrums when you obtains lots of warp in an instant.");
+
     @Nonnull
     @Override
     public String getGroupName() {
