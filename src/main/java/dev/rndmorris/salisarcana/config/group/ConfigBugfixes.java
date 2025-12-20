@@ -262,6 +262,7 @@ public class ConfigBugfixes extends ConfigGroup {
 
         Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of a block's dropped item to
         identify a block instead of its in-world metadata when scanning for ores.""").setCategory("tools");
+
     public final ToggleSetting extendUpgradeFocusPacket = new ToggleSetting(
         this,
         "extendUpgradeFocusPacket",
@@ -281,6 +282,11 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "muteExcessiveWarpSounds",
         "Prevent warp sounds from blasting out your eardrums when you obtains lots of warp in an instant.");
+
+    public final ToggleSetting preventInvalidFociOnWands = new ToggleSetting(
+        this,
+        "preventInvalidFociOnWands",
+        "Prevent wands with invalid foci NBT (from uninstalling add-ons, for example) from crashing the game.");
 
     @Nonnull
     @Override

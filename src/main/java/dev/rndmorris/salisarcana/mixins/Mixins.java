@@ -226,6 +226,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.earlyTerminateCrucibleCraft)
         .addCommonMixins("tiles.MixinTileCrucible_EarlyTerminateCraft")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    PREVENT_INVALID_FOCI(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.preventInvalidFociOnWands)
+        .addCommonMixins("items.MixinItemWandCasting_InvalidFoci")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ELEMENTAL_PICK_SCAN_ZERO_ASPECTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectZeroAspectBlocks)
