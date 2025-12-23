@@ -231,7 +231,7 @@ public enum Mixins implements IMixins {
         .addCommonMixins("items.MixinItemWandCasting_InvalidFoci")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     HIDDEN_RESEARCH_WORLD_RANDOM(new SalisBuilder()
-        .applyIf(SalisConfig.bugfixes.hiddenResearchUseWorldRandom)
+        .applyIf(SalisConfig.features.hiddenResearchUseWorldRandom)
         .addCommonMixins("lib.research.MixinResearchManager_RandomizeProperly")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     HIDDEN_RESEARCH_CHECK_INVENTORY(new SalisBuilder()

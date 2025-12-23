@@ -481,6 +481,11 @@ public class ConfigFeatures extends ConfigGroup {
         "fakePlayersDropLootbags",
         "Allows kills from fake players to drop loot bags from champion mobs.").setEnabled(true);
 
+    public final ToggleSetting hiddenResearchUseWorldRandom = new ToggleSetting(
+        this,
+        "hiddenResearchUseWorldRandom",
+        "When right-clicking a Research Note made from Knowledge Fragments, will use a random value not dependent on the world's time of day.");
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()

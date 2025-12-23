@@ -288,11 +288,6 @@ public class ConfigBugfixes extends ConfigGroup {
         "preventInvalidFociOnWands",
         "Prevent wands with invalid foci NBT (from uninstalling add-ons, for example) from crashing the game.");
 
-    public final ToggleSetting hiddenResearchUseWorldRandom = new ToggleSetting(
-        this,
-        "hiddenResearchUseWorldRandom",
-        "When right-clicking a Research Note made from Knowledge Fragments, will use a random value not dependent on the world's time of day.");
-
     public final ToggleSetting hiddenResearchCheckInventory = new ToggleSetting(
         this,
         "hiddenResearchCheckInventory",
