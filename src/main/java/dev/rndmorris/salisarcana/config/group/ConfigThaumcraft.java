@@ -164,6 +164,11 @@ public class ConfigThaumcraft extends ConfigGroup {
         "canBeFiredFromDispensers",
         "Primal arrows can be shot from dispensers").setCategory(primalArrowCategory);
 
+    public final ToggleSetting hiddenResearchUseWorldRandom = new ToggleSetting(
+        this,
+        "hiddenResearchUseWorldRandom",
+        "When right-clicking a Research Note made from Knowledge Fragments, will use a random value not dependent on the world's time of day.");
+
     @Override
     public @NotNull String getGroupName() {
         return "thaumcraft_configuration";
