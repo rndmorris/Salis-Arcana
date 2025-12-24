@@ -26,59 +26,67 @@ public class ConfigThaumcraft extends ConfigGroup {
     public final ToggleSetting hungryDynamicReach = new ToggleSetting(
         this,
         "hungryDynamicReach",
-        "If true, the radius within which hungry nodes can break blocks and attract entities will scale with the current\n"
-            + "amount of vis of the node.").setCategory(nodeBehaviorsCategory)
+        """
+            If true, the radius within which hungry nodes can break blocks and attract entities will scale with the current
+            amount of vis of the node.""").setCategory(nodeBehaviorsCategory)
                 .setEnabled(false);
 
     public final ToggleSetting hungryModifierSpeed = new ToggleSetting(
         this,
         "hungryModifierSpeed",
-        "If true, the rate at which hungry nodes will try to break blocks will be adjusted by their modifier: 20% more\n"
-            + "often when bright, 20% less often when pale, 50% less often when fading.")
+        """
+            If true, the rate at which hungry nodes will try to break blocks will be adjusted by their modifier: 20% more
+            often when bright, 20% less often when pale, 50% less often when fading.""")
                 .setCategory(nodeBehaviorsCategory);
 
     public final ToggleSetting pureDynamicReach = new ToggleSetting(
         this,
         "pureDynamicReach",
-        "If true, the radius within which pure nodes will convert their surroundings to Magical Forest will scale with\n"
-            + "the current amount of vis of the node. Small pure nodes that are embedded in silverwood logs will have roughly\n"
-            + "the same range as with this setting disabled.").setCategory(nodeBehaviorsCategory)
+        """
+            If true, the radius within which pure nodes will convert their surroundings to Magical Forest will scale with
+            the current amount of vis of the node. Small pure nodes that are embedded in silverwood logs will have roughly
+            the same range as with this setting disabled.""").setCategory(nodeBehaviorsCategory)
                 .setEnabled(false);
 
     public final ToggleSetting pureModifierSpeed = new ToggleSetting(
         this,
         "pureModifierSpeed",
-        "If true, the rate at which pure nodes will convert their surroundings to Magical Forest will be adjusted by\n"
-            + "their modifier: 20% more often when bright, 20% less often when pale, 50% less often when fading.")
+        """
+            If true, the rate at which pure nodes will convert their surroundings to Magical Forest will be adjusted by
+            their modifier: 20% more often when bright, 20% less often when pale, 50% less often when fading.""")
                 .setCategory(nodeBehaviorsCategory);
 
     public final ToggleSetting sinisterDynamicReach = new ToggleSetting(
         this,
         "sinisterDynamicReach",
-        "If true, the radius within which sinister nodes will convert their surroundings to the Eerie biome will scale\n"
-            + "with the current amount of vis of the node.").setCategory(nodeBehaviorsCategory)
+        """
+            If true, the radius within which sinister nodes will convert their surroundings to the Eerie biome will scale
+            with the current amount of vis of the node.""").setCategory(nodeBehaviorsCategory)
                 .setEnabled(false);
 
     public final ToggleSetting sinisterModifierSpeed = new ToggleSetting(
         this,
         "sinisterModifierSpeed",
-        "If true, the rate at which sinister nodes will convert their surroundings to the Eerie biome and attempt to\n"
-            + "spawn furious zombies will be adjusted by their modifier: 20% more often when bright, 20% less often when pale,\n"
-            + "50% less often when fading.").setCategory(nodeBehaviorsCategory);
+        """
+            If true, the rate at which sinister nodes will convert their surroundings to the Eerie biome and attempt to
+            spawn furious zombies will be adjusted by their modifier: 20% more often when bright, 20% less often when pale,
+            50% less often when fading.""").setCategory(nodeBehaviorsCategory);
 
     public final ToggleSetting taintedDynamicReach = new ToggleSetting(
         this,
         "taintedDynamicReach",
-        "If true, the radius within which tainted nodes will convert their surroundings to Tainted Lands and spawn taint\n"
-            + "tendrils will scale with the current amount of vis of the node.").setCategory(nodeBehaviorsCategory)
+        """
+            If true, the radius within which tainted nodes will convert their surroundings to Tainted Lands and spawn taint
+            tendrils will scale with the current amount of vis of the node.""").setCategory(nodeBehaviorsCategory)
                 .setEnabled(false);
 
     public final ToggleSetting taintedModifierSpeed = new ToggleSetting(
         this,
         "taintedModifierSpeed",
-        "If true, the rate at which tainted nodes will convert their surroundings to Tainted Lands and spawn taint\n"
-            + "tendrils will be adjusted by their modifier: 20% more often when bright, 20% less often when pale, 50% less\n"
-            + "often when fading.").setCategory(nodeBehaviorsCategory);
+        """
+            If true, the rate at which tainted nodes will convert their surroundings to Tainted Lands and spawn taint
+            tendrils will be adjusted by their modifier: 20% more often when bright, 20% less often when pale, 50% less
+            often when fading.""").setCategory(nodeBehaviorsCategory);
 
     //
     // Potion Ids
@@ -156,7 +164,10 @@ public class ConfigThaumcraft extends ConfigGroup {
     public final ToggleSetting elementalPickScanTags = new ToggleSetting(
         this,
         "elementalPickOredictFilter",
-        "When enabled, the Pickaxe of the Core will respect two new ore dictionary tags. Blocks labeled with\n`salisarcana:elementalPickScanExclude` will never be detected by the pickaxe, while blocks labeled with\n`salisarcana:elementalPickScanInclude` will be detected even if they normally would not.")
+        """
+            When enabled, the Pickaxe of the Core will respect two new ore dictionary tags. Blocks labeled with
+            `salisarcana:elementalPickScanExclude` will never be detected by the pickaxe, while blocks labeled with
+            `salisarcana:elementalPickScanInclude` will be detected even if they normally would not.""")
             .setCategory("tools");
 
     public final ToggleSetting primalArrowsCanBeFiredFromDispensers = new ToggleSetting(
@@ -179,6 +190,12 @@ public class ConfigThaumcraft extends ConfigGroup {
         return Collections.singletonList(
             new CategoryComment(
                 potionCategory,
-                "Override the ids of Thaumcraft's potion effects. An id not overridden, or that cannot be assigned to its\noverridden id, here will be automatically assigned to the lowest unclaimed id as normal.\n\nWARNING: Do not set any of these values to 128 or higher unless you are using a mod that increases the\nmaximum potion id. If you are, and would like to set these ids to 128 or higher, set\n`_uncapped_potion_ids` to `true`."));
+                """
+                    Override the ids of Thaumcraft's potion effects. An id not overridden, or that cannot be assigned to its
+                    overridden id, here will be automatically assigned to the lowest unclaimed id as normal.
+
+                    WARNING: Do not set any of these values to 128 or higher unless you are using a mod that increases the
+                    maximum potion id. If you are, and would like to set these ids to 128 or higher, set
+                    `_uncapped_potion_ids` to `true`."""));
     }
 }
