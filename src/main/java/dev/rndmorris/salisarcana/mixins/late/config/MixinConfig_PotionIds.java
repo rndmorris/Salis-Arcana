@@ -113,7 +113,7 @@ public abstract class MixinConfig_PotionIds {
     @Unique
     private static int sa$findNextOpenId(LocalIntRef lastAutoRef, String potionName) {
         final int startIndex = 32;
-        // noinspection ConstantValue
+
         for (var index = Math.max(lastAutoRef.get() + 1, startIndex); index < Potion.potionTypes.length; ++index) {
             if (Potion.potionTypes[index] == null) {
                 lastAutoRef.set(index);
