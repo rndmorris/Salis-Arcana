@@ -2,12 +2,14 @@ package dev.rndmorris.salisarcana.lib.pojo;
 
 import static dev.rndmorris.salisarcana.config.SalisConfig.thaum;
 
+import com.github.bsideup.jabel.Desugar;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 
 /**
  * Used by the MixinConfig_PotionIds class to bundle information it needs to pass around within itself
  */
-public final class PotionInfo {
+@Desugar
+public record PotionInfo(String langKey, String loggingName, IntSetting setting) {
 
     public static PotionInfo taintPoison() {
         return new PotionInfo("potion.fluxtaint", "Taint Poison", thaum.taintPoisonId);
@@ -45,10 +47,6 @@ public final class PotionInfo {
         return new PotionInfo("potion.thaumarhia", "Thaumarhia", thaum.thaumarhiaId);
     }
 
-    public final String langKey;
-    public final String loggingName;
-    public final IntSetting setting;
-
     public boolean enabled() {
         return setting.isEnabled();
     }
@@ -57,9 +55,4 @@ public final class PotionInfo {
         return setting.getValue();
     }
 
-    private PotionInfo(String langKey, String loggingName, IntSetting setting) {
-        this.langKey = langKey;
-        this.loggingName = loggingName;
-        this.setting = setting;
-    }
 }

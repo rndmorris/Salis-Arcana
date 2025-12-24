@@ -157,71 +157,37 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
         return new String[] { getResearch(), scanResult.newCaps.getResearch() };
     }
 
-    private static class InvScanResult {
-
-        private final ItemStack wandItem;
-        private final WandCap newCaps;
-        private final int newCapsFound;
-
-        public InvScanResult(ItemStack wandItem, WandCap newCaps, int newCapsFound) {
-            this.wandItem = wandItem;
-            this.newCaps = newCaps;
-            this.newCapsFound = newCapsFound;
-        }
-
-        public ItemStack wandItem() {
-            return wandItem;
-        }
-
-        public WandCap newCaps() {
-            return newCaps;
-        }
-
-        public int newCapsFound() {
-            return newCapsFound;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof InvScanResult that)) return false;
-            return newCapsFound == that.newCapsFound && Objects.equals(wandItem, that.wandItem)
-                && Objects.equals(newCaps, that.newCaps);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(wandItem, newCaps, newCapsFound);
-        }
+    private record InvScanResult(ItemStack wandItem, WandCap newCaps, int newCapsFound) {
 
         public boolean invalidInputs() {
-            if (wandItem == null) {
-                return true;
+                if (wandItem == null) {
+                    return true;
+                }
+                if (wandType().getRequiredCaps() != newCapsFound) {
+                    return true;
+                }
+                final var oldCaps = oldCaps();
+                if (newCaps == null || oldCaps == null) {
+                    return true;
+                }
+                return newCaps == oldCaps;
             }
-            if (wandType().getRequiredCaps() != newCapsFound) {
-                return true;
+
+            public @Nullable WandCap oldCaps() {
+                return WandHelper.getWandCapFromWand(wandItem);
             }
-            final var oldCaps = oldCaps();
-            if (newCaps == null || oldCaps == null) {
-                return true;
+
+            public @Nullable ItemWandCasting wandInstance() {
+                return WandHelper.getWandItem(wandItem);
             }
-            return newCaps == oldCaps;
-        }
 
-        public @Nullable WandCap oldCaps() {
-            return WandHelper.getWandCapFromWand(wandItem);
-        }
+            public @Nullable WandRod wandRod() {
+                return WandHelper.getWandRodFromWand(wandItem);
+            }
 
-        public @Nullable ItemWandCasting wandInstance() {
-            return WandHelper.getWandItem(wandItem);
-        }
+            public @Nonnull WandType wandType() {
+                return WandType.getWandType(wandItem);
+            }
 
-        public @Nullable WandRod wandRod() {
-            return WandHelper.getWandRodFromWand(wandItem);
         }
-
-        public @Nonnull WandType wandType() {
-            return WandType.getWandType(wandItem);
-        }
-
-    }
 }

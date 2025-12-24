@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.github.bsideup.jabel.Desugar;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -203,87 +204,46 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             .getResearch() };
     }
 
-    private static class InvScanResult {
-
-        private final ItemStack wandItem;
-        private final WandRod newRod;
-        private final int screws;
-        private final int conductors;
-
-        public InvScanResult(ItemStack wandItem, WandRod newRod, int screws, int conductors) {
-            this.wandItem = wandItem;
-            this.newRod = newRod;
-            this.screws = screws;
-            this.conductors = conductors;
-        }
-
-        public ItemStack wandItem() {
-            return wandItem;
-        }
-
-        public WandRod newRod() {
-            return newRod;
-        }
-
-        public int screws() {
-            return screws;
-        }
-
-        public int conductors() {
-            return conductors;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof InvScanResult that)) return false;
-            return screws == that.screws && conductors == that.conductors
-                && Objects.equals(wandItem, that.wandItem)
-                && Objects.equals(newRod, that.newRod);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(wandItem, newRod, screws, conductors);
-        }
-
+    @Desugar
+    private record InvScanResult(ItemStack wandItem, WandRod newRod, int screws, int conductors) {
         public boolean invalidInputs() {
-            if (wandItem == null || newRod == null) {
-                return true;
+                if (wandItem == null || newRod == null) {
+                    return true;
+                }
+                if (SalisConfig.features.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
+                    return true;
+                }
+                final var oldRod = oldRod();
+                if (oldRod == null || newRod == oldRod) {
+                    return true;
+                }
+
+                if (!SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) return false;
+
+                return screws != getRequiredScrews() || conductors != 2;
             }
-            if (SalisConfig.features.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
-                return true;
+
+            public int getRequiredScrews() {
+                if (wandType() == WandType.SCEPTER || wandType() == WandType.STAFFTER) {
+                    return 2;
+                }
+                return 4;
             }
-            final var oldRod = oldRod();
-            if (oldRod == null || newRod == oldRod) {
-                return true;
+
+            public @Nullable WandCap wandCaps() {
+                return WandHelper.getWandCapFromWand(wandItem);
             }
 
-            if (!SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) return false;
-
-            return screws != getRequiredScrews() || conductors != 2;
-        }
-
-        public int getRequiredScrews() {
-            if (wandType() == WandType.SCEPTER || wandType() == WandType.STAFFTER) {
-                return 2;
+            public @Nullable ItemWandCasting wandInstance() {
+                return WandHelper.getWandItem(wandItem);
             }
-            return 4;
-        }
 
-        public @Nullable WandCap wandCaps() {
-            return WandHelper.getWandCapFromWand(wandItem);
-        }
+            public @Nullable WandRod oldRod() {
+                return WandHelper.getWandRodFromWand(wandItem);
+            }
 
-        public @Nullable ItemWandCasting wandInstance() {
-            return WandHelper.getWandItem(wandItem);
+            public @Nonnull WandType wandType() {
+                return WandType.getWandType(wandItem);
+            }
         }
-
-        public @Nullable WandRod oldRod() {
-            return WandHelper.getWandRodFromWand(wandItem);
-        }
-
-        public @Nonnull WandType wandType() {
-            return WandType.getWandType(wandItem);
-        }
-    }
 }
