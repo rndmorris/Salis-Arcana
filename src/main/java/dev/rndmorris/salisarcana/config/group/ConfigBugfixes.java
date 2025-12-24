@@ -256,7 +256,8 @@ public class ConfigBugfixes extends ConfigGroup {
         "detectLitRedstoneOre",
         """
             Works around limitation with Forge that prevents the pickaxe of the core fom detecting lit redstone ore by treating it
-            as identical to regular redstone ore.""").setCategory("tools");
+            as identical to regular redstone ore.""")
+            .setCategory("tools");
 
     public final ToggleSetting detectLapisOre = new ToggleSetting(this, "detectLapisOre", """
         Allows the pickaxe of the core to correctly detect vanilla lapis ore.

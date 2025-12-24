@@ -1,7 +1,5 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
-import java.util.Objects;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -160,34 +158,34 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
     private record InvScanResult(ItemStack wandItem, WandCap newCaps, int newCapsFound) {
 
         public boolean invalidInputs() {
-                if (wandItem == null) {
-                    return true;
-                }
-                if (wandType().getRequiredCaps() != newCapsFound) {
-                    return true;
-                }
-                final var oldCaps = oldCaps();
-                if (newCaps == null || oldCaps == null) {
-                    return true;
-                }
-                return newCaps == oldCaps;
+            if (wandItem == null) {
+                return true;
             }
-
-            public @Nullable WandCap oldCaps() {
-                return WandHelper.getWandCapFromWand(wandItem);
+            if (wandType().getRequiredCaps() != newCapsFound) {
+                return true;
             }
-
-            public @Nullable ItemWandCasting wandInstance() {
-                return WandHelper.getWandItem(wandItem);
+            final var oldCaps = oldCaps();
+            if (newCaps == null || oldCaps == null) {
+                return true;
             }
-
-            public @Nullable WandRod wandRod() {
-                return WandHelper.getWandRodFromWand(wandItem);
-            }
-
-            public @Nonnull WandType wandType() {
-                return WandType.getWandType(wandItem);
-            }
-
+            return newCaps == oldCaps;
         }
+
+        public @Nullable WandCap oldCaps() {
+            return WandHelper.getWandCapFromWand(wandItem);
+        }
+
+        public @Nullable ItemWandCasting wandInstance() {
+            return WandHelper.getWandItem(wandItem);
+        }
+
+        public @Nullable WandRod wandRod() {
+            return WandHelper.getWandRodFromWand(wandItem);
+        }
+
+        public @Nonnull WandType wandType() {
+            return WandType.getWandType(wandItem);
+        }
+
+    }
 }

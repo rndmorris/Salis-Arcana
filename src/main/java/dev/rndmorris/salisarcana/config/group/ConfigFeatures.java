@@ -47,13 +47,9 @@ public class ConfigFeatures extends ConfigGroup {
         new CustomResearchSetting.ResearchInfo("REPLACEWANDCORE", "THAUMATURGY", -6, 2).setParents("ROD_greatwood")
             .setAutoUnlock()).setCategory("wand_component_swapping");
 
-    public final ToggleSetting enforceWandCoreTypes = new ToggleSetting(
-        this,
-        "enforceWandCoreTypes",
-        """
-            If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core.
-            Disable to allow upgrading a wand to a staff and vice versa.""")
-            .setCategory("wand_component_swapping");
+    public final ToggleSetting enforceWandCoreTypes = new ToggleSetting(this, "enforceWandCoreTypes", """
+        If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core.
+        Disable to allow upgrading a wand to a staff and vice versa.""").setCategory("wand_component_swapping");
 
     public final ToggleSetting preserveWandVis = new ToggleSetting(
         this,
@@ -223,7 +219,8 @@ public class ConfigFeatures extends ConfigGroup {
             Requires useStabilizerRewrite=true.
             The amount (in one-hundredths of a point) of symmetry each stabilizer block adds to an infusion altar.
             If a stabilizer doesn't have a symmetrical opposite, an equivalent amount of symmetry will be subtracted instead.
-            """, 10).setMinValue(-10000)
+            """,
+        10).setMinValue(-10000)
             .setMaxValue(10000)
             .setCategory("infusion");
 
@@ -241,13 +238,13 @@ public class ConfigFeatures extends ConfigGroup {
                 * Defaults to `stabilizerStrength` if not set.
                 * Range: -10000 ~ 10000.
             """).setListType(BlockItemListSetting.ListType.BLOCKS)
-                .withAdditionalData((strSlice) -> {
-                    if (strSlice.length < 4) {
-                        return null;
-                    }
-                    return IntegerHelper.tryParse(strSlice[3]);
-                })
-                .setCategory("infusion");
+            .withAdditionalData((strSlice) -> {
+                if (strSlice.length < 4) {
+                    return null;
+                }
+                return IntegerHelper.tryParse(strSlice[3]);
+            })
+            .setCategory("infusion");
 
     public final BlockItemListSetting<Object> stabilizerExclusions = new BlockItemListSetting<>(
         stabilizerRewrite,
@@ -260,7 +257,7 @@ public class ConfigFeatures extends ConfigGroup {
                 * Defaults to 0 if not set.
                 * If set to * or 32767, all metadata variants of the block will be included.
             """).setListType(BlockItemListSetting.ListType.BLOCKS)
-                .setCategory("infusion");
+            .setCategory("infusion");
 
     public final IntSetting itemEldritchObjectStackSize = new IntSetting(
         this,

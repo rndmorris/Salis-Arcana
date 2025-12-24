@@ -1,17 +1,15 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
-import java.util.Objects;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.github.bsideup.jabel.Desugar;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
+import com.github.bsideup.jabel.Desugar;
 import com.gtnewhorizons.tcwands.api.wandinfo.WandDetails;
 import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 
@@ -206,44 +204,45 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
 
     @Desugar
     private record InvScanResult(ItemStack wandItem, WandRod newRod, int screws, int conductors) {
+
         public boolean invalidInputs() {
-                if (wandItem == null || newRod == null) {
-                    return true;
-                }
-                if (SalisConfig.features.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
-                    return true;
-                }
-                final var oldRod = oldRod();
-                if (oldRod == null || newRod == oldRod) {
-                    return true;
-                }
-
-                if (!SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) return false;
-
-                return screws != getRequiredScrews() || conductors != 2;
+            if (wandItem == null || newRod == null) {
+                return true;
+            }
+            if (SalisConfig.features.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
+                return true;
+            }
+            final var oldRod = oldRod();
+            if (oldRod == null || newRod == oldRod) {
+                return true;
             }
 
-            public int getRequiredScrews() {
-                if (wandType() == WandType.SCEPTER || wandType() == WandType.STAFFTER) {
-                    return 2;
-                }
-                return 4;
-            }
+            if (!SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) return false;
 
-            public @Nullable WandCap wandCaps() {
-                return WandHelper.getWandCapFromWand(wandItem);
-            }
-
-            public @Nullable ItemWandCasting wandInstance() {
-                return WandHelper.getWandItem(wandItem);
-            }
-
-            public @Nullable WandRod oldRod() {
-                return WandHelper.getWandRodFromWand(wandItem);
-            }
-
-            public @Nonnull WandType wandType() {
-                return WandType.getWandType(wandItem);
-            }
+            return screws != getRequiredScrews() || conductors != 2;
         }
+
+        public int getRequiredScrews() {
+            if (wandType() == WandType.SCEPTER || wandType() == WandType.STAFFTER) {
+                return 2;
+            }
+            return 4;
+        }
+
+        public @Nullable WandCap wandCaps() {
+            return WandHelper.getWandCapFromWand(wandItem);
+        }
+
+        public @Nullable ItemWandCasting wandInstance() {
+            return WandHelper.getWandItem(wandItem);
+        }
+
+        public @Nullable WandRod oldRod() {
+            return WandHelper.getWandRodFromWand(wandItem);
+        }
+
+        public @Nonnull WandType wandType() {
+            return WandType.getWandType(wandItem);
+        }
+    }
 }

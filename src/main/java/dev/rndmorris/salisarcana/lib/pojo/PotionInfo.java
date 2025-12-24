@@ -3,6 +3,7 @@ package dev.rndmorris.salisarcana.lib.pojo;
 import static dev.rndmorris.salisarcana.config.SalisConfig.thaum;
 
 import com.github.bsideup.jabel.Desugar;
+
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 
 /**
