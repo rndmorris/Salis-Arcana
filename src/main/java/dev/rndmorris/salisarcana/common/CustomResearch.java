@@ -46,10 +46,10 @@ public class CustomResearch {
     private static final String SALIS_CATEGORY = "SALISARCANA";
 
     public static void init() {
-        ResourceLocation location = SalisArcana.proxy.getSalisTabResource();
+        ResourceLocation tabIcon = SalisArcana.proxy.getSalisTabResource();
         ResearchCategories.registerCategory(
             SALIS_CATEGORY,
-            location,
+            tabIcon,
             new ResourceLocation("thaumcraft", "textures/gui/gui_researchback.png"));
         final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
         final var wand = new ItemStack(wandItem);

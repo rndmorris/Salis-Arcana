@@ -35,14 +35,8 @@ public class SalisTabIconResourceListener implements IResourceManagerReloadListe
             full = ImageIO.read(resource.getInputStream());
 
             // we only use getWidth() here because the texture is an animation, so it consists of multiple "frames"
-            newImage = new BufferedImage(full.getWidth(), full.getWidth(), BufferedImage.TYPE_INT_ARGB);
-            // Grabs the first frame (width x width)
-            for (int y = 0; y < full.getWidth(); y++) {
-                for (int x = 0; x < full.getWidth(); x++) {
-                    int rgb = full.getRGB(x, y);
-                    newImage.setRGB(x, y, rgb);
-                }
-            }
+            newImage = full.getSubimage(0, 0, full.getWidth(), full.getWidth());
+
             DynamicTexture newTexture = new DynamicTexture(newImage);
             if (this.salisTabTexture != null && this.salisTabTexture.equals(newTexture)) {
                 // texture is the same, no need to reload
