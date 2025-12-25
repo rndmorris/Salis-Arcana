@@ -79,7 +79,7 @@ public abstract class MixinConfig_PotionIds {
         }
         potionIndexRef.set(potionIndex + 1);
         final var potionInfo = potionInfoRef.get()[potionIndex];
-        final var setting = potionInfo.setting;
+        final var setting = potionInfo.setting();
 
         final var potionId = setting.getValue();
         if (setting.isEnabled()) {
@@ -101,7 +101,7 @@ public abstract class MixinConfig_PotionIds {
         }
 
         // either we don't have an override set, or something was wrong with the overridden id
-        final var autoId = sa$findNextOpenId(lastAutoIdRef, potionInfo.loggingName);
+        final var autoId = sa$findNextOpenId(lastAutoIdRef, potionInfo.loggingName());
         if (autoId == -1) {
             // we can no longer safely expand the array, abort the rest of the process
             potionIndexRef.set(-1);
@@ -113,7 +113,7 @@ public abstract class MixinConfig_PotionIds {
     @Unique
     private static int sa$findNextOpenId(LocalIntRef lastAutoRef, String potionName) {
         final int startIndex = 32;
-        // noinspection ConstantValue
+
         for (var index = Math.max(lastAutoRef.get() + 1, startIndex); index < Potion.potionTypes.length; ++index) {
             if (Potion.potionTypes[index] == null) {
                 lastAutoRef.set(index);
@@ -165,12 +165,12 @@ public abstract class MixinConfig_PotionIds {
     private static void sa$logPotionIdClaimed(PotionInfo potionInfo) {
         LOG.error(
             "{} could not be given id {} as configured because that id has been assigned to a different potion effect.",
-            potionInfo.loggingName,
+            potionInfo.loggingName(),
             potionInfo.id());
         StartupNotifications.queueError(
             new ChatComponentTranslation(
                 "salisarcana:error.potion_id_claimed",
-                new ChatComponentTranslation(potionInfo.langKey),
+                new ChatComponentTranslation(potionInfo.langKey()),
                 potionInfo.id()));
     }
 
@@ -178,12 +178,12 @@ public abstract class MixinConfig_PotionIds {
     private static void sa$logPotionIdAboveSafeLimit(PotionInfo potionInfo) {
         LOG.error(
             "{} was assigned id {}, which is above the safe limit of 127. If the limit has been raised through another mod, please set _uncapped_potion_ids to `true` in the Salis Arcana feature configs.",
-            potionInfo.loggingName,
+            potionInfo.loggingName(),
             potionInfo.id());
         StartupNotifications.queueError(
             new ChatComponentTranslation(
                 "salisarcana:error.potion_id_limit",
-                new ChatComponentTranslation(potionInfo.langKey),
+                new ChatComponentTranslation(potionInfo.langKey()),
                 potionInfo.id()));
     }
 }
