@@ -288,6 +288,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "preventInvalidFociOnWands",
         "Prevent wands with invalid foci NBT (from uninstalling add-ons, for example) from crashing the game.");
 
+    public final ToggleSetting hiddenResearchCheckInventory = new ToggleSetting(
+        this,
+        "hiddenResearchCheckInventory",
+        "When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.");
+
     @Nonnull
     @Override
     public String getGroupName() {
