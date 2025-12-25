@@ -460,6 +460,27 @@ public class ConfigFeatures extends ConfigGroup {
         "addEmptyPhialJarRecipes",
         "Adds crafting recipes to empty a phial or jar of essentia.");
 
+    public final ToggleSetting bannerFreePatterns = new ToggleSetting(
+        this,
+        "bannerFreePatterns",
+        "Applying patterns to banners not consume the phial or the essentia. Overrides bannerReturnPhials in the bugfixes module.")
+            .setEnabled(false);
+
+    public final ToggleSetting wandPartStatsTooltip = new ToggleSetting(
+        this,
+        "wandPartStatsTooltip",
+        "Wand caps & wand rods will show information about their vis capacity & discount in their tooltips.");
+
+    public final ToggleSetting researchTableAspectHints = new ToggleSetting(
+        this,
+        "researchTableAspectHints",
+        "Hovering over an unknown aspect inside the Research Table will show a tooltip with a hint about where you can find it.");
+
+    public final ToggleSetting fakePlayersDropLootbags = new ToggleSetting(
+        this,
+        "fakePlayersDropLootbags",
+        "Allows kills from fake players to drop loot bags from champion mobs.").setEnabled(true);
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
@@ -475,6 +496,6 @@ public class ConfigFeatures extends ConfigGroup {
     @Nonnull
     @Override
     public String getGroupComment() {
-        return "Tweaks and adjustments to enhance Thaumcraft";
+        return "Features and enhancements for Thaumcraft";
     }
 }

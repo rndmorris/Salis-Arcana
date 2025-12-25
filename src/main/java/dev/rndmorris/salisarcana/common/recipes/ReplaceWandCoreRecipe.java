@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
+import java.util.Objects;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -9,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.github.bsideup.jabel.Desugar;
 import com.gtnewhorizons.tcwands.api.wandinfo.WandDetails;
 import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 
@@ -71,6 +72,10 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
         } else {
             wandInstance.storeAllVis(outputItem, AspectHelper.primalList(0));
         }
+
+        final int cost = scanResult.wandType()
+            .getCraftingVisCost(scanResult.wandCaps(), scanResult.newRod());
+        outputItem.setItemDamage(Math.max(cost, 0));
 
         return outputItem;
     }
@@ -198,8 +203,48 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             .getResearch() };
     }
 
-    @Desugar
-    private record InvScanResult(ItemStack wandItem, WandRod newRod, int screws, int conductors) {
+    private static class InvScanResult {
+
+        private final ItemStack wandItem;
+        private final WandRod newRod;
+        private final int screws;
+        private final int conductors;
+
+        public InvScanResult(ItemStack wandItem, WandRod newRod, int screws, int conductors) {
+            this.wandItem = wandItem;
+            this.newRod = newRod;
+            this.screws = screws;
+            this.conductors = conductors;
+        }
+
+        public ItemStack wandItem() {
+            return wandItem;
+        }
+
+        public WandRod newRod() {
+            return newRod;
+        }
+
+        public int screws() {
+            return screws;
+        }
+
+        public int conductors() {
+            return conductors;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof InvScanResult that)) return false;
+            return screws == that.screws && conductors == that.conductors
+                && Objects.equals(wandItem, that.wandItem)
+                && Objects.equals(newRod, that.newRod);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(wandItem, newRod, screws, conductors);
+        }
 
         public boolean invalidInputs() {
             if (wandItem == null || newRod == null) {

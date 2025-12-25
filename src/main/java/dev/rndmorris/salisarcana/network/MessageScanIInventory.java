@@ -1,8 +1,12 @@
 package dev.rndmorris.salisarcana.network;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import dev.rndmorris.salisarcana.lib.ResearchHelper;
 import io.netty.buffer.ByteBuf;
 import thaumcraft.api.research.ScanResult;
 import thaumcraft.common.lib.network.PacketHandler;
@@ -35,10 +39,11 @@ public class MessageScanIInventory implements IMessage, IMessageHandler<MessageS
     @Override
     public IMessage onMessage(MessageScanIInventory message, MessageContext ctx) {
         ScanResult sr = new ScanResult((byte) 1, message.id, message.meta, null, "");
-        if (ScanManager.isValidScanTarget(ctx.getServerHandler().playerEntity, sr, "@")
-            && !ScanManager.getScanAspects(sr, ctx.getServerHandler().playerEntity.worldObj).aspects.isEmpty()) {
-            ScanManager.completeScan(ctx.getServerHandler().playerEntity, sr, "@");
+        ItemStack item = new ItemStack(Item.getItemById(message.id), 1, message.meta);
+        if (ResearchHelper.isItemScanned(ctx.getServerHandler().playerEntity, item, "@")) {
+            return null;
         }
+        ScanManager.completeScan(ctx.getServerHandler().playerEntity, sr, "@");
         PacketHandler.INSTANCE.sendTo(
             new PacketSyncScannedItems(ctx.getServerHandler().playerEntity),
             ctx.getServerHandler().playerEntity);

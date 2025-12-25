@@ -123,6 +123,18 @@ Allows players to craft after the wand in the GUI runs out of vis and is recharg
 
 Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time, including a duplication bug, research verification bug, and some others.
 
+### Cache Last Recipe in Arcane Workbench
+
+**Config option:** `arcaneWorkbenchCache`
+
+Causes each Arcane Workbench to keep a cache of the last valid recipe, massively improving the performance of bulk crafts & the GUI.
+
+### Arcane Workbench Pretends to be a Crafting Table during Forge Events
+
+**Config option:** `arcaneWorkbenchForgeEventBridge`
+
+When performing a mundane crafting recipe in an Arcane Workbench, it will pretend to be a normal crafting table when sending the Forge event. Prevents the Spellbinding Cloth item duplication glitch.
+
 ## Use Forge fishing lists for fishing golem loot
 
 **Config option:** `useForgeFishingLists`
@@ -222,3 +234,91 @@ Makes the server correctly handle multiple players interacting with a Thaumatori
 **Config option:** `fixClientSideLocalization`
 
 All messages displayed in chat will be displayed in the client's language rather than the language of the server.
+
+## Prevent Consumption of Phials when Applied to Banners
+
+**Config option:** `bannerReturnPhials`
+
+Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.
+
+## Arcane Key Extra Security
+
+**Config option:** `extraSecureArcaneKeys`
+
+Arcane Keys will now save the dimension and the creator of the key when linked to a warded object, and will check those values before granting permission.
+
+## Earth Shock Blocks Require Solid Ground
+
+**Config option:** `earthShockRequireSolidGround`
+
+Requires the spark blocks left behind by Wand Focus: Shock with the Earth Shock upgrade to have a solid block beneath them to exist.
+
+## Prevent "Unknown Wand Part" Crashes
+
+**Config option:** `unknownWandComponentSupport`
+
+Prevents wand items from crashing everything when they contain a component which hasn't been registered by any mod.
+
+## Prevent Wand Vis GUI Bars from Overflowing
+
+**Config option:** `clampWandOverlayVis`
+
+Prevents the "Vis in Wand" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.
+
+## Extend Upgrade Focus Packet
+
+**Config option:** `extendUpgradeFocusPacket`
+
+Use a larger packet for sending the ID of the focus upgrade being selected, allowing the use of focus upgrade IDs > 127 on multiplayer servers.
+
+## Terminate Crucible Item-Stack Melting Early
+
+**Config option:** `earlyTerminateCrucibleCraft`
+
+Prevent large item stacks from partially dissolving into aspects if the Crucible runs out of water while crafting.
+
+## Fix TeleporterThaumcraft memory leak
+
+**Config option:** `fixTeleporterThaumcraftLeak`
+
+Prevents a world object memory leak in the TeleporterThaumcraft class.
+
+## Prevent Warp Sounds from Blasting Out Your Eardrums
+
+**Config option:** `muteExcessiveWarpSounds`
+
+Prevent warp sounds from blasting out your eardrums when you obtains lots of warp in an instant.
+
+## Handle Invalid Focus NBT on Wands
+
+**Config option:** `preventInvalidFociOnWands`
+
+Prevent wands with invalid foci NBT (from uninstalling add-ons, for example) from crashing the game.
+
+## Pickaxe of the Core (Group `tools`)
+
+**Config option:** `detectZeroAspectBlocks`
+
+Fixes an oversight with the pickaxe of the core that prevents it from displaying detected blocks that have no aspects.
+
+**Config option:** `detectLitRedstoneOre`
+
+Works around limitation with Forge that prevents the pickaxe of the core fom detecting lit redstone ore by treating it
+as identical to regular redstone ore.
+
+**Config option:** `detectLapisOre`
+
+Allows the pickaxe of the core to correctly detect vanilla lapis ore.
+
+Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of the block's dropped item to
+identify a block instead of its in-world metadata when scanning for ores.
+
+## Hidden Research Notes
+
+**Config option:** `hiddenResearchUseWorldRandom`
+
+When right-clicking a Research Note made from Knowledge Fragments, will use a random value not dependent on the world's time of day.
+
+**Config option:** `hiddenResearchCheckInventory`
+
+When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.

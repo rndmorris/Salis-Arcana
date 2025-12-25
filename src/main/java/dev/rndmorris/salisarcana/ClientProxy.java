@@ -2,6 +2,7 @@ package dev.rndmorris.salisarcana;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -15,6 +16,7 @@ import dev.rndmorris.salisarcana.client.ThaumicInventoryScanner;
 import dev.rndmorris.salisarcana.client.handlers.GuiHandler;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.SalisTabIconResourceListener;
+import dev.rndmorris.salisarcana.lib.WandPartTooltipEventHandler;
 
 public class ClientProxy extends CommonProxy {
 
@@ -38,6 +40,9 @@ public class ClientProxy extends CommonProxy {
                 .register(scanner);
 
             scanner.init(event);
+        }
+        if (SalisConfig.features.wandPartStatsTooltip.isEnabled()) {
+            MinecraftForge.EVENT_BUS.register(new WandPartTooltipEventHandler());
         }
         new GuiHandler();
     }
@@ -72,4 +77,7 @@ public class ClientProxy extends CommonProxy {
         return SalisTabIconResourceListener.getSalisTabResource();
     }
 
+    public Profiler getProfiler() {
+        return Minecraft.getMinecraft().mcProfiler;
+    }
 }

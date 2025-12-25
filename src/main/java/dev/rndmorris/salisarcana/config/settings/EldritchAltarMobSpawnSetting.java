@@ -9,7 +9,7 @@ import dev.rndmorris.salisarcana.config.IEnabler;
 public class EldritchAltarMobSpawnSetting extends EnumSetting<EldritchAltarMobSpawnSetting.Options> {
 
     public EldritchAltarMobSpawnSetting(IEnabler dependency, String name, String comment) {
-        super(dependency, name, comment, Options.DEFAULT);
+        super(dependency, name, comment, Options.DEFAULT, Options.DEFAULT);
     }
 
     public int randomHorizontal(Random random) {

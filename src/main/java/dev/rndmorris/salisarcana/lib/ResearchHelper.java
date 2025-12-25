@@ -4,12 +4,15 @@ import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -25,6 +28,7 @@ import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
+import thaumcraft.common.lib.research.ScanManager;
 
 public class ResearchHelper {
 
@@ -45,22 +49,18 @@ public class ResearchHelper {
 
             IChatComponent researchMessage = new ChatComponentText("");
 
-            final var research$ = category.research.values()
-                .iterator();
-            var anyInCategory = false;
-
-            while (research$.hasNext()) {
-                final var research = research$.next();
+            boolean anyInCategory = false;
+            for (final var research : category.research.values()) {
                 if (!filter.test(research)) {
                     continue;
                 }
-                anyInCategory = true;
-                final var item = formatResearch(research);
 
-                researchMessage.appendSibling(item);
-                if (research$.hasNext()) {
+                if (anyInCategory) {
                     researchMessage.appendText(", ");
                 }
+
+                anyInCategory = true;
+                researchMessage.appendSibling(formatResearch(research));
             }
 
             if (anyInCategory) {
@@ -156,6 +156,18 @@ public class ResearchHelper {
                 player.getCommandSenderName(),
                 player.worldObj.provider.dimensionId,
                 (byte) 0));
+    }
+
+    public static boolean isItemScanned(EntityPlayer player, ItemStack stack, String prefix) {
+        Item item = stack.getItem();
+        int meta = stack.getItemDamage();
+        Map<String, ArrayList<String>> scannedObjects = Thaumcraft.proxy.getScannedObjects();
+        ArrayList<String> scanned = scannedObjects.get(player.getCommandSenderName());
+        if (scanned == null) {
+            return false;
+        }
+        String hash = prefix + ScanManager.generateItemHash(item, meta);
+        return scanned.contains(hash);
     }
 
     public static boolean hasResearchAspects(String username, AspectList aspects) {

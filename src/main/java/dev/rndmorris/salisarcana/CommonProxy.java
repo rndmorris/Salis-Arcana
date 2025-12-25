@@ -4,19 +4,28 @@ import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 import static dev.rndmorris.salisarcana.config.SalisConfig.commands;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.function.Supplier;
 
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.LongHashMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
+import dev.rndmorris.salisarcana.api.OreDict;
+import dev.rndmorris.salisarcana.common.BehaviorDispensePrimalArrow;
 import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.common.DisenchantFocusUpgrade;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
@@ -37,10 +46,10 @@ import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.BlockAiryBucketInterceptor;
-import dev.rndmorris.salisarcana.lib.CrucibleHeatLogic;
 import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.ObfuscationInfo;
 import dev.rndmorris.salisarcana.lib.R;
+import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
@@ -48,19 +57,18 @@ import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.ai.interact.AIFish;
 import thaumcraft.common.items.equipment.ItemPrimalCrusher;
+import thaumcraft.common.lib.world.dim.TeleporterThaumcraft;
 
 public class CommonProxy {
 
-    public CommonProxy() {
-        FMLCommonHandler.instance()
-            .bus()
-            .register(this);
-    }
+    public OreDictIds oreDictIds;
 
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
 
     public void preInit(FMLPreInitializationEvent event) {
+        oreDictIds = new OreDictIds();
+
         if (SalisConfig.features.enableFocusDisenchanting.isEnabled()) {
             DisenchantFocusUpgrade.initialize();
         }
@@ -70,13 +78,15 @@ public class CommonProxy {
         CustomBlocks.registerBlocks();
         PlaceholderItem.registerPlaceholders();
 
+        if (SalisConfig.thaum.primalArrowsCanBeFiredFromDispensers.isEnabled()) {
+            BlockDispenser.dispenseBehaviorRegistry
+                .putObject(ConfigItems.itemPrimalArrow, new BehaviorDispensePrimalArrow());
+        }
+
         if (SalisConfig.bugfixes.useForgeFishingLists.isEnabled()) {
             fixGolemFishingLists();
         }
 
-        if (SalisConfig.features.heatSourceOreDict.isEnabled()) {
-            CrucibleHeatLogic.registerOreDictName();
-        }
         updateHarvestLevels();
 
         FMLCommonHandler.instance()
@@ -126,6 +136,7 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         CustomRecipes.registerRecipesPostInit();
         CustomResearch.init();
+        WandHelper.loadWandParts();
     }
 
     // register server commands in this event handler (Remove if not needed)
@@ -149,6 +160,30 @@ public class CommonProxy {
         }
     }
 
+    public void onServerStopped(FMLServerStoppedEvent event) {
+        clearTeleporterThaumcraftCache();
+    }
+
+    private static void clearTeleporterThaumcraftCache() {
+        if (!SalisConfig.bugfixes.fixTeleporterThaumcraftLeak.isEnabled()) {
+            return;
+        }
+        // fix a world object memory leak
+        try {
+            final R accessor = new R(TeleporterThaumcraft.class);
+            final LongHashMap cache = accessor.get("destinationCoordinateCache", LongHashMap.class);
+            final List keys = accessor.get("destinationCoordinateKeys", List.class);
+            Iterator iterator = keys.iterator();
+            while (iterator.hasNext()) {
+                Long olong = (Long) iterator.next();
+                iterator.remove();
+                cache.remove(olong);
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
     public boolean isSingleplayerClient() {
         return false;
     }
@@ -156,6 +191,10 @@ public class CommonProxy {
     public World getFakePlayerWorld() {
         return MinecraftServer.getServer()
             .worldServerForDimension(0);
+    }
+
+    public Profiler getProfiler() {
+        return MinecraftServer.getServer().theProfiler;
     }
 
     private void fixGolemFishingLists() {
@@ -175,5 +214,15 @@ public class CommonProxy {
     public ResourceLocation getSalisTabResource() {
         // It doesn't matter what this returns, as long as it is a valid ResourceLocation.
         return new ResourceLocation("minecraft", "textures/items/stick.png");
+    }
+
+    public static class OreDictIds {
+
+        public final int pickaxeCoreScanExclude = OreDictionary.getOreID(OreDict.ELEMENTAL_PICK_SCAN_EXCLUDE);
+        public final int pickaxeCoreScanInclude = OreDictionary.getOreID(OreDict.ELEMENTAL_PICK_SCAN_INCLUDE);
+        public final int heatSource = OreDictionary.getOreID(OreDict.HEAT_SOURCE);
+        public final int plankGreatwood = OreDictionary.getOreID(OreDict.GREATWOOD_PLANKS);
+        public final int plankSilverwood = OreDictionary.getOreID(OreDict.SILVERWOOD_PLANKS);
+
     }
 }

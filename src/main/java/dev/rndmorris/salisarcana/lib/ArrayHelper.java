@@ -3,12 +3,12 @@ package dev.rndmorris.salisarcana.lib;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.github.bsideup.jabel.Desugar;
 
 public class ArrayHelper {
 
@@ -30,12 +30,18 @@ public class ArrayHelper {
         return -1;
     }
 
-    public static boolean tryAssign(boolean[] arr, int index, boolean value) {
-        if (0 <= index && index < arr.length) {
-            arr[index] = value;
-            return true;
+    /**
+     * For each index in the array, execute {@code calculate} for that index and store the result in that index.
+     * 
+     * @param arr       The array to iterate over.
+     * @param calculate The function to apply to each index of the array. Takes in the index as the only parameter.
+     * @return The original array {@code arr}.
+     */
+    public static double[] calculateArray(double[] arr, Function<Integer, Double> calculate) {
+        for (var index = 0; index < arr.length; ++index) {
+            arr[index] = calculate.apply(index);
         }
-        return false;
+        return arr;
     }
 
     public static <E> TryGetResult<E> tryGet(E[] arr, int index) {
@@ -60,15 +66,41 @@ public class ArrayHelper {
         return result;
     }
 
-    @Desugar
-    public record TryGetResult<E> (boolean success, E data) {
+    public static class TryGetResult<E> {
+
+        public static <E> TryGetResult<E> success(E data) {
+            return new TryGetResult<>(true, data);
+        }
 
         public static <E> TryGetResult<E> failure() {
             return new TryGetResult<>(false, null);
         }
 
-        public static <E> TryGetResult<E> success(E data) {
-            return new TryGetResult<>(true, data);
+        private final boolean success;
+        private final E data;
+
+        public TryGetResult(boolean success, E data) {
+            this.success = success;
+            this.data = data;
+        }
+
+        public boolean success() {
+            return success;
+        }
+
+        public E data() {
+            return data;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof TryGetResult<?>that)) return false;
+            return success == that.success && Objects.equals(data, that.data);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(success, data);
         }
     }
 

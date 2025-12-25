@@ -100,6 +100,16 @@ public class ConfigBugfixes extends ConfigGroup {
         "arcaneWorkbenchMultiContainer",
         "Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time.");
 
+    public final ToggleSetting arcaneWorkbenchCache = new ToggleSetting(
+        this,
+        "arcaneWorkbenchCache",
+        "Causes each Arcane Workbench to keep a cache of the last valid recipe, massively improving the performance of bulk crafts & the GUI.");
+
+    public final ToggleSetting arcaneWorkbenchForgeEventBridge = new ToggleSetting(
+        this,
+        "arcaneWorkbenchForgeEventBridge",
+        "When performing a mundane crafting recipe in an Arcane Workbench, it will pretend to be a normal crafting table when sending the Forge event. Prevents the Spellbinding Cloth item duplication glitch.");
+
     public final ToggleSetting negativeBossSpawnCount = new ToggleSetting(
         this,
         "negativeBossSpawnCount",
@@ -209,6 +219,79 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "excavationFocusDeterministicCost",
         "Causes the upgraded vis cost of Wand Focus: Excavation to be dependent solely on the applied upgrade rather than which upgrade loaded first in any game session.");
+
+    public final ToggleSetting bannerReturnPhials = new ToggleSetting(
+        this,
+        "bannerReturnPhials",
+        "Applying patterns to banners will only consume the essentia, and not the phial in which it is stored.");
+
+    public final ToggleSetting extraSecureArcaneKeys = new ToggleSetting(
+        this,
+        "extraSecureArcaneKeys",
+        "Arcane Keys will now save the dimension and the creator of the key when linked to a warded object, and will check those values before granting permission.");
+
+    public final ToggleSetting earthShockRequireSolidGround = new ToggleSetting(
+        this,
+        "earthShockRequireSolidGround",
+        "Requires the spark blocks left behind by Wand Focus: Shock with the Earth Shock upgrade to have a solid block beneath them to exist.");
+
+    public final ToggleSetting unknownWandComponentSupport = new ToggleSetting(
+        this,
+        "unknownWandComponentSupport",
+        "Prevents wand items from crashing everything when they contain a component which hasn't been registered by any mod.");
+
+    public final ToggleSetting clampWandOverlayVis = new ToggleSetting(
+        this,
+        "clampWandOverlayVis",
+        "Prevents the \"Vis in Wand\" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.");
+
+    public final ToggleSetting detectZeroAspectBlocks = new ToggleSetting(
+        this,
+        "detectZeroAspectBlocks",
+        "Fixes an oversight with the Pickaxe of the Core that prevents it from displaying detected ores with no aspects.")
+            .setCategory("tools");
+
+    public final ToggleSetting detectLitRedstoneOre = new ToggleSetting(
+        this,
+        "detectLitRedstoneOre",
+        "Works around limitation with Forge that prevents the pickaxe of the core fom detecting lit redstone ore by treating it\n"
+            + "as identical to regular redstone ore.").setCategory("tools");
+
+    public final ToggleSetting detectLapisOre = new ToggleSetting(this, "detectLapisOre", """
+        Allows the pickaxe of the core to correctly detect vanilla lapis ore.
+
+        Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of a block's dropped item to
+        identify a block instead of its in-world metadata when scanning for ores.""").setCategory("tools");
+
+    public final ToggleSetting extendUpgradeFocusPacket = new ToggleSetting(
+        this,
+        "extendUpgradeFocusPacket",
+        "Use a larger packet for sending the ID of the focus upgrade being selected, allowing the use of focus upgrade IDs > 127 on multiplayer servers.");
+
+    public final ToggleSetting earlyTerminateCrucibleCraft = new ToggleSetting(
+        this,
+        "earlyTerminateCrucibleCraft",
+        "Prevent large item stacks from partially dissolving into aspects if the Crucible runs out of water while crafting.");
+
+    public final ToggleSetting fixTeleporterThaumcraftLeak = new ToggleSetting(
+        this,
+        "fixTeleporterThaumcraftLeak",
+        "Fix a world object memory leak in the TeleporterThaumcraft class");
+
+    public final ToggleSetting muteExcessiveWarpSounds = new ToggleSetting(
+        this,
+        "muteExcessiveWarpSounds",
+        "Prevent warp sounds from blasting out your eardrums when you obtains lots of warp in an instant.");
+
+    public final ToggleSetting preventInvalidFociOnWands = new ToggleSetting(
+        this,
+        "preventInvalidFociOnWands",
+        "Prevent wands with invalid foci NBT (from uninstalling add-ons, for example) from crashing the game.");
+
+    public final ToggleSetting hiddenResearchCheckInventory = new ToggleSetting(
+        this,
+        "hiddenResearchCheckInventory",
+        "When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.");
 
     @Nonnull
     @Override
