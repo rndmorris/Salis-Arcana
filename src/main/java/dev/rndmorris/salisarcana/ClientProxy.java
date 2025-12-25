@@ -1,22 +1,33 @@
 package dev.rndmorris.salisarcana;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dev.rndmorris.salisarcana.client.ThaumicInventoryScanner;
 import dev.rndmorris.salisarcana.client.handlers.GuiHandler;
 import dev.rndmorris.salisarcana.config.SalisConfig;
+import dev.rndmorris.salisarcana.lib.SalisTabIconResourceListener;
 import dev.rndmorris.salisarcana.lib.WandPartTooltipEventHandler;
 
 public class ClientProxy extends CommonProxy {
 
     ThaumicInventoryScanner scanner;
+
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        super.preInit(event);
+        ((IReloadableResourceManager) Minecraft.getMinecraft()
+            .getResourceManager()).registerReloadListener(new SalisTabIconResourceListener());
+    }
 
     @Override
     public void init(FMLInitializationEvent event) {
@@ -62,6 +73,10 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
+    public ResourceLocation getSalisTabResource() {
+        return SalisTabIconResourceListener.getSalisTabResource();
+    }
+
     public Profiler getProfiler() {
         return Minecraft.getMinecraft().mcProfiler;
     }
