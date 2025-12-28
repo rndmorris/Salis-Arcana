@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.tuhljin.automagy.blocks;
+package dev.rndmorris.salisarcana.mixins.late.automagy.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
