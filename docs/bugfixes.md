@@ -322,3 +322,9 @@ When right-clicking a Research Note made from Knowledge Fragments, will use a ra
 **Config option:** `hiddenResearchCheckInventory`
 
 When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.
+
+## Prevent Golem Held-Item Duplication
+
+**Config option:** `preventGolemDropDuplication`
+
+Prevent players from disassembling golems that have already been killed in order to duplicate their held item.

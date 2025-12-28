@@ -238,6 +238,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.hiddenResearchCheckInventory)
         .addCommonMixins("lib.research.MixinResearchManager_SkipResearchInInventory")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    PREVENT_GOLEM_DROP_DUPLICATION(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.preventGolemDropDuplication)
+        .addCommonMixins("items.MixinItemGolemBell_PreventDeadInteractions")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ELEMENTAL_PICK_SCAN_ZERO_ASPECTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectZeroAspectBlocks)
