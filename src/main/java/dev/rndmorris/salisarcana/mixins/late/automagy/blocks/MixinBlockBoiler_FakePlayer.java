@@ -1,7 +1,5 @@
 package dev.rndmorris.salisarcana.mixins.late.automagy.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
@@ -15,11 +13,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import tuhljin.automagy.blocks.BlockBoiler;
 
 @Mixin(BlockBoiler.class)
-public class MixinBlockBoiler_FakePlayer extends Block {
-
-    protected MixinBlockBoiler_FakePlayer(Material materialIn) {
-        super(materialIn);
-    }
+public class MixinBlockBoiler_FakePlayer {
 
     @WrapOperation(
         method = "onBlockActivated",
