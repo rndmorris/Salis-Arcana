@@ -10,7 +10,8 @@ public class ConfigAddons extends ConfigGroup {
     public final ToggleSetting automagyBoilerFakePlayer = new ToggleSetting(
         this,
         "automagyBoilerFakePlayer",
-        "Prevents a crash when using the Automagy boiler with fake players, like Autonomous Activators.");
+        "Prevents a crash when using the Automagy boiler with fake players, like Autonomous Activators.")
+            .setCategory("automagy");
 
     @Override
     public @NotNull String getGroupName() {
