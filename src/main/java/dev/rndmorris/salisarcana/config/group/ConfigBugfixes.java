@@ -293,6 +293,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "hiddenResearchCheckInventory",
         "When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.");
 
+    public final ToggleSetting automagyBoilerFakePlayer = new ToggleSetting(
+        this,
+        "automagyBoilerFakePlayer",
+        "Prevents a crash when using the Automagy boiler with fake players, like Autonomous Activators.");
+
     @Nonnull
     @Override
     public String getGroupName() {

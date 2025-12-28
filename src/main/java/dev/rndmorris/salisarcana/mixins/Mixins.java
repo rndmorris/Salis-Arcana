@@ -251,6 +251,11 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.detectLapisOre)
         .addClientMixins("client.lib.MixinRenderEventHandler_DetectLapisOre")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    AUTOMAGY_BOILER_FAKEPLAYER(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.automagyBoilerFakePlayer)
+        .addCommonMixins("tuhljin.automagy.blocks.MixinBlockBoiler_FakePlayer")
+        .addRequiredMod(TargetedMod.AUTOMAGY)
+    ),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
