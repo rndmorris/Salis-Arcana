@@ -8,6 +8,7 @@ import java.util.List;
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.SalisArcana;
+import dev.rndmorris.salisarcana.config.group.ConfigAddons;
 import dev.rndmorris.salisarcana.config.group.ConfigBugfixes;
 import dev.rndmorris.salisarcana.config.group.ConfigCommands;
 import dev.rndmorris.salisarcana.config.group.ConfigFeatures;
@@ -19,6 +20,7 @@ public class SalisConfig {
     // no modifier, so it's visible within the same package (i.e. to ConfigGroup)
     static final List<ConfigGroup> groups = new ArrayList<>();
 
+    public static final ConfigAddons addons = new ConfigAddons();
     public static final ConfigBugfixes bugfixes = new ConfigBugfixes();
     public static final ConfigCommands commands = new ConfigCommands();
     public static final ConfigFeatures features = new ConfigFeatures();
