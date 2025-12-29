@@ -293,6 +293,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "hiddenResearchCheckInventory",
         "When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.");
 
+    public final ToggleSetting golemVisorAffectDartLauncher = new ToggleSetting(
+        this,
+        "golemVisorAffectDartLauncher",
+        "Golems equipped with Dart Launchers & Visors will be able to cause player kills using their darts.");
+
     @Nonnull
     @Override
     public String getGroupName() {
