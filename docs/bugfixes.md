@@ -322,3 +322,9 @@ When right-clicking a Research Note made from Knowledge Fragments, will use a ra
 **Config option:** `hiddenResearchCheckInventory`
 
 When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.
+
+## Golem Visors affect Golem Dart Launchers
+
+**Config option:** `golemVisorAffectDartLauncher`
+
+Golems equipped with Dart Launchers & Visors will be able to cause player kills using their darts.
