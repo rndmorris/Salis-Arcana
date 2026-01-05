@@ -322,3 +322,9 @@ When right-clicking a Research Note made from Knowledge Fragments, will use a ra
 **Config option:** `hiddenResearchCheckInventory`
 
 When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.
+
+## Stable Research Altar Animation
+
+**Config option:** `stableRunicMatrixAnimation`
+
+Runic Matrices which are too stable will not fly far out from the center of the multiblock.

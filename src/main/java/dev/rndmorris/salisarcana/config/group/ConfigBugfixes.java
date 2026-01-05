@@ -293,6 +293,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "hiddenResearchCheckInventory",
         "When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.");
 
+    public final ToggleSetting stableRunicMatrixAnimation = new ToggleSetting(
+        this,
+        "stableRunicMatrixAnimation",
+        "Runic Matrices which are too stable will not fly far out from the center of the multiblock.");
+
     @Nonnull
     @Override
     public String getGroupName() {
