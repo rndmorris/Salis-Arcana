@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.addons.ThaumicTinkerer;
+package dev.rndmorris.salisarcana.mixins.late.thaumic.tinkerer.common.research;
 
 import org.spongepowered.asm.mixin.Mixin;
 

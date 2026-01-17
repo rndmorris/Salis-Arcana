@@ -449,11 +449,11 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RESEARCH_ITEM_EXTENDED_THAUMIC_TINKERER(new SalisBuilder()
         .applyIf(SalisConfig.features.researchItemExtensions)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.addons.ThaumicTinkerer.TTResearchItem_Extended")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumic.tinkerer.common.research.TTResearchItem_Extended")
         .addRequiredMod(TargetedMod.THAUMIC_TINKERER)),
     RESEARCH_ITEM_EXTENDED_AUTOMAGY(new SalisBuilder()
         .applyIf(SalisConfig.features.researchItemExtensions)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.addons.Automagy.ModResearchItem_Extended")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.automagy.config.ModResearchItem_Extended")
         .addRequiredMod(TargetedMod.AUTOMAGY)),
 
     CRUCIBLE_HEAT_SOURCES(new SalisBuilder()

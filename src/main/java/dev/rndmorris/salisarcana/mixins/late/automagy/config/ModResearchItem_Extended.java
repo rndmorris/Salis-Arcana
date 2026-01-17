@@ -1,5 +1,5 @@
 
-package dev.rndmorris.salisarcana.mixins.late.addons.Automagy;
+package dev.rndmorris.salisarcana.mixins.late.automagy.config;
 
 import org.spongepowered.asm.mixin.Mixin;
 
