@@ -2,8 +2,6 @@ package dev.rndmorris.salisarcana.mixins;
 
 import javax.annotation.Nonnull;
 
-import org.jetbrains.annotations.NotNull;
-
 import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
 
@@ -602,19 +600,19 @@ public enum Mixins implements IMixins {
         }
 
         @Override
-        public MixinBuilder addServerMixins(@NotNull String... classes) {
+        public MixinBuilder addServerMixins(@Nonnull String... classes) {
             assertClassesExist(classes);
             return super.addServerMixins(classes);
         }
 
         @Override
-        public MixinBuilder addClientMixins(@NotNull String... classes) {
+        public MixinBuilder addClientMixins(@Nonnull String... classes) {
             assertClassesExist(classes);
             return super.addClientMixins(classes);
         }
 
         @Override
-        public MixinBuilder addCommonMixins(@NotNull String... classes) {
+        public MixinBuilder addCommonMixins(@Nonnull String... classes) {
             assertClassesExist(classes);
             return super.addCommonMixins(classes);
         }
