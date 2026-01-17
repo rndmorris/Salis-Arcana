@@ -570,10 +570,10 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.items.MixinAmuletWand_AddInterface")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
-    // todo: remove or disable this before merging
+    // I want to leave this here for future testing, but it should be commented out before merging.
 //    INTENTIONAL_FAILURE(new SalisBuilder()
-//        .setApplyIf(() -> true)
-//        .addCommonMixins("test: This is not a valid mixin class path and will cause startup to fail if not commented out or removed")),
+//        .setRequired()
+//        .addCommonMixins("Intentionally_missing_class_name")),
     ;
     // spotless:on
 
@@ -617,7 +617,7 @@ public enum Mixins implements IMixins {
             return super.addCommonMixins(classes);
         }
 
-        // todo: remove or disable this before merging
+        // I want to leave this here for future testing, but its body should be commented out before merging.
         private static void assertClassesExist(String[] classes) {
             for (var clazz : classes) {
                 final var classUrl = Mixins.class.getResource(
