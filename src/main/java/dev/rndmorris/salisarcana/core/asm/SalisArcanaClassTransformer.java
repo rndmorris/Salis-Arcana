@@ -8,7 +8,6 @@ import org.spongepowered.asm.lib.ClassReader;
 import org.spongepowered.asm.lib.ClassWriter;
 
 import dev.rndmorris.salisarcana.config.SalisConfig;
-import dev.rndmorris.salisarcana.core.SalisArcanaCore;
 import dev.rndmorris.salisarcana.core.asm.transformers.MethodRemover;
 import dev.rndmorris.salisarcana.core.asm.transformers.ModCompatEditor;
 
@@ -17,7 +16,6 @@ public class SalisArcanaClassTransformer implements IClassTransformer {
     private final HashMap<String, ClassTransformer> transformers = new HashMap<>();
 
     public SalisArcanaClassTransformer() {
-        final boolean obf = SalisArcanaCore.isObf();
         final var thaumicMixinsCompat = new ModCompatEditor(
             "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins",
             "getMixins",
@@ -32,7 +30,7 @@ public class SalisArcanaClassTransformer implements IClassTransformer {
 
         addTransform(thaumicMixinsCompat, "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins");
         addTransform(
-            new MethodRemover(obf ? "func_149719_a" : "setBlockBoundsBasedOnState"),
+            new MethodRemover("func_149719_a", "setBlockBoundsBasedOnState"),
             "thaumcraft.common.blocks.BlockJar",
             "thaumcraft.common.blocks.BlockCustomOre",
             "thaumcraft.common.blocks.BlockArcaneFurnace",
@@ -43,11 +41,11 @@ public class SalisArcanaClassTransformer implements IClassTransformer {
             "thaumcraft.common.blocks.BlockChestHungry",
             "thaumcraft.common.blocks.BlockCandle");
         addTransform(
-            new MethodRemover(obf ? "func_149633_g" : "getSelectedBoundingBoxFromPool"),
+            new MethodRemover("func_149633_g", "getSelectedBoundingBoxFromPool"),
             "thaumcraft.common.blocks.BlockAlchemyFurnace",
             "thaumcraft.common.blocks.BlockLoot");
         addTransform(
-            new MethodRemover(obf ? "func_149743_a" : "addCollisionBoxesToList"),
+            new MethodRemover("func_149743_a", "addCollisionBoxesToList"),
             "thaumcraft.common.blocks.BlockJar",
             "thaumcraft.common.blocks.BlockEldritch",
             "thaumcraft.common.blocks.BlockCustomOre");

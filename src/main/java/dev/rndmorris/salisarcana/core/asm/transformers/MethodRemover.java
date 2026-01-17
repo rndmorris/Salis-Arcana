@@ -4,26 +4,29 @@ import org.spongepowered.asm.lib.ClassVisitor;
 import org.spongepowered.asm.lib.MethodVisitor;
 import org.spongepowered.asm.lib.Opcodes;
 
+import dev.rndmorris.salisarcana.core.SalisArcanaCore;
 import dev.rndmorris.salisarcana.core.asm.ClassTransformer;
 
 public class MethodRemover implements ClassTransformer {
 
-    private final String method;
+    private final String obfName;
+    private final String deobfName;
 
-    public MethodRemover(String method) {
-        this.method = method;
+    public MethodRemover(String obfName, String deobfName) {
+        this.obfName = obfName;
+        this.deobfName = deobfName;
     }
 
     @Override
     public ClassVisitor transform(ClassVisitor output) {
-        return new Visitor(method, output);
+        return new Visitor(SalisArcanaCore.isObf() ? obfName : deobfName, output);
     }
 
     private static class Visitor extends ClassVisitor {
 
         private final String method;
 
-        private Visitor(final String method, ClassVisitor output) {
+        private Visitor(String method, ClassVisitor output) {
             super(Opcodes.ASM9, output);
             this.method = method;
         }
