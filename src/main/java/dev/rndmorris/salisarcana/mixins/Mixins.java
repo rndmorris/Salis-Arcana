@@ -19,24 +19,24 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ARCANE_FURNACE_DUPE_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.infernalFurnaceDupeFix)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockArcaneFurnace")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockArcaneFurnace_DupeFix")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BEACON_BLOCKS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.beaconBlockFixSetting)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockCosmeticSolid")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockCosmeticSolid_BeaconBlocks")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BLOCKCANDLE_OOB(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.bugfixes.candleRendererCrashes.isEnabled() && !MixinModCompat.disableBlockCandleFixes)
         .addClientMixins(
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockCandleRenderer",
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockCandle")
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.renderers.block.MixinBlockCandleRenderer_OOB",
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockCandle_OOB")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     DEAD_MOBS_DONT_ATTACK(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.deadMobsDontAttack)
         .addCommonMixins(
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster.MixinEntityTaintacle",
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster.MixinEntityEldritchCrab",
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster.MixinEntityThaumicSlime")
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster.MixinEntityTaintacle_NoAttackWhenDead",
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster.MixinEntityEldritchCrab_NoAttackWhenDead",
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster.MixinEntityThaumicSlime_NoAttackWhenDead")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     INTEGER_INFUSION_MATRIX(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.bugfixes.integerInfusionMatrixMath.isEnabled() && !SalisConfig.features.stabilizerRewrite.isEnabled())
@@ -44,11 +44,11 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ITEMSHARD_OOB(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.itemShardColor)
-        .addClientMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.MixinItemShard")
+        .addClientMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.MixinItemShard_OOB")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     RENDER_REDSTONE_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.renderRedstoneFix)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockCustomOre")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockCustomOre_RedstoneFix")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     STRICT_INFUSION_INPUTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.strictInfusionMatrixInputChecks)
@@ -60,7 +60,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCI_STAFF_VISUAL_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.staffFocusEffectFix)
-        .addClientMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.beams.fx.MixinFXBeamWand")
+        .addClientMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.beams.fx.MixinFXBeamWand_FociStaffVisualFix")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_FORBID_SWAP(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.focalManipulatorForbidSwaps)
@@ -74,7 +74,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ARCANE_WORKBENCH_ALLOW_RECHARGE_CRAFTING(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchAllowRechargeCrafting)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileMagicWorkbenchCharger")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileMagicWorkbenchCharger_AllowRechargeCrafting")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ARCANE_WORKBENCH_MULTI_CONTAINER(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.arcaneWorkbenchMultiContainer)
@@ -97,7 +97,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NEGATIVE_BOSS_SPAWN_COUNT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.negativeBossSpawnCount)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileEldritchLock")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileEldritchLock_NegativeBossSpawnCount")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     WARP_FAKE_PLAYER(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.warpFakePlayerCheck)
@@ -123,11 +123,11 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.itemMetadataSafetyCheck)
         .addClientMixins(
             "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.Mixin_ItemIconFix",
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.wands.MixinItemWandRod")
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.wands.MixinItemWandRod_MetadataSafety")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SILVERWOOD_LOG_NAME_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.silverwoodLogCorrectName)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockMagicalLogItem")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockMagicalLogItem_NameFix")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     UPDATE_BIOME_COLOR(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.updateBiomeColorRendering)
@@ -163,11 +163,11 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ETHEREALBLOOM_SAVE_NBT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.etherealBloomSaveNBT)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileEtherealBloom")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileEtherealBloom_SaveNBT")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SILK_TOUCH_CRYSTALS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.silkTouchCrystalClusters)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockCrystal")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockCrystal_SilkTouch")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     LOOT_BLOCK_HITBOX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.lootBlockHitbox)
@@ -260,10 +260,10 @@ public enum Mixins implements IMixins {
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
         .applyIf(SalisConfig.features.useAllBaublesSlots)
         .addCommonMixins(
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.events.MixinEventHandlerRunic",
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.wands.MixinWandManager",
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.events.MixinEventHandlerRunic_ExtendedBaublesSupport",
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.wands.MixinWandManager_ExtendedBaublesSupport",
             "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.MixinWarpEvents_BaubleSlots")
-        .addClientMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.lib.MixinREHWandHandler")
+        .addClientMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.lib.MixinREHWandHandler_ExtendedBaublesSupport")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SUPPRESS_CREATIVE_WARP(new SalisBuilder()
         .applyIf(SalisConfig.features.suppressWarpEventsInCreative)
@@ -282,16 +282,16 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.nomiconRightClickClose)
         .addClientMixins(
             "dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui.MixinGuiResearchBrowser_RightClickClose",
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui.MixinGuiResearchRecipe")
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui.MixinGuiResearchRecipe_RightClickNavigation")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     NODE_GENERATION_MODIFIER_WEIGHTS(new SalisBuilder()
         .applyIf(SalisConfig.features.nodeModifierWeights)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.world.MixinThaumcraftWorldGenerator")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.world.MixinThaumcraftWorldGenerator_NodeGenerationWeights")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NODE_GENERATION_TYPE_WEIGHTS(new SalisBuilder()
         .applyIf(SalisConfig.features.nodeTypeWeights)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.world.MixinThaumcraftWorldGenerator")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.world.MixinThaumcraftWorldGenerator_NodeGenerationWeights")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     STABILIZER_REWRITE(new SalisBuilder()
@@ -301,29 +301,29 @@ public enum Mixins implements IMixins {
 
     WAND_PEDESTAL_CV(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.features.wandPedestalUseCV.isEnabled() && !MixinModCompat.disableWandCV)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileWandPedestal")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileWandPedestal_WandPedestalCv")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ITEM_ELDRITCH_OBJECT_STACK_SIZE(new SalisBuilder()
         .applyIf(SalisConfig.features.itemEldritchObjectStackSize)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.MixinItemEldritchObject")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.MixinItemEldritchObject_EldritchObjectStackSize")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     CREATIVE_MODE_ITEM_CONSUMPTION(new SalisBuilder()
         .applyIf(SalisConfig.features.stopCreativeModeItemConsumption)
         .addCommonMixins(
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockEldritch",
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.MixinItemEssence")
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockEldritch_CreativeMode",
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.MixinItemEssence_CreativeItemConsumption")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     CREATIVE_MODE_VIS_CONSUMPTION(new SalisBuilder()
         .applyIf(SalisConfig.features.infiniteCreativeVis)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.wands.MixinItemWandCasting")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.wands.MixinItemWandCasting_CreativeVis")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     MANA_POD_GROWTH_RATE(new SalisBuilder()
         .applyIf(SalisConfig.features.manaPodGrowthRate)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockManaPod")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.blocks.MixinBlockManaPod_GrowthRate")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     THAUMCRAFT_COMMAND_TAB_COMPLETION(new SalisBuilder()
@@ -339,13 +339,13 @@ public enum Mixins implements IMixins {
     THAUMOMETER_SCAN_CONTAINERS(new SalisBuilder()
         .applyIf(SalisConfig.features.thaumometerScanContainers)
         .addCommonMixins(
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.relics.MixinItemThaumometer",
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.research.MixinScanManager")
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.items.relics.MixinItemThaumometer_ScanContainers",
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.research.MixinScanManager_ScanContainers")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     CREATIVE_OP_THAUMONOMICON(new SalisBuilder()
         .applyIf(SalisConfig.features.creativeOpThaumonomicon)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.research.MixinResearchManager")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.research.MixinResearchManager_CreativeOPThaumonomicon")
         .addClientMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui.MixinGuiResearchBrowser_Creative_Scroll")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     CREATIVE_NO_XP_MANIPULATOR(new SalisBuilder()
@@ -357,7 +357,7 @@ public enum Mixins implements IMixins {
         .setApplyIf(() -> SalisConfig.features.enableFocusDisenchanting.isEnabled() || SalisConfig.features.focalDisenchanterReturnXP.isEnabled())
         .addCommonMixins(
             "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileFocalManipulator_CanStoreXP",
-            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.container.MixinContainerFocalManipulator")
+            "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.container.MixinContainerFocalManipulator_StoreXP")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_RETURN_XP(new SalisBuilder()
         .applyIf(SalisConfig.features.focalDisenchanterReturnXP)
@@ -365,18 +365,18 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCUS_DISENCHANTING(new SalisBuilder()
         .applyIf(SalisConfig.features.enableFocusDisenchanting)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileFocalManipulator")
-        .addClientMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui.MixinGuiFocalManipulator")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileFocalManipulator_FocusDisenchanting")
+        .addClientMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui.MixinGuiFocalManipulator_FocusDisenchanting")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     LEVITATOR_SHIFT_FIX(new SalisBuilder()
         .applyIf(SalisConfig.features.levitatorShiftFix)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileLifter")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileLifter_LevitatorShiftFix")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     PURE_NODE_BIOMECHANGE(new SalisBuilder()
         .applyIf(SalisConfig.features.pureNodeBiomeChange)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileNode")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.MixinTileNode_PureNodeBiomeChange")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ELDRITCH_ALTAR_EVEN_SPREAD_MOBS(new SalisBuilder()
@@ -439,7 +439,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     MISSING_RESEARCH_WORKBENCH(new SalisBuilder()
         .applyIf(SalisConfig.features.notifyMissingResearchWorkbench)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.crafting.MixinArcaneSceptreRecipe", "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.crafting.MixinArcaneWandRecipe")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.crafting.MixinArcaneSceptreRecipe_MissingResearchWorkbench", "dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.crafting.MixinArcaneWandRecipe_MissingResearchWorkbench")
         .addClientMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.gui.MixinGuiArcaneWorkbench_MissingResearch")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
@@ -484,7 +484,7 @@ public enum Mixins implements IMixins {
 
     MOB_VIS_WHITELIST(new SalisBuilder()
         .setApplyIf(() -> !SalisConfig.features.mobVisWhitelist.isEnabled() || SalisConfig.features.mobVisDropList.getNonEmpty().length != 0)
-        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.events.MixinEventHandlerEntity")
+        .addCommonMixins("dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.events.MixinEventHandlerEntity_MobVisWhitelist")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     DEADLY_GAZE_MOB_CHECK(new SalisBuilder()
