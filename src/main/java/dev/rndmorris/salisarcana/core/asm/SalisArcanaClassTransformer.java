@@ -11,6 +11,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.core.asm.transformers.MethodRemover;
 import dev.rndmorris.salisarcana.core.asm.transformers.ModCompatEditor;
 
+@SuppressWarnings("unused")
 public class SalisArcanaClassTransformer implements IClassTransformer {
 
     private final HashMap<String, ClassTransformer> transformers = new HashMap<>();
