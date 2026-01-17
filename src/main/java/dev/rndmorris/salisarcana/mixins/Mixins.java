@@ -2,6 +2,8 @@ package dev.rndmorris.salisarcana.mixins;
 
 import javax.annotation.Nonnull;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
 
@@ -60,7 +62,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCI_STAFF_VISUAL_FIX(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.staffFocusEffectFix)
-        .addClientMixins("thaumcraft.client.beams.fx.MixinFXBeamWand_FociStaffVisualFix")
+        .addClientMixins("thaumcraft.client.fx.beams.MixinFXBeamWand_FociStaffVisualFix")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_FORBID_SWAP(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.focalManipulatorForbidSwaps)
@@ -289,6 +291,7 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.nodeModifierWeights)
         .addCommonMixins("thaumcraft.common.lib.world.MixinThaumcraftWorldGenerator_NodeGenerationWeights")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     NODE_GENERATION_TYPE_WEIGHTS(new SalisBuilder()
         .applyIf(SalisConfig.features.nodeTypeWeights)
         .addCommonMixins("thaumcraft.common.lib.world.MixinThaumcraftWorldGenerator_NodeGenerationWeights")
@@ -569,6 +572,10 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.items.MixinAmuletWand_AddInterface")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
+    // todo: remove or disable this before merging
+//    INTENTIONAL_FAILURE(new SalisBuilder()
+//        .setApplyIf(() -> true)
+//        .addCommonMixins("test: This is not a valid mixin class path and will cause startup to fail if not commented out or removed")),
     ;
     // spotless:on
 
@@ -592,6 +599,36 @@ public enum Mixins implements IMixins {
 
         public MixinBuilder setRequired() {
             return super.setApplyIf(() -> true);
+        }
+
+        @Override
+        public MixinBuilder addServerMixins(@NotNull String... classes) {
+            assertClassesExist(classes);
+            return super.addServerMixins(classes);
+        }
+
+        @Override
+        public MixinBuilder addClientMixins(@NotNull String... classes) {
+            assertClassesExist(classes);
+            return super.addClientMixins(classes);
+        }
+
+        @Override
+        public MixinBuilder addCommonMixins(@NotNull String... classes) {
+            assertClassesExist(classes);
+            return super.addCommonMixins(classes);
+        }
+
+        // todo: remove or disable this before merging
+        private static void assertClassesExist(String[] classes) {
+            final var pathRoot = "/dev/rndmorris/salisarcana/mixins/late";
+            for (var clazz : classes) {
+                final var classUrl = Mixins.class
+                    .getResource(String.format("%s/%s.class", pathRoot, clazz.replace('.', '/')));
+                if (classUrl == null) {
+                    throw new RuntimeException(String.format("The Salis Arcana mixin `%s` was not found.", clazz));
+                }
+            }
         }
     }
 }
