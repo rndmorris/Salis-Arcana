@@ -619,10 +619,9 @@ public enum Mixins implements IMixins {
 
         // todo: remove or disable this before merging
         private static void assertClassesExist(String[] classes) {
-            final var pathRoot = "/dev/rndmorris/salisarcana/mixins/late";
             for (var clazz : classes) {
-                final var classUrl = Mixins.class
-                    .getResource(String.format("%s/%s.class", pathRoot, clazz.replace('.', '/')));
+                final var classUrl = Mixins.class.getResource(
+                    String.format("/dev/rndmorris/salisarcana/mixins/late/%s.class", clazz.replace('.', '/')));
                 if (classUrl == null) {
                     throw new RuntimeException(String.format("The Salis Arcana mixin `%s` was not found.", clazz));
                 }
