@@ -20,7 +20,7 @@ import thaumcraft.api.nodes.NodeType;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
 @Mixin(value = ThaumcraftWorldGenerator.class, remap = false)
-public class MixinThaumcraftWorldGenerator_NodeGenerationModifierWeights {
+public class MixinThaumcraftWorldGenerator_NodeGenerationWeights {
 
     @Unique
     private static final NodeModifier[] sa$modifiers = new NodeModifier[] { null, NodeModifier.BRIGHT,
