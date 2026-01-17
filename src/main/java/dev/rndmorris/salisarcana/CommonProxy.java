@@ -53,7 +53,6 @@ import dev.rndmorris.salisarcana.network.NetworkHandler;
 import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import dev.rndmorris.salisarcana.notifications.Updater;
 import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.ai.interact.AIFish;
 import thaumcraft.common.items.equipment.ItemPrimalCrusher;
@@ -137,15 +136,6 @@ public class CommonProxy {
         CustomRecipes.registerRecipesPostInit();
         CustomResearch.init();
         WandHelper.loadWandParts();
-
-        if (true) {
-            ConfigBlocks.blockJar.setBlockBounds(0.1875f, 0.0f, 0.1875f, 0.8125f, 0.75f, 0.8125f);
-            ConfigBlocks.blockLootUrn.setBlockBounds(0.125f, 0.0625f, 0.125f, 0.875f, 0.8125f, 0.875f);
-            ConfigBlocks.blockLootCrate.setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
-            ConfigBlocks.blockEssentiaReservoir.setBlockBounds(0.125f, 0.125f, 0.125f, 0.875f, 0.875f, 0.875f);
-            ConfigBlocks.blockChestHungry.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
-            ConfigBlocks.blockCandle.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 0.5F, 0.625F);
-        }
     }
 
     // register server commands in this event handler (Remove if not needed)

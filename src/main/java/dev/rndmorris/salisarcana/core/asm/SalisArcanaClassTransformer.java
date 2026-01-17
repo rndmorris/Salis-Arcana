@@ -30,26 +30,29 @@ public class SalisArcanaClassTransformer implements IClassTransformer {
                 .addConflict("MixinWarpEvents_BaubleSlots", SalisConfig.features.useAllBaublesSlots);
 
         addTransform(thaumicMixinsCompat, "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins");
-        addTransform(
-            new MethodRemover("func_149719_a", "setBlockBoundsBasedOnState"),
-            "thaumcraft.common.blocks.BlockJar",
-            "thaumcraft.common.blocks.BlockCustomOre",
-            "thaumcraft.common.blocks.BlockArcaneFurnace",
-            "thaumcraft.common.blocks.BlockAlchemyFurnace",
-            "thaumcraft.common.blocks.BlockHole",
-            "thaumcraft.common.blocks.BlockEldritch",
-            "thaumcraft.common.blocks.BlockCosmeticSolid",
-            "thaumcraft.common.blocks.BlockChestHungry",
-            "thaumcraft.common.blocks.BlockCandle");
-        addTransform(
-            new MethodRemover("func_149633_g", "getSelectedBoundingBoxFromPool"),
-            "thaumcraft.common.blocks.BlockAlchemyFurnace",
-            "thaumcraft.common.blocks.BlockLoot");
-        addTransform(
-            new MethodRemover("func_149743_a", "addCollisionBoxesToList"),
-            "thaumcraft.common.blocks.BlockJar",
-            "thaumcraft.common.blocks.BlockEldritch",
-            "thaumcraft.common.blocks.BlockCustomOre");
+
+        if (SalisConfig.bugfixes.lootBlockHitbox.isEnabled()) {
+            addTransform(
+                new MethodRemover("func_149719_a", "setBlockBoundsBasedOnState"),
+                "thaumcraft.common.blocks.BlockJar",
+                "thaumcraft.common.blocks.BlockCustomOre",
+                "thaumcraft.common.blocks.BlockArcaneFurnace",
+                "thaumcraft.common.blocks.BlockAlchemyFurnace",
+                "thaumcraft.common.blocks.BlockHole",
+                "thaumcraft.common.blocks.BlockEldritch",
+                "thaumcraft.common.blocks.BlockCosmeticSolid",
+                "thaumcraft.common.blocks.BlockChestHungry",
+                "thaumcraft.common.blocks.BlockCandle");
+            addTransform(
+                new MethodRemover("func_149633_g", "getSelectedBoundingBoxFromPool"),
+                "thaumcraft.common.blocks.BlockAlchemyFurnace",
+                "thaumcraft.common.blocks.BlockLoot");
+            addTransform(
+                new MethodRemover("func_149743_a", "addCollisionBoxesToList"),
+                "thaumcraft.common.blocks.BlockJar",
+                "thaumcraft.common.blocks.BlockEldritch",
+                "thaumcraft.common.blocks.BlockCustomOre");
+        }
     }
 
     @Override
