@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.spongepowered.asm.lib.ClassWriter;
 import org.spongepowered.asm.lib.Opcodes;
 import org.spongepowered.asm.lib.tree.ClassNode;
 import org.spongepowered.asm.lib.tree.InsnList;
@@ -47,6 +48,11 @@ public class ModCompatEditor implements ClassNodeTransformer {
     @Override
     public int apiLevel() {
         return Opcodes.ASM9;
+    }
+
+    @Override
+    public int getFlags() {
+        return ClassWriter.COMPUTE_MAXS;
     }
 
     /**

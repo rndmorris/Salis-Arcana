@@ -10,4 +10,5 @@ public interface ClassTransformer {
     default int getFlags() {
         return 0;
     }
+
 }
