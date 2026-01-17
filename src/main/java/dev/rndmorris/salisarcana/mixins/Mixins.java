@@ -170,7 +170,7 @@ public enum Mixins implements IMixins {
         .addCommonMixins("blocks.MixinBlockCrystal")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     LOOT_BLOCK_HITBOX(new SalisBuilder()
-        .applyIf(SalisConfig.bugfixes.lootBlockHitbox)
+        .applyIf(SalisConfig.bugfixes.fixBlockBoundsAlterations)
         .addCommonMixins("blocks.MixinBlock_CollisionConserveBlockBounds", "blocks.MixinBlockTube_BBoxConserveBlockBounds",
             "blocks.MixinBlockCandle_SetBlockBounds", "blocks.MixinBlockChestHungry_SetBlockBounds", "blocks.MixinBlockEssentiaReservoir_SetBlockBounds",
             "blocks.MixinBlockJar_SetBlockBounds", "blocks.MixinBlockLoot_SetBlockBounds")

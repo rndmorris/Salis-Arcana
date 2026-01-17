@@ -31,7 +31,7 @@ public class SalisArcanaClassTransformer implements IClassTransformer {
 
         addTransform(thaumicMixinsCompat, "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins");
 
-        if (SalisConfig.bugfixes.lootBlockHitbox.isEnabled()) {
+        if (SalisConfig.bugfixes.fixBlockBoundsAlterations.isEnabled()) {
             addTransform(
                 new MethodRemover("func_149719_a", "setBlockBoundsBasedOnState"),
                 "thaumcraft.common.blocks.BlockJar",
