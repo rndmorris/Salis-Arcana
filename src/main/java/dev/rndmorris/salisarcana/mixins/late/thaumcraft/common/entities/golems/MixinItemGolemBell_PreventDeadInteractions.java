@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.items;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.golems;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
