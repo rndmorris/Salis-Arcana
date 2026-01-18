@@ -1,7 +1,5 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
-import java.util.Objects;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -9,6 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import com.github.bsideup.jabel.Desugar;
 
 import dev.rndmorris.salisarcana.api.IMultipleResearchArcaneRecipe;
 import dev.rndmorris.salisarcana.common.CustomResearch;
@@ -157,41 +157,8 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
         return new String[] { getResearch(), scanResult.newCaps.getResearch() };
     }
 
-    private static class InvScanResult {
-
-        private final ItemStack wandItem;
-        private final WandCap newCaps;
-        private final int newCapsFound;
-
-        public InvScanResult(ItemStack wandItem, WandCap newCaps, int newCapsFound) {
-            this.wandItem = wandItem;
-            this.newCaps = newCaps;
-            this.newCapsFound = newCapsFound;
-        }
-
-        public ItemStack wandItem() {
-            return wandItem;
-        }
-
-        public WandCap newCaps() {
-            return newCaps;
-        }
-
-        public int newCapsFound() {
-            return newCapsFound;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof InvScanResult that)) return false;
-            return newCapsFound == that.newCapsFound && Objects.equals(wandItem, that.wandItem)
-                && Objects.equals(newCaps, that.newCaps);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(wandItem, newCaps, newCapsFound);
-        }
+    @Desugar
+    private record InvScanResult(ItemStack wandItem, WandCap newCaps, int newCapsFound) {
 
         public boolean invalidInputs() {
             if (wandItem == null) {
