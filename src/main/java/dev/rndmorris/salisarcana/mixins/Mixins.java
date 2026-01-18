@@ -570,12 +570,15 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.items.MixinAmuletWand_AddInterface")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
-    // I want to leave this here for future testing, but it should be commented out before merging.
-//    INTENTIONAL_FAILURE(new SalisBuilder()
-//        .setRequired()
-//        .addCommonMixins("Intentionally_missing_class_name")),
-    ;
     // spotless:on
+
+    // This entry can be used during development to ensure the string->class file check in SalisBuilder is working
+    // correctly. It should
+    // stay commented out except during development, and should not be uncommented when merged into main.
+    // INTENTIONAL_FAILURE(new SalisBuilder()
+    // .setRequired()
+    // .addCommonMixins("Intentionally_missing_class_name")),
+    ;
 
     private final MixinBuilder builder;
 
@@ -599,33 +602,37 @@ public enum Mixins implements IMixins {
             return super.setApplyIf(() -> true);
         }
 
-        @Override
-        public MixinBuilder addServerMixins(@Nonnull String... classes) {
-            assertClassesExist(classes);
-            return super.addServerMixins(classes);
-        }
+        // The below can be used during development to ensure that the strings passed to the builder correctly map to
+        // class files. It should stay commented out except during development, and should not be uncommented when
+        // merged into main. If you need to check that this is working correctly, you can un-comment the
+        // `INTENTIONAL_FAILURE` enum value above.
 
-        @Override
-        public MixinBuilder addClientMixins(@Nonnull String... classes) {
-            assertClassesExist(classes);
-            return super.addClientMixins(classes);
-        }
-
-        @Override
-        public MixinBuilder addCommonMixins(@Nonnull String... classes) {
-            assertClassesExist(classes);
-            return super.addCommonMixins(classes);
-        }
-
-        // I want to leave this here for future testing, but its body should be commented out before merging.
-        private static void assertClassesExist(String[] classes) {
-            for (var clazz : classes) {
-                final var classUrl = Mixins.class.getResource(
-                    String.format("/dev/rndmorris/salisarcana/mixins/late/%s.class", clazz.replace('.', '/')));
-                if (classUrl == null) {
-                    throw new RuntimeException(String.format("The Salis Arcana mixin `%s` was not found.", clazz));
-                }
-            }
-        }
+        // @Override
+        // public MixinBuilder addServerMixins(@Nonnull String... classes) {
+        // assertClassesExist(classes);
+        // return super.addServerMixins(classes);
+        // }
+        //
+        // @Override
+        // public MixinBuilder addClientMixins(@Nonnull String... classes) {
+        // assertClassesExist(classes);
+        // return super.addClientMixins(classes);
+        // }
+        //
+        // @Override
+        // public MixinBuilder addCommonMixins(@Nonnull String... classes) {
+        // assertClassesExist(classes);
+        // return super.addCommonMixins(classes);
+        // }
+        //
+        // private static void assertClassesExist(String[] classes) {
+        // for (var clazz : classes) {
+        // final var classUrl = Mixins.class.getResource(
+        // String.format("/dev/rndmorris/salisarcana/mixins/late/%s.class", clazz.replace('.', '/')));
+        // if (classUrl == null) {
+        // throw new RuntimeException(String.format("The Salis Arcana mixin `%s` was not found.", clazz));
+        // }
+        // }
+        // }
     }
 }
