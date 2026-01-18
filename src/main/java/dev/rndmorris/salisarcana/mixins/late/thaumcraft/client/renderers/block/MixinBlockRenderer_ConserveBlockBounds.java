@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.client.renderers.block;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.renderers.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

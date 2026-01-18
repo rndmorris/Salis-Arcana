@@ -171,10 +171,10 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     BLOCK_BOUNDS_IMMUTABILITY(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixBlockBoundsAlterations)
-        .addCommonMixins("blocks.MixinBlock_CollisionConserveBlockBounds", "blocks.MixinBlockCandle_SetBlockBounds",
-            "blocks.MixinBlockChestHungry_SetBlockBounds", "blocks.MixinBlockEssentiaReservoir_SetBlockBounds",
-            "blocks.MixinBlockJar_SetBlockBounds", "blocks.MixinBlockLoot_SetBlockBounds")
-        .addClientMixins("client.renderers.block.MixinBlockRenderer_ConserveBlockBounds", "blocks.MixinBlockTube_BBoxConserveBlockBounds")
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlock_CollisionConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockCandle_SetBlockBounds",
+            "thaumcraft.common.blocks.MixinBlockChestHungry_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockEssentiaReservoir_SetBlockBounds",
+            "thaumcraft.common.blocks.MixinBlockJar_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockLoot_SetBlockBounds")
+        .addClientMixins("thaumcraft.client.renderers.block.MixinBlockRenderer_ConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockTube_BBoxConserveBlockBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_LOCALIZATION_SIDES(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixClientSideLocalization)
