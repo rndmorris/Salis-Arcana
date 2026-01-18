@@ -314,6 +314,7 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.stopCreativeModeItemConsumption)
         .addCommonMixins(
             "thaumcraft.common.blocks.MixinBlockEldritch_CreativeMode",
+            "thaumcraft.common.blocks.MixinBlockMetalDevice_CreativePreserveWater",
             "thaumcraft.common.items.MixinItemEssence_CreativeItemConsumption")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
