@@ -1,6 +1,5 @@
 package dev.rndmorris.salisarcana.core;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,15 +12,13 @@ import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import dev.rndmorris.salisarcana.config.SalisConfig;
-import dev.rndmorris.salisarcana.core.asm.IAsmEditor;
-import dev.rndmorris.salisarcana.core.asm.compat.ModCompatEditor;
 import dev.rndmorris.salisarcana.mixins.Mixins;
 
 @IFMLLoadingPlugin.MCVersion("1.7.10")
+@IFMLLoadingPlugin.TransformerExclusions("dev.rndmorris.salisarcana.core")
 public class SalisArcanaCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
-    public static boolean isObfuscated;
-
+    private static Boolean isObf;
     public static final String MODID = "salisarcana";
     public static final Logger LOG = LogManager.getLogger("salisarcana-core");
 
@@ -29,11 +26,9 @@ public class SalisArcanaCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
         SalisConfig.synchronizeConfiguration();
     }
 
-    public static ArrayList<IAsmEditor> editors = new ArrayList<>();
-
     @Override
     public String[] getASMTransformerClass() {
-        return new String[] { "dev.rndmorris.salisarcana.core.SalisArcanaClassTransformer" };
+        return new String[] { "dev.rndmorris.salisarcana.core.asm.SalisArcanaClassTransformer" };
     }
 
     @Override
@@ -48,20 +43,7 @@ public class SalisArcanaCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
     @Override
     public void injectData(Map<String, Object> data) {
-        isObfuscated = (boolean) data.get("runtimeDeobfuscationEnabled");
-
-        editors.add(
-            new ModCompatEditor(
-                "xyz.uniblood.thaumicmixins.mixinplugin.ThaumicMixinsLateMixins",
-                "getMixins",
-                "(Ljava/util/Set;)Ljava/util/List;")
-                    .addConflict("MixinBlockCosmeticSolid", SalisConfig.bugfixes.beaconBlockFixSetting)
-                    .addConflict("MixinBlockCandleRenderer", SalisConfig.bugfixes.candleRendererCrashes)
-                    .addConflict("MixinBlockCandle", SalisConfig.bugfixes.candleRendererCrashes)
-                    .addConflict("MixinItemShard", SalisConfig.bugfixes.itemShardColor)
-                    .addConflict("MixinWandManager", SalisConfig.features.useAllBaublesSlots)
-                    .addConflict("MixinEventHandlerRunic", SalisConfig.features.useAllBaublesSlots)
-                    .addConflict("MixinWarpEvents_BaubleSlots", SalisConfig.features.useAllBaublesSlots));
+        isObf = (boolean) data.get("runtimeDeobfuscationEnabled");
     }
 
     @Override
@@ -77,5 +59,12 @@ public class SalisArcanaCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
     @Override
     public List<String> getMixins(Set<String> loadedCoreMods) {
         return IMixins.getEarlyMixins(Mixins.class, loadedCoreMods);
+    }
+
+    public static boolean isObf() {
+        if (isObf == null) {
+            throw new IllegalStateException("Obfuscation state has been accessed too early!");
+        }
+        return isObf;
     }
 }

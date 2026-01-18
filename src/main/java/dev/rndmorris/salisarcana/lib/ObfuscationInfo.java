@@ -21,6 +21,6 @@ public enum ObfuscationInfo {
     }
 
     public String getName() {
-        return SalisArcanaCore.isObfuscated ? obfName : deobfName;
+        return SalisArcanaCore.isObf() ? obfName : deobfName;
     }
 }
