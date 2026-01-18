@@ -17,7 +17,7 @@ public abstract class MixinBlockEssentiaReservoir_SetBlockBounds extends BlockCo
         super(p_i45386_1_);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "<init>", at = @At("TAIL"), remap = false)
     private void setBounds(CallbackInfo ci) {
         this.setBlockBounds(0.125f, 0.125f, 0.125f, 0.875f, 0.875f, 0.875f);
     }

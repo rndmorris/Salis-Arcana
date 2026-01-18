@@ -17,7 +17,7 @@ public abstract class MixinBlockCandle_SetBlockBounds extends Block {
         super(materialIn);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "<init>", at = @At("TAIL"), remap = false)
     private void setBounds(CallbackInfo ci) {
         this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 0.5F, 0.625F);
     }

@@ -17,7 +17,7 @@ public abstract class MixinBlockJar_SetBlockBounds extends BlockContainer {
         super(p_i45386_1_);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "<init>", at = @At("TAIL"), remap = false)
     private void setBounds(CallbackInfo ci) {
         this.setBlockBounds(0.1875f, 0.0f, 0.1875f, 0.8125f, 0.75f, 0.8125f);
     }

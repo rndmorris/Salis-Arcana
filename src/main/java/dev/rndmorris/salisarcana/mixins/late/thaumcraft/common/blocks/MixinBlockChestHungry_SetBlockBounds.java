@@ -17,7 +17,7 @@ public abstract class MixinBlockChestHungry_SetBlockBounds extends BlockContaine
         super(p_i45386_1_);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "<init>", at = @At("TAIL"), remap = false)
     private void setBounds(CallbackInfo ci) {
         this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
     }
