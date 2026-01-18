@@ -322,3 +322,9 @@ When right-clicking a Research Note made from Knowledge Fragments, will use a ra
 **Config option:** `hiddenResearchCheckInventory`
 
 When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.
+
+## Fix Wrong Aspects from being Rendered
+
+**Config option:** `fixInventoryAspects`
+
+Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.

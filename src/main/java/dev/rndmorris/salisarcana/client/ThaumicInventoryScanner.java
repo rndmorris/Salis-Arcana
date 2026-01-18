@@ -19,6 +19,7 @@ import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.inventory.SlotMerchantResult;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import org.lwjgl.input.Keyboard;
@@ -26,13 +27,14 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.config.SalisConfig;
+import dev.rndmorris.salisarcana.mixins.early.accessor.AccessorGuiContainer;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ScanResult;
@@ -45,16 +47,11 @@ import thaumcraft.common.lib.research.ScanManager;
 
 public class ThaumicInventoryScanner {
 
-    // SCAN_TICKS is seemingly double the "vanilla" scan duration, I'm not sure if onClientTick is called twice as often
-    // or what, but it seems to work if I do this
     // +5 is added to the duration to account for the fact that in the config, we set the duration to be the total usage
     // duration - 5 since thaumcraft completes the scan when the remaining duration is <= 5
-    private static int SCAN_TICKS = -1;
+    private static int SCAN_TICKS;
 
     static int getScanTicks() {
-        if (SCAN_TICKS < 0) {
-            SCAN_TICKS = (SalisConfig.features.thaumometerDuration.getValue() + 5) * 2;
-        }
         return SCAN_TICKS;
     }
 
@@ -78,6 +75,21 @@ public class ThaumicInventoryScanner {
      * Is the cursor hovering above the player sprite in Inventory
      **/
     private boolean isHoveringOverPlayer;
+    public static ThaumicInventoryScanner instance;
+
+    public void onServerInstallStatusChanged(boolean newValue) {
+        if (newValue) {
+            MinecraftForge.EVENT_BUS.register(this);
+            FMLCommonHandler.instance()
+                .bus()
+                .register(this);
+        } else {
+            MinecraftForge.EVENT_BUS.unregister(this);
+            FMLCommonHandler.instance()
+                .bus()
+                .unregister(this);
+        }
+    }
 
     /**
      * Checks whether the currently hovered item or player would be a valid scan and sets currentScan and isValidScan
@@ -85,11 +97,13 @@ public class ThaumicInventoryScanner {
      **/
 
     public void init(FMLInitializationEvent event) {
+        instance = this;
         effectRenderer = new ClientTickEventsFML();
     }
 
     public void postInit(FMLPostInitializationEvent event) {
         thaumometer = GameRegistry.findItem("Thaumcraft", "ItemThaumometer");
+        SCAN_TICKS = SalisConfig.features.thaumometerDuration.getValue() + 5;
     }
 
     private void simulateScan(EntityPlayer player) {
@@ -140,8 +154,8 @@ public class ThaumicInventoryScanner {
     }
 
     @SubscribeEvent
-    public void clientTick(TickEvent.ClientTickEvent ignored) {
-        if (!SalisArcana.isServerSideInstalled) return;
+    public void clientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase != TickEvent.Phase.START) return;
         // Get minecraft and player objects
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayer player = mc.thePlayer;
@@ -189,7 +203,7 @@ public class ThaumicInventoryScanner {
      * ticksHovered
      **/
     private void playScanningSoundTick(EntityPlayer entityPlayer) {
-        if (ticksHovered > SOUND_TICKS && ticksHovered % 2 == 0) {
+        if (ticksHovered > SOUND_TICKS) {
             entityPlayer.worldObj.playSound(
                 entityPlayer.posX,
                 entityPlayer.posY,
@@ -203,7 +217,7 @@ public class ThaumicInventoryScanner {
 
     @SubscribeEvent
     public void onTooltip(ItemTooltipEvent event) {
-        if (SalisArcana.isServerSideInstalled && event.itemStack.getItem() == thaumometer) {
+        if (event.itemStack.getItem() == thaumometer) {
             event.toolTip.add("§6" + I18n.format("salisarcana:tcinventoryscan.thaumometerTooltip"));
             if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
                 String[] lines = I18n.format("salisarcana:tcinventoryscan.thaumometerTooltipMore")
@@ -217,13 +231,13 @@ public class ThaumicInventoryScanner {
 
     @SubscribeEvent
     public void onDrawScreen(GuiScreenEvent.DrawScreenEvent.Post event) {
-        if (SalisArcana.isServerSideInstalled && event.gui instanceof GuiContainer) {
+        if (event.gui instanceof GuiContainer) {
             Minecraft mc = Minecraft.getMinecraft();
             EntityPlayer player = mc.thePlayer;
             if (notHoldingThaumometer(player)) return;
             // Calculate the slot the cursor is hovering over
             isHoveringOverPlayer = isHoveringPlayer((GuiContainer) event.gui, event.mouseX, event.mouseY);
-            hoveringSlot = ((GuiContainer) event.gui).getSlotAtPosition(event.mouseX, event.mouseY);
+            hoveringSlot = ((AccessorGuiContainer) event.gui).getHoveredSlot();
             boolean stackExists = !(hoveringSlot == null || hoveringSlot.getStack() == null);
             if (!isHoveringOverPlayer && !stackExists) return;
             // If there's something being scanned
@@ -241,60 +255,55 @@ public class ThaumicInventoryScanner {
         }
     }
 
+    // copied from MixinClientTickEvents
     public void renderPlayerAspects(GuiScreen gui, int mouseX, int mouseY) {
-        GL11.glPushMatrix();
-        GL11.glColor4f(1f, 1f, 1f, 1f);
-        GL11.glPushAttrib(1048575);
-        GL11.glDisable(GL11.GL_LIGHTING);
-        int shiftX = Thaumcraft.instance.aspectShift ? -16 : -8;
-        int shiftY = Thaumcraft.instance.aspectShift ? -16 : -8;
-        int x = mouseX + 17;
-        int y = mouseY + 7 - 33;
         EntityPlayer entityPlayer = FMLClientHandler.instance()
             .getClientPlayerEntity();
-        AspectList aspectList = ScanManager.generateEntityAspects(entityPlayer);
-        if (aspectList != null) {
+        AspectList tags = ScanManager.generateEntityAspects(entityPlayer);
+        if (tags != null && tags.size() > 0) {
             GL11.glDisable(GL11.GL_DEPTH_TEST);
-            if (aspectList.size() > 0) {
-                Aspect[] sortedAspects = aspectList.getAspectsSortedAmount();
-                for (Aspect aspect : sortedAspects) {
-                    if (aspect != null) {
-                        x += 18;
-                        UtilsFX.bindTexture("textures/aspects/_back.png");
-                        GL11.glPushMatrix();
-                        GL11.glEnable(GL11.GL_BLEND);
-                        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-                        GL11.glTranslatef(x + shiftX - 2, y + shiftY - 2, 0f);
-                        GL11.glScalef(1.25f, 1.25f, 0f);
-                        UtilsFX.drawTexturedQuadFull(0, 0, UtilsFX.getGuiZLevel(gui));
-                        GL11.glDisable(GL11.GL_BLEND);
-                        GL11.glPopMatrix();
-                        if (Thaumcraft.proxy.playerKnowledge
-                            .hasDiscoveredAspect(entityPlayer.getCommandSenderName(), aspect)) {
-                            UtilsFX.drawTag(
-                                x + shiftX,
-                                y + shiftY,
-                                aspect,
-                                aspectList.getAmount(aspect),
-                                0,
-                                UtilsFX.getGuiZLevel(gui));
-                        } else {
-                            UtilsFX.bindTexture("textures/aspects/_unknown.png");
-                            GL11.glPushMatrix();
-                            GL11.glEnable(GL11.GL_BLEND);
-                            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-                            GL11.glTranslatef(x + shiftX, y + shiftY, 0f);
-                            UtilsFX.drawTexturedQuadFull(0, 0, UtilsFX.getGuiZLevel(gui));
-                            GL11.glDisable(GL11.GL_BLEND);
-                            GL11.glPopMatrix();
-                        }
+            GL11.glDisable(GL11.GL_LIGHTING);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+            final int shiftX, shiftY;
+            if (Thaumcraft.instance.aspectShift) {
+                shiftX = -16;
+                shiftY = -16;
+            } else {
+                shiftX = -8;
+                shiftY = -8;
+            }
+            final String name = entityPlayer.getCommandSenderName();
+            final int y = mouseY + 7 - 33;
+            final float zLevel = UtilsFX.getGuiZLevel(gui);
+
+            int x = mouseX + 17;
+            for (Aspect tag : tags.getAspectsSortedAmount()) {
+                if (tag != null) {
+
+                    UtilsFX.bindTexture("textures/aspects/_back.png");
+                    GL11.glPushMatrix();
+                    GL11.glEnable(GL11.GL_BLEND);
+                    GL11.glTranslated(x + shiftX - 2, y + shiftY - 2, 0.0D);
+                    GL11.glScaled(1.25D, 1.25D, 0.0D);
+                    UtilsFX.drawTexturedQuadFull(0, 0, zLevel);
+                    GL11.glPopMatrix();
+
+                    if (Thaumcraft.proxy.playerKnowledge.hasDiscoveredAspect(name, tag)) {
+                        UtilsFX.drawTag(x + shiftX, y + shiftY, tag, (float) tags.getAmount(tag), 0, zLevel);
+                    } else {
+                        UtilsFX.bindTexture("textures/aspects/_unknown.png");
+                        UtilsFX.drawTexturedQuadFull(x + shiftX, y + shiftY, zLevel);
                     }
+
+                    x += 18;
                 }
             }
+
+            GL11.glDisable(GL11.GL_BLEND);
+
             GL11.glEnable(GL11.GL_DEPTH_TEST);
         }
-        GL11.glPopAttrib();
-        GL11.glPopMatrix();
     }
 
     public void renderScanningProgress(GuiScreen gui, int mouseX, int mouseY, float progress) {

@@ -293,6 +293,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "hiddenResearchCheckInventory",
         "When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.");
 
+    public final ToggleSetting fixInventoryAspects = new ToggleSetting(
+        this,
+        "fixInventoryAspects",
+        "Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.");
+
     @Nonnull
     @Override
     public String getGroupName() {
