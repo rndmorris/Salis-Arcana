@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.client.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.lib;
 
 import java.lang.reflect.Field;
 
@@ -20,7 +20,7 @@ import dev.rndmorris.salisarcana.mixins.early.accessor.AccessorMinecraft;
 import thaumcraft.client.lib.UtilsFX;
 
 @Mixin(value = UtilsFX.class, remap = false)
-public class MixinUtilsFX {
+public class MixinUtilsFX_ReflectionToAccessors {
     // Replace reflection with AT/accessors
 
     /**

@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.client.fx;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.fx;
 
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
@@ -16,7 +16,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import thaumcraft.client.fx.ParticleEngine;
 
 @Mixin(value = ParticleEngine.class, remap = false)
-public class MixinParticleEngine {
+public class MixinParticleEngine_SkipRendering {
 
     @Unique
     private boolean sa$hasParticles;

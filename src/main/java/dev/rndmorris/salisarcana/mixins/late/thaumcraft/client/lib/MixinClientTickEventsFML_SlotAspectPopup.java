@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.mixins.late.client.lib;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.client.lib;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.lib.research.ScanManager;
 
 @Mixin(value = ClientTickEventsFML.class, remap = false, priority = 999)
-public class MixinClientTickEventsFML_Aspectfix {
+public class MixinClientTickEventsFML_SlotAspectPopup {
 
     /**
      * @author Sisyphussy
