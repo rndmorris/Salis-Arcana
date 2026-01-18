@@ -573,8 +573,8 @@ public enum Mixins implements IMixins {
     // spotless:on
 
     // This entry can be used during development to ensure the string->class file check in SalisBuilder is working
-    // correctly. It should
-    // stay commented out except during development, and should not be uncommented when merged into main.
+    // correctly. It should stay commented out except during development, and should not be uncommented when merged into
+    // main.
     // INTENTIONAL_FAILURE(new SalisBuilder()
     // .setRequired()
     // .addCommonMixins("Intentionally_missing_class_name")),
