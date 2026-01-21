@@ -238,6 +238,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.hiddenResearchCheckInventory)
         .addCommonMixins("thaumcraft.common.lib.research.MixinResearchManager_SkipResearchInInventory")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    PREVENT_DEAD_ITEM_CRUCIBLE_DUPE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.crucibleDeadItemDupe)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileCrucible_NoDupeDeadItems")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ELEMENTAL_PICK_SCAN_ZERO_ASPECTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectZeroAspectBlocks)
@@ -318,6 +322,7 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.stopCreativeModeItemConsumption)
         .addCommonMixins(
             "thaumcraft.common.blocks.MixinBlockEldritch_CreativeMode",
+            "thaumcraft.common.blocks.MixinBlockMetalDevice_CreativePreserveWater",
             "thaumcraft.common.items.MixinItemEssence_CreativeItemConsumption")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 

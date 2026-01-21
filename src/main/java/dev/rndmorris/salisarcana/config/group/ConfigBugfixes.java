@@ -293,6 +293,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "hiddenResearchCheckInventory",
         "When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.");
 
+    public final ToggleSetting crucibleDeadItemDupe = new ToggleSetting(
+        this,
+        "crucibleDeadItemDupe",
+        "Prevent multiple Crucibles from melting/crafting the same item entity in the same tick.");
+
     public final ToggleSetting stableRunicMatrixAnimation = new ToggleSetting(
         this,
         "stableRunicMatrixAnimation",
