@@ -323,6 +323,12 @@ When right-clicking a Research Note made from Knowledge Fragments, will use a ra
 
 When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.
 
+## Prevent Crucible Dead-Item Duplication Glitch
+
+**Config option:** `crucibleDeadItemDupe`
+
+Prevent multiple Crucibles from melting/crafting the same item entity in the same tick.
+
 ## Golem Visors affect Golem Dart Launchers
 
 **Config option:** `golemVisorAffectDartLauncher`
