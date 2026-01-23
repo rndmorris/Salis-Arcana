@@ -46,6 +46,7 @@ import dev.rndmorris.salisarcana.common.recipes.CustomRecipes;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.CommandSettings;
 import dev.rndmorris.salisarcana.lib.BlockAiryBucketInterceptor;
+import dev.rndmorris.salisarcana.lib.GolemVisorDartInterceptor;
 import dev.rndmorris.salisarcana.lib.KnowItAll;
 import dev.rndmorris.salisarcana.lib.ObfuscationInfo;
 import dev.rndmorris.salisarcana.lib.R;
@@ -99,6 +100,10 @@ public class CommonProxy {
 
         if (SalisConfig.bugfixes.preventBlockAiryFluidReplacement.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new BlockAiryBucketInterceptor());
+        }
+
+        if (SalisConfig.bugfixes.golemVisorAffectDartLauncher.isEnabled()) {
+            MinecraftForge.EVENT_BUS.register(new GolemVisorDartInterceptor());
         }
     }
 
