@@ -12,6 +12,7 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.LongHashMap;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.common.MinecraftForge;
@@ -213,6 +214,11 @@ public class CommonProxy {
         } catch (RuntimeException e) {
             LOG.error("An error occurred updating golem fishing lists.", e);
         }
+    }
+
+    public ResourceLocation getSalisTabResource() {
+        // It doesn't matter what this returns, as long as it is a valid ResourceLocation.
+        return new ResourceLocation("minecraft", "textures/items/stick.png");
     }
 
     public static class OreDictIds {
