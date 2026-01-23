@@ -334,3 +334,9 @@ Prevent multiple Crucibles from melting/crafting the same item entity in the sam
 **Config option:** `golemVisorAffectDartLauncher`
 
 Golems equipped with Dart Launchers & Visors will be able to cause player kills using their darts.
+
+## Prevent Golem Held-Item Duplication
+
+**Config option:** `preventGolemDropDuplication`
+
+Prevent players from disassembling golems that have already been killed in order to duplicate their held item.

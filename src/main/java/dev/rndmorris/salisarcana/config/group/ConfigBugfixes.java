@@ -305,6 +305,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "golemVisorAffectDartLauncher",
         "Golems equipped with Dart Launchers & Visors will be able to cause player kills using their darts.");
 
+    public final ToggleSetting preventGolemDropDuplication = new ToggleSetting(
+        this,
+        "preventGolemDropDuplication",
+        "Prevent players from disassembling golems that have already been killed in order to duplicate their held item.");
+
     @Nonnull
     @Override
     public String getGroupName() {
