@@ -323,6 +323,30 @@ When right-clicking a Research Note made from Knowledge Fragments, will use a ra
 
 When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.
 
+## Prevent Crucible Dead-Item Duplication Glitch
+
+**Config option:** `crucibleDeadItemDupe`
+
+Prevent multiple Crucibles from melting/crafting the same item entity in the same tick.
+
+## Golem Visors affect Golem Dart Launchers
+
+**Config option:** `golemVisorAffectDartLauncher`
+
+Golems equipped with Dart Launchers & Visors will be able to cause player kills using their darts.
+
+## Prevent Golem Held-Item Duplication
+
+**Config option:** `preventGolemDropDuplication`
+
+Prevent players from disassembling golems that have already been killed in order to duplicate their held item.
+
+## Stable Research Altar Animation
+
+**Config option:** `stableRunicMatrixAnimation`
+
+Runic Matrices which are too stable will not fly far out from the center of the multiblock.
+
 ## Fix Wrong Aspects from being Rendered
 
 **Config option:** `fixInventoryAspects`

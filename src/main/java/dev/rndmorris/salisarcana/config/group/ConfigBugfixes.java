@@ -254,8 +254,10 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting detectLitRedstoneOre = new ToggleSetting(
         this,
         "detectLitRedstoneOre",
-        "Works around limitation with Forge that prevents the pickaxe of the core fom detecting lit redstone ore by treating it\n"
-            + "as identical to regular redstone ore.").setCategory("tools");
+        """
+            Works around limitation with Forge that prevents the pickaxe of the core fom detecting lit redstone ore by treating it
+            as identical to regular redstone ore.""")
+            .setCategory("tools");
 
     public final ToggleSetting detectLapisOre = new ToggleSetting(this, "detectLapisOre", """
         Allows the pickaxe of the core to correctly detect vanilla lapis ore.
@@ -292,6 +294,26 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "hiddenResearchCheckInventory",
         "When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.");
+
+    public final ToggleSetting crucibleDeadItemDupe = new ToggleSetting(
+        this,
+        "crucibleDeadItemDupe",
+        "Prevent multiple Crucibles from melting/crafting the same item entity in the same tick.");
+
+    public final ToggleSetting golemVisorAffectDartLauncher = new ToggleSetting(
+        this,
+        "golemVisorAffectDartLauncher",
+        "Golems equipped with Dart Launchers & Visors will be able to cause player kills using their darts.");
+
+    public final ToggleSetting preventGolemDropDuplication = new ToggleSetting(
+        this,
+        "preventGolemDropDuplication",
+        "Prevent players from disassembling golems that have already been killed in order to duplicate their held item.");
+
+    public final ToggleSetting stableRunicMatrixAnimation = new ToggleSetting(
+        this,
+        "stableRunicMatrixAnimation",
+        "Runic Matrices which are too stable will not fly far out from the center of the multiblock.");
 
     public final ToggleSetting fixInventoryAspects = new ToggleSetting(
         this,
