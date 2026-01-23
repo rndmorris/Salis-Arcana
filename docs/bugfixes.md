@@ -340,3 +340,9 @@ Golems equipped with Dart Launchers & Visors will be able to cause player kills 
 **Config option:** `preventGolemDropDuplication`
 
 Prevent players from disassembling golems that have already been killed in order to duplicate their held item.
+
+## Stable Research Altar Animation
+
+**Config option:** `stableRunicMatrixAnimation`
+
+Runic Matrices which are too stable will not fly far out from the center of the multiblock.

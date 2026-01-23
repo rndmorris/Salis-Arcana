@@ -263,6 +263,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.addons.automagyBoilerFakePlayer)
         .addCommonMixins("automagy.blocks.MixinBlockBoiler_FakePlayer")
         .addRequiredMod(TargetedMod.AUTOMAGY)),
+    RUNIC_MATRIX_OVERSTABLE_SHAKE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.stableRunicMatrixAnimation)
+        .addClientMixins("thaumcraft.client.renderers.tile.MixinTileRunicMatrixRenderer_StableAltar")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()

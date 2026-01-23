@@ -310,6 +310,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "preventGolemDropDuplication",
         "Prevent players from disassembling golems that have already been killed in order to duplicate their held item.");
 
+    public final ToggleSetting stableRunicMatrixAnimation = new ToggleSetting(
+        this,
+        "stableRunicMatrixAnimation",
+        "Runic Matrices which are too stable will not fly far out from the center of the multiblock.");
+
     @Nonnull
     @Override
     public String getGroupName() {
