@@ -242,6 +242,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.crucibleDeadItemDupe)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileCrucible_NoDupeDeadItems")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    PREVENT_GOLEM_DROP_DUPLICATION(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.preventGolemDropDuplication)
+        .addCommonMixins("thaumcraft.common.entities.golems.MixinItemGolemBell_PreventDeadInteractions")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     ELEMENTAL_PICK_SCAN_ZERO_ASPECTS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.detectZeroAspectBlocks)
