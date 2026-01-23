@@ -300,6 +300,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "crucibleDeadItemDupe",
         "Prevent multiple Crucibles from melting/crafting the same item entity in the same tick.");
 
+    public final ToggleSetting golemVisorAffectDartLauncher = new ToggleSetting(
+        this,
+        "golemVisorAffectDartLauncher",
+        "Golems equipped with Dart Launchers & Visors will be able to cause player kills using their darts.");
+
     @Nonnull
     @Override
     public String getGroupName() {

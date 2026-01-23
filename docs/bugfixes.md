@@ -328,3 +328,9 @@ When right-clicking a Research Note made from Knowledge Fragments, will not gene
 **Config option:** `crucibleDeadItemDupe`
 
 Prevent multiple Crucibles from melting/crafting the same item entity in the same tick.
+
+## Golem Visors affect Golem Dart Launchers
+
+**Config option:** `golemVisorAffectDartLauncher`
+
+Golems equipped with Dart Launchers & Visors will be able to cause player kills using their darts.
