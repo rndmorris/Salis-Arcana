@@ -21,7 +21,7 @@ public abstract class Setting implements IDependant {
 
     private @Nullable String category;
     protected final String name;
-    protected String comment;
+    protected final String comment;
 
     public Setting(IEnabler dependency, String name, String comment) {
         this.enabledDependency = new WeakReference<>(dependency);
