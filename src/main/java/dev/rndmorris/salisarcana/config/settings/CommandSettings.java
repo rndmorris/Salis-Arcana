@@ -19,7 +19,6 @@ import dev.rndmorris.salisarcana.config.IEnabler;
 public class CommandSettings extends Setting {
 
     public final Set<String> aliases = new HashSet<>();
-    public final @Nonnull String name;
 
     private final Map<String, ChildPermission> childPermissions = new TreeMap<>();
 
@@ -28,8 +27,7 @@ public class CommandSettings extends Setting {
     private byte permissionLevel = 4;
 
     public CommandSettings(@Nonnull String name, IEnabler dependency) {
-        super(dependency);
-        this.name = name;
+        super(dependency, name);
         setCategory(name.replace('-', '_'));
     }
 

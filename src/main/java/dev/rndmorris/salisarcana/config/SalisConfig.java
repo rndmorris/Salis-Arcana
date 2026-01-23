@@ -14,6 +14,7 @@ import dev.rndmorris.salisarcana.config.group.ConfigCommands;
 import dev.rndmorris.salisarcana.config.group.ConfigFeatures;
 import dev.rndmorris.salisarcana.config.group.ConfigModCompat;
 import dev.rndmorris.salisarcana.config.group.ConfigThaumcraft;
+import dev.rndmorris.salisarcana.config.settings.Setting;
 
 public class SalisConfig {
 
@@ -65,5 +66,21 @@ public class SalisConfig {
         final var path = Paths.get("config", SalisArcana.MODID, group.getGroupName() + ".cfg")
             .toString();
         return new Configuration(new File(path));
+    }
+
+    public static Setting getSettingByName(String category, String name) {
+        for (var group : groups) {
+            if (!group.getGroupName()
+                .equals(category)) {
+                continue;
+            }
+            for (var setting : group.getSettings()) {
+                if (setting.getName()
+                    .equals(name)) {
+                    return setting;
+                }
+            }
+        }
+        return null;
     }
 }

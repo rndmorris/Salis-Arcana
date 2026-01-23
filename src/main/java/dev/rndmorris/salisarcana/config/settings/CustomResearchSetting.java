@@ -11,13 +11,6 @@ import thaumcraft.api.aspects.AspectList;
 
 public class CustomResearchSetting extends Setting {
 
-    // Comment to be used in the paired togglesetting, will be at the top as a general explanation for what the research
-    // does. Paired setting is optional.
-    public final String configComment;
-
-    // The base name of the config entry, will be used to generate the config entries for the research.
-    public final String configName;
-
     // Research Info
     public String researchName;
     public String researchCategory;
@@ -31,9 +24,8 @@ public class CustomResearchSetting extends Setting {
 
     public String[] aspectStrings; // formatted aspect:amount
 
-    public CustomResearchSetting(IEnabler dependency, String configName, String configComment,
-        ResearchInfo researchInfo) {
-        super(dependency);
+    public CustomResearchSetting(IEnabler dependency, String name, String comment, ResearchInfo researchInfo) {
+        super(dependency, name + "Research", comment);
 
         this.researchName = researchInfo.getResearchName();
         this.researchCategory = researchInfo.getResearchCategory();
@@ -44,10 +36,6 @@ public class CustomResearchSetting extends Setting {
         this.autoUnlock = researchInfo.getAutoUnlock();
         this.aspectStrings = researchInfo.getResearchAspects();
         this.warp = researchInfo.getWarp();
-
-        this.configName = configName + "Research";
-        this.configComment = configComment;
-
     }
 
     public String getInternalName() {
@@ -56,17 +44,16 @@ public class CustomResearchSetting extends Setting {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        this.enabled = configuration
-            .getBoolean("_enabled" + this.configName, this.getCategory(), this.enabled, this.configComment);
+        this.enabled = configuration.getBoolean("_enabled" + this.name, this.getCategory(), this.enabled, this.comment);
 
         this.researchCategory = configuration.getString(
-            this.configName + "Category",
+            this.name + "Category",
             this.getCategory(),
             this.researchCategory,
             "The tab in the Thaumonomicon in which the research should appear");
 
         this.researchCol = configuration.getInt(
-            this.configName + "Col",
+            this.name + "Col",
             this.getCategory(),
             this.researchCol,
             Integer.MIN_VALUE,
@@ -74,7 +61,7 @@ public class CustomResearchSetting extends Setting {
             "The column in the given category at which the research should appear");
 
         this.researchRow = configuration.getInt(
-            this.configName + "Row",
+            this.name + "Row",
             this.getCategory(),
             this.researchRow,
             Integer.MIN_VALUE,
@@ -82,25 +69,25 @@ public class CustomResearchSetting extends Setting {
             "The row in the given category at which the research should appear");
 
         this.parentResearches = configuration.getStringList(
-            this.configName + "Parents",
+            this.name + "Parents",
             this.getCategory(),
             this.parentResearches,
             "The research entry IDs of the parent research entries");
 
         this.purchasable = configuration.getBoolean(
-            this.configName + "Purchasable",
+            this.name + "Purchasable",
             this.getCategory(),
             this.purchasable,
             "Whether the research should be purchasable with aspects instead of the normal minigame");
 
         this.autoUnlock = configuration.getBoolean(
-            this.configName + "AutoUnlock",
+            this.name + "AutoUnlock",
             this.getCategory(),
             this.autoUnlock,
             "Whether the research should automatically unlock as soon as its parents are researched.");
 
         this.warp = configuration.getInt(
-            this.configName + "Warp",
+            this.name + "Warp",
             this.getCategory(),
             this.warp,
             0,
@@ -108,7 +95,7 @@ public class CustomResearchSetting extends Setting {
             "How much warp is applied upon researching this research.");
 
         this.aspectStrings = configuration.getStringList(
-            this.configName + "Aspects",
+            this.name + "Aspects",
             this.getCategory(),
             this.aspectStrings,
             "The aspects required for the research entry");
@@ -121,10 +108,7 @@ public class CustomResearchSetting extends Setting {
             String[] aspectParts = aspect.split(":");
             if (aspectParts.length == 2) {
                 if (Aspect.aspects.get(aspectParts[0]) == null) {
-                    LOG.error(
-                        "Error: Aspect {} in custom research {} does not exist!",
-                        aspectParts[0],
-                        this.configName);
+                    LOG.error("Error: Aspect {} in custom research {} does not exist!", aspectParts[0], this.name);
                     continue;
                 }
 
@@ -135,7 +119,7 @@ public class CustomResearchSetting extends Setting {
                     LOG.error(
                         "Cannot parse amount of aspects in value \"{}\" in config setting \"{}Aspects\".",
                         aspect,
-                        this.configName);
+                        this.name);
                     continue;
                 }
 
@@ -146,13 +130,13 @@ public class CustomResearchSetting extends Setting {
                         "Invalid amount of aspect {} in value \"{}\" in config setting \"{}Aspects\".",
                         aspectParts[0],
                         aspect,
-                        this.configName);
+                        this.name);
                 }
             } else {
                 LOG.error(
                     "Invalid aspect string \"{}\" in config setting \"{}Aspects\". Each value must be formatted as \"aspect:amount\".",
                     aspect,
-                    this.configName);
+                    this.name);
             }
         }
         return researchAspects;

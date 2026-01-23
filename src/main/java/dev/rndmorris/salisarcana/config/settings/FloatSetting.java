@@ -6,17 +6,13 @@ import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class FloatSetting extends Setting {
 
-    private final String name;
-    private final String comment;
     private final float defaultValue;
     private float value;
     private float maxValue = Float.MAX_VALUE;
     private float minValue = -Float.MAX_VALUE; // Float.MIN_VALUE is the smallest positive value, not the most negative
 
     public FloatSetting(IEnabler dependency, String name, String comment, float defaultValue) {
-        super(dependency);
-        this.name = name;
-        this.comment = comment;
+        super(dependency, name, comment);
         this.defaultValue = defaultValue;
     }
 

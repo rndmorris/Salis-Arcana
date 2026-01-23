@@ -13,8 +13,6 @@ import dev.rndmorris.salisarcana.core.SalisArcanaCore;
 public class EnumSetting<E extends Enum<E>> extends Setting {
 
     protected final Class<E> enumClass;
-    protected final String name;
-    protected final String comment;
     protected final @Nullable E disabledValue;
     protected E value;
 
@@ -30,13 +28,15 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
      */
     public EnumSetting(IEnabler dependency, String name, String comment, @Nonnull E defaultValue,
         @Nullable E disabledValue) {
-        super(dependency);
-        this.name = name;
+        super(dependency, name);
         enumClass = defaultValue.getDeclaringClass();
         value = defaultValue;
         this.disabledValue = disabledValue;
 
-        this.comment = comment + " Valid values: " + Arrays.toString(enumClass.getEnumConstants());
+        this.comment = comment + " Valid values: "
+            + Arrays.toString(
+                defaultValue.getDeclaringClass()
+                    .getEnumConstants());
     }
 
     public E getValue() {
