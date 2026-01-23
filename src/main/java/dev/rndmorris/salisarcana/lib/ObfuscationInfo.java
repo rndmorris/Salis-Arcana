@@ -7,6 +7,7 @@ public enum ObfuscationInfo {
 
     HARVEST_LEVEL("field_78001_f", "harvestLevel"),
     POTION_TYPES("field_76425_a", "potionTypes"),
+    PARTICLE_TEXTURES("field_110737_b", "particleTextures")
     ;
 
     // spotless:on

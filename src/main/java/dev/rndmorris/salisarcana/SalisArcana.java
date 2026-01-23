@@ -14,6 +14,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.relauncher.Side;
+import dev.rndmorris.salisarcana.client.ThaumicInventoryScanner;
 
 @Mod(
     modid = SalisArcana.MODID,
@@ -65,7 +66,13 @@ public class SalisArcana {
     @NetworkCheckHandler
     public boolean checkNetwork(Map<String, String> map, Side side) {
         if (side == Side.SERVER) {
+            boolean oldValue = isServerSideInstalled;
             isServerSideInstalled = map.containsKey(MODID);
+            if (oldValue != isServerSideInstalled) {
+                // In the future, this can probably be turned into a List with multiple classes that all get invoked
+                // But for now, this is the only class that uses it.
+                ThaumicInventoryScanner.instance.onServerInstallStatusChanged(isServerSideInstalled);
+            }
         }
         return true;
     }
