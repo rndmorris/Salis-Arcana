@@ -27,6 +27,7 @@ import dev.rndmorris.salisarcana.api.OreDict;
 import dev.rndmorris.salisarcana.common.BehaviorDispensePrimalArrow;
 import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.common.DisenchantFocusUpgrade;
+import dev.rndmorris.salisarcana.common.LoginEventHandler;
 import dev.rndmorris.salisarcana.common.blocks.CustomBlocks;
 import dev.rndmorris.salisarcana.common.commands.ArcanaCommandBase;
 import dev.rndmorris.salisarcana.common.commands.CreateNodeCommand;
@@ -104,6 +105,8 @@ public class CommonProxy {
         if (SalisConfig.bugfixes.golemVisorAffectDartLauncher.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new GolemVisorDartInterceptor());
         }
+
+        new LoginEventHandler();
     }
 
     private void updateHarvestLevels() {

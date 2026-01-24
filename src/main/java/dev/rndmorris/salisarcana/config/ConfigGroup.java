@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
@@ -69,6 +70,12 @@ public abstract class ConfigGroup implements IEnabler, IHaveSettings {
         return settings;
     }
 
+    public Collection<Setting> getRequiredMatchedSettings() {
+        return this.settings.stream()
+            .filter(Setting::needsMatchServer)
+            .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     protected Collection<CategoryComment> getCategoryComments() {
         return Collections.emptyList();
     }
@@ -87,7 +94,7 @@ public abstract class ConfigGroup implements IEnabler, IHaveSettings {
         /**
          * A POJO containing a comment to put on a category, and the Id of the category on which the comment should be
          * placed.
-         * 
+         *
          * @param categoryId The category to which the comment should be attached.
          * @param comment    The text of the comment to put on the category.
          */

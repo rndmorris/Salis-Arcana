@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.IDependant;
 import dev.rndmorris.salisarcana.config.IEnabler;
 import dev.rndmorris.salisarcana.config.IHaveSettings;
@@ -22,6 +23,8 @@ public abstract class Setting implements IDependant {
     private @Nullable String category;
     protected final String name;
     protected final String comment;
+
+    private ConfigGroup configGroup = null;
 
     public Setting(IEnabler dependency, String name, String comment) {
         this.enabledDependency = new WeakReference<>(dependency);
@@ -48,6 +51,10 @@ public abstract class Setting implements IDependant {
 
     public String getName() {
         return this.name;
+    }
+
+    public ConfigGroup getConfigGroup() {
+        return this.configGroup;
     }
 
     /**
@@ -101,6 +108,9 @@ public abstract class Setting implements IDependant {
             }
             visited.add(dependency);
             if (dependency instanceof IHaveSettings hasSettings) {
+                if (dependency instanceof ConfigGroup group) {
+                    this.configGroup = group;
+                }
                 registerTo(hasSettings);
                 break;
             }
@@ -135,9 +145,9 @@ public abstract class Setting implements IDependant {
     /**
      * String representation of this setting.
      *
-     * @return String in the format "category:name"
+     * @return String in the format "groupname:name"
      */
     public String toString() {
-        return this.category + ":" + this.name;
+        return this.configGroup.getGroupName() + ":" + this.getCategory() + ":" + this.name;
     }
 }
