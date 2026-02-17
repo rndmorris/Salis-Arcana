@@ -14,7 +14,8 @@ public class MixinUtilsFX_DisableAspectTint {
         method = "drawTag(DDLthaumcraft/api/aspects/Aspect;FIDIFZ)V",
         at = @At(value = "INVOKE", target = "Lthaumcraft/api/aspects/Aspect;getColor()I"))
     private static int salisarcana$disableAspectTint(Aspect instance) {
-        return 16777215;
+        // Return white such that the tint is effectively disabled.
+        return 0xFFFFFF;
     }
 
 }
