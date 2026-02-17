@@ -577,6 +577,11 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.lib.events.MixinEventHandlerEntity_LootBagFakePlayer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
+    DISABLE_ASPESCT_TINT(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.disableAspectTint)
+        .addClientMixins("thaumcraft.client.lib.MixinUtilsFX_DisableAspectTint")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     // Required
     ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
         .setRequired()
