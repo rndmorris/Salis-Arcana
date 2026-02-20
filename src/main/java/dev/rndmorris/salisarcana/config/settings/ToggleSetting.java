@@ -10,14 +10,9 @@ public class ToggleSetting extends Setting {
     private final String comment;
 
     public ToggleSetting(IEnabler dependency, String name, String comment) {
-        this(dependency, name, comment, true);
-    }
-
-    public ToggleSetting(IEnabler dependency, String name, String comment, boolean defaultValue) {
         super(dependency);
         this.name = name;
         this.comment = comment;
-        this.enabled = defaultValue;
     }
 
     @Override
