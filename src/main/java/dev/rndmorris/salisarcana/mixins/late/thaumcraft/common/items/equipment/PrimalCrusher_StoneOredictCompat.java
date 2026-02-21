@@ -12,6 +12,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 
+import ganymedes01.etfuturum.blocks.BlockDeepslate;
 import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 
 @Mixin(value = ItemPrimalCrusher.class, remap = false)
@@ -41,6 +42,7 @@ public abstract class PrimalCrusher_StoneOredictCompat {
             sa$cobblestoneOreId = OreDictionary.getOreID("cobblestone");
             sa$stoneBrickOreId = OreDictionary.getOreID("stoneBricks");
         }
+        if (block instanceof BlockDeepslate) return true;
         final int[] oreIds = OreDictionary.getOreIDs(new ItemStack(block, 1, metadata));
         for (final var oreId : oreIds) {
             if (oreId == sa$stoneOreId || oreId == sa$cobblestoneOreId || oreId == sa$stoneBrickOreId) {
