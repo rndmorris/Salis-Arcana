@@ -169,10 +169,12 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.silkTouchCrystalClusters)
         .addCommonMixins("thaumcraft.common.blocks.MixinBlockCrystal_SilkTouch")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
-    LOOT_BLOCK_HITBOX(new SalisBuilder()
-        .applyIf(SalisConfig.bugfixes.lootBlockHitbox)
-        .addCommonMixins("thaumcraft.common.blocks.MixinBlockLoot_SetHitbox")
-        .addClientMixins("thaumcraft.client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
+    BLOCK_BOUNDS_IMMUTABILITY(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixBlockBoundsAlterations)
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlock_CollisionConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockCandle_SetBlockBounds",
+            "thaumcraft.common.blocks.MixinBlockChestHungry_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockEssentiaReservoir_SetBlockBounds",
+            "thaumcraft.common.blocks.MixinBlockJar_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockLoot_SetBlockBounds")
+        .addClientMixins("thaumcraft.client.renderers.block.MixinBlockRenderer_ConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockTube_BBoxConserveBlockBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_LOCALIZATION_SIDES(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixClientSideLocalization)

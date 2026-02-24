@@ -4,16 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.InsnList;
-import org.objectweb.asm.tree.InsnNode;
-import org.objectweb.asm.tree.LdcInsnNode;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.VarInsnNode;
+import org.spongepowered.asm.lib.ClassWriter;
+import org.spongepowered.asm.lib.Opcodes;
+import org.spongepowered.asm.lib.tree.ClassNode;
+import org.spongepowered.asm.lib.tree.InsnList;
+import org.spongepowered.asm.lib.tree.InsnNode;
+import org.spongepowered.asm.lib.tree.LdcInsnNode;
+import org.spongepowered.asm.lib.tree.MethodInsnNode;
+import org.spongepowered.asm.lib.tree.MethodNode;
+import org.spongepowered.asm.lib.tree.VarInsnNode;
 
 import dev.rndmorris.salisarcana.config.IEnabler;
+import dev.rndmorris.salisarcana.core.asm.ClassNodeTransformer;
 
 /**
  * This class is used to inject compatibility checks into the mixin loading process
@@ -28,7 +30,7 @@ import dev.rndmorris.salisarcana.config.IEnabler;
  * {@code transformClassnode(MethodNode method)}
  * to target the correct method
  */
-public class ModCompatEditor implements ISalisTransformer {
+public class ModCompatEditor implements ClassNodeTransformer {
 
     // Static list to fetch any given transformer from the editor
     private static final List<ModCompatEditor> transformers = new ArrayList<>();
@@ -44,8 +46,13 @@ public class ModCompatEditor implements ISalisTransformer {
     }
 
     @Override
-    public String getTargetClassName() {
-        return className;
+    public int apiLevel() {
+        return Opcodes.ASM9;
+    }
+
+    @Override
+    public int getFlags() {
+        return ClassWriter.COMPUTE_MAXS;
     }
 
     /**
@@ -59,8 +66,7 @@ public class ModCompatEditor implements ISalisTransformer {
      * statements will break
      */
     @Override
-    public void transform(ClassNode classNode) {
-
+    public void transformNode(ClassNode classNode) {
         MethodNode method = null;
         for (MethodNode mn : classNode.methods) {
             if (mn.name.equals(methodName) && mn.desc.equals(methodDesc)) {
