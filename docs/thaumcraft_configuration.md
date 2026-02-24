@@ -2,6 +2,10 @@
 
 Config file: `config/salisarcana/thaumcraft_configuration.cfg`
 
+### Config Option: `disableAspectTint` (Default `false`)
+If true, disables the tinting of aspect images, this can be useful in combination with resource packs
+that provide images that are already colored.
+
 ## Node Behaviors (Group `node_behaviors`)
 
 ### Config Option: `hungryDynamicReach` (Default `false`)
