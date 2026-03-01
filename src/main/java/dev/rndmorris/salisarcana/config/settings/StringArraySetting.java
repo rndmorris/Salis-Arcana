@@ -8,15 +8,11 @@ import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class StringArraySetting extends Setting {
 
-    protected final String name;
-    protected final String comment;
     protected final String[] defaultValue;
     protected String[] value;
 
     public StringArraySetting(IEnabler dependency, String name, String comment, String[] defaultValue) {
-        super(dependency);
-        this.name = name;
-        this.comment = comment;
+        super(dependency, name, comment);
         this.defaultValue = defaultValue;
     }
 

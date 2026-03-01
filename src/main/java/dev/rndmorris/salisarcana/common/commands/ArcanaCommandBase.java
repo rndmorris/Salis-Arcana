@@ -45,7 +45,7 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return String.format("%s:command.%s.usage", SalisArcana.MODID, settings.name);
+        return String.format("%s:command.%s.usage", SalisArcana.MODID, settings.getName());
     }
 
     @Override
@@ -116,7 +116,7 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
         description.setChatStyle(titleStyle);
         description.appendText(" ");
         final var descriptionText = new ChatComponentTranslation(
-            String.format("salisarcana:command.%s.desc", settings.name));
+            String.format("salisarcana:command.%s.desc", settings.getName()));
         descriptionText.getChatStyle()
             .setColor(EnumChatFormatting.RESET)
             .setBold(false);
@@ -130,14 +130,14 @@ public abstract class ArcanaCommandBase<T> extends CommandBase {
 
         final var first = Arrays.stream(
             new ChatComponentTranslation[] { description, usageTitle,
-                new ChatComponentTranslation(String.format("salisarcana:command.%s.usage", settings.name)),
+                new ChatComponentTranslation(String.format("salisarcana:command.%s.usage", settings.getName())),
                 argumentsTitle
 
             });
         final var descLangKeys = argumentProcessor.descriptionLangKeys.stream()
             .map(
                 key -> new ChatComponentTranslation(
-                    String.format("salisarcana:command.%s.args.%s", settings.name, key)));
+                    String.format("salisarcana:command.%s.args.%s", settings.getName(), key)));
         Stream.concat(first, descLangKeys)
             .forEachOrdered(sender::addChatMessage);
     }

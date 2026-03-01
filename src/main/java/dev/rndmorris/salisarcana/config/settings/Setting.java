@@ -17,12 +17,21 @@ public abstract class Setting implements IDependant {
     protected final @Nullable WeakReference<IEnabler> enabledDependency;
     private @Nullable WeakReference<IHaveSettings> settingOwner;
     protected boolean enabled = true;
+    private boolean needsMatchServer = false;
 
     private @Nullable String category;
+    protected final String name;
+    protected final String comment;
 
-    public Setting(IEnabler dependency) {
+    public Setting(IEnabler dependency, String name, String comment) {
         this.enabledDependency = new WeakReference<>(dependency);
+        this.name = name;
+        this.comment = comment;
         autoRegisterOwner();
+    }
+
+    public Setting(IEnabler dependency, String name) {
+        this(dependency, name, "");
     }
 
     public <T extends Setting> T setCategory(String category) {
@@ -35,6 +44,10 @@ public abstract class Setting implements IDependant {
             return defaultCategory;
         }
         return category;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     /**
@@ -58,6 +71,18 @@ public abstract class Setting implements IDependant {
     public <T extends Setting> T setEnabled(boolean enabled) {
         this.enabled = enabled;
         return (T) this;
+    }
+
+    /**
+     * Whether this setting needs to match the server's setting in multiplayer.
+     */
+    public <T extends Setting> T setMatchServer(boolean needsMatchServer) {
+        this.needsMatchServer = needsMatchServer;
+        return (T) this;
+    }
+
+    public boolean needsMatchServer() {
+        return this.needsMatchServer;
     }
 
     public IEnabler getDependency() {
@@ -106,4 +131,13 @@ public abstract class Setting implements IDependant {
      * Load this setting from a config file.
      */
     public abstract void loadFromConfiguration(Configuration configuration);
+
+    /**
+     * String representation of this setting.
+     *
+     * @return String in the format "category:name"
+     */
+    public String toString() {
+        return this.category + ":" + this.name;
+    }
 }
