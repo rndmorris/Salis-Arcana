@@ -3,6 +3,7 @@ package dev.rndmorris.salisarcana.config;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import net.minecraftforge.common.config.Configuration;
@@ -14,6 +15,7 @@ import dev.rndmorris.salisarcana.config.group.ConfigCommands;
 import dev.rndmorris.salisarcana.config.group.ConfigFeatures;
 import dev.rndmorris.salisarcana.config.group.ConfigModCompat;
 import dev.rndmorris.salisarcana.config.group.ConfigThaumcraft;
+import dev.rndmorris.salisarcana.config.settings.Setting;
 
 public class SalisConfig {
 
@@ -61,9 +63,31 @@ public class SalisConfig {
         }
     }
 
-    private static Configuration getGroupConfig(ConfigGroup group) {
+    public static Configuration getGroupConfig(ConfigGroup group) {
         final var path = Paths.get("config", SalisArcana.MODID, group.getGroupName() + ".cfg")
             .toString();
         return new Configuration(new File(path));
+    }
+
+    public static Setting getSettingByName(String groupName, String category, String name) {
+        for (var group : groups) {
+            if (!group.getGroupName()
+                .equals(groupName)) {
+                continue;
+            }
+            for (var setting : group.getSettings()) {
+                if (setting.getCategory()
+                    .equals(category)
+                    && setting.getName()
+                        .equals(name)) {
+                    return setting;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Collection<ConfigGroup> getConfigGroups() {
+        return groups;
     }
 }

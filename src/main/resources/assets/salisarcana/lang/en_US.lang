@@ -273,3 +273,9 @@ salisarcana:wand_rod.special.alfheimSpiritual_staff.1=§5Regenerates §d1 vis§5
 salisarcana:wand_rod.special.alfheimSpiritual_staff.2=  §5at the cost of §bsome Botania mana§5.
 salisarcana:wand_rod.special.alfheimSpiritual_staff.3=§5If paired with Alfheim wand caps, reduces the §bmana cost§5 of
 salisarcana:wand_rod.special.alfheimSpiritual_staff.4=  §5regenerating vis by your armor's §bmana discounts§5.
+
+salisarcana:configmismatch.1=Salis Arcana: Mismatched Client Configuration
+salisarcana:configmismatch.2=Your client configuration does not match the server's configuration.
+salisarcana:configmismatch.3=Would you like to automatically fix these settings now? (Requires restart)
+salisarcana:showdetails=Show Details
+salisarcana:hidedetails=Hide Details
