@@ -11,8 +11,16 @@ import com.llamalad7.mixinextras.sugar.Local;
 
 import thaumcraft.common.tiles.TileNode;
 
+/**
+ * The tick code of TileNode has multiple calls to world.getBlock, world.getTileEntity...
+ * with coordinates that's around the Node, thing is if those coordinates happen to be in
+ * unloaded chunks, the call to getBlock will trigger chunk loading on the server which
+ * is bad for performance.
+ * This mixin prevents this behavior by adding worldObj.blockExists checks before
+ * running the code that would trigger chunk loading.
+ */
 @Mixin(TileNode.class)
-public class MixinTileNode_ProtectGetBlock extends TileEntity {
+public abstract class MixinTileNode_ProtectGetBlock extends TileEntity {
 
     @Inject(
         method = "handleDischarge",

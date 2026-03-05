@@ -318,7 +318,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting fixNodeTriggeringChunkLoading = new ToggleSetting(
         this,
         "fixNodeTriggeringChunkLoading",
-        "Fix Node code constantly triggering chunk loading");
+        "Prevent Node ticking code from triggering constant chunk loading on the server.");
 
     @Nonnull
     @Override
