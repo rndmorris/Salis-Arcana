@@ -6,17 +6,13 @@ import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class IntSetting extends Setting {
 
-    private final String name;
-    private final String comment;
     private final int defaultValue;
     private int value;
     private int maxValue = Integer.MAX_VALUE;
     private int minValue = Integer.MIN_VALUE;
 
     public IntSetting(IEnabler dependency, String name, String comment, int defaultValue) {
-        super(dependency);
-        this.name = name;
-        this.comment = comment;
+        super(dependency, name, comment);
         this.defaultValue = defaultValue;
     }
 

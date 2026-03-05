@@ -10,18 +10,13 @@ import dev.rndmorris.salisarcana.config.IEnabler;
 
 public class HexColorSetting extends Setting {
 
-    protected final String name;
-    protected final String comment;
-
     protected final String defaultHexString;
 
     private int colorValue = -1;
 
     public HexColorSetting(IEnabler dependency, String name, String comment, String defaultHexString) {
-        super(dependency);
+        super(dependency, name, comment);
 
-        this.name = name;
-        this.comment = comment;
         this.defaultHexString = defaultHexString;
     }
 

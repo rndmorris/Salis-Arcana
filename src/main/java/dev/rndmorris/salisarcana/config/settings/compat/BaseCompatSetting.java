@@ -17,9 +17,9 @@ public class BaseCompatSetting extends Setting implements IHaveSettings {
     protected final List<Setting> settings = new ArrayList<>();
 
     public BaseCompatSetting(IEnabler dependency, TargetedMod mod) {
-        super(dependency);
+        super(dependency, mod.modId, String.format("Settings for compatibility with %s.", mod.modId));
         this.mod = mod;
-        setCategory(mod.modId);
+        this.setCategory(mod.modId);
     }
 
     @Override
@@ -35,8 +35,7 @@ public class BaseCompatSetting extends Setting implements IHaveSettings {
 
     @Override
     public void loadFromConfiguration(Configuration configuration) {
-        enabled = configuration
-            .getBoolean(mod.modId, defaultCategory, enabled, String.format("Enable compatibility with %s.", mod.modId));
+        enabled = configuration.getBoolean(this.name, defaultCategory, enabled, this.comment);
         for (var setting : settings) {
             setting.setCategory(mod.modId)
                 .loadFromConfiguration(configuration);
