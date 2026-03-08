@@ -571,6 +571,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.thaum.taintedModifierSpeed)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_ModifierSpeed_Tainted")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_FIX_GET_BLOCK(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixNodeTriggeringChunkLoading)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_ProtectGetBlock")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     FAKE_PLAYERS_DROP_LOOTBAGS(new SalisBuilder()
         .applyIf(SalisConfig.features.fakePlayersDropLootbags)
