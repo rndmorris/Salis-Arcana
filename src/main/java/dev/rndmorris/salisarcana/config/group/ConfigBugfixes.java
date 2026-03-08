@@ -190,10 +190,10 @@ public class ConfigBugfixes extends ConfigGroup {
         "correctItemInsertion",
         "Thaumcraft will correctly insert items into inventories - prevents double-counting slots when testing for space and allows insertion of items into an empty slot of the other side of a double chest.");
 
-    public final ToggleSetting lootBlockHitbox = new ToggleSetting(
+    public final ToggleSetting fixBlockBoundsAlterations = new ToggleSetting(
         this,
-        "lootBlockHitbox",
-        "Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.");
+        "fixBlockBoundsAlterations",
+        "Fixes numerous bugs related to collision boxes & block bounds, including glitchiness when standing on Essentia Reservoirs & falling through Old Urns & Abandoned Crates while mining them.");
 
     public final ToggleSetting etherealBloomSaveNBT = new ToggleSetting(
         this,
