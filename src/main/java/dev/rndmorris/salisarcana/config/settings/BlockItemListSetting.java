@@ -26,8 +26,6 @@ import dev.rndmorris.salisarcana.lib.IntegerHelper;
 
 public class BlockItemListSetting<DATA> extends Setting {
 
-    public final String comment;
-    public final String name;
     private ListType listType = ListType.BOTH;
     private final List<String> defaults = new ArrayList<>();
 
@@ -39,9 +37,7 @@ public class BlockItemListSetting<DATA> extends Setting {
     private boolean resolved = false;
 
     public BlockItemListSetting(IEnabler dependency, String name, String comment) {
-        super(dependency);
-        this.name = name;
-        this.comment = comment;
+        super(dependency, name, comment);
     }
 
     public BlockItemListSetting<DATA> withAdditionalData(Function<String[], DATA> parser) {
