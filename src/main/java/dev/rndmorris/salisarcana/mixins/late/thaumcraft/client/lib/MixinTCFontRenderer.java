@@ -21,7 +21,7 @@ public class MixinTCFontRenderer {
 
     /**
      * @author DeathFuel
-     * @reason test
+     * @reason Overwrite TC's copy-pasted font rendering code with Angelica's replacements
      */
     @Overwrite
     private int renderString(String text, int x, int y, int argb, boolean dropShadow) {
