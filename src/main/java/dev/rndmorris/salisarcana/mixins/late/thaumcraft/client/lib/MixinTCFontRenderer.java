@@ -14,10 +14,10 @@ import thaumcraft.client.lib.TCFontRenderer;
 public class MixinTCFontRenderer {
 
     @Unique
-    private static FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
+    private static FontRenderer sa$fr = Minecraft.getMinecraft().fontRenderer;
 
     @Unique
-    private static BatchingFontRenderer bfr = ((FontRendererAccessor) fr).angelica$getBatcher();
+    private static BatchingFontRenderer sa$bfr = ((FontRendererAccessor) sa$fr).angelica$getBatcher();
 
     /**
      * @author DeathFuel
@@ -25,9 +25,9 @@ public class MixinTCFontRenderer {
      */
     @Overwrite
     private int renderString(String text, int x, int y, int argb, boolean dropShadow) {
-        bfr.setBookMode(true);
-        int i = ((FontRendererAccessor) fr).angelica$drawStringBatched(text, x, y, argb, dropShadow);
-        bfr.setBookMode(false);
+        sa$bfr.setBookMode(true);
+        int i = ((FontRendererAccessor) sa$fr).angelica$drawStringBatched(text, x, y, argb, dropShadow);
+        sa$bfr.setBookMode(false);
         return i;
     }
 }

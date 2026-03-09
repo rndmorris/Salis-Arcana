@@ -596,7 +596,6 @@ public enum Mixins implements IMixins {
             }
             return AngelicaConfig.enableFontRenderer;
         })
-        //.setApplyIf(() -> false)
         .addClientMixins("thaumcraft.client.lib.MixinTCFontRenderer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)
         .addRequiredMod(TargetedMod.ANGELICA)),
