@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
 
+import com.gtnewhorizons.angelica.config.AngelicaConfig;
 import dev.rndmorris.salisarcana.common.compat.MixinModCompat;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.Setting;
@@ -585,6 +586,20 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.thaum.disableAspectTint)
         .addClientMixins("thaumcraft.client.lib.MixinUtilsFX_DisableAspectTint")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    MIXIN_TCFONTRENDERER(new SalisBuilder()
+        .setApplyIf(() -> {
+            try {
+                Class.forName("com.gtnewhorizons.angelica.config.AngelicaConfig");
+            } catch (ClassNotFoundException e) {
+                return false;
+            }
+            return AngelicaConfig.enableFontRenderer;
+        })
+        //.setApplyIf(() -> false)
+        .addClientMixins("thaumcraft.client.lib.MixinTCFontRenderer")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)
+        .addRequiredMod(TargetedMod.ANGELICA)),
 
     // Required
     ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
