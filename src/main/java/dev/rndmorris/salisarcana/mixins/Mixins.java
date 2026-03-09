@@ -589,12 +589,7 @@ public enum Mixins implements IMixins {
 
     MIXIN_TCFONTRENDERER(new SalisBuilder()
         .setApplyIf(() -> {
-            try {
-                Class.forName("com.gtnewhorizons.angelica.config.AngelicaConfig");
-            } catch (ClassNotFoundException e) {
-                return false;
-            }
-            return AngelicaConfig.enableFontRenderer;
+            return TargetedMod.ANGELICA.isLoaded() && AngelicaConfig.enableFontRenderer;
         })
         .addClientMixins("thaumcraft.client.lib.MixinTCFontRenderer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)
