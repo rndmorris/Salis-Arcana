@@ -587,10 +587,10 @@ public enum Mixins implements IMixins {
         .addClientMixins("thaumcraft.client.lib.MixinUtilsFX_DisableAspectTint")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
-    MIXIN_TCFONTRENDERER(new SalisBuilder()
+    MIXIN_ANGELICA_FONTRENDERER(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.modCompat.angelica.replaceTCFontRenderer.isEnabled()
             && TargetedMod.ANGELICA.isLoaded() && AngelicaConfig.enableFontRenderer)
-        .addClientMixins("thaumcraft.client.lib.MixinTCFontRenderer")
+        .addClientMixins("thaumcraft.client.lib.MixinTCFontRenderer_AngelicaFontRenderer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)
         .addRequiredMod(TargetedMod.ANGELICA)),
 

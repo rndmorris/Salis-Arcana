@@ -13,7 +13,7 @@ import com.gtnewhorizons.angelica.mixins.interfaces.FontRendererAccessor;
 import thaumcraft.client.lib.TCFontRenderer;
 
 @Mixin(value = TCFontRenderer.class, remap = false)
-public class MixinTCFontRenderer {
+public abstract class MixinTCFontRenderer_AngelicaFontRenderer {
 
     @Unique
     private static FontRenderer sa$fr = Minecraft.getMinecraft().fontRenderer;
