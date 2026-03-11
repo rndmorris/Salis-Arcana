@@ -46,6 +46,7 @@ dependencies {
     compileOnly(rfg.deobf("maven.modrinth:etfuturum:2.6.2"))
     compileOnly(rfg.deobf("curse.maven:undergroundbiomesconstructs-72744:2304497"))
     compileOnly("com.github.GTNewHorizons:GTNH-TC-Wands:1.4.6:dev")
+    compileOnly("com.github.GTNewHorizons:Angelica:2.1.3:dev")
 
     /* Patched TC4 addons */
     compileOnly("com.github.GTNewHorizons:ThaumicTinkerer:2.12.2:dev")
