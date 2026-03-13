@@ -184,7 +184,7 @@ is no research to navigate back to.
 
 **Config option:** `Show Research Key`
 
-Holding Ctrl while hovering over research in the Thaumonomicon will display that research's internal id.
+Holding Ctrl while hovering over research in the Thaumonomicon will display that research's internal id and coordinates.
 
 ## Weighted Node Generation
 
