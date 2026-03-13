@@ -15,7 +15,8 @@ public enum TargetedMod implements ITargetMod {
     THAUMIC_TINKERER("ThaumicTinkerer"),
     TC4_TWEAKS("tc4tweak"),
     BAUBLES_EXPANDED("Baubles|Expanded"),
-    UNDERGROUND_BIOMES("UndergroundBiomes");
+    UNDERGROUND_BIOMES("UndergroundBiomes"),
+    ANGELICA("angelica");
 
     private final TargetModBuilder builder;
     public final String modId;
