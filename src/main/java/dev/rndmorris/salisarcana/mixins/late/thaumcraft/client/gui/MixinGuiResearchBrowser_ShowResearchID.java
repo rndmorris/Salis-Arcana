@@ -32,7 +32,14 @@ public class MixinGuiResearchBrowser_ShowResearchID extends GuiScreen {
     @Inject(method = "drawScreen", at = @At(value = "TAIL"))
     private void mixinDrawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         if (this.sa$isControlHeld && this.currentHighlight != null) {
-            sa$drawPopup(mouseX, mouseY, this.currentHighlight.key);
+            sa$drawPopup(
+                mouseX,
+                mouseY,
+                String.format(
+                    "%s (%d, %d)",
+                    this.currentHighlight.key,
+                    this.currentHighlight.displayColumn,
+                    this.currentHighlight.displayRow));
         }
     }
 
