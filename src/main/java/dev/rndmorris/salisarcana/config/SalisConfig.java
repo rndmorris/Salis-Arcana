@@ -3,6 +3,7 @@ package dev.rndmorris.salisarcana.config;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import net.minecraftforge.common.config.Configuration;
@@ -62,7 +63,7 @@ public class SalisConfig {
         }
     }
 
-    private static Configuration getGroupConfig(ConfigGroup group) {
+    public static Configuration getGroupConfig(ConfigGroup group) {
         final var path = Paths.get("config", SalisArcana.MODID, group.getGroupName() + ".cfg")
             .toString();
         return new Configuration(new File(path));
@@ -84,5 +85,9 @@ public class SalisConfig {
             }
         }
         return null;
+    }
+
+    public static Collection<ConfigGroup> getConfigGroups() {
+        return groups;
     }
 }
