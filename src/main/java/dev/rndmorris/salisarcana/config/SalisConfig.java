@@ -68,15 +68,17 @@ public class SalisConfig {
         return new Configuration(new File(path));
     }
 
-    public static Setting getSettingByName(String category, String name) {
+    public static Setting getSettingByName(String groupName, String category, String name) {
         for (var group : groups) {
             if (!group.getGroupName()
-                .equals(category)) {
+                .equals(groupName)) {
                 continue;
             }
             for (var setting : group.getSettings()) {
-                if (setting.getName()
-                    .equals(name)) {
+                if (setting.getCategory()
+                    .equals(category)
+                    && setting.getName()
+                        .equals(name)) {
                     return setting;
                 }
             }
