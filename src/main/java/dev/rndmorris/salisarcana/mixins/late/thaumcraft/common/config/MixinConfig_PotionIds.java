@@ -158,7 +158,7 @@ public abstract class MixinConfig_PotionIds {
     @Unique
     private static void sa$logArrayTooLong() {
         LOG.error("No unassigned potion ids could be found within the safe limit.");
-        StartupNotifications.queueError(new ChatComponentTranslation("salisaracan:error.potion_array_too_long"));
+        StartupNotifications.queueError(new ChatComponentTranslation("salisarcana:error.potion_array_too_long"));
     }
 
     @Unique
