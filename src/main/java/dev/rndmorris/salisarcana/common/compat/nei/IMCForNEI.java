@@ -12,12 +12,12 @@ public class IMCForNEI {
     @Optional.Method(modid = "NotEnoughItems")
     public static void IMCSender() {
         if (SalisConfig.features.replaceWandCoreSettings.isEnabled()
-            && SalisConfig.modCompat.apsectrecipeindex.coreReplacementNEIHandler.isEnabled()) {
+            && SalisConfig.modCompat.aspectRecipeIndex.coreReplacementNEIHandler.isEnabled()) {
             registerHandlerInfo(new WandCoreSubstitutionHandler().getOverlayIdentifier(), "Thaumcraft:WandRod", 144);
             registerCatalystInfo(new WandCoreSubstitutionHandler().getOverlayIdentifier(), "Thaumcraft:blockTable:15");
         }
         if (SalisConfig.features.replaceWandCapsSettings.isEnabled()
-            && SalisConfig.modCompat.apsectrecipeindex.capReplacementNEIHandler.isEnabled()) {
+            && SalisConfig.modCompat.aspectRecipeIndex.capReplacementNEIHandler.isEnabled()) {
             registerHandlerInfo(new WandCapSubstitutionHandler().getOverlayIdentifier(), "Thaumcraft:WandCap:1", 144);
             registerCatalystInfo(new WandCapSubstitutionHandler().getOverlayIdentifier(), "Thaumcraft:blockTable:15");
         }

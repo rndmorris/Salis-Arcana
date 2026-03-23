@@ -15,7 +15,7 @@ public class ConfigModCompat extends ConfigGroup {
 
     public final UBCCompatSettings undergroundBiomes = new UBCCompatSettings(this);
     public final GTNHTCWandsCompatSettings gtnhWands = new GTNHTCWandsCompatSettings(this);
-    public final AspectRecipeIndexCompatSettings apsectrecipeindex = new AspectRecipeIndexCompatSettings(this);
+    public final AspectRecipeIndexCompatSettings aspectRecipeIndex = new AspectRecipeIndexCompatSettings(this);
     public final BaublesExpandedSettings baublesExpanded = new BaublesExpandedSettings(this);
     public final AngelicaSettings angelica = new AngelicaSettings(this);
 

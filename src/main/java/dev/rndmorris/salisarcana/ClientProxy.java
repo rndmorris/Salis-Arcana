@@ -28,7 +28,7 @@ public class ClientProxy extends CommonProxy {
         if (SalisConfig.features.wandPartStatsTooltip.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new WandPartTooltipEventHandler());
         }
-        if (SalisConfig.modCompat.apsectrecipeindex.isEnabled()) {
+        if (SalisConfig.modCompat.aspectRecipeIndex.isEnabled()) {
             IMCForNEI.IMCSender();
         }
         new GuiHandler();

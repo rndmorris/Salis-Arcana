@@ -26,18 +26,18 @@ public class NEIConfig implements IConfigureNEI {
         hidePlaceholder(PlaceholderItem.capPlaceholder);
         hidePlaceholder(PlaceholderItem.rodPlaceholder);
 
-        if (SalisConfig.modCompat.apsectrecipeindex.isEnabled()) {
+        if (SalisConfig.modCompat.aspectRecipeIndex.isEnabled()) {
             ArcaneSlotPositioner positioner = new ArcaneSlotPositioner();
             ArcaneOverlayHandler handler = new ArcaneOverlayHandler();
             if (SalisConfig.features.replaceWandCoreSettings.isEnabled()
-                && SalisConfig.modCompat.apsectrecipeindex.coreReplacementNEIHandler.isEnabled()) {
+                && SalisConfig.modCompat.aspectRecipeIndex.coreReplacementNEIHandler.isEnabled()) {
                 API.registerRecipeHandler(new WandCoreSubstitutionHandler());
                 API.registerUsageHandler(new WandCoreSubstitutionHandler());
                 API.registerGuiOverlay(GuiArcaneWorkbench.class, "salisarcana.substitution.core", positioner);
                 API.registerGuiOverlayHandler(GuiArcaneWorkbench.class, handler, "salisarcana.substitution.core");
             }
             if (SalisConfig.features.replaceWandCapsSettings.isEnabled()
-                && SalisConfig.modCompat.apsectrecipeindex.capReplacementNEIHandler.isEnabled()) {
+                && SalisConfig.modCompat.aspectRecipeIndex.capReplacementNEIHandler.isEnabled()) {
                 API.registerRecipeHandler(new WandCapSubstitutionHandler());
                 API.registerUsageHandler(new WandCapSubstitutionHandler());
                 API.registerGuiOverlay(GuiArcaneWorkbench.class, "salisarcana.substitution.caps", positioner);
