@@ -16,7 +16,8 @@ public enum TargetedMod implements ITargetMod {
     TC4_TWEAKS("tc4tweak"),
     BAUBLES_EXPANDED("Baubles|Expanded"),
     UNDERGROUND_BIOMES("UndergroundBiomes"),
-    ANGELICA("angelica");
+    ANGELICA("angelica"),
+    ASPECT_RECIPE_INDEX("aspectrecipeindex");
 
     private final TargetModBuilder builder;
     public final String modId;
