@@ -102,21 +102,29 @@ public abstract class Setting implements IDependant {
     private void autoRegisterOwner() {
         IEnabler dependency = getDependency();
         var visited = new HashSet<>();
+        var registeredWithDependency = false;
         while (dependency != null) {
             if (visited.contains(dependency)) {
                 throw new RuntimeException("Encountered a circular setting dependency!");
             }
             visited.add(dependency);
-            if (dependency instanceof IHaveSettings hasSettings) {
-                if (dependency instanceof ConfigGroup group) {
-                    this.configGroup = group;
-                }
+            if (!registeredWithDependency && dependency instanceof IHaveSettings hasSettings) {
                 registerTo(hasSettings);
+                registeredWithDependency = true;
+            }
+            if (this.configGroup == null && dependency instanceof ConfigGroup group) {
+                this.configGroup = group;
+            }
+            if (registeredWithDependency && this.configGroup != null) {
                 break;
             }
             if (dependency instanceof IDependant dependant) {
                 dependency = dependant.getDependency();
                 continue;
+            }
+
+            if (this.configGroup == null) {
+                throw new RuntimeException("No ConfigGroup found in the dependency tree.");
             }
             throw new RuntimeException("No IHaveSettings found in the dependency tree.");
         }
