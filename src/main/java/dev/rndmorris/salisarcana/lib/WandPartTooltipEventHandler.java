@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.StringJoiner;
 
+import cpw.mods.fml.common.Optional;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
@@ -20,6 +21,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.wands.StaffRod;
+import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
 
@@ -89,10 +91,7 @@ public class WandPartTooltipEventHandler {
             int multiplier = wandCap.getCraftCost();
 
             if (SalisConfig.modCompat.gtnhWands.isEnabled()) {
-                CapWrapper capWrapper = GTNHTCWandsCompat.getCapWrapper(wandCap);
-                if (capWrapper != null) {
-                    multiplier = capWrapper.getCostMultiplier();
-                }
+                multiplier = getGTNHCapsMultiplier(wandCap, multiplier);
             }
 
             event.toolTip.add(StatCollector.translateToLocalFormatted("salisarcana:wand_cap.price_mult", multiplier));
@@ -109,16 +108,7 @@ public class WandPartTooltipEventHandler {
             boolean isStaff = wandRod instanceof StaffRod;
             if (SalisConfig.modCompat.gtnhWands.isEnabled()
                 && getWrapper(wandRod, isStaff) instanceof SceptreWrapper wrapper) {
-                WandProps props = wrapper.getProps();
-                event.toolTip.add(
-                    StatCollector.translateToLocalFormatted(
-                        "salisarcana:wand_rod.gtnh_wands_price",
-                        props.getBaseCost(),
-                        props.getCapCost()));
-                event.toolTip.add(
-                    StatCollector.translateToLocalFormatted(
-                        isStaff ? "salisarcana:wand_rod.gtnh_staffter_mult" : "salisarcana:wand_rod.gtnh_scepter_mult",
-                        wrapper.getSceptreCostMultiplier()));
+                addGTNHCoreStats(event, wrapper, isStaff);
             } else {
                 event.toolTip.add(
                     StatCollector.translateToLocalFormatted("salisarcana:wand_rod.base_price", wandRod.getCraftCost()));
@@ -136,6 +126,30 @@ public class WandPartTooltipEventHandler {
         }
     }
 
+    @Optional.Method(modid = "gtnhtcwands")
+    private static int getGTNHCapsMultiplier(WandCap wandCap, int multiplier) {
+        CapWrapper capWrapper = GTNHTCWandsCompat.getCapWrapper(wandCap);
+        if (capWrapper != null) {
+            multiplier = capWrapper.getCostMultiplier();
+        }
+        return multiplier;
+    }
+
+    @Optional.Method(modid = "gtnhtcwands")
+    private static void addGTNHCoreStats(ItemTooltipEvent event, SceptreWrapper wrapper, boolean isStaff) {
+        WandProps props = wrapper.getProps();
+        event.toolTip.add(
+            StatCollector.translateToLocalFormatted(
+                "salisarcana:wand_rod.gtnh_wands_price",
+                props.getBaseCost(),
+                props.getCapCost()));
+        event.toolTip.add(
+            StatCollector.translateToLocalFormatted(
+                isStaff ? "salisarcana:wand_rod.gtnh_staffter_mult" : "salisarcana:wand_rod.gtnh_scepter_mult",
+                wrapper.getSceptreCostMultiplier()));
+    }
+
+    @Optional.Method(modid = "gtnhtcwands")
     private static AbstractWandWrapper getWrapper(WandRod wandRod, boolean isStaff) {
         return GTNHTCWandsCompat.getWandWrapper(wandRod, isStaff ? WandType.STAFFTER : WandType.SCEPTER);
     }
