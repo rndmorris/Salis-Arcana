@@ -15,6 +15,7 @@ import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 import dev.rndmorris.salisarcana.common.compat.GTNHTCWandsCompat;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.WandType;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
@@ -99,9 +100,10 @@ public class WandCoreSubstitutionHandler extends WandCapSubstitutionHandler {
             return inputWand.copy();
         }
         WandType type = WandType.getWandType(inputWand);
-        ItemStack newWand = WandRecipeHandler.createWand(rod, wand.getCap(inputWand));
-        if (type == WandType.SCEPTER || type == WandType.STAFFTER) {
-            WandRecipeHandler.makeScepter(newWand);
+        ItemStack newWand = inputWand.copy();
+        wand.setRod(newWand, rod);
+        for (Aspect a : Aspect.getPrimalAspects()) {
+            newWand.stackTagCompound.removeTag(a.getTag());
         }
         Items.feather.setDamage(newWand, type.getCraftingVisCost(wand.getCap(newWand), rod));
         return newWand;

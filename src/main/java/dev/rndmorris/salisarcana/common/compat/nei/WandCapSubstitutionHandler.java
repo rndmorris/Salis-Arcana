@@ -10,6 +10,7 @@ import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.ShapelessArcaneRe
 import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.WandRecipeHandler;
 import com.gtnewhorizons.aspectrecipeindex.util.Util;
 
+import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -112,9 +113,10 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
             return inputWand.copy();
         }
         WandType type = WandType.getWandType(inputWand);
-        ItemStack newWand = WandRecipeHandler.createWand(wand.getRod(inputWand), cap);
-        if (type == WandType.SCEPTER || type == WandType.STAFFTER) {
-            WandRecipeHandler.makeScepter(newWand);
+        ItemStack newWand = inputWand.copy();
+        wand.setCap(newWand, cap);
+        for (Aspect a : Aspect.getPrimalAspects()) {
+            newWand.stackTagCompound.removeTag(a.getTag());
         }
         Items.feather.setDamage(newWand, type.getCraftingVisCost(cap, wand.getRod(newWand)));
         return newWand;
@@ -160,12 +162,9 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
         protected static AspectList wandCost(ItemStack wandStack) {
             AspectList cost = new AspectList();
             if (!(wandStack.getItem() instanceof ItemWandCasting wand)) return cost;
-            int visCost = WandType.getWandType(wandStack)
-                .getCraftingVisCost(wand.getCap(wandStack), wand.getRod(wandStack));
-            for (Aspect a : Aspect.getPrimalAspects()) {
-                cost.add(a, visCost);
-            }
-            return cost;
+            return AspectHelper.primalList(
+                WandType.getWandType(wandStack)
+                    .getCraftingVisCost(wand.getCap(wandStack), wand.getRod(wandStack)));
         }
     }
 }
