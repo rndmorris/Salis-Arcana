@@ -320,6 +320,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixNodeTriggeringChunkLoading",
         "Prevent Node ticking code from triggering constant chunk loading on the server.");
 
+    public final ToggleSetting fixInventoryAspects = new ToggleSetting(
+        this,
+        "fixInventoryAspects",
+        "Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.");
+
     @Nonnull
     @Override
     public String getGroupName() {

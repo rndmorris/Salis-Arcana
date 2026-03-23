@@ -19,6 +19,8 @@ public class ConfigThaumcraft extends ConfigGroup {
 
     private static final String primalArrowCategory = "primal_arrows";
 
+    private static final String tc4PerformanceCategory = "thaumcraft_performance";
+
     //
     // Node Behaviors
     //
@@ -155,6 +157,22 @@ public class ConfigThaumcraft extends ConfigGroup {
     public final ToggleSetting disableAspectTint = new ToggleSetting(this, "disableAspectTint", """
         If true, disables the tinting of aspect images, this can be useful in combination with resource packs
         that provide images that are already colored.""").setEnabled(false);
+
+    public final ToggleSetting replaceReflection = new ToggleSetting(
+        this,
+        "replaceReflection",
+        "Replaces slow reflection calls with quick accessors.").setCategory(tc4PerformanceCategory);
+
+    public final ToggleSetting improveAspectTooltipPerformance = new ToggleSetting(
+        this,
+        "improveAspectTooltipPerformance",
+        "Improves the performance of the aspect tooltips by rewriting its logic.").setCategory(tc4PerformanceCategory);
+
+    public final ToggleSetting betterParticleEngine = new ToggleSetting(
+        this,
+        "betterParticleEngine",
+        "Improves the particle engine of Thaumcraft by removing unnecessary GL operations.")
+            .setCategory(tc4PerformanceCategory);
 
     @Override
     public @NotNull String getGroupName() {

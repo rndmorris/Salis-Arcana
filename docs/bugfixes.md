@@ -346,3 +346,9 @@ Prevent players from disassembling golems that have already been killed in order
 **Config option:** `stableRunicMatrixAnimation`
 
 Runic Matrices which are too stable will not fly far out from the center of the multiblock.
+
+## Fix Wrong Aspects from being Rendered
+
+**Config option:** `fixInventoryAspects`
+
+Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.

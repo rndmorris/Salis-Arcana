@@ -13,6 +13,11 @@ import dev.rndmorris.salisarcana.config.settings.Setting;
 public enum Mixins implements IMixins {
 
     // spotless:off
+    // Early Mixins
+    ACCESSORS(new SalisBuilder(Phase.EARLY)
+        .addCommonMixins("accessor.AccessorGuiContainer")
+        .addClientMixins("accessor.AccessorMinecraft")),
+
     // Bugfixes
     ADVANCED_ARCANE_FURNACE_SAVE_NBT(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.advAlchemicalFurnaceSaveNbt)
@@ -269,6 +274,20 @@ public enum Mixins implements IMixins {
     RUNIC_MATRIX_OVERSTABLE_SHAKE(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.stableRunicMatrixAnimation)
         .addClientMixins("thaumcraft.client.renderers.tile.MixinTileRunicMatrixRenderer_StableAltar")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    FIX_INVENTORY_ASPECTS(new SalisBuilder()
+        .setApplyIf(() -> SalisConfig.bugfixes.fixInventoryAspects.isEnabled()
+                        || SalisConfig.thaum.improveAspectTooltipPerformance.isEnabled())
+        .addClientMixins("thaumcraft.client.lib.MixinClientTickEventsFML_SlotAspectPopup")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    REPLACE_THAUMCRAFT_REFLECTION(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.replaceReflection)
+        .addClientMixins("thaumcraft.client.lib.MixinUtilsFX_ReflectionToAccessors")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    BETTER_PARTICLE_ENGINE(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.betterParticleEngine)
+        .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_SkipRendering")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
@@ -619,7 +638,7 @@ public enum Mixins implements IMixins {
     private final MixinBuilder builder;
 
     Mixins(MixinBuilder builder) {
-        this.builder = builder.setPhase(Phase.LATE);
+        this.builder = builder;
     }
 
     @Nonnull
@@ -629,6 +648,14 @@ public enum Mixins implements IMixins {
     }
 
     static class SalisBuilder extends MixinBuilder {
+
+        public SalisBuilder() {
+            setPhase(Phase.LATE);
+        }
+
+        public SalisBuilder(Phase phase) {
+            setPhase(phase);
+        }
 
         public MixinBuilder applyIf(Setting config) {
             return super.setApplyIf(config::isEnabled);
