@@ -24,7 +24,7 @@ public abstract class Setting implements IDependant {
     protected final String name;
     protected final String comment;
 
-    private ConfigGroup configGroup = null;
+    private ConfigGroup configGroup;
 
     public Setting(IEnabler dependency, String name, String comment) {
         this.enabledDependency = new WeakReference<>(dependency);
@@ -145,7 +145,7 @@ public abstract class Setting implements IDependant {
     /**
      * String representation of this setting.
      *
-     * @return String in the format "groupname:name"
+     * @return String in the format "groupname:category:name"
      */
     public String toString() {
         return this.configGroup.getGroupName() + ":" + this.getCategory() + ":" + this.name;
