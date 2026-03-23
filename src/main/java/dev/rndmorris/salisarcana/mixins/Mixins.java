@@ -412,6 +412,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.staffterNameTooltip)
         .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_NamedStaffters")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    WAND_SHOW_FOCUS_CUSTOM_NAME(new SalisBuilder()
+        .applyIf(SalisConfig.features.wandDisplayFociCustomNames)
+        .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_FociCustomNames")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SINGLE_WAND_REPLACEMENT(new SalisBuilder()
         .setApplyIf(SalisConfig.features::singleWandReplacementEnabled)
         .addCommonMixins("thaumcraft.common.container.MixinContainerArcaneWorkbench_SingleWandReplacement")

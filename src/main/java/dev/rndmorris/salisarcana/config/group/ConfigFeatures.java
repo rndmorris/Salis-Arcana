@@ -327,6 +327,11 @@ public class ConfigFeatures extends ConfigGroup {
         "staffterNameTooltip",
         "Causes staffters to use their own translation string rather than being called \"Staff\" in the tooltip.");
 
+    public final ToggleSetting wandDisplayFociCustomNames = new ToggleSetting(
+        this,
+        "wandDisplayFociCustomNames",
+        "Wands equipped with renamed foci will display the custom name within the tooltip of the wand.");
+
     public final ToggleSetting primalCrusherOredict = new ToggleSetting(
         this,
         "primalCrusherMinesOredictionaryStone",
