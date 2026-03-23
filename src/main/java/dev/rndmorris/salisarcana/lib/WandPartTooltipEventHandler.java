@@ -4,7 +4,6 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.StringJoiner;
 
-import cpw.mods.fml.common.Optional;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
@@ -15,6 +14,7 @@ import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 import com.gtnewhorizons.tcwands.api.wrappers.CapWrapper;
 import com.gtnewhorizons.tcwands.api.wrappers.SceptreWrapper;
 
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import dev.rndmorris.salisarcana.common.compat.GTNHTCWandsCompat;
 import dev.rndmorris.salisarcana.config.SalisConfig;
