@@ -204,6 +204,9 @@ salisarcana:wand_cap.vis_discount.aspect=%s §5Discount: %s
 salisarcana:wand_cap.price_mult=§3Crafting Cost Multiplier: §e%sx
 salisarcana:wand_rod.vis_capacity=§5Capacity: §d%s vis
 salisarcana:wand_rod.base_price=§3Base Crafting Cost: §d%s vis
+salisarcana:wand_rod.gtnh_wands_price=§3Crafting Cost: §d%s + (%d * cap multiplier) vis
+salisarcana:wand_rod.gtnh_scepter_mult=§3Scepter Multiplier: §d%sx
+salisarcana:wand_rod.gtnh_staffter_mult=§3Staffter Multiplier: §d%sx
 salisarcana:wand_rod.runes=§5+1 Potency§2 for any equipped focus
 
 salisarcana:wand_rod.special.obsidian=§5Regenerates §21 Terra§d vis§5 every 10 seconds (max §d10% vis§5)
@@ -279,3 +282,6 @@ salisarcana:configmismatch.2=Your client configuration does not match the server
 salisarcana:configmismatch.3=Would you like to automatically fix these settings now? (Requires restart)
 salisarcana:showdetails=Show Details
 salisarcana:hidedetails=Hide Details
+
+salisarcana:wand_rod.special.tbthaumium=§5Regenerates §d1 vis§5 of a random uncapped aspect every 2.5 seconds (max §d10% vis§5)
+salisarcana:wand_rod.special.tbvoid=§5Regenerates §d1 vis§5 of a random uncapped aspect every 2.5 seconds (max §d10% vis§5)

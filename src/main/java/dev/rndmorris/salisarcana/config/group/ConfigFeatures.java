@@ -192,7 +192,7 @@ public class ConfigFeatures extends ConfigGroup {
     public final Setting nomiconShowResearchId = new ToggleSetting(
         this,
         "Show Research Key",
-        "While viewing the Thaumonomicon, allows you to view the internal name of a research while hovering over it and holding control");
+        "While viewing the Thaumonomicon, allows you to view the internal name and coordinates of a research while hovering over it and holding control");
 
     public final ToggleSetting nomiconDuplicateResearch = new ToggleSetting(
         this,

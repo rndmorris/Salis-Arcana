@@ -152,6 +152,10 @@ public class ConfigThaumcraft extends ConfigGroup {
         "hiddenResearchUseWorldRandom",
         "When right-clicking a Research Note made from Knowledge Fragments, will use a random value not dependent on the world's time of day.");
 
+    public final ToggleSetting disableAspectTint = new ToggleSetting(this, "disableAspectTint", """
+        If true, disables the tinting of aspect images, this can be useful in combination with resource packs
+        that provide images that are already colored.""").setEnabled(false);
+
     @Override
     public @NotNull String getGroupName() {
         return "thaumcraft_configuration";

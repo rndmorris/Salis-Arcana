@@ -315,6 +315,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "stableRunicMatrixAnimation",
         "Runic Matrices which are too stable will not fly far out from the center of the multiblock.");
 
+    public final ToggleSetting fixNodeTriggeringChunkLoading = new ToggleSetting(
+        this,
+        "fixNodeTriggeringChunkLoading",
+        "Prevent Node ticking code from triggering constant chunk loading on the server.");
+
     @Nonnull
     @Override
     public String getGroupName() {
