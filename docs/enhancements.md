@@ -22,6 +22,12 @@ while avoiding the weirdness in Thaumcraft's plank blocks implementation.
 
 Causes staffters to use their own translation string rather than being called "Staff" in the tooltip.
 
+## Display Custom Names of Foci in Wand Tooltip
+
+**Config option:** `wandDisplayFociCustomNames`
+
+Wands equipped with renamed foci will display the custom name within the tooltip of the wand.
+
 ## Mob Vis Drop Whitelist
 
 **Config option:** `mobVisWhitelist`
@@ -184,7 +190,7 @@ is no research to navigate back to.
 
 **Config option:** `Show Research Key`
 
-Holding Ctrl while hovering over research in the Thaumonomicon will display that research's internal id.
+Holding Ctrl while hovering over research in the Thaumonomicon will display that research's internal id and coordinates.
 
 ## Weighted Node Generation
 

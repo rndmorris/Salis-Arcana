@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
+import com.gtnewhorizons.angelica.config.AngelicaConfig;
 
 import dev.rndmorris.salisarcana.common.compat.MixinModCompat;
 import dev.rndmorris.salisarcana.config.SalisConfig;
@@ -174,10 +175,12 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.silkTouchCrystalClusters)
         .addCommonMixins("thaumcraft.common.blocks.MixinBlockCrystal_SilkTouch")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
-    LOOT_BLOCK_HITBOX(new SalisBuilder()
-        .applyIf(SalisConfig.bugfixes.lootBlockHitbox)
-        .addCommonMixins("thaumcraft.common.blocks.MixinBlockLoot_SetHitbox")
-        .addClientMixins("thaumcraft.client.renderers.block.MixinBlockLootRenderer_ConserveBlockBounds")
+    BLOCK_BOUNDS_IMMUTABILITY(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixBlockBoundsAlterations)
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlock_CollisionConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockCandle_SetBlockBounds",
+            "thaumcraft.common.blocks.MixinBlockChestHungry_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockEssentiaReservoir_SetBlockBounds",
+            "thaumcraft.common.blocks.MixinBlockJar_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockLoot_SetBlockBounds")
+        .addClientMixins("thaumcraft.client.renderers.block.MixinBlockRenderer_ConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockTube_BBoxConserveBlockBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_LOCALIZATION_SIDES(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixClientSideLocalization)
@@ -430,6 +433,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.staffterNameTooltip)
         .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_NamedStaffters")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    WAND_SHOW_FOCUS_CUSTOM_NAME(new SalisBuilder()
+        .applyIf(SalisConfig.features.wandDisplayFociCustomNames)
+        .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_FociCustomNames")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     SINGLE_WAND_REPLACEMENT(new SalisBuilder()
         .setApplyIf(SalisConfig.features::singleWandReplacementEnabled)
         .addCommonMixins("thaumcraft.common.container.MixinContainerArcaneWorkbench_SingleWandReplacement")
@@ -590,11 +597,27 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.thaum.taintedModifierSpeed)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_ModifierSpeed_Tainted")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_FIX_GET_BLOCK(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixNodeTriggeringChunkLoading)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_ProtectGetBlock")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     FAKE_PLAYERS_DROP_LOOTBAGS(new SalisBuilder()
         .applyIf(SalisConfig.features.fakePlayersDropLootbags)
         .addCommonMixins("thaumcraft.common.lib.events.MixinEventHandlerEntity_LootBagFakePlayer")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    DISABLE_ASPESCT_TINT(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.disableAspectTint)
+        .addClientMixins("thaumcraft.client.lib.MixinUtilsFX_DisableAspectTint")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    MIXIN_ANGELICA_FONTRENDERER(new SalisBuilder()
+        .setApplyIf(() -> SalisConfig.modCompat.angelica.replaceTCFontRenderer.isEnabled()
+            && TargetedMod.ANGELICA.isLoaded() && AngelicaConfig.enableFontRenderer)
+        .addClientMixins("thaumcraft.client.lib.MixinTCFontRenderer_AngelicaFontRenderer")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)
+        .addRequiredMod(TargetedMod.ANGELICA)),
 
     // Required
     ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
