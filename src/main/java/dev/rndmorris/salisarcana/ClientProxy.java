@@ -11,6 +11,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import dev.rndmorris.salisarcana.client.ThaumicInventoryScanner;
 import dev.rndmorris.salisarcana.client.handlers.GuiHandler;
+import dev.rndmorris.salisarcana.common.compat.nei.IMCForNEI;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.WandPartTooltipEventHandler;
 
@@ -32,6 +33,9 @@ public class ClientProxy extends CommonProxy {
         }
         if (SalisConfig.features.wandPartStatsTooltip.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(new WandPartTooltipEventHandler());
+        }
+        if (SalisConfig.modCompat.apsectrecipeindex.isEnabled()) {
+            IMCForNEI.IMCSender();
         }
         new GuiHandler();
     }
