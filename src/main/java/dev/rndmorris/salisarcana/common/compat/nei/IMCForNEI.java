@@ -13,13 +13,13 @@ public class IMCForNEI {
     public static void IMCSender() {
         if (SalisConfig.features.replaceWandCoreSettings.isEnabled()
             && SalisConfig.modCompat.aspectRecipeIndex.coreReplacementNEIHandler.isEnabled()) {
-            registerHandlerInfo(new WandCoreSubstitutionHandler().getOverlayIdentifier(), "Thaumcraft:WandRod", 144);
-            registerCatalystInfo(new WandCoreSubstitutionHandler().getOverlayIdentifier(), "Thaumcraft:blockTable:15");
+            registerHandlerInfo(WandCoreSubstitutionHandler.OVERLAY, "Thaumcraft:WandRod", 144);
+            registerCatalystInfo(WandCoreSubstitutionHandler.OVERLAY, "Thaumcraft:blockTable:15");
         }
         if (SalisConfig.features.replaceWandCapsSettings.isEnabled()
             && SalisConfig.modCompat.aspectRecipeIndex.capReplacementNEIHandler.isEnabled()) {
-            registerHandlerInfo(new WandCapSubstitutionHandler().getOverlayIdentifier(), "Thaumcraft:WandCap:1", 144);
-            registerCatalystInfo(new WandCapSubstitutionHandler().getOverlayIdentifier(), "Thaumcraft:blockTable:15");
+            registerHandlerInfo(WandCapSubstitutionHandler.OVERLAY, "Thaumcraft:WandCap:1", 144);
+            registerCatalystInfo(WandCapSubstitutionHandler.OVERLAY, "Thaumcraft:blockTable:15");
         }
     }
 

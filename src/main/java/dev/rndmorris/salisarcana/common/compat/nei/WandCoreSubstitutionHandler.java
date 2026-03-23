@@ -22,6 +22,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class WandCoreSubstitutionHandler extends WandCapSubstitutionHandler {
 
+    public static final String OVERLAY = "salisarcana.substitution.core";
     protected static final ItemStack GOLD_GREATWOOD_STAFF = WandRecipeHandler
         .createWand(ConfigItems.STAFF_ROD_GREATWOOD, ConfigItems.WAND_CAP_GOLD);
     protected static final ItemStack THAUMIUM_SILVERWOOD_STAFF = WandRecipeHandler
@@ -81,7 +82,7 @@ public class WandCoreSubstitutionHandler extends WandCapSubstitutionHandler {
 
     @Override
     public String getOverlayIdentifier() {
-        return "salisarcana.substitution.core";
+        return OVERLAY;
     }
 
     @Override

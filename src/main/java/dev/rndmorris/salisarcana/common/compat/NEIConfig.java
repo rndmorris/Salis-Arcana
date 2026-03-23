@@ -33,15 +33,15 @@ public class NEIConfig implements IConfigureNEI {
                 && SalisConfig.modCompat.aspectRecipeIndex.coreReplacementNEIHandler.isEnabled()) {
                 API.registerRecipeHandler(new WandCoreSubstitutionHandler());
                 API.registerUsageHandler(new WandCoreSubstitutionHandler());
-                API.registerGuiOverlay(GuiArcaneWorkbench.class, "salisarcana.substitution.core", positioner);
-                API.registerGuiOverlayHandler(GuiArcaneWorkbench.class, handler, "salisarcana.substitution.core");
+                API.registerGuiOverlay(GuiArcaneWorkbench.class, WandCoreSubstitutionHandler.OVERLAY, positioner);
+                API.registerGuiOverlayHandler(GuiArcaneWorkbench.class, handler, WandCoreSubstitutionHandler.OVERLAY);
             }
             if (SalisConfig.features.replaceWandCapsSettings.isEnabled()
                 && SalisConfig.modCompat.aspectRecipeIndex.capReplacementNEIHandler.isEnabled()) {
                 API.registerRecipeHandler(new WandCapSubstitutionHandler());
                 API.registerUsageHandler(new WandCapSubstitutionHandler());
-                API.registerGuiOverlay(GuiArcaneWorkbench.class, "salisarcana.substitution.caps", positioner);
-                API.registerGuiOverlayHandler(GuiArcaneWorkbench.class, handler, "salisarcana.substitution.caps");
+                API.registerGuiOverlay(GuiArcaneWorkbench.class, WandCapSubstitutionHandler.OVERLAY, positioner);
+                API.registerGuiOverlayHandler(GuiArcaneWorkbench.class, handler, WandCapSubstitutionHandler.OVERLAY);
             }
         }
     }

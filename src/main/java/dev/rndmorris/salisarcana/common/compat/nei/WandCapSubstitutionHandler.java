@@ -19,6 +19,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
+    public static final String OVERLAY = "salisarcana.substitution.caps";
     protected static final ItemStack IRON_STICK = WandRecipeHandler
         .createWand(ConfigItems.WAND_ROD_WOOD, ConfigItems.WAND_CAP_IRON);
     protected static final ItemStack GOLD_GREATWOOD = WandRecipeHandler
@@ -94,7 +95,7 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
     @Override
     public String getOverlayIdentifier() {
-        return "salisarcana.substitution.caps";
+        return OVERLAY;
     }
 
     @Override
