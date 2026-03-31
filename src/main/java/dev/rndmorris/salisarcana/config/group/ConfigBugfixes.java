@@ -325,6 +325,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixInventoryAspects",
         "Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.");
 
+    public final ToggleSetting fixOuterLandsNull = new ToggleSetting(
+        this,
+        "fixOuterLandsNull",
+        "Fixes generation of the Outer Lands dungeons failing due to attempting to set the orientation of an invalid tile entity.");
+
     @Nonnull
     @Override
     public String getGroupName() {
