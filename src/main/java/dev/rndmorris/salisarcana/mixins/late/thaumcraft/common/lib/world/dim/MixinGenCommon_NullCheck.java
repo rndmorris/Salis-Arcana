@@ -14,7 +14,7 @@ import thaumcraft.common.lib.world.dim.GenCommon;
 import thaumcraft.common.tiles.TileCrystal;
 
 @Mixin(value = GenCommon.class, remap = false)
-public class MixinGenCommon_NullCheck {
+public abstract class MixinGenCommon_NullCheck {
 
     @Inject(
         method = "processDecorations",
