@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.common.compat.nei;
 
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -115,8 +116,10 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
         WandType type = WandType.getWandType(inputWand);
         ItemStack newWand = inputWand.copy();
         wand.setCap(newWand, cap);
-        for (Aspect a : Aspect.getPrimalAspects()) {
-            newWand.stackTagCompound.removeTag(a.getTag());
+        if (!SalisConfig.features.preserveWandVis.isEnabled()) {
+            for (Aspect a : Aspect.getPrimalAspects()) {
+                newWand.stackTagCompound.removeTag(a.getTag());
+            }
         }
         Items.feather.setDamage(newWand, type.getCraftingVisCost(cap, wand.getRod(newWand)));
         return newWand;
