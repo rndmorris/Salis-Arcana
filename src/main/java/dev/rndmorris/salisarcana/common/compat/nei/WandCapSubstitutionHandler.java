@@ -1,6 +1,5 @@
 package dev.rndmorris.salisarcana.common.compat.nei;
 
-import dev.rndmorris.salisarcana.config.SalisConfig;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,6 +10,7 @@ import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.ShapelessArcaneRe
 import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.WandRecipeHandler;
 import com.gtnewhorizons.aspectrecipeindex.util.Util;
 
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.aspects.Aspect;

@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
+import java.util.Map;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -27,8 +29,6 @@ import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.items.wands.ItemWandCasting;
-
-import java.util.Map;
 
 public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchArcaneRecipe {
 

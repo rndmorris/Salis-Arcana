@@ -1,6 +1,5 @@
 package dev.rndmorris.salisarcana.common.compat.nei;
 
-import dev.rndmorris.salisarcana.common.recipes.ReplaceWandCoreRecipe;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,9 +13,9 @@ import com.gtnewhorizons.tcwands.api.wandinfo.WandDetails;
 import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 
 import dev.rndmorris.salisarcana.common.compat.GTNHTCWandsCompat;
+import dev.rndmorris.salisarcana.common.recipes.ReplaceWandCoreRecipe;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.WandType;
-import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
