@@ -24,6 +24,12 @@ the only valid variant.
 Prevent eldritch crabs, thaumic slimes, and all taintacles from being able to attack while performing their death
 animation.
 
+## Fix Outer Lands Null Crash
+
+**Config option:** `fixOuterLandsNull`
+
+Fixes generation of the Outer Lands dungeons failing due to attempting to set the orientation of an invalid tile entity.
+
 ## Infernal Furnace Item Duplication Fix
 
 **Config option:** `infernalFurnaceDupeFix`
