@@ -174,6 +174,12 @@ public class ConfigThaumcraft extends ConfigGroup {
         "Improves the particle engine of Thaumcraft by removing unnecessary GL operations.")
             .setCategory(tc4PerformanceCategory);
 
+    public final ToggleSetting cruciblePressure = new ToggleSetting(
+        this,
+        "cruciblePressure",
+        "If true, the Thaumcraft crucible will track when it cannot create flux goo and gas, leading to detrimental and destructive effects.")
+            .setEnabled(false);
+
     @Override
     public @NotNull String getGroupName() {
         return "thaumcraft_configuration";

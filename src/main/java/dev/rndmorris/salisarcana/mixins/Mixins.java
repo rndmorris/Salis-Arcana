@@ -619,6 +619,11 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)
         .addRequiredMod(TargetedMod.ANGELICA)),
 
+    CRUCIBLEPRESSURE(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.cruciblePressure)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileCrucible_PressureMechanic")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     // Required
     ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
         .setRequired()
