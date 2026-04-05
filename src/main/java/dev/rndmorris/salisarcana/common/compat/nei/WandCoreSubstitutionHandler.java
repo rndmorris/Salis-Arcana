@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.common.compat.nei;
 
+import dev.rndmorris.salisarcana.common.recipes.ReplaceWandCoreRecipe;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -96,17 +97,15 @@ public class WandCoreSubstitutionHandler extends WandCapSubstitutionHandler {
      */
     private ItemStack replaceCore(ItemStack inputWand, WandRod rod) {
         NBTTagCompound tag = inputWand.getTagCompound();
+        ItemStack outputWand = inputWand.copy();
         if (!(inputWand.getItem() instanceof ItemWandCasting wand) || tag == null) {
-            return inputWand.copy();
+            return outputWand;
         }
         WandType type = WandType.getWandType(inputWand);
-        ItemStack newWand = inputWand.copy();
-        wand.setRod(newWand, rod);
-        for (Aspect a : Aspect.getPrimalAspects()) {
-            newWand.stackTagCompound.removeTag(a.getTag());
-        }
-        Items.feather.setDamage(newWand, type.getCraftingVisCost(wand.getCap(newWand), rod));
-        return newWand;
+        wand.setRod(outputWand, rod);
+        ReplaceWandCoreRecipe.setNewWandVis(wand, outputWand);
+        Items.feather.setDamage(outputWand, type.getCraftingVisCost(wand.getCap(outputWand), rod));
+        return outputWand;
     }
 
     private ItemStack getDisplayWand(WandRod rod) {
