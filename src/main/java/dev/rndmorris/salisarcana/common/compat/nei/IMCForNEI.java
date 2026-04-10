@@ -25,22 +25,22 @@ public class IMCForNEI {
 
     @Optional.Method(modid = "NotEnoughItems")
     private static void registerHandlerInfo(String name, String stack, int height) {
-        NBTTagCompound NBT = new NBTTagCompound();
-        NBT.setString("handler", name);
-        NBT.setString("modName", "Salis Arcana");
-        NBT.setString("modId", SalisArcana.MODID);
-        NBT.setBoolean("modRequired", true);
-        NBT.setString("itemName", stack);
-        NBT.setInteger("handlerHeight", height);
-        FMLInterModComms.sendMessage("NotEnoughItems", "registerHandlerInfo", NBT);
+        NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setString("handler", name);
+        nbt.setString("modName", "Salis Arcana");
+        nbt.setString("modId", SalisArcana.MODID);
+        nbt.setBoolean("modRequired", true);
+        nbt.setString("itemName", stack);
+        nbt.setInteger("handlerHeight", height);
+        FMLInterModComms.sendMessage("NotEnoughItems", "registerHandlerInfo", nbt);
     }
 
     @Optional.Method(modid = "NotEnoughItems")
     private static void registerCatalystInfo(String handlerName, String stack) {
-        NBTTagCompound aNBT = new NBTTagCompound();
-        aNBT.setString("handlerID", handlerName);
-        aNBT.setString("itemName", stack);
-        aNBT.setInteger("priority", 0);
-        FMLInterModComms.sendMessage("NotEnoughItems", "registerCatalystInfo", aNBT);
+        NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setString("handlerID", handlerName);
+        nbt.setString("itemName", stack);
+        nbt.setInteger("priority", 0);
+        FMLInterModComms.sendMessage("NotEnoughItems", "registerCatalystInfo", nbt);
     }
 }
