@@ -293,7 +293,7 @@ Fix Thaumcraft's tree generators leaking the world instance.
 
 **Config option:** `muteExcessiveWarpSounds`
 
-Prevent warp sounds from blasting out your eardrums when you obtains lots of warp in an instant.
+Prevent warp sounds from blasting out your eardrums when obtaining lots of warp in an instant.
 
 ## Handle Invalid Focus NBT on Wands
 
