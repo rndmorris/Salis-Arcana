@@ -290,7 +290,7 @@ public enum Mixins implements IMixins {
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_SkipRendering")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_TREE_GEN_LEAK(new SalisBuilder()
-        .applyIf(SalisConfig.thaum.fixTreeGenWorldLeak)
+        .applyIf(SalisConfig.bugfixes.fixTreeGenWorldLeak)
         .addCommonMixins("thaumcraft.common.lib.world.MixinGenTrees_FixLeak")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 

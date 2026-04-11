@@ -174,11 +174,6 @@ public class ConfigThaumcraft extends ConfigGroup {
         "Improves the particle engine of Thaumcraft by removing unnecessary GL operations.")
             .setCategory(tc4PerformanceCategory);
 
-    public final ToggleSetting fixTreeGenWorldLeak = new ToggleSetting(
-        this,
-        "fixTreeGenWorldLeak",
-        "Fix thaumcraft tree generators leaking the world instance");
-
     @Override
     public @NotNull String getGroupName() {
         return "thaumcraft_configuration";

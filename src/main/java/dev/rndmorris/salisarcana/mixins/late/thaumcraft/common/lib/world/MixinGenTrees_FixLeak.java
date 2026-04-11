@@ -13,7 +13,7 @@ import thaumcraft.common.lib.world.WorldGenGreatwoodTrees;
 import thaumcraft.common.lib.world.WorldGenSilverwoodTreesOld;
 
 @Mixin({ WorldGenBigMagicTree.class, WorldGenGreatwoodTrees.class, WorldGenSilverwoodTreesOld.class })
-public class MixinGenTrees_FixLeak {
+public abstract class MixinGenTrees_FixLeak {
 
     @Shadow(remap = false)
     World worldObj;
