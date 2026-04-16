@@ -1,7 +1,5 @@
 package com.TheHoblit.ThaumicEnlightenment.mixins.late;
 
-import net.minecraftforge.fluids.FluidTank;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,15 +32,13 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
         if (worldObj.isRemote || heat <= 150 || ((int) counter + 1) % 20 != 0) return;
 
         int total = tagAmount();
+        // 100 base + 100 for base decay
         int excess = total - 200;
         if (excess <= 0) return;
 
-        // ~0.2% per 100 over the vanilla limit + 100 for thaums base decay, capped at thaums decay of 4.2/s
+        // ~0.2% per 100 over, capped at thaums base decay of 4.2/s
         float percentage = Math.min(excess * 0.00002f, 0.042f);
         int removeCount = Math.max(0, (int) Math.ceil((total * percentage)));
-
-        System.out.println(
-            total + " total aspects, " + percentage * 100 + "% removed, " + removeCount + " additional removals");
 
         for (int i = 0; i < removeCount - 1; i++) {
             if (aspects.size() == 0) break;
