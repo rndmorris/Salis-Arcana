@@ -32,12 +32,10 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
         if (worldObj.isRemote || heat <= 150 || ((int) counter + 1) % 20 != 0) return;
 
         int total = tagAmount();
-        // 100 base + 100 for base decay
         int excess = total - 200;
         if (excess <= 0) return;
 
-        // ~0.2% per 100 over, capped at thaums base decay of 4.2/s
-        float percentage = Math.min(excess * 0.00002f, 0.042f);
+        double percentage = Math.min(total / 1000.00 * 0.042, 0.042);
         int removeCount = Math.max(0, (int) Math.ceil((total * percentage)));
 
         for (int i = 0; i < removeCount - 1; i++) {
