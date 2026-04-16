@@ -1,4 +1,4 @@
-package com.TheHoblit.ThaumicEnlightenment.mixins.late;
+package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
