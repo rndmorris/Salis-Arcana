@@ -325,6 +325,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixInventoryAspects",
         "Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.");
 
+    public final ToggleSetting fixTreeGenWorldLeak = new ToggleSetting(
+        this,
+        "fixTreeGenWorldLeak",
+        "Fix Thaumcraft's tree generators leaking the world instance");
+
     @Nonnull
     @Override
     public String getGroupName() {

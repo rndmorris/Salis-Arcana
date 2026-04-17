@@ -283,11 +283,17 @@ Prevent large item stacks from partially dissolving into aspects if the Crucible
 
 Prevents a world object memory leak in the TeleporterThaumcraft class.
 
+## Fix Tree Generators World memory leak
+
+**Config option:** `fixTreeGenWorldLeak`
+
+Fix Thaumcraft's tree generators leaking the world instance.
+
 ## Prevent Warp Sounds from Blasting Out Your Eardrums
 
 **Config option:** `muteExcessiveWarpSounds`
 
-Prevent warp sounds from blasting out your eardrums when you obtains lots of warp in an instant.
+Prevent warp sounds from blasting out your eardrums when obtaining lots of warp in an instant.
 
 ## Handle Invalid Focus NBT on Wands
 
