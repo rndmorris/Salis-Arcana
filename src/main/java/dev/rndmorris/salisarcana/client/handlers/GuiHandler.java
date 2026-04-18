@@ -4,16 +4,19 @@ import static dev.rndmorris.salisarcana.lib.ThaumonomiconGuiHelper.RightClickClo
 
 import net.glease.tc4tweak.modules.researchBrowser.ThaumonomiconIndexSearcher;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiDisconnected;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import dev.rndmorris.salisarcana.client.screens.ScreenMismatchedConfig;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.R;
 import dev.rndmorris.salisarcana.lib.ifaces.IReconnectableContainer;
 import dev.rndmorris.salisarcana.mixins.TargetedMod;
+import dev.rndmorris.salisarcana.network.MessageLogin;
 import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.client.gui.GuiResearchRecipe;
 
@@ -39,6 +42,11 @@ public class GuiHandler {
         // Re-connects GUIs to their tile entities on the client after NEI closes & returns focus, mitigates #337
         if (event.gui instanceof GuiContainer gui && gui.inventorySlots instanceof IReconnectableContainer container) {
             container.salisArcana$reconnect();
+        }
+
+        if (MessageLogin.connectionFailed && event.gui instanceof GuiDisconnected gui) {
+            event.gui = new ScreenMismatchedConfig(gui.field_146307_h);
+            MessageLogin.connectionFailed = false;
         }
     }
 
