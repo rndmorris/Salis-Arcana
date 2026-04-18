@@ -143,7 +143,7 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
         protected WandCapSubstitutionCachedRecipe(ItemStack input, WandCap cap, ItemStack output,
             boolean shouldShowRecipe, boolean isScepter) {
-            super(ingredients(input, cap, isScepter), output, shouldShowRecipe, WandHelper.wandCost(output));
+            super(ingredients(input, cap, isScepter), output, shouldShowRecipe, WandHelper.wandVisCost(output));
             addResearch("salisarcana:REPLACEWANDCAPS");
             addResearch(cap.getResearch());
             if (isScepter) addResearch("SCEPTRE");

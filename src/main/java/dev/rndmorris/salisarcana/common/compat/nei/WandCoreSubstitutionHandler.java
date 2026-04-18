@@ -142,7 +142,7 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
                     : new Object[] { input, rod.getItem() },
                 output,
                 shouldShowRecipe,
-                WandHelper.wandCost(output));
+                WandHelper.wandVisCost(output));
 
             addResearch("salisarcana:REPLACEWANDCORE");
             addResearch(rod.getResearch());
