@@ -1,11 +1,17 @@
 package dev.rndmorris.salisarcana.common.compat.nei;
 
+import static dev.rndmorris.salisarcana.lib.WandHelper.GOLD_GREATWOOD;
+import static dev.rndmorris.salisarcana.lib.WandHelper.GOLD_GREATWOOD_STAFF;
+import static dev.rndmorris.salisarcana.lib.WandHelper.IRON_STICK;
+import static dev.rndmorris.salisarcana.lib.WandHelper.THAUMIUM_SILVERWOOD_STAFF;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
+import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.ShapelessArcaneRecipeHandler;
 import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.WandRecipeHandler;
 import com.gtnewhorizons.aspectrecipeindex.util.Util;
 import com.gtnewhorizons.tcwands.api.TCWandAPI;
@@ -15,19 +21,16 @@ import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 import dev.rndmorris.salisarcana.common.compat.GTNHTCWandsCompat;
 import dev.rndmorris.salisarcana.common.recipes.ReplaceWandCoreRecipe;
 import dev.rndmorris.salisarcana.config.SalisConfig;
+import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
-public class WandCoreSubstitutionHandler extends WandCapSubstitutionHandler {
+public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
     public static final String OVERLAY = "salisarcana.substitution.core";
-    protected static final ItemStack GOLD_GREATWOOD_STAFF = WandRecipeHandler
-        .createWand(ConfigItems.STAFF_ROD_GREATWOOD, ConfigItems.WAND_CAP_GOLD);
-    protected static final ItemStack THAUMIUM_SILVERWOOD_STAFF = WandRecipeHandler
-        .createWand(ConfigItems.STAFF_ROD_SILVERWOOD, ConfigItems.WAND_CAP_THAUMIUM);
 
     @Override
     public void loadUsageRecipes(String inputId, Object... results) {
@@ -138,7 +141,7 @@ public class WandCoreSubstitutionHandler extends WandCapSubstitutionHandler {
                     : new Object[] { input, rod.getItem() },
                 output,
                 shouldShowRecipe,
-                WandCapSubstitutionCachedRecipe.wandCost(output));
+                WandHelper.wandCost(output));
 
             addResearch("salisarcana:REPLACEWANDCORE");
             addResearch(rod.getResearch());

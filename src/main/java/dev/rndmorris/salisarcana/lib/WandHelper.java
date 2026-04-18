@@ -11,7 +11,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.WandRecipeHandler;
+
 import dev.rndmorris.salisarcana.SalisArcana;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
@@ -19,6 +22,23 @@ import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class WandHelper {
+
+    public static final ItemStack IRON_STICK = WandRecipeHandler
+        .createWand(ConfigItems.WAND_ROD_WOOD, ConfigItems.WAND_CAP_IRON);
+    public static final ItemStack GOLD_GREATWOOD = WandRecipeHandler
+        .createWand(ConfigItems.WAND_ROD_GREATWOOD, ConfigItems.WAND_CAP_GOLD);
+    public static final ItemStack IRON_STICK_SCEPTER = WandRecipeHandler
+        .createWand(ConfigItems.WAND_ROD_WOOD, ConfigItems.WAND_CAP_IRON);
+    public static final ItemStack GOLD_GREATWOOD_SCEPTER = WandRecipeHandler
+        .createWand(ConfigItems.WAND_ROD_GREATWOOD, ConfigItems.WAND_CAP_GOLD);
+    public static final ItemStack GOLD_GREATWOOD_STAFF = WandRecipeHandler
+        .createWand(ConfigItems.STAFF_ROD_GREATWOOD, ConfigItems.WAND_CAP_GOLD);
+    public static final ItemStack THAUMIUM_SILVERWOOD_STAFF = WandRecipeHandler
+        .createWand(ConfigItems.STAFF_ROD_SILVERWOOD, ConfigItems.WAND_CAP_THAUMIUM);
+    static {
+        WandRecipeHandler.makeScepter(IRON_STICK_SCEPTER);
+        WandRecipeHandler.makeScepter(GOLD_GREATWOOD_SCEPTER);
+    }
 
     private static final HashMap<Item, HashMap<Integer, WandCap>> WAND_CAPS = new HashMap<>();
     private static final HashMap<Item, HashMap<Integer, WandRod>> WAND_RODS = new HashMap<>();
@@ -175,5 +195,13 @@ public class WandHelper {
         CAP_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_cap.png"));
         ROD_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_rod.png"));
         STAFF_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_rod.png"));
+    }
+
+    public static AspectList wandCost(ItemStack wandStack) {
+        AspectList cost = new AspectList();
+        if (!(wandStack.getItem() instanceof ItemWandCasting wand)) return cost;
+        return AspectHelper.primalList(
+            WandType.getWandType(wandStack)
+                .getCraftingVisCost(wand.getCap(wandStack), wand.getRod(wandStack)));
     }
 }

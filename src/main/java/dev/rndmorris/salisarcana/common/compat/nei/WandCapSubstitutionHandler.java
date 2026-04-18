@@ -1,5 +1,10 @@
 package dev.rndmorris.salisarcana.common.compat.nei;
 
+import static dev.rndmorris.salisarcana.lib.WandHelper.GOLD_GREATWOOD;
+import static dev.rndmorris.salisarcana.lib.WandHelper.GOLD_GREATWOOD_SCEPTER;
+import static dev.rndmorris.salisarcana.lib.WandHelper.IRON_STICK;
+import static dev.rndmorris.salisarcana.lib.WandHelper.IRON_STICK_SCEPTER;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,10 +16,9 @@ import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.WandRecipeHandler
 import com.gtnewhorizons.aspectrecipeindex.util.Util;
 
 import dev.rndmorris.salisarcana.config.SalisConfig;
-import dev.rndmorris.salisarcana.lib.AspectHelper;
+import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
@@ -22,18 +26,6 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
     public static final String OVERLAY = "salisarcana.substitution.caps";
-    protected static final ItemStack IRON_STICK = WandRecipeHandler
-        .createWand(ConfigItems.WAND_ROD_WOOD, ConfigItems.WAND_CAP_IRON);
-    protected static final ItemStack GOLD_GREATWOOD = WandRecipeHandler
-        .createWand(ConfigItems.WAND_ROD_GREATWOOD, ConfigItems.WAND_CAP_GOLD);
-    protected static final ItemStack IRON_STICK_SCEPTER = WandRecipeHandler
-        .createWand(ConfigItems.WAND_ROD_WOOD, ConfigItems.WAND_CAP_IRON);
-    protected static final ItemStack GOLD_GREATWOOD_SCEPTER = WandRecipeHandler
-        .createWand(ConfigItems.WAND_ROD_GREATWOOD, ConfigItems.WAND_CAP_GOLD);
-    static {
-        WandRecipeHandler.makeScepter(IRON_STICK_SCEPTER);
-        WandRecipeHandler.makeScepter(GOLD_GREATWOOD_SCEPTER);
-    }
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
@@ -150,7 +142,7 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
         protected WandCapSubstitutionCachedRecipe(ItemStack input, WandCap cap, ItemStack output,
             boolean shouldShowRecipe, boolean isScepter) {
-            super(ingredients(input, cap, isScepter), output, shouldShowRecipe, wandCost(output));
+            super(ingredients(input, cap, isScepter), output, shouldShowRecipe, WandHelper.wandCost(output));
             addResearch("salisarcana:REPLACEWANDCAPS");
             addResearch(cap.getResearch());
             if (isScepter) addResearch("SCEPTRE");
@@ -160,14 +152,6 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
             ItemStack capItem = cap.getItem();
             if (isScepter) return new Object[] { input, capItem, capItem, capItem };
             return new Object[] { input, capItem, capItem };
-        }
-
-        protected static AspectList wandCost(ItemStack wandStack) {
-            AspectList cost = new AspectList();
-            if (!(wandStack.getItem() instanceof ItemWandCasting wand)) return cost;
-            return AspectHelper.primalList(
-                WandType.getWandType(wandStack)
-                    .getCraftingVisCost(wand.getCap(wandStack), wand.getRod(wandStack)));
         }
     }
 }
