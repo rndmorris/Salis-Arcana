@@ -177,8 +177,7 @@ public class ConfigThaumcraft extends ConfigGroup {
     public final ToggleSetting crucibleScalingAspectDecay = new ToggleSetting(
         this,
         "crucibleScalingAspectDecay",
-        "If true, the crucible's contained aspects will decay at an increasing rate based on how full the crucible is.")
-            .setEnabled(true);
+        "If true, the crucible's contained aspects will decay at an increasing rate based on how full the crucible is.");
 
     @Override
     public @NotNull String getGroupName() {
