@@ -54,14 +54,15 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
                 } else {
                     aspects.add(a.getComponents()[1], 1);
                 }
-            } else {
-                spill();
             }
         }
 
-        if (removeCount > 1) {
-            markDirty();
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        int spills = Math.min(1 + (removeCount / 10), 5);
+        for (int i = 0; i < spills; i++) {
+            spill();
         }
+
+        markDirty();
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 }
