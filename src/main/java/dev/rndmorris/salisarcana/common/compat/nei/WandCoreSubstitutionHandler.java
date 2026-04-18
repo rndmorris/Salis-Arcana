@@ -120,13 +120,14 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
     private void generateAllCoreSubstitutionRecipes(ItemStack wandItem, ItemWandCasting wand) {
         WandType type = WandType.getWandType(wandItem);
         boolean scepter = type == WandType.SCEPTER || type == WandType.STAFFTER;
+        boolean replaceCoreResearch = Util.shouldShowRecipe("salisarcana:REPLACEWANDCORE");
+        boolean scepterResearch = !scepter || Util.shouldShowRecipe("SCEPTRE");
         for (WandRod rod : WandRod.rods.values()) {
             if (!WandRecipeHandler.validResearch(rod.getResearch()) || rod == wand.getRod(wandItem)
                 || (SalisConfig.features.enforceWandCoreTypes.isEnabled() && !type.isCoreSuitable(rod))) continue;
             ItemStack outputWand = replaceCore(wandItem, rod);
-            boolean shouldShowRecipe = Util.shouldShowRecipe("salisarcana:REPLACEWANDCORE")
-                && Util.shouldShowRecipe(rod.getResearch())
-                && (!scepter || Util.shouldShowRecipe("SCEPTRE"));
+            boolean shouldShowRecipe = replaceCoreResearch && Util.shouldShowRecipe(rod.getResearch())
+                && scepterResearch;
             new WandRodSubstitutionCachedRecipe(wandItem, rod, outputWand, shouldShowRecipe, scepter);
         }
     }

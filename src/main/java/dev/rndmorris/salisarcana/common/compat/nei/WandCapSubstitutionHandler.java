@@ -128,12 +128,13 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
     private void generateAllCapSubstitutionRecipes(ItemStack wandItem, ItemWandCasting wand) {
         WandType type = WandType.getWandType(wandItem);
         boolean scepter = type == WandType.SCEPTER || type == WandType.STAFFTER;
+        boolean replaceCapsResearch = Util.shouldShowRecipe("salisarcana:REPLACEWANDCAPS");
+        boolean scepterResearch = !scepter || Util.shouldShowRecipe("SCEPTRE");
         for (WandCap cap : WandCap.caps.values()) {
             if (!WandRecipeHandler.validResearch(cap.getResearch()) || cap == wand.getCap(wandItem)) continue;
             ItemStack outputWand = replaceCap(wandItem, cap);
-            boolean shouldShowRecipe = Util.shouldShowRecipe("salisarcana:REPLACEWANDCAPS")
-                && Util.shouldShowRecipe(cap.getResearch())
-                && (!scepter || Util.shouldShowRecipe("SCEPTRE"));
+            boolean shouldShowRecipe = replaceCapsResearch && Util.shouldShowRecipe(cap.getResearch())
+                && scepterResearch;
             new WandCapSubstitutionCachedRecipe(wandItem, cap, outputWand, shouldShowRecipe, scepter);
         }
     }
