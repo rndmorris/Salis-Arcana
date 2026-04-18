@@ -27,22 +27,7 @@ public class NEIConfig implements IConfigureNEI {
         hidePlaceholder(PlaceholderItem.rodPlaceholder);
 
         if (SalisConfig.modCompat.aspectRecipeIndex.isEnabled()) {
-            ArcaneSlotPositioner positioner = new ArcaneSlotPositioner();
-            ArcaneOverlayHandler handler = new ArcaneOverlayHandler();
-            if (SalisConfig.features.replaceWandCoreSettings.isEnabled()
-                && SalisConfig.modCompat.aspectRecipeIndex.coreReplacementNEIHandler.isEnabled()) {
-                API.registerRecipeHandler(new WandCoreSubstitutionHandler());
-                API.registerUsageHandler(new WandCoreSubstitutionHandler());
-                API.registerGuiOverlay(GuiArcaneWorkbench.class, WandCoreSubstitutionHandler.OVERLAY, positioner);
-                API.registerGuiOverlayHandler(GuiArcaneWorkbench.class, handler, WandCoreSubstitutionHandler.OVERLAY);
-            }
-            if (SalisConfig.features.replaceWandCapsSettings.isEnabled()
-                && SalisConfig.modCompat.aspectRecipeIndex.capReplacementNEIHandler.isEnabled()) {
-                API.registerRecipeHandler(new WandCapSubstitutionHandler());
-                API.registerUsageHandler(new WandCapSubstitutionHandler());
-                API.registerGuiOverlay(GuiArcaneWorkbench.class, WandCapSubstitutionHandler.OVERLAY, positioner);
-                API.registerGuiOverlayHandler(GuiArcaneWorkbench.class, handler, WandCapSubstitutionHandler.OVERLAY);
-            }
+            AspectRecipeIndexIntegration.register();
         }
     }
 
@@ -63,5 +48,35 @@ public class NEIConfig implements IConfigureNEI {
     @Optional.Method(modid = "NotEnoughItems")
     public String getVersion() {
         return Tags.VERSION;
+    }
+
+    private static class AspectRecipeIndexIntegration {
+
+        public static void register() {
+            if (SalisConfig.modCompat.aspectRecipeIndex.isEnabled()) {
+                ArcaneSlotPositioner positioner = new ArcaneSlotPositioner();
+                ArcaneOverlayHandler handler = new ArcaneOverlayHandler();
+                if (SalisConfig.features.replaceWandCoreSettings.isEnabled()
+                    && SalisConfig.modCompat.aspectRecipeIndex.coreReplacementNEIHandler.isEnabled()) {
+                    API.registerRecipeHandler(new WandCoreSubstitutionHandler());
+                    API.registerUsageHandler(new WandCoreSubstitutionHandler());
+                    API.registerGuiOverlay(GuiArcaneWorkbench.class, WandCoreSubstitutionHandler.OVERLAY, positioner);
+                    API.registerGuiOverlayHandler(
+                        GuiArcaneWorkbench.class,
+                        handler,
+                        WandCoreSubstitutionHandler.OVERLAY);
+                }
+                if (SalisConfig.features.replaceWandCapsSettings.isEnabled()
+                    && SalisConfig.modCompat.aspectRecipeIndex.capReplacementNEIHandler.isEnabled()) {
+                    API.registerRecipeHandler(new WandCapSubstitutionHandler());
+                    API.registerUsageHandler(new WandCapSubstitutionHandler());
+                    API.registerGuiOverlay(GuiArcaneWorkbench.class, WandCapSubstitutionHandler.OVERLAY, positioner);
+                    API.registerGuiOverlayHandler(
+                        GuiArcaneWorkbench.class,
+                        handler,
+                        WandCapSubstitutionHandler.OVERLAY);
+                }
+            }
+        }
     }
 }
