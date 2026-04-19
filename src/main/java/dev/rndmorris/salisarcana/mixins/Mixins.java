@@ -623,6 +623,11 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)
         .addRequiredMod(TargetedMod.ANGELICA)),
 
+    CRUCIBLE_SCALING_ASPECT_DECAY(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.crucibleScalingAspectDecay)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileCrucible_ScalingAspectDecay")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     // Required
     ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
         .setRequired()
