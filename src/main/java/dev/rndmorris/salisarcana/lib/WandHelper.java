@@ -37,6 +37,10 @@ public class WandHelper {
     public static final ItemStack GOLD_GREATWOOD_STAFF = createWand(
         ConfigItems.STAFF_ROD_GREATWOOD,
         ConfigItems.WAND_CAP_GOLD);
+    public static final ItemStack GOLD_GREATWOOD_STAFFTER = createWand(
+        ConfigItems.STAFF_ROD_GREATWOOD,
+        ConfigItems.WAND_CAP_GOLD,
+        true);
     public static final ItemStack THAUMIUM_SILVERWOOD_STAFF = createWand(
         ConfigItems.STAFF_ROD_SILVERWOOD,
         ConfigItems.WAND_CAP_THAUMIUM);
@@ -44,6 +48,8 @@ public class WandHelper {
         ConfigItems.STAFF_ROD_SILVERWOOD,
         ConfigItems.WAND_CAP_THAUMIUM,
         true);
+
+    public static final String SCEPTRE_RESEARCH = "SCEPTRE";
 
     private static final HashMap<Item, HashMap<Integer, WandCap>> WAND_CAPS = new HashMap<>();
     private static final HashMap<Item, HashMap<Integer, WandRod>> WAND_RODS = new HashMap<>();

@@ -216,7 +216,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             if (wandItem == null || newRod == null) {
                 return true;
             }
-            if (SalisConfig.features.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
+            if (!wandType().isCoreSuitable(newRod)) {
                 return true;
             }
             final var oldRod = oldRod();

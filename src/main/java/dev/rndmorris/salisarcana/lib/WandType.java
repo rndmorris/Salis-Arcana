@@ -75,6 +75,7 @@ public enum WandType {
     }
 
     public <R extends WandRod> boolean isCoreSuitable(@Nullable R coreType) {
+        if (!SalisConfig.features.enforceWandCoreTypes.isEnabled()) return true;
         return switch (this) {
             case WAND, SCEPTER -> coreType instanceof WandRod && !(coreType instanceof StaffRod);
             case STAFF, STAFFTER -> coreType instanceof StaffRod;

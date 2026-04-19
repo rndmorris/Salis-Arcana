@@ -1,9 +1,14 @@
 package dev.rndmorris.salisarcana.common.compat.nei;
 
 import static dev.rndmorris.salisarcana.lib.WandHelper.GOLD_GREATWOOD;
+import static dev.rndmorris.salisarcana.lib.WandHelper.GOLD_GREATWOOD_SCEPTER;
 import static dev.rndmorris.salisarcana.lib.WandHelper.GOLD_GREATWOOD_STAFF;
+import static dev.rndmorris.salisarcana.lib.WandHelper.GOLD_GREATWOOD_STAFFTER;
 import static dev.rndmorris.salisarcana.lib.WandHelper.IRON_STICK;
+import static dev.rndmorris.salisarcana.lib.WandHelper.IRON_STICK_SCEPTER;
+import static dev.rndmorris.salisarcana.lib.WandHelper.SCEPTRE_RESEARCH;
 import static dev.rndmorris.salisarcana.lib.WandHelper.THAUMIUM_SILVERWOOD_STAFF;
+import static dev.rndmorris.salisarcana.lib.WandHelper.THAUMIUM_SILVERWOOD_STAFFTER;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -53,49 +58,78 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
         }
         if (inputId.equals(this.getOverlayIdentifier())) {
             ItemStack outputWand = replaceCore(GOLD_GREATWOOD, ConfigItems.WAND_ROD_WOOD);
+            boolean shouldShowRecipe = WandRecipeHandler.shouldShowWandRecipe(outputWand)
+                && Util.shouldShowRecipe(REPLACE_CORE_RESEARCH);
             new WandRodSubstitutionCachedRecipe(
                 GOLD_GREATWOOD,
                 ConfigItems.WAND_ROD_WOOD,
                 outputWand,
-                WandRecipeHandler.shouldShowWandRecipe(outputWand) && Util.shouldShowRecipe(REPLACE_CORE_RESEARCH),
+                shouldShowRecipe,
                 false);
-            generateAllCoreSubstitutionRecipes(IRON_STICK, (ItemWandCasting) IRON_STICK.getItem());
-            if (SalisConfig.features.enforceWandCoreTypes.isEnabled()) { // Hides duplicate substitution recipes
-                outputWand = replaceCore(THAUMIUM_SILVERWOOD_STAFF, ConfigItems.STAFF_ROD_GREATWOOD);
-                new WandRodSubstitutionCachedRecipe(
-                    THAUMIUM_SILVERWOOD_STAFF,
-                    ConfigItems.STAFF_ROD_GREATWOOD,
-                    outputWand,
-                    WandRecipeHandler.shouldShowWandRecipe(outputWand) && Util.shouldShowRecipe(REPLACE_CORE_RESEARCH),
-                    false);
-                generateAllCoreSubstitutionRecipes(
-                    GOLD_GREATWOOD_STAFF,
-                    (ItemWandCasting) GOLD_GREATWOOD_STAFF.getItem());
-            }
+            generateAllCoreSubstitutionRecipes(IRON_STICK, (ItemWandCasting) IRON_STICK_SCEPTER.getItem());
+            outputWand = replaceCore(GOLD_GREATWOOD_SCEPTER, ConfigItems.WAND_ROD_WOOD);
+            new WandRodSubstitutionCachedRecipe(
+                GOLD_GREATWOOD,
+                ConfigItems.WAND_ROD_WOOD,
+                outputWand,
+                shouldShowRecipe && Util.shouldShowRecipe(SCEPTRE_RESEARCH),
+                false);
+            generateAllCoreSubstitutionRecipes(IRON_STICK_SCEPTER, (ItemWandCasting) IRON_STICK.getItem());
+            outputWand = replaceCore(THAUMIUM_SILVERWOOD_STAFF, ConfigItems.STAFF_ROD_GREATWOOD);
+            shouldShowRecipe = WandRecipeHandler.shouldShowWandRecipe(outputWand)
+                && Util.shouldShowRecipe(REPLACE_CORE_RESEARCH);
+            new WandRodSubstitutionCachedRecipe(
+                THAUMIUM_SILVERWOOD_STAFF,
+                ConfigItems.STAFF_ROD_GREATWOOD,
+                outputWand,
+                shouldShowRecipe,
+                false);
+            generateAllCoreSubstitutionRecipes(GOLD_GREATWOOD_STAFF, (ItemWandCasting) GOLD_GREATWOOD_STAFF.getItem());
+            outputWand = replaceCore(THAUMIUM_SILVERWOOD_STAFFTER, ConfigItems.STAFF_ROD_GREATWOOD);
+            new WandRodSubstitutionCachedRecipe(
+                THAUMIUM_SILVERWOOD_STAFFTER,
+                ConfigItems.STAFF_ROD_GREATWOOD,
+                outputWand,
+                shouldShowRecipe && Util.shouldShowRecipe(SCEPTRE_RESEARCH),
+                false);
+            generateAllCoreSubstitutionRecipes(
+                GOLD_GREATWOOD_STAFFTER,
+                (ItemWandCasting) GOLD_GREATWOOD_STAFFTER.getItem());
         }
     }
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
+        if (!Util.shouldShowRecipe(REPLACE_CORE_RESEARCH)) return;
         if (ingredient.getItem() instanceof ItemWandCasting wand) {
             generateAllCoreSubstitutionRecipes(ingredient, wand);
             return;
         }
-        if (!Util.shouldShowRecipe(REPLACE_CORE_RESEARCH)) return;
         for (WandRod rod : WandRod.rods.values()) {
             if (!OreDictionary.itemMatches(ingredient, rod.getItem(), false)) {
                 continue;
             }
-            if (!WandRecipeHandler.validResearch(rod.getResearch())) return;
-            ItemStack inputWand = getDisplayWand(rod);
-            ItemStack outputWand = replaceCore(inputWand, rod);
-            final WandType type = WandType.getWandType(inputWand);
-            if (!WandRecipeHandler.shouldShowWandRecipe(outputWand)) return;
-            final boolean scepter = type == WandType.SCEPTER || type == WandType.STAFFTER;
-            new WandRodSubstitutionCachedRecipe(inputWand, rod, outputWand, true, scepter);
+            if (!WandRecipeHandler.show(rod.getResearch())) return;
+            generateCoreSubstitutionRecipe(rod, WandType.WAND);
+            generateCoreSubstitutionRecipe(rod, WandType.STAFF);
+            if (!WandRecipeHandler.show(SCEPTRE_RESEARCH)) return;
+            generateCoreSubstitutionRecipe(rod, WandType.SCEPTER);
+            generateCoreSubstitutionRecipe(rod, WandType.STAFFTER);
             return;
         }
 
+    }
+
+    private void generateCoreSubstitutionRecipe(WandRod rod, WandType type) {
+        final boolean scepter = type == WandType.SCEPTER || type == WandType.STAFFTER;
+        if (!type.isCoreSuitable(rod) || !Util.shouldShowRecipe(rod.getResearch())
+            || (scepter && !Util.shouldShowRecipe(SCEPTRE_RESEARCH))) return;
+        new WandRodSubstitutionCachedRecipe(
+            WandHelper.createWand(getDisplayRod(rod), ConfigItems.WAND_CAP_IRON, scepter),
+            rod,
+            WandHelper.createWand(rod, ConfigItems.WAND_CAP_IRON, scepter),
+            true,
+            scepter);
     }
 
     @Override
@@ -124,21 +158,22 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
         return outputWand;
     }
 
-    private ItemStack getDisplayWand(WandRod rod) {
+    private WandRod getDisplayRod(WandRod rod) {
         if (rod instanceof StaffRod) {
-            return rod == ConfigItems.STAFF_ROD_GREATWOOD ? THAUMIUM_SILVERWOOD_STAFF : GOLD_GREATWOOD_STAFF;
+            return rod == ConfigItems.STAFF_ROD_GREATWOOD ? ConfigItems.STAFF_ROD_SILVERWOOD
+                : ConfigItems.STAFF_ROD_GREATWOOD;
         }
-        return rod == ConfigItems.WAND_ROD_WOOD ? GOLD_GREATWOOD : IRON_STICK;
+        return rod == ConfigItems.WAND_ROD_WOOD ? ConfigItems.WAND_ROD_GREATWOOD : ConfigItems.WAND_ROD_WOOD;
     }
 
     private void generateAllCoreSubstitutionRecipes(ItemStack wandItem, ItemWandCasting wand) {
         WandType type = WandType.getWandType(wandItem);
         boolean scepter = type == WandType.SCEPTER || type == WandType.STAFFTER;
         boolean replaceCoreResearch = Util.shouldShowRecipe(REPLACE_CORE_RESEARCH);
-        boolean scepterResearch = !scepter || Util.shouldShowRecipe("SCEPTRE");
+        boolean scepterResearch = !scepter || Util.shouldShowRecipe(SCEPTRE_RESEARCH);
         for (WandRod rod : WandRod.rods.values()) {
             if (!WandRecipeHandler.validResearch(rod.getResearch()) || rod == wand.getRod(wandItem)
-                || (SalisConfig.features.enforceWandCoreTypes.isEnabled() && !type.isCoreSuitable(rod))) continue;
+                || !type.isCoreSuitable(rod)) continue;
             ItemStack outputWand = replaceCore(wandItem, rod);
             boolean shouldShowRecipe = replaceCoreResearch && Util.shouldShowRecipe(rod.getResearch())
                 && scepterResearch;
@@ -160,7 +195,7 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
             addResearch(REPLACE_CORE_RESEARCH);
             addResearch(rod.getResearch());
-            if (isScepter) addResearch("SCEPTRE");
+            if (isScepter) addResearch(SCEPTRE_RESEARCH);
         }
 
         protected static Object[] gtnhIngredients(ItemStack input, WandRod rod, ItemStack output, boolean isScepter) {
