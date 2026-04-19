@@ -33,6 +33,17 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
     public static final String OVERLAY = "salisarcana.substitution.core";
 
     @Override
+    public void loadCraftingRecipes(String outputId, Object... results) {
+        if (outputId.equals("item")) return;
+        loadUsageRecipes(outputId, results);
+    }
+
+    @Override
+    public void loadCraftingRecipes(ItemStack result) {
+        // NO OP
+    }
+
+    @Override
     public void loadUsageRecipes(String inputId, Object... results) {
         if (inputId.equals("item")) {
             super.loadUsageRecipes(inputId, results);
