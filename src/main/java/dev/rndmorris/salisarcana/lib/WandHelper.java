@@ -7,11 +7,13 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import dev.rndmorris.salisarcana.SalisArcana;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
@@ -19,6 +21,42 @@ import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class WandHelper {
+
+    public static final ItemStack IRON_STICK = createWand(ConfigItems.WAND_ROD_WOOD, ConfigItems.WAND_CAP_IRON);
+    public static final ItemStack GOLD_GREATWOOD = createWand(
+        ConfigItems.WAND_ROD_GREATWOOD,
+        ConfigItems.WAND_CAP_GOLD);
+    public static final ItemStack IRON_STICK_SCEPTER = createWand(
+        ConfigItems.WAND_ROD_WOOD,
+        ConfigItems.WAND_CAP_IRON,
+        true);
+    public static final ItemStack IRON_GREATWOOD_STAFF = createWand(
+        ConfigItems.STAFF_ROD_GREATWOOD,
+        ConfigItems.WAND_CAP_IRON);
+    public static final ItemStack IRON_GREATWOOD_STAFFTER = createWand(
+        ConfigItems.STAFF_ROD_GREATWOOD,
+        ConfigItems.WAND_CAP_IRON,
+        true);
+    public static final ItemStack GOLD_GREATWOOD_SCEPTER = createWand(
+        ConfigItems.WAND_ROD_GREATWOOD,
+        ConfigItems.WAND_CAP_GOLD,
+        true);
+    public static final ItemStack GOLD_GREATWOOD_STAFF = createWand(
+        ConfigItems.STAFF_ROD_GREATWOOD,
+        ConfigItems.WAND_CAP_GOLD);
+    public static final ItemStack GOLD_GREATWOOD_STAFFTER = createWand(
+        ConfigItems.STAFF_ROD_GREATWOOD,
+        ConfigItems.WAND_CAP_GOLD,
+        true);
+    public static final ItemStack THAUMIUM_SILVERWOOD_STAFF = createWand(
+        ConfigItems.STAFF_ROD_SILVERWOOD,
+        ConfigItems.WAND_CAP_THAUMIUM);
+    public static final ItemStack THAUMIUM_SILVERWOOD_STAFFTER = createWand(
+        ConfigItems.STAFF_ROD_SILVERWOOD,
+        ConfigItems.WAND_CAP_THAUMIUM,
+        true);
+
+    public static final String SCEPTRE_RESEARCH = "SCEPTRE";
 
     private static final HashMap<Item, HashMap<Integer, WandCap>> WAND_CAPS = new HashMap<>();
     private static final HashMap<Item, HashMap<Integer, WandRod>> WAND_RODS = new HashMap<>();
@@ -175,5 +213,31 @@ public class WandHelper {
         CAP_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_cap.png"));
         ROD_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_rod.png"));
         STAFF_UNKNOWN.setTexture(new ResourceLocation(SalisArcana.MODID, "textures/models/unknown_rod.png"));
+    }
+
+    public static ItemStack createWand(WandRod rod, WandCap cap, boolean scepter) {
+        ItemStack stack = new ItemStack(ConfigItems.itemWandCasting);
+        ItemWandCasting wand = (ItemWandCasting) stack.getItem();
+        assert wand != null;
+        wand.setRod(stack, rod);
+        wand.setCap(stack, cap);
+        if (scepter) stack.stackTagCompound.setByte("sceptre", (byte) 1);
+        // Wand metadata is based on the crafting cost before vis discounts
+        Items.feather.setDamage(stack, wandCost(stack));
+        return stack;
+    }
+
+    public static ItemStack createWand(WandRod rod, WandCap cap) {
+        return createWand(rod, cap, false);
+    }
+
+    public static int wandCost(ItemStack wandStack) {
+        if (!(wandStack.getItem() instanceof ItemWandCasting wand)) return 0;
+        return WandType.getWandType(wandStack)
+            .getCraftingVisCost(wand.getCap(wandStack), wand.getRod(wandStack));
+    }
+
+    public static AspectList wandVisCost(ItemStack wandStack) {
+        return AspectHelper.primalList(wandCost(wandStack));
     }
 }
