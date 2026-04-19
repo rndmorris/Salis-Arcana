@@ -18,6 +18,7 @@ import com.gtnewhorizons.tcwands.api.TCWandAPI;
 import com.gtnewhorizons.tcwands.api.wandinfo.WandDetails;
 import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 
+import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.common.compat.GTNHTCWandsCompat;
 import dev.rndmorris.salisarcana.common.recipes.ReplaceWandCoreRecipe;
 import dev.rndmorris.salisarcana.config.SalisConfig;
@@ -31,6 +32,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
     public static final String OVERLAY = "salisarcana.substitution.core";
+    private static final String REPLACE_CORE_RESEARCH = CustomResearch.replaceCoreResearch.key;
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
@@ -51,20 +53,21 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
         }
         if (inputId.equals(this.getOverlayIdentifier())) {
             ItemStack outputWand = replaceCore(GOLD_GREATWOOD, ConfigItems.WAND_ROD_WOOD);
-            if (WandRecipeHandler.shouldShowWandRecipe(outputWand)) {
-                new WandRodSubstitutionCachedRecipe(GOLD_GREATWOOD, ConfigItems.WAND_ROD_WOOD, outputWand, true, false);
-            }
+            new WandRodSubstitutionCachedRecipe(
+                GOLD_GREATWOOD,
+                ConfigItems.WAND_ROD_WOOD,
+                outputWand,
+                WandRecipeHandler.shouldShowWandRecipe(outputWand) && Util.shouldShowRecipe(REPLACE_CORE_RESEARCH),
+                false);
             generateAllCoreSubstitutionRecipes(IRON_STICK, (ItemWandCasting) IRON_STICK.getItem());
             if (SalisConfig.features.enforceWandCoreTypes.isEnabled()) { // Hides duplicate substitution recipes
                 outputWand = replaceCore(THAUMIUM_SILVERWOOD_STAFF, ConfigItems.STAFF_ROD_GREATWOOD);
-                if (WandRecipeHandler.shouldShowWandRecipe(outputWand)) {
-                    new WandRodSubstitutionCachedRecipe(
-                        THAUMIUM_SILVERWOOD_STAFF,
-                        ConfigItems.STAFF_ROD_GREATWOOD,
-                        outputWand,
-                        true,
-                        false);
-                }
+                new WandRodSubstitutionCachedRecipe(
+                    THAUMIUM_SILVERWOOD_STAFF,
+                    ConfigItems.STAFF_ROD_GREATWOOD,
+                    outputWand,
+                    WandRecipeHandler.shouldShowWandRecipe(outputWand) && Util.shouldShowRecipe(REPLACE_CORE_RESEARCH),
+                    false);
                 generateAllCoreSubstitutionRecipes(
                     GOLD_GREATWOOD_STAFF,
                     (ItemWandCasting) GOLD_GREATWOOD_STAFF.getItem());
@@ -78,7 +81,7 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
             generateAllCoreSubstitutionRecipes(ingredient, wand);
             return;
         }
-        if (!Util.shouldShowRecipe("salisarcana:REPLACEWANDCORE")) return;
+        if (!Util.shouldShowRecipe(REPLACE_CORE_RESEARCH)) return;
         for (WandRod rod : WandRod.rods.values()) {
             if (!OreDictionary.itemMatches(ingredient, rod.getItem(), false)) {
                 continue;
@@ -102,7 +105,7 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
     @Override
     public String getRecipeName() {
-        return StatCollector.translateToLocal("tc.research_name.salisarcana:REPLACEWANDCORE");
+        return StatCollector.translateToLocal("tc.research_name." + REPLACE_CORE_RESEARCH);
     }
 
     /**
@@ -131,7 +134,7 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
     private void generateAllCoreSubstitutionRecipes(ItemStack wandItem, ItemWandCasting wand) {
         WandType type = WandType.getWandType(wandItem);
         boolean scepter = type == WandType.SCEPTER || type == WandType.STAFFTER;
-        boolean replaceCoreResearch = Util.shouldShowRecipe("salisarcana:REPLACEWANDCORE");
+        boolean replaceCoreResearch = Util.shouldShowRecipe(REPLACE_CORE_RESEARCH);
         boolean scepterResearch = !scepter || Util.shouldShowRecipe("SCEPTRE");
         for (WandRod rod : WandRod.rods.values()) {
             if (!WandRecipeHandler.validResearch(rod.getResearch()) || rod == wand.getRod(wandItem)
@@ -155,7 +158,7 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
                 shouldShowRecipe,
                 WandHelper.wandVisCost(output));
 
-            addResearch("salisarcana:REPLACEWANDCORE");
+            addResearch(REPLACE_CORE_RESEARCH);
             addResearch(rod.getResearch());
             if (isScepter) addResearch("SCEPTRE");
         }

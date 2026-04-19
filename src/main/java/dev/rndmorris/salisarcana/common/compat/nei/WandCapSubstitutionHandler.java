@@ -15,6 +15,7 @@ import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.ShapelessArcaneRe
 import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.WandRecipeHandler;
 import com.gtnewhorizons.aspectrecipeindex.util.Util;
 
+import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
@@ -26,6 +27,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
     public static final String OVERLAY = "salisarcana.substitution.caps";
+    private static final String REPLACE_CAPS_RESEARCH = CustomResearch.replaceCapsResearch.key;
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
@@ -46,19 +48,22 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
         }
         if (inputId.equals(this.getOverlayIdentifier())) {
             ItemStack outputWand = replaceCap(GOLD_GREATWOOD, ConfigItems.WAND_CAP_IRON);
-            if (WandRecipeHandler.shouldShowWandRecipe(outputWand)) {
-                new WandCapSubstitutionCachedRecipe(GOLD_GREATWOOD, ConfigItems.WAND_CAP_IRON, outputWand, true, false);
-            }
+            boolean shouldShowRecipe = Util.shouldShowRecipe(REPLACE_CAPS_RESEARCH)
+                && Util.shouldShowRecipe(ConfigItems.WAND_CAP_GOLD.getResearch());
+            new WandCapSubstitutionCachedRecipe(
+                GOLD_GREATWOOD,
+                ConfigItems.WAND_CAP_IRON,
+                outputWand,
+                shouldShowRecipe,
+                false);
             generateAllCapSubstitutionRecipes(IRON_STICK, (ItemWandCasting) IRON_STICK.getItem());
             ItemStack newScepter = replaceCap(GOLD_GREATWOOD_SCEPTER, ConfigItems.WAND_CAP_IRON);
-            if (WandRecipeHandler.shouldShowWandRecipe(newScepter)) {
-                new WandCapSubstitutionCachedRecipe(
-                    GOLD_GREATWOOD_SCEPTER,
-                    ConfigItems.WAND_CAP_IRON,
-                    newScepter,
-                    true,
-                    true);
-            }
+            new WandCapSubstitutionCachedRecipe(
+                GOLD_GREATWOOD_SCEPTER,
+                ConfigItems.WAND_CAP_IRON,
+                newScepter,
+                shouldShowRecipe && Util.shouldShowRecipe("SCEPTRE"),
+                true);
             generateAllCapSubstitutionRecipes(IRON_STICK_SCEPTER, (ItemWandCasting) IRON_STICK_SCEPTER.getItem());
         }
     }
@@ -69,7 +74,7 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
             generateAllCapSubstitutionRecipes(ingredient, wand);
             return;
         }
-        if (!Util.shouldShowRecipe("salisarcana:REPLACEWANDCAPS")) return;
+        if (!Util.shouldShowRecipe(REPLACE_CAPS_RESEARCH)) return;
         for (WandCap cap : WandCap.caps.values()) {
             if (!OreDictionary.itemMatches(ingredient, cap.getItem(), false)) {
                 continue;
@@ -94,7 +99,7 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
 
     @Override
     public String getRecipeName() {
-        return StatCollector.translateToLocal("tc.research_name.salisarcana:REPLACEWANDCAPS");
+        return StatCollector.translateToLocal("tc.research_name." + REPLACE_CAPS_RESEARCH);
     }
 
     /**
@@ -128,7 +133,7 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
     private void generateAllCapSubstitutionRecipes(ItemStack wandItem, ItemWandCasting wand) {
         WandType type = WandType.getWandType(wandItem);
         boolean scepter = type == WandType.SCEPTER || type == WandType.STAFFTER;
-        boolean replaceCapsResearch = Util.shouldShowRecipe("salisarcana:REPLACEWANDCAPS");
+        boolean replaceCapsResearch = Util.shouldShowRecipe(REPLACE_CAPS_RESEARCH);
         boolean scepterResearch = !scepter || Util.shouldShowRecipe("SCEPTRE");
         for (WandCap cap : WandCap.caps.values()) {
             if (!WandRecipeHandler.validResearch(cap.getResearch()) || cap == wand.getCap(wandItem)) continue;
@@ -144,7 +149,7 @@ public class WandCapSubstitutionHandler extends ShapelessArcaneRecipeHandler {
         protected WandCapSubstitutionCachedRecipe(ItemStack input, WandCap cap, ItemStack output,
             boolean shouldShowRecipe, boolean isScepter) {
             super(ingredients(input, cap, isScepter), output, shouldShowRecipe, WandHelper.wandVisCost(output));
-            addResearch("salisarcana:REPLACEWANDCAPS");
+            addResearch(REPLACE_CAPS_RESEARCH);
             addResearch(cap.getResearch());
             if (isScepter) addResearch("SCEPTRE");
         }

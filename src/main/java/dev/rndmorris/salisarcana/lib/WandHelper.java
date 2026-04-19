@@ -40,6 +40,10 @@ public class WandHelper {
     public static final ItemStack THAUMIUM_SILVERWOOD_STAFF = createWand(
         ConfigItems.STAFF_ROD_SILVERWOOD,
         ConfigItems.WAND_CAP_THAUMIUM);
+    public static final ItemStack THAUMIUM_SILVERWOOD_STAFFTER = createWand(
+        ConfigItems.STAFF_ROD_SILVERWOOD,
+        ConfigItems.WAND_CAP_THAUMIUM,
+        true);
 
     private static final HashMap<Item, HashMap<Integer, WandCap>> WAND_CAPS = new HashMap<>();
     private static final HashMap<Item, HashMap<Integer, WandRod>> WAND_RODS = new HashMap<>();
