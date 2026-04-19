@@ -30,6 +30,13 @@ public class WandHelper {
         ConfigItems.WAND_ROD_WOOD,
         ConfigItems.WAND_CAP_IRON,
         true);
+    public static final ItemStack IRON_GREATWOOD_STAFF = createWand(
+        ConfigItems.STAFF_ROD_GREATWOOD,
+        ConfigItems.WAND_CAP_IRON);
+    public static final ItemStack IRON_GREATWOOD_STAFFTER = createWand(
+        ConfigItems.STAFF_ROD_GREATWOOD,
+        ConfigItems.WAND_CAP_IRON,
+        true);
     public static final ItemStack GOLD_GREATWOOD_SCEPTER = createWand(
         ConfigItems.WAND_ROD_GREATWOOD,
         ConfigItems.WAND_CAP_GOLD,
