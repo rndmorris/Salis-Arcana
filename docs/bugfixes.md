@@ -289,6 +289,12 @@ Prevents a world object memory leak in the TeleporterThaumcraft class.
 
 Fix Thaumcraft's tree generators leaking the world instance.
 
+## Fix Particle Engine World memory leak
+
+**Config option:** `fixParticleEngineLeak`
+
+Fix Thaumcraft's particle engine leaking the world instance.
+
 ## Prevent Warp Sounds from Blasting Out Your Eardrums
 
 **Config option:** `muteExcessiveWarpSounds`
