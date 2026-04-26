@@ -330,6 +330,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixTreeGenWorldLeak",
         "Fix Thaumcraft's tree generators leaking the world instance");
 
+    public final ToggleSetting fixParticleEngineLeak = new ToggleSetting(
+        this,
+        "fixParticleEngineLeak",
+        "Fix Thaumcraft's particle engine leaking the world instance");
+
     @Nonnull
     @Override
     public String getGroupName() {
