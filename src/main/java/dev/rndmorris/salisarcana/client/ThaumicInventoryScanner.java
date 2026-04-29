@@ -115,7 +115,7 @@ public class ThaumicInventoryScanner {
             return;
         }
         // Handle scanning item
-        if (hoveringSlot != null && hoveringSlot.getStack() != null) {
+        if (hoveringSlot != null && hoveringSlot.getStack() != null && hoveringSlot.getStack().stackSize > 0) {
             // spotless:off
 
             // spotless made this completely unreadable
