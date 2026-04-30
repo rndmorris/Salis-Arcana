@@ -297,6 +297,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.fixTreeGenWorldLeak)
         .addCommonMixins("thaumcraft.common.lib.world.MixinGenTrees_FixLeak")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FIX_TESR_LEAK(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixTESRWorldLeak)
+        .addClientMixins("thaumcraft.client.renderers.tile.MixinTESR_FixLeak")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()

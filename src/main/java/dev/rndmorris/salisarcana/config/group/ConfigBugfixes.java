@@ -330,6 +330,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixTreeGenWorldLeak",
         "Fix Thaumcraft's tree generators leaking the world instance");
 
+    public final ToggleSetting fixTESRWorldLeak = new ToggleSetting(
+        this,
+        "fixTESRWorldLeak",
+        "Fix Thaumcraft's tile entity renderers leaking the world instance");
+
     public final ToggleSetting fixParticleEngineLeak = new ToggleSetting(
         this,
         "fixParticleEngineLeak",

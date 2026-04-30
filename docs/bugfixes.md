@@ -289,6 +289,12 @@ Prevents a world object memory leak in the TeleporterThaumcraft class.
 
 Fix Thaumcraft's tree generators leaking the world instance.
 
+## Fix tile entity renderers World memory leak
+
+**Config option:** `fixTESRWorldLeak`
+
+Fix Thaumcraft's tile entity renderers leaking the world instance
+
 ## Fix Particle Engine World memory leak
 
 **Config option:** `fixParticleEngineLeak`
