@@ -325,6 +325,21 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixInventoryAspects",
         "Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.");
 
+    public final ToggleSetting fixTreeGenWorldLeak = new ToggleSetting(
+        this,
+        "fixTreeGenWorldLeak",
+        "Fix Thaumcraft's tree generators leaking the world instance");
+
+    public final ToggleSetting fixTESRWorldLeak = new ToggleSetting(
+        this,
+        "fixTESRWorldLeak",
+        "Fix Thaumcraft's tile entity renderers leaking the world instance");
+
+    public final ToggleSetting fixParticleEngineLeak = new ToggleSetting(
+        this,
+        "fixParticleEngineLeak",
+        "Fix Thaumcraft's particle engine leaking the world instance");
+
     @Nonnull
     @Override
     public String getGroupName() {
