@@ -29,7 +29,6 @@ import dev.rndmorris.salisarcana.common.recipes.ReplaceWandCoreRecipe;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
-import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
@@ -125,7 +124,7 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
         if (!type.isCoreSuitable(rod) || !Util.shouldShowRecipe(rod.getResearch())
             || (scepter && !Util.shouldShowRecipe(SCEPTRE_RESEARCH))) return;
         new WandRodSubstitutionCachedRecipe(
-            WandHelper.createWand(getDisplayRod(rod), ConfigItems.WAND_CAP_IRON, scepter),
+            WandHelper.createWand(getDisplayRod(rod, type), ConfigItems.WAND_CAP_IRON, scepter),
             rod,
             WandHelper.createWand(rod, ConfigItems.WAND_CAP_IRON, scepter),
             true,
@@ -158,8 +157,8 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
         return outputWand;
     }
 
-    private WandRod getDisplayRod(WandRod rod) {
-        if (rod instanceof StaffRod) {
+    private WandRod getDisplayRod(WandRod rod, WandType type) {
+        if (type == WandType.STAFF || type == WandType.STAFFTER) {
             return rod == ConfigItems.STAFF_ROD_GREATWOOD ? ConfigItems.STAFF_ROD_SILVERWOOD
                 : ConfigItems.STAFF_ROD_GREATWOOD;
         }
