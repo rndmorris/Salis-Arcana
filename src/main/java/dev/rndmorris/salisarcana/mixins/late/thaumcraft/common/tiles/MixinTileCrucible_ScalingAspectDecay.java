@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -62,28 +64,41 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
         int toRemove;
         int remainder = 0;
         int totalRemoved = 0;
+        final var newAspects = new HashMap<>(aspects.aspects);
+        final var availableAspects = new ArrayList<>(newAspects.keySet());
+
         while (totalRemoved < removeCount) {
-            Aspect[] availableAspects = aspects.getAspects();
-            Aspect a = availableAspects[rand.nextInt(availableAspects.length)];
+            Aspect a = availableAspects.get(rand.nextInt(availableAspects.size()));
             if (a.isPrimal()) {
-                a = availableAspects[rand.nextInt(availableAspects.length)];
+                a = availableAspects.get(rand.nextInt(availableAspects.size()));
             }
+
             toRemove = Math.min(splitRemoval + remainder, removeCount - totalRemoved);
-            if (toRemove > aspects.getAmount(a)) {
-                remainder = toRemove - aspects.getAmount(a);
-                toRemove = aspects.getAmount(a);
+
+            int aspectAmount = newAspects.get(a);
+            remainder = Math.max(0, toRemove - aspectAmount);
+            toRemove = Math.min(toRemove, aspectAmount);
+
+            int newAmount = aspectAmount - toRemove;
+            if (newAmount <= 0) {
+                newAspects.remove(a);
+                availableAspects.remove(a);
             } else {
-                remainder = 0;
+                newAspects.put(a, newAmount);
             }
-            aspects.remove(a, toRemove);
+
             if (!a.isPrimal()) {
-                if (rand.nextBoolean()) {
-                    aspects.add(a.getComponents()[0], toRemove);
-                } else {
-                    aspects.add(a.getComponents()[1], toRemove);
+                Aspect component = rand.nextBoolean() ? a.getComponents()[0] : a.getComponents()[1];
+                newAspects.merge(component, toRemove, Integer::sum);
+                if (!availableAspects.contains(component)) {
+                    availableAspects.add(component);
                 }
             }
+
             totalRemoved += toRemove;
         }
+
+        aspects.aspects.clear();
+        aspects.aspects.putAll(newAspects);
     }
 }
