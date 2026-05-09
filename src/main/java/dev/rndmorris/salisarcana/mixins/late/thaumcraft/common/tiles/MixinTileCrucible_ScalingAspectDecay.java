@@ -16,7 +16,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.tiles.TileCrucible;
 
-@Mixin(value = TileCrucible.class, remap = false)
+@Mixin(value = TileCrucible.class)
 public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraft {
 
     @Shadow
@@ -25,10 +25,8 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
     public AspectList aspects;
     @Shadow
     private long counter;
-
     @Shadow
     public abstract int tagAmount();
-
     @Shadow
     public abstract void spill();
 
