@@ -25,8 +25,10 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
     public AspectList aspects;
     @Shadow
     private long counter;
+
     @Shadow
     public abstract int tagAmount();
+
     @Shadow
     public abstract void spill();
 
