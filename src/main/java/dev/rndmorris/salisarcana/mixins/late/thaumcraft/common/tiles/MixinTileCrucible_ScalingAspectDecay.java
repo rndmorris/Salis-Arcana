@@ -16,7 +16,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.tiles.TileCrucible;
 
-@Mixin(value = TileCrucible.class)
+@Mixin(value = TileCrucible.class, remap = false)
 public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraft {
 
     @Shadow
@@ -32,7 +32,7 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
     @Shadow
     public abstract void spill();
 
-    @Inject(method = "updateEntity", at = @At("TAIL"))
+    @Inject(method = "updateEntity", at = @At("TAIL"), remap = true)
     private void additionalScaledAspectDrain(CallbackInfo ci) {
         if (worldObj.isRemote || heat <= 150 || ((int) counter + 1) % 20 != 0) return;
 
