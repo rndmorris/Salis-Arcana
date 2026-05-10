@@ -7,6 +7,7 @@ import java.util.Collections;
 import org.jetbrains.annotations.NotNull;
 
 import dev.rndmorris.salisarcana.config.ConfigGroup;
+import dev.rndmorris.salisarcana.config.settings.FloatSetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
@@ -177,7 +178,28 @@ public class ConfigThaumcraft extends ConfigGroup {
     public final ToggleSetting crucibleScalingAspectDecay = new ToggleSetting(
         this,
         "crucibleScalingAspectDecay",
-        "If true, the crucible's contained aspects will decay at an increasing rate based on how full the crucible is.");
+        """
+            If true, the crucible's contained aspects will decay at an increasing rate based on how over full the crucible is.
+            All over full decay will break down compound aspects in to one of their components.
+            """);
+
+    public final IntSetting crucibleAspectDecayStart = new IntSetting(
+        crucibleScalingAspectDecay,
+        "crucibleAspectDecayStart",
+        "The total aspect count of a crucible at which point the percent scaled decay will start.",
+        200).setMinValue(0);
+
+    public final IntSetting crucibleAspectDecayRange = new IntSetting(
+        crucibleScalingAspectDecay,
+        "crucibleAspectDecayRange",
+        "The range, in aspect count, between the point scaling aspect decay starts and the point it reaches its maximum rate.",
+        800).setMinValue(0);
+
+    public final FloatSetting crucibleAspectDecayMaximumRate = new FloatSetting(
+        crucibleScalingAspectDecay,
+        "crucibleAspectDecayMaximumRate",
+        "The maximum percentage of the crucible's total aspect count that will be removed per second at the end of its range.",
+        4.2f).setMinValue(0.01f).setMaxValue(100f);
 
     @Override
     public @NotNull String getGroupName() {
