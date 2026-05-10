@@ -199,7 +199,8 @@ public class ConfigThaumcraft extends ConfigGroup {
         crucibleScalingAspectDecay,
         "crucibleAspectDecayMaximumRate",
         "The maximum percentage of the crucible's total aspect count that will be removed per second at the end of its range.",
-        4.2f).setMinValue(0.01f).setMaxValue(100f);
+        4.2f).setMinValue(0.01f)
+            .setMaxValue(100f);
 
     @Override
     public @NotNull String getGroupName() {
