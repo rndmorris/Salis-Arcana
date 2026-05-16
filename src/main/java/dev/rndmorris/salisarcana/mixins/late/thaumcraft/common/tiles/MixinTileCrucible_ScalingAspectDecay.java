@@ -26,14 +26,6 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
     public AspectList aspects;
     @Shadow
     private long counter;
-    @Unique
-    private final int salis_Arcana$aspectDecayStart = SalisConfig.thaum.crucibleAspectDecayStart.getValue();
-    @Unique
-    private final int salis_Arcana$aspectDecayEnd = salis_Arcana$aspectDecayStart
-        + SalisConfig.thaum.crucibleAspectDecayRange.getValue();
-    @Unique
-    private final float salis_Arcana$aspectDecayMaximumRate = SalisConfig.thaum.crucibleAspectDecayMaximumRate
-        .getValue() / 100f;
 
     @Shadow
     public abstract int tagAmount();
@@ -46,12 +38,15 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
         if (worldObj.isRemote || heat <= 150 || ((int) counter + 1) % 20 != 0) return;
 
         int total = tagAmount();
-        int excess = total - salis_Arcana$aspectDecayStart;
+        int decayStart = SalisConfig.thaum.crucibleAspectDecayStart.getValue();
+        float maxRate = SalisConfig.thaum.crucibleAspectDecayMaximumRate.getValue() / 100f;
+
+        int excess = total - decayStart;
         if (excess <= 0) return;
 
         double percentage = Math.min(
-            (double) total / salis_Arcana$aspectDecayEnd * salis_Arcana$aspectDecayMaximumRate,
-            salis_Arcana$aspectDecayMaximumRate);
+            (double) total / (decayStart + SalisConfig.thaum.crucibleAspectDecayRange.getValue()) * maxRate,
+            maxRate);
         int removeCount = Math.max(0, (int) Math.ceil((total * percentage)));
 
         salis_Arcana$removeAndSplit(removeCount);
