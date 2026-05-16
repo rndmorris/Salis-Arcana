@@ -7,16 +7,16 @@ If true, disables the tinting of aspect images, this can be useful in combinatio
 that provide images that are already colored.
 
 ### Config Option: `crucibleScalingAspectDecay` (Default `true`)
-If true, the crucible's contained aspects will decay at an increasing rate based on how over full the crucible is.
+If true, the crucible's contained aspects will decay at an increasing rate based on how overfull the crucible is.
 
-All overfull decay will break down compound aspects in to one of their components.
+All overfull decay will break down compound aspects into one of their components.
 
 For example, with the default start of `200`, range of `800`, and maximum rate of `4.2`%, a crucible with 200 total
 aspects will start to experience decay, and the decay will increase for 800 aspects until it reaches a maximum of 4.2%
 at 1000 total aspects and above. Because compound aspects' components are returned to the pool, you will not see a
 strict 4.2% reduction in total aspect count each second.
 
-The vanilla crucible will decay 1 aspect every 5 seconds, splitting any non-primal aspect in to a component.
+The vanilla crucible will decay 1 aspect every 5 seconds, splitting any non-primal aspect into a component.
 When the crucible is over 100 total aspects, it will remove 4 random aspects per second.
 
 ### Config Option: `crucibleAspectDecayStart` (Default `200`)
@@ -33,7 +33,7 @@ The range, in aspect count, between the point scaling aspect decay starts and th
 Requires `crucibleScalingAspectDecay`.
 
 The maximum percentage of the crucible's total aspect count that will be removed per second, when the crucible is at or
-above the decay's start plus range.
+above the decay's maximum range.
 
 The default maximum rate of 4.2% is vanilla Thaumcraft's maximum decay rate with its flat decay at 100 total aspects.
 
