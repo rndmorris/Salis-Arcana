@@ -9,8 +9,6 @@ import dev.rndmorris.salisarcana.core.SalisArcanaCore;
 
 public class IntArraySetting extends Setting {
 
-    protected final String name;
-    protected final String comment;
     protected final int[] defaultValue;
     protected int[] value;
     protected int minValue;
@@ -21,9 +19,7 @@ public class IntArraySetting extends Setting {
     Setting pairedSetting;
 
     public IntArraySetting(IEnabler dependency, String name, String comment, int[] defaultValue, int min, int max) {
-        super(dependency);
-        this.name = name;
-        this.comment = comment;
+        super(dependency, name, comment);
         this.defaultValue = defaultValue;
         this.minValue = min;
         this.maxValue = max;

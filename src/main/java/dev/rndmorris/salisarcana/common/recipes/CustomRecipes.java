@@ -89,6 +89,10 @@ public class CustomRecipes {
 
             GameRegistry.addRecipe(new EmptyJarRecipe());
         }
+
+        if (SalisConfig.bugfixes.unknownWandComponentSupport.isEnabled()) {
+            GameRegistry.addRecipe(new ConvertInvalidWandRecipe());
+        }
     }
 
     public static void registerRecipesPostInit() {

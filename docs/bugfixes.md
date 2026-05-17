@@ -123,6 +123,18 @@ Allows players to craft after the wand in the GUI runs out of vis and is recharg
 
 Prevents bugs related to multiple players opening an Arcane Workbench's GUI at the same time, including a duplication bug, research verification bug, and some others.
 
+### Cache Last Recipe in Arcane Workbench
+
+**Config option:** `arcaneWorkbenchCache`
+
+Causes each Arcane Workbench to keep a cache of the last valid recipe, massively improving the performance of bulk crafts & the GUI.
+
+### Arcane Workbench Pretends to be a Crafting Table during Forge Events
+
+**Config option:** `arcaneWorkbenchForgeEventBridge`
+
+When performing a mundane crafting recipe in an Arcane Workbench, it will pretend to be a normal crafting table when sending the Forge event. Prevents the Spellbinding Cloth item duplication glitch.
+
 ## Use Forge fishing lists for fishing golem loot
 
 **Config option:** `useForgeFishingLists`
@@ -205,11 +217,11 @@ Thaumcraft will correctly save ethereal bloom counters to disk, preventing the g
 
 Allows Thaumcraft crystal clusters to be harvested with Silk Touch, preventing them from dropping as shards.
 
-## Abandoned Crates & Old Urn Hitboxes
+## Prevent Alteration of Block Bounds
 
-**Config option:** `lootBlockHitbox`
+**Config option:** `fixBlockBoundsAlterations`
 
-Correctly sets the hitboxes of the Old Urn & Abandoned Crate, preventing a bug where you can phase through the blocks while mining them.
+Fixes numerous bugs related to collision boxes & block bounds, including glitchiness when standing on Essentia Reservoirs & falling through Old Urns & Abandoned Crates while mining them.
 
 ## Thaumatorium Multiplayer Bug-fix
 
@@ -234,3 +246,127 @@ Applying patterns to banners will only consume the essentia, and not the phial i
 **Config option:** `extraSecureArcaneKeys`
 
 Arcane Keys will now save the dimension and the creator of the key when linked to a warded object, and will check those values before granting permission.
+
+## Earth Shock Blocks Require Solid Ground
+
+**Config option:** `earthShockRequireSolidGround`
+
+Requires the spark blocks left behind by Wand Focus: Shock with the Earth Shock upgrade to have a solid block beneath them to exist.
+
+## Prevent "Unknown Wand Part" Crashes
+
+**Config option:** `unknownWandComponentSupport`
+
+Prevents wand items from crashing everything when they contain a component which hasn't been registered by any mod.
+
+## Prevent Wand Vis GUI Bars from Overflowing
+
+**Config option:** `clampWandOverlayVis`
+
+Prevents the "Vis in Wand" GUI when the wand is held from showing impossible bars when the wand holds impossible amounts of vis.
+
+## Extend Upgrade Focus Packet
+
+**Config option:** `extendUpgradeFocusPacket`
+
+Use a larger packet for sending the ID of the focus upgrade being selected, allowing the use of focus upgrade IDs > 127 on multiplayer servers.
+
+## Terminate Crucible Item-Stack Melting Early
+
+**Config option:** `earlyTerminateCrucibleCraft`
+
+Prevent large item stacks from partially dissolving into aspects if the Crucible runs out of water while crafting.
+
+## Fix TeleporterThaumcraft memory leak
+
+**Config option:** `fixTeleporterThaumcraftLeak`
+
+Prevents a world object memory leak in the TeleporterThaumcraft class.
+
+## Fix Tree Generators World memory leak
+
+**Config option:** `fixTreeGenWorldLeak`
+
+Fix Thaumcraft's tree generators leaking the world instance.
+
+## Fix tile entity renderers World memory leak
+
+**Config option:** `fixTESRWorldLeak`
+
+Fix Thaumcraft's tile entity renderers leaking the world instance
+
+## Fix Particle Engine World memory leak
+
+**Config option:** `fixParticleEngineLeak`
+
+Fix Thaumcraft's particle engine leaking the world instance.
+
+## Prevent Warp Sounds from Blasting Out Your Eardrums
+
+**Config option:** `muteExcessiveWarpSounds`
+
+Prevent warp sounds from blasting out your eardrums when obtaining lots of warp in an instant.
+
+## Handle Invalid Focus NBT on Wands
+
+**Config option:** `preventInvalidFociOnWands`
+
+Prevent wands with invalid foci NBT (from uninstalling add-ons, for example) from crashing the game.
+
+## Pickaxe of the Core (Group `tools`)
+
+**Config option:** `detectZeroAspectBlocks`
+
+Fixes an oversight with the pickaxe of the core that prevents it from displaying detected blocks that have no aspects.
+
+**Config option:** `detectLitRedstoneOre`
+
+Works around limitation with Forge that prevents the pickaxe of the core fom detecting lit redstone ore by treating it
+as identical to regular redstone ore.
+
+**Config option:** `detectLapisOre`
+
+Allows the pickaxe of the core to correctly detect vanilla lapis ore.
+
+Fixes a bug with the pickaxe of the core that caused it to rely on the damage value of the block's dropped item to
+identify a block instead of its in-world metadata when scanning for ores.
+
+## Hidden Research Notes
+
+**Config option:** `hiddenResearchUseWorldRandom`
+
+When right-clicking a Research Note made from Knowledge Fragments, will use a random value not dependent on the world's time of day.
+
+**Config option:** `hiddenResearchCheckInventory`
+
+When right-clicking a Research Note made from Knowledge Fragments, will not generate a research note you already have in your inventory.
+
+## Prevent Crucible Dead-Item Duplication Glitch
+
+**Config option:** `crucibleDeadItemDupe`
+
+Prevent multiple Crucibles from melting/crafting the same item entity in the same tick.
+
+## Golem Visors affect Golem Dart Launchers
+
+**Config option:** `golemVisorAffectDartLauncher`
+
+Golems equipped with Dart Launchers & Visors will be able to cause player kills using their darts.
+
+## Prevent Golem Held-Item Duplication
+
+**Config option:** `preventGolemDropDuplication`
+
+Prevent players from disassembling golems that have already been killed in order to duplicate their held item.
+
+## Stable Research Altar Animation
+
+**Config option:** `stableRunicMatrixAnimation`
+
+Runic Matrices which are too stable will not fly far out from the center of the multiblock.
+
+## Fix Wrong Aspects from being Rendered
+
+**Config option:** `fixInventoryAspects`
+
+Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.

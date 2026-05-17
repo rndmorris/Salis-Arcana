@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
@@ -29,12 +30,18 @@ public class ArrayHelper {
         return -1;
     }
 
-    public static boolean tryAssign(boolean[] arr, int index, boolean value) {
-        if (0 <= index && index < arr.length) {
-            arr[index] = value;
-            return true;
+    /**
+     * For each index in the array, execute {@code calculate} for that index and store the result in that index.
+     * 
+     * @param arr       The array to iterate over.
+     * @param calculate The function to apply to each index of the array. Takes in the index as the only parameter.
+     * @return The original array {@code arr}.
+     */
+    public static double[] calculateArray(double[] arr, Function<Integer, Double> calculate) {
+        for (var index = 0; index < arr.length; ++index) {
+            arr[index] = calculate.apply(index);
         }
-        return false;
+        return arr;
     }
 
     public static <E> TryGetResult<E> tryGet(E[] arr, int index) {

@@ -47,11 +47,9 @@ public class ConfigFeatures extends ConfigGroup {
         new CustomResearchSetting.ResearchInfo("REPLACEWANDCORE", "THAUMATURGY", -6, 2).setParents("ROD_greatwood")
             .setAutoUnlock()).setCategory("wand_component_swapping");
 
-    public final ToggleSetting enforceWandCoreTypes = new ToggleSetting(
-        this,
-        "enforceWandCoreTypes",
-        "If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core.\nDisable to allow upgrading a wand to a staff and vice versa.")
-            .setCategory("wand_component_swapping");
+    public final ToggleSetting enforceWandCoreTypes = new ToggleSetting(this, "enforceWandCoreTypes", """
+        If enabled, prevents swapping a wand core with a staff core or a staff core with a wand core.
+        Disable to allow upgrading a wand to a staff and vice versa.""").setCategory("wand_component_swapping");
 
     public final ToggleSetting preserveWandVis = new ToggleSetting(
         this,
@@ -194,7 +192,7 @@ public class ConfigFeatures extends ConfigGroup {
     public final Setting nomiconShowResearchId = new ToggleSetting(
         this,
         "Show Research Key",
-        "While viewing the Thaumonomicon, allows you to view the internal name of a research while hovering over it and holding control");
+        "While viewing the Thaumonomicon, allows you to view the internal name and coordinates of a research while hovering over it and holding control");
 
     public final ToggleSetting nomiconDuplicateResearch = new ToggleSetting(
         this,
@@ -217,12 +215,11 @@ public class ConfigFeatures extends ConfigGroup {
     public final IntSetting stabilizerStrength = new IntSetting(
         stabilizerRewrite,
         "stabilizerStrength",
-        String.join(
-            "\n",
-            "Requires useStabilizerRewrite=true.",
-            "The amount (in one-hundredths of a point) of symmetry each stabilizer block adds to an infusion altar.",
-            "If a stabilizer doesn't have a symmetrical opposite, an equivalent amount of symmetry will be subtracted instead.",
-            ""),
+        """
+            Requires useStabilizerRewrite=true.
+            The amount (in one-hundredths of a point) of symmetry each stabilizer block adds to an infusion altar.
+            If a stabilizer doesn't have a symmetrical opposite, an equivalent amount of symmetry will be subtracted instead.
+            """,
         10).setMinValue(-10000)
             .setMaxValue(10000)
             .setCategory("infusion");
@@ -230,39 +227,37 @@ public class ConfigFeatures extends ConfigGroup {
     public final BlockItemListSetting<Integer> stabilizerAdditions = new BlockItemListSetting<Integer>(
         stabilizerRewrite,
         "stabilizerAdditions",
-        String.join(
-            "\n",
-            "Requires useStabilizerRewrite=true.",
-            "Blocks specified here will be factored into an infusion altar's symmetry, even if they normally would not.",
-            "FORMAT: `modId:blockId` or `modId:blockId:metadata` or `modId:blockId:metadata:strength`.",
-            "  Metadata:",
-            "    * Defaults to 0 if not set.",
-            "    * If set to * or 32767, all metadata variants of the block will be included.",
-            "  Strength:",
-            "    * Defaults to `stabilizerStrength` if not set.",
-            "    * Range: " + stabilizerStrength.getMinValue() + " ~ " + stabilizerStrength.getMaxValue() + ".",
-            "")).setListType(BlockItemListSetting.ListType.BLOCKS)
-                .withAdditionalData((strSlice) -> {
-                    if (strSlice.length < 4) {
-                        return null;
-                    }
-                    return IntegerHelper.tryParse(strSlice[3]);
-                })
-                .setCategory("infusion");
+        """
+            Requires useStabilizerRewrite=true.
+            Blocks specified here will be factored into an infusion altar's symmetry, even if they normally would not.
+            FORMAT: `modId:blockId` or `modId:blockId:metadata` or `modId:blockId:metadata:strength`.
+              Metadata:
+                * Defaults to 0 if not set.
+                * If set to * or 32767, all metadata variants of the block will be included.
+              Strength:
+                * Defaults to `stabilizerStrength` if not set.
+                * Range: -10000 ~ 10000.
+            """).setListType(BlockItemListSetting.ListType.BLOCKS)
+            .withAdditionalData((strSlice) -> {
+                if (strSlice.length < 4) {
+                    return null;
+                }
+                return IntegerHelper.tryParse(strSlice[3]);
+            })
+            .setCategory("infusion");
 
     public final BlockItemListSetting<Object> stabilizerExclusions = new BlockItemListSetting<>(
         stabilizerRewrite,
         "stabilizerExclusions",
-        String.join(
-            "\n",
-            "Requires useStabilizerRewrite=true.",
-            "Blocks specified here will NOT be factored into an infusion altar's symmetry even if they normally would.",
-            "FORMAT: `modId:blockId` or `modId:blockId:metadata`.",
-            "  Metadata:",
-            "    * Defaults to 0 if not set.",
-            "    * If set to * or 32767, all metadata variants of the block will be included.",
-            "")).setListType(BlockItemListSetting.ListType.BLOCKS)
-                .setCategory("infusion");
+        """
+            Requires `useStabilizerRewrite=true`.
+            Blocks specified here will NOT be factored into an infusion altar's symmetry even if they normally would.
+            FORMAT: `modId:blockId` or `modId:blockId:metadata`.
+              Metadata:
+                * Defaults to 0 if not set.
+                * If set to * or 32767, all metadata variants of the block will be included.
+            """).setListType(BlockItemListSetting.ListType.BLOCKS)
+            .setCategory("infusion");
 
     public final IntSetting itemEldritchObjectStackSize = new IntSetting(
         this,
@@ -331,6 +326,11 @@ public class ConfigFeatures extends ConfigGroup {
         this,
         "staffterNameTooltip",
         "Causes staffters to use their own translation string rather than being called \"Staff\" in the tooltip.");
+
+    public final ToggleSetting wandDisplayFociCustomNames = new ToggleSetting(
+        this,
+        "wandDisplayFociCustomNames",
+        "Wands equipped with renamed foci will display the custom name within the tooltip of the wand.");
 
     public final ToggleSetting primalCrusherOredict = new ToggleSetting(
         this,
@@ -466,6 +466,21 @@ public class ConfigFeatures extends ConfigGroup {
         "Applying patterns to banners not consume the phial or the essentia. Overrides bannerReturnPhials in the bugfixes module.")
             .setEnabled(false);
 
+    public final ToggleSetting wandPartStatsTooltip = new ToggleSetting(
+        this,
+        "wandPartStatsTooltip",
+        "Wand caps & wand rods will show information about their vis capacity & discount in their tooltips.");
+
+    public final ToggleSetting researchTableAspectHints = new ToggleSetting(
+        this,
+        "researchTableAspectHints",
+        "Hovering over an unknown aspect inside the Research Table will show a tooltip with a hint about where you can find it.");
+
+    public final ToggleSetting fakePlayersDropLootbags = new ToggleSetting(
+        this,
+        "fakePlayersDropLootbags",
+        "Allows kills from fake players to drop loot bags from champion mobs.").setEnabled(true);
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()
@@ -481,6 +496,6 @@ public class ConfigFeatures extends ConfigGroup {
     @Nonnull
     @Override
     public String getGroupComment() {
-        return "Tweaks and adjustments to enhance Thaumcraft";
+        return "Features and enhancements for Thaumcraft";
     }
 }

@@ -3,8 +3,13 @@ package dev.rndmorris.salisarcana.lib;
 import net.glease.tc4tweak.modules.findRecipes.FindRecipes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.world.World;
 
 import cpw.mods.fml.common.Loader;
+import dev.rndmorris.salisarcana.lib.recipe.MundaneRepairRecipe;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.crafting.IArcaneRecipe;
 
@@ -21,6 +26,24 @@ public class CraftingHelper {
     }
 
     private CraftingHelper() {}
+
+    public IRecipe findMundaneRecipe(final InventoryCrafting awb, final World world) {
+        final var recipes = CraftingManager.getInstance()
+            .getRecipeList();
+
+        // Minecraft checks for the "combine two tools' durability" recipe without using a IRecipe.
+        if (MundaneRepairRecipe.INSTANCE.matches(awb, world)) {
+            return MundaneRepairRecipe.INSTANCE;
+        }
+
+        for (final var recipe : recipes) {
+            if (recipe.matches(awb, world)) {
+                return recipe;
+            }
+        }
+
+        return null;
+    }
 
     public IArcaneRecipe findArcaneRecipe(final IInventory awb, final EntityPlayer player) {
         final var recipes = ThaumcraftApi.getCraftingRecipes();

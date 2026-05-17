@@ -8,12 +8,14 @@ import com.gtnewhorizons.tcwands.api.wrappers.StaffSceptreWrapper;
 import com.gtnewhorizons.tcwands.api.wrappers.StaffWrapper;
 import com.gtnewhorizons.tcwands.api.wrappers.WandWrapper;
 
+import cpw.mods.fml.common.Optional;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 
 public class GTNHTCWandsCompat {
 
+    @Optional.Method(modid = "gtnhtcwands")
     public static AbstractWandWrapper getWandWrapper(WandRod rod, WandType type) {
         for (AbstractWandWrapper wrapper : TCWandAPI.getWandWrappers()) {
             if (!wrapper.getRodName()
@@ -37,6 +39,7 @@ public class GTNHTCWandsCompat {
         return null;
     }
 
+    @Optional.Method(modid = "gtnhtcwands")
     public static CapWrapper getCapWrapper(WandCap cap) {
         for (CapWrapper wrapper : TCWandAPI.getCaps()) {
             if (wrapper.getName()

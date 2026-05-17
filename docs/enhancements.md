@@ -22,6 +22,12 @@ while avoiding the weirdness in Thaumcraft's plank blocks implementation.
 
 Causes staffters to use their own translation string rather than being called "Staff" in the tooltip.
 
+## Display Custom Names of Foci in Wand Tooltip
+
+**Config option:** `wandDisplayFociCustomNames`
+
+Wands equipped with renamed foci will display the custom name within the tooltip of the wand.
+
 ## Mob Vis Drop Whitelist
 
 **Config option:** `mobVisWhitelist`
@@ -184,7 +190,7 @@ is no research to navigate back to.
 
 **Config option:** `Show Research Key`
 
-Holding Ctrl while hovering over research in the Thaumonomicon will display that research's internal id.
+Holding Ctrl while hovering over research in the Thaumonomicon will display that research's internal id and coordinates.
 
 ## Weighted Node Generation
 
@@ -238,6 +244,18 @@ Override how eldritch altars pick where to try spawning crimson knights and eldr
 
 Applying patterns to banners not consume the phial or the essentia. Overrides `bannerReturnPhials` in the bugfixes module.
 
+## Wand Cap & Wand Core Properties in Tooltip
+
+**Config option:** `wandPartStatsTooltip`
+
+Wand caps & wand rods will show information about their vis capacity & discount in their tooltips.
+
+## Show Hints for Unknown Aspects in Research Table
+
+**Config option:** `researchTableAspectHints`
+
+Hovering over an unknown aspect inside the Research Table will show a tooltip with a hint about where you can find it.
+
 # Enhancements - Infusion
 
 ## Config option: `useStabilizerRewrite`
@@ -261,14 +279,14 @@ The default value of `10` is equivalent to vanilla Thaumcraft's stabilizer stren
 Requires `useStabilizerRewrite=true`.
 
 A list of blocks that should be treated as infusion stabilizers, even if they normally would not. Each block should
-be on its own line, and be in the format `modId:blockId` or `modId:blockId:metadata` or `modId:blockId:metadata`.
+be on its own line, and be in the format `modId:blockId` or `modId:blockId:metadata` or `modId:blockId:metadata:strength`.
 
 **Metadata:**
 * Defaults to 0 if not set.
 * If set to * or 32767, all metadata variants of the block will be included.
 
 **Strength:**
-* Defaults to `stabilizerStrength` if not set.
+* Defaults to the value of the `stabilizerStrength` setting if not set.
 * Range: -10000 to 10000
 
 <ins>Example:</ins>
@@ -276,7 +294,7 @@ be on its own line, and be in the format `modId:blockId` or `modId:blockId:metad
 * `minecraft:lapis_block` will include Minecraft's Lapis Lazuli Block
 * `Thaumcraft:blockCosmeticSolid` or `Thaumcraft:blockCosmeticSolid:0` will include Thaumcraft's Obsidian Totem, but none of the block's other variants.
 * `Thaumcraft:blockCosmeticSolid:*` or `Thaumcraft:blockCosmeticSolid:32767` will include Thaumcraft's Obsidian Totem, Obsidian Tile, Paving Stone of Travel/Warding, Thaumium Blocks, etc.
-* `Thaumcraft:blockCosmeticSolid:0:20` will make obsidian totem blocks will contribute twice as much stability as normal stabilizers.
+* `Thaumcraft:blockCosmeticSolid:0:20` will make obsidian totem blocks contribute twice as much stability as normal stabilizers.
 * `minecraft:skull:*:5` will make all vanilla Minecraft skulls contribute half as much stability as normal stabilizers.
 * `Thaumcraft:blockCandle:*:0` will make all Thaumcraft candles count as stabilizers for their symmetrical twin, but not contribute any stability themselves.
 

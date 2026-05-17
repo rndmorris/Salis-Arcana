@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import net.minecraftforge.common.config.Configuration;
 
+import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.IDependant;
 import dev.rndmorris.salisarcana.config.IEnabler;
 import dev.rndmorris.salisarcana.config.IHaveSettings;
@@ -17,12 +18,23 @@ public abstract class Setting implements IDependant {
     protected final @Nullable WeakReference<IEnabler> enabledDependency;
     private @Nullable WeakReference<IHaveSettings> settingOwner;
     protected boolean enabled = true;
+    private boolean needsMatchServer = false;
 
     private @Nullable String category;
+    protected final String name;
+    protected final String comment;
 
-    public Setting(IEnabler dependency) {
+    private ConfigGroup configGroup;
+
+    public Setting(IEnabler dependency, String name, String comment) {
         this.enabledDependency = new WeakReference<>(dependency);
+        this.name = name;
+        this.comment = comment;
         autoRegisterOwner();
+    }
+
+    public Setting(IEnabler dependency, String name) {
+        this(dependency, name, "");
     }
 
     public <T extends Setting> T setCategory(String category) {
@@ -35,6 +47,14 @@ public abstract class Setting implements IDependant {
             return defaultCategory;
         }
         return category;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public ConfigGroup getConfigGroup() {
+        return this.configGroup;
     }
 
     /**
@@ -60,6 +80,18 @@ public abstract class Setting implements IDependant {
         return (T) this;
     }
 
+    /**
+     * Whether this setting needs to match the server's setting in multiplayer.
+     */
+    public <T extends Setting> T setMatchServer(boolean needsMatchServer) {
+        this.needsMatchServer = needsMatchServer;
+        return (T) this;
+    }
+
+    public boolean needsMatchServer() {
+        return this.needsMatchServer;
+    }
+
     public IEnabler getDependency() {
         return enabledDependency != null ? enabledDependency.get() : null;
     }
@@ -70,18 +102,29 @@ public abstract class Setting implements IDependant {
     private void autoRegisterOwner() {
         IEnabler dependency = getDependency();
         var visited = new HashSet<>();
+        var registeredWithDependency = false;
         while (dependency != null) {
             if (visited.contains(dependency)) {
                 throw new RuntimeException("Encountered a circular setting dependency!");
             }
             visited.add(dependency);
-            if (dependency instanceof IHaveSettings hasSettings) {
+            if (!registeredWithDependency && dependency instanceof IHaveSettings hasSettings) {
                 registerTo(hasSettings);
+                registeredWithDependency = true;
+            }
+            if (this.configGroup == null && dependency instanceof ConfigGroup group) {
+                this.configGroup = group;
+            }
+            if (registeredWithDependency && this.configGroup != null) {
                 break;
             }
             if (dependency instanceof IDependant dependant) {
                 dependency = dependant.getDependency();
                 continue;
+            }
+
+            if (this.configGroup == null) {
+                throw new RuntimeException("No ConfigGroup found in the dependency tree.");
             }
             throw new RuntimeException("No IHaveSettings found in the dependency tree.");
         }
@@ -106,4 +149,13 @@ public abstract class Setting implements IDependant {
      * Load this setting from a config file.
      */
     public abstract void loadFromConfiguration(Configuration configuration);
+
+    /**
+     * String representation of this setting.
+     *
+     * @return String in the format "groupname:category:name"
+     */
+    public String toString() {
+        return this.configGroup.getGroupName() + ":" + this.getCategory() + ":" + this.name;
+    }
 }

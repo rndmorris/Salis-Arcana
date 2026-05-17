@@ -8,20 +8,25 @@ import java.util.List;
 import net.minecraftforge.common.config.Configuration;
 
 import dev.rndmorris.salisarcana.SalisArcana;
+import dev.rndmorris.salisarcana.config.group.ConfigAddons;
 import dev.rndmorris.salisarcana.config.group.ConfigBugfixes;
 import dev.rndmorris.salisarcana.config.group.ConfigCommands;
 import dev.rndmorris.salisarcana.config.group.ConfigFeatures;
 import dev.rndmorris.salisarcana.config.group.ConfigModCompat;
+import dev.rndmorris.salisarcana.config.group.ConfigThaumcraft;
+import dev.rndmorris.salisarcana.config.settings.Setting;
 
 public class SalisConfig {
 
     // no modifier, so it's visible within the same package (i.e. to ConfigGroup)
     static final List<ConfigGroup> groups = new ArrayList<>();
 
+    public static final ConfigAddons addons = new ConfigAddons();
     public static final ConfigBugfixes bugfixes = new ConfigBugfixes();
     public static final ConfigCommands commands = new ConfigCommands();
     public static final ConfigFeatures features = new ConfigFeatures();
     public static final ConfigModCompat modCompat = new ConfigModCompat();
+    public static final ConfigThaumcraft thaum = new ConfigThaumcraft();
 
     public static boolean enableVersionChecking;
 
@@ -61,5 +66,23 @@ public class SalisConfig {
         final var path = Paths.get("config", SalisArcana.MODID, group.getGroupName() + ".cfg")
             .toString();
         return new Configuration(new File(path));
+    }
+
+    public static Setting getSettingByName(String groupName, String category, String name) {
+        for (var group : groups) {
+            if (!group.getGroupName()
+                .equals(groupName)) {
+                continue;
+            }
+            for (var setting : group.getSettings()) {
+                if (setting.getCategory()
+                    .equals(category)
+                    && setting.getName()
+                        .equals(name)) {
+                    return setting;
+                }
+            }
+        }
+        return null;
     }
 }
