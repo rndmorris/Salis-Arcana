@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import thaumcraft.common.items.wands.foci.ItemFocusPortableHole;
 
-@Mixin(value = ItemFocusPortableHole.class, remap = false)
+@Mixin(value = ItemFocusPortableHole.class)
 public abstract class MixinItemFocusPortableHole_Sync {
 
     @Inject(method = "onFocusRightClick", at = @At("HEAD"), cancellable = true, remap = false)

@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import thaumcraft.common.blocks.BlockHole;
 import thaumcraft.common.tiles.TileHole;
 
-@Mixin(value = BlockHole.class, remap = false)
+@Mixin(value = BlockHole.class)
 public abstract class MixinBlockHole_CreateTileEntity {
 
     @WrapMethod(method = "createNewTileEntity")

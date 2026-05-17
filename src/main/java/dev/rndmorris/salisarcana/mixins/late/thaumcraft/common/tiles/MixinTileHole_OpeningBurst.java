@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.tiles.TileHole;
 
-@Mixin(value = TileHole.class, remap = false)
+@Mixin(value = TileHole.class)
 public abstract class MixinTileHole_OpeningBurst extends TileEntity {
 
     @Shadow
