@@ -16,5 +16,5 @@
 - [ ] New entries in `Mixins.java` are linked to a config entry so they can be enabled/disabled
 - [ ] Config entries are in the appropriate group (if unclear where something belongs, ask)
 - [ ] Config entries are documented in their corresponding `.md` file in `/docs`
-- [ ] Tested your changes in the obfuscated client and server
+- [ ] Changes have been tested using an obfuscated client connected to an obfuscated standalone server
 - [ ] *Standards and Best Practices* as detailed in [CONTRIBUTING](https://github.com/rndmorris/Salis-Arcana/blob/main/CONTRIBUTING.md) have been followed.
