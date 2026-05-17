@@ -23,6 +23,48 @@ maintained should be encouraged to use those mechanisms.
 
 Compatibility with mods that are unmaintained should be added by Salis Arcana itself when needed.
 
+## Change Categories
+Everything in Salis Arcana is broadly grouped into a handful of categories.
+
+### Bugfixes
+This category includes changes that address anything that crashes the game, works in a way that seem contrary to
+intended design, or outright doesn't work at all is a bug. If it's unclear if it's a bug or intended-but-unorthodox
+design, the change might fit better as a tweak in the Thaumcraft category.
+
+Changes in this category should be controlled by settings in `ConfigBugfixes` and be documented in `/docs/bugfixes.md`.
+
+### Commands
+This category consists solely of commands added by Salis Arcana. These commands can be for admins (e.g. `/create-node`
+or `/upgrade-focus`) or standard players (e.g. `/infusion-symmetry` or `/prereqs`).
+
+Commands should be controlled by settings in `ConfigCommands` and be documented in `/docs/commands.md`.
+
+### Features
+This category contains brand-new features that add new crafting recipes or add new functionality beyond simple tweaks
+or adjustments.
+
+Changes in this category should be controlled by settings in `ConfigFeatures` and be documented in
+`/docs/enhancements.md`.
+
+### Thaumcraft Tweaks
+Changes that alter how Thaumcraft itself works, such as optimizations and behavior adjustments that wouldn't necessarily
+be considered new features, belong in the Thaumcraft Tweaks category.
+
+Changes in this category should be controlled by settings in `ConfigThaumcraft` and be documented in
+`/docs/thaumcraft_configuration.md`.
+
+### Mod Compatibility
+Compatibility added between other mods and either Thaumcraft or Salis Arcana fall into this category.
+
+Changes in this category should be controlled by settings in `ConfigModCompat` and be documented in
+`/docs/mod-integrations.md`.
+
+### Addons
+These are changes that target unmaintained Thaumcraft-adjacent mods for reasons other than compatibility. At the time
+of writing, this category contains a single bugfix for Automagy.
+
+Changes in this category should be controlled by settings in `ConfigAddons` and be documented in `/docs/addons.md`.
+
 ## Standards and Best Practices
 
 ### Mixin classes should
