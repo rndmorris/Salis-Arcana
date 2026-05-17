@@ -13,7 +13,7 @@ import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.tiles.TileHole;
 
 @Mixin(value = TileHole.class, remap = false)
-public class MixinTileHole_OpeningBurst extends TileEntity {
+public abstract class MixinTileHole_OpeningBurst extends TileEntity {
 
     @Shadow
     public short countdown;

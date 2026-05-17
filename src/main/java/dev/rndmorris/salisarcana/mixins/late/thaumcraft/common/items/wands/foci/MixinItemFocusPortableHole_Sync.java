@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import thaumcraft.common.items.wands.foci.ItemFocusPortableHole;
 
 @Mixin(value = ItemFocusPortableHole.class, remap = false)
-public class MixinItemFocusPortableHole_Sync {
+public abstract class MixinItemFocusPortableHole_Sync {
 
     @Inject(method = "onFocusRightClick", at = @At("HEAD"), cancellable = true)
     private void sa$skipClientPrediction(ItemStack itemstack, World world, EntityPlayer player,
