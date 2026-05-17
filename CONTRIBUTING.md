@@ -34,6 +34,16 @@ Compatibility with mods that are closed-source and/or unmaintained should be add
     classes it targets. `_<Suffix>` is still required in this circumstance.
   * Some variation of the mixin's linked entry in `Mixins.java` can serve as a useful `<Suffix>`.
 * be registered in `Mixins.java` under a descriptively-named enum value.
+* use the prefix `salisarcana$` on any `@Unique` or non-mixin fields and methods.
+
+### Mixin class members should
+* be scoped as tightly as possible.
+* play nicely with other mixins as best as possible.
+  * Example: `@ModifyExpressionValue` should be preferred over `@Redirect` and `@ModifyConstant`.
+* avoid using `@Overwrite` except when no other options are available.
+* have appropriate `remap` values.
+  * Use `remap = true` when targeting anything from vanilla Minecraft.
+  * Use `remap = false` when targeting anything else.
 
 ### Pull Requests should
 * adhere to the provided template.
