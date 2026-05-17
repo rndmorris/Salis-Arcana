@@ -1,8 +1,8 @@
-## Salis Arcana's Goals
+## Project Goals
 * Be as easy to uninstall as possible
-* Find and correct bugs
+* Find and fix bugs
 * Add configurability to base Thaumcraft
-* Add Quality of Life (QoL) additions and minor features
+* Add quality of life (QoL) additions and minor features
 * Increase compatibility with other mods
 
 ### Be as easy to uninstall as possible
@@ -15,13 +15,13 @@ New crafting recipes and mechanics that rely on already-existing blocks and item
 without irrevocably impacting the save file. NBT on tile entities and items can be used to track additional data
 without long-term consequences.
 
-### Increase compatability with other mods
+### Increase compatibility with other mods
 Thaumcraft has been around for over a decade, which means there's already a rich ecosystem of other mods designed to be
 compatible with it, be they add-ons or standalone mods. Mechanisms by which other mods can use Salis Arcana's changes
 and features should be made available through the api package where reasonable. Mods that are still being actively
-maintained should be encouraged to use these mechanisms.
+maintained should be encouraged to use those mechanisms.
 
-Compatibility with mods that are closed-source and/or unmaintained should be added by Salis Arcana itself when needed.
+Compatibility with mods that are unmaintained should be added by Salis Arcana itself when needed.
 
 ## Standards and Best Practices
 
