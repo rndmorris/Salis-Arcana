@@ -49,7 +49,7 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
             maxRate);
         int removeCount = Math.max(0, (int) Math.ceil((total * percentage)));
 
-        salisArcana$removeAndSplit(removeCount);
+        salisarcana$removeAndSplit(removeCount);
 
         int spills = Math.min(1 + (removeCount / 10), 5);
         for (int i = 0; i < spills; i++) {
@@ -61,7 +61,7 @@ public abstract class MixinTileCrucible_ScalingAspectDecay extends TileThaumcraf
     }
 
     @Unique
-    private void salisArcana$removeAndSplit(int removeCount) {
+    private void salisarcana$removeAndSplit(int removeCount) {
         if (aspects.size() == 0 || removeCount <= 1) return;
         Random rand = worldObj.rand;
 
