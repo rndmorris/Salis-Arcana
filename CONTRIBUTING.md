@@ -44,6 +44,8 @@ Compatibility with mods that are unmaintained should be added by Salis Arcana it
 * have appropriate `remap` values.
   * Use `remap = true` when targeting anything from vanilla Minecraft.
   * Use `remap = false` when targeting anything else.
+  * It may sometimes be more convenient to make the top-level `@Mixin` annotation `remap = false` and selectively set
+    `remap = true` only where needed.
 
 ### Pull Requests should
 * adhere to the provided template.
