@@ -15,7 +15,7 @@ import thaumcraft.common.tiles.TileHole;
 public abstract class MixinBlockHole_CreateTileEntity {
 
     @WrapMethod(method = "createNewTileEntity")
-    private TileEntity sa$createTileHole(World world, int meta, Operation<TileEntity> original) {
+    private TileEntity createTileHole(World world, int meta, Operation<TileEntity> original) {
         return new TileHole();
     }
 }

@@ -17,7 +17,7 @@ import thaumcraft.common.items.wands.foci.ItemFocusPortableHole;
 public abstract class MixinItemFocusPortableHole_Sync {
 
     @Inject(method = "onFocusRightClick", at = @At("HEAD"), cancellable = true)
-    private void sa$skipClientPrediction(ItemStack itemstack, World world, EntityPlayer player,
+    private void skipClientPrediction(ItemStack itemstack, World world, EntityPlayer player,
         MovingObjectPosition mop, CallbackInfoReturnable<ItemStack> cir) {
         if (world.isRemote) {
             if (mop != null && mop.typeOfHit == MovingObjectType.BLOCK) {

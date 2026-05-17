@@ -25,7 +25,7 @@ public abstract class MixinTileHole_OpeningBurst extends TileEntity {
     private boolean sa$playedOpeningBurst;
 
     @Inject(method = "updateEntity", at = @At("HEAD"))
-    private void sa$playOpeningBurst(CallbackInfo ci) {
+    private void playOpeningBurst(CallbackInfo ci) {
         // Child holes are created with direction == -1 during expansion, so only the original target should burst.
         if (this.worldObj != null && this.worldObj.isRemote
             && !this.sa$playedOpeningBurst
