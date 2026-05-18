@@ -24,6 +24,16 @@ public class MixinTileNode_DynamicReach_Dark extends TileThaumcraft {
     AspectList aspects;
 
     /**
+     * Prevent things from breaking at size 0
+     */
+    @Inject(method = "handleDarkNode", at = @At("HEAD"), cancellable = true)
+    private void abortIfSizeZero(boolean change, CallbackInfoReturnable<Boolean> cir) {
+        if (this.aspects.visSize() == 0) {
+            cir.setReturnValue(change);
+        }
+    }
+
+    /**
      * At the first opportunity, just before we know the node will do dark activities, calculate and cache the node's
      * size
      * multiplier.
