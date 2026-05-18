@@ -140,6 +140,11 @@ public class ConfigFeatures extends ConfigGroup {
         "creativeNoXPManipulator",
         "Allow Creative players to use the Focal Manipulator without the necessary XP.");
 
+    public final ToggleSetting creativeNoXPInfusionEnchanting = new ToggleSetting(
+        this,
+        "creativeNoXPInfusionEnchanting",
+        "Allow Creative players to use Infusion Enchanting without the necessary XP.");
+
     public final ToggleSetting focalDisenchanterReturnXP = new ToggleSetting(
         this,
         "focalDisenchanterReturnXP",
