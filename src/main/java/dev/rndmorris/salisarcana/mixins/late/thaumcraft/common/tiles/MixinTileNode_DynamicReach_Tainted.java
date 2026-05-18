@@ -16,7 +16,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(value = TileNode.class, remap = false)
-public class MixinTileNode_DynamicReach_Tainted extends TileThaumcraft {
+public abstract class MixinTileNode_DynamicReach_Tainted extends TileThaumcraft {
 
     @Shadow
     AspectList aspects;
