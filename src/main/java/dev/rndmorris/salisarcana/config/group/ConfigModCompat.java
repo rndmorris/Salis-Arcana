@@ -6,6 +6,7 @@ import dev.rndmorris.salisarcana.config.ConfigGroup;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 import dev.rndmorris.salisarcana.config.settings.compat.AngelicaSettings;
+import dev.rndmorris.salisarcana.config.settings.compat.AspectRecipeIndexCompatSettings;
 import dev.rndmorris.salisarcana.config.settings.compat.BaublesExpandedSettings;
 import dev.rndmorris.salisarcana.config.settings.compat.GTNHTCWandsCompatSettings;
 import dev.rndmorris.salisarcana.config.settings.compat.UBCCompatSettings;
@@ -14,6 +15,7 @@ public class ConfigModCompat extends ConfigGroup {
 
     public final UBCCompatSettings undergroundBiomes = new UBCCompatSettings(this);
     public final GTNHTCWandsCompatSettings gtnhWands = new GTNHTCWandsCompatSettings(this);
+    public final AspectRecipeIndexCompatSettings aspectRecipeIndex = new AspectRecipeIndexCompatSettings(this);
     public final BaublesExpandedSettings baublesExpanded = new BaublesExpandedSettings(this);
     public final AngelicaSettings angelica = new AngelicaSettings(this);
 

@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.common.recipes;
 
+import java.util.Map;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -21,6 +23,7 @@ import dev.rndmorris.salisarcana.lib.AspectHelper;
 import dev.rndmorris.salisarcana.lib.WandHelper;
 import dev.rndmorris.salisarcana.lib.WandType;
 import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.wands.WandCap;
@@ -60,23 +63,27 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             .copy();
         wandInstance.setRod(outputItem, scanResult.newRod());
 
-        if (SalisConfig.features.preserveWandVis.isEnabled()) {
-            final var maxVis = wandInstance.getMaxVis(outputItem);
-            final var newVis = new AspectList();
-            final var originalVis = wandInstance.getAllVis(outputItem);
-            for (var entry : originalVis.aspects.entrySet()) {
-                newVis.add(entry.getKey(), Integer.min(maxVis, entry.getValue()));
-            }
-            wandInstance.storeAllVis(outputItem, newVis);
-        } else {
-            wandInstance.storeAllVis(outputItem, AspectHelper.primalList(0));
-        }
+        setNewWandVis(wandInstance, outputItem);
 
         final int cost = scanResult.wandType()
             .getCraftingVisCost(scanResult.wandCaps(), scanResult.newRod());
         outputItem.setItemDamage(Math.max(cost, 0));
 
         return outputItem;
+    }
+
+    public static void setNewWandVis(ItemWandCasting wandInstance, ItemStack outputItem) {
+        if (SalisConfig.features.preserveWandVis.isEnabled()) {
+            final int maxVis = wandInstance.getMaxVis(outputItem);
+            final AspectList newVis = new AspectList();
+            final AspectList originalVis = wandInstance.getAllVis(outputItem);
+            for (Map.Entry<Aspect, Integer> entry : originalVis.aspects.entrySet()) {
+                newVis.add(entry.getKey(), Integer.min(maxVis, entry.getValue()));
+            }
+            wandInstance.storeAllVis(outputItem, newVis);
+        } else {
+            wandInstance.storeAllVis(outputItem, AspectHelper.primalList(0));
+        }
     }
 
     @Override
@@ -209,7 +216,7 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             if (wandItem == null || newRod == null) {
                 return true;
             }
-            if (SalisConfig.features.enforceWandCoreTypes.isEnabled() && !wandType().isCoreSuitable(newRod)) {
+            if (!wandType().isCoreSuitable(newRod)) {
                 return true;
             }
             final var oldRod = oldRod();

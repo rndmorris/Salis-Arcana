@@ -162,16 +162,6 @@ public class CustomResearch {
         final var baseWandRod = ConfigItems.WAND_ROD_GREATWOOD;
         final var baseStaffRod = ConfigItems.STAFF_ROD_GREATWOOD;
 
-        final var wandItem = new ItemStack(wand);
-        wand.setCap(wandItem, baseCap);
-        wand.setRod(wandItem, baseWandRod);
-
-        final var staffItem = wandItem.copy();
-        wand.setRod(staffItem, baseStaffRod);
-
-        final var scepterItem = wandItem.copy();
-        scepterItem.setTagInfo("sceptre", new NBTTagByte((byte) 1));
-
         final var wandList = new ArrayList<IArcaneRecipe>();
         final var scepterList = new ArrayList<IArcaneRecipe>();
         final var staffList = new ArrayList<IArcaneRecipe>();
@@ -192,14 +182,14 @@ public class CustomResearch {
                     if (wandRod == baseStaffRod) {
                         return;
                     }
-                    final var outputStaff = staffItem.copy();
+                    final var outputStaff = WandHelper.GOLD_GREATWOOD_STAFF.copy();
                     wand.setRod(outputStaff, wandRod);
 
                     final var staffCost = WandType.STAFF.getCraftingVisCost(baseCap, wandRod);
 
                     if (SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) {
                         AbstractWandWrapper wrapper = GTNHTCWandsCompat
-                            .getWandWrapper(wandRod, WandType.getWandType(wandItem));
+                            .getWandWrapper(wandRod, WandType.getWandType(WandHelper.GOLD_GREATWOOD));
                         if (wrapper == null) wrapper = TCWandAPI.getWandWrappers()
                             .get(0);
                         WandDetails props = wrapper.getDetails();
@@ -212,7 +202,7 @@ public class CustomResearch {
                                 null,
                                 outputStaff,
                                 AspectHelper.primalList(staffCost),
-                                staffItem,
+                                WandHelper.GOLD_GREATWOOD_STAFF,
                                 rodItem,
                                 screw[0],
                                 screw[0],
@@ -226,15 +216,15 @@ public class CustomResearch {
                                 null,
                                 outputStaff,
                                 AspectHelper.primalList(staffCost),
-                                staffItem,
+                                WandHelper.GOLD_GREATWOOD_STAFF,
                                 rodItem));
                     }
                 } else {
                     if (wandRod == baseWandRod) {
                         return;
                     }
-                    final var outputWand = wandItem.copy();
-                    final var outputScepter = scepterItem.copy();
+                    final var outputWand = WandHelper.GOLD_GREATWOOD.copy();
+                    final var outputScepter = WandHelper.GOLD_GREATWOOD_SCEPTER.copy();
                     wand.setRod(outputWand, wandRod);
                     wand.setRod(outputScepter, wandRod);
                     final var wandCost = WandType.WAND.getCraftingVisCost(baseCap, wandRod);
@@ -242,7 +232,7 @@ public class CustomResearch {
 
                     if (SalisConfig.modCompat.gtnhWands.coreSwapMaterials.isEnabled()) {
                         AbstractWandWrapper wrapper = GTNHTCWandsCompat
-                            .getWandWrapper(wandRod, WandType.getWandType(wandItem));
+                            .getWandWrapper(wandRod, WandType.getWandType(WandHelper.GOLD_GREATWOOD));
                         if (wrapper == null) wrapper = TCWandAPI.getWandWrappers()
                             .get(0);
                         WandDetails props = wrapper.getDetails();
@@ -255,7 +245,7 @@ public class CustomResearch {
                                 null,
                                 outputWand,
                                 AspectHelper.primalList(wandCost),
-                                wandItem,
+                                WandHelper.GOLD_GREATWOOD,
                                 rodItem,
                                 screw[0],
                                 screw[0],
@@ -269,7 +259,7 @@ public class CustomResearch {
                                 null,
                                 outputScepter,
                                 AspectHelper.primalList(scepterCost),
-                                scepterItem,
+                                WandHelper.GOLD_GREATWOOD_SCEPTER,
                                 rodItem,
                                 screw[0],
                                 screw[0],
@@ -281,7 +271,7 @@ public class CustomResearch {
                                 null,
                                 outputWand,
                                 AspectHelper.primalList(wandCost),
-                                wandItem,
+                                WandHelper.GOLD_GREATWOOD,
                                 rodItem));
 
                         scepterList.add(
@@ -289,7 +279,7 @@ public class CustomResearch {
                                 null,
                                 outputScepter,
                                 AspectHelper.primalList(scepterCost),
-                                scepterItem,
+                                WandHelper.GOLD_GREATWOOD_SCEPTER,
                                 rodItem));
                     }
                 }

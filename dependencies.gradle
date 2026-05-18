@@ -40,7 +40,8 @@ dependencies {
     api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     compileOnly(rfg.deobf("curse.maven:tc4tweaks-431297:6321233"))
     // devOnlyNonPublishable(rfg.deobf("curse.maven:tc4tweaks-431297:6321233"))
-    runtimeOnlyNonPublishable(rfg.deobf("curse.maven:thaumcraft-nei-plugin-225095:2241913"))
+    devOnlyNonPublishable("com.github.GTNewHorizons:AspectRecipeIndex:1.0.14:dev")
+    runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.91-GTNH:dev")
     compileOnly("curse.maven:hodgepodge-688899:6039713")
     compileOnly("maven.modrinth:bugtorch:1.2.13")
     compileOnly(rfg.deobf("maven.modrinth:etfuturum:2.6.2"))
@@ -53,16 +54,6 @@ dependencies {
     compileOnly(rfg.deobf("curse.maven:automagy-222153:2285272"))
 
     project.getConfigurations()
-
-    // Required for testing GTNH-TC-Wands
-    //  .configureEach(c -> {
-    //      final DependencySubstitutions ds = c.getResolutionStrategy()
-    //          .getDependencySubstitution()
-    //      ds.substitute(ds.module("com.github.GTNewHorizons:Baubles"))
-    //          .using(ds.module("com.github.GTNewHorizons:Baubles-Expanded:2.2.2-GTNH"))
-    //          .withClassifier("dev")
-    //          .because("Baubles-Expanded replaces Baubles")
-    //  })
 
     // TC4Tweaks changes some injection points with ASM
     // runtimeOnlyNonPublishable(rfg.deobf("curse.maven:TC4Tweaks-431297:6929888"))

@@ -53,13 +53,14 @@ public enum WandType {
             return wandWrapper.getRecipeCost(capWrapper);
         }
 
-        if (forCap == ConfigItems.WAND_CAP_IRON && forRod == ConfigItems.WAND_ROD_WOOD) {
-            return 0;
-        }
-
         return switch (this) {
-            case WAND, STAFF -> forCap.getCraftCost() * forRod.getCraftCost();
-            case SCEPTER, STAFFTER -> (int) ((float) (forCap.getCraftCost() * forRod.getCraftCost()) * 1.5F);
+            case WAND, STAFF -> {
+                if (forCap == ConfigItems.WAND_CAP_IRON && forRod == ConfigItems.WAND_ROD_WOOD) {
+                    yield 0;
+                }
+                yield forCap.getCraftCost() * forRod.getCraftCost();
+            }
+            case SCEPTER, STAFFTER -> forCap.getCraftCost() * forRod.getCraftCost() * 3 / 2; // * 1.5
             default -> -1;
         };
 
@@ -74,6 +75,7 @@ public enum WandType {
     }
 
     public <R extends WandRod> boolean isCoreSuitable(@Nullable R coreType) {
+        if (!SalisConfig.features.enforceWandCoreTypes.isEnabled()) return true;
         return switch (this) {
             case WAND, SCEPTER -> coreType instanceof WandRod && !(coreType instanceof StaffRod);
             case STAFF, STAFFTER -> coreType instanceof StaffRod;
