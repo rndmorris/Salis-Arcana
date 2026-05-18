@@ -205,7 +205,7 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
             WandDetails props = wrapper.getDetails();
             ItemStack screw = OreDictionary.getOres(props.getScrew())
                 .get(0);
-            ItemStack conductor = props.getConductor();
+            ItemStack conductor = props.conductor();
             if (isScepter) {
                 return new Object[] { input, rod.getItem(), screw, screw, conductor, conductor };
             }
