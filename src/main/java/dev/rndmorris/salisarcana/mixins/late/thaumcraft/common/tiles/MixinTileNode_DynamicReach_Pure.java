@@ -17,10 +17,20 @@ import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(value = TileNode.class, remap = false)
-public class MixinTileNode_DynamicReach_Pure extends TileThaumcraft {
+public abstract class MixinTileNode_DynamicReach_Pure extends TileThaumcraft {
 
     @Shadow
     AspectList aspects;
+
+    /**
+     * Prevent things from breaking at size 0
+     */
+    @Inject(method = "handlePureNode", at = @At("HEAD"), cancellable = true)
+    private void abortIfSizeZero(boolean change, CallbackInfoReturnable<Boolean> cir) {
+        if (this.aspects.visSize() == 0) {
+            cir.setReturnValue(change);
+        }
+    }
 
     /**
      * At the first opportunity, after we know the node will do tainty activities, calculate and cache the node's size
