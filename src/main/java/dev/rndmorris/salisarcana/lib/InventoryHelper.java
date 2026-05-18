@@ -53,7 +53,7 @@ public class InventoryHelper {
     public static void scanInventory(IInventory inventory, EntityPlayer player) {
         for (int i = 0; i < inventory.getSizeInventory(); i++) {
             ItemStack item = inventory.getStackInSlot(i);
-            if (item == null) {
+            if (item == null || item.stackSize < 1) {
                 continue;
             }
             ScanResult result = new ScanResult(

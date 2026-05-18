@@ -195,7 +195,7 @@ public class CustomResearch {
                         WandDetails props = wrapper.getDetails();
                         screw[0] = OreDictionary.getOres(props.getScrew())
                             .get(0);
-                        conductor[0] = props.getConductor();
+                        conductor[0] = props.conductor();
 
                         staffList.add(
                             new ShapelessArcaneRecipe(
@@ -238,7 +238,7 @@ public class CustomResearch {
                         WandDetails props = wrapper.getDetails();
                         screw[0] = OreDictionary.getOres(props.getScrew())
                             .get(0);
-                        conductor[0] = props.getConductor();
+                        conductor[0] = props.conductor();
 
                         wandList.add(
                             new ShapelessArcaneRecipe(
