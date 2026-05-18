@@ -290,6 +290,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "preventInvalidFociOnWands",
         "Prevent wands with invalid foci NBT (from uninstalling add-ons, for example) from crashing the game.");
 
+    public final ToggleSetting portableHoleClientSync = new ToggleSetting(
+        this,
+        "portableHoleClientSync",
+        "Properly synchronize \"Wand Focus: Portable Hole\" between server and clients, preventing client-only ghost openings and ensuring multiplayer players see the effect.");
+
     public final ToggleSetting hiddenResearchCheckInventory = new ToggleSetting(
         this,
         "hiddenResearchCheckInventory",

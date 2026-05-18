@@ -370,3 +370,9 @@ Runic Matrices which are too stable will not fly far out from the center of the 
 **Config option:** `fixInventoryAspects`
 
 Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.
+
+## Fix Portable Hole focus client sync
+
+**Config option:** `portableHoleClientSync`
+
+Properly synchronizes the holes creates with the Portable Hole focus to the client. This prevents ghost blocks when the player moves the camera while using the focus. Also makes other clients in multiplayer display the portable hole visual effect.
