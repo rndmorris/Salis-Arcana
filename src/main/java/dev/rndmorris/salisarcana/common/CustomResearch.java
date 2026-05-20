@@ -38,6 +38,7 @@ public class CustomResearch {
     public static ResearchItem replaceCapsResearch;
     public static ResearchItem replaceCoreResearch;
     public static ResearchItem containerScanResearch;
+    public static ResearchItem infusionPreviewResearch;
 
     public static void init() {
         final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
@@ -310,6 +311,9 @@ public class CustomResearch {
             new ItemStack(placeholderItem, 0, OreDictionary.WILDCARD_VALUE)).setConcealed()
                 .setParents(settings.parentResearches)
                 .setSpecial();
+        if (settings.hiddenParentResearches != null && settings.hiddenParentResearches.length > 0) {
+            research.setParentsHidden(settings.hiddenParentResearches);
+        }
         if (settings.autoUnlock) {
             research.setStub();
             for (String parentResearch : settings.parentResearches) {
