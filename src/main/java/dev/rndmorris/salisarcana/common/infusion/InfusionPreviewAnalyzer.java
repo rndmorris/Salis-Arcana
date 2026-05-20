@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.client.infusion;
+package dev.rndmorris.salisarcana.common.infusion;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,7 +29,7 @@ import thaumcraft.common.tiles.TileInfusionMatrix;
 import thaumcraft.common.tiles.TileMirrorEssentia;
 import thaumcraft.common.tiles.TilePedestal;
 
-public class InfusionData {
+public class InfusionPreviewAnalyzer {
 
     public TileInfusionMatrix matrix;
     public World world;
@@ -53,7 +53,7 @@ public class InfusionData {
     private static final int INFUSION_RANGE = 12;
     private static final int MIRROR_RANGE = 8;
 
-    public InfusionData() {
+    public InfusionPreviewAnalyzer() {
 
     }
 
