@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -21,13 +22,19 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dev.rndmorris.salisarcana.SalisArcana;
+import dev.rndmorris.salisarcana.common.infusion.InfusionPreviewInfo;
+import dev.rndmorris.salisarcana.config.SalisConfig;
+import dev.rndmorris.salisarcana.network.MessageRequestInfusionPreview;
+import dev.rndmorris.salisarcana.network.NetworkHandler;
 import gregtech.api.gui.modularui.GTUITextures;
 import thaumcraft.api.IGoggles;
+import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.RenderEventHandler;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.items.wands.WandManager;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 public class InfusionPreview {
@@ -46,33 +53,53 @@ public class InfusionPreview {
         }
     }
 
-    // TODO list:
-    // Add thaumonomicon page
-    // For future content: Maybe add instability
+    private static TileInfusionMatrix matrix;
+    private static InfusionPreviewInfo info;
 
-    private static final InfusionData infusionData = new InfusionData();
+    // Refresh cadence for the server-authoritative preview.
+    private static final int REQUEST_INTERVAL = 4;
+    private static int ticks;
+
+    private static void invalidate() {
+        matrix = null;
+        info = null;
+    }
+
+    private static void requestPreview(TileInfusionMatrix matrix) {
+        NetworkHandler.instance
+            .sendToServer(new MessageRequestInfusionPreview(matrix.xCoord, matrix.yCoord, matrix.zCoord));
+    }
+
+    public static void onPreviewReceived(int x, int y, int z, InfusionPreviewInfo received) {
+        // Drop if the player has already invalidated or moved on to a different matrix —
+        // packets in flight from a previous focus should not overwrite the current one.
+        if (matrix == null || matrix.xCoord != x || matrix.yCoord != y || matrix.zCoord != z) return;
+        info = received;
+    }
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.START || infusionData.matrix == null) return;
-        final World world = Minecraft.getMinecraft().theWorld;
-        if (infusionData.world != world || world == null) {
-            infusionData.invalidate();
+        if (event.phase != TickEvent.Phase.START || matrix == null) return;
+        final World currentWorld = Minecraft.getMinecraft().theWorld;
+        if (currentWorld == null || matrix.getWorldObj() != currentWorld) {
+            invalidate();
             return;
         }
         MovingObjectPosition mouseOver = Minecraft.getMinecraft().objectMouseOver;
-        if (mouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
-            infusionData.invalidate();
+        if (mouseOver == null || mouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
+            invalidate();
             return;
         }
-        final TileInfusionMatrix matrix = infusionData.matrix;
         if (mouseOver.blockX != matrix.xCoord || mouseOver.blockY != matrix.yCoord
             || mouseOver.blockZ != matrix.zCoord) {
-            matrix.invalidate();
+            invalidate();
             return;
         }
 
-        infusionData.onTick();
+        if (++ticks >= REQUEST_INTERVAL) {
+            ticks = 0;
+            requestPreview(matrix);
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -83,41 +110,54 @@ public class InfusionPreview {
         final int yCoord = mouseOver.blockY;
         final int zCoord = mouseOver.blockZ;
         // First check if the old matrix is invalid
-        if (infusionData.matrix != null) {
-            if (infusionData.matrix.xCoord != xCoord || infusionData.matrix.yCoord != yCoord
-                || infusionData.matrix.zCoord != mouseOver.blockZ) {
-                infusionData.invalidate();
+        if (matrix != null) {
+            if (matrix.xCoord != xCoord || matrix.yCoord != yCoord || matrix.zCoord != mouseOver.blockZ) {
+                invalidate();
             }
         }
 
         ItemStack helmet = event.player.inventory.armorItemInSlot(3);
         if (helmet == null) {
-            infusionData.invalidate();
+            invalidate();
             return;
         }
         Item helmetItem = helmet.getItem();
         if (!(helmetItem instanceof IGoggles goggles) || !goggles.showIngamePopups(helmet, event.player)) {
-            infusionData.invalidate();
+            invalidate();
+            return;
+        }
+        if (!SalisConfig.features.infusionPreview.isEnabled()) {
+            invalidate();
+            return;
+        }
+        if (!ThaumcraftApiHelper
+            .isResearchComplete(event.player.getCommandSenderName(), "salisarcana:INFUSION_PREVIEW")) {
+            invalidate();
             return;
         }
 
-        final World world = Minecraft.getMinecraft().theWorld;
+        final World currentWorld = Minecraft.getMinecraft().theWorld;
         // Then check if the player is hovering over a matrix
-        if (infusionData.matrix == null) {
-            if (world.getTileEntity(xCoord, yCoord, zCoord) instanceof TileInfusionMatrix matrix) {
-                infusionData.update(world, matrix);
+        if (matrix == null) {
+            if (currentWorld.getTileEntity(xCoord, yCoord, zCoord) instanceof TileInfusionMatrix tile) {
+                matrix = tile;
+                // Kick an immediate request so the first render after focusing a matrix isn't
+                // blank for a full REQUEST_INTERVAL.
+                ticks = 0;
+                requestPreview(matrix);
             } else {
                 return;
             }
         }
-        final TileInfusionMatrix matrix = infusionData.matrix;
         if (matrix.crafting) return;
-        boolean spaceAbove = world.isAirBlock(xCoord, yCoord + 1, zCoord);
+        boolean spaceAbove = currentWorld.isAirBlock(xCoord, yCoord + 1, zCoord);
         float y = yCoord + (spaceAbove ? 0.4F : 0.0F);
         ForgeDirection dir = spaceAbove ? ForgeDirection.UP : ForgeDirection.getOrientation(event.target.sideHit);
 
-        if (!infusionData.matrix.active) {
-            if (infusionData.unformed || infusionData.matrix.validLocation()) {
+        if (!matrix.active) {
+            boolean unformed = WandManager
+                .fitInfusionAltar(currentWorld, matrix.xCoord - 1, matrix.yCoord - 2, matrix.zCoord - 1);
+            if (unformed || matrix.validLocation()) {
                 drawString(
                     StatCollector.translateToLocal("salisarcana:infusion.preview.unformed"),
                     xCoord,
@@ -139,7 +179,10 @@ public class InfusionPreview {
         }
 
         // spotless:off
-        ItemStack output = infusionData.getOutputStack();
+        if (info == null) {
+            return;
+        }
+        ItemStack output = info.recipeOutput;
         if (output == null) {
             drawString(
                 StatCollector.translateToLocal("salisarcana:infusion.preview.norecipe"),
@@ -162,16 +205,14 @@ public class InfusionPreview {
     private void drawTagsOnContainer(ItemStack stack, float x, float y, float z, ForgeDirection dir, float partialTicks) {
         if (!(Minecraft.getMinecraft().renderViewEntity instanceof EntityPlayer player)) return;
 
-        final InfusionData data = infusionData;
-
-        AspectList tags = data.getEssentia();
+        AspectList tags = info.recipeEssentia;
 
         if (tags != null && tags.size() > 0) {
             Minecraft mc = Minecraft.getMinecraft();
             FontRenderer fontRenderer = mc.fontRenderer;
             setupRender(player, x, y, z, dir, partialTicks);
-            String recipeName = data.getOutputString();
-            AspectList sources = data.buildAspectList();
+            String recipeName = info.getOutputString();
+            AspectList sources = info.availableEssentia != null ? info.availableEssentia : new AspectList();
 
             final int ROW_SIZE = 5;
             int current = 0;
@@ -264,7 +305,7 @@ public class InfusionPreview {
                     GL11.glPopMatrix();
                 }
 
-                if (InfusionData.hasEnoughEssentia(sources, tag, amount)) {
+                if (sources.getAmount(tag) >= amount) {
                     mc.renderEngine.bindTexture(checkmarkLocation);
                 } else {
                     missingEssentia = true;
@@ -286,14 +327,10 @@ public class InfusionPreview {
             String display = StatCollector.translateToLocal(
                 missingEssentia ? "salisarcana:infusion.preview.missingessentia" : "salisarcana:infusion.preview.valid"
             );
+            String instability = info.getInstabilityLevelString();
 
-            sw = fontRenderer.getStringWidth(display);
-            GL11.glPushMatrix();
-            GL11.glTranslatef(0, 1.05F, 0);
-            GL11.glScalef(0.05f, 0.05f, 0.05f);
-            GL11.glTranslatef(-sw / 2f, -fontRenderer.FONT_HEIGHT + 1, 0);
-            fontRenderer.drawStringWithShadow(display, 0, 0, 0xffffff);
-            GL11.glPopMatrix();
+            drawStatusLine(fontRenderer, display, 1.05F);
+            drawInstabilityLine(fontRenderer, instability, 2.1F);
             endRender();
         }
 
@@ -316,6 +353,44 @@ public class InfusionPreview {
         GL11.glPopMatrix();
 
         endRender();
+    }
+
+    private void drawStatusLine(FontRenderer fontRenderer, String text, float yOffset) {
+        int sw = fontRenderer.getStringWidth(text);
+        GL11.glPushMatrix();
+        GL11.glTranslatef(0, yOffset, 0);
+        GL11.glScalef(0.05f, 0.05f, 0.05f);
+        GL11.glTranslatef(-sw / 2f, -fontRenderer.FONT_HEIGHT + 1, 0);
+        fontRenderer.drawStringWithShadow(text, 0, 0, 0xffffff);
+        GL11.glPopMatrix();
+    }
+
+    private void drawInstabilityLine(FontRenderer fontRenderer, String instabilityText, float yOffset) {
+        String prefix = StatCollector.translateToLocal("tc.inst") + ": ";
+        int prefixWidth = fontRenderer.getStringWidth(prefix);
+        int instabilityWidth = fontRenderer.getStringWidth(instabilityText);
+        int totalWidth = prefixWidth + instabilityWidth;
+
+        GL11.glPushMatrix();
+        GL11.glTranslatef(0, yOffset, 0);
+        GL11.glScalef(0.05f, 0.05f, 0.05f);
+        GL11.glTranslatef(-totalWidth / 2f, -fontRenderer.FONT_HEIGHT + 1, 0);
+        fontRenderer.drawStringWithShadow(prefix, 0, 0, 0xffffff);
+        drawOutlinedText(fontRenderer, instabilityText, prefixWidth, 0);
+        GL11.glPopMatrix();
+    }
+
+    private void drawOutlinedText(FontRenderer fontRenderer, String text, int x, int y) {
+        String shadowText = EnumChatFormatting.getTextWithoutFormattingCodes(text);
+        int color = 0x000000;
+        if (text.startsWith(EnumChatFormatting.DARK_BLUE.toString())) {
+            color = 0x4A6984;
+        }
+        fontRenderer.drawString(shadowText, x + 1, y, color);
+        fontRenderer.drawString(shadowText, x - 1, y, color);
+        fontRenderer.drawString(shadowText, x, y + 1, color);
+        fontRenderer.drawString(shadowText, x, y - 1, color);
+        fontRenderer.drawString(text, x, y, 0xffffff);
     }
 
     private void setupRender(EntityPlayer player, float x, float y, float z, ForgeDirection dir, float partialTicks) {

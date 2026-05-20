@@ -74,6 +74,8 @@ public class CustomResearch {
         containerScanResearch = maybeRegister(
             SalisConfig.features.thaumometerScanContainersResearch,
             Item.getItemFromBlock(Blocks.chest));
+
+        infusionPreviewResearch = maybeRegister(SalisConfig.features.infusionPreviewResearch, ConfigItems.itemGoggles);
     }
 
     private static IArcaneRecipe[][] exampleCapRecipes() {
