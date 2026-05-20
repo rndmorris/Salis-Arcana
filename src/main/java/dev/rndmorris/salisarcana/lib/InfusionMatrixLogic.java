@@ -140,7 +140,7 @@ public class InfusionMatrixLogic {
 
         // If we're not using the rewrite, use the default stabilizer strength
         // Should only be called by the symmetry-check command
-        if (!features.stabilizerStrength.isEnabled()) {
+        if (!features.stabilizerRewrite.isEnabled()) {
             return features.stabilizerStrength.getDefaultValue();
         }
 
