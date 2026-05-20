@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizons.tcwands.api.TCWandAPI;
@@ -330,7 +331,11 @@ public class CustomResearch {
             ThaumcraftApi.addWarpToResearch(fullKey, settings.warp);
         }
         final var pages = new ArrayList<ResearchPage>();
-        pages.add(new ResearchPage("tc.research_page." + fullKey + ".0"));
+        for (int i = 0;; i++) {
+            final var pageKey = "tc.research_page." + fullKey + "." + i;
+            if (i > 0 && !StatCollector.canTranslate(pageKey)) break;
+            pages.add(new ResearchPage(pageKey));
+        }
 
         for (var recipeSet : recipeSets) {
             if (recipeSet.length < 1) {
