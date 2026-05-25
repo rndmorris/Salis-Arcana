@@ -301,6 +301,12 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.fixTESRWorldLeak)
         .addClientMixins("thaumcraft.client.renderers.tile.MixinTESR_FixLeak")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FIX_NODE_RENDERING(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixNodeRendering)
+        .addClientMixins("thaumcraft.client.renderers.tile.MixinTileEnergizedNodeRenderer_FixNodeRendering")
+        .addClientMixins("thaumcraft.client.renderers.tile.MixinTileNodeRenderer_FixNodeRendering")
+        .addClientMixins("thaumcraft.client.lib.MixinRenderEventHandler_FixNodeRendering")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()

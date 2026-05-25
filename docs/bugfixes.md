@@ -370,3 +370,9 @@ Runic Matrices which are too stable will not fly far out from the center of the 
 **Config option:** `fixInventoryAspects`
 
 Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.
+
+## Fix Node Rendering Behind Transparent Blocks
+
+**Config option:** `fixNodeRendering`
+
+Fixes a bug where Nodes, Energized Nodes, Node Aspect Tags, and Node Drain Beams would render as though behind transparent blocks when they are in front of them.
