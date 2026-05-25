@@ -12,7 +12,7 @@ import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.api.nodes.NodeType;
 import thaumcraft.client.renderers.tile.TileNodeRenderer;
 
-@Mixin(value = TileNodeRenderer.class, remap = false)
+@Mixin(value = TileNodeRenderer.class)
 public class MixinTileNodeRenderer_FixNodeRendering {
 
     @Redirect(

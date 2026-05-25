@@ -13,7 +13,7 @@ import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.api.nodes.NodeType;
 import thaumcraft.client.renderers.tile.TileNodeEnergizedRenderer;
 
-@Mixin(value = TileNodeEnergizedRenderer.class, remap = false)
+@Mixin(value = TileNodeEnergizedRenderer.class)
 public class MixinTileEnergizedNodeRenderer_FixNodeRendering {
 
     @Shadow
