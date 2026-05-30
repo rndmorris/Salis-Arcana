@@ -74,7 +74,7 @@ If true, the rate at which tainted nodes will convert their surroundings to Tain
 be adjusted by their modifier: 20% more often when bright, 20% less often when pale, 50% less often when fading.
 
 ### Config Option: `unstableAspectDropsRequireLoadedChunks` (Default `true`)
-If true, unlocked unstable nodes will not drain or spawn aspect orbs unless the nearby chunks needed to tick the spawned
+If true, unstable nodes not under the effects of a Node Stabilizer will not drain or spawn aspect orbs unless the nearby chunks needed to tick the spawned
 orb are loaded.
 
 ## Pickaxe of the Core Detection Ore Dictionary Labels (Group `tools`)
