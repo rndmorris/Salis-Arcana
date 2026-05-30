@@ -370,3 +370,9 @@ Runic Matrices which are too stable will not fly far out from the center of the 
 **Config option:** `fixInventoryAspects`
 
 Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.
+
+## Fix Arcane Bores look-up frequency
+
+**Config option:** `boreDecreaseCVisCheckFrequency`
+
+Fixes Arcane Bores looking up vis nets too frequently, if they aren't maxed out on cvis for speedup.

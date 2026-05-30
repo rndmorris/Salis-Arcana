@@ -301,6 +301,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.fixTESRWorldLeak)
         .addClientMixins("thaumcraft.client.renderers.tile.MixinTESR_FixLeak")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    ARCANE_BORE_VIS_DRAIN_FREQUENCY(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.boreDecreaseCVisCheckFrequency)
+        .addCommonMixins("thaumcraft.common.tiles.MixinBoreVisFrequencyReduction")
+        .setPhase(Phase.LATE)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
