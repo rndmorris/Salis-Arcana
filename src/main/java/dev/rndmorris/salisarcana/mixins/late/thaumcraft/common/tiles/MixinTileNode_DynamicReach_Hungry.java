@@ -3,11 +3,12 @@ package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Cancellable;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
@@ -24,16 +25,6 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
     AspectList aspects;
 
     /**
-     * Prevent things from breaking at size 0
-     */
-    @Inject(method = { "handleHungryNodeFirst", "handleHungryNodeSecond" }, at = @At("HEAD"), cancellable = true)
-    private void abortIfSizeZero(boolean change, CallbackInfoReturnable<Boolean> cir) {
-        if (this.aspects.visSize() == 0) {
-            cir.setReturnValue(change);
-        }
-    }
-
-    /**
      * Adjust the volume within which a hungry node can draw particles.
      * Memoization is needed for {@code adjustMopDistance} below.
      * Wraps the first occurrence of a constant {@code 16} in each method, which should be part the very first
@@ -43,9 +34,17 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
         method = { "handleHungryNodeFirst", "handleHungryNodeSecond" },
         at = @At(value = "CONSTANT", args = "intValue=16", ordinal = 0))
     private int adjustAndMemoReach(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
-        @Share("reach") LocalIntRef reachRef) {
-        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
-        final var reach = (int) (constant * sizeMultiplierRef.get());
+        @Share("reach") LocalIntRef reachRef, @Local(argsOnly = true) boolean change,
+        @Cancellable CallbackInfoReturnable<Boolean> cir) {
+        final var visSize = this.aspects.visSize();
+        if (visSize == 0) {
+            cir.setReturnValue(change);
+            return 1;
+        }
+
+        final var sizeMultiplier = DynamicNodeLogic.calculateSizeMultiplier(visSize);
+        sizeMultiplierRef.set(sizeMultiplier);
+        final var reach = (int) (constant * sizeMultiplier);
         reachRef.set(reach);
         return reach;
     }

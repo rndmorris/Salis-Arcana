@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles;
 
+import org.spongepowered.asm.lib.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,26 +25,30 @@ public abstract class MixinTileNode_DynamicReach_Dark extends TileThaumcraft {
     AspectList aspects;
 
     /**
-     * Prevent things from breaking at size 0
-     */
-    @Inject(method = "handleDarkNode", at = @At("HEAD"), cancellable = true)
-    private void abortIfSizeZero(boolean change, CallbackInfoReturnable<Boolean> cir) {
-        if (this.aspects.visSize() == 0) {
-            cir.setReturnValue(change);
-        }
-    }
-
-    /**
      * At the first opportunity, just before we know the node will do dark activities, calculate and cache the node's
-     * size
-     * multiplier.
+     * size multiplier.
      */
     @Inject(
         method = "handleDarkNode",
-        at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;xCoord:I", remap = true, ordinal = 0),
-        slice = @Slice(from = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;count:I")))
+        at = @At(
+            value = "FIELD",
+            target = "Lthaumcraft/common/tiles/TileNode;xCoord:I",
+            opcode = Opcodes.GETFIELD,
+            remap = true,
+            ordinal = 0),
+        slice = @Slice(
+            from = @At(
+                value = "FIELD",
+                opcode = Opcodes.GETFIELD,
+                target = "Lthaumcraft/common/tiles/TileNode;count:I")),
+        cancellable = true)
     private void calculateSizeMultiplier(boolean change, CallbackInfoReturnable<Boolean> cir,
         @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {
+        final var visSize = this.aspects.visSize();
+        if (visSize == 0) {
+            cir.setReturnValue(change);
+            return;
+        }
         sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
     }
 
