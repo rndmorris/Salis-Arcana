@@ -36,7 +36,7 @@ abstract class MixinTileNode_DynamicReach_Tainted extends TileThaumcraft {
             cir.setReturnValue(change);
             return;
         }
-        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
+        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(visSize));
     }
 
     /**
