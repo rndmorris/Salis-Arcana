@@ -202,6 +202,11 @@ public class ConfigThaumcraft extends ConfigGroup {
         4.2f).setMinValue(0.01f)
             .setMaxValue(100f);
 
+    public final ToggleSetting pauseTCParticlesWithGame = new ToggleSetting(
+        this,
+        "pauseTCParticlesWithGame",
+        "If true, Thaumcraft particles will behave like vanilla particles and pause when the game is paused.");
+
     @Override
     public @NotNull String getGroupName() {
         return "thaumcraft_configuration";

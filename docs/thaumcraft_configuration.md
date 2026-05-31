@@ -37,6 +37,9 @@ above the decay's maximum range.
 
 The default maximum rate of 4.2% is vanilla Thaumcraft's maximum decay rate with its flat decay at 100 total aspects.
 
+### ConfigOption: `pauseTCParticlesWithGame`
+If true, Thaumcraft particles will behave like vanilla particles and pause when the game is paused.
+
 ## Node Behaviors (Group `node_behaviors`)
 
 ### Config Option: `hungryDynamicReach` (Default `false`)
