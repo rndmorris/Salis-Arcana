@@ -11,7 +11,7 @@ import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(value = TileNode.class, remap = false)
-public class MixinTileNode_ModifierSpeed_Tainted {
+abstract class MixinTileNode_ModifierSpeed_Tainted {
 
     @Shadow
     private NodeModifier nodeModifier;
