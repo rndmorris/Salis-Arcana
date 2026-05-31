@@ -305,6 +305,11 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.boreDecreaseCVisCheckFrequency)
         .addCommonMixins("thaumcraft.common.tiles.MixinBoreVisFrequencyReduction")
         .setPhase(Phase.LATE)),
+    PAUSE_TC_PARTICLES(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.pauseTCParticlesWithGame)
+        .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_PauseParticles")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
