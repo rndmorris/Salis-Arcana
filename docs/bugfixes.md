@@ -375,4 +375,4 @@ Fixes a bug where some GUIs would render the wrong aspects when shifting over a 
 
 **Config option:** `boreDecreaseCVisCheckFrequency`
 
-Fixes Arcane Bores looking up vis nets too frequently, if they aren't maxed out on cvis for speedup.
+Lowers the frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.
