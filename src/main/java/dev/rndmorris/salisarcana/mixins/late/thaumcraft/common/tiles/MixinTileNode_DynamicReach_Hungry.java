@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Cancellable;
-import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
@@ -33,8 +32,8 @@ abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
     @ModifyExpressionValue(
         method = { "handleHungryNodeFirst", "handleHungryNodeSecond" },
         at = @At(value = "CONSTANT", args = "intValue=16", ordinal = 0))
-    private int adjustAndMemoReach(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
-        @Share("reach") LocalIntRef reachRef, @Local(argsOnly = true) boolean change,
+    private int adjustAndMemoReach(int constant, boolean change,
+        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef,
         @Cancellable CallbackInfoReturnable<Boolean> cir) {
         final var visSize = this.aspects.visSize();
         if (visSize == 0) {
