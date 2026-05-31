@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles;
 
+import org.spongepowered.asm.lib.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,7 +28,12 @@ abstract class MixinTileNode_DynamicReach_Tainted extends TileThaumcraft {
      */
     @Inject(
         method = "handleTaintNode",
-        at = @At(value = "FIELD", target = "Lthaumcraft/common/tiles/TileNode;xCoord:I", remap = true, ordinal = 0),
+        at = @At(
+            value = "FIELD",
+            target = "Lthaumcraft/common/tiles/TileNode;xCoord:I",
+            opcode = Opcodes.GETFIELD,
+            remap = true,
+            ordinal = 0),
         cancellable = true)
     private void calculateSizeMultiplier(boolean change, CallbackInfoReturnable<Boolean> cir,
         @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef) {

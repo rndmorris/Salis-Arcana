@@ -58,7 +58,11 @@ abstract class MixinTileNode_DynamicReach_Dark extends TileThaumcraft {
     @ModifyExpressionValue(
         method = "handleDarkNode",
         at = @At(value = "CONSTANT", args = "intValue=12"),
-        slice = @Slice(to = @At(value = "FIELD", target = "Lthaumcraft/common/config/Config;hardNode:Z")))
+        slice = @Slice(
+            to = @At(
+                value = "FIELD",
+                opcode = Opcodes.GETSTATIC,
+                target = "Lthaumcraft/common/config/Config;hardNode:Z")))
     private int adjustCoordsForBiome(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
         @Share("reach") LocalIntRef reachRef) {
         return (int) (constant * sizeMultiplierRef.get());
