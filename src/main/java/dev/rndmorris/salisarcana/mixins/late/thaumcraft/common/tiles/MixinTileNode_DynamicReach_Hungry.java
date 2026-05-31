@@ -19,7 +19,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(value = TileNode.class, remap = false)
-public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
+abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
 
     @Shadow
     AspectList aspects;
