@@ -68,7 +68,7 @@ Changes in this category should be controlled by settings in `ConfigAddons` and 
 ## Standards and Best Practices
 
 ### Mixin classes should
-* be `abstract`.
+* be package-private (no `public` or similar access modifier) and `abstract`.
 * be named `Mixin<TargetClass>_<Suffix>`, where `<TargetClass>` is the name of the class being mixed into and `<Suffix>`
   is a short descriptor that describes the mixin's purpose and can be used to distinguish the mixin from others that
   target the same class.
