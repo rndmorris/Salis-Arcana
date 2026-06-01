@@ -9,7 +9,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.items.baubles.ItemAmuletVis;
 
 @Mixin(value = ItemAmuletVis.class, remap = false)
-public class MixinItemAmuletVis_ExpandBoundingBox {
+abstract class MixinItemAmuletVis_ExpandBoundingBox {
 
     @Unique
     private static final double sa$Expanded = SalisConfig.features.visRelayBoxExpansion.getValue();

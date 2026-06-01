@@ -32,7 +32,7 @@ import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(value = GuiResearchBrowser.class)
-public abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen {
+abstract class MixinGuiResearchBrowser_Creative_Scroll extends GuiScreen {
 
     @Shadow(remap = false)
     public abstract void updateResearch();

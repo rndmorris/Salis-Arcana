@@ -18,7 +18,7 @@ import dev.rndmorris.salisarcana.lib.ifaces.IFocalManipulatorWithXP;
 import thaumcraft.common.tiles.TileFocalManipulator;
 
 @Mixin(TileFocalManipulator.class)
-public abstract class MixinTileFocalManipulator_CancelReturnXP implements IFocalManipulatorWithXP {
+abstract class MixinTileFocalManipulator_CancelReturnXP implements IFocalManipulatorWithXP {
 
     @Shadow(remap = false)
     public int size;

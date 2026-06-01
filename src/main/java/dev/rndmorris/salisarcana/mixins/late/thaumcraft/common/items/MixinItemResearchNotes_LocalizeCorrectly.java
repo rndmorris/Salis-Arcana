@@ -9,7 +9,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.items.ItemResearchNotes;
 
 @Mixin(ItemResearchNotes.class)
-public class MixinItemResearchNotes_LocalizeCorrectly {
+abstract class MixinItemResearchNotes_LocalizeCorrectly {
 
     @WrapOperation(
         method = "onItemRightClick",

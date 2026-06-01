@@ -18,7 +18,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import thaumcraft.common.items.ItemKey;
 
 @Mixin(ItemKey.class)
-public class MixinItemKey_LocalizeCorrectly {
+abstract class MixinItemKey_LocalizeCorrectly {
 
     @Unique
     private static final ChatStyle salisArcana$wardedDoorStyle = new ChatStyle()

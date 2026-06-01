@@ -14,7 +14,7 @@ import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(value = ResearchManager.class, remap = false)
-public class MixinResearchManager_SkipResearchInInventory {
+abstract class MixinResearchManager_SkipResearchInInventory {
 
     @ModifyReceiver(
         method = "findHiddenResearch",

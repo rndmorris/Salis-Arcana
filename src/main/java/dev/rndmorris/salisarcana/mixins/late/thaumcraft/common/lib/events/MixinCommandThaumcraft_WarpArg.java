@@ -17,7 +17,7 @@ import thaumcraft.common.lib.network.playerdata.PacketSyncWarp;
 import thaumcraft.common.lib.network.playerdata.PacketWarpMessage;
 
 @Mixin(CommandThaumcraft.class)
-public class MixinCommandThaumcraft_WarpArg {
+abstract class MixinCommandThaumcraft_WarpArg {
 
     @Inject(method = "setWarp", at = @At("HEAD"), remap = false)
     private void warpAllParams(ICommandSender icommandsender, EntityPlayerMP player, int i, String type,

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.entities.monster.EntityTaintacle;
 
 @Mixin(value = EntityTaintacle.class)
-public abstract class MixinEntityTaintacle_NoAttackWhenDead extends EntityMob {
+abstract class MixinEntityTaintacle_NoAttackWhenDead extends EntityMob {
 
     public MixinEntityTaintacle_NoAttackWhenDead(World p_i1738_1_) {
         super(p_i1738_1_);

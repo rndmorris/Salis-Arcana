@@ -12,7 +12,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.items.ItemResource;
 
 @Mixin(ItemResource.class)
-public abstract class MixinItemResource_DecayChance {
+abstract class MixinItemResource_DecayChance {
 
     @WrapOperation(
         method = "onUpdate",

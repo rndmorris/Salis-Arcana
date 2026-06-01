@@ -8,7 +8,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.blocks.BlockManaPod;
 
 @Mixin(value = BlockManaPod.class)
-public class MixinBlockManaPod_GrowthRate {
+abstract class MixinBlockManaPod_GrowthRate {
 
     @ModifyConstant(method = "updateTick", constant = @Constant(intValue = 30))
     private int growthChance(int original) {

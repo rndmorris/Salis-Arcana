@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import thaumcraft.client.lib.ClientTickEventsFML;
 
 @Mixin(value = ClientTickEventsFML.class, remap = false)
-public class MixinClientTickEventsFML_VisOverflow {
+abstract class MixinClientTickEventsFML_VisOverflow {
 
     @ModifyVariable(method = "renderCastingWandHud", name = "loc", at = @At("STORE"))
     private int clampVisBar(int value) {

@@ -9,7 +9,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.items.baubles.ItemAmuletVis;
 
 @Mixin(value = ItemAmuletVis.class, remap = false)
-public abstract class MixinItemAmuletVis_TickRate {
+abstract class MixinItemAmuletVis_TickRate {
 
     @Unique
     private final int sa$tickRate = SalisConfig.features.visAmuletTickRate.getValue();

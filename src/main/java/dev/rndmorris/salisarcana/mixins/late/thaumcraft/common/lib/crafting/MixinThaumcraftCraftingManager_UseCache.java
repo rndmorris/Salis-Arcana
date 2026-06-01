@@ -16,7 +16,7 @@ import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 
 @Mixin(ThaumcraftCraftingManager.class)
-public class MixinThaumcraftCraftingManager_UseCache {
+abstract class MixinThaumcraftCraftingManager_UseCache {
 
     @WrapMethod(method = "findMatchingArcaneRecipe", remap = false)
     private static ItemStack checkArcaneRecipeCache(IInventory awb, EntityPlayer player,

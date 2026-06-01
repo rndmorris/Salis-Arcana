@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import thaumcraft.common.tiles.TileEtherealBloom;
 
 @Mixin(value = TileEtherealBloom.class, remap = false)
-public class MixinTileEtherealBloom_SaveNBT extends TileEntity {
+abstract class MixinTileEtherealBloom_SaveNBT extends TileEntity {
 
     @Shadow
     public int counter;

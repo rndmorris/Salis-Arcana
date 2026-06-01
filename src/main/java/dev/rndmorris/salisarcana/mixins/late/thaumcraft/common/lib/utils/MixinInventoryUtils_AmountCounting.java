@@ -15,7 +15,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.lib.utils.InventoryUtils;
 
 @Mixin(value = InventoryUtils.class, remap = false)
-public class MixinInventoryUtils_AmountCounting {
+abstract class MixinInventoryUtils_AmountCounting {
 
     @Unique
     private static final ItemStack sa$nonNullItemStack = new ItemStack(Items.stick);

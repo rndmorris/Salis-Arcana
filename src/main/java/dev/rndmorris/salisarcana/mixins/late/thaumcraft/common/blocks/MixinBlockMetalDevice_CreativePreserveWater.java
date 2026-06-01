@@ -14,7 +14,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import thaumcraft.common.blocks.BlockMetalDevice;
 
 @Mixin(BlockMetalDevice.class)
-public class MixinBlockMetalDevice_CreativePreserveWater {
+abstract class MixinBlockMetalDevice_CreativePreserveWater {
 
     @WrapWithCondition(
         method = "onBlockActivated",
