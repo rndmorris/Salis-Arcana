@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import thaumcraft.common.tiles.TileArcaneBore;
 
 @Mixin(value = TileArcaneBore.class, remap = true)
-public abstract class MixinTileArcaneBore_DecreaseCVisCheckFrequency {
+abstract class MixinTileArcaneBore_DecreaseCVisCheckFrequency {
 
     @Shadow
     public abstract boolean gettingPower();
