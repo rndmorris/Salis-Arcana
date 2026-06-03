@@ -24,7 +24,7 @@ import thaumcraft.common.items.relics.ItemThaumometer;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(value = ItemThaumometer.class)
-public class MixinItemThaumometer_ScanContainers extends Item {
+abstract class MixinItemThaumometer_ScanContainers extends Item {
 
     @Inject(
         method = "onUsingTick",

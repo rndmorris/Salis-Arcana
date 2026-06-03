@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import thaumcraft.common.blocks.BlockCustomOre;
 
 @Mixin(BlockCustomOre.class)
-public abstract class MixinBlockCustomOre_RedstoneFix {
+abstract class MixinBlockCustomOre_RedstoneFix {
 
     /**
      * @author Midnight145

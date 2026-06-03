@@ -8,7 +8,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.items.ItemEldritchObject;
 
 @Mixin(value = ItemEldritchObject.class, remap = false)
-public class MixinItemEldritchObject_EldritchObjectStackSize {
+abstract class MixinItemEldritchObject_EldritchObjectStackSize {
 
     @ModifyConstant(method = "<init>", constant = { @Constant(intValue = 1, ordinal = 0) })
     private int modifyEldritchObject(int original) {

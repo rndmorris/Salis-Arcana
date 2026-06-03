@@ -12,7 +12,7 @@ import thaumcraft.client.lib.RenderEventHandler;
 
 // this priority positions it to be executed before the big mixin
 @Mixin(value = RenderEventHandler.class, remap = false, priority = 1001)
-public class MixinRenderEventHandler_DetectLitRedstoneOre {
+abstract class MixinRenderEventHandler_DetectLitRedstoneOre {
 
     @ModifyExpressionValue(
         method = "startScan",

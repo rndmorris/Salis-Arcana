@@ -16,7 +16,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import thaumcraft.client.fx.ParticleEngine;
 
 @Mixin(value = ParticleEngine.class, remap = false)
-public class MixinParticleEngine_SkipRendering {
+abstract class MixinParticleEngine_SkipRendering {
 
     @Unique
     private boolean sa$hasParticles;

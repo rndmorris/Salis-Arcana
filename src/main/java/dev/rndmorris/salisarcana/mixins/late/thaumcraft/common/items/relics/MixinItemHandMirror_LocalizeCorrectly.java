@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import thaumcraft.common.items.relics.ItemHandMirror;
 
 @Mixin(ItemHandMirror.class)
-public class MixinItemHandMirror_LocalizeCorrectly {
+abstract class MixinItemHandMirror_LocalizeCorrectly {
 
     @Unique
     private static final ChatStyle salisArcana$mirrorStyle = new ChatStyle().setColor(EnumChatFormatting.DARK_PURPLE)

@@ -14,7 +14,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.items.wands.WandManager;
 
 @Mixin(WandManager.class)
-public abstract class MixinWandManager_ExtendedBaublesSupport {
+abstract class MixinWandManager_ExtendedBaublesSupport {
 
     @ModifyConstant(method = "getTotalVisDiscount", constant = @Constant(intValue = 4, ordinal = 0), remap = false)
     private static int getTotalVisDiscountWithAllBaubles(int value, EntityPlayer player, Aspect aspect) {

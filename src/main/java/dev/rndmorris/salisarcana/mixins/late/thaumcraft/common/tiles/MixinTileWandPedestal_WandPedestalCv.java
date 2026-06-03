@@ -33,7 +33,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileWandPedestal;
 
 @Mixin(TileWandPedestal.class)
-public abstract class MixinTileWandPedestal_WandPedestalCv extends TileThaumcraft implements ISidedInventory {
+abstract class MixinTileWandPedestal_WandPedestalCv extends TileThaumcraft implements ISidedInventory {
 
     @Unique
     private int sa$ticksSinceLastSync = 0;

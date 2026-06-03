@@ -20,7 +20,7 @@ import dev.rndmorris.salisarcana.SalisArcana;
 import thaumcraft.client.lib.RenderEventHandler;
 
 @Mixin(value = RenderEventHandler.class, remap = false)
-public abstract class MixinRenderEventHandler_ElementalPickOredict {
+abstract class MixinRenderEventHandler_ElementalPickOredict {
 
     @WrapOperation(
         method = "startScan",

@@ -13,7 +13,7 @@ import thaumcraft.common.blocks.BlockWoodenDevice;
 import thaumcraft.common.tiles.TileBanner;
 
 @Mixin(BlockWoodenDevice.class)
-public abstract class MixinBlockWoodenDevice_BannerPickBlock extends BlockContainer {
+abstract class MixinBlockWoodenDevice_BannerPickBlock extends BlockContainer {
 
     protected MixinBlockWoodenDevice_BannerPickBlock(Material materialIn) {
         super(materialIn);

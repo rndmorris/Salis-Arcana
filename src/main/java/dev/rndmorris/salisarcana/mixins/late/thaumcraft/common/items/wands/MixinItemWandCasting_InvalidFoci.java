@@ -14,7 +14,7 @@ import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 @Mixin(ItemWandCasting.class)
-public abstract class MixinItemWandCasting_InvalidFoci {
+abstract class MixinItemWandCasting_InvalidFoci {
 
     @WrapOperation(
         method = "getFocus",

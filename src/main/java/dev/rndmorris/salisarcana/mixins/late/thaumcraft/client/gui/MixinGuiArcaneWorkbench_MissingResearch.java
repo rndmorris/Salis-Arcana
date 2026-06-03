@@ -24,7 +24,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(GuiArcaneWorkbench.class)
-public abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContainer {
+abstract class MixinGuiArcaneWorkbench_MissingResearch extends GuiContainer {
 
     public MixinGuiArcaneWorkbench_MissingResearch(Container p_i1072_1_) {
         super(p_i1072_1_);

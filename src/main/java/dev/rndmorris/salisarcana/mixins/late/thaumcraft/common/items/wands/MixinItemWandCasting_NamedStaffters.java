@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 @Mixin(value = ItemWandCasting.class, remap = false)
-public abstract class MixinItemWandCasting_NamedStaffters {
+abstract class MixinItemWandCasting_NamedStaffters {
 
     @Shadow
     public abstract boolean isStaff(ItemStack stack);

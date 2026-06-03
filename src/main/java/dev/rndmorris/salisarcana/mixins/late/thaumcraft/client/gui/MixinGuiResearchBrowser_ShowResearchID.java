@@ -15,7 +15,7 @@ import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
 @Mixin(GuiResearchBrowser.class)
-public class MixinGuiResearchBrowser_ShowResearchID extends GuiScreen {
+abstract class MixinGuiResearchBrowser_ShowResearchID extends GuiScreen {
 
     @Unique
     private boolean sa$isControlHeld;

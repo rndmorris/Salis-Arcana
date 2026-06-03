@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import thaumcraft.client.gui.GuiFocalManipulator;
 
 @Mixin(GuiFocalManipulator.class)
-public abstract class MixinGuiFocalManipulator_CreativeNoXP extends GuiContainer {
+abstract class MixinGuiFocalManipulator_CreativeNoXP extends GuiContainer {
 
     public MixinGuiFocalManipulator_CreativeNoXP(Container p_i1072_1_) {
         super(p_i1072_1_);

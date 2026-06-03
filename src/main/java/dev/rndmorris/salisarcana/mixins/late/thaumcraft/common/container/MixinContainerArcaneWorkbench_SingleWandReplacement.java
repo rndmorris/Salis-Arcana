@@ -20,7 +20,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 @Mixin(ContainerArcaneWorkbench.class)
-public abstract class MixinContainerArcaneWorkbench_SingleWandReplacement extends Container {
+abstract class MixinContainerArcaneWorkbench_SingleWandReplacement extends Container {
 
     @Shadow(remap = false)
     private TileArcaneWorkbench tileEntity;

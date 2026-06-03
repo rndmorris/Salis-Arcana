@@ -23,7 +23,7 @@ import thaumcraft.common.tiles.TileFocalManipulator;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
 
 @Mixin(TileFocalManipulator.class)
-public abstract class MixinTileFocalManipulator_FocusDisenchanting extends TileThaumcraftInventory
+abstract class MixinTileFocalManipulator_FocusDisenchanting extends TileThaumcraftInventory
     implements IFocalManipulatorWithXP {
 
     @Shadow(remap = false)
