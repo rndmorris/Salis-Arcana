@@ -13,7 +13,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 @Mixin(TileInfusionMatrix.class)
-public class MixinTileInfusionMatrix_NoXP {
+abstract class MixinTileInfusionMatrix_NoXP {
 
     @ModifyExpressionValue(
         method = "craftCycle",
