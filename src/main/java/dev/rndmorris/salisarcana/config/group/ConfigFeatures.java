@@ -140,6 +140,22 @@ public class ConfigFeatures extends ConfigGroup {
         "creativeNoXPManipulator",
         "Allow Creative players to use the Focal Manipulator without the necessary XP.");
 
+    public final ToggleSetting infusionPreview = new ToggleSetting(
+        this,
+        "infusionPreview",
+        "While wearing Goggles of Revealing and looking at an infusion altar, show the recipe output, required essentia (against what's available), and the predicted instability before the infusion starts. Requires the in-game research to be unlocked.")
+            .setCategory("infusion_preview");
+
+    public final CustomResearchSetting infusionPreviewResearch = new CustomResearchSetting(
+        infusionPreview,
+        "infusionPreview",
+        "Research that unlocks the infusion preview overlay shown on infusion altars before crafting.",
+        new CustomResearchSetting.ResearchInfo("INFUSION_PREVIEW", "ARTIFICE", 8, 1).setDifficulty(2)
+            .setParents("GOGGLES")
+            .setHiddenParents("INFUSION")
+            .setPurchasable(true)
+            .setAspects("sensus:6", "praecantatio:8", "ordo:4")).setCategory("infusion_preview");
+
     public final ToggleSetting focalDisenchanterReturnXP = new ToggleSetting(
         this,
         "focalDisenchanterReturnXP",

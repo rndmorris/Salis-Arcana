@@ -17,6 +17,9 @@ public enum Mixins implements IMixins {
     ACCESSORS(new SalisBuilder(Phase.EARLY)
         .addCommonMixins("accessor.AccessorGuiContainer")
         .addClientMixins("accessor.AccessorMinecraft")),
+    THAUMCRAFT_ACCESSORS(new SalisBuilder()
+        .addCommonMixins("thaumcraft.common.tiles.AccessorTileInfusionMatrix")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Bugfixes
     ADVANCED_ARCANE_FURNACE_SAVE_NBT(new SalisBuilder()
