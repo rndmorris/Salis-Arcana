@@ -406,6 +406,10 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.tiles.MixinTileFocalManipulator_NoXP")
         .addClientMixins("thaumcraft.client.gui.MixinGuiFocalManipulator_CreativeNoXP")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    CREATIVE_NO_XP_INFUSION_ENCHANTING(new SalisBuilder()
+        .applyIf(SalisConfig.features.creativeNoXPInfusionEnchanting)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileInfusionMatrix_NoXP")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_STORE_XP(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.features.enableFocusDisenchanting.isEnabled() || SalisConfig.features.focalDisenchanterReturnXP.isEnabled())
         .addCommonMixins(
