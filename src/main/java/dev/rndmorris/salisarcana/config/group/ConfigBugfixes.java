@@ -340,6 +340,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixParticleEngineLeak",
         "Fix Thaumcraft's particle engine leaking the world instance");
 
+    public final ToggleSetting fixNodeRendering = new ToggleSetting(
+        this,
+        "fixNodeRendering",
+        "Fix Thaumcraft's Nodes, Energized Nodes, Node Aspect Tags, and Node Drain Beams rendering behind transparent blocks when they are in front of them.");
+
     @Nonnull
     @Override
     public String getGroupName() {
