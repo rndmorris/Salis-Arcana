@@ -611,7 +611,9 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NODE_UNSTABLE_ASPECT_DROPS_CHUNK_GUARD(new SalisBuilder()
         .applyIf(SalisConfig.thaum.unstableAspectDropsRequireLoadedChunks)
-        .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_UnstableAspectDropsChunkGuard")
+        .addCommonMixins(
+            "thaumcraft.common.entities.MixinEntityAspectOrb_ChunkGuard",
+            "thaumcraft.common.tiles.MixinTileNode_UnstableAspectDropsChunkGuard")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NODE_FIX_GET_BLOCK(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixNodeTriggeringChunkLoading)
