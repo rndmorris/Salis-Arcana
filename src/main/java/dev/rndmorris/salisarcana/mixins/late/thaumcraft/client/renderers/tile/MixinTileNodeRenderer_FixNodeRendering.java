@@ -21,6 +21,7 @@ abstract class MixinTileNodeRenderer_FixNodeRendering {
         method = "renderTileEntityAt",
         at = @At(
             value = "INVOKE",
+            remap = false,
             target = "Lthaumcraft/client/renderers/tile/TileNodeRenderer;renderNode(Lnet/minecraft/entity/EntityLivingBase;DZZFIIIFLthaumcraft/api/aspects/AspectList;Lthaumcraft/api/nodes/NodeType;Lthaumcraft/api/nodes/NodeModifier;)V"))
     private void wrapRenderNode(EntityLivingBase viewer, double viewDistance, boolean visible, boolean depthIgnore,
         float size, int x, int y, int z, float partialTicks, AspectList aspects, NodeType type, NodeModifier mod,
@@ -32,6 +33,7 @@ abstract class MixinTileNodeRenderer_FixNodeRendering {
         method = "renderTileEntityAt",
         at = @At(
             value = "INVOKE",
+            remap = false,
             target = "Lthaumcraft/client/lib/UtilsFX;drawFloatyLine(DDDDDDFILjava/lang/String;FF)V"))
     private void wrapDrainBeam(double fromX, double fromY, double fromZ, double toX, double toY, double toZ,
         float partialTicks, int color, String texture, float offset, float alpha, Operation<Void> original) {
