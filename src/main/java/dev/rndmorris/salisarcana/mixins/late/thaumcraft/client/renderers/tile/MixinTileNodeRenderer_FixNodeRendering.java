@@ -4,7 +4,9 @@ import net.minecraft.entity.EntityLivingBase;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import dev.rndmorris.salisarcana.lib.NodeRenderingQueue;
 import thaumcraft.api.aspects.AspectList;
@@ -15,24 +17,27 @@ import thaumcraft.client.renderers.tile.TileNodeRenderer;
 @Mixin(value = TileNodeRenderer.class)
 abstract class MixinTileNodeRenderer_FixNodeRendering {
 
-    @Redirect(
+    @WrapOperation(
         method = "renderTileEntityAt",
+        remap = true,
         at = @At(
             value = "INVOKE",
             target = "Lthaumcraft/client/renderers/tile/TileNodeRenderer;renderNode(Lnet/minecraft/entity/EntityLivingBase;DZZFIIIFLthaumcraft/api/aspects/AspectList;Lthaumcraft/api/nodes/NodeType;Lthaumcraft/api/nodes/NodeModifier;)V"))
-    private void redirectRenderNode(EntityLivingBase viewer, double viewDistance, boolean visible, boolean depthIgnore,
-        float size, int x, int y, int z, float partialTicks, AspectList aspects, NodeType type, NodeModifier mod) {
+    private void wrapRenderNode(EntityLivingBase viewer, double viewDistance, boolean visible, boolean depthIgnore,
+        float size, int x, int y, int z, float partialTicks, AspectList aspects, NodeType type, NodeModifier mod,
+        Operation<Void> original) {
         NodeRenderingQueue.nodeQueue.add(
             new NodeRenderingQueue.QueuedNode(x, y, z, viewDistance, visible, depthIgnore, size, aspects, type, mod));
     }
 
-    @Redirect(
+    @WrapOperation(
         method = "renderTileEntityAt",
+        remap = true,
         at = @At(
             value = "INVOKE",
             target = "Lthaumcraft/client/lib/UtilsFX;drawFloatyLine(DDDDDDFILjava/lang/String;FF)V"))
-    private void redirectDrainBeam(double fromX, double fromY, double fromZ, double toX, double toY, double toZ,
-        float partialTicks, int color, String texture, float offset, float alpha) {
+    private void wrapDrainBeam(double fromX, double fromY, double fromZ, double toX, double toY, double toZ,
+        float partialTicks, int color, String texture, float offset, float alpha, Operation<Void> original) {
         NodeRenderingQueue.drainQueue.add(
             new NodeRenderingQueue.QueuedDrainBeam(fromX, fromY, fromZ, toX, toY, toZ, color, alpha, partialTicks));
     }
