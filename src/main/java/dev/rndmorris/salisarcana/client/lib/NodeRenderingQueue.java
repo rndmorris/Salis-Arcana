@@ -116,4 +116,22 @@ public class NodeRenderingQueue {
             tagQueue.clear();
         }
     }
+
+    public static void queueNode(int x, int y, int z, double viewDistance, boolean visible, boolean depthIgnore,
+                                 float size, AspectList aspects, NodeType type, NodeModifier mod) {
+        nodeQueue.add(new QueuedNode(x, y, z, viewDistance, visible, depthIgnore, size, aspects, type, mod));
+    }
+
+    public static void queueLightning(double x, double y, double z, String texture, int frames) {
+        lightningQueue.add(new QueuedLightning(x, y, z, texture, frames));
+    }
+
+    public static void queueDrainBeam(double fromX, double fromY, double fromZ, double toX, double toY, double toZ,
+                                      int color, float alpha, float partialTicks) {
+        drainQueue.add(new QueuedDrainBeam(fromX, fromY, fromZ, toX, toY, toZ, color, alpha, partialTicks));
+    }
+
+    public static void queueTag(Runnable callback) {
+        tagQueue.add(callback);
+    }
 }

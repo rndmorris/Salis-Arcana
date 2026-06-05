@@ -29,8 +29,7 @@ abstract class MixinTileEnergizedNodeRenderer_FixNodeRendering {
     private void wrapRenderNode(EntityLivingBase viewer, double viewDistance, boolean visible, boolean depthIgnore,
         float size, int x, int y, int z, float partialTicks, AspectList aspects, NodeType type, NodeModifier mod,
         Operation<Void> original) {
-        NodeRenderingQueue.nodeQueue.add(
-            new NodeRenderingQueue.QueuedNode(x, y, z, viewDistance, visible, depthIgnore, size, aspects, type, mod));
+        NodeRenderingQueue.queueNode(x, y, z, viewDistance, visible, depthIgnore, size, aspects, type, mod);
     }
 
     @WrapOperation(
@@ -38,6 +37,6 @@ abstract class MixinTileEnergizedNodeRenderer_FixNodeRendering {
         at = @At(value = "INVOKE", target = "Lthaumcraft/client/lib/UtilsFX;renderFacingQuad(DDDFFFIIFI)V"))
     private void wrapLightningQuad(double x, double y, double z, float angle, float scale, float alpha, int frames,
         int frame, float partialTicks, int color, Operation<Void> original) {
-        NodeRenderingQueue.lightningQueue.add(new NodeRenderingQueue.QueuedLightning(x, y, z, tx1, frames));
+        NodeRenderingQueue.queueLightning(x, y, z, tx1, frames);
     }
 }

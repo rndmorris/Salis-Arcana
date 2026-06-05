@@ -25,8 +25,7 @@ abstract class MixinTileNodeRenderer_FixNodeRendering {
     private void wrapRenderNode(EntityLivingBase viewer, double viewDistance, boolean visible, boolean depthIgnore,
         float size, int x, int y, int z, float partialTicks, AspectList aspects, NodeType type, NodeModifier mod,
         Operation<Void> original) {
-        NodeRenderingQueue.nodeQueue.add(
-            new NodeRenderingQueue.QueuedNode(x, y, z, viewDistance, visible, depthIgnore, size, aspects, type, mod));
+        NodeRenderingQueue.queueNode(x, y, z, viewDistance, visible, depthIgnore, size, aspects, type, mod);
     }
 
     @WrapOperation(
@@ -36,7 +35,6 @@ abstract class MixinTileNodeRenderer_FixNodeRendering {
             target = "Lthaumcraft/client/lib/UtilsFX;drawFloatyLine(DDDDDDFILjava/lang/String;FF)V"))
     private void wrapDrainBeam(double fromX, double fromY, double fromZ, double toX, double toY, double toZ,
         float partialTicks, int color, String texture, float offset, float alpha, Operation<Void> original) {
-        NodeRenderingQueue.drainQueue.add(
-            new NodeRenderingQueue.QueuedDrainBeam(fromX, fromY, fromZ, toX, toY, toZ, color, alpha, partialTicks));
+        NodeRenderingQueue.queueDrainBeam(fromX, fromY, fromZ, toX, toY, toZ, color, alpha, partialTicks);
     }
 }
