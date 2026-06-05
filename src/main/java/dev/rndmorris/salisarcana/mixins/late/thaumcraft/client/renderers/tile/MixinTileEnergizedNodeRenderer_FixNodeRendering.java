@@ -14,7 +14,7 @@ import thaumcraft.api.nodes.NodeType;
 import thaumcraft.client.renderers.tile.TileNodeEnergizedRenderer;
 
 @Mixin(value = TileNodeEnergizedRenderer.class)
-public class MixinTileEnergizedNodeRenderer_FixNodeRendering {
+abstract class MixinTileEnergizedNodeRenderer_FixNodeRendering {
 
     @Shadow
     static String tx1;

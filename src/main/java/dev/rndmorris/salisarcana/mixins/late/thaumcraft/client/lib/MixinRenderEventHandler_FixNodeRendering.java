@@ -14,7 +14,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.RenderEventHandler;
 
 @Mixin(value = RenderEventHandler.class, remap = false)
-public class MixinRenderEventHandler_FixNodeRendering {
+abstract class MixinRenderEventHandler_FixNodeRendering {
 
     @Redirect(
         method = "blockHighlight",
