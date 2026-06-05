@@ -238,6 +238,13 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.preventInvalidFociOnWands)
         .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_InvalidFoci")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    PORTABLE_HOLE_CLIENT_DESYNC(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.portableHoleClientSync)
+        .addCommonMixins(
+            "thaumcraft.common.blocks.MixinBlockHole_CreateTileEntity",
+            "thaumcraft.common.items.wands.foci.MixinItemFocusPortableHole_Sync",
+            "thaumcraft.common.tiles.MixinTileHole_OpeningBurst")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     HIDDEN_RESEARCH_WORLD_RANDOM(new SalisBuilder()
         .applyIf(SalisConfig.thaum.hiddenResearchUseWorldRandom)
         .addCommonMixins("thaumcraft.common.lib.research.MixinResearchManager_RandomizeProperly")
