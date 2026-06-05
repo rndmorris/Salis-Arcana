@@ -13,25 +13,25 @@ import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.tiles.TileHole;
 
 @Mixin(value = TileHole.class)
-public abstract class MixinTileHole_OpeningBurst extends TileEntity {
+abstract class MixinTileHole_OpeningBurst extends TileEntity {
 
-    @Shadow
+    @Shadow(remap = false)
     public short countdown;
 
-    @Shadow
+    @Shadow(remap = false)
     public byte direction;
 
     @Unique
-    private boolean sa$playedOpeningBurst;
+    private boolean salisarcana$playedOpeningBurst;
 
     @Inject(method = "updateEntity", at = @At("HEAD"))
     private void playOpeningBurst(CallbackInfo ci) {
         // Child holes are created with direction == -1 during expansion, so only the original target should burst.
         if (this.worldObj != null && this.worldObj.isRemote
-            && !this.sa$playedOpeningBurst
+            && !this.salisarcana$playedOpeningBurst
             && this.direction != -1
             && this.countdown <= 1) {
-            this.sa$playedOpeningBurst = true;
+            this.salisarcana$playedOpeningBurst = true;
             Thaumcraft.proxy.blockSparkle(this.worldObj, this.xCoord, this.yCoord, this.zCoord, 4194368, 1);
         }
     }

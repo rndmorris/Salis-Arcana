@@ -12,7 +12,7 @@ import thaumcraft.common.blocks.BlockHole;
 import thaumcraft.common.tiles.TileHole;
 
 @Mixin(value = BlockHole.class)
-public abstract class MixinBlockHole_CreateTileEntity {
+abstract class MixinBlockHole_CreateTileEntity {
 
     @WrapMethod(method = "createNewTileEntity")
     private TileEntity createTileHole(World world, int meta, Operation<TileEntity> original) {
