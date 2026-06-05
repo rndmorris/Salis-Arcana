@@ -5,14 +5,17 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
 import com.github.bsideup.jabel.Desugar;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.api.nodes.NodeType;
+import thaumcraft.client.lib.RenderEventHandler;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.tile.TileNodeRenderer;
 
@@ -21,7 +24,7 @@ public class NodeRenderingQueue {
     public static final List<QueuedNode> nodeQueue = new ArrayList<>();
     public static final List<QueuedLightning> lightningQueue = new ArrayList<>();
     public static final List<QueuedDrainBeam> drainQueue = new ArrayList<>();
-    public static final List<Runnable> tagQueue = new ArrayList<>();
+    public static final List<QueuedTag> tagQueue = new ArrayList<>();
 
     @Desugar
     public record QueuedNode(int x, int y, int z, double viewDistance, boolean visible, boolean depthIgnore, float size,
@@ -33,6 +36,10 @@ public class NodeRenderingQueue {
     @Desugar
     public record QueuedDrainBeam(double fromX, double fromY, double fromZ, double toX, double toY, double toZ,
         int color, float alpha, float partialTicks) {}
+
+    @Desugar
+    public record QueuedTag(RenderEventHandler instance, double x, double y, double z, AspectList aspects, int bright,
+        ForgeDirection dir, float partialTicks, Operation<Void> original) {}
 
     public static void flush(float partialTicks) {
         Minecraft mc = Minecraft.getMinecraft();
@@ -110,15 +117,24 @@ public class NodeRenderingQueue {
         }
 
         if (!tagQueue.isEmpty()) {
-            for (Runnable callback : tagQueue) {
-                callback.run();
+            for (QueuedTag qt : tagQueue) {
+                qt.original()
+                    .call(
+                        qt.instance(),
+                        qt.x(),
+                        qt.y(),
+                        qt.z(),
+                        qt.aspects(),
+                        qt.bright(),
+                        qt.dir(),
+                        qt.partialTicks());
             }
             tagQueue.clear();
         }
     }
 
     public static void queueNode(int x, int y, int z, double viewDistance, boolean visible, boolean depthIgnore,
-                                 float size, AspectList aspects, NodeType type, NodeModifier mod) {
+        float size, AspectList aspects, NodeType type, NodeModifier mod) {
         nodeQueue.add(new QueuedNode(x, y, z, viewDistance, visible, depthIgnore, size, aspects, type, mod));
     }
 
@@ -127,11 +143,12 @@ public class NodeRenderingQueue {
     }
 
     public static void queueDrainBeam(double fromX, double fromY, double fromZ, double toX, double toY, double toZ,
-                                      int color, float alpha, float partialTicks) {
+        int color, float alpha, float partialTicks) {
         drainQueue.add(new QueuedDrainBeam(fromX, fromY, fromZ, toX, toY, toZ, color, alpha, partialTicks));
     }
 
-    public static void queueTag(Runnable callback) {
-        tagQueue.add(callback);
+    public static void queueTag(RenderEventHandler instance, double x, double y, double z, AspectList aspects,
+        int bright, ForgeDirection dir, float partialTicks, Operation<Void> original) {
+        tagQueue.add(new QueuedTag(instance, x, y, z, aspects, bright, dir, partialTicks, original));
     }
 }

@@ -25,7 +25,7 @@ abstract class MixinRenderEventHandler_FixNodeRendering {
             target = "Lthaumcraft/client/lib/RenderEventHandler;drawTagsOnContainer(DDDLthaumcraft/api/aspects/AspectList;ILnet/minecraftforge/common/util/ForgeDirection;F)V"))
     private void wrapDrawTags(RenderEventHandler instance, double x, double y, double z, AspectList aspects, int bright,
         ForgeDirection dir, float partialTicks, Operation<Void> original) {
-        NodeRenderingQueue.queueTag(() -> original.call(instance, x, y, z, aspects, bright, dir, partialTicks));
+        NodeRenderingQueue.queueTag(instance, x, y, z, aspects, bright, dir, partialTicks, original);
     }
 
     @Inject(method = "renderLast", at = @At("TAIL"))
