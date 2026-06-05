@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import dev.rndmorris.salisarcana.lib.NodeRenderingQueue;
+import dev.rndmorris.salisarcana.client.lib.NodeRenderingQueue;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.RenderEventHandler;
 

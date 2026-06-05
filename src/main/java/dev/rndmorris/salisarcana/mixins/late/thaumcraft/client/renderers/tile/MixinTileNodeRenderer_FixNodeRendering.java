@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import dev.rndmorris.salisarcana.lib.NodeRenderingQueue;
+import dev.rndmorris.salisarcana.client.lib.NodeRenderingQueue;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.api.nodes.NodeType;
@@ -19,7 +19,6 @@ abstract class MixinTileNodeRenderer_FixNodeRendering {
 
     @WrapOperation(
         method = "renderTileEntityAt",
-        remap = true,
         at = @At(
             value = "INVOKE",
             target = "Lthaumcraft/client/renderers/tile/TileNodeRenderer;renderNode(Lnet/minecraft/entity/EntityLivingBase;DZZFIIIFLthaumcraft/api/aspects/AspectList;Lthaumcraft/api/nodes/NodeType;Lthaumcraft/api/nodes/NodeModifier;)V"))
@@ -32,7 +31,6 @@ abstract class MixinTileNodeRenderer_FixNodeRendering {
 
     @WrapOperation(
         method = "renderTileEntityAt",
-        remap = true,
         at = @At(
             value = "INVOKE",
             target = "Lthaumcraft/client/lib/UtilsFX;drawFloatyLine(DDDDDDFILjava/lang/String;FF)V"))

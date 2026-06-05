@@ -1,4 +1,4 @@
-package dev.rndmorris.salisarcana.lib;
+package dev.rndmorris.salisarcana.client.lib;
 
 import java.util.ArrayList;
 import java.util.List;
