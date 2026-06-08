@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.entities.EntityAspectOrb;
 
 @Mixin(EntityAspectOrb.class)
-public abstract class MixinEntityAspectOrb_ChunkGuard extends Entity {
+abstract class MixinEntityAspectOrb_ChunkGuard extends Entity {
 
     public MixinEntityAspectOrb_ChunkGuard(World world) {
         super(world);
