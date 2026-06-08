@@ -75,7 +75,7 @@ be adjusted by their modifier: 20% more often when bright, 20% less often when p
 
 ### Config Option: `unstableAspectDropsRequireLoadedChunks` (Default `true`)
 If true, unstable nodes not under the effects of a Node Stabilizer will not drain or spawn aspect orbs unless the nearby chunks needed to tick the spawned
-orb are loaded.
+orb are loaded. Additionally, aspect orbs will immediately despawn if they enter a chunk where they can't be ticked to further prevent their accumulation.
 
 ## Pickaxe of the Core Detection Ore Dictionary Labels (Group `tools`)
 
