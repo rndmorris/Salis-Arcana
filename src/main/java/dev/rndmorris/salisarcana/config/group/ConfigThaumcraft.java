@@ -70,8 +70,9 @@ public class ConfigThaumcraft extends ConfigGroup {
         this,
         "unstableAspectDropsRequireLoadedChunks",
         """
-            If true, unlocked unstable nodes will not drain or spawn aspect orbs unless the nearby chunks needed to
-            tick the spawned orb are loaded.""").setCategory(nodeBehaviorsCategory);
+            If true, unstable nodes not under the effects of a Node Stabilizer will not drain or spawn aspect orbs unless the nearby chunks needed to tick the spawned
+            orb are loaded. Additionally, aspect orbs will immediately despawn if they enter a chunk where they can't be ticked to further prevent their accumulation.""")
+            .setCategory(nodeBehaviorsCategory);
 
     //
     // Potion Ids
