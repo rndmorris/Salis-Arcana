@@ -41,10 +41,10 @@ abstract class MixinTileArcaneBore_DecreaseCVisCheckFrequency {
         // Cooldown expired, do checks
         if (salisarcana$cooldown-- <= 0) {
             if (this.gettingPower()) {
-                // Do a cvis check, sleep 10s
+                // Do a speedyTime refill, sleep 10s
                 salisarcana$cooldown = 10 * 20;
             } else {
-                // Block isn't powered, so do cvis thing but choke to 30s instead
+                // Block isn't powered, so do speedyTime refill but choke to 30s instead
                 salisarcana$cooldown = 30 * 20;
             }
             // double cooldown if it never had cvis
@@ -63,7 +63,7 @@ abstract class MixinTileArcaneBore_DecreaseCVisCheckFrequency {
             salisarcana$cachedTime = this.speedyTime;
         }
 
-        // Cooldown's not up, don't do cvis thing.
+        // Cooldown's not up, don't refill speedyTime.
         return true;
     }
 
