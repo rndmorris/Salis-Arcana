@@ -301,6 +301,9 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.fixTESRWorldLeak)
         .addClientMixins("thaumcraft.client.renderers.tile.MixinTESR_FixLeak")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    ARCANE_BORE_VIS_DRAIN_FREQUENCY(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.boreDecreaseCVisCheckFrequency)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileArcaneBore_DecreaseCVisCheckFrequency")),
     PAUSE_TC_PARTICLES(new SalisBuilder()
         .applyIf(SalisConfig.thaum.pauseTCParticlesWithGame)
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_PauseParticles")
