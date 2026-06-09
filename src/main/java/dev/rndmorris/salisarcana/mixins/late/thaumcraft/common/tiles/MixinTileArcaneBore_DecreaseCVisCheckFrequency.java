@@ -10,19 +10,19 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
 import thaumcraft.common.tiles.TileArcaneBore;
 
-@Mixin(value = TileArcaneBore.class, remap = true)
+@Mixin(TileArcaneBore.class)
 abstract class MixinTileArcaneBore_DecreaseCVisCheckFrequency {
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract boolean gettingPower();
 
-    @Shadow
+    @Shadow(remap = false)
     private float speedyTime;
 
     @Unique
-    private int salisArcana$cooldown = 0;
+    private int salisarcana$cooldown = 0;
     @Unique
-    private float salisArcana$cachedTime = 0;
+    private float salisarcana$cachedTime = 0;
 
     // Add a cooldown to the if statement.
     @ModifyExpressionValue(
@@ -39,31 +39,28 @@ abstract class MixinTileArcaneBore_DecreaseCVisCheckFrequency {
         if (isRemote) return true;
 
         // Cooldown expired, do checks
-        if (salisArcana$cooldown-- <= 0) {
+        if (salisarcana$cooldown-- <= 0) {
             if (this.gettingPower()) {
                 // Do a cvis check, sleep 10s
-                salisArcana$cooldown = 10 * 20;
-                // double cooldown if it never had cvis
-                // imprecision means it will never be 0 again. I think.
-                salisArcana$cooldown *= this.speedyTime == 0 ? 2 : 1;
-                return false;
+                salisarcana$cooldown = 10 * 20;
             } else {
                 // Block isn't powered, so do cvis thing but choke to 30s instead
-                salisArcana$cooldown = 30 * 20;
-                // double cooldown if it never had cvis
-                salisArcana$cooldown *= this.speedyTime == 0 ? 2 : 1;
-                return false;
+                salisarcana$cooldown = 30 * 20;
             }
+            // double cooldown if it never had cvis
+            // imprecision means it will never be 0 again. I think.
+            salisarcana$cooldown *= this.speedyTime == 0 ? 2 : 1;
+            return false;
         }
 
         // if it has any cached speedyTime, but less than the max, skip cooldown
         // Speedy time can be exhausted in 1 second by a constantly-digging bore.
         // if the speedyTime doesn't change since last lookup, increase cooldown to 1/2s
         if (this.speedyTime != 0 && this.speedyTime < 20) {
-            if (this.speedyTime == salisArcana$cachedTime) {
-                salisArcana$cooldown = Math.min(salisArcana$cooldown, 10);
-            } else salisArcana$cooldown = 0;
-            salisArcana$cachedTime = this.speedyTime;
+            if (this.speedyTime == salisarcana$cachedTime) {
+                salisarcana$cooldown = Math.min(salisarcana$cooldown, 10);
+            } else salisarcana$cooldown = 0;
+            salisarcana$cachedTime = this.speedyTime;
         }
 
         // Cooldown's not up, don't do cvis thing.
