@@ -196,7 +196,8 @@ public enum Mixins implements IMixins {
             "thaumcraft.common.lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
             "thaumcraft.common.lib.network.playerdata.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
             "thaumcraft.common.lib.MixinWarpEvents_LocalizeCorrectly",
-            "thaumcraft.common.tiles.MixinTileEldritchLock_LocalizeCorrectly")
+            "thaumcraft.common.tiles.MixinTileEldritchLock_LocalizeCorrectly",
+            "thaumcraft.common.lib.events.MixinKeyHandler_LocalizeKeybinds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EXCAVATION_DETERMINISTIC_COST(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.excavationFocusDeterministicCost)
