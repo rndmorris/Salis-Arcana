@@ -87,7 +87,7 @@ Changes in this category should be controlled by settings in `ConfigAddons` and 
   * Use `remap = true` when targeting anything from vanilla Minecraft.
   * Use `remap = false` when targeting anything else.
   * It may sometimes be more convenient to make the top-level `@Mixin` annotation `remap = false` and selectively set
-    `remap = true` only where needed. It is redundant and unnecessary to specify `@Mixin(..., remap = true)`; as `remap` defaults to true in this scenario.
+    `remap = true` only where needed. No need to specify `remap` when it would be redundant (`@Mixin(..., remap = true)`, for example).
 
 ### Pull Requests should
 * adhere to the provided template.
