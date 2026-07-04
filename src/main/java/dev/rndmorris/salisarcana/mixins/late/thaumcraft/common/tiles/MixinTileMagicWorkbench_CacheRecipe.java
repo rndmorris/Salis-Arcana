@@ -22,8 +22,7 @@ import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.common.tiles.TileMagicWorkbench;
 
 @Mixin(TileMagicWorkbench.class)
-public abstract class MixinTileMagicWorkbench_CacheRecipe extends TileThaumcraft
-    implements IInventory, ICachedMagicWorkbench {
+abstract class MixinTileMagicWorkbench_CacheRecipe extends TileThaumcraft implements IInventory, ICachedMagicWorkbench {
 
     @Shadow(remap = false)
     public ItemStack[] stackList;

@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import thaumcraft.common.items.wands.ItemWandRod;
 
 @Mixin(value = ItemWandRod.class, remap = false)
-public abstract class MixinItemWandRod_MetadataSafety {
+abstract class MixinItemWandRod_MetadataSafety {
 
     @Shadow
     public IIcon[] iconWand;

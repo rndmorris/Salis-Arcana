@@ -20,7 +20,7 @@ import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(value = TileNode.class)
-public abstract class MixinTileNode_RechargeTime extends TileThaumcraft implements IGameTimeNode {
+abstract class MixinTileNode_RechargeTime extends TileThaumcraft implements IGameTimeNode {
 
     @Shadow(remap = false)
     public abstract NodeModifier getNodeModifier();

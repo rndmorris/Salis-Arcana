@@ -8,7 +8,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.items.relics.ItemThaumometer;
 
 @Mixin(ItemThaumometer.class)
-public class MixinItemThaumometer_CustomDuration {
+abstract class MixinItemThaumometer_CustomDuration {
 
     @ModifyConstant(method = "getMaxItemUseDuration", constant = @Constant(intValue = 25))
     private int customDuration(int original) {

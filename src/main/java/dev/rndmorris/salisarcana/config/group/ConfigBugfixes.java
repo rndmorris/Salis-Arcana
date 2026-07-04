@@ -344,6 +344,10 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "fixNodeRendering",
         "Fix Thaumcraft's Nodes, Energized Nodes, Node Aspect Tags, and Node Drain Beams rendering behind transparent blocks when they are in front of them.");
+    public final ToggleSetting boreDecreaseCVisCheckFrequency = new ToggleSetting(
+        this,
+        "boreDecreaseCVisCheckFrequency",
+        "Lower frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.");
 
     @Nonnull
     @Override

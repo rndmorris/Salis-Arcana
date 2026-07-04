@@ -196,7 +196,8 @@ public enum Mixins implements IMixins {
             "thaumcraft.common.lib.events.MixinEventHandlerEntity_LocalizeCorrectly",
             "thaumcraft.common.lib.network.playerdata.MixinPacketPlayerCompleteToServer_LocalizeCorrectly",
             "thaumcraft.common.lib.MixinWarpEvents_LocalizeCorrectly",
-            "thaumcraft.common.tiles.MixinTileEldritchLock_LocalizeCorrectly")
+            "thaumcraft.common.tiles.MixinTileEldritchLock_LocalizeCorrectly",
+            "thaumcraft.common.lib.events.MixinKeyHandler_LocalizeKeybinds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     EXCAVATION_DETERMINISTIC_COST(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.excavationFocusDeterministicCost)
@@ -301,6 +302,9 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.fixTESRWorldLeak)
         .addClientMixins("thaumcraft.client.renderers.tile.MixinTESR_FixLeak")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    ARCANE_BORE_VIS_DRAIN_FREQUENCY(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.boreDecreaseCVisCheckFrequency)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileArcaneBore_DecreaseCVisCheckFrequency")),
     PAUSE_TC_PARTICLES(new SalisBuilder()
         .applyIf(SalisConfig.thaum.pauseTCParticlesWithGame)
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_PauseParticles")
@@ -410,6 +414,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.features.creativeNoXPManipulator)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileFocalManipulator_NoXP")
         .addClientMixins("thaumcraft.client.gui.MixinGuiFocalManipulator_CreativeNoXP")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    CREATIVE_NO_XP_INFUSION_ENCHANTING(new SalisBuilder()
+        .applyIf(SalisConfig.features.creativeNoXPInfusionEnchanting)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileInfusionMatrix_NoXP")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FOCAL_MANIPULATOR_STORE_XP(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.features.enableFocusDisenchanting.isEnabled() || SalisConfig.features.focalDisenchanterReturnXP.isEnabled())

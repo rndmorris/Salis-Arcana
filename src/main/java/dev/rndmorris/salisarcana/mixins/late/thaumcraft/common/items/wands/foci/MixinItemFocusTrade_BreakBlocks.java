@@ -13,7 +13,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.items.wands.foci.ItemFocusTrade;
 
 @Mixin(value = ItemFocusTrade.class, remap = false)
-public class MixinItemFocusTrade_BreakBlocks extends ItemFocusBasic {
+abstract class MixinItemFocusTrade_BreakBlocks extends ItemFocusBasic {
 
     @WrapMethod(method = "func_150893_a") // getStrVsBlock
     public float fixGetStrVsBlock(ItemStack itemstack, Block block, Operation<Float> original) {

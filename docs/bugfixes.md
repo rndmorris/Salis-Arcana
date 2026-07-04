@@ -376,3 +376,8 @@ Fixes a bug where some GUIs would render the wrong aspects when shifting over a 
 **Config option:** `fixNodeRendering`
 
 Fixes a bug where Nodes, Energized Nodes, Node Aspect Tags, and Node Drain Beams would render as though behind transparent blocks when they are in front of them.
+## Fix Arcane Bores look-up frequency
+
+**Config option:** `boreDecreaseCVisCheckFrequency`
+
+Lowers the frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.

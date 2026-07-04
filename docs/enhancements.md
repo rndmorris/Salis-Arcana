@@ -258,6 +258,10 @@ Hovering over an unknown aspect inside the Research Table will show a tooltip wi
 
 # Enhancements - Infusion
 
+## Config option: `creativeNoXPInfusionEnchanting`
+
+Allow Creative players to use Infusion Enchanting without the necessary XP.
+
 ## Config option: `useStabilizerRewrite`
 
 Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers.

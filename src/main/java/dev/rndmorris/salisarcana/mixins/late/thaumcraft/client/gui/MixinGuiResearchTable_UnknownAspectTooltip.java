@@ -20,7 +20,7 @@ import thaumcraft.common.lib.research.ResearchNoteData;
 import thaumcraft.common.lib.utils.HexUtils;
 
 @Mixin(value = GuiResearchTable.class, remap = false)
-public abstract class MixinGuiResearchTable_UnknownAspectTooltip extends GuiContainer {
+abstract class MixinGuiResearchTable_UnknownAspectTooltip extends GuiContainer {
 
     @Shadow
     public ResearchNoteData note;

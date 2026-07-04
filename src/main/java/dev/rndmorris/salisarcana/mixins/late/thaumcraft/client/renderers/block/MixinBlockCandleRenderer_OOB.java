@@ -15,7 +15,7 @@ import thaumcraft.client.renderers.block.BlockCandleRenderer;
 import thaumcraft.common.lib.utils.Utils;
 
 @Mixin(BlockCandleRenderer.class)
-public abstract class MixinBlockCandleRenderer_OOB {
+abstract class MixinBlockCandleRenderer_OOB {
 
     /**
      * @author jss2a98aj

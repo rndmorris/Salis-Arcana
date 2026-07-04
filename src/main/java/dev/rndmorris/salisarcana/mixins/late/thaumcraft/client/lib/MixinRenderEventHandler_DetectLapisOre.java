@@ -12,7 +12,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.client.lib.RenderEventHandler;
 
 @Mixin(value = RenderEventHandler.class, remap = false)
-public abstract class MixinRenderEventHandler_DetectLapisOre {
+abstract class MixinRenderEventHandler_DetectLapisOre {
 
     @WrapOperation(
         method = "startScan",

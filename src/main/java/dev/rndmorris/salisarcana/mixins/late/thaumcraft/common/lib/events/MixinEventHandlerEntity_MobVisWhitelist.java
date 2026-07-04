@@ -17,7 +17,7 @@ import dev.rndmorris.salisarcana.lib.EntityHelper;
 import thaumcraft.common.lib.events.EventHandlerEntity;
 
 @Mixin(value = EventHandlerEntity.class, remap = false)
-public class MixinEventHandlerEntity_MobVisWhitelist {
+abstract class MixinEventHandlerEntity_MobVisWhitelist {
 
     @Unique
     private final boolean sa$isWhitelist = SalisConfig.features.mobVisWhitelist.isEnabled();

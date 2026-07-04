@@ -21,7 +21,7 @@ import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.client.gui.GuiResearchRecipe;
 
 @Mixin(GuiResearchRecipe.class)
-public class MixinGuiResearchRecipe_RightClickNavigation extends GuiScreen {
+abstract class MixinGuiResearchRecipe_RightClickNavigation extends GuiScreen {
 
     @Shadow(remap = false)
     protected double guiMapX;

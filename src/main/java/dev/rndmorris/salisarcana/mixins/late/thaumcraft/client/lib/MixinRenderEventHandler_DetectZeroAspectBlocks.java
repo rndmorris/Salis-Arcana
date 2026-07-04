@@ -8,7 +8,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import thaumcraft.client.lib.RenderEventHandler;
 
 @Mixin(value = RenderEventHandler.class, remap = false)
-public abstract class MixinRenderEventHandler_DetectZeroAspectBlocks {
+abstract class MixinRenderEventHandler_DetectZeroAspectBlocks {
 
     @ModifyExpressionValue(
         method = "startScan",

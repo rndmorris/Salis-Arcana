@@ -14,7 +14,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 @Mixin(value = ItemWandCasting.class, remap = false)
-public class MixinItemWandCasting_CreativeVis {
+abstract class MixinItemWandCasting_CreativeVis {
 
     @Unique
     private static boolean sa$isCreative(EntityPlayer player) {

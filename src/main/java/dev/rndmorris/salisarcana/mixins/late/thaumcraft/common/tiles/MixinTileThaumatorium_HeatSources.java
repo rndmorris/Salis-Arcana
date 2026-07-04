@@ -15,7 +15,7 @@ import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.tiles.TileThaumatorium;
 
 @Mixin(value = TileThaumatorium.class)
-public abstract class MixinTileThaumatorium_HeatSources extends TileThaumcraft {
+abstract class MixinTileThaumatorium_HeatSources extends TileThaumcraft {
 
     /**
      * Tap into the {@code mat == Material.lava} comparison and, if it's not a vanilla thaum heat source, check if the

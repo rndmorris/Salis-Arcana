@@ -16,7 +16,7 @@ import dev.rndmorris.salisarcana.lib.DeadlyGazeEntitySelector;
 import thaumcraft.common.lib.WarpEvents;
 
 @Mixin(WarpEvents.class)
-public class MixinWarpEvents_DeadlyGaze {
+abstract class MixinWarpEvents_DeadlyGaze {
 
     @WrapOperation(
         method = "checkDeathGaze",

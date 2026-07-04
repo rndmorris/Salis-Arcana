@@ -22,7 +22,7 @@ import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.research.ScanManager;
 
 @Mixin(value = ScanManager.class, remap = false)
-public class MixinScanManager_ScanContainers {
+abstract class MixinScanManager_ScanContainers {
 
     @Inject(
         method = "completeScan",

@@ -17,7 +17,7 @@ import thaumcraft.common.blocks.BlockCandle;
 import thaumcraft.common.lib.utils.Utils;
 
 @Mixin(BlockCandle.class)
-public abstract class MixinBlockCandle_OOB {
+abstract class MixinBlockCandle_OOB {
 
     /**
      * @author jss2a98aj

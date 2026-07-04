@@ -22,7 +22,7 @@ import thaumcraft.common.container.SlotCraftingArcaneWorkbench;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 @Mixin(ContainerArcaneWorkbench.class)
-public abstract class MixinContainerArcaneWorkbench_MultiContainer extends Container
+abstract class MixinContainerArcaneWorkbench_MultiContainer extends Container
     implements IReconnectableContainer, IInventory {
 
     @Shadow(remap = false)

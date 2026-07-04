@@ -13,7 +13,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import thaumcraft.common.entities.golems.ItemGolemBell;
 
 @Mixin(ItemGolemBell.class)
-public abstract class MixinItemGolemBell_PreventDeadInteractions {
+abstract class MixinItemGolemBell_PreventDeadInteractions {
 
     @WrapMethod(method = "onLeftClickEntity", remap = false)
     private boolean preventLeftClicks(ItemStack stack, EntityPlayer player, Entity entity,
