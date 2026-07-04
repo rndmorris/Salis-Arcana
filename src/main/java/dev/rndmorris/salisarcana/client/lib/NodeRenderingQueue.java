@@ -1,0 +1,154 @@
+package dev.rndmorris.salisarcana.client.lib;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
+
+import com.github.bsideup.jabel.Desugar;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.nodes.NodeModifier;
+import thaumcraft.api.nodes.NodeType;
+import thaumcraft.client.lib.RenderEventHandler;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.tile.TileNodeRenderer;
+
+public class NodeRenderingQueue {
+
+    public static final List<QueuedNode> nodeQueue = new ArrayList<>();
+    public static final List<QueuedLightning> lightningQueue = new ArrayList<>();
+    public static final List<QueuedDrainBeam> drainQueue = new ArrayList<>();
+    public static final List<QueuedTag> tagQueue = new ArrayList<>();
+
+    @Desugar
+    public record QueuedNode(int x, int y, int z, double viewDistance, boolean visible, boolean depthIgnore, float size,
+        AspectList aspects, NodeType type, NodeModifier mod) {}
+
+    @Desugar
+    public record QueuedLightning(double x, double y, double z, String texture, int frames) {}
+
+    @Desugar
+    public record QueuedDrainBeam(double fromX, double fromY, double fromZ, double toX, double toY, double toZ,
+        int color, float alpha, float partialTicks) {}
+
+    @Desugar
+    public record QueuedTag(RenderEventHandler instance, double x, double y, double z, AspectList aspects, int bright,
+        ForgeDirection dir, float partialTicks, Operation<Void> original) {}
+
+    public static void flush(float partialTicks) {
+        Minecraft mc = Minecraft.getMinecraft();
+        EntityLivingBase viewer = mc.renderViewEntity;
+
+        if (!nodeQueue.isEmpty()) {
+            GL11.glPushMatrix();
+            for (QueuedNode qn : nodeQueue) {
+                TileNodeRenderer.renderNode(
+                    viewer,
+                    qn.viewDistance(),
+                    qn.visible(),
+                    qn.depthIgnore(),
+                    qn.size(),
+                    qn.x(),
+                    qn.y(),
+                    qn.z(),
+                    partialTicks,
+                    qn.aspects(),
+                    qn.type(),
+                    qn.mod());
+            }
+            GL11.glPopMatrix();
+            nodeQueue.clear();
+        }
+
+        if (!lightningQueue.isEmpty()) {
+            GL11.glPushMatrix();
+            GL11.glAlphaFunc(516, 0.003921569F);
+            GL11.glEnable(3042);
+            GL11.glBlendFunc(770, 1);
+            GL11.glDepthMask(false);
+            long nt = System.nanoTime();
+            for (QueuedLightning ql : lightningQueue) {
+                UtilsFX.bindTexture(ql.texture());
+                int i = (int) (((double) (nt / 40000000L) + ql.x()) % (double) ql.frames());
+                GL11.glColor4f(1.0F, 0.0F, 1.0F, 0.9F);
+                UtilsFX.renderFacingQuad(
+                    ql.x(),
+                    ql.y(),
+                    ql.z(),
+                    0.0F,
+                    0.33F,
+                    0.9F,
+                    ql.frames(),
+                    i,
+                    partialTicks,
+                    16777215);
+            }
+            GL11.glDepthMask(true);
+            GL11.glDisable(3042);
+            GL11.glAlphaFunc(516, 0.1F);
+            GL11.glPopMatrix();
+            lightningQueue.clear();
+        }
+
+        if (!drainQueue.isEmpty()) {
+            GL11.glPushMatrix();
+            for (QueuedDrainBeam qdb : drainQueue) {
+                UtilsFX.drawFloatyLine(
+                    qdb.fromX(),
+                    qdb.fromY(),
+                    qdb.fromZ(),
+                    qdb.toX(),
+                    qdb.toY(),
+                    qdb.toZ(),
+                    qdb.partialTicks(),
+                    qdb.color(),
+                    "textures/misc/wispy.png",
+                    -0.02F,
+                    qdb.alpha());
+            }
+            GL11.glPopMatrix();
+            drainQueue.clear();
+        }
+
+        if (!tagQueue.isEmpty()) {
+            for (QueuedTag qt : tagQueue) {
+                qt.original()
+                    .call(
+                        qt.instance(),
+                        qt.x(),
+                        qt.y(),
+                        qt.z(),
+                        qt.aspects(),
+                        qt.bright(),
+                        qt.dir(),
+                        qt.partialTicks());
+            }
+            tagQueue.clear();
+        }
+    }
+
+    public static void queueNode(int x, int y, int z, double viewDistance, boolean visible, boolean depthIgnore,
+        float size, AspectList aspects, NodeType type, NodeModifier mod) {
+        nodeQueue.add(new QueuedNode(x, y, z, viewDistance, visible, depthIgnore, size, aspects, type, mod));
+    }
+
+    public static void queueLightning(double x, double y, double z, String texture, int frames) {
+        lightningQueue.add(new QueuedLightning(x, y, z, texture, frames));
+    }
+
+    public static void queueDrainBeam(double fromX, double fromY, double fromZ, double toX, double toY, double toZ,
+        int color, float alpha, float partialTicks) {
+        drainQueue.add(new QueuedDrainBeam(fromX, fromY, fromZ, toX, toY, toZ, color, alpha, partialTicks));
+    }
+
+    public static void queueTag(RenderEventHandler instance, double x, double y, double z, AspectList aspects,
+        int bright, ForgeDirection dir, float partialTicks, Operation<Void> original) {
+        tagQueue.add(new QueuedTag(instance, x, y, z, aspects, bright, dir, partialTicks, original));
+    }
+}
