@@ -11,7 +11,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(value = TileNode.class, remap = false)
-public abstract class MixinTileNode_UnstableAspectDropsChunkGuard extends TileThaumcraft {
+abstract class MixinTileNode_UnstableAspectDropsChunkGuard extends TileThaumcraft {
 
     @WrapOperation(
         method = "handleNodeStability",
