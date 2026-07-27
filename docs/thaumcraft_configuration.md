@@ -76,6 +76,9 @@ will scale with the current amount of vis of the node.
 If true, the rate at which tainted nodes will convert their surroundings to Tainted Lands and spawn taint tendrils will
 be adjusted by their modifier: 20% more often when bright, 20% less often when pale, 50% less often when fading.
 
+### Config Option: `hungryWorldgenCrater` (Default `true`)
+If true, hungry nodes will create a small crater around them when they generate to make them a bit more obvious.
+
 ## Pickaxe of the Core Detection Ore Dictionary Labels (Group `tools`)
 
 ### Config Option: `elementalPickOredictFilter`
