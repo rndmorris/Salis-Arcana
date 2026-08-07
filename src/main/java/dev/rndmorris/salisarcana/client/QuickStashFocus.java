@@ -33,6 +33,8 @@ public final class QuickStashFocus {
     }
 
     public static void tryStashSlot(Slot slot, Container container) {
+        if (slot == null) return;
+
         final var mc = Minecraft.getMinecraft();
         final var player = mc.thePlayer;
 
