@@ -256,6 +256,14 @@ Wand caps & wand rods will show information about their vis capacity & discount 
 
 Hovering over an unknown aspect inside the Research Table will show a tooltip with a hint about where you can find it.
 
+## Quick-Stash Wand Foci
+
+**Config option:** `quickStashFocus`
+
+Add a keybind to move a Wand Focus from your hand (while in-game) or a hovered-over accessible slot (while in a GUI) into the player's Focus Pouch(es).
+
+Defaults to F, same as the "Switch Wand Focus" keybind.
+
 # Enhancements - Infusion
 
 ## Config option: `creativeNoXPInfusionEnchanting`

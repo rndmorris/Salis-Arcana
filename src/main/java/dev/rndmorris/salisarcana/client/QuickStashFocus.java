@@ -1,0 +1,67 @@
+package dev.rndmorris.salisarcana.client;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
+
+import org.lwjgl.input.Keyboard;
+
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent;
+import dev.rndmorris.salisarcana.lib.WandFocusHelper;
+import dev.rndmorris.salisarcana.network.MessageQuickStashFocus;
+import dev.rndmorris.salisarcana.network.NetworkHandler;
+
+public final class QuickStashFocus {
+
+    public static final KeyBinding KEYBIND = new KeyBinding(
+        "salisarcana:keybind.quick_stash_focus",
+        Keyboard.KEY_F,
+        "salisarcana:keybind_category");
+
+    public static void register() {
+        ClientRegistry.registerKeyBinding(KEYBIND);
+
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new EventHandler());
+    }
+
+    public static void tryStashSlot(Slot slot, Container container) {
+        final var mc = Minecraft.getMinecraft();
+
+        if (WandFocusHelper.storeFocusFromSlot(container, slot, mc.thePlayer)) {
+            NetworkHandler.instance.sendToServer(new MessageQuickStashFocus(slot.slotNumber, container.windowId));
+        }
+    }
+
+    private static Slot getHeldSlot(EntityPlayer player) {
+        final int hotbarIndex = player.inventory.currentItem;
+
+        // Fast path: in vanilla, hotbar slots are slots 36-45.
+        Slot slot = player.inventoryContainer.getSlot(36 + hotbarIndex);
+        if (slot != null && slot.inventory == player.inventory && slot.getSlotIndex() == hotbarIndex) {
+            return slot;
+        }
+
+        // Slow path: search through all slots for one that is linked to that hotbar slot.
+        return player.inventoryContainer.getSlotFromInventory(player.inventory, hotbarIndex);
+    }
+
+    public static final class EventHandler {
+
+        private EventHandler() {}
+
+        @SubscribeEvent
+        public void stashInGame(InputEvent.KeyInputEvent event) {
+            final var mc = Minecraft.getMinecraft();
+            if (!mc.inGameHasFocus || !KEYBIND.isPressed()) return;
+
+            tryStashSlot(getHeldSlot(mc.thePlayer), mc.thePlayer.inventoryContainer);
+        }
+    }
+}

@@ -15,8 +15,15 @@ public enum Mixins implements IMixins {
     // spotless:off
     // Early Mixins
     ACCESSORS(new SalisBuilder(Phase.EARLY)
-        .addCommonMixins("accessor.AccessorGuiContainer")
-        .addClientMixins("accessor.AccessorMinecraft")),
+        .addClientMixins("accessor.AccessorGuiContainer", "accessor.AccessorMinecraft")),
+    VANILLA_GUI_KEY_TYPED(new SalisBuilder(Phase.EARLY)
+        .addClientMixins("gui.MixinGuiContainer_HandleKeyTyped")
+        .addExcludedMod(TargetedMod.NOT_ENOUGH_ITEMS)),
+
+    // Late Accessors
+    THAUM_ACCESSORS(new SalisBuilder()
+        .addCommonMixins("thaumcraft.common.container.AccessorContainerFocusPouch")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Bugfixes
     ADVANCED_ARCANE_FURNACE_SAVE_NBT(new SalisBuilder()
