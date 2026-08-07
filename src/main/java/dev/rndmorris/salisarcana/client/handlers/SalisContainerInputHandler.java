@@ -14,6 +14,7 @@ public final class SalisContainerInputHandler implements IContainerInputHandler 
 
     public static final SalisContainerInputHandler INSTANCE = new SalisContainerInputHandler();
 
+    @Optional.Method(modid = "NotEnoughItems")
     public static void register() {
         GuiContainerManager.addInputHandler(SalisContainerInputHandler.INSTANCE);
     }
