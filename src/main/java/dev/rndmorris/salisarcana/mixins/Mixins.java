@@ -15,7 +15,7 @@ public enum Mixins implements IMixins {
     // spotless:off
     // Early Mixins
     ACCESSORS(new SalisBuilder(Phase.EARLY)
-        .addClientMixins("accessor.AccessorGuiContainer", "accessor.AccessorMinecraft")),
+        .addClientMixins("accessor.AccessorGuiContainer", "accessor.AccessorMinecraft", "accessor.AccessorCreativeSlot")),
     VANILLA_GUI_KEY_TYPED(new SalisBuilder(Phase.EARLY)
         .addClientMixins("gui.MixinGuiContainer_HandleKeyTyped")
         .addExcludedMod(TargetedMod.NOT_ENOUGH_ITEMS)),

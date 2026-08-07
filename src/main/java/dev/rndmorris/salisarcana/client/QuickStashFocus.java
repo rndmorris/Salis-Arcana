@@ -14,6 +14,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import dev.rndmorris.salisarcana.lib.WandFocusHelper;
+import dev.rndmorris.salisarcana.mixins.early.accessor.AccessorCreativeSlot;
 import dev.rndmorris.salisarcana.network.MessageQuickStashFocus;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 
@@ -39,16 +40,23 @@ public final class QuickStashFocus {
         final var player = mc.thePlayer;
 
         if (mc.currentScreen instanceof GuiContainerCreative) {
-            // Since the server still thinks that `InventoryContainer` is the open container, the slot ID won't match
-            // up. Therefore, we fix up the parameters to refer to the player's `InventoryContainer` instead.
+            // When the Creative GUI is open, the server still thinks that `InventoryContainer` is the open container,
+            // so the slot ID won't match up. Therefore, we fix up the parameters to refer to the player's
+            // `InventoryContainer` instead.
 
-            // If the current slot does not refer to the player's inventory, we cannot extract from it since it doesn't
-            // exist on the server.
-            // TODO Implement direct extraction from creative / NEI slots for Creative players.
-            if (slot.inventory != player.inventory) return;
+            if (slot instanceof AccessorCreativeSlot creativeSlot) {
+                slot = creativeSlot.salisarcana$getBaseSlot();
 
-            container = player.inventoryContainer;
-            slot = player.inventoryContainer.getSlotFromInventory(player.inventory, slot.getSlotIndex());
+                // If the current slot does not refer to the player's inventory, we cannot extract from it since it
+                // doesn't exist on the server. (This should only be the "trash can" slot in the Inventory tab.)
+                if (slot.inventory != player.inventory) return;
+
+                container = player.inventoryContainer;
+                slot = player.inventoryContainer.getSlotFromInventory(player.inventory, slot.getSlotIndex());
+            } else {
+                // TODO Implement direct extraction from creative / NEI slots for Creative players.
+                return;
+            }
         }
 
         if (WandFocusHelper.storeFocusFromSlot(container, slot, player)) {
