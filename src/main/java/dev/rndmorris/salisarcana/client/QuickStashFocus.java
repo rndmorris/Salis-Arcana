@@ -1,6 +1,7 @@
 package dev.rndmorris.salisarcana.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -33,8 +34,22 @@ public final class QuickStashFocus {
 
     public static void tryStashSlot(Slot slot, Container container) {
         final var mc = Minecraft.getMinecraft();
+        final var player = mc.thePlayer;
 
-        if (WandFocusHelper.storeFocusFromSlot(container, slot, mc.thePlayer)) {
+        if (mc.currentScreen instanceof GuiContainerCreative) {
+            // Since the server still thinks that `InventoryContainer` is the open container, the slot ID won't match
+            // up. Therefore, we fix up the parameters to refer to the player's `InventoryContainer` instead.
+
+            // If the current slot does not refer to the player's inventory, we cannot extract from it since it doesn't
+            // exist on the server.
+            // TODO Implement direct extraction from creative / NEI slots for Creative players.
+            if (slot.inventory != player.inventory) return;
+
+            container = player.inventoryContainer;
+            slot = player.inventoryContainer.getSlotFromInventory(player.inventory, slot.getSlotIndex());
+        }
+
+        if (WandFocusHelper.storeFocusFromSlot(container, slot, player)) {
             NetworkHandler.instance.sendToServer(new MessageQuickStashFocus(slot.slotNumber, container.windowId));
         }
     }
