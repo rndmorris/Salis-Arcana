@@ -117,6 +117,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.equalTradeBreaksBlocks)
         .addCommonMixins("thaumcraft.common.items.wands.foci.MixinItemFocusTrade_BreakBlocks")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    PRESERVE_TILE_ENTITY_DROPS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.preserveTileEntityDrops)
+        .addCommonMixins("thaumcraft.common.lib.utils.MixinBlockUtils_PreserveTileEntityDrops")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NODE_RECHARGE_TIME(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.nodesRechargeInGameTime)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_RechargeTime")

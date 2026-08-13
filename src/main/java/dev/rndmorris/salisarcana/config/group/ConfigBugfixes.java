@@ -130,6 +130,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "equalTradeBreaksBlocks",
         "Fixes a bug where you couldn't break blocks if you were holding the equal trade focus item.");
 
+    public final ToggleSetting preserveTileEntityDrops = new ToggleSetting(
+        this,
+        "preserveTileEntityDrops",
+        "Preserves tile entity data while Thaumcraft harvests blocks, preventing the Primal Crusher from creating incorrect drops.");
+
     public final ToggleSetting nodesRechargeInGameTime = new ToggleSetting(
         this,
         "nodesRechargeInGameTime",
