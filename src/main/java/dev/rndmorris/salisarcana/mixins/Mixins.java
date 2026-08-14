@@ -649,6 +649,13 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.tiles.MixinTileCrucible_ScalingAspectDecay")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
+    // Debug
+
+    DEBUG_LOG_WARP_STACK_TRACE(new SalisBuilder()
+        .applyIf(SalisConfig.debug.logWarpSources)
+        .addCommonMixins("thaumcraft.common.lib.research.MixinPlayerKnowledge_DebugLogWarp")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     // Required
     ADD_VISCONTAINER_INTERFACE(new SalisBuilder()
         .setRequired()
