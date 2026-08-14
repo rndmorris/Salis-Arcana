@@ -382,3 +382,9 @@ Lowers the frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup,
 **Config option:** `allowDropsFromLiveLeaves`
 
 Allow saplings to be dropped from magical leaves which are still connected to a log (those that cannot decay over time).
+
+## Reservoirs Correctly Return Essentia Type
+
+**Config option:** `reservoirsUseArgInGetEssentiaType`
+
+Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.
