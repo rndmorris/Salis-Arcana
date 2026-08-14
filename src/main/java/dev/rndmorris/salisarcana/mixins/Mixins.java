@@ -180,7 +180,8 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.blocks.MixinBlock_CollisionConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockCandle_SetBlockBounds",
             "thaumcraft.common.blocks.MixinBlockChestHungry_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockEssentiaReservoir_SetBlockBounds",
             "thaumcraft.common.blocks.MixinBlockJar_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockLoot_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockArcaneFurnace_AddCollisionAABB")
-        .addClientMixins("thaumcraft.client.renderers.block.MixinBlockRenderer_ConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockTube_BBoxConserveBlockBounds")
+        .addClientMixins("thaumcraft.client.renderers.block.MixinBlockRenderer_ConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockTube_BBoxConserveBlockBounds",
+            "thaumcraft.client.renderers.block.MixinBlockWoodenDeviceRenderer_ApplyPressurePlateBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_LOCALIZATION_SIDES(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixClientSideLocalization)
@@ -308,6 +309,10 @@ public enum Mixins implements IMixins {
     PAUSE_TC_PARTICLES(new SalisBuilder()
         .applyIf(SalisConfig.thaum.pauseTCParticlesWithGame)
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_PauseParticles")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    ALLOW_CONNECTED_LEAF_DROPS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.allowDropsFromLiveLeaves)
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockMagicalLeaves_AllowConnectedLeafDrops")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
 
@@ -621,6 +626,12 @@ public enum Mixins implements IMixins {
     NODE_MODIFIER_SPEED_TAINTED(new SalisBuilder()
         .applyIf(SalisConfig.thaum.taintedModifierSpeed)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_ModifierSpeed_Tainted")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_UNSTABLE_ASPECT_DROPS_CHUNK_GUARD(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.unstableAspectDropsRequireLoadedChunks)
+        .addCommonMixins(
+            "thaumcraft.common.entities.MixinEntityAspectOrb_ChunkGuard",
+            "thaumcraft.common.tiles.MixinTileNode_UnstableAspectDropsChunkGuard")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NODE_FIX_GET_BLOCK(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixNodeTriggeringChunkLoading)
