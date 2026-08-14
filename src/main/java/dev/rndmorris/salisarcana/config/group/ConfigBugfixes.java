@@ -345,6 +345,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "boreDecreaseCVisCheckFrequency",
         "Lower frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.");
 
+    public final ToggleSetting allowDropsFromLiveLeaves = new ToggleSetting(
+        this,
+        "allowDropsFromLiveLeaves",
+        "Allow saplings to be dropped from magical leaves which are still connected to a log.");
+
     @Nonnull
     @Override
     public String getGroupName() {
