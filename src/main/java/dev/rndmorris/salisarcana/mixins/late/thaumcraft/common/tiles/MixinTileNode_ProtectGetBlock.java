@@ -20,7 +20,7 @@ import thaumcraft.common.tiles.TileNode;
  * running the code that would trigger chunk loading.
  */
 @Mixin(TileNode.class)
-public abstract class MixinTileNode_ProtectGetBlock extends TileEntity {
+abstract class MixinTileNode_ProtectGetBlock extends TileEntity {
 
     @Inject(
         method = "handleDischarge",

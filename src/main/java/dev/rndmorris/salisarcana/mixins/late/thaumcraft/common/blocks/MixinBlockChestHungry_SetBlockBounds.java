@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.blocks.BlockChestHungry;
 
 @Mixin(BlockChestHungry.class)
-public abstract class MixinBlockChestHungry_SetBlockBounds extends BlockContainer {
+abstract class MixinBlockChestHungry_SetBlockBounds extends BlockContainer {
 
     protected MixinBlockChestHungry_SetBlockBounds(Material p_i45386_1_) {
         super(p_i45386_1_);

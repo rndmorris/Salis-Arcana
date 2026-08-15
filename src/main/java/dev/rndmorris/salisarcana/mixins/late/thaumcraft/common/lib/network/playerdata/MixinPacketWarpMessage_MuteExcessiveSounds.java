@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import thaumcraft.common.lib.network.playerdata.PacketWarpMessage;
 
 @Mixin(PacketWarpMessage.class)
-public class MixinPacketWarpMessage_MuteExcessiveSounds {
+abstract class MixinPacketWarpMessage_MuteExcessiveSounds {
 
     @Unique
     private static long salisArcana$lastTickTriggered;

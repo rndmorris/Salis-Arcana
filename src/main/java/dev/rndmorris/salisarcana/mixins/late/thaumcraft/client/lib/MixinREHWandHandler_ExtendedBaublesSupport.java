@@ -11,7 +11,7 @@ import baubles.api.BaublesApi;
 import thaumcraft.client.lib.REHWandHandler;
 
 @Mixin(value = REHWandHandler.class, remap = false)
-public class MixinREHWandHandler_ExtendedBaublesSupport {
+abstract class MixinREHWandHandler_ExtendedBaublesSupport {
 
     @ModifyConstant(method = "handleFociRadial", constant = @Constant(intValue = 4, ordinal = 0), remap = false)
     private int handleFociRadial(int value, Minecraft mc, long time, RenderGameOverlayEvent event) {

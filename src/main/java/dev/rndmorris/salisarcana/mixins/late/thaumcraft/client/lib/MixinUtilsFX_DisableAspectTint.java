@@ -10,7 +10,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.client.lib.UtilsFX;
 
 @Mixin(value = UtilsFX.class, remap = false)
-public abstract class MixinUtilsFX_DisableAspectTint {
+abstract class MixinUtilsFX_DisableAspectTint {
 
     @WrapOperation(
         method = "drawTag(DDLthaumcraft/api/aspects/Aspect;FIDIFZ)V",

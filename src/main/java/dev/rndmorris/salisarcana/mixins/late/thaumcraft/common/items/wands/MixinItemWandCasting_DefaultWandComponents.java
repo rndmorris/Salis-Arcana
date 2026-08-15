@@ -21,7 +21,7 @@ import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 @Mixin(value = ItemWandCasting.class, remap = false)
-public abstract class MixinItemWandCasting_DefaultWandComponents {
+abstract class MixinItemWandCasting_DefaultWandComponents {
 
     @Shadow
     public abstract WandCap getCap(ItemStack stack);

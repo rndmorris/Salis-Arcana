@@ -10,7 +10,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import thaumcraft.common.tiles.TileCrucible;
 
 @Mixin(TileCrucible.class)
-public abstract class MixinTileCrucible_NoDupeDeadItems {
+abstract class MixinTileCrucible_NoDupeDeadItems {
 
     @WrapMethod(method = "attemptSmelt", remap = false)
     private void ignoreDeadItems(EntityItem entity, Operation<Void> original) {

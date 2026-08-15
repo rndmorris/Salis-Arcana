@@ -10,7 +10,7 @@ import dev.rndmorris.salisarcana.common.compat.BaublesExpandedCompat;
 import thaumcraft.common.items.wands.ItemFocusPouchBauble;
 
 @Mixin(ItemFocusPouchBauble.class)
-public abstract class MixinItemFocusPouchBauble_ExpandedBaublesSlot implements IBaubleExpanded {
+abstract class MixinItemFocusPouchBauble_ExpandedBaublesSlot implements IBaubleExpanded {
 
     @Override
     public String[] getBaubleTypes(ItemStack itemStack) {

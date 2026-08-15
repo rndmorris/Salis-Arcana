@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.blocks.BlockLoot;
 
 @Mixin(BlockLoot.class)
-public abstract class MixinBlockLoot_SetBlockBounds extends Block {
+abstract class MixinBlockLoot_SetBlockBounds extends Block {
 
     protected MixinBlockLoot_SetBlockBounds(Material materialIn) {
         super(materialIn);

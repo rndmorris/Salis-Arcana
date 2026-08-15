@@ -18,7 +18,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.items.wands.foci.ItemFocusExcavation;
 
 @Mixin(ItemFocusExcavation.class)
-public class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
+abstract class MixinItemFocusExcavation_HarvestLevel extends ItemFocusBasic {
 
     // i dunno why this has to be static, but it does
     // the definition just wouldn't be embedded into the class otherwise

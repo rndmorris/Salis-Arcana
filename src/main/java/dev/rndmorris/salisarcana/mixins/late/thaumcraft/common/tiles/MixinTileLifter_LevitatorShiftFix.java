@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.tiles.TileLifter;
 
 @Mixin(value = TileLifter.class)
-public abstract class MixinTileLifter_LevitatorShiftFix extends TileEntity {
+abstract class MixinTileLifter_LevitatorShiftFix extends TileEntity {
 
     @Shadow(remap = false)
     public int rangeAbove;

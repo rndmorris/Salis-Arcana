@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import thaumcraft.common.blocks.BlockCosmeticSolid;
 
 @Mixin(BlockCosmeticSolid.class)
-public abstract class MixinBlockCosmeticSolid_BeaconBlocks extends Block {
+abstract class MixinBlockCosmeticSolid_BeaconBlocks extends Block {
 
     protected MixinBlockCosmeticSolid_BeaconBlocks(Material materialIn) {
         super(materialIn);

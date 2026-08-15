@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import thaumcraft.common.config.ConfigItems;
 
 @Mixin(value = ConfigItems.class, remap = false)
-public class MixinConfigItems_UnOredictGoldCoin {
+abstract class MixinConfigItems_UnOredictGoldCoin {
 
     @WrapOperation(
         method = "init",

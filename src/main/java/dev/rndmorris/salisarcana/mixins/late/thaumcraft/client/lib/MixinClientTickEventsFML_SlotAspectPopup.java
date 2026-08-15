@@ -24,7 +24,7 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.lib.research.ScanManager;
 
 @Mixin(value = ClientTickEventsFML.class, remap = false, priority = 999)
-public class MixinClientTickEventsFML_SlotAspectPopup {
+abstract class MixinClientTickEventsFML_SlotAspectPopup {
 
     /**
      * @author Sisyphussy

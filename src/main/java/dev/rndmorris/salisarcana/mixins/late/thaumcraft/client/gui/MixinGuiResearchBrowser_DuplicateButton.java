@@ -37,7 +37,7 @@ import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(GuiResearchBrowser.class)
-public class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
+abstract class MixinGuiResearchBrowser_DuplicateButton extends GuiScreen {
 
     @Unique
     private static final ResourceLocation sa$duplicationButtonTexture = new ResourceLocation(

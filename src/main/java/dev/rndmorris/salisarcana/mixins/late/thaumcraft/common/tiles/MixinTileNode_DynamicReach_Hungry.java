@@ -4,8 +4,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Cancellable;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
@@ -16,7 +18,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(value = TileNode.class, remap = false)
-public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
+abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
 
     @Shadow
     AspectList aspects;
@@ -30,10 +32,18 @@ public abstract class MixinTileNode_DynamicReach_Hungry extends TileThaumcraft {
     @ModifyExpressionValue(
         method = { "handleHungryNodeFirst", "handleHungryNodeSecond" },
         at = @At(value = "CONSTANT", args = "intValue=16", ordinal = 0))
-    private int adjustAndMemoReach(int constant, @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef,
-        @Share("reach") LocalIntRef reachRef) {
-        sizeMultiplierRef.set(DynamicNodeLogic.calculateSizeMultiplier(this.aspects.visSize()));
-        final var reach = (int) (constant * sizeMultiplierRef.get());
+    private int adjustAndMemoReach(int constant, boolean change,
+        @Share("sizeMultiplier") LocalDoubleRef sizeMultiplierRef, @Share("reach") LocalIntRef reachRef,
+        @Cancellable CallbackInfoReturnable<Boolean> cir) {
+        final var visSize = this.aspects.visSize();
+        if (visSize == 0) {
+            cir.setReturnValue(change);
+            return 1;
+        }
+
+        final var sizeMultiplier = DynamicNodeLogic.calculateSizeMultiplier(visSize);
+        sizeMultiplierRef.set(sizeMultiplier);
+        final var reach = (int) (constant * sizeMultiplier);
         reachRef.set(reach);
         return reach;
     }

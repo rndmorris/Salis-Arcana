@@ -11,7 +11,7 @@ import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.common.items.baubles.ItemAmuletVis;
 
 @Mixin(value = ItemAmuletVis.class, remap = false)
-public abstract class MixinItemAmuletVis_TransferRate {
+abstract class MixinItemAmuletVis_TransferRate {
 
     @Unique
     private final int sa$transferRate = SalisConfig.features.visAmuletTransferRate.getValue();

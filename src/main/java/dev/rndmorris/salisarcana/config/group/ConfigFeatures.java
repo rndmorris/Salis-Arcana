@@ -156,6 +156,11 @@ public class ConfigFeatures extends ConfigGroup {
             .setPurchasable(true)
             .setAspects("sensus:6", "praecantatio:8", "ordo:4")).setCategory("infusion_preview");
 
+    public final ToggleSetting creativeNoXPInfusionEnchanting = new ToggleSetting(
+        this,
+        "creativeNoXPInfusionEnchanting",
+        "Allow Creative players to use Infusion Enchanting without the necessary XP.");
+
     public final ToggleSetting focalDisenchanterReturnXP = new ToggleSetting(
         this,
         "focalDisenchanterReturnXP",

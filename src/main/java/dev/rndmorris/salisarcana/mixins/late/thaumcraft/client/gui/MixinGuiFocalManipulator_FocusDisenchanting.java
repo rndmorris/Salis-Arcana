@@ -28,7 +28,7 @@ import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.tiles.TileFocalManipulator;
 
 @Mixin(GuiFocalManipulator.class)
-public class MixinGuiFocalManipulator_FocusDisenchanting {
+abstract class MixinGuiFocalManipulator_FocusDisenchanting {
 
     @Shadow(remap = false)
     ArrayList<FocusUpgradeType> upgrades;

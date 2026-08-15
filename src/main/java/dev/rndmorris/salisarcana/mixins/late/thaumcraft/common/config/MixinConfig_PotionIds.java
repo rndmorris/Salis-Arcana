@@ -28,7 +28,7 @@ import dev.rndmorris.salisarcana.notifications.StartupNotifications;
 import thaumcraft.common.config.Config;
 
 @Mixin(value = Config.class, remap = false)
-public abstract class MixinConfig_PotionIds {
+abstract class MixinConfig_PotionIds {
 
     @Inject(
         method = "initPotions",

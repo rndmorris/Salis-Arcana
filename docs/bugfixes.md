@@ -370,3 +370,27 @@ Runic Matrices which are too stable will not fly far out from the center of the 
 **Config option:** `fixInventoryAspects`
 
 Fixes a bug where some GUIs would render the wrong aspects when shifting over a slot. Also improves the performance of this overlay.
+
+## Fix Arcane Bores look-up frequency
+
+**Config option:** `boreDecreaseCVisCheckFrequency`
+
+Lowers the frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.
+
+## Allow Sapling Drops from Connected Magical Leaves
+
+**Config option:** `allowDropsFromLiveLeaves`
+
+Allow saplings to be dropped from magical leaves which are still connected to a log (those that cannot decay over time).
+
+## Fix Portable Hole focus client sync
+
+**Config option:** `portableHoleClientSync`
+
+Properly synchronizes the holes creates with the Portable Hole focus to the client. This prevents ghost blocks when the player moves the camera while using the focus. Also makes other clients in multiplayer display the portable hole visual effect.
+
+## Reservoirs Correctly Return Essentia Type
+
+**Config option:** `reservoirsUseArgInGetEssentiaType`
+
+Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.

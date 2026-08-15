@@ -17,7 +17,7 @@ import thaumcraft.common.container.ContainerArcaneWorkbench;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 @Mixin(ContainerArcaneWorkbench.class)
-public class MixinContainerArcaneWorkbench_UseCache {
+abstract class MixinContainerArcaneWorkbench_UseCache {
 
     @Shadow(remap = false)
     private TileArcaneWorkbench tileEntity;

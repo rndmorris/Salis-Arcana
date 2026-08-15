@@ -13,7 +13,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import tuhljin.automagy.blocks.BlockBoiler;
 
 @Mixin(BlockBoiler.class)
-public abstract class MixinBlockBoiler_FakePlayer {
+abstract class MixinBlockBoiler_FakePlayer {
 
     @WrapOperation(
         method = "onBlockActivated",

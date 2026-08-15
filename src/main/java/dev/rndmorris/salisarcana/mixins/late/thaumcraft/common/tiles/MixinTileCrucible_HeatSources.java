@@ -15,7 +15,7 @@ import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.tiles.TileCrucible;
 
 @Mixin(value = TileCrucible.class)
-public abstract class MixinTileCrucible_HeatSources extends TileThaumcraft {
+abstract class MixinTileCrucible_HeatSources extends TileThaumcraft {
 
     /**
      * Tap into the {@code mat == Material.lava} comparison and, if it's not a vanilla thaum heat source, check if the

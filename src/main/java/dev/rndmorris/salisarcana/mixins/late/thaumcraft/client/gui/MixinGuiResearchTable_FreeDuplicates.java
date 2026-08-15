@@ -12,7 +12,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.gui.GuiResearchTable;
 
 @Mixin(GuiResearchTable.class)
-public class MixinGuiResearchTable_FreeDuplicates {
+abstract class MixinGuiResearchTable_FreeDuplicates {
 
     @Unique
     private static final AspectList sa$noAspects = new AspectList();

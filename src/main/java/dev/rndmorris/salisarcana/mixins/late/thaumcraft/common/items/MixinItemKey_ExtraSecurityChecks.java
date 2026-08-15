@@ -23,7 +23,7 @@ import thaumcraft.common.items.ItemKey;
 import thaumcraft.common.tiles.TileOwned;
 
 @Mixin(ItemKey.class)
-public class MixinItemKey_ExtraSecurityChecks {
+abstract class MixinItemKey_ExtraSecurityChecks {
 
     @ModifyExpressionValue(
         method = "onItemUseFirst",

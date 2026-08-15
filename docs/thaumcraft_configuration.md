@@ -37,6 +37,9 @@ above the decay's maximum range.
 
 The default maximum rate of 4.2% is vanilla Thaumcraft's maximum decay rate with its flat decay at 100 total aspects.
 
+### ConfigOption: `pauseTCParticlesWithGame`
+If true, Thaumcraft particles will behave like vanilla particles and pause when the game is paused.
+
 ## Node Behaviors (Group `node_behaviors`)
 
 ### Config Option: `hungryDynamicReach` (Default `false`)
@@ -72,6 +75,10 @@ will scale with the current amount of vis of the node.
 ### Config Option: `taintedModifierSpeed` (Default `true`)
 If true, the rate at which tainted nodes will convert their surroundings to Tainted Lands and spawn taint tendrils will
 be adjusted by their modifier: 20% more often when bright, 20% less often when pale, 50% less often when fading.
+
+### Config Option: `unstableAspectDropsRequireLoadedChunks` (Default `true`)
+If true, unstable nodes not under the effects of a Node Stabilizer will not drain or spawn aspect orbs unless the nearby chunks needed to tick the spawned
+orb are loaded. Additionally, aspect orbs will immediately despawn if they enter a chunk where they can't be ticked to further prevent their accumulation.
 
 ## Pickaxe of the Core Detection Ore Dictionary Labels (Group `tools`)
 

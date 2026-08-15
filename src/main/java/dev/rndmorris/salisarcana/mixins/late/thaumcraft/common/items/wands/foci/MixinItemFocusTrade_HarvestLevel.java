@@ -24,7 +24,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.items.wands.foci.ItemFocusTrade;
 
 @Mixin(value = ItemFocusTrade.class, remap = false)
-public abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic implements IArchitect {
+abstract class MixinItemFocusTrade_HarvestLevel extends ItemFocusBasic implements IArchitect {
 
     @Unique
     private final int sa$harvestLevel = SalisConfig.features.equalTradeFocusHarvestLevel.getValue();

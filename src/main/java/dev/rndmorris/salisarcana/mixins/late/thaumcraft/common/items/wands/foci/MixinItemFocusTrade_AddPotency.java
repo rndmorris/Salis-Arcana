@@ -11,7 +11,7 @@ import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.common.items.wands.foci.ItemFocusTrade;
 
 @Mixin(ItemFocusTrade.class)
-public class MixinItemFocusTrade_AddPotency {
+abstract class MixinItemFocusTrade_AddPotency {
 
     @WrapMethod(method = "getPossibleUpgradesByRank", remap = false)
     public FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack itemstack, int rank,

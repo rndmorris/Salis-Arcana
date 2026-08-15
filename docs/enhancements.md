@@ -266,6 +266,10 @@ showing the recipe's output item, the essentia it will consume (with a check or 
 aspect indicating whether enough is available within range), and the predicted instability of the
 recipe.
 
+## Config option: `creativeNoXPInfusionEnchanting`
+
+Allow Creative players to use Infusion Enchanting without the necessary XP.
+
 ## Config option: `useStabilizerRewrite`
 
 Rewrites the Runic Matrix's surroundings-check logic to be more flexible when checking for pedestals and stabilizers.

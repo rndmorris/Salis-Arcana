@@ -12,7 +12,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import thaumcraft.common.Thaumcraft;
 
 @Mixin(Thaumcraft.class)
-public class MixinThaumcraft_FakePlayerWarp {
+abstract class MixinThaumcraft_FakePlayerWarp {
 
     @WrapMethod(method = "addWarpToPlayer", remap = false)
     private static void cancelFakePlayers(EntityPlayer player, int amount, boolean temporary,

@@ -12,7 +12,7 @@ import thaumcraft.client.renderers.tile.TileFocalManipulatorRenderer;
 import thaumcraft.client.renderers.tile.TileThaumatoriumRenderer;
 
 @Mixin({ TileEldritchCapRenderer.class, TileFocalManipulatorRenderer.class, TileThaumatoriumRenderer.class })
-public abstract class MixinTESR_FixLeak extends TileEntitySpecialRenderer {
+abstract class MixinTESR_FixLeak extends TileEntitySpecialRenderer {
 
     @Shadow(remap = false)
     EntityItem entityitem;

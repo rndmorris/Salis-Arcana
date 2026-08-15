@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import thaumcraft.common.items.ItemEssence;
 
 @Mixin(ItemEssence.class)
-public class MixinItemEssence_CreativeItemConsumption {
+abstract class MixinItemEssence_CreativeItemConsumption {
 
     @Inject(
         method = "onItemUseFirst",

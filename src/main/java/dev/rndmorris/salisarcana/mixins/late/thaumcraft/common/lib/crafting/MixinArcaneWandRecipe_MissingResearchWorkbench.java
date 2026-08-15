@@ -13,7 +13,7 @@ import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.lib.crafting.ArcaneWandRecipe;
 
 @Mixin(ArcaneWandRecipe.class)
-public abstract class MixinArcaneWandRecipe_MissingResearchWorkbench implements IMultipleResearchArcaneRecipe {
+abstract class MixinArcaneWandRecipe_MissingResearchWorkbench implements IMultipleResearchArcaneRecipe {
 
     @Override
     public String[] salisArcana$getResearches(IInventory inv, World world, EntityPlayer player) {

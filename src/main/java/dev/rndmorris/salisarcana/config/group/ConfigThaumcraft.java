@@ -66,6 +66,14 @@ public class ConfigThaumcraft extends ConfigGroup {
         tendrils will be adjusted by their modifier: 20% more often when bright, 20% less often when pale, 50% less
         often when fading.""").setCategory(nodeBehaviorsCategory);
 
+    public final ToggleSetting unstableAspectDropsRequireLoadedChunks = new ToggleSetting(
+        this,
+        "unstableAspectDropsRequireLoadedChunks",
+        """
+            If true, unstable nodes not under the effects of a Node Stabilizer will not drain or spawn aspect orbs unless the nearby chunks needed to tick the spawned
+            orb are loaded. Additionally, aspect orbs will immediately despawn if they enter a chunk where they can't be ticked to further prevent their accumulation.""")
+            .setCategory(nodeBehaviorsCategory);
+
     //
     // Potion Ids
     //
@@ -201,6 +209,11 @@ public class ConfigThaumcraft extends ConfigGroup {
         "The maximum percentage of the crucible's total aspect count that will be removed per second.",
         4.2f).setMinValue(0.01f)
             .setMaxValue(100f);
+
+    public final ToggleSetting pauseTCParticlesWithGame = new ToggleSetting(
+        this,
+        "pauseTCParticlesWithGame",
+        "If true, Thaumcraft particles will behave like vanilla particles and pause when the game is paused.");
 
     @Override
     public @NotNull String getGroupName() {

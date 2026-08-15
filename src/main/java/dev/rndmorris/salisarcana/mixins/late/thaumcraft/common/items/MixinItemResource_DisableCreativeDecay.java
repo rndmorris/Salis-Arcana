@@ -15,7 +15,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import thaumcraft.common.items.ItemResource;
 
 @Mixin(ItemResource.class)
-public abstract class MixinItemResource_DisableCreativeDecay {
+abstract class MixinItemResource_DisableCreativeDecay {
 
     @WrapOperation(
         method = "onUpdate",

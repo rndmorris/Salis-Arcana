@@ -290,6 +290,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "preventInvalidFociOnWands",
         "Prevent wands with invalid foci NBT (from uninstalling add-ons, for example) from crashing the game.");
 
+    public final ToggleSetting portableHoleClientSync = new ToggleSetting(
+        this,
+        "portableHoleClientSync",
+        "Properly synchronize \"Wand Focus: Portable Hole\" between server and clients, preventing client-only ghost openings and ensuring multiplayer players see the effect.");
+
     public final ToggleSetting hiddenResearchCheckInventory = new ToggleSetting(
         this,
         "hiddenResearchCheckInventory",
@@ -339,6 +344,21 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "fixParticleEngineLeak",
         "Fix Thaumcraft's particle engine leaking the world instance");
+
+    public final ToggleSetting boreDecreaseCVisCheckFrequency = new ToggleSetting(
+        this,
+        "boreDecreaseCVisCheckFrequency",
+        "Lower frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.");
+
+    public final ToggleSetting allowDropsFromLiveLeaves = new ToggleSetting(
+        this,
+        "allowDropsFromLiveLeaves",
+        "Allow saplings to be dropped from magical leaves which are still connected to a log.");
+
+    public final ToggleSetting reservoirsUseArgInGetEssentiaType = new ToggleSetting(
+        this,
+        "reservoirsUseArgInGetEssentiaType",
+        "Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.");
 
     @Nonnull
     @Override
