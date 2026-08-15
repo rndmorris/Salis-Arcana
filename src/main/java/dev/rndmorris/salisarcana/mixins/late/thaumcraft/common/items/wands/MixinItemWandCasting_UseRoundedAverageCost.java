@@ -15,6 +15,11 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 @Mixin(ItemWandCasting.class)
 abstract class MixinItemWandCasting_UseRoundedAverageCost {
 
+    /**
+     * The original implementation calculates the new total as a {@code float} then truncates to an {@code int}
+     * for every aspect is touches. To avoid truncating I instead keep the new running total as a {@code float}.
+     * I skipped multiplying by {@code 100.0F} here because that can be factored out to the very end.
+     */
     @Definition(id = "tot", local = @Local(name = "tot", type = int.class))
     @Definition(id = "mod", local = @Local(name = "mod", type = float.class))
     @Expression("(float)tot + mod * 100.0")
@@ -24,6 +29,10 @@ abstract class MixinItemWandCasting_UseRoundedAverageCost {
         return original;
     }
 
+    /**
+     * Round our average to the nearest whole number for display purposes. This lets thaumium+silverwood
+     * scepters (actual value 79.something) be rounded up to 80.
+     */
     @Definition(id = "tot", local = @Local(name = "tot", type = int.class))
     @Definition(id = "num", local = @Local(name = "num", type = int.class))
     @Expression("tot / num")
