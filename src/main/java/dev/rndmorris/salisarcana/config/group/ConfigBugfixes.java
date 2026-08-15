@@ -355,6 +355,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "allowDropsFromLiveLeaves",
         "Allow saplings to be dropped from magical leaves which are still connected to a log.");
 
+    public final ToggleSetting fixWandAverageCostTooltip = new ToggleSetting(
+        this,
+        "fixWandAverageCostTooltip",
+        "Tweak how a wand's average vis cost is calculated to display a more accurate number. Example: Thaumium+Silverwood scepters (20% discount) should now show 80% instead of 79%.");
+
     @Nonnull
     @Override
     public String getGroupName() {
