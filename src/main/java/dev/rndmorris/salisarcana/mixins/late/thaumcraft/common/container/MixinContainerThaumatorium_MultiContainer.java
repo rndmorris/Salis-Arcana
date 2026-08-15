@@ -18,7 +18,7 @@ import thaumcraft.common.container.ContainerThaumatorium;
 import thaumcraft.common.tiles.TileThaumatorium;
 
 @Mixin(ContainerThaumatorium.class)
-public abstract class MixinContainerThaumatorium_MultiContainer extends Container implements IReconnectableContainer {
+abstract class MixinContainerThaumatorium_MultiContainer extends Container implements IReconnectableContainer {
 
     @Shadow(remap = false)
     private TileThaumatorium thaumatorium;

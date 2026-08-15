@@ -139,10 +139,8 @@ public class WandPartTooltipEventHandler {
     private static void addGTNHCoreStats(ItemTooltipEvent event, SceptreWrapper wrapper, boolean isStaff) {
         WandProps props = wrapper.getProps();
         event.toolTip.add(
-            StatCollector.translateToLocalFormatted(
-                "salisarcana:wand_rod.gtnh_wands_price",
-                props.getBaseCost(),
-                props.getCapCost()));
+            StatCollector
+                .translateToLocalFormatted("salisarcana:wand_rod.gtnh_wands_price", props.baseCost(), props.capCost()));
         event.toolTip.add(
             StatCollector.translateToLocalFormatted(
                 isStaff ? "salisarcana:wand_rod.gtnh_staffter_mult" : "salisarcana:wand_rod.gtnh_scepter_mult",

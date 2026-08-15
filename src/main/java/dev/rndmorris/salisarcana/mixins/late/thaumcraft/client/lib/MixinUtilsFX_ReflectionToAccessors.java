@@ -20,7 +20,7 @@ import dev.rndmorris.salisarcana.mixins.early.accessor.AccessorMinecraft;
 import thaumcraft.client.lib.UtilsFX;
 
 @Mixin(value = UtilsFX.class, remap = false)
-public class MixinUtilsFX_ReflectionToAccessors {
+abstract class MixinUtilsFX_ReflectionToAccessors {
     // Replace reflection with AT/accessors
 
     /**

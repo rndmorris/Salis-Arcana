@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import thaumcraft.common.blocks.BlockJar;
 
 @Mixin(BlockJar.class)
-public abstract class MixinBlockJar_PickBlock extends BlockContainer {
+abstract class MixinBlockJar_PickBlock extends BlockContainer {
 
     @Shadow(remap = false)
     public abstract ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune);

@@ -32,6 +32,16 @@ Use the increased vis costs from GTNHTCWands.
 
 # Baubles Expanded
 
-## Options: `focusPouchSlot`
+## Option: `focusPouchSlot`
 
 Add a special bauble slot specifically for the Focus Pouch.
+
+# Aspect Recipe Index
+
+## Option: `capReplacementNEIHandler`
+
+Register an NEI handler for the wand cap substitution feature. Requires _enabledreplaceWandCapsResearch to be enabled in salisarcana/enhancements.cfg.
+
+## Option: `coreReplacementNEIHandler`
+
+Register an NEI handler for the wand core substitution feature. Requires _enabledreplaceWandCoreResearch to be enabled in salisarcana/enhancements.cfg")

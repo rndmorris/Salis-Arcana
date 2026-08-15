@@ -13,7 +13,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.client.fx.ParticleEngine;
 
 @Mixin(value = ParticleEngine.class, remap = false)
-public class MixinParticleEngine_FixLeak {
+abstract class MixinParticleEngine_FixLeak {
 
     @Shadow
     private HashMap<Integer, ArrayList<EntityFX>>[] particles;

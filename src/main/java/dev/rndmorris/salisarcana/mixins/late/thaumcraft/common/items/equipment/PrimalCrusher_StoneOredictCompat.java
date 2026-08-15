@@ -15,7 +15,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 
 @Mixin(value = ItemPrimalCrusher.class, remap = false)
-public abstract class PrimalCrusher_StoneOredictCompat {
+abstract class PrimalCrusher_StoneOredictCompat {
 
     @Unique
     private int sa$stoneOreId = -1;

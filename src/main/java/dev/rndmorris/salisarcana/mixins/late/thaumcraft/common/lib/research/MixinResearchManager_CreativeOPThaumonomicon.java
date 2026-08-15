@@ -15,7 +15,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(ResearchManager.class)
-public class MixinResearchManager_CreativeOPThaumonomicon {
+abstract class MixinResearchManager_CreativeOPThaumonomicon {
 
     @WrapMethod(method = "consumeInkFromPlayer", remap = false)
     private static boolean creativeThaumonomiconInkCheck(EntityPlayer player, boolean doit,

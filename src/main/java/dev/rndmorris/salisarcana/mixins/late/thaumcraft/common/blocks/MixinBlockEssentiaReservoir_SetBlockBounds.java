@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thaumcraft.common.blocks.BlockEssentiaReservoir;
 
 @Mixin(BlockEssentiaReservoir.class)
-public abstract class MixinBlockEssentiaReservoir_SetBlockBounds extends BlockContainer {
+abstract class MixinBlockEssentiaReservoir_SetBlockBounds extends BlockContainer {
 
     protected MixinBlockEssentiaReservoir_SetBlockBounds(Material p_i45386_1_) {
         super(p_i45386_1_);

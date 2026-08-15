@@ -15,7 +15,7 @@ import thaumcraft.common.items.ItemEldritchObject;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(ItemEldritchObject.class)
-public class MixinItemEldritchObject_FakePlayerFix {
+abstract class MixinItemEldritchObject_FakePlayerFix {
 
     @WrapMethod(method = "onItemRightClick")
     private ItemStack cancelFakePlayer(ItemStack stack, World par2World, EntityPlayer player,

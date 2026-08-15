@@ -21,7 +21,7 @@ import thaumcraft.common.lib.events.CommandThaumcraft;
 import thaumcraft.common.lib.research.ResearchManager;
 
 @Mixin(CommandThaumcraft.class)
-public abstract class MixinCommandThaumcraft_TabCompletion extends CommandBase {
+abstract class MixinCommandThaumcraft_TabCompletion extends CommandBase {
 
     /**
      * @author Midnight145

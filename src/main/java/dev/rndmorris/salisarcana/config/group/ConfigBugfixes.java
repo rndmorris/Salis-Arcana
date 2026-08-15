@@ -345,6 +345,16 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixParticleEngineLeak",
         "Fix Thaumcraft's particle engine leaking the world instance");
 
+    public final ToggleSetting boreDecreaseCVisCheckFrequency = new ToggleSetting(
+        this,
+        "boreDecreaseCVisCheckFrequency",
+        "Lower frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.");
+
+    public final ToggleSetting allowDropsFromLiveLeaves = new ToggleSetting(
+        this,
+        "allowDropsFromLiveLeaves",
+        "Allow saplings to be dropped from magical leaves which are still connected to a log.");
+
     @Nonnull
     @Override
     public String getGroupName() {

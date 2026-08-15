@@ -7,6 +7,7 @@ import java.util.Collections;
 import org.jetbrains.annotations.NotNull;
 
 import dev.rndmorris.salisarcana.config.ConfigGroup;
+import dev.rndmorris.salisarcana.config.settings.FloatSetting;
 import dev.rndmorris.salisarcana.config.settings.IntSetting;
 import dev.rndmorris.salisarcana.config.settings.ToggleSetting;
 
@@ -64,6 +65,14 @@ public class ConfigThaumcraft extends ConfigGroup {
         If true, the rate at which tainted nodes will convert their surroundings to Tainted Lands and spawn taint
         tendrils will be adjusted by their modifier: 20% more often when bright, 20% less often when pale, 50% less
         often when fading.""").setCategory(nodeBehaviorsCategory);
+
+    public final ToggleSetting unstableAspectDropsRequireLoadedChunks = new ToggleSetting(
+        this,
+        "unstableAspectDropsRequireLoadedChunks",
+        """
+            If true, unstable nodes not under the effects of a Node Stabilizer will not drain or spawn aspect orbs unless the nearby chunks needed to tick the spawned
+            orb are loaded. Additionally, aspect orbs will immediately despawn if they enter a chunk where they can't be ticked to further prevent their accumulation.""")
+            .setCategory(nodeBehaviorsCategory);
 
     //
     // Potion Ids
@@ -173,6 +182,38 @@ public class ConfigThaumcraft extends ConfigGroup {
         "betterParticleEngine",
         "Improves the particle engine of Thaumcraft by removing unnecessary GL operations.")
             .setCategory(tc4PerformanceCategory);
+
+    public final ToggleSetting crucibleScalingAspectDecay = new ToggleSetting(
+        this,
+        "crucibleScalingAspectDecay",
+        """
+            If true, the crucible's contained aspects will decay at an increasing rate based on how overfull the crucible is.
+            All over full decay will break down compound aspects into one of their components.
+            """);
+
+    public final IntSetting crucibleAspectDecayStart = new IntSetting(
+        crucibleScalingAspectDecay,
+        "crucibleAspectDecayStart",
+        "The total aspect count of a crucible at which point the scaling aspect decay will start.",
+        200).setMinValue(0);
+
+    public final IntSetting crucibleAspectDecayRange = new IntSetting(
+        crucibleScalingAspectDecay,
+        "crucibleAspectDecayRange",
+        "The range, in aspect count, between the point scaling aspect decay starts and the point it reaches its maximum rate.",
+        800).setMinValue(0);
+
+    public final FloatSetting crucibleAspectDecayMaximumRate = new FloatSetting(
+        crucibleScalingAspectDecay,
+        "crucibleAspectDecayMaximumRate",
+        "The maximum percentage of the crucible's total aspect count that will be removed per second.",
+        4.2f).setMinValue(0.01f)
+            .setMaxValue(100f);
+
+    public final ToggleSetting pauseTCParticlesWithGame = new ToggleSetting(
+        this,
+        "pauseTCParticlesWithGame",
+        "If true, Thaumcraft particles will behave like vanilla particles and pause when the game is paused.");
 
     @Override
     public @NotNull String getGroupName() {

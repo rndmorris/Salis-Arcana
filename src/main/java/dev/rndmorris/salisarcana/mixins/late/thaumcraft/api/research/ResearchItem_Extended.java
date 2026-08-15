@@ -9,7 +9,7 @@ import thaumcraft.api.research.ResearchItem;
 
 @SuppressWarnings("AddedMixinMembersNamePattern")
 @Mixin(value = ResearchItem.class, remap = false)
-public abstract class ResearchItem_Extended implements IResearchItemExtended {
+abstract class ResearchItem_Extended implements IResearchItemExtended {
 
     @Shadow
     @Final

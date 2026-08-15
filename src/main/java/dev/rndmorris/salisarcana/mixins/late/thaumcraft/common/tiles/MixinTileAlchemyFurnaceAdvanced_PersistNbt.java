@@ -15,7 +15,7 @@ import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.tiles.TileAlchemyFurnaceAdvanced;
 
 @Mixin(value = TileAlchemyFurnaceAdvanced.class)
-public abstract class MixinTileAlchemyFurnaceAdvanced_PersistNbt extends TileThaumcraft {
+abstract class MixinTileAlchemyFurnaceAdvanced_PersistNbt extends TileThaumcraft {
 
     @Unique
     private final static String sa$keyCount = "salisarcana:count";

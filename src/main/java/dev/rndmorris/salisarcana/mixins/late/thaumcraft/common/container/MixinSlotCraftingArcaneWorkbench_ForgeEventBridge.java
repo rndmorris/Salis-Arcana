@@ -15,7 +15,7 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileMagicWorkbench;
 
 @Mixin(SlotCraftingArcaneWorkbench.class)
-public class MixinSlotCraftingArcaneWorkbench_ForgeEventBridge {
+abstract class MixinSlotCraftingArcaneWorkbench_ForgeEventBridge {
 
     @Shadow(remap = false)
     private EntityPlayer thePlayer;

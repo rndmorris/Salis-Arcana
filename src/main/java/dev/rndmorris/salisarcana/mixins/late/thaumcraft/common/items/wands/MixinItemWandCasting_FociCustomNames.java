@@ -15,7 +15,7 @@ import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 @Mixin(ItemWandCasting.class)
-public abstract class MixinItemWandCasting_FociCustomNames {
+abstract class MixinItemWandCasting_FociCustomNames {
 
     @WrapOperation(
         method = "addInformation",

@@ -13,7 +13,7 @@ import com.llamalad7.mixinextras.sugar.Cancellable;
 import thaumcraft.common.blocks.BlockTube;
 
 @Mixin(BlockTube.class)
-public abstract class MixinBlockTube_BBoxConserveBlockBounds {
+abstract class MixinBlockTube_BBoxConserveBlockBounds {
 
     @Redirect(
         method = "getSelectedBoundingBoxFromPool",

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import thaumcraft.common.blocks.BlockCrystal;
 
 @Mixin(BlockCrystal.class)
-public abstract class MixinBlockCrystal_SilkTouch extends Block {
+abstract class MixinBlockCrystal_SilkTouch extends Block {
 
     protected MixinBlockCrystal_SilkTouch(Material materialIn) {
         super(materialIn);

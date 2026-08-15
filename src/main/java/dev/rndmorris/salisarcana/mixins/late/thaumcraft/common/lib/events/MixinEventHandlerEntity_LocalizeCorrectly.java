@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import thaumcraft.common.lib.events.EventHandlerEntity;
 
 @Mixin(EventHandlerEntity.class)
-public class MixinEventHandlerEntity_LocalizeCorrectly {
+abstract class MixinEventHandlerEntity_LocalizeCorrectly {
 
     @Unique
     private static final ChatStyle salisArcana$disableFlyStyle = new ChatStyle().setColor(EnumChatFormatting.GRAY)

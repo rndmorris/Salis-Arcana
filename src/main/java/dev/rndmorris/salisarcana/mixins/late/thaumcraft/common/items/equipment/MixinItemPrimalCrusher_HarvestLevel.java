@@ -13,7 +13,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import thaumcraft.common.items.equipment.ItemPrimalCrusher;
 
 @Mixin(value = ItemPrimalCrusher.class, remap = false)
-public class MixinItemPrimalCrusher_HarvestLevel {
+abstract class MixinItemPrimalCrusher_HarvestLevel {
 
     @WrapOperation(
         method = "onBlockDestroyed",

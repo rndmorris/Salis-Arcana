@@ -17,7 +17,7 @@ import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.client.gui.GuiResearchRecipe;
 
 @Mixin(value = GuiResearchBrowser.class)
-public class MixinGuiResearchBrowser_RightClickClose extends GuiScreen {
+abstract class MixinGuiResearchBrowser_RightClickClose extends GuiScreen {
 
     @Shadow(remap = false)
     protected double guiMapX;

@@ -14,7 +14,7 @@ import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.foci.ItemFocusExcavation;
 
 @Mixin(value = ItemFocusExcavation.class, remap = false)
-public class MixinItemFocusExcavation_DeterministicCost extends ItemFocusBasic {
+abstract class MixinItemFocusExcavation_DeterministicCost extends ItemFocusBasic {
 
     @Unique
     private static final AspectList sa$silkTouchCost = new AspectList().add(Aspect.AIR, 1)

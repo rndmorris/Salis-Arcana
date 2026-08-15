@@ -9,5 +9,5 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 // todo: break me into multiple files to fit package structure
 
 @Mixin(value = { ItemAmuletVis.class, ItemWandCasting.class }, remap = false)
-public abstract class MixinAmuletWand_AddInterface implements IVisContainer {
+abstract class MixinAmuletWand_AddInterface implements IVisContainer {
 }

@@ -17,7 +17,7 @@ import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.tiles.TileEldritchAltar;
 
 @Mixin(value = TileEldritchAltar.class, remap = false)
-public abstract class MixinTileEldritchAltar_SpawnMobs extends TileThaumcraft {
+abstract class MixinTileEldritchAltar_SpawnMobs extends TileThaumcraft {
 
     @WrapOperation(
         method = { "spawnGuards", "spawnGuardian" },

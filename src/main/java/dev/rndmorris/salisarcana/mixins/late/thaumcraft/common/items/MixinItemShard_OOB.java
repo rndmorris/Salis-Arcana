@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import thaumcraft.common.items.ItemShard;
 
 @Mixin(ItemShard.class)
-public class MixinItemShard_OOB extends Item {
+abstract class MixinItemShard_OOB extends Item {
 
     @WrapMethod(method = "getColorFromItemStack")
     public int preventOOBColor(ItemStack stack, int par2, Operation<Integer> original) {

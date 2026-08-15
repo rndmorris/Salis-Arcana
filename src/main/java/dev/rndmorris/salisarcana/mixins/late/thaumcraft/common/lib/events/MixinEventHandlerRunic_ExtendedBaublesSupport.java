@@ -11,7 +11,7 @@ import baubles.api.BaublesApi;
 import thaumcraft.common.lib.events.EventHandlerRunic;
 
 @Mixin(value = EventHandlerRunic.class, remap = false)
-public abstract class MixinEventHandlerRunic_ExtendedBaublesSupport {
+abstract class MixinEventHandlerRunic_ExtendedBaublesSupport {
 
     @ModifyConstant(method = "livingTick", constant = @Constant(intValue = 4, ordinal = 1), remap = false)
     private int useAllBaubleSlots(int value, LivingEvent.LivingUpdateEvent event) {

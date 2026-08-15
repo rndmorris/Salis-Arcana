@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import thaumcraft.client.renderers.tile.TileRunicMatrixRenderer;
 
 @Mixin(value = TileRunicMatrixRenderer.class, remap = false)
-public class MixinTileRunicMatrixRenderer_StableAltar {
+abstract class MixinTileRunicMatrixRenderer_StableAltar {
 
     @ModifyVariable(method = "renderInfusionMatrix", name = "instability", at = @At("STORE"))
     private float limitInstability(float value) {

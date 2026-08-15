@@ -9,7 +9,7 @@ import tuhljin.automagy.config.ModResearchItem;
 
 @SuppressWarnings("AddedMixinMembersNamePattern")
 @Mixin(value = ModResearchItem.class, remap = false)
-public abstract class ModResearchItem_Extended extends ResearchItem implements IResearchItemExtended {
+abstract class ModResearchItem_Extended extends ResearchItem implements IResearchItemExtended {
 
     public ModResearchItem_Extended(String key, String category) {
         super(key, category);

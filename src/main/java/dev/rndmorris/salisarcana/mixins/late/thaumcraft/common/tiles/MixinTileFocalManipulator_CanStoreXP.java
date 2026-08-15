@@ -16,7 +16,7 @@ import thaumcraft.common.tiles.TileFocalManipulator;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
 
 @Mixin(TileFocalManipulator.class)
-public class MixinTileFocalManipulator_CanStoreXP extends TileThaumcraftInventory implements IFocalManipulatorWithXP {
+abstract class MixinTileFocalManipulator_CanStoreXP extends TileThaumcraftInventory implements IFocalManipulatorWithXP {
 
     @Unique
     private int salisArcana$storedXP = 0;

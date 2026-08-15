@@ -16,7 +16,7 @@ import thaumcraft.common.container.ContainerFocalManipulator;
 import thaumcraft.common.tiles.TileFocalManipulator;
 
 @Mixin(ContainerFocalManipulator.class)
-public abstract class MixinContainerFocalManipulator_StoreXP extends Container {
+abstract class MixinContainerFocalManipulator_StoreXP extends Container {
 
     @Shadow(remap = false)
     private TileFocalManipulator table;

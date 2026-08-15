@@ -13,7 +13,7 @@ import dev.rndmorris.salisarcana.network.NetworkHandler;
 import thaumcraft.client.gui.GuiFocalManipulator;
 
 @Mixin(GuiFocalManipulator.class)
-public class MixinGuiFocalManipulator_UseExtendedEnchantmentPacket {
+abstract class MixinGuiFocalManipulator_UseExtendedEnchantmentPacket {
 
     @WrapOperation(
         method = "mouseClicked",
