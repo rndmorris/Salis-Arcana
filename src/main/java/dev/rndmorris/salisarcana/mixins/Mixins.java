@@ -240,6 +240,13 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.preventInvalidFociOnWands)
         .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_InvalidFoci")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    PORTABLE_HOLE_CLIENT_DESYNC(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.portableHoleClientSync)
+        .addCommonMixins(
+            "thaumcraft.common.blocks.MixinBlockHole_CreateTileEntity",
+            "thaumcraft.common.items.wands.foci.MixinItemFocusPortableHole_Sync",
+            "thaumcraft.common.tiles.MixinTileHole_OpeningBurst")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     HIDDEN_RESEARCH_WORLD_RANDOM(new SalisBuilder()
         .applyIf(SalisConfig.thaum.hiddenResearchUseWorldRandom)
         .addCommonMixins("thaumcraft.common.lib.research.MixinResearchManager_RandomizeProperly")
@@ -663,6 +670,13 @@ public enum Mixins implements IMixins {
     CRUCIBLE_SCALING_ASPECT_DECAY(new SalisBuilder()
         .applyIf(SalisConfig.thaum.crucibleScalingAspectDecay)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileCrucible_ScalingAspectDecay")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    // Debug
+
+    DEBUG_LOG_WARP_STACK_TRACE(new SalisBuilder()
+        .applyIf(SalisConfig.debug.logWarpSources)
+        .addCommonMixins("thaumcraft.common.lib.research.MixinPlayerKnowledge_DebugLogWarp")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Required

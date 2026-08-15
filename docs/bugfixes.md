@@ -383,6 +383,12 @@ Lowers the frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup,
 
 Allow saplings to be dropped from magical leaves which are still connected to a log (those that cannot decay over time).
 
+## Fix Portable Hole focus client sync
+
+**Config option:** `portableHoleClientSync`
+
+Properly synchronizes the holes creates with the Portable Hole focus to the client. This prevents ghost blocks when the player moves the camera while using the focus. Also makes other clients in multiplayer display the portable hole visual effect.
+
 ## Reservoirs Correctly Return Essentia Type
 
 **Config option:** `reservoirsUseArgInGetEssentiaType`

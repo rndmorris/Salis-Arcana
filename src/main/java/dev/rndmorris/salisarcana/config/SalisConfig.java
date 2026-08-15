@@ -11,6 +11,7 @@ import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.config.group.ConfigAddons;
 import dev.rndmorris.salisarcana.config.group.ConfigBugfixes;
 import dev.rndmorris.salisarcana.config.group.ConfigCommands;
+import dev.rndmorris.salisarcana.config.group.ConfigDebug;
 import dev.rndmorris.salisarcana.config.group.ConfigFeatures;
 import dev.rndmorris.salisarcana.config.group.ConfigModCompat;
 import dev.rndmorris.salisarcana.config.group.ConfigThaumcraft;
@@ -27,6 +28,7 @@ public class SalisConfig {
     public static final ConfigFeatures features = new ConfigFeatures();
     public static final ConfigModCompat modCompat = new ConfigModCompat();
     public static final ConfigThaumcraft thaum = new ConfigThaumcraft();
+    public static final ConfigDebug debug = new ConfigDebug();
 
     public static boolean enableVersionChecking;
 
