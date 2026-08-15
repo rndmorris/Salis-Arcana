@@ -325,8 +325,7 @@ public enum Mixins implements IMixins {
     RESERVOIR_GETESSENTIATYPE_USES_ARG(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.reservoirsUseArgInGetEssentiaType)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileEssentiaReservoir_UseArgInGetEssentiaType")
-        .addRequiredMod(TargetedMod.THAUMCRAFT)
-    ),
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
