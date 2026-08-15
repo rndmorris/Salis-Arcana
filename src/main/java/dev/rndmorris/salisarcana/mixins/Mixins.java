@@ -321,8 +321,11 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.allowDropsFromLiveLeaves)
         .addCommonMixins("thaumcraft.common.blocks.MixinBlockMagicalLeaves_AllowConnectedLeafDrops")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
-
-    SHOW_TOT_AND_NUM(new SalisBuilder()
+    RESERVOIR_GETESSENTIATYPE_USES_ARG(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.reservoirsUseArgInGetEssentiaType)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileEssentiaReservoir_UseArgInGetEssentiaType")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FIX_AVG_VIS_COST_CALCULATION(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixWandAverageCostTooltip)
         .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_UseRoundedAverageCost")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
