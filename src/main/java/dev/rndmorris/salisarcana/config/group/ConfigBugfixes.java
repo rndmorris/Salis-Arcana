@@ -355,6 +355,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "allowDropsFromLiveLeaves",
         "Allow saplings to be dropped from magical leaves which are still connected to a log.");
 
+    public final ToggleSetting reservoirsUseArgInGetEssentiaType = new ToggleSetting(
+        this,
+        "reservoirsUseArgInGetEssentiaType",
+        "Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.");
+
     @Nonnull
     @Override
     public String getGroupName() {

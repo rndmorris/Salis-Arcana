@@ -388,3 +388,9 @@ Allow saplings to be dropped from magical leaves which are still connected to a 
 **Config option:** `portableHoleClientSync`
 
 Properly synchronizes the holes creates with the Portable Hole focus to the client. This prevents ghost blocks when the player moves the camera while using the focus. Also makes other clients in multiplayer display the portable hole visual effect.
+
+## Reservoirs Correctly Return Essentia Type
+
+**Config option:** `reservoirsUseArgInGetEssentiaType`
+
+Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.

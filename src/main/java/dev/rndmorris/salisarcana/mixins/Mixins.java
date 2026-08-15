@@ -322,6 +322,10 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.blocks.MixinBlockMagicalLeaves_AllowConnectedLeafDrops")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
+    RESERVOIR_GETESSENTIATYPE_USES_ARG(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.reservoirsUseArgInGetEssentiaType)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileEssentiaReservoir_UseArgInGetEssentiaType")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
