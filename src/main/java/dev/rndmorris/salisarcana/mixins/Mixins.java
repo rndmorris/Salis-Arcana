@@ -24,6 +24,10 @@ public enum Mixins implements IMixins {
     THAUM_ACCESSORS(new SalisBuilder()
         .addCommonMixins("thaumcraft.common.container.AccessorContainerFocusPouch")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    CAPTURE_FOCUS_KEYBIND(new SalisBuilder()
+        .addClientMixins("thaumcraft.common.lib.events.MixinKeyHandler_CaptureFocusKeybind")
+        .setApplyIf(() -> !MixinModCompat.multiKeyBindsPermitted())
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Bugfixes
     ADVANCED_ARCANE_FURNACE_SAVE_NBT(new SalisBuilder()

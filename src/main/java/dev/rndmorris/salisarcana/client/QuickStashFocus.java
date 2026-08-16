@@ -13,6 +13,7 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
+import dev.rndmorris.salisarcana.common.compat.MixinModCompat;
 import dev.rndmorris.salisarcana.lib.WandFocusHelper;
 import dev.rndmorris.salisarcana.mixins.early.accessor.AccessorCreativeSlot;
 import dev.rndmorris.salisarcana.network.MessageQuickStashFocus;
@@ -20,13 +21,17 @@ import dev.rndmorris.salisarcana.network.NetworkHandler;
 
 public final class QuickStashFocus {
 
-    public static final KeyBinding KEYBIND = new KeyBinding(
-        "salisarcana:keybind.quick_stash_focus",
-        Keyboard.KEY_F,
-        "salisarcana:keybind_category");
+    public static KeyBinding KEYBIND;
 
     public static void register() {
-        ClientRegistry.registerKeyBinding(KEYBIND);
+        // If none of these mods are present, use the Thaumcraft keybind instead.
+        if (MixinModCompat.multiKeyBindsPermitted()) {
+            KEYBIND = new KeyBinding(
+                "salisarcana:keybind.quick_stash_focus",
+                Keyboard.KEY_F,
+                "salisarcana:keybind_category");
+            ClientRegistry.registerKeyBinding(KEYBIND);
+        }
 
         FMLCommonHandler.instance()
             .bus()

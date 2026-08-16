@@ -17,6 +17,9 @@ public enum TargetedMod implements ITargetMod {
     BAUBLES_EXPANDED("Baubles|Expanded"),
     UNDERGROUND_BIOMES("UndergroundBiomes"),
     NOT_ENOUGH_ITEMS("NotEnoughItems", "codechicken.nei.asm.NEICorePlugin"),
+    HODGEPODGE("hodgepodge"),
+    CONTROLLING("controlling"),
+    MODERN_KEYBINDING("mkb"),
     ANGELICA("angelica"),
     ASPECT_RECIPE_INDEX("aspectrecipeindex");
 

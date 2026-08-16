@@ -262,7 +262,7 @@ Hovering over an unknown aspect inside the Research Table will show a tooltip wi
 
 Add a keybind to move a Wand Focus from your hand (while in-game) or a hovered-over accessible slot (while in a GUI) into the player's Focus Pouch(es).
 
-Defaults to F, same as the "Switch Wand Focus" keybind.
+Defaults to F, same as the "Switch Wand Focus" keybind. If there are no mods loaded that allow two keybinds to share a key (Hodgepodge, Not Enough Items, )
 
 # Enhancements - Infusion
 
