@@ -28,6 +28,9 @@ abstract class MixinBlockUtils_PreserveTileEntityDrops {
         Operation<Boolean> original, @Local(name = "flag1") boolean canHarvest) {
         if (!canHarvest) return original.call(world, x, y, z, player);
 
+        // Mirrors Thaumcraft's removeBlock, except willHarvest is true so tile entity data remains
+        // available until BlockUtils calls harvestBlock. The block variable cannot be null here because
+        // canHarvest is only true when Thaumcraft found a valid block.
         Block block = world.getBlock(x, y, z);
         int metadata = world.getBlockMetadata(x, y, z);
         block.onBlockHarvested(world, x, y, z, metadata, player);

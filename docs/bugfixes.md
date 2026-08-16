@@ -141,6 +141,12 @@ When performing a mundane crafting recipe in an Arcane Workbench, it will preten
 
 Use Forge's fishing lists to determine what fish, junk, and treasure a fishing golem catches.
 
+## Preserve Tile Entity Data During Thaumcraft Harvesting
+
+**Config option:** `preserveTileEntityDrops`
+
+Preserves tile entity data while Thaumcraft harvests blocks, preventing the Primal Crusher from creating incorrect drops.
+
 ## Rotated Silverwood Logs Display Correct Name in WAILA
 
 **Config option:** `silverwoodLogCorrectName`
