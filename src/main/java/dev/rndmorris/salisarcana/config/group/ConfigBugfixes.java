@@ -360,6 +360,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "reservoirsUseArgInGetEssentiaType",
         "Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.");
 
+    public final ToggleSetting fixWandAverageCostTooltip = new ToggleSetting(
+        this,
+        "fixWandAverageCostTooltip",
+        "Tweak how a wand's average vis cost is calculated to display a more accurate number. Example: Thaumium+Silverwood scepters (20% discount) should now show 80% instead of 79%.");
+
     @Nonnull
     @Override
     public String getGroupName() {

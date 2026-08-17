@@ -394,3 +394,9 @@ Properly synchronizes the holes creates with the Portable Hole focus to the clie
 **Config option:** `reservoirsUseArgInGetEssentiaType`
 
 Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.
+
+## Fix Wand Average Cost Tooltips
+
+**Config option:** `fixWandAverageCostTooltip`
+
+Tweak how a wand's average vis cost is calculated to display a more accurate number. Example: Thaumium+Silverwood scepters (20% discount) should now show 80% instead of 79%.
