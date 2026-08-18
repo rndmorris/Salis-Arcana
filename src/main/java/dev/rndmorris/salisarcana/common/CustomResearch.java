@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizons.tcwands.api.TCWandAPI;
@@ -37,6 +38,7 @@ public class CustomResearch {
     public static ResearchItem replaceCapsResearch;
     public static ResearchItem replaceCoreResearch;
     public static ResearchItem containerScanResearch;
+    public static ResearchItem infusionPreviewResearch;
 
     public static void init() {
         final var wandItem = (ItemWandCasting) ConfigItems.itemWandCasting;
@@ -72,6 +74,8 @@ public class CustomResearch {
         containerScanResearch = maybeRegister(
             SalisConfig.features.thaumometerScanContainersResearch,
             Item.getItemFromBlock(Blocks.chest));
+
+        infusionPreviewResearch = maybeRegister(SalisConfig.features.infusionPreviewResearch, ConfigItems.itemGoggles);
     }
 
     private static IArcaneRecipe[][] exampleCapRecipes() {
@@ -309,6 +313,9 @@ public class CustomResearch {
             new ItemStack(placeholderItem, 0, OreDictionary.WILDCARD_VALUE)).setConcealed()
                 .setParents(settings.parentResearches)
                 .setSpecial();
+        if (settings.hiddenParentResearches != null && settings.hiddenParentResearches.length > 0) {
+            research.setParentsHidden(settings.hiddenParentResearches);
+        }
         if (settings.autoUnlock) {
             research.setStub();
             for (String parentResearch : settings.parentResearches) {
@@ -330,7 +337,11 @@ public class CustomResearch {
             ThaumcraftApi.addWarpToResearch(fullKey, settings.warp);
         }
         final var pages = new ArrayList<ResearchPage>();
-        pages.add(new ResearchPage("tc.research_page." + fullKey + ".0"));
+        for (int i = 0;; i++) {
+            final var pageKey = "tc.research_page." + fullKey + "." + i;
+            if (i > 0 && !StatCollector.canTranslate(pageKey)) break;
+            pages.add(new ResearchPage(pageKey));
+        }
 
         for (var recipeSet : recipeSets) {
             if (recipeSet.length < 1) {

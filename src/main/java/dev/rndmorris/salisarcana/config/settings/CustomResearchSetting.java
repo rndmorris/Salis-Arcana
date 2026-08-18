@@ -19,6 +19,7 @@ public class CustomResearchSetting extends Setting {
     public int difficulty;
     public int warp;
     public String[] parentResearches;
+    public String[] hiddenParentResearches;
     public boolean purchasable;
     public boolean autoUnlock;
 
@@ -32,6 +33,7 @@ public class CustomResearchSetting extends Setting {
         this.researchCol = researchInfo.getResearchCol();
         this.researchRow = researchInfo.getResearchRow();
         this.parentResearches = researchInfo.getParents();
+        this.hiddenParentResearches = researchInfo.getHiddenParents();
         this.difficulty = researchInfo.getDifficulty();
         this.autoUnlock = researchInfo.getAutoUnlock();
         this.aspectStrings = researchInfo.getResearchAspects();
@@ -73,6 +75,12 @@ public class CustomResearchSetting extends Setting {
             this.getCategory(),
             this.parentResearches,
             "The research entry IDs of the parent research entries");
+
+        this.hiddenParentResearches = configuration.getStringList(
+            this.name + "HiddenParents",
+            this.getCategory(),
+            this.hiddenParentResearches,
+            "The research entry IDs of parents that gate the research but are not drawn as arrows in the Thaumonomicon");
 
         this.purchasable = configuration.getBoolean(
             this.name + "Purchasable",
@@ -152,6 +160,7 @@ public class CustomResearchSetting extends Setting {
         private String researchCategory;
         private String researchName;
         private String[] researchParents = new String[0];
+        private String[] researchParentsHidden = new String[0];
         private boolean purchasable = false;
         private String[] researchAspects = new String[0];
         private boolean autoUnlock = false;
@@ -186,6 +195,11 @@ public class CustomResearchSetting extends Setting {
 
         public ResearchInfo setParents(String... parentResearch) {
             this.researchParents = parentResearch;
+            return this;
+        }
+
+        public ResearchInfo setHiddenParents(String... parentResearch) {
+            this.researchParentsHidden = parentResearch;
             return this;
         }
 
@@ -232,6 +246,10 @@ public class CustomResearchSetting extends Setting {
 
         public String[] getParents() {
             return this.researchParents;
+        }
+
+        public String[] getHiddenParents() {
+            return this.researchParentsHidden;
         }
 
         public boolean isPurchasable() {
