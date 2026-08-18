@@ -175,6 +175,11 @@ public class ConfigThaumcraft extends ConfigGroup {
         "Improves the particle engine of Thaumcraft by removing unnecessary GL operations.")
             .setCategory(tc4PerformanceCategory);
 
+    public final ToggleSetting speedupPotionAspectRegistration = new ToggleSetting(
+        this,
+        "speedupPotionAspectRegistration",
+        "Cache equivalent potion effects during Thaumcraft aspect registration.").setCategory(tc4PerformanceCategory);
+
     public final ToggleSetting crucibleScalingAspectDecay = new ToggleSetting(
         this,
         "crucibleScalingAspectDecay",
