@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import dev.rndmorris.salisarcana.client.QuickStashFocus;
 import thaumcraft.common.lib.events.KeyHandler;
 
-@Mixin(KeyHandler.class)
+@Mixin(value = KeyHandler.class, remap = false)
 abstract class MixinKeyHandler_CaptureFocusKeybind {
 
     @Shadow
