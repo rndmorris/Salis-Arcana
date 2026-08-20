@@ -77,7 +77,7 @@ Reset the list of things a player has scanned, allowing those things to be scann
 
 **Usage:**
 
-`/salisarcana-forget-scanned [--player <username>] [--objects] [--entities] [--nodes] [--all] [--aspects <...>] [--all-aspects] [--hand] [--inventory] [--looking] [--container] `
+`/salisarcana-forget-scanned [--player <username>] [--objects] [--entities] [--nodes] [--all] [--hand] [--inventory] [--looking] [--container] `
 
 **Arguments:**
 
