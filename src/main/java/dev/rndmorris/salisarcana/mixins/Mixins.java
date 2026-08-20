@@ -21,6 +21,9 @@ public enum Mixins implements IMixins {
         .addExcludedMod(TargetedMod.NOT_ENOUGH_ITEMS)),
 
     // Late Accessors
+    // These mixins do not cause any visible changes to the execution of Thaumcraft code, meaning that conflicts are
+    // highly unlikely. Furthermore, these mixins being always applied allows for focus quick-stashing to be dynamically
+    // enabled & disabled in the future.
     THAUM_ACCESSORS(new SalisBuilder()
         .addCommonMixins("thaumcraft.common.container.AccessorContainerFocusPouch")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
