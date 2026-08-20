@@ -316,6 +316,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.thaum.betterParticleEngine)
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_SkipRendering")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    SPEEDUP_POTION_ASPECT_REGISTRATION(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.speedupPotionAspectRegistration)
+        .addCommonMixins("thaumcraft.common.config.MixinConfigAspects_SpeedupPotionAspects")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_PARTICLE_ENGINE_LEAK(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixParticleEngineLeak)
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_FixLeak")

@@ -134,3 +134,6 @@ Improves the performance of the aspect tooltips by rewriting its logic.
 
 ### Config Option: `betterParticleEngine`
 Improves the particle engine of Thaumcraft by removing unnecessary GL operations.
+
+### Config Option: `speedupPotionAspectRegistration`
+Caches equivalent potion effects during Thaumcraft aspect registration.
