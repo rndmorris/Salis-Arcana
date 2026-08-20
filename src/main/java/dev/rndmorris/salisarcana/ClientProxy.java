@@ -8,11 +8,14 @@ import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import dev.rndmorris.salisarcana.client.QuickStashFocus;
 import dev.rndmorris.salisarcana.client.ThaumicInventoryScanner;
 import dev.rndmorris.salisarcana.client.handlers.GuiHandler;
+import dev.rndmorris.salisarcana.client.handlers.SalisContainerInputHandler;
 import dev.rndmorris.salisarcana.common.compat.nei.IMCForNEI;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.WandPartTooltipEventHandler;
+import dev.rndmorris.salisarcana.mixins.TargetedMod;
 
 public class ClientProxy extends CommonProxy {
 
@@ -30,6 +33,12 @@ public class ClientProxy extends CommonProxy {
         }
         if (SalisConfig.modCompat.aspectRecipeIndex.isEnabled()) {
             IMCForNEI.IMCSender();
+        }
+        if (TargetedMod.NOT_ENOUGH_ITEMS.isLoaded()) {
+            SalisContainerInputHandler.register();
+        }
+        if (SalisConfig.features.quickStashFocus.isEnabled()) {
+            QuickStashFocus.register();
         }
         new GuiHandler();
     }

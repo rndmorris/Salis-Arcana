@@ -15,8 +15,22 @@ public enum Mixins implements IMixins {
     // spotless:off
     // Early Mixins
     ACCESSORS(new SalisBuilder(Phase.EARLY)
-        .addCommonMixins("accessor.AccessorGuiContainer")
-        .addClientMixins("accessor.AccessorMinecraft")),
+        .addClientMixins("accessor.AccessorGuiContainer", "accessor.AccessorMinecraft", "accessor.AccessorCreativeSlot")),
+    VANILLA_GUI_KEY_TYPED(new SalisBuilder(Phase.EARLY)
+        .addClientMixins("gui.MixinGuiContainer_HandleKeyTyped")
+        .addExcludedMod(TargetedMod.NOT_ENOUGH_ITEMS)),
+
+    // Late Accessors
+    // These mixins do not cause any visible changes to the execution of Thaumcraft code, meaning that conflicts are
+    // highly unlikely. Furthermore, these mixins being always applied allows for focus quick-stashing to be dynamically
+    // enabled & disabled in the future.
+    THAUM_ACCESSORS(new SalisBuilder()
+        .addCommonMixins("thaumcraft.common.container.AccessorContainerFocusPouch")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    CAPTURE_FOCUS_KEYBIND(new SalisBuilder()
+        .addClientMixins("thaumcraft.common.lib.events.MixinKeyHandler_CaptureFocusKeybind")
+        .setApplyIf(() -> !MixinModCompat.multiKeyBindsPermitted())
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Bugfixes
     ADVANCED_ARCANE_FURNACE_SAVE_NBT(new SalisBuilder()
