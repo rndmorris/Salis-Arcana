@@ -165,6 +165,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.upgradedFocusVisCost)
         .addCommonMixins("thaumcraft.api.wands.MixinItemFocusBasic_WandUpgradeLevel")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_REMOVE_CIRCULAR_CALL_PATCH(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixNodeRemovingCircularCall)
+        .addCommonMixins("thaumcraft.api.visnet.MixinTileVisNode_onRemoveThisNode")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     JAR_NO_CREATIVE_DROPS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.jarNoCreativeDrops)
         .addCommonMixins("thaumcraft.common.blocks.MixinBlockJar_NoCreativeDrops")

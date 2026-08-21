@@ -370,6 +370,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixWandAverageCostTooltip",
         "Tweak how a wand's average vis cost is calculated to display a more accurate number. Example: Thaumium+Silverwood scepters (20% discount) should now show 80% instead of 79%.");
 
+    public final ToggleSetting fixNodeRemovingCircularCall = new ToggleSetting(
+        this,
+        "fixNodeRemovingCircularCall",
+        "Fix SOF from energizing bee empowered node caused deadlock.");
+
     @Nonnull
     @Override
     public String getGroupName() {
