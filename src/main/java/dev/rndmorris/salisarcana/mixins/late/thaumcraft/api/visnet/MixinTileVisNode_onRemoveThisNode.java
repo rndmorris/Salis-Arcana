@@ -8,20 +8,20 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import thaumcraft.api.visnet.TileVisNode;
 
 @Mixin(TileVisNode.class)
-public class MixinTileVisNode_onRemoveThisNode {
+abstract class MixinTileVisNode_onRemoveThisNode {
 
-    private static final ThreadLocal<Boolean> isRemoving = ThreadLocal.withInitial(() -> false);
+    private static final ThreadLocal<Boolean> salisarcana$isRemoving = ThreadLocal.withInitial(() -> false);
 
     @WrapMethod(method = "removeThisNode", remap = false)
     private void guardCircularCall(Operation<Void> original) {
-        if (isRemoving.get()) {
+        if (salisarcana$isRemoving.get()) {
             return;
         }
-        isRemoving.set(true);
+        salisarcana$isRemoving.set(true);
         try {
             original.call();
         } finally {
-            isRemoving.remove();
+            salisarcana$isRemoving.remove();
         }
     }
 }
