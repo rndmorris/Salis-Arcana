@@ -373,7 +373,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting fixNodeRemovingCircularCall = new ToggleSetting(
         this,
         "fixNodeRemovingCircularCall",
-        "Fix SOF from removing node TE caused circular calling.");
+        "Fix SOF from energizing bee empowered node caused deadlock.");
 
     @Nonnull
     @Override
