@@ -197,7 +197,7 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.fixBlockBoundsAlterations)
         .addCommonMixins("thaumcraft.common.blocks.MixinBlock_CollisionConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockCandle_SetBlockBounds",
             "thaumcraft.common.blocks.MixinBlockChestHungry_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockEssentiaReservoir_SetBlockBounds",
-            "thaumcraft.common.blocks.MixinBlockJar_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockLoot_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockArcaneFurnace_AddCollisionAABB")
+            "thaumcraft.common.blocks.MixinBlockJar_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockLoot_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockArcaneFurnace_AddCollisionAABB", "thaumcraft.common.blocks.MixinBlockWoodenDevice_SetBlockBounds")
         .addClientMixins("thaumcraft.client.renderers.block.MixinBlockRenderer_ConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockTube_BBoxConserveBlockBounds",
             "thaumcraft.client.renderers.block.MixinBlockWoodenDeviceRenderer_ApplyPressurePlateBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
