@@ -34,14 +34,13 @@
  * For more details, see https://docs.gradle.org/8.0.1/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
 dependencies {
-    api("com.github.GTNewHorizons:NotEnoughItems:2.8.40-GTNH:dev")
-    runtimeOnly("com.github.GTNewHorizons:waila:1.9.15:dev@jar")
+    devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.93-GTNH:dev")
+    runtimeOnlyNonPublishable("com.github.GTNewHorizons:waila:1.9.15:dev@jar")
     api("com.github.GTNewHorizons:Baubles-Expanded:2.2.6-GTNH:dev")
     api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     compileOnly(rfg.deobf("curse.maven:tc4tweaks-431297:6321233"))
     // devOnlyNonPublishable(rfg.deobf("curse.maven:tc4tweaks-431297:6321233"))
     devOnlyNonPublishable("com.github.GTNewHorizons:AspectRecipeIndex:1.0.14:dev")
-    runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.91-GTNH:dev")
     compileOnly("curse.maven:hodgepodge-688899:6039713")
     compileOnly("maven.modrinth:bugtorch:1.2.13")
     compileOnly(rfg.deobf("maven.modrinth:etfuturum:2.6.2"))

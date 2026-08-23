@@ -141,6 +141,12 @@ When performing a mundane crafting recipe in an Arcane Workbench, it will preten
 
 Use Forge's fishing lists to determine what fish, junk, and treasure a fishing golem catches.
 
+## Preserve Tile Entity Data During Thaumcraft Harvesting
+
+**Config option:** `preserveTileEntityDrops`
+
+Preserves tile entity data while Thaumcraft harvests blocks, preventing the Primal Crusher from creating incorrect drops.
+
 ## Rotated Silverwood Logs Display Correct Name in WAILA
 
 **Config option:** `silverwoodLogCorrectName`
@@ -382,3 +388,26 @@ Lowers the frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup,
 **Config option:** `fixBindTextureCache`
 
 Eliminates the per-frame ResourceLocation allocations by making UtilsFX populate its bound texture cache.
+## Allow Sapling Drops from Connected Magical Leaves
+
+**Config option:** `allowDropsFromLiveLeaves`
+
+Allow saplings to be dropped from magical leaves which are still connected to a log (those that cannot decay over time).
+
+## Fix Portable Hole focus client sync
+
+**Config option:** `portableHoleClientSync`
+
+Properly synchronizes the holes creates with the Portable Hole focus to the client. This prevents ghost blocks when the player moves the camera while using the focus. Also makes other clients in multiplayer display the portable hole visual effect.
+
+## Reservoirs Correctly Return Essentia Type
+
+**Config option:** `reservoirsUseArgInGetEssentiaType`
+
+Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.
+
+## Fix Wand Average Cost Tooltips
+
+**Config option:** `fixWandAverageCostTooltip`
+
+Tweak how a wand's average vis cost is calculated to display a more accurate number. Example: Thaumium+Silverwood scepters (20% discount) should now show 80% instead of 79%.
