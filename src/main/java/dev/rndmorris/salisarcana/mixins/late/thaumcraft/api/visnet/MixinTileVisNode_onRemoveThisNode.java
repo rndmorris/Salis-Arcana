@@ -7,8 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 
 import thaumcraft.api.visnet.TileVisNode;
 
@@ -20,21 +19,17 @@ abstract class MixinTileVisNode_onRemoveThisNode extends TileEntity {
         super.invalidate();
     }
 
-    @WrapOperation(
+    @WrapWithCondition(
         method = "removeThisNode",
         at = @At(value = "INVOKE", target = "Lthaumcraft/api/visnet/TileVisNode;parentChanged()V", remap = false))
-    private void wrapParentChanged(TileVisNode instance, Operation<Void> original) {
-        if (!this.isInvalid()) {
-            original.call(instance);
-        }
+    private boolean shouldDoParentChanged(TileVisNode instance) {
+        return !this.isInvalid();
     }
 
-    @WrapOperation(
+    @WrapWithCondition(
         method = "removeThisNode",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;markBlockForUpdate(III)V", remap = true))
-    private void wrapMarkForUpdate(World w, int x, int y, int z, Operation<Void> original) {
-        if (!this.isInvalid()) {
-            original.call(w, x, y, z);
-        }
+    private boolean shouldDoMarkForUpdate(World w, int x, int y, int z) {
+        return !this.isInvalid();
     }
 }
