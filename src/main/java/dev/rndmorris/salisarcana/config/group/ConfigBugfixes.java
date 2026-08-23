@@ -373,7 +373,7 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting fixNodeRemovingCircularCall = new ToggleSetting(
         this,
         "fixNodeRemovingCircularCall",
-        "Fix SOF from energizing bee empowered node caused deadlock.");
+        "Prevent vis networks from sending block updates if the tile entity was invalidated, preventing an infinite recursion crash when empowering a node with Logistics Pipes installed.");
 
     @Nonnull
     @Override
