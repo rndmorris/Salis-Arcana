@@ -13,7 +13,7 @@ import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import thaumcraft.api.visnet.TileVisNode;
 
 @Mixin(value = TileVisNode.class, remap = false)
-abstract class MixinTileVisNode_onRemoveThisNode extends TileEntity {
+abstract class MixinTileVisNode_OnRemoveThisNode extends TileEntity {
 
     @Inject(method = "invalidate", at = @At("HEAD"), remap = true)
     private void onInvalidate(CallbackInfo ci) {

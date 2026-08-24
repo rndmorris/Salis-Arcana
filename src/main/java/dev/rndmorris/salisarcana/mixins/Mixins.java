@@ -167,7 +167,7 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NODE_REMOVE_CIRCULAR_CALL_PATCH(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixNodeRemovingCircularCall)
-        .addCommonMixins("thaumcraft.api.visnet.MixinTileVisNode_onRemoveThisNode")
+        .addCommonMixins("thaumcraft.api.visnet.MixinTileVisNode_OnRemoveThisNode")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     JAR_NO_CREATIVE_DROPS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.jarNoCreativeDrops)
