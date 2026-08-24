@@ -20,9 +20,7 @@ abstract class MixinUtilsFX_BindTextureCache {
 
     @Inject(method = "bindTexture(Ljava/lang/String;)V", at = @At("HEAD"))
     private static void salisarcana$cacheTexture(String texture, CallbackInfo ci) {
-        if (!boundTextures.containsKey(texture)) {
-            boundTextures.put(texture, new ResourceLocation("thaumcraft", texture));
-        }
+        boundTextures.computeIfAbsent(texture, key -> new ResourceLocation("thaumcraft", key));
     }
 
     @Inject(method = "bindTexture(Ljava/lang/String;Ljava/lang/String;)V", at = @At("HEAD"))
