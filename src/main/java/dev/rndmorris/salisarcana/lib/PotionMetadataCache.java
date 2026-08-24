@@ -20,7 +20,7 @@ public final class PotionMetadataCache<T> {
         // Metadata values that differ only in irrelevant bits produce identical effects.
         int key = metadata & metadataMask;
         if (!values.containsKey(key)) {
-            values.put(key, loader.apply(metadata));
+            values.put(key, loader.apply(key));
         }
         return values.get(key);
     }
