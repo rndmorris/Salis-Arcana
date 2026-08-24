@@ -14,8 +14,8 @@ import thaumcraft.api.visnet.TileVisNode;
 @Mixin(value = TileVisNode.class, remap = false)
 abstract class MixinTileVisNode_onRemoveThisNode extends TileEntity {
 
-    @Inject(method = "invalidate", at = @At("HEAD"), remap = false)
-    private void onInvalidate() {
+    @Inject(method = "invalidate", at = @At("HEAD"), remap = true)
+    private void onInvalidate(CallbackInfo ci) {
         super.invalidate();
     }
 
