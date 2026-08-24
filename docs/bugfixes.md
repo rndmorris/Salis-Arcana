@@ -406,3 +406,9 @@ Force reservoirs to use the correct face when checking their essentia type. Allo
 **Config option:** `fixWandAverageCostTooltip`
 
 Tweak how a wand's average vis cost is calculated to display a more accurate number. Example: Thaumium+Silverwood scepters (20% discount) should now show 80% instead of 79%.
+
+## Fix Energizing Bee Empowered Nodes Caused Crash
+
+**Config option:** `fixNodeRemovingCircularCall`
+
+Prevent vis networks from sending block updates if the entity was invalidated, which will prevent an infinite recursion caused crash while energizing a node being empowered by the bees with Logistic Pipes installed.
