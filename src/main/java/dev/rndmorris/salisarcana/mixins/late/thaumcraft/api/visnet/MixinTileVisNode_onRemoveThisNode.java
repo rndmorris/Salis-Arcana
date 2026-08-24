@@ -21,7 +21,7 @@ abstract class MixinTileVisNode_onRemoveThisNode extends TileEntity {
 
     @WrapWithCondition(
         method = "removeThisNode",
-        at = @At(value = "INVOKE", target = "Lthaumcraft/api/visnet/TileVisNode;parentChanged()V", remap = false))
+        at = @At(value = "INVOKE", target = "Lthaumcraft/api/visnet/TileVisNode;parentChanged()V"))
     private boolean shouldDoParentChanged(TileVisNode instance) {
         return !this.isInvalid();
     }
