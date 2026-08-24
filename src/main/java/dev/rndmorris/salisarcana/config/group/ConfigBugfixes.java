@@ -359,7 +359,7 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "fixBindTextureCache",
         "Eliminates the per-frame ResourceLocation allocations by making UtilsFX populate its texture cache.");
-                                                                  
+
     public final ToggleSetting allowDropsFromLiveLeaves = new ToggleSetting(
         this,
         "allowDropsFromLiveLeaves",
