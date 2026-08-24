@@ -25,7 +25,7 @@ public final class PotionMetadataCache<T> {
         return values.get(key);
     }
 
-    public static int findRelevantBits(Iterable<?> requirements, Iterable<?> amplifiers) {
+    public static int findRelevantBits(Iterable<String> requirements, Iterable<String> amplifiers) {
         // getPotionEffects reads the 15th metadata bit to handle splash effects.
         int relevantBits = addExpressionBits(SPLASH_BIT, requirements);
 
@@ -34,10 +34,8 @@ public final class PotionMetadataCache<T> {
         return addExpressionBits(relevantBits, amplifiers);
     }
 
-    private static int addExpressionBits(int relevantBits, Iterable<?> expressions) {
-        for (Object value : expressions) {
-            if (!(value instanceof String expression)) return ALL_METADATA_BITS;
-
+    private static int addExpressionBits(int relevantBits, Iterable<String> expressions) {
+        for (String expression : expressions) {
             int index = 0;
             while (index < expression.length()) {
                 char token = expression.charAt(index);

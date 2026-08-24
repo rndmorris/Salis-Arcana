@@ -18,6 +18,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import dev.rndmorris.salisarcana.lib.PotionMetadataCache;
 import thaumcraft.common.config.ConfigAspects;
 
+@SuppressWarnings("unchecked")
 @Mixin(value = ConfigAspects.class, remap = false)
 abstract class MixinConfigAspects_SpeedupPotionAspects {
 
