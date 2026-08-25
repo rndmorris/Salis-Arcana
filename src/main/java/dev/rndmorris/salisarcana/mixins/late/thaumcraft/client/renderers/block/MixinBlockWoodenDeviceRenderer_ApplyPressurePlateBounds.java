@@ -19,7 +19,11 @@ abstract class MixinBlockWoodenDeviceRenderer_ApplyPressurePlateBounds {
         at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;setBlockBounds(FFFFFF)V", ordinal = 11))
     private void applyRenderBounds(Block instance, float minX, float minY, float minZ, float maxX, float maxY,
         float maxZ, @Local(argsOnly = true) RenderBlocks renderBlocks, @Local(name = "md") int md) {
-        float height = md == 2 ? 0.0625f : 0.03125f;
-        renderBlocks.setRenderBounds(0.0625f, 0f, 0.0625f, 0.9375f, height, 0.9375f);
+        if (md == 2 || md == 3) {
+            float height = md == 2 ? 0.0625f : 0.03125f;
+            renderBlocks.setRenderBounds(0.0625f, 0f, 0.0625f, 0.9375f, height, 0.9375f);
+        } else {
+            renderBlocks.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
+        }
     }
 }
