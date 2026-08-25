@@ -383,6 +383,12 @@ Fixes a bug where some GUIs would render the wrong aspects when shifting over a 
 
 Lowers the frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.
 
+## Fix bound texture cache not being populated
+
+**Config option:** `fixBindTextureCache`
+
+Eliminates the per-frame ResourceLocation allocations by making UtilsFX populate its bound texture cache.
+
 ## Allow Sapling Drops from Connected Magical Leaves
 
 **Config option:** `allowDropsFromLiveLeaves`
