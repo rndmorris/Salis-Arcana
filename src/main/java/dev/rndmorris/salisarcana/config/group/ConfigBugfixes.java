@@ -375,6 +375,19 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixNodeRemovingCircularCall",
         "Prevent vis networks from sending block updates if the tile entity was invalidated, preventing an infinite recursion crash when empowering a node with Logistics Pipes installed.");
 
+    public final ToggleSetting wardingUseWorldMetadata = new ToggleSetting(
+        this,
+        "wardingUseWorldMetadata",
+        "Have Warded Blocks treat the world metadata as authoritative rather than the metadata stored in the NBT. Fixes metadata truncation with mods like NEID and EndlessIDs.");
+
+    public final ToggleSetting wardingDontStoreNBTMeta = new ToggleSetting(
+        wardingUseWorldMetadata,
+        "wardingDontStoreNBTMeta",
+        """
+            Stop Warded Blocks from storing their metadata in the NBT, reducing network traffic & save-file size. Requires `wardingUseWorldMetadata`.
+            WARNING: Any Warded Blocks loaded when this setting is enabled will become invalid if you uninstall Salis Arcana or disable `wardingUseWorldMetadata`.""")
+            .setEnabled(false);
+
     @Nonnull
     @Override
     public String getGroupName() {

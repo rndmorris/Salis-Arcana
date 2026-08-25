@@ -412,3 +412,15 @@ Tweak how a wand's average vis cost is calculated to display a more accurate num
 **Config option:** `fixNodeRemovingCircularCall`
 
 Prevent vis networks from sending block updates if the entity was invalidated, which will prevent an infinite recursion caused crash while energizing a node being empowered by the bees with Logistic Pipes installed.
+
+## Warded Block Uses World Metadata
+
+**Config option:** `wardingUseWorldMetadata`
+
+Have Warded Blocks treat the world metadata as authoritative rather than the metadata stored in the NBT. Fixes metadata truncation with mods like NEID and EndlessIDs.
+
+**Config option:** `wardingDontStoreNBTMeta`
+
+Stop Warded Blocks from storing their metadata in the NBT, reducing network traffic & save-file size. Requires `wardingUseWorldMetadata`, disabled by default.
+
+**Warning:** Any Warded Blocks loaded when this setting is enabled will become invalid if you uninstall Salis Arcana or disable `wardingUseWorldMetadata`.
