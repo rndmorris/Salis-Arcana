@@ -15,8 +15,22 @@ public enum Mixins implements IMixins {
     // spotless:off
     // Early Mixins
     ACCESSORS(new SalisBuilder(Phase.EARLY)
-        .addCommonMixins("accessor.AccessorGuiContainer")
-        .addClientMixins("accessor.AccessorMinecraft")),
+        .addClientMixins("accessor.AccessorGuiContainer", "accessor.AccessorMinecraft", "accessor.AccessorCreativeSlot")),
+    VANILLA_GUI_KEY_TYPED(new SalisBuilder(Phase.EARLY)
+        .addClientMixins("gui.MixinGuiContainer_HandleKeyTyped")
+        .addExcludedMod(TargetedMod.NOT_ENOUGH_ITEMS)),
+
+    // Late Accessors
+    // These mixins do not cause any visible changes to the execution of Thaumcraft code, meaning that conflicts are
+    // highly unlikely. Furthermore, these mixins being always applied allows for focus quick-stashing to be dynamically
+    // enabled & disabled in the future.
+    THAUM_ACCESSORS(new SalisBuilder()
+        .addCommonMixins("thaumcraft.common.container.AccessorContainerFocusPouch")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    CAPTURE_FOCUS_KEYBIND(new SalisBuilder()
+        .addClientMixins("thaumcraft.common.lib.events.MixinKeyHandler_CaptureFocusKeybind")
+        .setApplyIf(() -> !MixinModCompat.multiKeyBindsPermitted())
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Bugfixes
     ADVANCED_ARCANE_FURNACE_SAVE_NBT(new SalisBuilder()
@@ -117,6 +131,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.equalTradeBreaksBlocks)
         .addCommonMixins("thaumcraft.common.items.wands.foci.MixinItemFocusTrade_BreakBlocks")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    PRESERVE_TILE_ENTITY_DROPS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.preserveTileEntityDrops)
+        .addCommonMixins("thaumcraft.common.lib.utils.MixinBlockUtils_PreserveTileEntityDrops")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NODE_RECHARGE_TIME(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.nodesRechargeInGameTime)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_RechargeTime")
@@ -146,6 +164,10 @@ public enum Mixins implements IMixins {
     WAND_FOCUS_LEVEL_PATCH(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.upgradedFocusVisCost)
         .addCommonMixins("thaumcraft.api.wands.MixinItemFocusBasic_WandUpgradeLevel")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_REMOVE_CIRCULAR_CALL_PATCH(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixNodeRemovingCircularCall)
+        .addCommonMixins("thaumcraft.api.visnet.MixinTileVisNode_OnRemoveThisNode")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     JAR_NO_CREATIVE_DROPS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.jarNoCreativeDrops)
@@ -179,8 +201,9 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.fixBlockBoundsAlterations)
         .addCommonMixins("thaumcraft.common.blocks.MixinBlock_CollisionConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockCandle_SetBlockBounds",
             "thaumcraft.common.blocks.MixinBlockChestHungry_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockEssentiaReservoir_SetBlockBounds",
-            "thaumcraft.common.blocks.MixinBlockJar_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockLoot_SetBlockBounds")
-        .addClientMixins("thaumcraft.client.renderers.block.MixinBlockRenderer_ConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockTube_BBoxConserveBlockBounds")
+            "thaumcraft.common.blocks.MixinBlockJar_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockLoot_SetBlockBounds", "thaumcraft.common.blocks.MixinBlockArcaneFurnace_AddCollisionAABB")
+        .addClientMixins("thaumcraft.client.renderers.block.MixinBlockRenderer_ConserveBlockBounds", "thaumcraft.common.blocks.MixinBlockTube_BBoxConserveBlockBounds",
+            "thaumcraft.client.renderers.block.MixinBlockWoodenDeviceRenderer_ApplyPressurePlateBounds")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_LOCALIZATION_SIDES(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixClientSideLocalization)
@@ -238,6 +261,13 @@ public enum Mixins implements IMixins {
     PREVENT_INVALID_FOCI(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.preventInvalidFociOnWands)
         .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_InvalidFoci")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    PORTABLE_HOLE_CLIENT_DESYNC(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.portableHoleClientSync)
+        .addCommonMixins(
+            "thaumcraft.common.blocks.MixinBlockHole_CreateTileEntity",
+            "thaumcraft.common.items.wands.foci.MixinItemFocusPortableHole_Sync",
+            "thaumcraft.common.tiles.MixinTileHole_OpeningBurst")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     HIDDEN_RESEARCH_WORLD_RANDOM(new SalisBuilder()
         .applyIf(SalisConfig.thaum.hiddenResearchUseWorldRandom)
@@ -314,6 +344,20 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_FixRenderingLayers")
         .addCommonMixins("thaumcraft.common.tiles.MixinTileNodeEnergized_FixRenderingLayers")
         .addClientMixins("thaumcraft.client.lib.MixinRenderEventHandler_FixRenderingLayers")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    ALLOW_CONNECTED_LEAF_DROPS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.allowDropsFromLiveLeaves)
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockMagicalLeaves_AllowConnectedLeafDrops")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    RESERVOIR_GETESSENTIATYPE_USES_ARG(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.reservoirsUseArgInGetEssentiaType)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileEssentiaReservoir_UseArgInGetEssentiaType")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FIX_AVG_VIS_COST_CALCULATION(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixWandAverageCostTooltip)
+        .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_UseRoundedAverageCost")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
@@ -627,6 +671,12 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.thaum.taintedModifierSpeed)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_ModifierSpeed_Tainted")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    NODE_UNSTABLE_ASPECT_DROPS_CHUNK_GUARD(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.unstableAspectDropsRequireLoadedChunks)
+        .addCommonMixins(
+            "thaumcraft.common.entities.MixinEntityAspectOrb_ChunkGuard",
+            "thaumcraft.common.tiles.MixinTileNode_UnstableAspectDropsChunkGuard")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     NODE_FIX_GET_BLOCK(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixNodeTriggeringChunkLoading)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_ProtectGetBlock")
@@ -652,6 +702,13 @@ public enum Mixins implements IMixins {
     CRUCIBLE_SCALING_ASPECT_DECAY(new SalisBuilder()
         .applyIf(SalisConfig.thaum.crucibleScalingAspectDecay)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileCrucible_ScalingAspectDecay")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
+    // Debug
+
+    DEBUG_LOG_WARP_STACK_TRACE(new SalisBuilder()
+        .applyIf(SalisConfig.debug.logWarpSources)
+        .addCommonMixins("thaumcraft.common.lib.research.MixinPlayerKnowledge_DebugLogWarp")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Required

@@ -8,7 +8,6 @@ import com.gtnewhorizons.aspectrecipeindex.nei.arcaneworkbench.ArcaneSlotPositio
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
-import cpw.mods.fml.common.Optional;
 import dev.rndmorris.salisarcana.SalisArcana;
 import dev.rndmorris.salisarcana.Tags;
 import dev.rndmorris.salisarcana.common.compat.nei.WandCapSubstitutionHandler;
@@ -17,11 +16,9 @@ import dev.rndmorris.salisarcana.common.item.PlaceholderItem;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.client.gui.GuiArcaneWorkbench;
 
-@Optional.Interface(iface = "codechicken.nei.api.API", modid = "NotEnoughItems")
 public class NEIConfig implements IConfigureNEI {
 
     @Override
-    @Optional.Method(modid = "NotEnoughItems")
     public void loadConfig() {
         hidePlaceholder(PlaceholderItem.capPlaceholder);
         hidePlaceholder(PlaceholderItem.rodPlaceholder);
@@ -31,7 +28,6 @@ public class NEIConfig implements IConfigureNEI {
         }
     }
 
-    @Optional.Method(modid = "NotEnoughItems")
     private void hidePlaceholder(PlaceholderItem placeholder) {
         if (placeholder != null) {
             API.hideItem(new ItemStack(placeholder, 0, OreDictionary.WILDCARD_VALUE));
@@ -39,13 +35,11 @@ public class NEIConfig implements IConfigureNEI {
     }
 
     @Override
-    @Optional.Method(modid = "NotEnoughItems")
     public String getName() {
         return SalisArcana.MODID;
     }
 
     @Override
-    @Optional.Method(modid = "NotEnoughItems")
     public String getVersion() {
         return Tags.VERSION;
     }
