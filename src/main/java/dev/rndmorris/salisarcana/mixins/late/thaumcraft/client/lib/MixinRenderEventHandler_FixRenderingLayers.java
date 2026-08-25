@@ -11,12 +11,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import dev.rndmorris.salisarcana.client.lib.NodeRenderingQueue;
+import dev.rndmorris.salisarcana.client.lib.RenderingQueue;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.RenderEventHandler;
 
 @Mixin(value = RenderEventHandler.class, remap = false)
-abstract class MixinRenderEventHandler_FixNodeRendering {
+abstract class MixinRenderEventHandler_FixRenderingLayers {
 
     @WrapOperation(
         method = "blockHighlight",
@@ -25,11 +25,11 @@ abstract class MixinRenderEventHandler_FixNodeRendering {
             target = "Lthaumcraft/client/lib/RenderEventHandler;drawTagsOnContainer(DDDLthaumcraft/api/aspects/AspectList;ILnet/minecraftforge/common/util/ForgeDirection;F)V"))
     private void wrapDrawTags(RenderEventHandler instance, double x, double y, double z, AspectList aspects, int bright,
         ForgeDirection dir, float partialTicks, Operation<Void> original) {
-        NodeRenderingQueue.queueTag(instance, x, y, z, aspects, bright, dir, partialTicks, original);
+        RenderingQueue.queueTag(instance, x, y, z, aspects, bright, dir, partialTicks, original);
     }
 
     @Inject(method = "renderLast", at = @At("TAIL"))
     private void onRenderLast(RenderWorldLastEvent event, CallbackInfo ci) {
-        NodeRenderingQueue.flush(event.partialTicks);
+        RenderingQueue.flush();
     }
 }

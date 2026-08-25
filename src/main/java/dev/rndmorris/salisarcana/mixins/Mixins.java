@@ -310,10 +310,10 @@ public enum Mixins implements IMixins {
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_PauseParticles")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_NODE_RENDERING(new SalisBuilder()
-        .applyIf(SalisConfig.bugfixes.fixNodeRendering)
-        .addClientMixins("thaumcraft.client.renderers.tile.MixinTileEnergizedNodeRenderer_FixNodeRendering")
-        .addClientMixins("thaumcraft.client.renderers.tile.MixinTileNodeRenderer_FixNodeRendering")
-        .addClientMixins("thaumcraft.client.lib.MixinRenderEventHandler_FixNodeRendering")
+        .applyIf(SalisConfig.bugfixes.fixRenderingLayers)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_FixRenderingLayers")
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileNodeEnergized_FixRenderingLayers")
+        .addClientMixins("thaumcraft.client.lib.MixinRenderEventHandler_FixRenderingLayers")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features

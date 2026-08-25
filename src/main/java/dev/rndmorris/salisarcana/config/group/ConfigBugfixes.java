@@ -340,10 +340,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixParticleEngineLeak",
         "Fix Thaumcraft's particle engine leaking the world instance");
 
-    public final ToggleSetting fixNodeRendering = new ToggleSetting(
+    public final ToggleSetting fixRenderingLayers = new ToggleSetting(
         this,
-        "fixNodeRendering",
+        "fixRenderingLayers",
         "Fix Thaumcraft's Nodes, Energized Nodes, Node Aspect Tags, and Node Drain Beams rendering behind transparent blocks when they are in front of them.");
+
     public final ToggleSetting boreDecreaseCVisCheckFrequency = new ToggleSetting(
         this,
         "boreDecreaseCVisCheckFrequency",
