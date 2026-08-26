@@ -320,6 +320,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.thaum.betterParticleEngine)
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_SkipRendering")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    SPEEDUP_POTION_ASPECT_REGISTRATION(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.speedupPotionAspectRegistration)
+        .addCommonMixins("thaumcraft.common.config.MixinConfigAspects_SpeedupPotionAspects")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_PARTICLE_ENGINE_LEAK(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixParticleEngineLeak)
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_FixLeak")
@@ -335,6 +339,10 @@ public enum Mixins implements IMixins {
     ARCANE_BORE_VIS_DRAIN_FREQUENCY(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.boreDecreaseCVisCheckFrequency)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileArcaneBore_DecreaseCVisCheckFrequency")),
+    FIX_BIND_TEXTURE_CACHE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixBindTextureCache)
+        .addClientMixins("thaumcraft.client.lib.MixinUtilsFX_BindTextureCache")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     PAUSE_TC_PARTICLES(new SalisBuilder()
         .applyIf(SalisConfig.thaum.pauseTCParticlesWithGame)
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_PauseParticles")

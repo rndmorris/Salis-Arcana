@@ -355,6 +355,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "boreDecreaseCVisCheckFrequency",
         "Lower frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.");
 
+    public final ToggleSetting fixBindTextureCache = new ToggleSetting(
+        this,
+        "fixBindTextureCache",
+        "Eliminates the per-frame ResourceLocation allocations by making UtilsFX populate its texture cache.");
+
     public final ToggleSetting allowDropsFromLiveLeaves = new ToggleSetting(
         this,
         "allowDropsFromLiveLeaves",
