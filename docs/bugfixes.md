@@ -407,6 +407,12 @@ Properly synchronizes the holes creates with the Portable Hole focus to the clie
 
 Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.
 
+## Activate Golem Fetters When Placed
+
+**Config option:** `activateGolemFetterOnPlace`
+
+Make Golem Fetters activate instantly if they're placed into a location that is already receiving redstone power.
+
 ## Fix Wand Average Cost Tooltips
 
 **Config option:** `fixWandAverageCostTooltip`

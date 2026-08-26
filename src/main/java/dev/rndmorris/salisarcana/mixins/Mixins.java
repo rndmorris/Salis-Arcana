@@ -355,6 +355,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.reservoirsUseArgInGetEssentiaType)
         .addCommonMixins("thaumcraft.common.tiles.MixinTileEssentiaReservoir_UseArgInGetEssentiaType")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    GOLEM_FETTER_ACTIVATE_ON_PLACE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.activateGolemFetterOnPlace)
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockCosmeticSolid_ActivateFetterOnPlace")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     FIX_AVG_VIS_COST_CALCULATION(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.fixWandAverageCostTooltip)
         .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_UseRoundedAverageCost")
