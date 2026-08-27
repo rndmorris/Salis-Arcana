@@ -6,7 +6,7 @@ import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(TileNode.class)
-public abstract class MixinTileNode_FixRenderingLayers extends TileThaumcraft {
+abstract class MixinTileNode_FixRenderingLayers extends TileThaumcraft {
 
     /**
      * With the default 'return pass == 0', the node will always render behind transparent blocks.
