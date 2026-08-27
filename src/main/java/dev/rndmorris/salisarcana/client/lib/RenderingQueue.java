@@ -13,28 +13,18 @@ import thaumcraft.client.lib.RenderEventHandler;
 
 public class RenderingQueue {
 
-    public static final List<QueuedTag> tagQueue = new ArrayList<>();
+    private static final List<QueuedTag> tagQueue = new ArrayList<>();
 
     @Desugar
-    public record QueuedTag(RenderEventHandler instance, double x, double y, double z, AspectList aspects, int bright,
+    private record QueuedTag(RenderEventHandler instance, double x, double y, double z, AspectList aspects, int bright,
         ForgeDirection dir, float partialTicks, Operation<Void> original) {}
 
     public static void flush() {
-        if (!tagQueue.isEmpty()) {
-            for (QueuedTag qt : tagQueue) {
-                qt.original()
-                    .call(
-                        qt.instance(),
-                        qt.x(),
-                        qt.y(),
-                        qt.z(),
-                        qt.aspects(),
-                        qt.bright(),
-                        qt.dir(),
-                        qt.partialTicks());
-            }
-            tagQueue.clear();
+        for (QueuedTag qt : tagQueue) {
+            qt.original()
+                .call(qt.instance(), qt.x(), qt.y(), qt.z(), qt.aspects(), qt.bright(), qt.dir(), qt.partialTicks());
         }
+        tagQueue.clear();
     }
 
     public static void queueTag(RenderEventHandler instance, double x, double y, double z, AspectList aspects,

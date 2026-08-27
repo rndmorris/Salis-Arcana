@@ -4,11 +4,18 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-import thaumcraft.common.tiles.TileEldritchPortal;
+import thaumcraft.common.tiles.TileNode;
 
-@Mixin(TileEldritchPortal.class)
+@Mixin(TileNode.class)
 public abstract class MixinTileNode_FixRenderingLayers extends TileEntity {
 
+    /**
+     * With the default 'return pass == 0', the node will always render behind transparent blocks.
+     * With 'return pass == 1', the node will render in front of transparent blocks.
+     * Rendering in front is desired because 99% of the time, nodes are only seen with goggles of revealing which
+     * make the nodes much more visible. When nodes are looked at directly, water or glass behind them should not be
+     * rendering in front of them.
+     */
     @Override
     public boolean shouldRenderInPass(int pass) {
         return pass == 1;
