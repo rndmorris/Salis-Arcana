@@ -1,13 +1,12 @@
 package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles;
 
-import net.minecraft.tileentity.TileEntity;
-
 import org.spongepowered.asm.mixin.Mixin;
 
+import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.tiles.TileNode;
 
 @Mixin(TileNode.class)
-public abstract class MixinTileNode_FixRenderingLayers extends TileEntity {
+public abstract class MixinTileNode_FixRenderingLayers extends TileThaumcraft {
 
     /**
      * With the default 'return pass == 0', the node will always render behind transparent blocks.
