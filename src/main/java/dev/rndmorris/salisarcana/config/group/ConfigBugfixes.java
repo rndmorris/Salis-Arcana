@@ -375,6 +375,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixWandAverageCostTooltip",
         "Tweak how a wand's average vis cost is calculated to display a more accurate number. Example: Thaumium+Silverwood scepters (20% discount) should now show 80% instead of 79%.");
 
+    public final ToggleSetting activateGolemFetterOnPlace = new ToggleSetting(
+        this,
+        "activateGolemFetterOnPlace",
+        "Make Golem Fetters activate instantly if they're placed into a location that is already receiving redstone power.");
+
     public final ToggleSetting fixNodeRemovingCircularCall = new ToggleSetting(
         this,
         "fixNodeRemovingCircularCall",
