@@ -337,6 +337,8 @@ public class CustomResearch {
             ThaumcraftApi.addWarpToResearch(fullKey, settings.warp);
         }
         final var pages = new ArrayList<ResearchPage>();
+        // We assume all languages use the same amount of pages. The page count is determined from the active
+        // language when the research is created and is not updated when the language changes.
         for (int i = 0;; i++) {
             final var pageKey = "tc.research_page." + fullKey + "." + i;
             if (i > 0 && !StatCollector.canTranslate(pageKey)) break;
