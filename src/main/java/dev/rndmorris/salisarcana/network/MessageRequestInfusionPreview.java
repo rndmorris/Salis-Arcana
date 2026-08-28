@@ -18,7 +18,7 @@ import dev.rndmorris.salisarcana.common.infusion.InfusionPreviewInfo;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import io.netty.buffer.ByteBuf;
 import thaumcraft.api.IGoggles;
-import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 public class MessageRequestInfusionPreview
@@ -60,7 +60,7 @@ public class MessageRequestInfusionPreview
         EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 
         if (!SalisConfig.features.infusionPreview.isEnabled()) return null;
-        if (!ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), "salisarcana:INFUSION_PREVIEW"))
+        if (!ResearchManager.isResearchComplete(player.getCommandSenderName(), "salisarcana:INFUSION_PREVIEW"))
             return null;
 
         ItemStack helmet = player.inventory.armorItemInSlot(3);
