@@ -22,7 +22,7 @@ import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 public class MessageRequestInfusionPreview
-    implements IMessage, IMessageHandler<MessageRequestInfusionPreview, IMessage> {
+    implements IMessage, IMessageHandler<MessageRequestInfusionPreview, MessageInfusionPreview> {
 
     private static final int REQUEST_COOLDOWN_TICKS = 2;
 
@@ -56,7 +56,7 @@ public class MessageRequestInfusionPreview
     }
 
     @Override
-    public IMessage onMessage(MessageRequestInfusionPreview message, MessageContext ctx) {
+    public MessageInfusionPreview onMessage(MessageRequestInfusionPreview message, MessageContext ctx) {
         EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 
         if (!SalisConfig.features.infusionPreview.isEnabled()) return null;
@@ -85,7 +85,6 @@ public class MessageRequestInfusionPreview
 
         InfusionPreviewInfo info = InfusionPreviewAnalyzer.analyze(world, matrix, player);
 
-        NetworkHandler.instance.sendTo(new MessageInfusionPreview(message.x, message.y, message.z, info), player);
-        return null;
+        return new MessageInfusionPreview(message.x, message.y, message.z, info);
     }
 }
