@@ -261,7 +261,7 @@ Hovering over an unknown aspect inside the Research Table will show a tooltip wi
 ## Config option: `infusionPreview`
 
 While wearing Goggles of Revealing and looking at a prepared infusion altar, players who have
-completed the `INFUSION_PREVIEW` research in the Thaumonomicon will see an overlay above the matrix
+completed the `salisarcana:INFUSION_PREVIEW` research in the Thaumonomicon will see an overlay above the matrix
 showing the recipe's output item, the essentia it will consume (with a check or cross beside each
 aspect indicating whether enough is available within range), and the predicted instability of the
 recipe.
