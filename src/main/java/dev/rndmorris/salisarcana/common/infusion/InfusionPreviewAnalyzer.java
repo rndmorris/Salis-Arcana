@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.tiles.AccessorTileInfusionMatrix;
+import dev.rndmorris.salisarcana.lib.ifaces.IAccessorTileInfusionMatrix;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectSource;
@@ -101,7 +101,8 @@ public final class InfusionPreviewAnalyzer {
         if (recipeInput == null) {
             return new InfusionPreviewInfo();
         }
-        AccessorTileInfusionMatrix matrixAccessor = (AccessorTileInfusionMatrix) matrix;
+
+        IAccessorTileInfusionMatrix matrixAccessor = (IAccessorTileInfusionMatrix) matrix;
         matrixAccessor.invokeGetSurroundings();
         ArrayList<ItemStack> components = new ArrayList<>();
 

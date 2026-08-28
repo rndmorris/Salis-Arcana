@@ -18,7 +18,7 @@ public enum Mixins implements IMixins {
         .addCommonMixins("accessor.AccessorGuiContainer")
         .addClientMixins("accessor.AccessorMinecraft")),
     THAUMCRAFT_ACCESSORS(new SalisBuilder()
-        .addCommonMixins("thaumcraft.common.tiles.AccessorTileInfusionMatrix")
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileInfusionMatrix_Accessor")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Bugfixes

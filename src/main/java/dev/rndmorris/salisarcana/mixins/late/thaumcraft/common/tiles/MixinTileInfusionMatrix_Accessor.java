@@ -8,14 +8,15 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
+import dev.rndmorris.salisarcana.lib.ifaces.IAccessorTileInfusionMatrix;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 @Mixin(value = TileInfusionMatrix.class, remap = false)
-public interface AccessorTileInfusionMatrix {
+public abstract class MixinTileInfusionMatrix_Accessor implements IAccessorTileInfusionMatrix {
 
     @Invoker("getSurroundings")
-    void invokeGetSurroundings();
+    public abstract void invokeGetSurroundings();
 
     @Accessor("pedestals")
-    ArrayList<ChunkCoordinates> getPedestals();
+    public abstract ArrayList<ChunkCoordinates> getPedestals();
 }
