@@ -68,10 +68,7 @@ public class MessageRequestInfusionPreview
         Item helmetItem = helmet.getItem();
         if (!(helmetItem instanceof IGoggles goggles) || !goggles.showIngamePopups(helmet, player)) return null;
 
-        double dx = message.x + 0.5 - player.posX;
-        double dy = message.y + 0.5 - player.posY;
-        double dz = message.z + 0.5 - player.posZ;
-        if (dx * dx + dy * dy + dz * dz > MAX_DISTANCE_SQ) return null;
+        if (player.getDistanceSq(message.x + 0.5, message.y + 0.5, message.z + 0.5) > MAX_DISTANCE_SQ) return null;
 
         World world = player.worldObj;
         TileEntity tile = world.getTileEntity(message.x, message.y, message.z);
