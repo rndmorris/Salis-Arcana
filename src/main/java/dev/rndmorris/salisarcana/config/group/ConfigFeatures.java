@@ -502,6 +502,11 @@ public class ConfigFeatures extends ConfigGroup {
         "fakePlayersDropLootbags",
         "Allows kills from fake players to drop loot bags from champion mobs.").setEnabled(true);
 
+    public final ToggleSetting quickStashFocus = new ToggleSetting(
+        this,
+        "quickStashFocus",
+        "Add a keybind to move a Wand Focus from your hand (while in-game) or a hovered-over accessible slot (while in a GUI) into the player's Focus Pouch(es).");
+
     public boolean singleWandReplacementEnabled() {
         return (this.replaceWandCapsSettings.isEnabled() || this.replaceWandCoreSettings.isEnabled())
             && SalisConfig.bugfixes.arcaneWorkbenchGhostItemFix.isEnabled()

@@ -130,6 +130,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "equalTradeBreaksBlocks",
         "Fixes a bug where you couldn't break blocks if you were holding the equal trade focus item.");
 
+    public final ToggleSetting preserveTileEntityDrops = new ToggleSetting(
+        this,
+        "preserveTileEntityDrops",
+        "Preserves tile entity data while Thaumcraft harvests blocks, preventing the Primal Crusher from creating incorrect drops.");
+
     public final ToggleSetting nodesRechargeInGameTime = new ToggleSetting(
         this,
         "nodesRechargeInGameTime",
@@ -350,6 +355,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "boreDecreaseCVisCheckFrequency",
         "Lower frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.");
 
+    public final ToggleSetting fixBindTextureCache = new ToggleSetting(
+        this,
+        "fixBindTextureCache",
+        "Eliminates the per-frame ResourceLocation allocations by making UtilsFX populate its texture cache.");
+
     public final ToggleSetting allowDropsFromLiveLeaves = new ToggleSetting(
         this,
         "allowDropsFromLiveLeaves",
@@ -359,6 +369,21 @@ public class ConfigBugfixes extends ConfigGroup {
         this,
         "reservoirsUseArgInGetEssentiaType",
         "Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.");
+
+    public final ToggleSetting fixWandAverageCostTooltip = new ToggleSetting(
+        this,
+        "fixWandAverageCostTooltip",
+        "Tweak how a wand's average vis cost is calculated to display a more accurate number. Example: Thaumium+Silverwood scepters (20% discount) should now show 80% instead of 79%.");
+
+    public final ToggleSetting activateGolemFetterOnPlace = new ToggleSetting(
+        this,
+        "activateGolemFetterOnPlace",
+        "Make Golem Fetters activate instantly if they're placed into a location that is already receiving redstone power.");
+
+    public final ToggleSetting fixNodeRemovingCircularCall = new ToggleSetting(
+        this,
+        "fixNodeRemovingCircularCall",
+        "Prevent vis networks from sending block updates if the tile entity was invalidated, preventing an infinite recursion crash when empowering a node with Logistics Pipes installed.");
 
     @Nonnull
     @Override
