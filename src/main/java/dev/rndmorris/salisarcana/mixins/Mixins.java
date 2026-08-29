@@ -306,6 +306,14 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.stableRunicMatrixAnimation)
         .addClientMixins("thaumcraft.client.renderers.tile.MixinTileRunicMatrixRenderer_StableAltar")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    WARDING_USE_WORLD_METADATA(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.wardingUseWorldMetadata)
+        .addCommonMixins("thaumcraft.common.items.wands.foci.MixinItemFocusWarding_UseWorldMetadata")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    WARDING_DONT_SAVE_NBT_META(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.wardingDontStoreNBTMeta)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileWarded_DontStoreMetadata")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     FIX_INVENTORY_ASPECTS(new SalisBuilder()
         .setApplyIf(() -> SalisConfig.bugfixes.fixInventoryAspects.isEnabled()
