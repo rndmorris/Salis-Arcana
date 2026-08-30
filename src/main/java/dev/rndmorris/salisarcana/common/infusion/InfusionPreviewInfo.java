@@ -16,7 +16,7 @@ public class InfusionPreviewInfo {
     public AspectList recipeEssentia;
     public AspectList availableEssentia;
 
-    public float instability;
+    public int instability;
 
     // For enchantment recipes the client formats the localized display name from these.
     // enchantmentId < 0 means "not an enchantment recipe".
@@ -39,7 +39,7 @@ public class InfusionPreviewInfo {
     }
 
     public String getInstabilityLevelString() {
-        int bucket = Math.min(5, Math.max(0, Math.round(instability) / 2));
+        int bucket = Math.min(5, Math.max(0, instability / 2));
         return StatCollector.translateToLocal("tc.inst." + bucket);
     }
 
@@ -47,7 +47,7 @@ public class InfusionPreviewInfo {
         ByteBufUtils.writeItemStack(buf, recipeOutput);
         writeAspectList(buf, recipeEssentia);
         writeAspectList(buf, availableEssentia);
-        buf.writeFloat(instability);
+        buf.writeInt(instability);
         buf.writeInt(enchantmentId);
         buf.writeInt(enchantmentLevel);
         buf.writeInt(enchantmentXpCost);
@@ -57,7 +57,7 @@ public class InfusionPreviewInfo {
         recipeOutput = ByteBufUtils.readItemStack(buf);
         recipeEssentia = readAspectList(buf);
         availableEssentia = readAspectList(buf);
-        instability = buf.readFloat();
+        instability = buf.readInt();
         enchantmentId = buf.readInt();
         enchantmentLevel = buf.readInt();
         enchantmentXpCost = buf.readInt();
