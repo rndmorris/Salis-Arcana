@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
@@ -22,13 +21,11 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dev.rndmorris.salisarcana.SalisArcana;
+import dev.rndmorris.salisarcana.common.infusion.InfusionPreviewAnalyzer;
 import dev.rndmorris.salisarcana.common.infusion.InfusionPreviewInfo;
-import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.network.MessageRequestInfusionPreview;
 import dev.rndmorris.salisarcana.network.NetworkHandler;
 import gregtech.api.gui.modularui.GTUITextures;
-import thaumcraft.api.IGoggles;
-import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.RenderEventHandler;
@@ -119,22 +116,7 @@ public class InfusionPreview {
             }
         }
 
-        ItemStack helmet = event.player.inventory.armorItemInSlot(3);
-        if (helmet == null) {
-            invalidate();
-            return;
-        }
-        Item helmetItem = helmet.getItem();
-        if (!(helmetItem instanceof IGoggles goggles) || !goggles.showIngamePopups(helmet, event.player)) {
-            invalidate();
-            return;
-        }
-        if (!SalisConfig.features.infusionPreview.isEnabled()) {
-            invalidate();
-            return;
-        }
-        if (!ThaumcraftApiHelper
-            .isResearchComplete(event.player.getCommandSenderName(), "salisarcana:INFUSION_PREVIEW")) {
+        if (!InfusionPreviewAnalyzer.canView(event.player)) {
             invalidate();
             return;
         }

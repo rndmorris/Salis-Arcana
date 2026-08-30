@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -15,10 +13,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import dev.rndmorris.salisarcana.common.infusion.InfusionPreviewAnalyzer;
 import dev.rndmorris.salisarcana.common.infusion.InfusionPreviewInfo;
-import dev.rndmorris.salisarcana.config.SalisConfig;
 import io.netty.buffer.ByteBuf;
-import thaumcraft.api.IGoggles;
-import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 public class MessageRequestInfusionPreview
@@ -59,14 +54,7 @@ public class MessageRequestInfusionPreview
     public MessageInfusionPreview onMessage(MessageRequestInfusionPreview message, MessageContext ctx) {
         EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 
-        if (!SalisConfig.features.infusionPreview.isEnabled()) return null;
-        if (!ResearchManager.isResearchComplete(player.getCommandSenderName(), "salisarcana:INFUSION_PREVIEW"))
-            return null;
-
-        ItemStack helmet = player.inventory.armorItemInSlot(3);
-        if (helmet == null) return null;
-        Item helmetItem = helmet.getItem();
-        if (!(helmetItem instanceof IGoggles goggles) || !goggles.showIngamePopups(helmet, player)) return null;
+        if (!InfusionPreviewAnalyzer.canView(player)) return null;
 
         if (player.getDistanceSq(message.x + 0.5, message.y + 0.5, message.z + 0.5) > MAX_DISTANCE_SQ) return null;
 

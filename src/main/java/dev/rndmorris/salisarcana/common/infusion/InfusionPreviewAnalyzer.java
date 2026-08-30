@@ -8,6 +8,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.tileentity.TileEntity;
@@ -16,7 +17,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.ifaces.IAccessorTileInfusionMatrix;
+import thaumcraft.api.IGoggles;
+import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectSource;
@@ -31,8 +35,19 @@ public final class InfusionPreviewAnalyzer {
 
     private static final int INFUSION_RANGE = 12;
     private static final int MIRROR_RANGE = 8;
+    private static final String REQUIRED_RESEARCH = "salisarcana:INFUSION_PREVIEW";
 
     private InfusionPreviewAnalyzer() {}
+
+    public static boolean canView(EntityPlayer player) {
+        if (!SalisConfig.features.infusionPreview.isEnabled()) return false;
+        if (!ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), REQUIRED_RESEARCH)) return false;
+
+        ItemStack helmet = player.inventory.armorItemInSlot(3);
+        if (helmet == null) return false;
+        Item helmetItem = helmet.getItem();
+        return helmetItem instanceof IGoggles goggles && goggles.showIngamePopups(helmet, player);
+    }
 
     public static InfusionPreviewInfo analyze(World world, TileInfusionMatrix matrix, EntityPlayer player) {
         InfusionPreviewInfo info = computeData(world, matrix, player);
