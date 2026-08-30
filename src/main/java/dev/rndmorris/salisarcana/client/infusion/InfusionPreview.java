@@ -168,13 +168,8 @@ public class InfusionPreview {
         }
         ItemStack output = info.recipeOutput;
         if (output == null) {
-            drawString(
-                StatCollector.translateToLocal("salisarcana:infusion.preview.norecipe"),
-                xCoord,
-                y,
-                zCoord,
-                dir,
-                event.partialTicks);
+            String text = StatCollector.translateToLocal("salisarcana:infusion.preview.norecipe");
+            drawString(text, xCoord, y, zCoord, dir, event.partialTicks);
             return;
         }
         drawTagsOnContainer(output, xCoord, y, zCoord, dir, event.partialTicks);
@@ -284,9 +279,9 @@ public class InfusionPreview {
                 current++;
             }
             GL11.glPopMatrix();
-            String display = StatCollector.translateToLocal(
-                missingEssentia ? "salisarcana:infusion.preview.missingessentia"
-                    : "salisarcana:infusion.preview.valid");
+            String text = missingEssentia ? "salisarcana:infusion.preview.missingessentia"
+                : "salisarcana:infusion.preview.valid";
+            String display = StatCollector.translateToLocal(text);
             String instability = info.getInstabilityLevelString();
 
             drawStatusLine(fontRenderer, display, 1.05F);
