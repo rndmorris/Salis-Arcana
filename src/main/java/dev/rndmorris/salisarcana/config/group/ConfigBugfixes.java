@@ -398,6 +398,11 @@ public class ConfigBugfixes extends ConfigGroup {
             WARNING: Any Warded Blocks loaded when this setting is enabled will become invalid if you uninstall Salis Arcana or disable `wardingUseWorldMetadata`.""")
             .setEnabled(false);
 
+    public final ToggleSetting preventTravelingTrunkDupe = new ToggleSetting(
+        this,
+        "preventTravelingTrunkDupe",
+        "Prevent entropy-upgraded Traveling Trunks from absorbing dead items which may have been already collected by something else.");
+
     @Nonnull
     @Override
     public String getGroupName() {

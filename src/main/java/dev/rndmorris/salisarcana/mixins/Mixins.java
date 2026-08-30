@@ -371,6 +371,10 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.fixWandAverageCostTooltip)
         .addCommonMixins("thaumcraft.common.items.wands.MixinItemWandCasting_UseRoundedAverageCost")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    TRAVELING_TRUNK_DONT_CONSUME_DEAD_ITEMS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.preventTravelingTrunkDupe)
+        .addCommonMixins("thaumcraft.common.entities.golems.MixinEntityTravelingTrunk_SkipDeadItems")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
