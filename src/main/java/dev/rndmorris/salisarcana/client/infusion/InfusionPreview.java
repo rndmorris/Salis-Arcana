@@ -163,7 +163,6 @@ public class InfusionPreview {
             return;
         }
 
-        // spotless:off
         if (info == null) {
             return;
         }
@@ -171,23 +170,18 @@ public class InfusionPreview {
         if (output == null) {
             drawString(
                 StatCollector.translateToLocal("salisarcana:infusion.preview.norecipe"),
-                xCoord, y, zCoord,
+                xCoord,
+                y,
+                zCoord,
                 dir,
-                event.partialTicks
-            );
+                event.partialTicks);
             return;
         }
-        drawTagsOnContainer(
-            output,
-            xCoord, y, zCoord,
-            dir,
-            event.partialTicks
-        );
-        //spotless:on
+        drawTagsOnContainer(output, xCoord, y, zCoord, dir, event.partialTicks);
     }
 
-    // spotless:off
-    private void drawTagsOnContainer(ItemStack stack, float x, float y, float z, ForgeDirection dir, float partialTicks) {
+    private void drawTagsOnContainer(ItemStack stack, float x, float y, float z, ForgeDirection dir,
+        float partialTicks) {
         if (!(Minecraft.getMinecraft().renderViewEntity instanceof EntityPlayer player)) return;
 
         AspectList tags = info.recipeEssentia;
@@ -206,25 +200,18 @@ public class InfusionPreview {
 
             float tagscale = RenderEventHandler.tagscale;
 
-
             GL11.glPushMatrix();
             // Thaumcraft's scale is quite weird... -y makes it go up while +y makes it go down...
             GL11.glTranslatef(0, -(rows * 1.05f), 0);
             GL11.glScalef(0.05f, 0.05f, 0.05f);
-            final int iconWidth = 20; //16 + 4 padding
+            final int iconWidth = 20; // 16 + 4 padding
 
             int sw = fontRenderer.getStringWidth(recipeName);
             GL11.glTranslatef(-(sw + iconWidth) / 2f, 0, 0);
 
             GL11.glPushMatrix();
             GL11.glTranslatef(0, -5, 0);
-            renderItem.renderItemIntoGUI(
-                mc.fontRenderer,
-                mc.getTextureManager(),
-                stack,
-                0,
-                0
-            );
+            renderItem.renderItemIntoGUI(mc.fontRenderer, mc.getTextureManager(), stack, 0, 0);
             GL11.glPopMatrix();
             GL11.glDisable(GL11.GL_LIGHTING);
 
@@ -247,32 +234,26 @@ public class InfusionPreview {
                     }
                 }
 
-                float shift = ((float)current - (float)div / 2.0F + 0.5F) * tagscale * 4.0F;
+                float shift = ((float) current - (float) div / 2.0F + 0.5F) * tagscale * 4.0F;
 
                 GL11.glPushMatrix();
                 GL11.glTranslatef(-shift, 0, 0);
                 int color = tag.getColor();
-                float red   = ((color >> 16) & 0xFF) / 255f;
+                float red = ((color >> 16) & 0xFF) / 255f;
                 float green = ((color >> 8) & 0xFF) / 255f;
-                float blue  = (color & 0xFF) / 255f;
+                float blue = (color & 0xFF) / 255f;
                 if (!Thaumcraft.proxy.playerKnowledge.hasDiscoveredAspect(player.getCommandSenderName(), tag)) {
                     UtilsFX.renderQuadCenteredFromTexture(
-                            "textures/aspects/_unknown.png",
-                            1.0F,
-                            red, green, blue,
+                        "textures/aspects/_unknown.png",
+                        1.0F,
+                        red,
+                        green,
+                        blue,
                         220,
-                            771,
-                            0.75F
-                    );
+                        771,
+                        0.75F);
                 } else {
-                    UtilsFX.renderQuadCenteredFromTexture(
-                            tag.getImage(),
-                            1.0F,
-                            red, green, blue,
-                        220,
-                            771,
-                            0.75F
-                    );
+                    UtilsFX.renderQuadCenteredFromTexture(tag.getImage(), 1.0F, red, green, blue, 220, 771, 0.75F);
                 }
 
                 int amount = tags.getAmount(tag);
@@ -297,21 +278,15 @@ public class InfusionPreview {
                     mc.renderEngine.bindTexture(crossLocation);
                 }
                 GL11.glTranslatef(0.4f, -0.4f, 0);
-                UtilsFX.renderQuadCenteredFromTexture(
-                        2/3f,
-                        1, 1, 1,
-                        0,
-                        771,
-                        1f
-                );
+                UtilsFX.renderQuadCenteredFromTexture(2 / 3f, 1, 1, 1, 0, 771, 1f);
 
                 GL11.glPopMatrix();
                 current++;
             }
             GL11.glPopMatrix();
             String display = StatCollector.translateToLocal(
-                missingEssentia ? "salisarcana:infusion.preview.missingessentia" : "salisarcana:infusion.preview.valid"
-            );
+                missingEssentia ? "salisarcana:infusion.preview.missingessentia"
+                    : "salisarcana:infusion.preview.valid");
             String instability = info.getInstabilityLevelString();
 
             drawStatusLine(fontRenderer, display, 1.05F);
@@ -320,7 +295,6 @@ public class InfusionPreview {
         }
 
     }
-    //spotless:on
 
     private void drawString(String text, float x, float y, float z, ForgeDirection dir, float partialTicks) {
         if (!(Minecraft.getMinecraft().renderViewEntity instanceof EntityPlayer player)) return;
