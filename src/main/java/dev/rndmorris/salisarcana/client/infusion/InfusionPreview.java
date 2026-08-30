@@ -53,8 +53,8 @@ public class InfusionPreview {
     private static TileInfusionMatrix matrix;
     private static InfusionPreviewInfo info;
 
-    // Refresh cadence for the server-authoritative preview.
-    private static final int REQUEST_INTERVAL = 4;
+    // Keep this two ticks above the server cooldown to make sure we don't hit the cooldown.
+    private static final int REQUEST_INTERVAL = 12;
     private static int ticks;
 
     private static void invalidate() {
