@@ -12,7 +12,7 @@ import dev.rndmorris.salisarcana.lib.ifaces.IAccessorTileInfusionMatrix;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 
 @Mixin(value = TileInfusionMatrix.class, remap = false)
-public abstract class MixinTileInfusionMatrix_Accessor implements IAccessorTileInfusionMatrix {
+abstract class MixinTileInfusionMatrix_Accessor implements IAccessorTileInfusionMatrix {
 
     @Invoker("getSurroundings")
     public abstract void invokeGetSurroundings();
