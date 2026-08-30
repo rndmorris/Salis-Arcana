@@ -170,9 +170,9 @@ public class InfusionPreview {
         if (output == null) {
             String text = StatCollector.translateToLocal("salisarcana:infusion.preview.norecipe");
             drawString(text, xCoord, y, zCoord, dir, event.partialTicks);
-            return;
+        } else {
+            drawTagsOnContainer(output, xCoord, y, zCoord, dir, event.partialTicks);
         }
-        drawTagsOnContainer(output, xCoord, y, zCoord, dir, event.partialTicks);
     }
 
     private void drawTagsOnContainer(ItemStack stack, float x, float y, float z, ForgeDirection dir,
