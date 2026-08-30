@@ -111,7 +111,10 @@ public class InfusionPreview {
         final int zCoord = mouseOver.blockZ;
         // First check if the old matrix is invalid
         if (matrix != null) {
-            if (matrix.xCoord != xCoord || matrix.yCoord != yCoord || matrix.zCoord != mouseOver.blockZ) {
+            if (matrix.xCoord != xCoord || matrix.yCoord != yCoord
+                || matrix.zCoord != mouseOver.blockZ
+                || !matrix.hasWorldObj()
+                || matrix.getWorldObj().provider.dimensionId != event.player.dimension) {
                 invalidate();
             }
         }
