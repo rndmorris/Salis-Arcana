@@ -355,6 +355,12 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.thaum.pauseTCParticlesWithGame)
         .addClientMixins("thaumcraft.client.fx.MixinParticleEngine_PauseParticles")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    FIX_NODE_RENDERING(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.fixRenderingLayers)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_FixRenderingLayers")
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileNodeEnergized_FixRenderingLayers")
+        .addClientMixins("thaumcraft.client.lib.MixinRenderEventHandler_FixRenderingLayers")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
     ALLOW_CONNECTED_LEAF_DROPS(new SalisBuilder()
         .applyIf(SalisConfig.bugfixes.allowDropsFromLiveLeaves)
         .addCommonMixins("thaumcraft.common.blocks.MixinBlockMagicalLeaves_AllowConnectedLeafDrops")
