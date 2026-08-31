@@ -7,8 +7,8 @@ import net.minecraft.util.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
 import thaumcraft.client.lib.UtilsFX;
 
@@ -16,19 +16,22 @@ import thaumcraft.client.lib.UtilsFX;
 abstract class MixinUtilsFX_BindTextureCache {
 
     @Shadow(remap = false)
-    private static Map<String, ResourceLocation> boundTextures;
+    static Map<String, ResourceLocation> boundTextures;
 
-    @Inject(method = "bindTexture(Ljava/lang/String;)V", at = @At("HEAD"))
-    private static void salisarcana$cacheTexture(String texture, CallbackInfo ci) {
-        boundTextures.computeIfAbsent(texture, key -> new ResourceLocation("thaumcraft", key));
+    @ModifyExpressionValue(
+        method = "bindTexture(Ljava/lang/String;)V",
+        at = @At(value = "NEW", target = "net/minecraft/util/ResourceLocation", remap = true))
+    private static ResourceLocation salisarcana$cacheTexture(ResourceLocation original, String texture) {
+        boundTextures.put(texture, original);
+        return original;
     }
 
-    @Inject(method = "bindTexture(Ljava/lang/String;Ljava/lang/String;)V", at = @At("HEAD"))
-    private static void salisarcana$cacheTexture(String mod, String texture, CallbackInfo ci) {
-        final var key = mod + ":" + texture;
-        if (!boundTextures.containsKey(key)) {
-            boundTextures.put(key, new ResourceLocation(mod, texture));
-        }
+    @ModifyExpressionValue(
+        method = "bindTexture(Ljava/lang/String;Ljava/lang/String;)V",
+        at = @At(value = "NEW", target = "net/minecraft/util/ResourceLocation", remap = true))
+    private static ResourceLocation salisarcana$cacheTexture(ResourceLocation original, String mod, String texture) {
+        boundTextures.put(mod + ":" + texture, original);
+        return original;
     }
 
 }
