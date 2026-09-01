@@ -2,10 +2,13 @@ package dev.rndmorris.salisarcana.common.compat;
 
 import static dev.rndmorris.salisarcana.SalisArcana.LOG;
 
+import com.mitchej123.hodgepodge.config.FixesConfig;
 import com.mitchej123.hodgepodge.config.TweaksConfig;
 
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.versioning.DefaultArtifactVersion;
 import dev.rndmorris.salisarcana.config.SalisConfig;
+import dev.rndmorris.salisarcana.mixins.TargetedMod;
 import jss.bugtorch.config.BugTorchConfig;
 
 public class MixinModCompat {
@@ -18,7 +21,7 @@ public class MixinModCompat {
         // we get here.
 
         // For other mods, we may have to fetch config values manually.
-        if (Loader.isModLoaded("hodgepodge")) {
+        if (TargetedMod.HODGEPODGE.isLoaded()) {
             // Hodgepodge's cv support is buggy and won't charge amulets, so we force-disable it if either
             // is enabled, and we enable ours instead.
             if (TweaksConfig.addCVSupportToWandPedestal || SalisConfig.features.wandPedestalUseCV.isEnabled()) {
@@ -32,5 +35,21 @@ public class MixinModCompat {
                 LOG.info("Salis Arcana: Disabling Thaumcraft candle color array out of bounds fix -- BugTorch Enabled");
             }
         }
+    }
+
+    public static boolean multiKeyBindsPermitted() {
+        return (TargetedMod.HODGEPODGE.isLoaded() && FixesConfig.triggerAllConflictingKeybindings)
+            || (TargetedMod.NOT_ENOUGH_ITEMS.isLoaded() && doesNEIHaveKeyBindPatch())
+            || TargetedMod.CONTROLLING.isLoaded()
+            || TargetedMod.MODERN_KEYBINDING.isLoaded();
+    }
+
+    private static boolean doesNEIHaveKeyBindPatch() {
+        final var minVersion = new DefaultArtifactVersion("2.8.113-GTNH");
+        return Loader.instance()
+            .getIndexedModList()
+            .get("NotEnoughItems")
+            .getProcessedVersion()
+            .compareTo(minVersion) >= 0;
     }
 }

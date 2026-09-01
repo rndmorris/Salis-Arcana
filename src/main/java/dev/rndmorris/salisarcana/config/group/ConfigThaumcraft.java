@@ -72,6 +72,14 @@ public class ConfigThaumcraft extends ConfigGroup {
         "If true, hungry nodes will create a small crater around them when they generate to make them a bit more obvious.")
             .setCategory(nodeBehaviorsCategory);
 
+    public final ToggleSetting unstableAspectDropsRequireLoadedChunks = new ToggleSetting(
+        this,
+        "unstableAspectDropsRequireLoadedChunks",
+        """
+            If true, unstable nodes not under the effects of a Node Stabilizer will not drain or spawn aspect orbs unless the nearby chunks needed to tick the spawned
+            orb are loaded. Additionally, aspect orbs will immediately despawn if they enter a chunk where they can't be ticked to further prevent their accumulation.""")
+            .setCategory(nodeBehaviorsCategory);
+
     //
     // Potion Ids
     //
@@ -180,6 +188,11 @@ public class ConfigThaumcraft extends ConfigGroup {
         "betterParticleEngine",
         "Improves the particle engine of Thaumcraft by removing unnecessary GL operations.")
             .setCategory(tc4PerformanceCategory);
+
+    public final ToggleSetting speedupPotionAspectRegistration = new ToggleSetting(
+        this,
+        "speedupPotionAspectRegistration",
+        "Cache equivalent potion effects during Thaumcraft aspect registration.").setCategory(tc4PerformanceCategory);
 
     public final ToggleSetting crucibleScalingAspectDecay = new ToggleSetting(
         this,

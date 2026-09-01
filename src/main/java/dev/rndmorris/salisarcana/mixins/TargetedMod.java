@@ -16,6 +16,10 @@ public enum TargetedMod implements ITargetMod {
     TC4_TWEAKS("tc4tweak"),
     BAUBLES_EXPANDED("Baubles|Expanded"),
     UNDERGROUND_BIOMES("UndergroundBiomes"),
+    NOT_ENOUGH_ITEMS("NotEnoughItems", "codechicken.nei.asm.NEICorePlugin"),
+    HODGEPODGE("hodgepodge"),
+    CONTROLLING("controlling"),
+    MODERN_KEYBINDING("mkb"),
     ANGELICA("angelica"),
     ASPECT_RECIPE_INDEX("aspectrecipeindex");
 
@@ -26,6 +30,11 @@ public enum TargetedMod implements ITargetMod {
     TargetedMod(String modId) {
         this.modId = modId;
         this.builder = new TargetModBuilder().setModId(modId);
+    }
+
+    TargetedMod(String modId, String coreModClass) {
+        this(modId);
+        this.builder.setCoreModClass(coreModClass);
     }
 
     public boolean isLoaded() {

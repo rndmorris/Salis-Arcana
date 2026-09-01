@@ -130,6 +130,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "equalTradeBreaksBlocks",
         "Fixes a bug where you couldn't break blocks if you were holding the equal trade focus item.");
 
+    public final ToggleSetting preserveTileEntityDrops = new ToggleSetting(
+        this,
+        "preserveTileEntityDrops",
+        "Preserves tile entity data while Thaumcraft harvests blocks, preventing the Primal Crusher from creating incorrect drops.");
+
     public final ToggleSetting nodesRechargeInGameTime = new ToggleSetting(
         this,
         "nodesRechargeInGameTime",
@@ -290,6 +295,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "preventInvalidFociOnWands",
         "Prevent wands with invalid foci NBT (from uninstalling add-ons, for example) from crashing the game.");
 
+    public final ToggleSetting portableHoleClientSync = new ToggleSetting(
+        this,
+        "portableHoleClientSync",
+        "Properly synchronize \"Wand Focus: Portable Hole\" between server and clients, preventing client-only ghost openings and ensuring multiplayer players see the effect.");
+
     public final ToggleSetting hiddenResearchCheckInventory = new ToggleSetting(
         this,
         "hiddenResearchCheckInventory",
@@ -340,10 +350,63 @@ public class ConfigBugfixes extends ConfigGroup {
         "fixParticleEngineLeak",
         "Fix Thaumcraft's particle engine leaking the world instance");
 
+    public final ToggleSetting fixRenderingLayers = new ToggleSetting(
+        this,
+        "fixRenderingLayers",
+        "Fix Thaumcraft's Nodes, Energized Nodes, Node Aspect Tags, and Node Drain Beams rendering behind transparent blocks when they are in front of them.");
+
     public final ToggleSetting boreDecreaseCVisCheckFrequency = new ToggleSetting(
         this,
         "boreDecreaseCVisCheckFrequency",
         "Lower frequency of Thaumcraft's Arcane Bore calls to drain vis for speedup, and therefore calls to find vis nets.");
+
+    public final ToggleSetting fixBindTextureCache = new ToggleSetting(
+        this,
+        "fixBindTextureCache",
+        "Eliminates the per-frame ResourceLocation allocations by making UtilsFX populate its texture cache.");
+
+    public final ToggleSetting allowDropsFromLiveLeaves = new ToggleSetting(
+        this,
+        "allowDropsFromLiveLeaves",
+        "Allow saplings to be dropped from magical leaves which are still connected to a log.");
+
+    public final ToggleSetting reservoirsUseArgInGetEssentiaType = new ToggleSetting(
+        this,
+        "reservoirsUseArgInGetEssentiaType",
+        "Force reservoirs to use the correct face when checking their essentia type. Allows downwards-facing reservoirs to be emptied by unlabeled jars placed directly below them.");
+
+    public final ToggleSetting fixWandAverageCostTooltip = new ToggleSetting(
+        this,
+        "fixWandAverageCostTooltip",
+        "Tweak how a wand's average vis cost is calculated to display a more accurate number. Example: Thaumium+Silverwood scepters (20% discount) should now show 80% instead of 79%.");
+
+    public final ToggleSetting activateGolemFetterOnPlace = new ToggleSetting(
+        this,
+        "activateGolemFetterOnPlace",
+        "Make Golem Fetters activate instantly if they're placed into a location that is already receiving redstone power.");
+
+    public final ToggleSetting fixNodeRemovingCircularCall = new ToggleSetting(
+        this,
+        "fixNodeRemovingCircularCall",
+        "Prevent vis networks from sending block updates if the tile entity was invalidated, preventing an infinite recursion crash when empowering a node with Logistics Pipes installed.");
+
+    public final ToggleSetting wardingUseWorldMetadata = new ToggleSetting(
+        this,
+        "wardingUseWorldMetadata",
+        "Have Warded Blocks treat the world metadata as authoritative rather than the metadata stored in the NBT. Fixes metadata truncation with mods like NEID and EndlessIDs.");
+
+    public final ToggleSetting wardingDontStoreNBTMeta = new ToggleSetting(
+        wardingUseWorldMetadata,
+        "wardingDontStoreNBTMeta",
+        """
+            Stop Warded Blocks from storing their metadata in the NBT, reducing network traffic & save-file size. Requires `wardingUseWorldMetadata`.
+            WARNING: Any Warded Blocks loaded when this setting is enabled will become invalid if you uninstall Salis Arcana or disable `wardingUseWorldMetadata`.""")
+            .setEnabled(false);
+
+    public final ToggleSetting preventTravelingTrunkDupe = new ToggleSetting(
+        this,
+        "preventTravelingTrunkDupe",
+        "Prevent entropy-upgraded Traveling Trunks from absorbing dead items which may have been already collected by something else.");
 
     @Nonnull
     @Override
