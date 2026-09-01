@@ -27,9 +27,9 @@ public final class QuickStashFocus {
         // If none of these mods are present, use the Thaumcraft keybind instead.
         if (MixinModCompat.multiKeyBindsPermitted()) {
             KEYBIND = new KeyBinding(
-                "salisarcana:keybind.quick_stash_focus",
+                "salisarcana.keybind.quick_stash_focus",
                 Keyboard.KEY_F,
-                "salisarcana:keybind_category");
+                "salisarcana.keybind_category");
             ClientRegistry.registerKeyBinding(KEYBIND);
         }
 
