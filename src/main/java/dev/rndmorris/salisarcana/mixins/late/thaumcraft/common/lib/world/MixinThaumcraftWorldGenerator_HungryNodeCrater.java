@@ -1,7 +1,10 @@
 package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.world;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -10,14 +13,15 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import com.llamalad7.mixinextras.sugar.Local;
 
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.ThaumcraftApiHelper;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.api.nodes.NodeType;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
+import thaumcraft.common.tiles.TileNode;
 
 @Mixin(value = ThaumcraftWorldGenerator.class, remap = false)
 abstract class MixinThaumcraftWorldGenerator_HungryNodeCrater {
@@ -26,13 +30,22 @@ abstract class MixinThaumcraftWorldGenerator_HungryNodeCrater {
      * @author koolkrafter5
      * @reason Create a small crater under hungry nodes when they generate to make them more obvious.
      */
-    @Inject(method = "createNodeAt", at = @At(value = "TAIL"))
-    private static void mixinCreateRandomNodeAt(World world, int x, int y, int z, NodeType nt, NodeModifier nm,
-        AspectList al, CallbackInfo ci) {
-        if (nt != NodeType.HUNGRY) return;
+    @Inject(
+        method = "generateWildNodes",
+        at = @At(
+            value = "INVOKE",
+            target = "Lthaumcraft/common/lib/world/ThaumcraftWorldGenerator;createRandomNodeAt(Lnet/minecraft/world/World;IIILjava/util/Random;ZZZ)V",
+            shift = At.Shift.AFTER))
+    private static void mixinCreateRandomNodeAt(World world, Random random, int chunkX, int chunkZ, boolean auraGen,
+        boolean newGen, CallbackInfoReturnable<Boolean> cir, @Local(name = "x") int x, @Local(name = "q") int y,
+        @Local(name = "z") int z) {
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+        if (!(tileEntity instanceof TileNode node) || node.getNodeType() != NodeType.HUNGRY) {
+            return;
+        }
         int max = 100;
-        if (nm != null && SalisConfig.thaum.hungryModifierSpeed.isEnabled()) {
-            switch (nm) {
+        if (node.getNodeModifier() != null && SalisConfig.thaum.hungryModifierSpeed.isEnabled()) {
+            switch (node.getNodeModifier()) {
                 case BRIGHT -> max = 120;
                 case PALE -> max = 80;
                 case FADING -> max = 50;
