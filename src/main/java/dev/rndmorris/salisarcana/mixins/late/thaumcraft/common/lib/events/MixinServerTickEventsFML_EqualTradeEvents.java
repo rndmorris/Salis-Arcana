@@ -11,7 +11,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.world.BlockEvent;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -31,12 +31,11 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import dev.rndmorris.salisarcana.lib.EventUtils;
 import thaumcraft.common.lib.events.ServerTickEventsFML;
 
-@SuppressWarnings("ReferenceToMixin")
 @Mixin(value = ServerTickEventsFML.class, remap = false)
 abstract class MixinServerTickEventsFML_EqualTradeEvents {
 
     @WrapMethod(method = "tickBlockSwap")
-    private static void repeatTickBlockSwap(World world, Operation<Void> original,
+    private void repeatTickBlockSwap(World world, Operation<Void> original,
         @Share("cancelled") LocalBooleanRef cancelled) {
         // This method includes a loop that repeats until a block gets mutated. Since we're forced to early-return from
         // a cancelled BlockEvent.PlaceEvent in order to avoid spending vis and triggering SFX, we use this method to
@@ -51,49 +50,49 @@ abstract class MixinServerTickEventsFML_EqualTradeEvents {
     @Definition(id = "slot", local = @Local(type = int.class, name = "slot"))
     @Expression("slot >= 0")
     @ModifyExpressionValue(method = "tickBlockSwap", at = @At("MIXINEXTRAS:EXPRESSION"))
-    private static boolean fireBlockBreakEvent(boolean original, World world,
-        @Local ServerTickEventsFML.VirtualSwapper vs, @Local Block bi, @Local(name = "md") int metadata) {
-        final var avs = (AccessorVirtualSwapper) (Object) vs;
-        return original && world.canMineBlock(avs.player, avs.x, avs.y, avs.z)
+    private boolean fireBlockBreakEvent(boolean original, World world, @Local ServerTickEventsFML.VirtualSwapper vs,
+        @Local Block bi, @Local(name = "md") int metadata) {
+        final var avs = (AccessorVirtualSwapper) vs;
+        return original && world.canMineBlock(avs.player(), avs.x(), avs.y(), avs.z())
             && !MinecraftForge.EVENT_BUS
-                .post(new BlockEvent.BreakEvent(avs.x, avs.y, avs.z, world, bi, metadata, avs.player));
+                .post(new BlockEvent.BreakEvent(avs.x(), avs.y(), avs.z(), world, bi, metadata, avs.player()));
     }
 
     @WrapOperation(
         method = "tickBlockSwap",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/block/Block;getDrops(Lnet/minecraft/world/World;IIIII)Ljava/util/ArrayList;",
-            remap = true))
-    private static ArrayList<ItemStack> fireBlockHarvestEvent(Block instance, World world, int x, int y, int z,
-        int metadata, int fortune, Operation<ArrayList<ItemStack>> original,
-        @Local ServerTickEventsFML.VirtualSwapper vs) {
+            target = "Lnet/minecraft/block/Block;getDrops(Lnet/minecraft/world/World;IIIII)Ljava/util/ArrayList;"))
+    private ArrayList<ItemStack> fireBlockHarvestEvent(Block instance, World world, int x, int y, int z, int metadata,
+        int fortune, Operation<ArrayList<ItemStack>> original, @Local ServerTickEventsFML.VirtualSwapper vs) {
         ArrayList<ItemStack> drops = original.call(instance, world, x, y, z, metadata, fortune);
-        final var avs = (AccessorVirtualSwapper) (Object) vs;
+        final var avs = (AccessorVirtualSwapper) vs;
         ForgeEventFactory
-            .fireBlockHarvesting(drops, world, instance, x, y, z, metadata, fortune, 1f, false, avs.player);
+            .fireBlockHarvesting(drops, world, instance, x, y, z, metadata, fortune, 1f, false, avs.player());
         return drops;
     }
 
     @Inject(
         method = "tickBlockSwap",
         at = @At(value = "INVOKE", target = "Ljava/util/ArrayList;add(Ljava/lang/Object;)Z", shift = At.Shift.AFTER))
-    private static void fireBlockSilkTouchEvent(World world, CallbackInfo ci,
-        @Local ServerTickEventsFML.VirtualSwapper vs, @Local ArrayList<ItemStack> drops, @Local Block bi,
-        @Local(name = "md") int metadata) {
-        final var avs = (AccessorVirtualSwapper) (Object) vs;
-        ForgeEventFactory.fireBlockHarvesting(drops, world, bi, avs.x, avs.y, avs.z, metadata, 0, 1f, true, avs.player);
+    private void fireBlockSilkTouchEvent(World world, CallbackInfo ci, @Local ServerTickEventsFML.VirtualSwapper vs,
+        @Local ArrayList<ItemStack> drops, @Local Block bi, @Local(name = "md") int metadata) {
+        final var avs = (AccessorVirtualSwapper) vs;
+        ForgeEventFactory
+            .fireBlockHarvesting(drops, world, bi, avs.x(), avs.y(), avs.z(), metadata, 0, 1f, true, avs.player());
     }
 
     @ModifyReceiver(method = "tickBlockSwap", at = @At(value = "INVOKE", target = "Ljava/util/ArrayList;size()I"))
-    private static ArrayList<ItemStack> tryPlaceBlockEvent(ArrayList<ItemStack> drops, World world,
+    private ArrayList<ItemStack> tryPlaceBlockEvent(ArrayList<ItemStack> drops, World world,
         @Local ServerTickEventsFML.VirtualSwapper vs, @Share("cancelled") LocalBooleanRef cancelled,
         @Cancellable CallbackInfo ci) {
-        final var avs = (AccessorVirtualSwapper) (Object) vs;
-        final Block block = Block.getBlockFromItem(avs.target.getItem());
-        final int meta = avs.target.getItemDamage();
+        final var avs = (AccessorVirtualSwapper) vs;
+        // spotless:off
+        final Block block = Block.getBlockFromItem(avs.target().getItem());
+        final int meta = avs.target().getItemDamage();
+        // spotless:on
 
-        if (!EventUtils.tryPlaceBlock(world, avs.x, avs.y, avs.z, block, meta, 3, avs.player)) {
+        if (!EventUtils.tryPlaceBlock(world, avs.x(), avs.y(), avs.z(), block, meta, 3, avs.player())) {
             cancelled.set(true);
             ci.cancel();
         }
@@ -103,14 +102,17 @@ abstract class MixinServerTickEventsFML_EqualTradeEvents {
 
     @WrapOperation(
         method = "tickBlockSwap",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;setBlock(IIILnet/minecraft/block/Block;II)Z"))
-    private static boolean tryPlaceBlockCreative(World world, int x, int y, int z, Block block, int metadata, int flags,
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/World;setBlock(IIILnet/minecraft/block/Block;II)Z",
+            remap = true))
+    private boolean tryPlaceBlockCreative(World world, int x, int y, int z, Block block, int metadata, int flags,
         Operation<Boolean> original, @Local ServerTickEventsFML.VirtualSwapper vs,
         @Share("cancelled") LocalBooleanRef cancelled, @Cancellable CallbackInfo ci) {
-        final var avs = (AccessorVirtualSwapper) (Object) vs;
-        if (avs.player.capabilities.isCreativeMode) {
+        final var avs = (AccessorVirtualSwapper) vs;
+        if (avs.player().capabilities.isCreativeMode) {
             // In Creative Mode, tryPlaceBlockEvent is skipped, so we try to place the block here instead.
-            if (!EventUtils.tryPlaceBlock(world, avs.x, avs.y, avs.z, block, metadata, flags, avs.player)) {
+            if (!EventUtils.tryPlaceBlock(world, avs.x(), avs.y(), avs.z(), block, metadata, flags, avs.player())) {
                 cancelled.set(true);
                 ci.cancel();
                 return false;
@@ -122,21 +124,21 @@ abstract class MixinServerTickEventsFML_EqualTradeEvents {
     }
 
     @Mixin(value = ServerTickEventsFML.VirtualSwapper.class, remap = false)
-    abstract static class AccessorVirtualSwapper {
+    interface AccessorVirtualSwapper {
 
-        @Shadow
-        EntityPlayer player;
+        @Accessor("player")
+        EntityPlayer player();
 
-        @Shadow
-        int x;
+        @Accessor("x")
+        int x();
 
-        @Shadow
-        int y;
+        @Accessor("y")
+        int y();
 
-        @Shadow
-        int z;
+        @Accessor("z")
+        int z();
 
-        @Shadow
-        ItemStack target;
+        @Accessor("target")
+        ItemStack target();
     }
 }

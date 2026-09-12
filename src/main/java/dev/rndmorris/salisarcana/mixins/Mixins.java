@@ -387,7 +387,8 @@ public enum Mixins implements IMixins {
             "thaumcraft.common.lib.events.MixinServerTickEventsFML_EqualTradeEvents",
             "thaumcraft.common.items.wands.foci.MixinItemFocusWarding_TriggerEvents",
             "thaumcraft.common.entities.projectile.MixinEntityShockOrb_EmitPlaceEvent",
-            "thaumcraft.common.entities.projectile.MixinEntityEmber_EmitPlaceEvent")
+            "thaumcraft.common.entities.projectile.MixinEntityEmber_EmitPlaceEvent",
+            "thaumcraft.common.lib.events.MixinServerTickEventsFML_EqualTradeEvents$AccessorVirtualSwapper")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
