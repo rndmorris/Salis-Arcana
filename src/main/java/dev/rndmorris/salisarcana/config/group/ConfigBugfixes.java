@@ -408,6 +408,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "preventTravelingTrunkDupe",
         "Prevent entropy-upgraded Traveling Trunks from absorbing dead items which may have been already collected by something else.");
 
+    public final ToggleSetting emitEventsForFoci = new ToggleSetting(
+        this,
+        "emitEventsForFoci",
+        "Make the Warding, Equal Trade, Fire, and Shock foci check Forge break/place block events before replacing blocks, allowing server plugins to block them.");
+
     @Nonnull
     @Override
     public String getGroupName() {

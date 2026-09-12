@@ -381,6 +381,14 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.preventTravelingTrunkDupe)
         .addCommonMixins("thaumcraft.common.entities.golems.MixinEntityTravelingTrunk_SkipDeadItems")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EMIT_FOCUS_EVENTS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.emitEventsForFoci)
+        .addCommonMixins(
+            "thaumcraft.common.lib.events.MixinServerTickEventsFML_EqualTradeEvents",
+            "thaumcraft.common.items.wands.foci.MixinItemFocusWarding_TriggerEvents",
+            "thaumcraft.common.entities.projectile.MixinEntityShockOrb_EmitPlaceEvent",
+            "thaumcraft.common.entities.projectile.MixinEntityEmber_EmitPlaceEvent")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
