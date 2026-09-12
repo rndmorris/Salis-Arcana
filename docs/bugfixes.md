@@ -447,3 +447,9 @@ Stop Warded Blocks from storing their metadata in the NBT, reducing network traf
 **Config option:** `preventTravelingTrunkDupe`
 
 Prevent entropy-upgraded Traveling Trunks from absorbing dead items which may have been already collected by something else.
+
+## Prevent Foci from Editing Claimed Chunks Without Permission
+
+**Config option:** `emitEventsForFoci`
+
+Make the Warding, Equal Trade, Fire, and Shock foci check Forge break/place block events before replacing blocks, allowing server plugins to block them.
