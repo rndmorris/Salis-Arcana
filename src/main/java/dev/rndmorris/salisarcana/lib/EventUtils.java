@@ -11,6 +11,15 @@ public final class EventUtils {
 
     private EventUtils() {}
 
+    public static boolean canBreakBlock(World world, int x, int y, int z, EntityPlayer player) {
+        return canBreakBlock(world, x, y, z, world.getBlock(x, y, z), world.getBlockMetadata(x, y, z), player);
+    }
+
+    public static boolean canBreakBlock(World world, int x, int y, int z, Block block, int meta, EntityPlayer player) {
+        return world.canMineBlock(player, x, y, z)
+            && !MinecraftForge.EVENT_BUS.post(new BlockEvent.BreakEvent(x, y, z, world, block, meta, player));
+    }
+
     public static boolean tryPlaceBlock(World world, int x, int y, int z, Block block, int meta, int flags,
         EntityPlayer player) {
 

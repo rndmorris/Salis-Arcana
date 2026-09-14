@@ -6,9 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.world.BlockEvent;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -53,9 +51,7 @@ abstract class MixinServerTickEventsFML_EqualTradeEvents {
     private boolean fireBlockBreakEvent(boolean original, World world, @Local ServerTickEventsFML.VirtualSwapper vs,
         @Local Block bi, @Local(name = "md") int metadata) {
         final var avs = (AccessorVirtualSwapper) vs;
-        return original && world.canMineBlock(avs.player(), avs.x(), avs.y(), avs.z())
-            && !MinecraftForge.EVENT_BUS
-                .post(new BlockEvent.BreakEvent(avs.x(), avs.y(), avs.z(), world, bi, metadata, avs.player()));
+        return original && EventUtils.canBreakBlock(world, avs.x(), avs.y(), avs.z(), bi, metadata, avs.player());
     }
 
     @WrapOperation(

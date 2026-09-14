@@ -4,8 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.BlockEvent;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -50,21 +48,7 @@ abstract class MixinItemFocusWarding_TriggerEvents {
         Operation<Boolean> original, ItemStack wandStack, @Local(argsOnly = true) EntityPlayer player,
         @Cancellable CallbackInfoReturnable<ItemStack> cir) {
 
-        // Check for vanilla spawn protection
-        if (!world.canMineBlock(player, x, y, z)) {
-            cir.setReturnValue(wandStack);
-            return false;
-        }
-
-        final var breakEvent = new BlockEvent.BreakEvent(
-            x,
-            y,
-            z,
-            world,
-            world.getBlock(x, y, z),
-            world.getBlockMetadata(x, y, z),
-            player);
-        if (MinecraftForge.EVENT_BUS.post(breakEvent)) {
+        if (!EventUtils.canBreakBlock(world, x, y, z, player)) {
             cir.setReturnValue(wandStack);
             return false;
         }
