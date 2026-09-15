@@ -61,3 +61,11 @@ Secret salt to enhance and refine Thaumcraft 4
 **By:** Nikolay S.
 
 **License:** [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
+
+## "Infusion Preview" Icons
+
+**By:** miozune
+
+**Source:** [GT5-Unofficial - cross.png](https://github.com/GTNewHorizons/GT5-Unofficial/blob/ed3bb7a76d4af2e9e5c13bd8701b0a894b0097c5/src/main/resources/assets/gregtech/textures/gui/overlay_button/cross.png) and [GT5-Unofficial - checkmark.png](https://github.com/GTNewHorizons/GT5-Unofficial/blob/ed3bb7a76d4af2e9e5c13bd8701b0a894b0097c5/src/main/resources/assets/gregtech/textures/gui/overlay_button/checkmark.png) ([PR](https://github.com/GTNewHorizons/GT5-Unofficial/pull/1381))
+
+**License:** [LGPL3](https://github.com/GTNewHorizons/GT5-Unofficial/blob/ed3bb7a76d4af2e9e5c13bd8701b0a894b0097c5/LICENSE.txt)
