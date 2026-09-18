@@ -1,9 +1,22 @@
 package dev.rndmorris.salisarcana.lib;
 
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagLong;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.FakePlayerFactory;
+
+import com.mojang.authlib.GameProfile;
 
 public final class PlayerHelper {
 
@@ -39,5 +52,62 @@ public final class PlayerHelper {
                         .getItem()))
             .map(Slot::getStack)
             .toArray(ItemStack[]::new);
+    }
+
+    public static @Nullable EntityPlayerMP getPlayerByUUID(@Nonnull UUID uuid) {
+        for (EntityPlayerMP player : MinecraftServer.getServer()
+            .getConfigurationManager().playerEntityList) {
+            if (uuid.equals(
+                player.getGameProfile()
+                    .getId())) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public static @Nonnull EntityPlayerMP getOrFakePlayer(@Nonnull GameProfile profile, WorldServer world) {
+        UUID uuid = profile.getId();
+        if (uuid != null) {
+            EntityPlayerMP player = getPlayerByUUID(uuid);
+            if (player != null) {
+                return player;
+            }
+        }
+
+        return FakePlayerFactory.get(world, profile);
+    }
+
+    public static @Nonnull NBTTagCompound gameProfileToNBT(@Nonnull GameProfile profile) {
+        final NBTTagCompound ownerInfo = new NBTTagCompound();
+        final String name = profile.getName();
+        final UUID uuid = profile.getId();
+
+        if (name != null) {
+            ownerInfo.setString("username", name);
+        }
+        if (uuid != null) {
+            ownerInfo.setLong("uuidUpper", uuid.getMostSignificantBits());
+            ownerInfo.setLong("uuidLower", uuid.getLeastSignificantBits());
+        }
+
+        return ownerInfo;
+    }
+
+    public static @Nullable GameProfile gameProfileFromNBT(@Nonnull NBTTagCompound nbt) {
+        String username = nbt.getString("username");
+        if (username.isEmpty()) username = null;
+
+        UUID uuid = null;
+        if (nbt.getTag("uuidLower") instanceof NBTTagLong uuidLower
+            && nbt.getTag("uuidUpper") instanceof NBTTagLong uuidUpper) {
+            uuid = new UUID(uuidUpper.func_150291_c(), uuidLower.func_150291_c());
+        }
+
+        if (username != null || uuid != null) {
+            return new GameProfile(uuid, username);
+        } else {
+            return null;
+        }
     }
 }

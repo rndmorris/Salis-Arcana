@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.lib;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -8,6 +10,8 @@ import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
 
 public final class EventUtils {
+
+    public static @Nullable EntityPlayer portableHoleOwner;
 
     private EventUtils() {}
 
