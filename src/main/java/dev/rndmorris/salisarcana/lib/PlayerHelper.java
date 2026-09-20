@@ -87,8 +87,8 @@ public final class PlayerHelper {
             ownerInfo.setString("username", name);
         }
         if (uuid != null) {
-            ownerInfo.setLong("uuidUpper", uuid.getMostSignificantBits());
-            ownerInfo.setLong("uuidLower", uuid.getLeastSignificantBits());
+            ownerInfo.setLong("UUIDMost", uuid.getMostSignificantBits());
+            ownerInfo.setLong("UUIDLeast", uuid.getLeastSignificantBits());
         }
 
         return ownerInfo;
@@ -99,8 +99,8 @@ public final class PlayerHelper {
         if (username.isEmpty()) username = null;
 
         UUID uuid = null;
-        if (nbt.getTag("uuidLower") instanceof NBTTagLong uuidLower
-            && nbt.getTag("uuidUpper") instanceof NBTTagLong uuidUpper) {
+        if (nbt.getTag("UUIDMost") instanceof NBTTagLong uuidUpper
+            && nbt.getTag("UUIDLeast") instanceof NBTTagLong uuidLower) {
             uuid = new UUID(uuidUpper.func_150291_c(), uuidLower.func_150291_c());
         }
 
