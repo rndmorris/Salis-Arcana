@@ -1,5 +1,8 @@
 package dev.rndmorris.salisarcana.config.group;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.annotation.Nonnull;
 
 import dev.rndmorris.salisarcana.config.ConfigGroup;
@@ -408,17 +411,39 @@ public class ConfigBugfixes extends ConfigGroup {
         "preventTravelingTrunkDupe",
         "Prevent entropy-upgraded Traveling Trunks from absorbing dead items which may have been already collected by something else.");
 
-    public final ToggleSetting emitEventsForFoci = new ToggleSetting(
+    public final ToggleSetting emitEventsForWarding = new ToggleSetting(
         this,
-        "emitEventsForFoci",
-        "Make the Warding, Equal Trade, Portable Hole, Fire, and Shock foci check Forge break/place block events before replacing blocks, allowing server plugins to block them.")
+        "emitEventsForWarding",
+        "Make the Warding focus emit Forge block-break & block-place events before warding blocks.")
+            .setCategory("forge-events");
+
+    public final ToggleSetting emitEventsForEqualTrade = new ToggleSetting(
+        this,
+        "emitEventsForEqualTrade",
+        "Make the Equal Trade focus emit Forge block-break & block-place events before replacing blocks.")
+            .setCategory("forge-events");
+
+    public final ToggleSetting emitEventsForPortableHole = new ToggleSetting(
+        this,
+        "emitEventsForPortableHole",
+        "Make the Portable Hole focus emit Forge block-break & block-place events before converting blocks into hole blocks.")
+            .setCategory("forge-events");
+
+    public final ToggleSetting emitEventsForFireFocus = new ToggleSetting(
+        this,
+        "emitEventsForFireFocus",
+        "Make the Fire focus emit a block-place event before lighting the ground on fire.").setCategory("forge-events");
+
+    public final ToggleSetting emitEventsForShockFocus = new ToggleSetting(
+        this,
+        "emitEventsForShockFocus",
+        "Make the Shock focus emit a block-place event before placing \"Earth Shock\" blocks.")
             .setCategory("forge-events");
 
     public final ToggleSetting emitEventsForThaumarhia = new ToggleSetting(
         this,
         "emitEventsForThaumarhia",
-        "Make the Thaumarhia potion effect emit block-place events when placing Flux Goo, preventing players from polluting other people's claimed chunks.")
-            .setCategory("forge-events");
+        "Make the Thaumarhia potion effect emit block-place events when placing Flux Goo.").setCategory("forge-events");
 
     @Nonnull
     @Override
@@ -432,4 +457,11 @@ public class ConfigBugfixes extends ConfigGroup {
         return "Fixes for bugs in TC4";
     }
 
+    @Override
+    protected Collection<CategoryComment> getCategoryComments() {
+        return Collections.singletonList(new CategoryComment("forge-events", """
+            Allow server plugins (and other mods) to control Thaumcraft's world interactions by emitting Forge events
+            for block placement & destruction. This prevents people from bypassing claimed-chunk protections by using
+            some of Thaumcraft's items."""));
+    }
 }
