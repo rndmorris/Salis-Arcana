@@ -411,7 +411,14 @@ public class ConfigBugfixes extends ConfigGroup {
     public final ToggleSetting emitEventsForFoci = new ToggleSetting(
         this,
         "emitEventsForFoci",
-        "Make the Warding, Equal Trade, Fire, and Shock foci check Forge break/place block events before replacing blocks, allowing server plugins to block them.");
+        "Make the Warding, Equal Trade, Portable Hole, Fire, and Shock foci check Forge break/place block events before replacing blocks, allowing server plugins to block them.")
+            .setCategory("forge-events");
+
+    public final ToggleSetting emitEventsForThaumarhia = new ToggleSetting(
+        this,
+        "emitEventsForThaumarhia",
+        "Make the Thaumarhia potion effect emit block-place events when placing Flux Goo, preventing players from polluting other people's claimed chunks.")
+            .setCategory("forge-events");
 
     @Nonnull
     @Override

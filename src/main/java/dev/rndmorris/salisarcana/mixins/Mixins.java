@@ -392,6 +392,10 @@ public enum Mixins implements IMixins {
             "thaumcraft.common.items.wands.foci.MixinItemFocusPortableHole_TriggerEvents",
             "thaumcraft.common.tiles.MixinTileHole_StoreCreator")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EMIT_THAUMARHIA_EVENTS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.emitEventsForThaumarhia)
+        .addCommonMixins("thaumcraft.common.lib.potions.MixinPotionThaumarhia_EmitEvents")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
