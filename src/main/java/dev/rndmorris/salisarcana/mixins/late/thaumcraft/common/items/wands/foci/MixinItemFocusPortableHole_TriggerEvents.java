@@ -41,7 +41,7 @@ abstract class MixinItemFocusPortableHole_TriggerEvents {
     private static boolean checkBreakPermission(boolean original, World world, int x, int y, int z,
         @Share("snapshot") LocalRef<BlockSnapshot> snapshotRef) {
         final EntityPlayer owner = EventUtils.portableHoleOwner;
-        if (original && owner != null) {
+        if (original && owner != null && !world.isRemote) {
             // Player is present, all prior checks passed, fire block-break event.
             if (EventUtils.canBreakBlock(world, x, y, z, owner)) {
                 // Create snapshot for block-place event.
@@ -65,7 +65,7 @@ abstract class MixinItemFocusPortableHole_TriggerEvents {
             remap = true))
     private static boolean checkPlacePermission(boolean couldPlace, World world,
         @Share("snapshot") LocalRef<BlockSnapshot> snapshotRef, @Cancellable CallbackInfoReturnable<Boolean> cir) {
-        if (couldPlace && EventUtils.portableHoleOwner != null) {
+        if (couldPlace && EventUtils.portableHoleOwner != null && !world.isRemote) {
             final BlockSnapshot snapshot = snapshotRef.get();
             final var event = new BlockEvent.PlaceEvent(snapshot, snapshot.replacedBlock, EventUtils.portableHoleOwner);
             if (MinecraftForge.EVENT_BUS.post(event)) {
