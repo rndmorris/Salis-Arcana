@@ -27,11 +27,13 @@ import thaumcraft.common.tiles.TileMemory;
 @Mixin(TileHole.class)
 abstract class MixinTileHole_StoreCreator extends TileMemory {
 
-    @Shadow
+    @Shadow(remap = false)
     public short countdown;
-    @Shadow
+
+    @Shadow(remap = false)
     public byte count;
-    @Shadow
+
+    @Shadow(remap = false)
     public byte direction;
 
     @Unique
