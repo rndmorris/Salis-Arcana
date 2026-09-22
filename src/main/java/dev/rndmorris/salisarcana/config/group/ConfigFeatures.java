@@ -486,6 +486,20 @@ public class ConfigFeatures extends ConfigGroup {
         "fakePlayersDropLootbags",
         "Allows kills from fake players to drop loot bags from champion mobs.").setEnabled(true);
 
+    public final BlockItemListSetting<Object> alchemicalFurnaceEffectiveFuels = new BlockItemListSetting<>(
+        this,
+        "alchemicalFurnaceEffectiveFuels",
+        """
+            Using Alumentum to fuel an Alchemical Furnace allows it to move essentia to the attached alembics at double speed.
+            Items specified here will grant that same boost to the Alchemical Furnace when used as fuel.
+            FORMAT: `modId:itemId` or `modId:itemId:metadata`.
+              Metadata:
+                * Defaults to 0 if not set.
+                * If set to * or 32767, all metadata variants of the item will be included.
+            """)
+            .setListType(BlockItemListSetting.ListType.ITEMS)
+            .setCategory("general");
+
     public final ToggleSetting quickStashFocus = new ToggleSetting(
         this,
         "quickStashFocus",

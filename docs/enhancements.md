@@ -256,6 +256,12 @@ Wand caps & wand rods will show information about their vis capacity & discount 
 
 Hovering over an unknown aspect inside the Research Table will show a tooltip with a hint about where you can find it.
 
+## Other Effective Fuels in Alchemical Furnace
+
+**Config option:** `alchemicalFurnaceEffectiveFuels`
+
+Allow other items to be configured to give the double speed boost to distilling essentia inherent to alumentum.
+
 ## Quick-Stash Wand Foci
 
 **Config option:** `quickStashFocus`

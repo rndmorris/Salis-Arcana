@@ -648,6 +648,11 @@ public enum Mixins implements IMixins {
         .addRequiredMod(TargetedMod.THAUMCRAFT)
         .addRequiredMod(TargetedMod.BAUBLES_EXPANDED)),
 
+    ALCHEMICAL_FURNACE_EFFECTIVE_FUELS(new SalisBuilder()
+        .applyIf(SalisConfig.features.alchemicalFurnaceEffectiveFuels)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileAlchemyFurnace_EffectiveFuels")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     // Tweaks
 
     POTION_ID_OVERRIDE(new SalisBuilder()
