@@ -381,6 +381,34 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.preventTravelingTrunkDupe)
         .addCommonMixins("thaumcraft.common.entities.golems.MixinEntityTravelingTrunk_SkipDeadItems")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EMIT_EVENTS_WARDING(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.emitEventsForWarding)
+        .addCommonMixins("thaumcraft.common.items.wands.foci.MixinItemFocusWarding_TriggerEvents")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EMIT_EVENTS_EQUAL_TRADE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.emitEventsForEqualTrade)
+        .addCommonMixins(
+            "thaumcraft.common.lib.events.MixinServerTickEventsFML_EqualTradeEvents",
+            "thaumcraft.common.lib.events.MixinServerTickEventsFML_EqualTradeEvents$AccessorVirtualSwapper")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EMIT_EVENTS_PORTABLE_HOLE(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.emitEventsForPortableHole)
+        .addCommonMixins(
+            "thaumcraft.common.items.wands.foci.MixinItemFocusPortableHole_TriggerEvents",
+            "thaumcraft.common.tiles.MixinTileHole_StoreCreator")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EMIT_EVENTS_FIRE_FOCUS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.emitEventsForFireFocus)
+        .addCommonMixins("thaumcraft.common.entities.projectile.MixinEntityEmber_EmitPlaceEvent")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EMIT_EVENTS_SHOCK_FOCUS(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.emitEventsForShockFocus)
+        .addCommonMixins("thaumcraft.common.entities.projectile.MixinEntityShockOrb_EmitPlaceEvent")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    EMIT_EVENTS_THAUMARHIA(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.emitEventsForThaumarhia)
+        .addCommonMixins("thaumcraft.common.lib.potions.MixinPotionThaumarhia_EmitEvents")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
