@@ -704,6 +704,11 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.tiles.MixinTileNode_ProtectGetBlock")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
+    NODE_WORLDGEN_CRATER_HUNGRY(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.hungryWorldgenCrater)
+        .addCommonMixins("thaumcraft.common.lib.world.MixinThaumcraftWorldGenerator_HungryNodeCrater")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     FAKE_PLAYERS_DROP_LOOTBAGS(new SalisBuilder()
         .applyIf(SalisConfig.features.fakePlayersDropLootbags)
         .addCommonMixins("thaumcraft.common.lib.events.MixinEventHandlerEntity_LootBagFakePlayer")
