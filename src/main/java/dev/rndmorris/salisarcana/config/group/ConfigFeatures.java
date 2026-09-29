@@ -497,8 +497,7 @@ public class ConfigFeatures extends ConfigGroup {
                 * Defaults to 0 if not set.
                 * If set to * or 32767, all metadata variants of the item will be included.
             """)
-            .setListType(BlockItemListSetting.ListType.ITEMS)
-            .setCategory("general");
+            .setListType(BlockItemListSetting.ListType.ITEMS);
 
     public final ToggleSetting quickStashFocus = new ToggleSetting(
         this,
