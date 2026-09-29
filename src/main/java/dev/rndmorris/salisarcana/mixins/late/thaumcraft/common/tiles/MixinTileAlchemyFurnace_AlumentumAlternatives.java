@@ -20,7 +20,7 @@ abstract class MixinTileAlchemyFurnace_EffectiveFuels extends TileThaumcraft {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/item/ItemStack;isItemEqual(Lnet/minecraft/item/ItemStack;)Z"))
-    boolean effectiveFuels(ItemStack instance, ItemStack p_77969_1_, Operation<Boolean> original) {
+    private boolean effectiveFuels(ItemStack instance, ItemStack p_77969_1_, Operation<Boolean> original) {
         if (SalisConfig.features.alchemicalFurnaceEffectiveFuels
             .hasEntry(instance.getItem(), instance.getItemDamage())) {
             return true;
