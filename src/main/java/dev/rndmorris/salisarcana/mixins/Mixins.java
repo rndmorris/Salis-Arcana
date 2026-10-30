@@ -25,7 +25,9 @@ public enum Mixins implements IMixins {
     // highly unlikely. Furthermore, these mixins being always applied allows for focus quick-stashing to be dynamically
     // enabled & disabled in the future.
     THAUM_ACCESSORS(new SalisBuilder()
-        .addCommonMixins("thaumcraft.common.container.AccessorContainerFocusPouch")
+        .addCommonMixins(
+            "thaumcraft.common.container.AccessorContainerFocusPouch",
+            "thaumcraft.common.tiles.MixinTileInfusionMatrix_Accessor")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
     CAPTURE_FOCUS_KEYBIND(new SalisBuilder()
         .addClientMixins("thaumcraft.common.lib.events.MixinKeyHandler_CaptureFocusKeybind")
