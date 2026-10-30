@@ -66,6 +66,12 @@ public class ConfigThaumcraft extends ConfigGroup {
         tendrils will be adjusted by their modifier: 20% more often when bright, 20% less often when pale, 50% less
         often when fading.""").setCategory(nodeBehaviorsCategory);
 
+    public final ToggleSetting hungryWorldgenCrater = new ToggleSetting(
+        this,
+        "hungryWorldgenCrater",
+        "If true, hungry nodes will create a small crater around them when they generate to make them a bit more obvious.")
+            .setCategory(nodeBehaviorsCategory);
+
     public final ToggleSetting unstableAspectDropsRequireLoadedChunks = new ToggleSetting(
         this,
         "unstableAspectDropsRequireLoadedChunks",
