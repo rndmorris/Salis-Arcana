@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.stream.Collectors;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -22,6 +21,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 import dev.rndmorris.salisarcana.lib.ifaces.IAccessorTileInfusionMatrix;
+import dev.rndmorris.salisarcana.lib.ifaces.IAccessorTileProviderBase;
 import dev.rndmorris.salisarcana.mixins.TargetedMod;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.ThaumcraftApiHelper;
@@ -153,10 +153,12 @@ public final class InfusionPreviewAnalyzer {
 
     private static HashSet<Aspect> getSatisfiedEssentia(World world, TileInfusionMatrix matrix,
         AspectList recipeEssentia) {
-
+        if (recipeEssentia == null || recipeEssentia.aspects == null) {
+            return new HashSet<>();
+        }
         HashMap<Aspect, Integer> requiredAspectAmounts = new HashMap<>(recipeEssentia.aspects);
         HashSet<Aspect> satisfiedAspects = new HashSet<>();
-        HashSet<IAspectSource> visitedSources = new HashSet<>();
+        HashSet<Object> visited = new HashSet<>();
         for (int x = -INFUSION_RANGE; x <= INFUSION_RANGE; x++) {
             for (int y = -INFUSION_RANGE; y < INFUSION_RANGE; y++) {
                 for (int z = -INFUSION_RANGE; z <= INFUSION_RANGE; z++) {
@@ -166,21 +168,8 @@ public final class InfusionPreviewAnalyzer {
                         final int posZ = matrix.zCoord + z;
 
                         TileEntity te = world.getTileEntity(posX, posY, posZ);
-                        if (te instanceof IAspectSource source && !visitedSources.contains(source)) {
-                            evaluateEssentiaAvailability(
-                                source,
-                                visitedSources,
-                                requiredAspectAmounts,
-                                satisfiedAspects);
-                            if (te instanceof TileMirrorEssentia mirror) {
-                                updateEssentiaCountFromMirror(
-                                    mirror,
-                                    visitedSources,
-                                    requiredAspectAmounts,
-                                    satisfiedAspects);
-                            } else {
-                                visitedSources.add(source);
-                            }
+                        if (te instanceof IAspectSource source && !visited.contains(source)) {
+                            evaluateEssentiaAvailability(source, visited, requiredAspectAmounts, satisfiedAspects);
                         }
                     }
                 }
@@ -189,7 +178,7 @@ public final class InfusionPreviewAnalyzer {
         return satisfiedAspects;
     }
 
-    private static void evaluateEssentiaAvailability(IAspectSource source, HashSet<IAspectSource> visitedSources,
+    private static void evaluateEssentiaAvailability(IAspectSource source, HashSet<Object> visitedSources,
         HashMap<Aspect, Integer> requiredAspectAmounts, HashSet<Aspect> satisfiedAspects) {
         if (visitedSources.contains(source)) {
             return;
@@ -198,7 +187,7 @@ public final class InfusionPreviewAnalyzer {
         if (source instanceof TileMirrorEssentia mirror) {
             updateEssentiaCountFromMirror(mirror, visitedSources, requiredAspectAmounts, satisfiedAspects);
         } else if (TargetedMod.THAUMIC_ENERGISTICS.isLoaded() && source instanceof TileInfusionProvider provider) {
-            updateEssentiaCountFromInfusionProvider(provider, requiredAspectAmounts, satisfiedAspects);
+            updateEssentiaCountFromInfusionProvider(provider, visitedSources, requiredAspectAmounts, satisfiedAspects);
         } else {
             updateEssentiaCountFromSource(source, requiredAspectAmounts, satisfiedAspects);
         }
@@ -215,14 +204,25 @@ public final class InfusionPreviewAnalyzer {
         }
     }
 
-    private static void updateEssentiaCountFromInfusionProvider(TileInfusionProvider provider,
+    private static void updateEssentiaCountFromInfusionProvider(TileInfusionProvider provider, HashSet<Object> visited,
         HashMap<Aspect, Integer> requiredAspectAmounts, HashSet<Aspect> satisfiedAspects) {
+
+        // flagging a particular monitor/network/whatever as already visisted prevents multi-counting
+        // a network
+        var providerAccessor = (IAccessorTileProviderBase) provider;
+        var monitor = providerAccessor.salisarcana$loadAndGetMonitor();
+        if (monitor == null || visited.contains(monitor)) {
+            return;
+        }
+
+        visited.add(monitor);
+
         // mutating HashMap while iterating over it is undefined behavior, so make a local copy
         var requiredKeys = requiredAspectAmounts.keySet()
             .toArray(new Aspect[0]);
         for (var requiredAspect : requiredKeys) {
             var requiredAmount = IntegerHelper.valueOr(requiredAspectAmounts.get(requiredAspect), 0);
-            var availableAmount = IntegerHelper.fromLongSafe(provider.getAspectAmountInNetwork(requiredAspect));
+            var availableAmount = IntegerHelper.fromLongSafe(monitor.getEssentiaAmount(requiredAspect));
             updateEssentiaRequirements(
                 requiredAspect,
                 requiredAmount,
@@ -237,25 +237,23 @@ public final class InfusionPreviewAnalyzer {
         AspectList sourceList;
         LinkedHashMap<Aspect, Integer> sourceAvailable;
         if (te != null && (sourceList = te.getAspects()) != null && (sourceAvailable = sourceList.aspects) != null) {
-            var sourceKeys = sourceAvailable.keySet();
-            var sharedKeys = requiredAspectAmounts.keySet()
-                .stream()
-                .filter(sourceKeys::contains)
-                .collect(Collectors.toList());
-            for (var requiredAspect : sharedKeys) {
-                int needed = requiredAspectAmounts.get(requiredAspect);
-                needed -= Math.max(0, IntegerHelper.valueOr(sourceAvailable.get(requiredAspect), 0));
-                if (needed <= 0) {
-                    requiredAspectAmounts.remove(requiredAspect);
-                    satisfiedAspects.add(requiredAspect);
-                } else {
-                    requiredAspectAmounts.put(requiredAspect, needed);
-                }
+            // mutating HashMap while iterating over it is undefined behavior, so make a local copy
+            var requiredKeys = requiredAspectAmounts.keySet()
+                .toArray(new Aspect[0]);
+            for (var requiredAspect : requiredKeys) {
+                var requiredAmount = IntegerHelper.valueOr(requiredAspectAmounts.get(requiredAspect), 0);
+                var availableAmount = Math.max(0, IntegerHelper.valueOr(sourceAvailable.get(requiredAspect), 0));
+                updateEssentiaRequirements(
+                    requiredAspect,
+                    requiredAmount,
+                    availableAmount,
+                    requiredAspectAmounts,
+                    satisfiedAspects);
             }
         }
     }
 
-    private static void updateEssentiaCountFromMirror(TileMirrorEssentia mirror, HashSet<IAspectSource> visitedSources,
+    private static void updateEssentiaCountFromMirror(TileMirrorEssentia mirror, HashSet<Object> visited,
         HashMap<Aspect, Integer> requiredAspectAmounts, HashSet<Aspect> satisfiedAspects) {
         if (!mirror.isLinkValidSimple()) {
             return;
@@ -299,7 +297,7 @@ public final class InfusionPreviewAnalyzer {
                     }
                     TileEntity te = linkedWorld.getTileEntity(x, y, z);
                     if (te instanceof IAspectSource source && !(te instanceof TileMirrorEssentia)) {
-                        evaluateEssentiaAvailability(source, visitedSources, requiredAspectAmounts, satisfiedAspects);
+                        evaluateEssentiaAvailability(source, visited, requiredAspectAmounts, satisfiedAspects);
                         if (requiredAspectAmounts.size() == 0) {
                             return;
                         }
