@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import net.minecraft.enchantment.Enchantment;
@@ -57,7 +56,7 @@ public final class InfusionPreviewAnalyzer {
 
     public static InfusionPreviewInfo analyze(World world, TileInfusionMatrix matrix, EntityPlayer player) {
         InfusionPreviewInfo info = computeData(world, matrix, player);
-        info.availableEssentia = countAvailableEssentia(world, matrix, info.recipeEssentia);
+        info.availableEssentia = getSatisfiedEssentia(world, matrix, info.recipeEssentia);
         return info;
     }
 
@@ -152,9 +151,12 @@ public final class InfusionPreviewAnalyzer {
         return new InfusionPreviewInfo();
     }
 
-    private static HashSet<Aspect> countAvailableEssentia(World world, TileInfusionMatrix matrix,
+    private static HashSet<Aspect> getSatisfiedEssentia(World world, TileInfusionMatrix matrix,
         AspectList recipeEssentia) {
-        Set<IAspectSource> essentiaSources = new HashSet<>();
+
+        HashMap<Aspect, Integer> requiredAspectAmounts = new HashMap<>(recipeEssentia.aspects);
+        HashSet<Aspect> satisfiedAspects = new HashSet<>();
+        HashSet<IAspectSource> visitedSources = new HashSet<>();
         for (int x = -INFUSION_RANGE; x <= INFUSION_RANGE; x++) {
             for (int y = -INFUSION_RANGE; y < INFUSION_RANGE; y++) {
                 for (int z = -INFUSION_RANGE; z <= INFUSION_RANGE; z++) {
@@ -164,31 +166,42 @@ public final class InfusionPreviewAnalyzer {
                         final int posZ = matrix.zCoord + z;
 
                         TileEntity te = world.getTileEntity(posX, posY, posZ);
-                        if (te instanceof IAspectSource source) {
+                        if (te instanceof IAspectSource source && !visitedSources.contains(source)) {
+                            evaluateEssentiaAvailability(
+                                source,
+                                visitedSources,
+                                requiredAspectAmounts,
+                                satisfiedAspects);
                             if (te instanceof TileMirrorEssentia mirror) {
-                                addSourcesFromMirror(mirror, essentiaSources);
+                                updateEssentiaCountFromMirror(
+                                    mirror,
+                                    visitedSources,
+                                    requiredAspectAmounts,
+                                    satisfiedAspects);
                             } else {
-                                essentiaSources.add(source);
+                                visitedSources.add(source);
                             }
                         }
                     }
                 }
             }
         }
-
-        HashMap<Aspect, Integer> requiredAspectAmounts = new HashMap<>(recipeEssentia.aspects);
-        HashSet<Aspect> satisfiedAspects = new HashSet<>();
-        for (IAspectSource te : essentiaSources) {
-            if (TargetedMod.THAUMIC_ENERGISTICS.isLoaded() && te instanceof TileInfusionProvider provider) {
-                updateEssentiaCountFromInfusionProvider(provider, requiredAspectAmounts, satisfiedAspects);
-            } else {
-                updateEssentiaCountFromSource(te, requiredAspectAmounts, satisfiedAspects);
-            }
-            if (requiredAspectAmounts.size() == 0) {
-                break;
-            }
-        }
         return satisfiedAspects;
+    }
+
+    private static void evaluateEssentiaAvailability(IAspectSource source, HashSet<IAspectSource> visitedSources,
+        HashMap<Aspect, Integer> requiredAspectAmounts, HashSet<Aspect> satisfiedAspects) {
+        if (visitedSources.contains(source)) {
+            return;
+        }
+        visitedSources.add(source);
+        if (source instanceof TileMirrorEssentia mirror) {
+            updateEssentiaCountFromMirror(mirror, visitedSources, requiredAspectAmounts, satisfiedAspects);
+        } else if (TargetedMod.THAUMIC_ENERGISTICS.isLoaded() && source instanceof TileInfusionProvider provider) {
+            updateEssentiaCountFromInfusionProvider(provider, requiredAspectAmounts, satisfiedAspects);
+        } else {
+            updateEssentiaCountFromSource(source, requiredAspectAmounts, satisfiedAspects);
+        }
     }
 
     private static void updateEssentiaRequirements(Aspect neededAspect, int neededAmount, int availableAmount,
@@ -242,7 +255,8 @@ public final class InfusionPreviewAnalyzer {
         }
     }
 
-    private static void addSourcesFromMirror(TileMirrorEssentia mirror, Set<IAspectSource> essentiaSources) {
+    private static void updateEssentiaCountFromMirror(TileMirrorEssentia mirror, HashSet<IAspectSource> visitedSources,
+        HashMap<Aspect, Integer> requiredAspectAmounts, HashSet<Aspect> satisfiedAspects) {
         if (!mirror.isLinkValidSimple()) {
             return;
         }
@@ -285,7 +299,10 @@ public final class InfusionPreviewAnalyzer {
                     }
                     TileEntity te = linkedWorld.getTileEntity(x, y, z);
                     if (te instanceof IAspectSource source && !(te instanceof TileMirrorEssentia)) {
-                        essentiaSources.add(source);
+                        evaluateEssentiaAvailability(source, visitedSources, requiredAspectAmounts, satisfiedAspects);
+                        if (requiredAspectAmounts.size() == 0) {
+                            return;
+                        }
                     }
                 }
             }
