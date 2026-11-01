@@ -156,9 +156,9 @@ public final class InfusionPreviewAnalyzer {
         if (recipeEssentia == null || recipeEssentia.aspects == null) {
             return new HashSet<>();
         }
-        HashMap<Aspect, Integer> requiredAspectAmounts = new HashMap<>(recipeEssentia.aspects);
-        HashSet<Aspect> satisfiedAspects = new HashSet<>();
-        HashSet<Object> visited = new HashSet<>();
+        final var requiredAspectAmounts = new HashMap<>(recipeEssentia.aspects);
+        final var satisfiedAspects = new HashSet<Aspect>();
+        final var visited = new HashSet<>();
         for (int x = -INFUSION_RANGE; x <= INFUSION_RANGE; x++) {
             for (int y = -INFUSION_RANGE; y < INFUSION_RANGE; y++) {
                 for (int z = -INFUSION_RANGE; z <= INFUSION_RANGE; z++) {
@@ -168,12 +168,12 @@ public final class InfusionPreviewAnalyzer {
                         final int posZ = matrix.zCoord + z;
 
                         TileEntity te = world.getTileEntity(posX, posY, posZ);
-                        if (te instanceof IAspectSource source && !visited.contains(source)) {
+                        if (te instanceof IAspectSource source) {
                             evaluateEssentiaAvailability(source, visited, requiredAspectAmounts, satisfiedAspects);
-                        }
-                        if (requiredAspectAmounts.size() == 0) {
-                            // exit early, we have what we need
-                            return satisfiedAspects;
+                            if (requiredAspectAmounts.size() == 0) {
+                                // exit early, we have what we need
+                                return satisfiedAspects;
+                            }
                         }
                     }
                 }
@@ -199,7 +199,7 @@ public final class InfusionPreviewAnalyzer {
 
     private static void updateEssentiaRequirements(Aspect neededAspect, int neededAmount, int availableAmount,
         HashMap<Aspect, Integer> required, HashSet<Aspect> satisfied) {
-        var newNeeded = neededAmount - Math.max(0, availableAmount);
+        final var newNeeded = neededAmount - Math.max(0, availableAmount);
         if (newNeeded <= 0) {
             required.remove(neededAspect);
             satisfied.add(neededAspect);
@@ -213,8 +213,8 @@ public final class InfusionPreviewAnalyzer {
 
         // flagging a particular monitor/network/whatever as already visisted prevents multi-counting
         // a network
-        var providerAccessor = (IAccessorTileProviderBase) provider;
-        var monitor = providerAccessor.salisarcana$loadAndGetMonitor();
+        final var providerAccessor = (IAccessorTileProviderBase) provider;
+        final var monitor = providerAccessor.salisarcana$loadAndGetMonitor();
         if (monitor == null || visited.contains(monitor)) {
             return;
         }
@@ -222,11 +222,11 @@ public final class InfusionPreviewAnalyzer {
         visited.add(monitor);
 
         // mutating HashMap while iterating over it is undefined behavior, so make a local copy
-        var requiredKeys = requiredAspectAmounts.keySet()
+        final var requiredKeys = requiredAspectAmounts.keySet()
             .toArray(new Aspect[0]);
-        for (var requiredAspect : requiredKeys) {
-            var requiredAmount = IntegerHelper.valueOr(requiredAspectAmounts.get(requiredAspect), 0);
-            var availableAmount = IntegerHelper.fromLongSafe(monitor.getEssentiaAmount(requiredAspect));
+        for (final var requiredAspect : requiredKeys) {
+            final var requiredAmount = IntegerHelper.valueOr(requiredAspectAmounts.get(requiredAspect), 0);
+            final var availableAmount = IntegerHelper.fromLongSafe(monitor.getEssentiaAmount(requiredAspect));
             updateEssentiaRequirements(
                 requiredAspect,
                 requiredAmount,
@@ -242,11 +242,11 @@ public final class InfusionPreviewAnalyzer {
         LinkedHashMap<Aspect, Integer> sourceAvailable;
         if (te != null && (sourceList = te.getAspects()) != null && (sourceAvailable = sourceList.aspects) != null) {
             // mutating HashMap while iterating over it is undefined behavior, so make a local copy
-            var requiredKeys = requiredAspectAmounts.keySet()
+            final var requiredKeys = requiredAspectAmounts.keySet()
                 .toArray(new Aspect[0]);
             for (var requiredAspect : requiredKeys) {
-                var requiredAmount = IntegerHelper.valueOr(requiredAspectAmounts.get(requiredAspect), 0);
-                var availableAmount = Math.max(0, IntegerHelper.valueOr(sourceAvailable.get(requiredAspect), 0));
+                final var requiredAmount = IntegerHelper.valueOr(requiredAspectAmounts.get(requiredAspect), 0);
+                final var availableAmount = Math.max(0, IntegerHelper.valueOr(sourceAvailable.get(requiredAspect), 0));
                 updateEssentiaRequirements(
                     requiredAspect,
                     requiredAmount,
@@ -268,9 +268,9 @@ public final class InfusionPreviewAnalyzer {
             return;
         }
 
-        int posX = mirror.linkX;
-        int posY = mirror.linkY;
-        int posZ = mirror.linkZ;
+        final int posX = mirror.linkX;
+        final int posY = mirror.linkY;
+        final int posZ = mirror.linkZ;
         if (!(linkedWorld.getTileEntity(posX, posY, posZ) instanceof TileMirrorEssentia)) {
             return;
         }
