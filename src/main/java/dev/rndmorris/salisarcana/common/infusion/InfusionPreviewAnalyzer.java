@@ -171,6 +171,10 @@ public final class InfusionPreviewAnalyzer {
                         if (te instanceof IAspectSource source && !visited.contains(source)) {
                             evaluateEssentiaAvailability(source, visited, requiredAspectAmounts, satisfiedAspects);
                         }
+                        if (requiredAspectAmounts.size() == 0) {
+                            // exit early, we have what we need
+                            return satisfiedAspects;
+                        }
                     }
                 }
             }
