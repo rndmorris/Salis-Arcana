@@ -1,8 +1,11 @@
 package dev.rndmorris.salisarcana.common.infusion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -18,6 +21,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import dev.rndmorris.salisarcana.config.SalisConfig;
+import dev.rndmorris.salisarcana.lib.IntegerHelper;
 import dev.rndmorris.salisarcana.lib.ifaces.IAccessorTileInfusionMatrix;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.ThaumcraftApiHelper;
@@ -51,7 +55,7 @@ public final class InfusionPreviewAnalyzer {
 
     public static InfusionPreviewInfo analyze(World world, TileInfusionMatrix matrix, EntityPlayer player) {
         InfusionPreviewInfo info = computeData(world, matrix, player);
-        info.availableEssentia = fetchEssentiaSources(world, matrix);
+        info.availableEssentia = countAvailableEssentia(world, matrix, info.recipeEssentia);
         return info;
     }
 
@@ -146,7 +150,8 @@ public final class InfusionPreviewAnalyzer {
         return new InfusionPreviewInfo();
     }
 
-    private static AspectList fetchEssentiaSources(World world, TileInfusionMatrix matrix) {
+    private static HashSet<Aspect> countAvailableEssentia(World world, TileInfusionMatrix matrix,
+        AspectList recipeEssentia) {
         Set<IAspectSource> essentiaSources = new HashSet<>();
         for (int x = -INFUSION_RANGE; x <= INFUSION_RANGE; x++) {
             for (int y = -INFUSION_RANGE; y < INFUSION_RANGE; y++) {
@@ -169,14 +174,31 @@ public final class InfusionPreviewAnalyzer {
             }
         }
 
-        AspectList list = new AspectList();
+        HashMap<Aspect, Integer> required = new HashMap<>(recipeEssentia.aspects);
+        HashSet<Aspect> satisfied = new HashSet<>();
         for (IAspectSource te : essentiaSources) {
             AspectList sourceList;
-            if (te != null && (sourceList = te.getAspects()) != null) {
-                list.add(sourceList);
+            LinkedHashMap<Aspect, Integer> sourceAvailable;
+            if (te != null && (sourceList = te.getAspects()) != null
+                && (sourceAvailable = sourceList.aspects) != null) {
+                var sourceKeys = sourceAvailable.keySet();
+                var sharedKeys = required.keySet()
+                    .stream()
+                    .filter(sourceKeys::contains)
+                    .collect(Collectors.toList());
+                for (var requiredAspect : sharedKeys) {
+                    int needed = required.get(requiredAspect);
+                    needed -= Math.max(0, IntegerHelper.valueOr(sourceAvailable.get(requiredAspect), 0));
+                    if (needed <= 0) {
+                        required.remove(requiredAspect);
+                        satisfied.add(requiredAspect);
+                    } else {
+                        required.put(requiredAspect, needed);
+                    }
+                }
             }
         }
-        return list;
+        return satisfied;
     }
 
     private static void addSourcesFromMirror(TileMirrorEssentia mirror, Set<IAspectSource> essentiaSources) {

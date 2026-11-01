@@ -32,4 +32,8 @@ public class IntegerHelper {
             return null;
         }
     }
+
+    public static int valueOr(Integer value, int ifNull) {
+        return value != null ? value : ifNull;
+    }
 }

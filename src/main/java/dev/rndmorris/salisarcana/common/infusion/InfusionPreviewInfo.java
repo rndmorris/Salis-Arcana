@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.common.infusion;
 
+import java.util.HashSet;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -14,7 +16,7 @@ public class InfusionPreviewInfo {
 
     public ItemStack recipeOutput;
     public AspectList recipeEssentia;
-    public AspectList availableEssentia;
+    public HashSet<Aspect> availableEssentia;
 
     public int instability;
 
@@ -46,7 +48,7 @@ public class InfusionPreviewInfo {
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeItemStack(buf, recipeOutput);
         writeAspectList(buf, recipeEssentia);
-        writeAspectList(buf, availableEssentia);
+        writeAspectSet(buf, availableEssentia);
         buf.writeInt(instability);
         buf.writeInt(enchantmentId);
         buf.writeInt(enchantmentLevel);
@@ -56,7 +58,7 @@ public class InfusionPreviewInfo {
     public void fromBytes(ByteBuf buf) {
         recipeOutput = ByteBufUtils.readItemStack(buf);
         recipeEssentia = readAspectList(buf);
-        availableEssentia = readAspectList(buf);
+        availableEssentia = readAspectSet(buf);
         instability = buf.readInt();
         enchantmentId = buf.readInt();
         enchantmentLevel = buf.readInt();
@@ -92,5 +94,25 @@ public class InfusionPreviewInfo {
             if (a != null) list.add(a, amount);
         }
         return list;
+    }
+
+    private static void writeAspectSet(ByteBuf buf, HashSet<Aspect> aspects) {
+        buf.writeInt(aspects.size());
+        for (var aspect : aspects) {
+            ByteBufUtils.writeUTF8String(buf, aspect.getTag());
+        }
+    }
+
+    private static HashSet<Aspect> readAspectSet(ByteBuf buf) {
+        var result = new HashSet<Aspect>();
+        var count = buf.readInt();
+        for (int i = 0; i < count; ++i) {
+            final var tag = ByteBufUtils.readUTF8String(buf);
+            final var aspect = Aspect.getAspect(tag);
+            if (aspect != null) {
+                result.add(aspect);
+            }
+        }
+        return result;
     }
 }
