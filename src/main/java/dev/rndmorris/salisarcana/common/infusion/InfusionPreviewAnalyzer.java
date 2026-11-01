@@ -171,7 +171,10 @@ public final class InfusionPreviewAnalyzer {
 
         AspectList list = new AspectList();
         for (IAspectSource te : essentiaSources) {
-            list.add(te.getAspects());
+            AspectList sourceList;
+            if (te != null && (sourceList = te.getAspects()) != null) {
+                list.add(sourceList);
+            }
         }
         return list;
     }
