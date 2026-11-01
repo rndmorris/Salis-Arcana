@@ -23,6 +23,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import dev.rndmorris.salisarcana.lib.IntegerHelper;
 import dev.rndmorris.salisarcana.lib.ifaces.IAccessorTileInfusionMatrix;
+import dev.rndmorris.salisarcana.mixins.TargetedMod;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
@@ -34,6 +35,7 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 import thaumcraft.common.tiles.TileMirrorEssentia;
 import thaumcraft.common.tiles.TilePedestal;
+import thaumicenergistics.common.tiles.TileInfusionProvider;
 
 public final class InfusionPreviewAnalyzer {
 
@@ -174,31 +176,70 @@ public final class InfusionPreviewAnalyzer {
             }
         }
 
-        HashMap<Aspect, Integer> required = new HashMap<>(recipeEssentia.aspects);
-        HashSet<Aspect> satisfied = new HashSet<>();
+        HashMap<Aspect, Integer> requiredAspectAmounts = new HashMap<>(recipeEssentia.aspects);
+        HashSet<Aspect> satisfiedAspects = new HashSet<>();
         for (IAspectSource te : essentiaSources) {
-            AspectList sourceList;
-            LinkedHashMap<Aspect, Integer> sourceAvailable;
-            if (te != null && (sourceList = te.getAspects()) != null
-                && (sourceAvailable = sourceList.aspects) != null) {
-                var sourceKeys = sourceAvailable.keySet();
-                var sharedKeys = required.keySet()
-                    .stream()
-                    .filter(sourceKeys::contains)
-                    .collect(Collectors.toList());
-                for (var requiredAspect : sharedKeys) {
-                    int needed = required.get(requiredAspect);
-                    needed -= Math.max(0, IntegerHelper.valueOr(sourceAvailable.get(requiredAspect), 0));
-                    if (needed <= 0) {
-                        required.remove(requiredAspect);
-                        satisfied.add(requiredAspect);
-                    } else {
-                        required.put(requiredAspect, needed);
-                    }
+            if (TargetedMod.THAUMIC_ENERGISTICS.isLoaded() && te instanceof TileInfusionProvider provider) {
+                updateEssentiaCountFromInfusionProvider(provider, requiredAspectAmounts, satisfiedAspects);
+            } else {
+                updateEssentiaCountFromSource(te, requiredAspectAmounts, satisfiedAspects);
+            }
+            if (requiredAspectAmounts.size() == 0) {
+                break;
+            }
+        }
+        return satisfiedAspects;
+    }
+
+    private static void updateEssentiaRequirements(Aspect neededAspect, int neededAmount, int availableAmount,
+        HashMap<Aspect, Integer> required, HashSet<Aspect> satisfied) {
+        var newNeeded = neededAmount - Math.max(0, availableAmount);
+        if (newNeeded <= 0) {
+            required.remove(neededAspect);
+            satisfied.add(neededAspect);
+        } else {
+            required.put(neededAspect, newNeeded);
+        }
+    }
+
+    private static void updateEssentiaCountFromInfusionProvider(TileInfusionProvider provider,
+        HashMap<Aspect, Integer> requiredAspectAmounts, HashSet<Aspect> satisfiedAspects) {
+        // mutating HashMap while iterating over it is undefined behavior, so make a local copy
+        var requiredKeys = requiredAspectAmounts.keySet()
+            .toArray(new Aspect[0]);
+        for (var requiredAspect : requiredKeys) {
+            var requiredAmount = IntegerHelper.valueOr(requiredAspectAmounts.get(requiredAspect), 0);
+            var availableAmount = IntegerHelper.fromLongSafe(provider.getAspectAmountInNetwork(requiredAspect));
+            updateEssentiaRequirements(
+                requiredAspect,
+                requiredAmount,
+                availableAmount,
+                requiredAspectAmounts,
+                satisfiedAspects);
+        }
+    }
+
+    private static void updateEssentiaCountFromSource(IAspectSource te, HashMap<Aspect, Integer> requiredAspectAmounts,
+        HashSet<Aspect> satisfiedAspects) {
+        AspectList sourceList;
+        LinkedHashMap<Aspect, Integer> sourceAvailable;
+        if (te != null && (sourceList = te.getAspects()) != null && (sourceAvailable = sourceList.aspects) != null) {
+            var sourceKeys = sourceAvailable.keySet();
+            var sharedKeys = requiredAspectAmounts.keySet()
+                .stream()
+                .filter(sourceKeys::contains)
+                .collect(Collectors.toList());
+            for (var requiredAspect : sharedKeys) {
+                int needed = requiredAspectAmounts.get(requiredAspect);
+                needed -= Math.max(0, IntegerHelper.valueOr(sourceAvailable.get(requiredAspect), 0));
+                if (needed <= 0) {
+                    requiredAspectAmounts.remove(requiredAspect);
+                    satisfiedAspects.add(requiredAspect);
+                } else {
+                    requiredAspectAmounts.put(requiredAspect, needed);
                 }
             }
         }
-        return satisfied;
     }
 
     private static void addSourcesFromMirror(TileMirrorEssentia mirror, Set<IAspectSource> essentiaSources) {

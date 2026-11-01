@@ -36,4 +36,9 @@ public class IntegerHelper {
     public static int valueOr(Integer value, int ifNull) {
         return value != null ? value : ifNull;
     }
+
+    public static int fromLongSafe(long value) {
+        return value > (long) Integer.MAX_VALUE ? Integer.MAX_VALUE
+            : value < (long) Integer.MIN_VALUE ? Integer.MIN_VALUE : (int) value;
+    }
 }
