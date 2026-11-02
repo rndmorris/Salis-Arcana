@@ -58,7 +58,7 @@ public abstract class Setting implements IDependant {
     }
 
     /**
-     * Whether the individual setting, ands it dependency if it has one, is enabled.
+     * Whether the individual setting, and its dependency if it has one, is enabled.
      */
     @Override
     public boolean isEnabled() {

@@ -64,6 +64,11 @@ public class BlockItemListSetting<DATA> extends Setting {
         }
     }
 
+    @Override
+    public boolean isEnabled() {
+        return super.isEnabled() && (!entriesToResolve.isEmpty() || !blockMap.isEmpty() || !itemMap.isEmpty());
+    }
+
     public boolean hasEntry(Block block, int metadata) {
         return getData(block, metadata).containedKeys;
     }
