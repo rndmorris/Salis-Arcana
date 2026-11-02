@@ -383,6 +383,11 @@ public enum Mixins implements IMixins {
         .applyIf(SalisConfig.bugfixes.preventTravelingTrunkDupe)
         .addCommonMixins("thaumcraft.common.entities.golems.MixinEntityTravelingTrunk_SkipDeadItems")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
+    ARCANE_BORE_ACCEPTS_UNBREAKABLE_PICKAXES(new SalisBuilder()
+        .applyIf(SalisConfig.bugfixes.arcaneBoreAcceptsUnbreakablePickaxes)
+        .addCommonMixins("thaumcraft.common.tiles.MixinTileArcaneBore_UnbreakablePickaxes")
+        .addClientMixins("thaumcraft.client.gui.MixinGuiArcaneBore_UnbreakablePickaxes")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
     // Features
     EXTENDED_BAUBLES_SUPPORT(new SalisBuilder()
