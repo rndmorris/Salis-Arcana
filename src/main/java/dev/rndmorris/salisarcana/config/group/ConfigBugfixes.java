@@ -408,6 +408,11 @@ public class ConfigBugfixes extends ConfigGroup {
         "preventTravelingTrunkDupe",
         "Prevent entropy-upgraded Traveling Trunks from absorbing dead items which may have been already collected by something else.");
 
+    public final ToggleSetting arcaneBoreAcceptsUnbreakablePickaxes = new ToggleSetting(
+        this,
+        "arcaneBoreAcceptsUnbreakablePickaxes",
+        "Allows the Arcane Bore to use unbreakable pickaxes, such as Thaumic Tinkerer's Ichorium Pickaxe.");
+
     @Nonnull
     @Override
     public String getGroupName() {

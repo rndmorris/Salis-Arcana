@@ -447,3 +447,9 @@ Stop Warded Blocks from storing their metadata in the NBT, reducing network traf
 **Config option:** `preventTravelingTrunkDupe`
 
 Prevent entropy-upgraded Traveling Trunks from absorbing dead items which may have been already collected by something else.
+
+## Arcane Bore Accepts Unbreakable Pickaxes
+
+**Config option:** `arcaneBoreAcceptsUnbreakablePickaxes`
+
+Allows the Arcane Bore to use unbreakable pickaxes, such as Thaumic Tinkerer's Ichorium Pickaxe.
