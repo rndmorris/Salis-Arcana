@@ -129,9 +129,9 @@ public class ThaumicInventoryScanner {
             // spotless:on
             if (hoveringSlot.canTakeStack(player) && !(hoveringSlot instanceof SlotCrafting)
                 && !(hoveringSlot instanceof SlotMerchantResult)
-                && ScanManager.isValidScanTarget(player, result, "@")
                 && !ScanManager.getScanAspects(result, Minecraft.getMinecraft().theWorld.provider.worldObj).aspects
-                    .isEmpty()) {
+                    .isEmpty()
+                && ScanManager.isValidScanTarget(player, result, "@")) {
                 currentScan = result;
                 isValidSlot = true;
                 return;
