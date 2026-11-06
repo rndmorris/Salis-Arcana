@@ -1,5 +1,6 @@
 package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.lib.events;
 
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
@@ -11,6 +12,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
 
 import thaumcraft.common.lib.events.EventHandlerEntity;
 
@@ -63,22 +67,32 @@ abstract class MixinEventHandlerEntity_LocalizeCorrectly {
             .setChatStyle(salisArcana$enderPearlStyle);
     }
 
-    @ModifyArg(
-        method = "finishedUsingItem",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V",
-            ordinal = 0))
+    @Definition(
+        id = "addChatMessage",
+        method = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V",
+        remap = true)
+    @Definition(id = "ChatComponentText", type = ChatComponentText.class)
+    @Definition(
+        id = "translateToLocal",
+        method = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;",
+        remap = true)
+    @Expression("?.addChatMessage(new ChatComponentText('§4§o' + translateToLocal('warp.text.hunger.1')))")
+    @ModifyArg(method = "finishedUsingItem", at = @At("MIXINEXTRAS:EXPRESSION"), remap = false)
     public IChatComponent unsatisfiedHungerComponent(IChatComponent original) {
         return new ChatComponentTranslation("warp.text.hunger.1").setChatStyle(salisArcana$hungerUnsatisfiedStyle);
     }
 
-    @ModifyArg(
-        method = "finishedUsingItem",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V",
-            ordinal = 1))
+    @Definition(
+        id = "addChatMessage",
+        method = "Lnet/minecraft/entity/player/EntityPlayer;addChatMessage(Lnet/minecraft/util/IChatComponent;)V",
+        remap = true)
+    @Definition(id = "ChatComponentText", type = ChatComponentText.class)
+    @Definition(
+        id = "translateToLocal",
+        method = "Lnet/minecraft/util/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;",
+        remap = true)
+    @Expression("?.addChatMessage(new ChatComponentText('§2§o' + translateToLocal('warp.text.hunger.2')))")
+    @ModifyArg(method = "finishedUsingItem", at = @At("MIXINEXTRAS:EXPRESSION"), remap = false)
     public IChatComponent fadingHungerComponent(IChatComponent original) {
         return new ChatComponentTranslation("warp.text.hunger.2").setChatStyle(salisArcana$hungerFadesStyle);
     }
