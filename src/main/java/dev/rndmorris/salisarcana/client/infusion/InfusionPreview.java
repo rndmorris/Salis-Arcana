@@ -1,5 +1,7 @@
 package dev.rndmorris.salisarcana.client.infusion;
 
+import java.util.HashSet;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -186,7 +188,7 @@ public class InfusionPreview {
             FontRenderer fontRenderer = mc.fontRenderer;
             setupRender(player, x, y, z, dir, partialTicks);
             String recipeName = info.getOutputString();
-            AspectList sources = info.availableEssentia != null ? info.availableEssentia : new AspectList();
+            HashSet<Aspect> sources = info.availableEssentia != null ? info.availableEssentia : new HashSet<>();
 
             final int ROW_SIZE = 5;
             int current = 0;
@@ -266,7 +268,7 @@ public class InfusionPreview {
                     GL11.glPopMatrix();
                 }
 
-                if (sources.getAmount(tag) >= amount) {
+                if (sources.contains(tag)) {
                     mc.renderEngine.bindTexture(checkmarkLocation);
                 } else {
                     missingEssentia = true;

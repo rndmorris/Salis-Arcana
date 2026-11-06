@@ -756,6 +756,12 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.items.MixinAmuletWand_AddInterface")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
+    THAUMIC_ENERGISTICS_PROVIDER_ACCESSOR(new SalisBuilder()
+        .setRequired()
+        .addCommonMixins("thaumicenergistics.api.grid.MixinTileProviderBase_Accessor")
+        .addRequiredMod(TargetedMod.THAUMIC_ENERGISTICS)
+    ),
+
     // spotless:on
 
     // This entry can be used during development to ensure the string->class file check in SalisBuilder is working
