@@ -72,6 +72,10 @@ public final class QuickStashFocus {
     private static Slot getHeldSlot(EntityPlayer player) {
         final int hotbarIndex = player.inventory.currentItem;
 
+        if (hotbarIndex > 8) {
+            return null;
+        }
+
         // Fast path: in vanilla, hotbar slots are slots 36-45.
         Slot slot = player.inventoryContainer.getSlot(36 + hotbarIndex);
         if (slot != null && slot.inventory == player.inventory && slot.getSlotIndex() == hotbarIndex) {
