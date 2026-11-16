@@ -72,6 +72,7 @@ public final class QuickStashFocus {
     private static Slot getHeldSlot(EntityPlayer player) {
         final int hotbarIndex = player.inventory.currentItem;
 
+        // Extra Utilities sometimes causes hotbarIndex > 8. This prevents client crash.
         if (hotbarIndex > 8) {
             return null;
         }
