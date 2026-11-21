@@ -202,6 +202,12 @@ public class ConfigThaumcraft extends ConfigGroup {
             All over full decay will break down compound aspects into one of their components.
             """);
 
+    public final ToggleSetting mergeMobDrops = new ToggleSetting(
+        this,
+        "mergeMobDrops",
+        "Merge mob drops before they spawn as entities to prevent lag spikes caused by heavy mob drops at a high looting level.")
+            .setCategory(tc4PerformanceCategory);
+
     public final IntSetting crucibleAspectDecayStart = new IntSetting(
         crucibleScalingAspectDecay,
         "crucibleAspectDecayStart",
