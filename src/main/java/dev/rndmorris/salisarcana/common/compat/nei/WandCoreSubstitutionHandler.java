@@ -10,6 +10,8 @@ import static dev.rndmorris.salisarcana.lib.WandHelper.SCEPTRE_RESEARCH;
 import static dev.rndmorris.salisarcana.lib.WandHelper.THAUMIUM_SILVERWOOD_STAFF;
 import static dev.rndmorris.salisarcana.lib.WandHelper.THAUMIUM_SILVERWOOD_STAFFTER;
 
+import java.util.ArrayList;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -203,8 +205,9 @@ public class WandCoreSubstitutionHandler extends ShapelessArcaneRecipeHandler {
             if (wrapper == null) wrapper = TCWandAPI.getWandWrappers()
                 .get(0);
             WandDetails props = wrapper.getDetails();
-            ItemStack screw = OreDictionary.getOres(props.getScrew())
-                .get(0);
+            ArrayList<ItemStack> screw = OreDictionary.getOres(
+                props.tier()
+                    .getScrew());
             ItemStack conductor = props.conductor();
             if (isScepter) {
                 return new Object[] { input, rod.getItem(), screw, screw, conductor, conductor };

@@ -159,7 +159,9 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             AbstractWandWrapper wrapper = GTNHTCWandsCompat.getWandWrapper(newRod, WandType.getWandType(wandItem));
             if (wrapper == null) return null;
             WandDetails props = wrapper.getDetails();
-            screwOreID = OreDictionary.getOreID(props.getScrew());
+            screwOreID = OreDictionary.getOreID(
+                props.tier()
+                    .getScrew());
             conductor = props.conductor();
         }
 

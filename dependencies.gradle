@@ -40,12 +40,13 @@ dependencies {
     api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     compileOnly(rfg.deobf("curse.maven:tc4tweaks-431297:6321233"))
     // devOnlyNonPublishable(rfg.deobf("curse.maven:tc4tweaks-431297:6321233"))
-    devOnlyNonPublishable("com.github.GTNewHorizons:AspectRecipeIndex:1.1.5:dev")
+    devOnlyNonPublishable("com.github.GTNewHorizons:AspectRecipeIndex:1.2.3:dev")
     compileOnly("curse.maven:hodgepodge-688899:6039713")
     compileOnly("maven.modrinth:bugtorch:1.2.13")
     compileOnly(rfg.deobf("maven.modrinth:etfuturum:2.6.2"))
     compileOnly(rfg.deobf("curse.maven:undergroundbiomesconstructs-72744:2304497"))
-    compileOnly("com.github.GTNewHorizons:GTNH-TC-Wands:1.4.14:dev")
+    api("com.github.GTNewHorizons:GTNH-TC-Wands:1.5.1:dev")
+    compileOnly("com.github.GTNewHorizons:GT5-Unofficial:5.09.55.33:dev")
     compileOnly("com.github.GTNewHorizons:Angelica:2.2.17:dev")
 
     /* Patched TC4 addons */
