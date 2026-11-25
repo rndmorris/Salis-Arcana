@@ -1,7 +1,5 @@
 package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -21,9 +19,7 @@ public abstract class MixinEntityTaintSporeSwarmer_MergeMobDrops extends EntityT
      */
     @Overwrite
     protected void dropFewItems(boolean flag, int i) {
-        int count11 = Integer.bitCount(
-            ThreadLocalRandom.current()
-                .nextInt() & 0b11);
+        int count11 = Integer.bitCount(this.rand.nextInt() & 0b11);
         int count12 = 2 - count11;
         float offsetY = this.height / 2.0F;
 

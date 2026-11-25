@@ -1,7 +1,5 @@
 package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -22,14 +20,12 @@ public abstract class MixinEntityBrainyZombie_MergeMobDrops extends EntityZombie
      */
     @Overwrite
     protected void dropFewItems(boolean flag, int i) {
-        ThreadLocalRandom rand = ThreadLocalRandom.current();
-
-        int count = Integer.bitCount(rand.nextInt() & 0b111);
+        int count = Integer.bitCount(this.rand.nextInt() & 0b111);
         if (count > 0) {
             this.dropItem(Items.rotten_flesh, count);
         }
 
-        if (rand.nextInt(10) - i <= 4) {
+        if (this.rand.nextInt(10) - i <= 4) {
             this.entityDropItem(new ItemStack(ConfigItems.itemZombieBrain), 1.5F);
         }
     }

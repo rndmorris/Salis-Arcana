@@ -1,7 +1,7 @@
 package dev.rndmorris.salisarcana.mixins.late.thaumcraft.common.entities.monster;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.item.ItemStack;
@@ -27,25 +27,32 @@ public abstract class MixinEntityPech_MergeMobDrops extends EntityMob {
      */
     @Overwrite
     protected void dropFewItems(boolean flag, int i) {
-        ThreadLocalRandom rand = ThreadLocalRandom.current();
-
-        for (int a = 0; a < this.loot.length; a++) {
-            if (this.loot[a] != null && rand.nextFloat() < 0.88F) {
+        for (int a = 0; a < this.loot.length; a++) { // things in the bag
+            if (this.loot[a] != null && this.rand.nextFloat() < 0.88F) {
                 this.entityDropItem(this.loot[a].copy(), 1.5F);
             }
         }
 
         ItemStack[] templates = salisarcana$getPrimalBeanTemplates();
-        int kLen = templates.length;
-        int remaining = salisarcana$sampleBinomialHalf(rand, 1 + i);
+        int len = templates.length;
+        int totalBeanCount = salisarcana$sampleBinomialHalf(this.rand, 1 + i);
 
-        for (int k = 0; k < kLen && remaining > 0; k++) {
+        for (int k = 0; k < len && totalBeanCount > 0; k++) {
+            if (totalBeanCount == 1) {
+                int chosen = k + this.rand.nextInt(len - k);
+                this.entityDropItem(templates[chosen].copy(), 1.5F);
+                break;
+            }
+
             int count;
-            if (k == kLen - 1) {
-                count = remaining;
+            if (k == len - 1) { // 1 aspect left
+                count = totalBeanCount;
+            } else if (k == len - 2) { // 2 left
+                count = salisarcana$sampleBinomialHalf(this.rand, totalBeanCount);
+                totalBeanCount -= count;
             } else {
-                count = salisarcana$sampleBinomial(rand, remaining, 1.0 / (kLen - k));
-                remaining -= count;
+                count = salisarcana$sampleBinomial(this.rand, totalBeanCount, 1.0 / (len - k));
+                totalBeanCount -= count;
             }
 
             if (count > 0) {
@@ -55,14 +62,14 @@ public abstract class MixinEntityPech_MergeMobDrops extends EntityMob {
             }
         }
 
-        if (rand.nextInt(10) < 1 + i) {
-            this.entityDropItem(new ItemStack(ConfigItems.itemResource, 1, 18), 1.5F);
+        if (this.rand.nextInt(10) < 1 + i) {
+            this.entityDropItem(new ItemStack(ConfigItems.itemResource, 1, 18), 1.5F); // gold coin
         }
         super.dropFewItems(flag, i);
     }
 
     @Unique
-    private static ItemStack[] salisarcana$PRIMAL_BEAN_TEMPLATES;
+    private static ItemStack[] salisarcana$PRIMAL_BEAN_TEMPLATES; // mana beans of each primal
 
     @Unique
     private static ItemStack[] salisarcana$getPrimalBeanTemplates() {
@@ -80,8 +87,11 @@ public abstract class MixinEntityPech_MergeMobDrops extends EntityMob {
     }
 
     @Unique
-    private static int salisarcana$sampleBinomialHalf(ThreadLocalRandom rand, int n) {
+    private static int salisarcana$sampleBinomialHalf(Random rand, int n) {
         if (n <= 0) return 0; // Negative looting guard
+        if (n <= 32) {
+            return Integer.bitCount(rand.nextInt() & (-1 >>> (32 - n)));
+        }
         if (n <= 256) {
             int hits = 0;
             while (n >= 64) {
@@ -100,12 +110,13 @@ public abstract class MixinEntityPech_MergeMobDrops extends EntityMob {
     }
 
     @Unique
-    private static int salisarcana$sampleBinomial(ThreadLocalRandom rand, int n, double p) {
+    private static int salisarcana$sampleBinomial(Random rand, int n, double p) {
         if (p >= 1.0) return n;
         if (n <= 64) {
+            float pf = (float) p;
             int hits = 0;
             for (int j = 0; j < n; j++) {
-                if (rand.nextDouble() < p) hits++;
+                if (rand.nextFloat() < pf) hits++;
             }
             return hits;
         }
