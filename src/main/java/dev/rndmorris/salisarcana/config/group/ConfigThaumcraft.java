@@ -219,13 +219,16 @@ public class ConfigThaumcraft extends ConfigGroup {
         mergeNodeDrops,
         "mergeNodeDropsThresholdFirst",
         "#0 -> #1 threshold in mergeNodeDrops. The default matches the storage drawer clusterization threshold.",
-        4096).setCategory(tc4PerformanceCategory);
+        4096).setMinValue(0)
+            .setMaxValue(64 * 256)
+            .setCategory(tc4PerformanceCategory);
 
     public final IntSetting mergeNodeDropsThresholdSecond = new IntSetting(
         mergeNodeDrops,
         "mergeNodeDropsThresholdSecond",
         "#1 -> #2 threshold in mergeNodeDrops. At the default (2^22) the mode #1 drops 256 matter clusters.",
-        4194304).setCategory(tc4PerformanceCategory);
+        4194304).setMinValue(0)
+            .setCategory(tc4PerformanceCategory);
 
     public final IntSetting crucibleAspectDecayStart = new IntSetting(
         crucibleScalingAspectDecay,
