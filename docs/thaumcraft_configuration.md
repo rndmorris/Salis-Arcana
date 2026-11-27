@@ -38,7 +38,6 @@ above the decay's maximum range.
 The default maximum rate of 4.2% is vanilla Thaumcraft's maximum decay rate with its flat decay at 100 total aspects.
 
 ### Config Option: `mergeMobDrops` (Default 'true`)
-Requires `mergeMobDrops`.
 
 If a mob can drop two or more items of the same type, drop a single item entity per type rather than dropping them 1 by 1 (stackSize == 1), to prevent lag spikes caused by heavy mob drops at a high looting level.
 
