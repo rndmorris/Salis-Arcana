@@ -70,7 +70,7 @@ public abstract class MixinBlockAiry_MergeDrops extends BlockContainer {
     private static void mergeNodeDrops(List<ItemStack> drops, long totalCount) {
         if (totalCount < SalisConfig.thaum.mergeNodeDropsThresholdFirst.getValue()) {
             // mode 0
-            MergeDropsHelper.respectMaxStackSize(drops, null, false, (int) (totalCount / 64L) + 1);
+            MergeDropsHelper.respectMaxStackSize(drops, null, false, (int) (totalCount / 64L) + drops.size());
         } else if (totalCount < SalisConfig.thaum.mergeNodeDropsThresholdSecond.getValue()
             && Loader.isModLoaded("Avaritia")) {
                 // mode 1
