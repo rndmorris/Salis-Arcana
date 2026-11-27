@@ -743,6 +743,11 @@ public enum Mixins implements IMixins {
         .addCommonMixins("thaumcraft.common.tiles.MixinTileCrucible_ScalingAspectDecay")
         .addRequiredMod(TargetedMod.THAUMCRAFT)),
 
+    MERGE_NODE_DROPS(new SalisBuilder()
+        .applyIf(SalisConfig.thaum.mergeNodeDrops)
+        .addCommonMixins("thaumcraft.common.blocks.MixinBlockAiry_MergeDrops")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)),
+
     // Debug
 
     DEBUG_LOG_WARP_STACK_TRACE(new SalisBuilder()
