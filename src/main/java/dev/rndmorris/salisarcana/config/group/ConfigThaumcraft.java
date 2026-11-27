@@ -207,7 +207,7 @@ public class ConfigThaumcraft extends ConfigGroup {
         "mergeNodeDrops",
         """
             Merge drops from breaking a node to be spawned as a single item entitiy per aspect, to reduce lags.
-            If Hodgepodge is present, branch further: use #0 if X < (1st thld), use #1 if (1st thld) <= X < (2nd thld), and use #2 if X >= (2nd thld). (X = # of ethereal essences to be dropped)
+            If Hodgepodge is present, branch further: use #0 if X < (1st thld), and use #1 if (1st thld) <= X. (X = # of ethereal essences to be dropped)
             0 - RESPECT_MAX_STACK_SIZE - Merge drops up to the vanilla stack size limit, which is at most 64.
             1 - AVARITIA - Pack drops into Avaritia matter clusters. Falls back to #2 if the Avaritia is not present.
             2 - FORCE_MERGE_INTO_ONE - Spawn each item type as a single item entity. This bypasses the vanilla stack size limit.
@@ -215,19 +215,12 @@ public class ConfigThaumcraft extends ConfigGroup {
             """)
             .setCategory(tc4PerformanceCategory);
 
-    public final IntSetting mergeNodeDropsThresholdFirst = new IntSetting(
+    public final IntSetting mergeNodeDropsThreshold = new IntSetting(
         mergeNodeDrops,
-        "mergeNodeDropsThresholdFirst",
-        "#0 -> #1 threshold in mergeNodeDrops. The default matches the storage drawer clusterization threshold.",
+        "mergeNodeDropsThreshold",
+        "Threshold used in mergeNodeDrops. The default matches the storage drawer clusterization threshold.",
         4096).setMinValue(0)
             .setMaxValue(64 * 256)
-            .setCategory(tc4PerformanceCategory);
-
-    public final IntSetting mergeNodeDropsThresholdSecond = new IntSetting(
-        mergeNodeDrops,
-        "mergeNodeDropsThresholdSecond",
-        "#1 -> #2 threshold in mergeNodeDrops. At the default (2^22) the mode #1 drops 256 matter clusters.",
-        4194304).setMinValue(0)
             .setCategory(tc4PerformanceCategory);
 
     public final IntSetting crucibleAspectDecayStart = new IntSetting(

@@ -39,7 +39,7 @@ The default maximum rate of 4.2% is vanilla Thaumcraft's maximum decay rate with
 
 ### Config Option: `mergeNodeDrops` (Default `true`)
 
-Merge drops from breaking a node to be spawned as a single item entitiy per aspect, rather than dropping them 1 by 1 (stackSize == 1), to reduce lags. If Hodgepodge is present, branch further: use #0 if X < (1st thld), use #1 if (1st thld) <= X < (2nd thld), and use #2 if X >= (2nd thld). (X = # of ethereal essences to be dropped)
+Merge drops from breaking a node to be spawned as a single item entitiy per aspect, rather than dropping them 1 by 1 (stackSize == 1), to reduce lags. If Hodgepodge is present, branch further: use #0 if X < (1st thld), and use #1 if (1st thld) <= X. (X = # of ethereal essences to be dropped)
 0 - RESPECT_MAX_STACK_SIZE - Merge drops up to the vanilla stack size limit, which is at most 64.
 1 - AVARITIA - Pack drops into Avaritia matter clusters. Falls back to #2 if the Avaritia is not present.
 2 - FORCE_MERGE_INTO_ONE - Spawn each item type as a single item entity. This bypasses the vanilla stack size limit.
@@ -48,12 +48,7 @@ WARNING: Item entities with stackSize greater than 127 will be voided when unloa
 ### Config Option: `mergeNodeDropsThresholdFirst` (Default `4096`)
 Requires `mergeNodeDrops`.
 
-0 -> 1 threshold in mergeNodeDrops. The default matches the storage drawer clusterization threshold.
-
-### Config Option: `mergeNodeDropsThresholdSecond` (Default `4194304`)
-Requires `mergeNodeDrops`.
-
-1 -> 2 threshold in mergeNodeDrops. At the default (2^22) the mode #1 drops 256 matter clusters.
+Threshold used in mergeNodeDrops. The default matches the storage drawer clusterization threshold.
 
 ### ConfigOption: `pauseTCParticlesWithGame`
 If true, Thaumcraft particles will behave like vanilla particles and pause when the game is paused.

@@ -18,7 +18,6 @@ import com.mitchej123.hodgepodge.util.MergeDropsHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 import dev.rndmorris.salisarcana.config.SalisConfig;
-import fox.spiteful.avaritia.items.ItemMatterCluster;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.nodes.INode;
@@ -55,7 +54,7 @@ public abstract class MixinBlockAiry_MergeDrops extends BlockContainer {
                         }
                     }
 
-                    if (Loader.isModLoaded("hodgepodge")) mergeNodeDrops(drops, totalCount);
+                    if (Loader.isModLoaded("hodgepodge")) mergeNodeDrops(drops, totalCount, aspects.size());
 
                     for (ItemStack drop : drops) {
                         this.dropBlockAsItem(world, x, y, z, drop);
@@ -67,17 +66,15 @@ public abstract class MixinBlockAiry_MergeDrops extends BlockContainer {
     }
 
     @Optional.Method(modid = "hodgepodge")
-    private static void mergeNodeDrops(List<ItemStack> drops, long totalCount) {
-        if (totalCount < SalisConfig.thaum.mergeNodeDropsThresholdFirst.getValue()) {
+    private static void mergeNodeDrops(List<ItemStack> drops, long totalCount, int numberOfAspects) {
+        if (totalCount < SalisConfig.thaum.mergeNodeDropsThreshold.getValue()) {
             // mode 0
             MergeDropsHelper.respectMaxStackSize(drops, null, false, (int) (totalCount / 64L) + drops.size());
-        } else if (totalCount < SalisConfig.thaum.mergeNodeDropsThresholdSecond.getValue()
-            && Loader.isModLoaded("Avaritia")) {
-                // mode 1
-                MergeDropsHelper
-                    .convertToClusters(drops, (int) (totalCount / ItemMatterCluster.MAX_NORMAL_CAPACITY) + 1);
-            }
-        // Otherwise (>= second threshold, or Avaritia absent): mode 2 (FORCE_MERGE_INTO_ONE)
+        } else if (Loader.isModLoaded("Avaritia")) {
+            // mode 1
+            MergeDropsHelper.convertToClusters(drops, 2 * numberOfAspects);
+        }
+        // Otherwise (Avaritia absent): mode 2 (FORCE_MERGE_INTO_ONE)
     }
 
     private MixinBlockAiry_MergeDrops(Material material) {
