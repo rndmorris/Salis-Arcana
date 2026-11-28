@@ -197,7 +197,9 @@ public class CustomResearch {
                         if (wrapper == null) wrapper = TCWandAPI.getWandWrappers()
                             .get(0);
                         WandDetails props = wrapper.getDetails();
-                        screw[0] = OreDictionary.getOres(props.getScrew())
+                        screw[0] = OreDictionary.getOres(
+                            props.tier()
+                                .getScrew())
                             .get(0);
                         conductor[0] = props.conductor();
 
@@ -240,7 +242,9 @@ public class CustomResearch {
                         if (wrapper == null) wrapper = TCWandAPI.getWandWrappers()
                             .get(0);
                         WandDetails props = wrapper.getDetails();
-                        screw[0] = OreDictionary.getOres(props.getScrew())
+                        screw[0] = OreDictionary.getOres(
+                            props.tier()
+                                .getScrew())
                             .get(0);
                         conductor[0] = props.conductor();
 
