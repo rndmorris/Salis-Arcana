@@ -10,6 +10,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import dev.rndmorris.salisarcana.client.QuickStashFocus;
 import dev.rndmorris.salisarcana.client.ThaumicInventoryScanner;
+import dev.rndmorris.salisarcana.client.compat.ingameinfo.InGameInfoCompat;
 import dev.rndmorris.salisarcana.client.handlers.GuiHandler;
 import dev.rndmorris.salisarcana.client.handlers.SalisContainerInputHandler;
 import dev.rndmorris.salisarcana.common.compat.nei.IMCForNEI;
@@ -48,6 +49,9 @@ public class ClientProxy extends CommonProxy {
         super.postInit(event);
         if (SalisConfig.features.thaumicInventoryScanning.isEnabled()) {
             scanner.postInit(event);
+        }
+        if (TargetedMod.IN_GAME_INFO_XML.isLoaded()) {
+            InGameInfoCompat.register();
         }
     }
 

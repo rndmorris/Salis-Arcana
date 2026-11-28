@@ -21,7 +21,8 @@ public enum TargetedMod implements ITargetMod {
     CONTROLLING("controlling"),
     MODERN_KEYBINDING("mkb"),
     ANGELICA("angelica"),
-    ASPECT_RECIPE_INDEX("aspectrecipeindex");
+    ASPECT_RECIPE_INDEX("aspectrecipeindex"),
+    IN_GAME_INFO_XML("InGameInfoXML");
 
     private final TargetModBuilder builder;
     public final String modId;
