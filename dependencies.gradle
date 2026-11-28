@@ -45,7 +45,7 @@ dependencies {
     compileOnly("maven.modrinth:bugtorch:1.2.13")
     compileOnly(rfg.deobf("maven.modrinth:etfuturum:2.6.2"))
     compileOnly(rfg.deobf("curse.maven:undergroundbiomesconstructs-72744:2304497"))
-    api("com.github.GTNewHorizons:GTNH-TC-Wands:1.5.1:dev")
+    compileOnly("com.github.GTNewHorizons:GTNH-TC-Wands:1.5.1:dev")
     compileOnly("com.github.GTNewHorizons:GT5-Unofficial:5.09.55.33:dev")
     compileOnly("com.github.GTNewHorizons:Angelica:2.2.17:dev")
 
